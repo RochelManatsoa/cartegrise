@@ -574,14 +574,14 @@ class client
 			$Vehicule = array("VIN" => $post['VIN'], "Immatriculation" => $post['Immatriculation'], "CIPresent" => 1, "DateCI" => $post["DateCI"]);
 
 			if( preg_match("/[0-9]{1,4} [A-Z]{1,4} [0-9]{1,2}/", $post['Immatriculation'])){
-				echo "<br>TEST FNI<br>";
+				//echo "<br>TEST FNI<br>";
 				$Vehicule = array("VIN" => $post['VIN'], "Immatriculation" => $post['Immatriculation'], "CIPresent" => 1, "DateCI" => $post["DateCI"]);
-				var_dump($Vehicule);
+				//var_dump($Vehicule);
 			}
 			else{
-				echo "<br>TEST SIV<br>";
+				//echo "<br>TEST SIV<br>";
 				$Vehicule = array("VIN" => $post['VIN'], "Immatriculation" => $post['Immatriculation'], "CIPresent" => 1, "NumFormule" => $post["NumFormule"]);
-				var_dump($Vehicule);
+				//var_dump($Vehicule);
 			}
 		}
 		else{
@@ -630,8 +630,8 @@ class client
 
 
 		}
-		echo "<hr>";
-		var_dump($Cotitulaires);
+		//echo "<hr>";
+		//var_dump($Cotitulaires);
 
 
 
@@ -664,10 +664,11 @@ class client
 				<strong>Erreur '.$value->Code.'</strong>: '.$value->Erreur.'</div>');
 		}
 		else{
-			echo "<hr>";
-			var_dump($value);
-			echo "<hr>";
-			var_dump($params);
+			//echo "<hr>";
+			$ctvoidtms = $value->Lot->Demarche->CTVO->ID;
+			return $ctvoidtms;
+			//echo "<hr>";
+			//var_dump($params);
 			//$sql = "INSERT INTO demande VALUES $post['']"
 		}
 		//var_dump($post);

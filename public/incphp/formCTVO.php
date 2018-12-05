@@ -2,6 +2,29 @@
     <?php
 include('client.class.php');
 $client = new Client();
+
+$servername2 = "localhost";
+$username2 = "root";
+$password2 = "";
+$database2 = "cgdatabaseoff";
+
+// Create connection
+$conn2 = new mysqli($servername2, $username2, $password2, $database2);
+
+// Check connection
+if ($conn2->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+$sqlfetchdemande = "SELECT * FROM `demande` WHERE `client_id` = (SELECT client_id FROM fos_user WHERE id = ".$_POST['currentid']." )";
+$res = $conn2->query($sqlfetchdemande);
+
+$currentclientdemandenumrows = mysqli_num_rows($res);
+
+if($currentclientdemandenumrows == 0 ){
+
+
+
 ?>
 
 
@@ -41,15 +64,17 @@ $client = new Client();
 
             <div id="acquereur">
                 <label for="Nom">Nom</label>
-                <input class="form-control" name="Nom" required><br>
+                <input class="form-control" name="Nom" value="<?php echo $_POST['currentnom'] ?>" required><br>
 
                 <label for="Prenom">Prenom</label>
-                <input class="form-control" name="Prenom" required><br>
+                <input class="form-control" name="Prenom" value="<?php echo $_POST['currentprenom'] ?>" required><br>
 
                 <label for="sexe">Sexe</label>
                 <select id="sexe" name="sexe"  class="form-control" onchange="genre()">
-                    <option value="F">Feminin</option>
-                    <option value="M">Masculin</option>
+                    <option value="F" >Feminin</option>
+                    <option value="M" <?php if($_POST['currentgenre'] == "M"){
+                        echo "selected";
+                    } ?>>Masculin</option>
                 </select>
                 <div id="genre">
                     <label for="NomUsage">NOM Usage</label>
@@ -418,3 +443,12 @@ $client = new Client();
 
 
 </script>
+
+
+<?php 
+}
+
+else{
+    echo "Display demande";
+}
+?>

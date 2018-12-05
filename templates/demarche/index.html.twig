@@ -64,7 +64,7 @@
                     method: "POST",
                     type: "POST",
                     //async: false,
-                    data: {currentid: {{ app.user.id}}},
+                    data: {currentid: {{ app.user.id}}, currentnom: '{{client.ClientNom}}', currentprenom : '{{client.ClientPrenom}}', currentgenre : '{{genre}}' },
                     /*
                      data: {
                      date1: $('#date1').val(),
