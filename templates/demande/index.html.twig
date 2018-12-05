@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block body %}
+    <h3>Formulaire de demande</h3>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button>Envoyer</button>
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'admin.html.twig' %}
+{% block title %}Voir article{% endblock %}
+{% block meta %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>{{ article.titre }}</h1>
+            <p>
+
+            </p>
+            <blockquote class="blockquote">
+                <footer class="blockquote-footer">
+                    Posté le <cite title="Source Title">{{ article.date | date('d-M-Y') }}</cite>
+                    à <cite title="Source Title">{{ article.date | date('H:i') }}</cite>
+                    par <cite title="Source Title">{{ article.auteur }}</cite>
+                </footer>
+
+                <p class="mb-0">{{ article.contenu | raw }}</p>
+            </blockquote>
+            {#
+            <p>
+                {% if article.tags.count > 0 %}
+                    Etiquettes :
+                    <strong>
+                        {% for tag in article.tags %}
+                            <span class="badge badge-pill badge-info">{{ tag.name | capitalize}}</span>
+                            {% if not loop.last %}   {% endif %}
+                        {% endfor %}
+                    </strong>
+                {% endif %}
+            </p>
+            #}
+            <h3>Commentaires <span class="badge badge-info badge-pill">{{ article.commentaires | length }}</span></h3>
+            <br>
+        </div>
+        <div class="col-sm-4">
+            <fieldset>
+                <strong>Catégories  ( {{ article.categories | length }} )</strong>
+                {% if article.categories.count > 0 %}
+                    <p class="p-lg-3">
+                        {% for categorie in article.categories %}
+                            <i class="material-icons">loyalty</i>{{ categorie.nom | capitalize}}
+                            {% if not loop.last %}  <br>  {% endif %}
+                        {% endfor %}
+                    </p>
+                {% else %}
+                    <p><i class="material-icons">report</i> Pas de catégorie</p>
+                {% endif %}
+            </fieldset>
+            <fieldset>
+                <strong>Méta description ( {{ article.description | length }} caractères )</strong>
+                <textarea readonly class="m-4" id="" cols="40" rows="8">{{ article.description }}</textarea>
+            </fieldset>
+            <strong>Image de mise en avant</strong>
+            <img src="{{ asset('uploads/' ~ article.image.url) }}" alt="{{ article.titre }}" class="img-fluid m-2 img-thumbnail">
+            <fieldset>
+                <strong>Text alternatif de l'image</strong>
+                <textarea readonly class="m-4" id="" cols="40" rows="5">{{ article.image.textAlternatif }}</textarea>
+            </fieldset>
+            <a href="{{ path('user_post_edit', {'id': article.id}) }}" class="btn btn-secondary btn-lg btn-block">
+                <i class="material-icons">build</i> Modifier
+            </a>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">
+                <i class="material-icons">delete</i> Supprimer
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Etes-vous sûr de vouloir supprimer cet article?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Cette action entrainera la suppression des commentaires liés à cette article
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                            <a href="{{ path('user_post_delete', {'id': article.id}) }}" class="btn btn-primary">Effacer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

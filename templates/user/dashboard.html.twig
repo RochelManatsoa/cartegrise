@@ -1,0 +1,334 @@
+{% extends 'admin.html.twig' %}
+{% block title %}Tableau de bord{% endblock %}
+{% block meta %}{% endblock %}
+
+{% block body %}
+<div class="row mt-lg-5">
+    <div class="col-sm-3">
+        <div class="list-group">
+            <a href="{{ path('user_dashboard_post') }}" class="list-group-item list-group-item-action">Articles</a>
+            <a href="{{ path('user_cat_new') }}" class="list-group-item list-group-item-action">Catégories</a>
+            <a href="{{ path('user_dashboard_comment') }}" class="list-group-item list-group-item-action">Commentaires</a>
+            <a href="{{ path('user_dashboard_user') }}" class="list-group-item list-group-item-action">Utilisateurs</a>
+            <a href="{{ path('user_faq_new') }}" class="list-group-item list-group-item-action">FAQ</a>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        {% if homeMode is defined %}
+            <div class="row">
+                <div class="card text-white bg-primary  mb-3 ml-3" style="width: 20rem;">
+                    <div class="card-header">Articles</div>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ articles | length }}</h2>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+                <div class="card text-white bg-secondary mb-3 ml-3" style="width: 20rem;">
+                    <div class="card-header">Commentaires</div>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ commentaires | length }}</h2>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card text-white bg-success mb-3 ml-3" style="width: 20rem;">
+                    <div class="card-header">Catégories</div>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ categories | length }}</h2>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+                <div class="card text-white bg-danger mb-3 ml-3" style="width: 20rem;">
+                    <div class="card-header">Utilisateurs</div>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ users | length }}</h2>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card text-white bg-warning mb-3 ml-3" style="width: 20rem;">
+                    <div class="card-header">FAQS</div>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ faqs | length }}</h2>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if editArticle is defined %}
+            <h3>Modification de l'article </h3>
+            {{ form_start(form) }}
+            {{ form_row(form.titre, {'label':'Titre', 'attr':{'class':'mt-2'}}) }}
+            {{ form_row(form.auteur, {'label':'Auteur', 'attr':{'class':'mt-2'}}) }}
+            {{ form_row(form.date, {'label':'Date', 'attr':{'class':'mt-2'}}) }}
+            {{ form_row(form.contenu, {'label':'Contenu', 'attr':{'class':'ckeditor mt-2'}}) }}
+            {{ form_row(form.image, {'label':'Image de mise en avant', 'attr':{'class':'mt-2'}}) }}
+            {{ form_row(form.publication, {'label':'Publier l\'article?', 'attr':{'class':'mt-2'}}) }}
+            {{ form_row(form.categories, {'label':'Catégorie(s) de l\'article', 'attr':{'class':'mt-2'}}) }}
+            {{ form_row(form.description, {'label':'Description de l\'article', 'attr':{'class':'mt-2','cols':'40','rows':'5'}}) }}
+            {{ form_end(form) }}
+        {% endif %}
+        {% if articleMode is defined %}
+            <div class="row">
+                <div class="col-12">
+                    <h2>Liste des Articles</h2>
+                    <table class="table table-sm table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Titre</th>
+                            <th scope="col">Auteur</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Publié</th>
+                            <th scope="col">Cat</th>
+                            <th scope="col">Com</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for article in articles %}
+                            <tr>
+                                <td><small>{{ article.titre | truncate(50, true) }}</small></td>
+                                <td><small>{{ article.auteur }}</small></td>
+                                <td><small>{{ article.date | date('d M y') }}</small></td>
+                                <td>
+                                    {% if article.publication == 1 %}
+                                        <i class="material-icons">check_circle_outline</i>
+                                    {% else %}
+                                        <i class="material-icons">help</i>
+                                    {% endif %}
+                                </td>
+                                <td>{{ article.categories | length }}</td>
+                                <td>{{ article.commentaires | length }}</td>
+                                <td>
+                                    <a class="btn btn-warning btn-sm" href="{{path('dashboard_edit_post', {'id':article.id})}}"><i class="material-icons">build</i></a>
+
+                                    <!-- Button trigger modal -->
+                                    <a href="" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                        <i class="material-icons">delete</i>
+                                    </a>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Etes-vous sûr de vouloir supprimer cet article?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Cette action entrainera la suppression des commentaires liés à cette article
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><i class="material-icons">close</i></button>
+                                                    <a href="{{ path('dashboard_delete_post', {'id':article.id}) }}" class="btn btn-secondary btn-sm"><i class="material-icons">delete</i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        {{ knp_pagination_render(articles) }}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if commentaireMode is defined %}
+        <div class="row">
+            <div class="col-12">
+                <h2>Liste Commentaires</h2>
+                <table class="table table-sm table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Article</th>
+                        <th scope="col">Contenu</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Validé</th>
+                        <th scope="col">Action </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for comment in commentaires %}
+                        <tr>
+                            <td><small>{{ comment.article.titre | truncate(20, true)}}</small></td>
+                            <td><small>{{ comment.contenu | truncate(50, true)}}</small></td>
+                            <td><small>{{ comment.date | date('d/M/y')}}</small></td>
+                            <td>
+                                {% if comment.publication == 1 %}
+                                    <i class="material-icons">thumb_up</i>
+                                {% else %}
+                                    <i class="material-icons">thumb_down</i>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <!-- Button trigger modal -->
+                                <a href="#" class="" data-toggle="modal" data-target="#exampleModalLong{{ comment.id }}">
+                                    <i class="material-icons">visibility</i>
+                                </a>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalLong{{ comment.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle{{ comment.id }}" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle{{ comment.id }}">{{ comment.article.titre }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true"><i class="material-icons">close</i></span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>de <b>{{ comment.auteur }}</b> le <b>{{ comment.date | date('d M Y') }}</b></p>
+                                                {{ comment.contenu | raw }}
+                                            </div>
+                                            <div class="modal-footer">
+                                                {% if is_granted('ROLE_USER') %}
+                                                    <a class="{{ path('user_dashboard_comment_check', {'id':comment.id}) }}" href=""><i class="material-icons">check</i></a>
+                                                {% endif %}
+                                                {% if is_granted('ROLE_ADMIN') %}
+                                                    <a class="" href="{{ path('user_dashboard_comment_delete', {'id':comment.id}) }}"><i class="material-icons">delete</i></a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="" href="{{ path('user_dashboard_comment_check', {'id':comment.id}) }}"><i class="material-icons">check</i></a>
+                                <a class="" href="{{ path('user_dashboard_comment_delete', {'id':comment.id}) }}"><i class="material-icons">delete</i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+            {% if catMode is defined %}
+                <div class="row">
+                    <div class="col-6">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for cat in categories %}
+                                <tr>
+                                    <th scope="row">{{ cat.id }}</th>
+                                    <td>
+                                        <a href="{{ path('user_cat_edit', {'id':cat.id}) }}">{{ cat.nom }}</a>
+                                    </td>
+                                    <td>
+                                        {% if cat.description == null %}
+                                            Pas de description
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-6">
+                        {{ form_start(form) }}
+                        {{ form_row(form.nom, {'label':'Nom de la catégorie', 'attr':{'class':'mt-2'}}) }}
+                        {{ form_row(form.description, {'label':'Description', 'attr':{'placeholder':'Description de la catégorie (facultatif)'}}) }}
+                        {% if editMode %}
+                            <input type="submit" value="Mettre à jour" class="btn btn-primary mt-lg-3">
+                        {% else %}
+                            <input type="submit" value="Ajouter " class="btn btn-primary mt-lg-3">
+                        {% endif %}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            {% endif %}
+            {% if mainNavRegistration is defined %}
+                <div class="row">
+                    <div class="col-7">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Rôle</th>
+                                <th scope="col">Actif</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <th scope="row">{{ user.id }}</th>
+                                    <td>{{ user.fullName }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                        {% if user.roles == null %}
+                                            Réd
+                                        {% else %}
+                                            Adm
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if user.isActive == 1 %}
+                                            <i class="material-icons">check</i>
+                                        {% else %}
+                                            <i class="material-icons">close</i>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-5">
+                        {{form(form)}}
+                    </div>
+                </div>
+            {% endif %}
+            {% if faqMode is defined %}
+                <div class="row">
+                    <div class="col-12">
+                        {{ form_start(form) }}
+                        {{ form_row(form.titre, {'label':'Questions à afficher', 'attr':{'class':'mt-2'}}) }}
+                        {{ form_row(form.contenu, {'label':'Réponse correspondante', 'attr':{'class':'ckeditor mt-2'}}) }}
+                        {% if editMode %}
+                            <input type="submit" value="Mettre à jour" class="btn btn-primary mt-lg-3">
+                            <a href="{{ path('user_faq_new') }}" class="btn btn-secondary mt-lg-3">Nouveau FAQ</a>
+                        {% else %}
+                            <input type="submit" value="Insérer " class="btn btn-primary mt-lg-3">
+                        {% endif %}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <table class="table table-sm table-striped">
+                        <thead>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </thead>
+                        <tbody>
+                        {% for faq in faqs %}
+                            <tr>
+                                <td><strong>{{ faq.id }}</strong></td>
+                                <td colspan="3" ><strong><a href="{{ path('user_faq_edit', {'id':faq.id}) }}">{{ faq.titre }}</a></strong></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="3">{{ faq.contenu |slice(0,200) | raw }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}

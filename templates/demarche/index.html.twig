@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TESTSOAP{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1>MiSIV interface test </h1>
+        <h6>MiSIV implementation provided by TMS</h6>
+        <hr>
+    </div>
+
+    
+    <br>
+
+{% if is_granted("IS_AUTHENTICATED_FULLY") %}
+    <table class="table">
+    	<tr>
+    		<th>Nom</th>
+    		<td>{{ client.ClientNom}}</td>
+    	</tr>
+    	<tr>
+    		<th>Prenom</th>
+    		<td>{{ client.ClientPrenom}}</td>
+    	</tr>
+    	<tr>
+    		<th>genre</th>
+    		<td>{{ genre }}</td>
+    	</tr>
+    	<tr>
+    		<th>Date de naissance</th>
+    		<td>{{ client.ClientDateNaissance| date("m/d/y")}}</td>
+    	</tr>
+    	<tr>
+    		<th>lieu de naissance</th>
+    		<td>{{ client.ClientLieuNaissance }}</td>
+    	</tr>
+    	<tr>
+    		<th>Pays de naissance</th>
+    		<td>{{ pays }}</td>
+    	</tr>
+    	<tr>
+    		<th>Depatement naissance</th>
+    		<td>{{ dptN }}</td>
+    	</tr>
+    	<tr>
+    		<th> e-mail</th>
+    		<td>{{ mail }}</td>
+    	</tr>
+    	<tr>
+    		<th>telephone</th>
+    		<td>{{ mobile }}</td>
+    	</tr> 	
+    </table>
+
+
+    <div class="col-12" id="demarche"></div>
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+	<script>
+		function datashow2() {
+                $.ajax({
+                    url: "incphp/formCTVO.php",
+                    method: "POST",
+                    type: "POST",
+                    //async: false,
+                    data: {currentid: {{ app.user.id}}},
+                    /*
+                     data: {
+                     date1: $('#date1').val(),
+                     date2: $('#date2').val()
+                     },*/
+                    success: function (data) {
+                        //console.log(data);
+                        $("#demarche").html(data);
+
+                       //document.getElementById("demarche").innerHTML = data;
+                        //console.log("serialization success");
+                        //console.log($('#dateselect').serializeArray());
+                        //console.log($('#dateselect').serialize());
+
+                    }
+                });
+            }
+            datashow2();
+
+	</script>
+	<script>
+		//$("#demarche").load("incphp/formCTVO.php");
+	</script>
+
+{% endif %}
+
+
+{% endblock %}

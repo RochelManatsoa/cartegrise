@@ -1,0 +1,26 @@
+{% extends 'admin.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block meta %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                {% if error %}
+                    <div class="alert alert-danger">
+                        <ul class="list-unstyled mb-0">
+                            <li><span class="initialism form-error-icon badge badge-danger">Error</span>
+                                <span class="form-error-message">{{ error.messageKey|trans(error.messageData, 'security') }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+                {{form(form)}}
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+{% endblock %}

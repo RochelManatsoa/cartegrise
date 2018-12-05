@@ -1,0 +1,33 @@
+{% extends 'admin.html.twig' %}
+{% block title %}Formulaire{% endblock %}
+{% block meta %}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                {{ form_start(form) }}
+                {{ form_row(form.titre, {'label':'Titre de l\'article', 'attr':{'class':'mt-2'}}) }}
+                {{ form_row(form.contenu, {'label':'Contenu de l\'article', 'attr':{'class':'ckeditor mt-2'}}) }}
+                <div class="row">
+                    <div class="col-6">
+                    </div>
+                    <div class="col-6">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                {% if not editMode %}
+                    {{ form_row(form.image, {'label':'Image de mise en avant', 'attr':{'class':'mt-2'}}) }}
+                {% endif %}
+                {{ form_row(form.publication, {'label':'Publier l\'article?', 'attr':{'class':'mt-2'}}) }}
+                {{ form_row(form.categories, {'label':'Catégorie(s) de l\'article', 'attr':{'class':'mt-2'}}) }}
+                {{ form_row(form.description, {'label':'Description de l\'article', 'attr':{'class':'mt-2','cols':'40','rows':'5'}}) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
