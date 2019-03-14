@@ -20,6 +20,11 @@ class User extends BaseUser
     protected $id;
 
     /**
+    * @ORM\Column(type="datetime", nullable=true)
+    */
+    private $registerDate;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Client", cascade={"persist", "remove"})
      */
     private $client;
@@ -29,6 +34,9 @@ class User extends BaseUser
     {
         parent::__construct();
         // your own logic
+        if (empty($this->registerDate)) {
+            $this->registerDate = new \DateTime();
+        }
     }
 
     public function getClient(): ?Client

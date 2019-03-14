@@ -32,12 +32,12 @@ class Vehicule
     private $vin;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $numformule;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $datecg;
 
@@ -46,10 +46,6 @@ class Vehicule
      */
     private $vehiculeAncientitulaire;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Adresse", cascade={"persist", "remove"})
-     */
-    private $vehiculeAdresse;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Cartegrise", cascade={"persist", "remove"})
@@ -70,6 +66,17 @@ class Vehicule
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="clientVehicule")
      */
     private $client;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\InfoSupVeh", inversedBy="vehicule", cascade={"persist", "remove"})
+     */
+    private $infosup;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\NewTitulaire", inversedBy="vehicules")
+     */
+    private $Titulaire;
+
 
     public function getId(): ?int
     {
@@ -148,18 +155,6 @@ class Vehicule
         return $this;
     }
 
-    public function getVehiculeAdresse(): ?Adresse
-    {
-        return $this->vehiculeAdresse;
-    }
-
-    public function setVehiculeAdresse(?Adresse $vehiculeAdresse): self
-    {
-        $this->vehiculeAdresse = $vehiculeAdresse;
-
-        return $this;
-    }
-
     public function getVehiculeCartegrise(): ?Cartegrise
     {
         return $this->vehiculeCartegrise;
@@ -207,4 +202,29 @@ class Vehicule
 
         return $this;
     }
+
+    public function getInfosup(): ?InfoSupVeh
+    {
+        return $this->infosup;
+    }
+
+    public function setInfosup(?InfoSupVeh $infosup): self
+    {
+        $this->infosup = $infosup;
+
+        return $this;
+    }
+
+    public function getTitulaire(): ?NewTitulaire
+    {
+        return $this->Titulaire;
+    }
+
+    public function setTitulaire(?NewTitulaire $Titulaire): self
+    {
+        $this->Titulaire = $Titulaire;
+
+        return $this;
+    }
+
 }

@@ -44,21 +44,6 @@ class Client
     private $clientDateNaissance;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $clientLieuNaissance;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $clientDptNaissance;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $clientPaysNaissance;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Contact", cascade={"persist", "remove"})
      */
     private $clientContact;
@@ -68,9 +53,34 @@ class Client
      */
     private $demandes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Fichier", mappedBy="client")
+     */
+    private $fichiers;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Adresse", inversedBy="client", cascade={"persist", "remove"})
+     */
+    private $clientAdresse;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="client")
+     */
+    private $clientCommandes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="client")
+     */
+    private $commande;
+
+
+
     public function __construct()
     {
         $this->demandes = new ArrayCollection();
+        $this->fichiers = new ArrayCollection();
+        $this->clientCommandes = new ArrayCollection();
+        $this->commande = new ArrayCollection();
     }
 
     public function __toString()
@@ -143,42 +153,6 @@ class Client
         return $this;
     }
 
-    public function getClientLieuNaissance(): ?string
-    {
-        return $this->clientLieuNaissance;
-    }
-
-    public function setClientLieuNaissance(string $clientLieuNaissance): self
-    {
-        $this->clientLieuNaissance = $clientLieuNaissance;
-
-        return $this;
-    }
-
-    public function getClientDptNaissance(): ?string
-    {
-        return $this->clientDptNaissance;
-    }
-
-    public function setClientDptNaissance(string $clientDptNaissance): self
-    {
-        $this->clientDptNaissance = $clientDptNaissance;
-
-        return $this;
-    }
-
-    public function getClientPaysNaissance(): ?string
-    {
-        return $this->clientPaysNaissance;
-    }
-
-    public function setClientPaysNaissance(string $clientPaysNaissance): self
-    {
-        $this->clientPaysNaissance = $clientPaysNaissance;
-
-        return $this;
-    }
-
     public function getClientContact(): ?Contact
     {
         return $this->clientContact;
@@ -221,4 +195,111 @@ class Client
 
         return $this;
     }
+
+    /**
+     * @return Collection|Fichier[]
+     */
+    public function getFichiers(): Collection
+    {
+        return $this->fichiers;
+    }
+
+    public function addFichier(Fichier $fichier): self
+    {
+        if (!$this->fichiers->contains($fichier)) {
+            $this->fichiers[] = $fichier;
+            $fichier->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFichier(Fichier $fichier): self
+    {
+        if ($this->fichiers->contains($fichier)) {
+            $this->fichiers->removeElement($fichier);
+            // set the owning side to null (unless already changed)
+            if ($fichier->getClient() === $this) {
+                $fichier->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getClientAdresse(): ?Adresse
+    {
+        return $this->clientAdresse;
+    }
+
+    public function setClientAdresse(?Adresse $clientAdresse): self
+    {
+        $this->clientAdresse = $clientAdresse;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getClientCommandes(): Collection
+    {
+        return $this->clientCommandes;
+    }
+
+    public function addClientCommande(Commande $clientCommande): self
+    {
+        if (!$this->clientCommandes->contains($clientCommande)) {
+            $this->clientCommandes[] = $clientCommande;
+            $clientCommande->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClientCommande(Commande $clientCommande): self
+    {
+        if ($this->clientCommandes->contains($clientCommande)) {
+            $this->clientCommandes->removeElement($clientCommande);
+            // set the owning side to null (unless already changed)
+            if ($clientCommande->getClient() === $this) {
+                $clientCommande->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommande(): Collection
+    {
+        return $this->commande;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commande->contains($commande)) {
+            $this->commande[] = $commande;
+            $commande->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commande->contains($commande)) {
+            $this->commande->removeElement($commande);
+            // set the owning side to null (unless already changed)
+            if ($commande->getClient() === $this) {
+                $commande->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

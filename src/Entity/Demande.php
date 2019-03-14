@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,46 @@ class Demande
      * @ORM\Column(type="string", length=999, nullable=true)
      */
     private $progressionDemande;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateDemande;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $prix;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nomfic;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Fichier", mappedBy="demande")
+     */
+    private $fichiers;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\NewTitulaire", inversedBy="demande", cascade={"persist", "remove"})
+     */
+    private $Acquerreur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\TypeDemande", inversedBy="demandes")
+     */
+    private $nomDemande;
+
+    public function __toString()
+    {
+        return $this->typeDemande;
+    }
+
+    public function __construct()
+    {
+        $this->fichiers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +179,97 @@ class Demande
     public function setProgressionDemande(?string $progressionDemande): self
     {
         $this->progressionDemande = $progressionDemande;
+
+        return $this;
+    }
+
+    public function getDateDemande(): ?\DateTimeInterface
+    {
+        return $this->dateDemande;
+    }
+
+    public function setDateDemande(?\DateTimeInterface $dateDemande): self
+    {
+        $this->dateDemande = $dateDemande;
+
+        return $this;
+    }
+
+    public function getPrix(): ?float
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(?float $prix): self
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getNomfic(): ?string
+    {
+        return $this->nomfic;
+    }
+
+    public function setNomfic(?string $nomfic): self
+    {
+        $this->nomfic = $nomfic;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Fichier[]
+     */
+    public function getFichiers(): Collection
+    {
+        return $this->fichiers;
+    }
+
+    public function addFichier(Fichier $fichier): self
+    {
+        if (!$this->fichiers->contains($fichier)) {
+            $this->fichiers[] = $fichier;
+            $fichier->setDemande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFichier(Fichier $fichier): self
+    {
+        if ($this->fichiers->contains($fichier)) {
+            $this->fichiers->removeElement($fichier);
+            // set the owning side to null (unless already changed)
+            if ($fichier->getDemande() === $this) {
+                $fichier->setDemande(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAcquerreur(): ?NewTitulaire
+    {
+        return $this->Acquerreur;
+    }
+
+    public function setAcquerreur(?NewTitulaire $Acquerreur): self
+    {
+        $this->Acquerreur = $Acquerreur;
+
+        return $this;
+    }
+
+    public function getNomDemande(): ?TypeDemande
+    {
+        return $this->nomDemande;
+    }
+
+    public function setNomDemande(?TypeDemande $nomDemande): self
+    {
+        $this->nomDemande = $nomDemande;
 
         return $this;
     }

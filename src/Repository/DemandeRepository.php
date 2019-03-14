@@ -19,6 +19,18 @@ class DemandeRepository extends ServiceEntityRepository
         parent::__construct($registry, Demande::class);
     }
 
+    /*public function findName($value)
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.demandes','c')
+            ->where('c.type = :val')
+            ->setParameter('val', $value)
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }*/
+
     // /**
     //  * @return Demande[] Returns an array of Demande objects
     //  */

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -70,6 +72,23 @@ class Adresse
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $pays;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Client", mappedBy="clientAdresse", cascade={"persist", "remove"})
+     */
+    private $client;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Vehicule", mappedBy="vehiculeAdresse")
+     */
+    private $vehicules;
+
+    public function __construct()
+    {
+        $this->vehicules = new ArrayCollection();
+    }
+
+
 
     public function getId(): ?int
     {
@@ -207,4 +226,55 @@ class Adresse
 
         return $this;
     }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newClientAdresse = $client === null ? null : $this;
+        if ($newClientAdresse !== $client->getClientAdresse()) {
+            $client->setClientAdresse($newClientAdresse);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Vehicule[]
+     */
+    public function getVehicules(): Collection
+    {
+        return $this->vehicules;
+    }
+
+    public function addVehicule(Vehicule $vehicule): self
+    {
+        if (!$this->vehicules->contains($vehicule)) {
+            $this->vehicules[] = $vehicule;
+            $vehicule->setVehiculeAdresse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVehicule(Vehicule $vehicule): self
+    {
+        if ($this->vehicules->contains($vehicule)) {
+            $this->vehicules->removeElement($vehicule);
+            // set the owning side to null (unless already changed)
+            if ($vehicule->getVehiculeAdresse() === $this) {
+                $vehicule->setVehiculeAdresse(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

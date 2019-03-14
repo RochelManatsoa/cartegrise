@@ -13,8 +13,8 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('contact_telmobile', TextType::class)
-            ->add('contact_telfixe', TextType::class)
+            ->add('contact_telmobile', TextType::class, array('label' => 'Téléphone mobile', 'required' => true))
+            ->add('contact_telfixe', TextType::class, array('label' => 'Téléphone fixe', 'required' => false))
         ;
     }
 

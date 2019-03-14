@@ -10,13 +10,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 
 class ClientType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('clientNom', TextType::class)
+            ->add('clientNom', TextType::class,[
+                'attr' => array( 'class' => 'text-uppercase' )
+            ])
             ->add('clientPrenom', TextType::class)
             ->add('clientGenre', ChoiceType::class, array(
                 'choices' => array(
@@ -24,14 +27,22 @@ class ClientType extends AbstractType
                     'Femme' => "F",
                 ),
             ))
-            ->add('clientNomUsage', TextType::class)
+            ->add('clientNomUsage', TextType::class,[
+                'required' => false
+            ])
             ->add('clientDateNaissance', DateType::class, array(
                     'widget' => 'single_text',
                     ))
+            /*
             ->add('clientLieuNaissance', TextType::class)
             ->add('clientDptNaissance', NumberType::class)
-            ->add('clientPaysNaissance', TextType::class)
+            ->add('clientPaysNaissance', CountryType::class)
+            */
             ->add('clientContact', ContactType::class)
+            ->add('clientAdresse', AdresseType::class)
+            /*
+            ->add('commande', CommandeClientType::class)
+            */
         ;
     }
 
