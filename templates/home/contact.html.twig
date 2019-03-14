@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block seo %}
+	<!-- <base href="http://dev.cgofficiel.fr/contact"/>
+	<meta name="keywords" content=""/>
+	<meta name="x-ua-compatible" content="IE=edge,chrome=1"/>
+	<meta name="description" content="Commander sur cgofficiel.fr"/>
+	<meta property="og:title" content="CGofficiel.fr | Contact ">
+	<meta property="og:type" content="page">
+	<meta property="og:url" content="http://dev.cgofficiel.fr/contact">
+	<meta property="og:image" content="">
+	<meta property="og:description" content="Accueil cgofficiel.fr">
+	<meta property="og:video" content="">
+	<meta property="og:locale" content="fr_FR">
+	<meta name="twitter:card" content="summary_large_image"/>
+	<meta name="twitter:url" content="http://dev.cgofficiel.fr/Accueil"/>
+	<meta name="twitter:title" content="CGofficiel.fr | Accueil "/>
+	<meta property="twitter:description" content="Accueil cgofficiel.fr"/> -->
+{% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}{% endblock %}
+
+{% block page_content %}
+	{{ include('home/composant/texte/contact-texte.html.twig') }}
+{% endblock %}

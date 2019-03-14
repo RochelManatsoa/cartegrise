@@ -1,0 +1,172 @@
+@media screen and (min-height: 700px) {
+	.menu-commander {
+		height: 10vh;
+  }
+}
+
+.menu-commander {
+	text-align: justify;
+	border-radius: 5px;
+	margin-bottom: 4vh;
+	color: #002a6b;
+	background-color: unset;
+	border: 2px solid #002a6b;
+	transition: all 1s ease;
+ 	background-color: rgba(255, 255, 255, 0.7);
+	&:hover {
+		cursor: pointer !important;
+	}
+
+	a {
+		padding-left: 10px;
+		padding-right: 10px;
+		transition: text-shadow 1s ease;
+
+		&:hover {
+			color: white;
+			text-decoration: none !important;
+			text-shadow: 4px 4px 2px rgba(53, 53, 55, 0.73);
+		}
+	}
+
+	.menu-commander--button---text {
+		margin-top: 1vh;
+		padding-bottom: 1vh;
+		font-family: textr;
+		font-size: 18px;
+		font-weight: bold !important;
+		text-transform: uppercase;
+		text-align: left;
+		font-weight: lighter;
+
+		h2 {
+			font-size: 18px;
+			font-weight: bold;
+			text-transform: uppercase;
+			text-align: left;
+		}
+
+		h3 {
+			font-size: 14px;
+			text-align: left;
+			font-family: Raleway;
+			text-transform: uppercase;
+			font-weight: 600;
+		}
+
+		.menu-box--description {
+			font-family: Raleway;
+			font-weight: lighter;
+			font-weight: 500;
+			text-transform: none;
+		}
+	}
+
+	.menu-box--description {
+		font-size: 0;
+		text-align: center justify !important;
+		opacity: 0;
+		transition: font-size 0.2s ease, opacity 3s ease;
+		font-family: Raleway;
+		text-transform: none;
+	}
+	@media screen and (min-width: 0px) and (max-width: 991px) {
+		.menu-box--description {
+			font-size: 14px;
+			text-align: center justify !important;
+			opacity: 1;
+			font-family: Raleway;
+		}
+	}
+}
+
+
+.menu-box {
+	button {
+		width: 100%;
+	}
+
+	button:focus {
+		outline: none !important;
+		outline: none !important;
+	}
+}
+
+.menu-commander--left {
+	text-align: center;
+	border-radius: 15px;
+	margin-top: 2vh;
+	margin-bottom: 2vh;
+	padding-left: 2vh !important;
+	padding-right: 2vh !important;
+}
+
+.modal-content {
+background: rgba(255, 255, 255, 0.95) !important;
+	color:  #1a3f78 !important;
+	.search-titre p{
+		text-transform: uppercase;
+		font-weight: bold;
+		font-family: Raleway;
+	}
+}
+
+.modal-footer {
+	border: none !important;
+}
+.commander-box--section---titre{
+	h2{
+		font-family: textr;
+		font-size: 40px;
+		color: #1a3f78;
+font-weight: bold;
+text-align: left;
+
+	}
+}
+.commander-box--section---description{
+	font-family: Raleway;
+color: #1a3f78;
+font-weight: bold;
+text-align: left;
+}
+
+.modal {
+	background-color: transparent !important;
+	box-shadow: none !important;
+	border: none !important;
+	top: 0 !important;
+	left: 0 !important;
+	margin-left: 0 !important;
+	width: 100% !important;
+
+	.input-append .add-on,
+	.input-prepend .add-on {
+		height: 34px;
+	}
+
+	.input-append .uneditable-input,
+	.input-append input,
+	.input-append select {
+		height: 34px;
+	}
+
+	.form-control {
+		height: 7vh !important;
+	}
+}
+
+.modal-dialog {
+	position: relative;
+	width: auto;
+	margin: 10px auto !important;
+}
+
+.modal-dialog {
+	width: 95% !important;
+	max-width: 95% !important;
+}
+.vos-demarches--texte---titre {
+	text-align: center;
+	font-weight: bold;
+}

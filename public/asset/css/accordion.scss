@@ -1,0 +1,97 @@
+.espace-personnel {
+	.espace-personnel--tableau {
+		background-color: rgba(255, 255, 255, 0.8);
+	}
+
+	* {
+	  box-sizing: border-box;
+	  font-family: arial;
+	}
+
+	.accordion {
+	  max-width: 600px;
+	  margin: 0 auto;
+	  border: 1px solid #63be4a;
+	}
+	.accordion__heading {
+	  position: relative;
+	  display: block;
+	  background: #002a6b;
+		transition: all 1s;
+	  padding: 10px 40px;
+	  margin: 0;
+	  color: #fff;
+	  cursor: pointer;
+		font-family: Textr;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+	.accordion__heading:after, .accordion__heading:before {
+	  content: "";
+	  position: absolute;
+	  width: 15px;
+	  height: 1px;
+	  background: #fff;
+	  top: 50%;
+	  right: 20px;
+	  transition: all 0.4s;
+	}
+	.accordion__checkbox:checked ~ .accordion__heading:before {
+	  transition: all 0.4s;
+	  -webkit-transform: rotate(90deg);
+	          transform: rotate(90deg);
+	  opacity: 0;
+	}
+	.accordion__heading:after {
+	  -webkit-transform: rotate(90deg);
+	          transform: rotate(90deg);
+	  transition: all 0.3s;
+	}
+	.accordion__checkbox:checked ~ .accordion__heading:after {
+	  -webkit-transform: rotate(180deg);
+	          transform: rotate(180deg);
+	}
+	.accordion__checkbox {
+	  display: none;
+	  position: absolute;
+	  left: -9999em;
+	}
+	.accordion__checkbox:checked ~ .accordion__content {
+	  max-height: 10000px;
+	  transition: all 1s;
+		background-color: rgba(255, 255, 255, 0.71);
+		-webkit-box-shadow: 0px 0px 28px 0px rgba(0,0,0,0.37);
+-moz-box-shadow: 0px 0px 28px 0px rgba(0,0,0,0.37);
+box-shadow: 0px 0px 28px 0px rgba(0,0,0,0.37);
+border-radius: 0px 0px 15px 15px;
+	}
+	.accordion__content {
+	  padding: 0 0px;
+	  max-height: 0;
+	  overflow: hidden;
+	  transition: all 1s;
+	}
+.accordion__content {
+	th {
+		font-family: Raleway;
+
+		p {
+			font-family: Raleway;
+		}
+	}
+
+	td {
+		font-family: Raleway;
+ul{
+				font-family: Raleway;
+				li{
+								font-family: Raleway;
+				}
+}
+		p {
+			font-family: Raleway;
+		}
+	}
+}
+
+}

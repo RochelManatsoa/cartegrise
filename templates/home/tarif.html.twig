@@ -1,0 +1,26 @@
+
+
+<div id="ecgdisplay"></div>
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script>
+        function datashow2() {
+                $.ajax({
+                    url: "incphp/formECG.php",
+                    method: "POST",
+                    type: "POST",
+                    //async: false,
+                    data: {},
+
+                    success: function (data) {
+
+                        $("#ecgdisplay").html(data);
+
+                    }
+                });
+            }
+            datashow2();
+
+    </script>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block title %}CGofficiel.fr | Vos démarches
+{% endblock %}
+{% block meta %}
+	<base href="http://dev.cgofficiel.fr/vos-demarches"/>
+	<meta name="keywords" content=""/>
+	<meta name="x-ua-compatible" content="IE=edge,chrome=1"/>
+	<meta name="description" content="Démarches sur cgofficiel.fr"/>
+	<meta property="og:title" content="CGofficiel.fr | Vos démarches ">
+	<meta property="og:type" content="page">
+	<meta property="og:url" content="http://dev.cgofficiel.fr/vos-demarches">
+	<meta property="og:image" content="">
+	<meta property="og:description" content="Démarches sur cgofficiel.fr">
+	<meta property="og:video" content="">
+	<meta property="og:locale" content="fr_FR">
+	<meta name="twitter:card" content="summary_large_image"/>
+	<meta name="twitter:url" content="http://dev.cgofficiel.fr/vos-demarches"/>
+	<meta name="twitter:title" content="CGofficiel.fr | Vos démarches "/>
+	<meta property="twitter:description" content="Démarches sur cgofficiel.fr"/>
+{% endblock %}
+
+{% block body %}
+
+	{{ include('home/menu_demarche.html.twig') }}
+
+	<div class="container col-10 mx-auto vos-demarches">
+
+		<div class="vos-demarches--texte5">
+			<div class="vos-demarches--texte5---titre">
+				<h2>
+					<i class="far fa-circle"></i>
+				</i>
+				Conseils d'utilisation
+			</h2>
+		</div>
+		<div class="col-10 mx-auto  vos-demarches--texte5---description">
+
+			<p>
+				<span class="bold">LES DOCUMENTS QUE VOUS NOUS RETOURNEZ POUR TRAITER VOTRE DOSSIER SONT LES MÊMES QUE CEUX DEMANDÉS EN PRÉFECTURE.</span></p>
+			<p>
+				<span class="bold">TOUT DOSSIER INCOMPLET NE POURRA PAS ÊTRE TRAITÉ DANS LE DÉLAI DE 24H. AFIN DE CIRCULER LIBREMENT, GARDEZ AVEC VOUS UNE COPIE DE TOUS LES DOCUMENTS ENVOYÉS.</span>
+			</p>
+			<p>
+				<span class="bold">Tout dossier imposant un déplacement en préfecture sera majoré de 10 € (changement de titulaire sans carte grise et avec déclaration de perte; transformation du véhicule; véhicule de collection).</span>
+			</p>
+			<p>
+				<span class="bold">De même, des frais de traitement supplémentaires de 10€ pourront vous être demandé si votre dossier est incomplet. Celui-ci sera alors archivé chez nous dans l'attente de recevoir les éléments manquants ou incomplets.</span></p>
+		</div>
+	</div>
+
+</div>
+<div class="col-12 arrow-up">
+	<a href="#up">
+		<span class="arrowup">Retour</span>
+	</a>
+
+{% endblock %}

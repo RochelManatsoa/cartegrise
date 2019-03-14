@@ -1,0 +1,57 @@
+.menu {
+	background-color: rgba(255, 255, 255, 0.75);
+	z-index: 99999999;
+	max-height: 55px;
+
+	.menu-item--line {
+		height: 5px;
+	}
+
+	.menu-item:hover span {
+		font-size: 10px;
+	}
+
+	.menu-item--line---first {
+		background-color: #002a6a;
+	}
+
+	.menu-item--line---second {
+		background-color: rgb(200, 200, 200);
+	}
+
+	.menu-item--line---third {
+		background-color: #bc0c28;
+	}
+
+	a {
+		text-align: center;
+		font-family: menu;
+		color: rgb(73, 72, 72) !important;
+		text-decoration: none !important;
+
+		:hover {
+			color: rgb(20, 20, 20) !important;
+		}
+
+		li {
+			list-style: none !important;
+
+			h6 {
+				text-transform: uppercase;
+				-webkit-transition: color font-size 1s ease-in;
+				-moz-transition: color font-size 1s ease-in;
+				-o-transition: color font-size 1s ease-in;
+				transition: color font-size 1s ease-in;
+				font-family: textr;
+				font-weight: bold;
+				margin-top: 1.5vh !important;
+				margin-bottom: 1.5vh !important;
+
+				span {
+					font-size: 0;
+					transition: font-size 1s ease;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,286 @@
+{% extends 'base.html.twig' %}
+
+{% block seo %}
+	<!-- <base href="http://dev.cgofficiel.fr/contact"/> <meta name="keywords" content=""/> <meta name="x-ua-compatible" content="IE=edge,chrome=1"/> <meta name="description" content="Commander sur cgofficiel.fr"/> <meta property="og:title"
+	content="CGofficiel.fr | Contact "> <meta property="og:type" content="page"> <meta property="og:url" content="http://dev.cgofficiel.fr/contact"> <meta property="og:image" content=""> <meta property="og:description" content="Accueil cgofficiel.fr">
+	<meta property="og:video" content=""> <meta property="og:locale" content="fr_FR"> <meta name="twitter:card" content="summary_large_image"/> <meta name="twitter:url" content="http://dev.cgofficiel.fr/Accueil"/> <meta name="twitter:title"
+	content="CGofficiel.fr | Accueil "/> <meta property="twitter:description" content="Accueil cgofficiel.fr"/> -->
+{% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-accueil{% endblock %}
+
+{% block page_content %}
+	{% if database %}
+		{% if commandes is defined %}
+			{% if value is defined %}
+				{% if recap is defined %}
+					<div class="col-md-12 row col-lg-8">
+						<div class="row col-md-12 col-lg-6 resultat-estimation mx-auto pt-5 pb-5" style="display:block">
+							<img src="https://www.oreca.com/wp-content/uploads/2017/04/renault-logo.png" class="rounded mx-auto d-block img-fluid mb-3" alt="" style="height:200px;width:auto;">
+							<div class="col-10 mx-auto">
+								<h2 class="col-12">CARACTÉRISTIQUES DU VÉHICULE</h2>
+								<table class="table table-striped">
+									<tr>
+										<th>Marque</th>
+										<td>Renault</td>
+									</tr>
+									<tr>
+										<th>Modèle</th>
+										<td>Cacahuète</td>
+									</tr>
+									<tr>
+										<th>VIN</th>
+										<td>{{ value.VIN }}</td>
+									</tr>
+									<tr>
+										<th>CO2</th>
+										<td>{{ value.CO2 }}</td>
+									</tr>
+									<tr>
+										<th>Genre</th>
+										<td>{{ value.Genre }}</td>
+									</tr>
+									<tr>
+										<th>PTAC</th>
+										<td>{{ value.PTAC }}</td>
+									</tr>
+									<tr>
+										<th>Energie</th>
+										<td>{{ value.Energie }}</td>
+									</tr>
+									<tr>
+										<th>Date de mise en ciruclation</th>
+										<td>{{ value.DateMEC | date('Y-m-d') }}</td>
+									</tr>
+								</table>
+								<h2 class="col-12">Récapitulatif de la demande</h2>
+								<table class="table table-striped">
+									<tr>
+										<th>Demarche</th>
+										<td>{{recap.demarche}}</td>
+									</tr>
+									<tr>
+										<th>Immatriculation</th>
+										<td>{{recap.immatriculation}}</td>
+									</tr>
+									<tr>
+										<th>Département</th>
+										<td>{{recap.codePostal}}</td>
+									</tr>
+								</table>
+
+							</div>
+						</div>
+						<div class="row col-md-12 col-lg-6 resultat-estimation mx-auto d-flex flex-row-reverse my-flex-container pt-5 pb-5">
+							<div class="col-10 mx-auto">
+
+								<h2 class="col-12">DÉTAIL DES TAXES</h2>
+								<table class="table table-bordered table-striped mx-auto">
+									<tr>
+										<th>Taxe Regionale</th>
+										<td>{{ value.TaxeRegionale }}
+											€</td>
+									</tr>
+									<tr>
+										<th>Taxe > 35CV</th>
+										<td>{{ value.Taxe35cv }}
+											€</td>
+									</tr>
+									<tr>
+										<th>Taxe Parafiscale</th>
+										<td>{{ value.TaxeParafiscale }}
+											€</td>
+									</tr>
+									<tr>
+										<th>Taxe CO2</th>
+										<td>{{ value.TaxeCO2 }}
+											€</td>
+									</tr>
+									<tr>
+										<th>Taxe Malus</th>
+										<td>{{ value.TaxeMalus }}
+											€</td>
+									</tr>
+									<tr>
+										<th>Taxe SIV</th>
+										<td>{{ value.TaxeSIV }}
+											€</td>
+									</tr>
+									<tr>
+										<th>Taxe RedevanceSIV</th>
+										<td>{{ value.TaxeRedevanceSIV }}
+											€</td>
+									</tr>
+									<tr>
+										<th>Frais de traitement du dossier</th>
+										<td>
+											Nos Prix
+										</td>
+									</tr>
+									<tr>
+										<th>Taxe Totale</th>
+										<td>
+											<strong>{{ value.TaxeTotale }}
+												€</strong>
+										</td>
+									</tr>
+								</table><br>
+								<div class="col-12 resultat-estimation-p mb-5">
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+								</div>
+								<!-- <div class="form-check col-10 mx-auto mb-3">
+									<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+									<label class="form-check-label resultat-estimation-p" for="defaultCheck1">
+										J'ai lu et j'accepte les <b>Conditions Générales de Vente</b> , notre <b>politique de confidentialité</b> et la liste des documents à retourner.
+									</label>
+								</div>
+
+								<div class="form-check col-10 mx-auto">
+									<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+									<label class="form-check-label resultat-estimation-p" for="defaultCheck1">
+										<b>Oui, je souhaite que ma demande de carte grise débute immédiatement.</b> Ainsi je renonce expressément à mon droit de rétractation afin que la prestation débute avant la fin du délai légal de rétractation.
+									</label>
+								</div> -->
+
+								<a class="col-12 btn btn-primary mb-3" href="{{path('Accueil')}}{{ recap.demarche.type | lower}}/?commande={{ recap.id }}">FranceConnect</a>
+								{% if app.user %}
+									<a class="col-12 btn btn-success" href="{{path('Accueil')}}{{ recap.demarche.type | lower}}/?commande={{ recap.id }}">Continuer</a>
+								{% else %}
+									<a class="col-12 btn btn-success" href="{{ path('fos_user_registration_register',{'commande':recap.id}) }}">Continuer</a>
+								{% endif %}
+
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			{% endif %}
+		{% else %}
+			{{ include('home/composant/menu-commander-fin.html.twig') }}
+		{% endif %}
+	{% else %}
+		{% if commandes is defined %}
+			{% if value is defined %}
+				<div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
+					<div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
+
+						<h2 class="col-12">Récapitulatif de la demande
+							{{commandes.demarche.type | lower}}</h2>
+						<table class="table table-striped">
+							<tr>
+								<th>Demarche</th>
+								<td>{{commandes.demarche}}</td>
+							</tr>
+							<tr>
+								<th>Immatriculation</th>
+								<td>{{commandes.immatriculation}}</td>
+							</tr>
+							<tr>
+								<th>Département</th>
+								<td>{{commandes.codePostal}}</td>
+							</tr>
+						</table>
+
+						<h2 class="col-12">CARACTÉRISTIQUES DU VÉHICULE</h2>
+						<table class="table table-bordered table-striped mx-auto">
+							<tr>
+								<th>VIN</th>
+								<td>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.VIN }}</td>
+							</tr>
+							<tr>
+								<th>CO2</th>
+								<td>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.CO2 }}</td>
+							</tr>
+							<tr>
+								<th>Genre</th>
+								<td>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.Genre }}</td>
+							</tr>
+							<tr>
+								<th>PTAC</th>
+								<td>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.PTAC }}</td>
+							</tr>
+							<tr>
+								<th>Energie</th>
+								<td>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.Energie }}</td>
+							</tr>
+							<tr>
+								<th>Date de mise en ciruclation</th>
+								<td>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.DateMEC }}</td>
+							</tr>
+						</table><br>
+
+						<h2 class="col-12">DÉTAIL DES TAXES</h2>
+						<table class="table table-bordered table-striped mx-auto">
+							<tr>
+								<th>Taxe Regionale</th>
+								<td>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.TaxeRegionale }}
+									€</td>
+							</tr>
+							<tr>
+								<th>Taxe > 35CV</th>
+								<td>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.Taxe35cv }}
+									€</td>
+							</tr>
+							<tr>
+								<th>Taxe Parafiscale</th>
+								<td>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.TaxeParafiscale }}
+									€</td>
+							</tr>
+							<tr>
+								<th>Taxe CO2</th>
+								<td>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.TaxeCO2 }}
+									€</td>
+							</tr>
+							<tr>
+								<th>Taxe Malus</th>
+								<td>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.TaxeMalus }}
+									€</td>
+							</tr>
+							<tr>
+								<th>Taxe SIV</th>
+								<td>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.TaxeSIV }}
+									€</td>
+							</tr>
+							<tr>
+								<th>Taxe RedevanceSIV</th>
+								<td>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.TaxeRedevanceSIV }}
+									€</td>
+							</tr>
+							<tr>
+								<th>Frais de traitement du dossier</th>
+								<td>
+									Nos Prix
+								</td>
+							</tr>
+							<tr>
+								<th>Taxe Totale</th>
+								<td>
+									<strong>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.TaxeTotale }}
+										€</strong>
+								</td>
+							</tr>
+						</table><br>
+						<div class="col-12 resultat-estimation-p">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+						</div>
+						<a class="col-12 btn btn-primary mb-3" href="{{path('Accueil')}}{{ recap.demarche.type | lower}}/?commande={{ recap.id }}">FranceConnect</a>
+						{% if app.user %}
+							<a class="col-12 btn btn-success" href="{{path('Accueil')}}{{ commandes.demarche.type | lower}}/?commande={{ commandes.id }}">VALIDER</a>
+						{% else %}
+							<a class="col-12 btn btn-success" href="{{ path('fos_user_registration_register',{'commande':commandes.id}) }}">VALIDER</a>
+						{% endif %}
+					</div>
+				</div>
+			{% endif %}
+		{% else %}
+			{{ include('home/composant/menu-commander-fin.html.twig') }}
+		{% endif %}
+	{% endif %}
+{% endblock %}
+
+{% block pagetext_content %}
+	{{ include('home/composant/texte/accueil-texte.html.twig') }}
+{% endblock %}

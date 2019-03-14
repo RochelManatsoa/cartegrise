@@ -1,0 +1,20 @@
+<!--____________________________________________________________________________NOMENCLATURE-->
+<!doctype html>
+<html lang="fr">
+	<head>
+		<!--____________________________________________________________________________HEAD-->
+		{{ include('home/layout/header.html.twig') }}
+		<!--____________________________________________________________________________FIN HEAD-->
+	</head>
+	<body class="body-login">
+
+		<h1>Bienvenu</h1>
+		<p>
+			<a href="{{ path('fos_user_security_login') }}">Se connecter</a>
+		</p>
+		{{ include('home/composant/footer.html.twig') }}
+		{{ include('home/layout/footer.html.twig') }}
+		<!--____________________________________________________________________________FIN BODY-->
+	</body>
+</html>
+<!--____________________________________________________________________________FIN NOMENCLATURE-->

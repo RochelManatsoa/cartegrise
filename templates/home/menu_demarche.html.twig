@@ -1,0 +1,530 @@
+<div class="row col-12 mx-auto ">
+  <div class="row col-11 mx-auto">
+
+
+
+
+
+
+    <div class="row col-12 col-lg-10 mx-auto menu">
+      <div class="col-12 col-md-3  menu-box">
+        <button type="button" data-toggle="modal" data-target="#changement-de-titulaire" href="#Changement-de-titulaire" class="row col-10 mx-auto menu-demarche color-categorie--2 color-categorie-7 d-flex align-items-center justify-content-center my-flex-container">
+          <span class="col-12 menu-box--icon"><i class="fas fa-3x fa-user"></i></span>
+            <span class="col-12 menu-box--titre">Changement de titulaire</span>
+        </button>
+      </div>
+
+
+      <div class="col-12 col-md-3  menu-box">
+        <button type="button" data-toggle="modal" data-target="#changement-de-titulaire" href="#Changement-de-titulaire" class="row col-10 mx-auto menu-demarche color-categorie--2 color-categorie-8 d-flex align-items-center justify-content-center my-flex-container">
+          <span class="col-12 menu-box--icon"><i class="fas fa-3x fa-certificate"></i></span>
+            <span class="col-12 menu-box--titre">Immatriculation d'un véhicule neuf</span>
+        </button>
+      </div>
+
+      <div class="col-12 col-md-3  menu-box">
+        <button type="button" data-toggle="modal" data-target="#changement-de-domicile" class="row col-10 mx-auto menu-demarche color-categorie-1 d-flex align-items-center justify-content-center my-flex-container">
+    <span class="col-12 menu-box--icon"><i class="fas fa-3x fa-map-marker"></i></span>
+    <span class="col-12 menu-box--titre">  Changement de domicile</span>
+  </button>
+      </div>
+
+      <div class="col-12 col-md-3  menu-box">
+        <button type="button" data-toggle="modal" data-target="#demande-de-duplicata" class="row col-10 mx-auto menu-demarche color-categorie-2 d-flex align-items-center justify-content-center my-flex-container">
+              <span class="col-12 menu-box--icon"><i class="fas fa-3x fa-clone"></i>
+              </span>
+    <span class="col-12 menu-box--titre">
+       Demande de duplicata
+     </span>
+  </button>
+      </div>
+
+
+      <div class="col-12 col-md-3  menu-box">
+        <button type="button" data-toggle="modal" data-target="#changement-de-statut-matrimonial" class="row col-10 mx-auto menu-demarche color-categorie-3 d-flex align-items-center justify-content-center my-flex-container">
+              <span class="col-12 menu-box--icon"><i class="fas fa-3x fa-folder"></i></span>
+    <br/>
+    <span class="col-12 menu-box--titre">            Changement de statut matrimonial</span>
+  </button>
+      </div>
+
+
+      <div class="col-12 col-md-3  menu-box">
+        <button type="button" data-toggle="modal" data-target="#justificatifs-de-domicile" class="row col-10 mx-auto menu-demarche color-categorie-4 d-flex align-items-center justify-content-center my-flex-container">
+              <span class="col-12 menu-box--icon"><i class="fas fa-3x fa-file"></i></span>
+    <br/>
+    <span class="col-12 menu-box--titre">            Justificatifs de domicile</span>
+  </button>
+      </div>
+
+
+      <div class="col-12 col-md-3  menu-box">
+        <button type="button" data-toggle="modal" data-target="#mise-a-la-casse" class="row col-10 mx-auto menu-demarche color-categorie-5 d-flex align-items-center justify-content-center my-flex-container">
+              <span class="col-12 menu-box--icon"><i class="fas fa-3x fa-trash-alt"></i></span>
+    <br/>
+    <span class="col-12 menu-box--titre">            Mise à la casse</span>
+  </button>
+      </div>
+
+
+      <div class="col-12 col-md-3  menu-box">
+        <button type="button" data-toggle="modal" data-target="#slucg" class="row col-10 mx-auto menu-demarche color-categorie-6 d-flex align-items-center justify-content-center my-flex-container">
+              <span class="col-12 menu-box--icon"><i class="fas fa-3x fa-eye"></i></span>
+    <br/>
+    <span class="col-12 menu-box--titre">            Savoir lire une carte grise</span>
+  </button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal" id="changement-de-titulaire">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div id="Changement-de-titulaire" class="row commander">
+          <div class="col-12 commander-box d-flex flex-row align-items-center my-flex-container">
+            <div class="row col-11 mx-auto commander-box--section">
+              <div class="vos-demarches--texte1">
+                <div class="vos-demarches--texte1---titre">
+                  <h2><i class="far fa-circle"></i></i> CHANGEMENT DE NOM / TITULAIRE</h2>
+                </div>
+                <div class="col-10 mx-auto vos-demarches--texte1---description">
+                  <p> Pour l’achat d’un véhicule, neuf ou d’occasion acheté en France, le nouvel acquéreur dispose d’un délai d’un mois suivant la date de l’achat, pour établir une carte grise ou certificat d’immatriculation. Cependant, l’enregistrement de
+                    la cession doit être effectué dans les 15 jours qui suivent l’achat.</p>
+                  <p>
+                    Pour <span class="bold">  simplifier votre démarche</span> et disposer de votre certificat d’immatriculation en 24 heures, rendez-vous sur www.cgofficiel.fr, un professionnel de l’automobile habilité et agréé par le ministère de l’intérieur
+                    <span class="bcgyellow">(n° n°222442)</span> à modifier. Veuillez vous assurer <span class="bold"> que votre dossier est bien complet</span> en vous référant à la liste de documents nécessaires.
+                  </p>
+                  <p>
+                    Concernant les véhicules achetés à l’étranger, neufs ou d’occasion, <span class="bold"> la demande du certificat d’immatriculation</span> peut se faire à la préfecture ou à la sous-préfecture, ou auprès de professionnels sous tutelle
+                    d’une préfecture. Ces derniers devront se déplacer au niveau des guichets préfectoraux pour finaliser le dossier.
+                  </p>
+                  <p>
+                    Des documents supplémentaires sont à fournir pour les véhicules étrangers : l’original du certificat d’immatriculation étranger et sa photocopie, le justificatif de vente, le certificat de conformité, la déclaration de douane 846A pour les véhicules hors
+                    Union Européenne, le quitus fiscal ainsi qu’un contrôle technique français de moins de 6 mois.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="changement-de-domicile">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div id="Changement-de-titulaire" class="row commander">
+          <div class="col-12 commander-box d-flex flex-row align-items-center my-flex-container">
+            <div class="row col-11 mx-auto commander-box--section">
+              <div class="vos-demarches--texte2">
+                <div class="vos-demarches--texte2---titre">
+                  <h2><i class="far fa-circle"></i></i> CHANGEMENT DE DOMICILE</h2>
+                </div>
+                <div class="col-10 mx-auto vos-demarches--texte2---description">
+                  <p>
+                    <span class="bold">Changer d’adresse</span> sur son certificat d’immatriculation implique de <span class="bold">nombreuses démarches administratives</span> même si vous changez simplement de nom ou de numéro de rue. L’article R322-7
+                    du Code de la Route stipule que le propriétaire d’<span class="bold">un véhicule dispose d’un mois pour mettre à jour sa carte grise</span> en cas de changement de domicile. Le cas échéant, vous pouvez encourir une contravention de
+                    4ème classe.
+                  </p>
+                  <p>
+                    Plusieurs moyens sont à votre disposition pour procéder au changement d’adresse, soit via les services de CG officiel, soit au niveau d’un garage agréé, soit en ligne sur le site de l’ANTS (Agence Nationale des Titres Sécurisés)..
+                  </p>
+                  <p>
+                    Vous aurez à fournir des documents tels qu’une copie de l’ancienne carte grise, les pièces justificatives d’identité et de domicile ainsi qu’un formulaire de demande de changement d’adresse CERFA N°13750*05 dûment rempli.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="demande-de-duplicata">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div id="Changement-de-titulaire" class="row commander">
+          <div class="col-12 commander-box d-flex flex-row align-items-center my-flex-container">
+            <div class="row col-11 mx-auto commander-box--section">
+              <div class="vos-demarches--texte3">
+                <div class="vos-demarches--texte3---titre">
+                  <h2><i class="far fa-circle"></i></i> DEMANDE DE DUPLICATA</h2>
+                </div>
+                <div class="col-10 mx-auto  vos-demarches--texte3---description">
+                  <p>Il est possible d’effectuer une demande de duplicata en cas de vol, de perte de carte grise, ou de dégradation (ce qui signifie que les informations inscrites sur le document sont peu lisibles ou illisibles). Vous disposez d’un délai
+                    d’un mois soit 30 jours pour le faire, sinon vous vous exposez à une amende de 4ème classe.</p>
+                  <p>Un formulaire CERFA N°13753*01 de déclaration devra être <span class="bold">rempli en cas de vol ou de perte</span> en plus de l’imprimé CERFA N°13750*05. Toutefois, une déclaration de vol doit être faite auprès du commissariat de police
+                    ou auprès de la gendarmerie du lieu où l’infraction à été constatée. La demande de duplicata peut être faite en ligne auprès de l'ANTS (Agence Nationale des Titres Sécurisés).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="changement-de-statut-matrimonial">
+  <div class="col-8 mx-auto modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div id="Changement-de-titulaire" class="row commander">
+          <div class="col-12 commander-box d-flex flex-row align-items-center my-flex-container">
+            <div class="row col-11 mx-auto commander-box--section">
+              <div class="vos-demarches--texte4">
+                <div class="vos-demarches--texte4---titre">
+                  <h2><i class="far fa-circle"></i></i> CHANGEMENT D’ÉTAT CIVIL OU MATRIMONIAL</h2>
+                </div>
+                <div class="col-10 mx-auto  vos-demarches--texte4---description">
+                  <p>
+                    Vous êtes dans l’obligation de <span class="bold">signaler auprès de la préfecture tout changement d’état civil</span>, d’état matrimonial ou de raison sociale afin de mettre à jour votre certificat d’immatriculation. Sachez que les
+                    formalités en cas de changement d’état matrimonial (mariage, veuvage ou divorce) sont gratuites, contrairement aux démarches de changement de raison sociale et d’état civil qui sont payantes.
+                  </p>
+                  <p>Un formulaire CERFA N°13753*01 de déclaration devra être rempli en cas de vol ou de perte en plus de l’imprimé CERFA N°13750*05. Toutefois, une déclaration de vol doit être faite auprès du commissariat de police ou auprès de la gendarmerie
+                    du lieu où l’infraction à été constatée. La demande de duplicata peut être faite en ligne auprès de l'ANTS (Agence Nationale des Titres Sécurisés).</p>
+                  <ol>
+                    <li>Pour un mariage, <span class="bold">un livret de famille</span> ou un <span class="bold">acte de mariage</span> sont nécessaires. Toutefois, la démarche n’est valable que lorsque le véhicule est acquis avant le mariage.</li>
+                    <li>Pour les véhicules acquis pendant le mariage, des taxes sont fixées.</li>
+                    <li>3 possibilités sont offertes dans le cas d’un mariage : vous pouvez faire apparaître un seul nom à la place des deux conjoints ou de mentionner seulement le nom d’usage ou l’association des deux noms.</li>
+                    <li>Dans le cas d’un divorce, vous devrez fournir un <span class="bold">jugement de divorce</span> ou une copie conforme certifiée pour permettre d’identifier le propriétaire du véhicule. En cas de divorce, on peut également supprimer
+                      le nom d’usage ou alors immatriculer le véhicule au nom du conjoint bénéficiaire.</li>
+                    <li>Si vous avez hérité du véhicule, vous devez fournir une <span class="bold">attestation du notaire</span> ou un <span class="bold">certificat d’hérédité</span> ou un <span class="bold">certificat de propriété</span> donné par un juge
+                      d’instance pour immatriculer le véhicule à votre nom. Vous disposez d’un délai de 6 mois après le décès propriétaire pour effectuer cette démarche.</li>
+                  </ol>
+                  <p>
+                    Bon à savoir : <span class="bold">Le PACS n’est pas considéré comme un changement d’état matrimonial</span>, mais juste comme un régime de multipropriété.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal" id="justificatifs-de-domicile">
+  <div class="col-8 mx-auto modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div id="justificatifs-de-domicile" class="row commander">
+          <div class="col-12 commander-box d-flex flex-row align-items-center my-flex-container">
+            <div class="row col-11 mx-auto commander-box--section">
+              <div class="vos-demarches--texte5">
+                <div class="vos-demarches--texte5---titre">
+                  <h2><i class="far fa-circle"></i></i> JUSTIFICATIFS DE DOMICILE</h2>
+                </div>
+                <div class="col-10 mx-auto  vos-demarches--texte5---description">
+                  <p>
+                    Le justificatif de domicile est un document essentiel un dossier de <span class="bold">demande du certificat d’immatriculation</span>. Néanmoins, tous les justificatifs de domicile ne sont pas acceptés pour effectuer votre demande,
+                    seuls les documents de moins de 6 mois sont valides :
+                  </p>
+                  <ol>
+                    <li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
+                    <li>Dernier avis d'imposition ou de non imposition</li>
+                    <li>Quittance de gaz</li>
+                    <li>Quittance d'électricité</li>
+                    <li>Facture de téléphone fixe ou portable</li>
+                    <li>Attestation d'un fournisseur d'énergie (EDF, Engie, ...)</li>
+                    <li>Facture d'un fournisseur d'accès à Internet</li>
+                    <li>Attestation d'assurance habitation</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal" id="mise-a-la-casse">
+  <div class="col-8 mx-auto modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div id="mise-a-la-casse" class="row commander">
+          <div class="col-12 commander-box d-flex flex-row align-items-center my-flex-container">
+            <div class="row col-11 mx-auto commander-box--section">
+              <div class="vos-demarches--texte5">
+                <div class="vos-demarches--texte5---titre">
+                  <h2><i class="far fa-circle"></i></i> MISE À LA CASSE</h2>
+                </div>
+                <div class="col-10 mx-auto  vos-demarches--texte5---description">
+                  <p>
+                    Si vous voulez envoyer votre véhicule à la casse, il vous faudra remplir un <span class="bold">certificat de cession pour destruction</span>. Un véhicule ne peut être détruit que par un professionnel agréé, sinon vous vous exposez
+                    à des sanctions pénales. Cependant, il peut être vendu ou cédé gratuitement à ce dernier.
+                  </p>
+                  <p>
+                    En plus du certificat de cession pour destruction, <span class="bold">la carte grise doit être remise au professionnel</span> agréé avec mention « vendu/ cédé le – date de mutation – pour destruction » parafée par une signature. Si
+                    la carte grise date d’avant juin 2004, le coupon droit dûment rempli de la carte doit être envoyé à la préfecture dans un délai de 15 jours et la partie restante revient au professionnel de démolition.
+                  </p>
+                  <p>
+                    Le professionnel agréé doit remettre un récépissé de prise en charge pour <span class="bold">destruction du véhicule au propriétaire</span> et à la préfecture (accompagné du certificat d’immatriculation pour la préfecture). L’immatriculation
+                    du véhicule n’est annulée qu’après <span class="bold">la remise du certificat de destruction par le professionnel agréé.</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal" id="slucg">
+  <div class="col-8 mx-auto modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div id="slucg" class="row commander">
+          <div class="col-12 commander-box d-flex flex-row align-items-center my-flex-container">
+            <div class="row col-11 mx-auto commander-box--section">
+              <div class="vos-demarches--texte5">
+                <div class="vos-demarches--texte5---titre">
+                  <h2><i class="far fa-circle"></i></i> SAVOIR LIRE VOTRE CARTE GRISE</h2>
+                </div>
+                <div class="col-10 mx-auto vos-demarches--texte5---description">
+                  <p>
+                    Afin de calculer le tarif légal de votre carte grise et de bien remplir les formulaires Cerfa de votre demande de certificat d'immatriculation, merci de lire les explications sur les détails des champs et données de votre carte grise.
+                  </p>
+                  <p>
+                    Dès que votre commande est passée sur www.cgofficiel.fr (paiement en ligne sécurisé), vous devez nous faire parvenir (envoi par courrier suivi de préférence) les éléments constitutifs de votre dossier afin que nous traitions votre demande le plus rapidement
+                    possible.
+                  </p>
+                  <p>
+                    LES DOCUMENTS QUE VOUS NOUS RETOURNEZ POUR TRAITER VOTRE DOSSIER SONT LES MÊMES QUE CEUX DEMANDÉS EN PRÉFECTURE.
+                  </p>
+                  <p>
+                    TOUT DOSSIER INCOMPLET NE POURRA PAS ÊTRE TRAITÉ DANS LE DÉLAI DE 24H.
+                  </p>
+                  <p>
+                    AFIN DE CIRCULER LIBREMENT, GARDEZ EN VOTRE POSSESSION UNE COPIE DE TOUS LES DOCUMENTS ENVOYÉS.
+                  </p>
+                  <div class="row">
+                  <div class="col-sm-12 col-md-6 vos-demarches--img">
+                    <img class="rounded mx-auto d-block img-fluid" src="asset/img/carte-grise.jpg" alt="">
+                  </div>
+                  <div class="row col-12 col-md-6 mx-auto vos-demarches--texte">
+                    <div class="vos-demarches--texte---titre col-2"> A</div>
+                  <div class="col-10 vos-demarches--texte---description">  Numéro d'Immatriculation.
+                  </div>
+                      <div class="vos-demarches--texte---titre col-2">B</div>
+                  <div class="col-10 vos-demarches--texte---description">  Date de la première mise en circulation du véhicule.
+                  </div>
+                      <div class="vos-demarches--texte---titre col-2">C.1</div>
+                  <div class="col-10 vos-demarches--texte---description">  Nom, Prénom du Titulaire de la Carte Grise.
+                  </div>
+                      <div class="vos-demarches--texte---titre col-2">C.4a</div>
+                  <div class="col-10 vos-demarches--texte---description">  Mention précisant si le Titulaire est le propriétaire du véhicule.
+                  </div>
+                      <div class="vos-demarches--texte---titre col-2">C.4.1</div>
+                  <div class="col-10 vos-demarches--texte---description">  Champ réservé au(x) Co-Titulaire(s) dans le cas d'une Multi-Propriété du véhicule.
+                  </div>
+                      <div class="vos-demarches--texte---titre col-2">C.3</div>
+                  <div class="col-10 vos-demarches--texte---description">  Adresse de résidence du Titulaire dans l'État membre du Titutlaire au moment de l'Immatriculation.
+                    Changement d'Adresse</div>
+
+                      <div class="vos-demarches--texte---titre col-2">D.1</div>
+                  <div class="col-10 vos-demarches--texte---description">  Marque du véhicule.
+                  </div>
+                      <div class="vos-demarches--texte---titre col-2">D.2</div>
+                  <div class="col-10 vos-demarches--texte---description">  Type du véhicule.
+                  </div>
+                    <div class="vos-demarches--texte---titre col-2">  D.2.1</div>
+                  <div class="col-10 vos-demarches--texte---description">  Code d'identification national du Type (En réception CE).
+                  </div>
+                      <div class="vos-demarches--texte---titre col-2">D.3</div>
+                  <div class="col-10 vos-demarches--texte---description">  Modèle du véhicule (Dénomination commerciale).
+                  </div>
+                    <div class="vos-demarches--texte---titre col-2">  F.1</div>
+                  <div class="col-10 vos-demarches--texte---description">  Masse en charge maximale techniquement admissible en Kg (sauf motocycles).
+                  </div>
+                      <div class="vos-demarches--texte---titre col-2">F.2</div>
+                  <div class="col-10 vos-demarches--texte---description">  Masse en charge maximale admissible du véhicule en service en Kg.
+                  </div>
+                      <div class="vos-demarches--texte---titre col-2">F.3</div>
+                  <div class="col-10 vos-demarches--texte---description">  Masse en charge maximale admissible de l'ensemble en service en Kg.
+                  </div>
+                      <div class="vos-demarches--texte---titre col-2">G</div>
+                  <div class="col-10 vos-demarches--texte---description">  Masse du véhicule en service avec carrosserie et dispositif d'attelage.
+                  </div>
+                      <div class="vos-demarches--texte---titre col-2">G.1</div>
+                  <div class="col-10 vos-demarches--texte---description">  Poids à vide national en Kg.
+                  </div>
+                  </div>
+                  <div class="row col-12 col-md-6 mx-auto vos-demarches--texte">
+                    <div class="vos-demarches--texte---titre col-2"> J</div>
+                  <div class="col-10 vos-demarches--texte---description">  Catégorie du véhicule CE.
+                  </div>
+
+                    <div class="vos-demarches--texte---titre col-2">J.1</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Genre National.</div>
+                    <div class="vos-demarches--texte---titre col-2">J.2</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Carrosserie CE.</div>
+                    <div class="vos-demarches--texte---titre col-2">J.3</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Carrosserie : Désignation Nationale.</div>
+                    <div class="vos-demarches--texte---titre col-2">K</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Numéro de réception par type (si disponible).</div>
+                    <div class="vos-demarches--texte---titre col-2">P.1</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Cylindrée en cm3.</div>
+                    <div class="vos-demarches--texte---titre col-2">P.2</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Puissance nette maximale en Kw (1 cheval DIN = 0,736 Kw).</div>
+                    <div class="vos-demarches--texte---titre col-2">P.3</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Type de carburant (source d'énergie).</div>
+                    <div class="vos-demarches--texte---titre col-2">P.6</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Puissance administrative nationale (Chevaux Fiscaux).
+                  Calcul de la Puissance Fiscale</div>
+                    <div class="vos-demarches--texte---titre col-2">Q</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Rapport puissance/masse (Motocycles)</div>
+                    <div class="vos-demarches--texte---titre col-2">S.1</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Nombre de places assises y compris le conducteur.</div>
+                    <div class="vos-demarches--texte---titre col-2">S.2</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Nombre de places debout (Le cas échéant).</div>
+
+
+                  </div>
+
+
+
+                  <div class="row col-12 col-md-6 vos-demarches--texte">
+                    <div class="vos-demarches--texte---titre col-2">U.1</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Niveau sonore à l'arrêt en dBa.</div>
+                    <div class="vos-demarches--texte---titre col-2">U.2</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Vitesse du moteur (en min-1).</div>
+                    <div class="vos-demarches--texte---titre col-2">V.7</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Émission CO2 en Gr/km.</div>
+                    <div class="vos-demarches--texte---titre col-2">V.9</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Classe environnementale.</div>
+                    <div class="vos-demarches--texte---titre col-2">X.1</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Date pour la visite du Contrôle Technique.</div>
+                    <div class="vos-demarches--texte---titre col-2">Y.1</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Montant de la Taxe Régionale calculée en fonction du nombre de Chevaux Fiscaux et en fonction du Prix du Cheval Fiscal dans votre Région.
+                  Tarif Carte Grise par Région</div>
+                    <div class="vos-demarches--texte---titre col-2">Y.2</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Montant de la Taxe pour le développement des actions de formation professionnelle dans les transports.
+                  Taxe sur les Véhicules de Société</div>
+                    <div class="vos-demarches--texte---titre col-2">Y.3</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Montant de la Taxe CO2 ou Ecotaxe.
+                  Taxe CO2 et Ecotaxe</div>
+                    <div class="vos-demarches--texte---titre col-2">Y.4</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Montant de la Taxe de Gestion Administrative.</div>
+                    <div class="vos-demarches--texte---titre col-2">Y.5</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Montant de la redevance pour l'acheminement du Certificat d'Immatriculation.</div>
+                    <div class="vos-demarches--texte---titre col-2">Y.6</div>
+                    <div class="col-10 vos-demarches--texte---description">
+                  Montant Total des Taxes et de la redevance (Prix de la Carte Grise).</div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+      </div>
+
+    </div>
+  </div>
+</div>

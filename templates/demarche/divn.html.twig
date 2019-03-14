@@ -1,0 +1,338 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DVIN{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-ccm{% endblock %}
+
+{% block page_content %}
+	<div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
+	<div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
+	<div class="col-12 commander-firstview">
+		<div class="row col-11 mx-auto">
+			<div class="col-12" id="demarche"></div>
+
+{% if is_granted("IS_AUTHENTICATED_FULLY") %}
+
+    {% block javascripts %}
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+	<script>
+		function datashow2() {
+                $.ajax({
+                    url: "incphp/formDIVN.php",
+                    method: "POST",
+                    type: "POST",
+                    //async: false,
+                    data: {currentid: {{ app.user.id}}, currentnom: '{{client.ClientNom}}', currentprenom : '{{client.ClientPrenom}}', currentgenre : '{{genre}}', currentdaten: '{{ client.ClientDateNaissance| date("Y-m-d")}}', currentlieun: '{{ client.ClientLieuNaissance }}' },
+                    /*
+                     data: {
+                     date1: $('#date1').val(),
+                     date2: $('#date2').val()
+                     },*/
+                    success: function (data) {
+                        //console.log(data);
+                        $("#demarche").html(data);
+
+                       //document.getElementById("demarche").innerHTML = data;
+                        //console.log("serialization success");
+                        //console.log($('#dateselect').serializeArray());
+                        //console.log($('#dateselect').serialize());
+
+                    }
+                });
+            }
+            datashow2();
+
+	</script>
+	<script>
+	function addCotitulaire(){
+        //check number
+        var number = document.getElementById("NbCotitulaires").value;
+
+        var listcotitulaire = document.getElementById("cotitulaireList");
+
+        while(listcotitulaire.hasChildNodes()){
+            listcotitulaire.removeChild(listcotitulaire.lastChild);
+        }
+
+        for (i=0; i<number; i++){
+
+            //TExt
+            listcotitulaire.appendChild(document.createTextNode("Cotitulaires " + (i+1) + " "));
+
+            //input
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = "cotitulaire" + i;
+            //listcotitulaire.appendChild(input);
+            //listcotitulaire.appendChild(document.createElement("br"));
+
+
+
+            //select personne physique or morale
+            var select3 = document.createElement("SELECT");
+            select3.setAttribute("id", "personne3["+i+"]");
+            select3.setAttribute("name","personne3["+i+"]");
+            select3.setAttribute("class","form-control");
+            select3.setAttribute("onchange", "cotitulairetype(this)");
+            select3.setAttribute("data-index", i);
+
+            listcotitulaire.appendChild(select3);
+            
+
+            var phy = document.createElement("OPTION");
+            phy.setAttribute("value", "PersonnePhysique");
+            var t = document.createTextNode("physique");
+            phy.appendChild(t);
+            //console.log(phy);
+            var y = document.createElement("OPTION");
+            y.setAttribute("value", "PersonneMorale");
+            var t2 = document.createTextNode("morale");
+            y.appendChild(t2);
+            document.getElementById("personne3["+i+"]").appendChild(phy);
+            document.getElementById("personne3["+i+"]").appendChild(y);
+
+
+            //div cotitulaire
+            var divcotitl = document.createElement("div");
+            divcotitl.setAttribute("name","cotitulaire" + i);
+            divcotitl.setAttribute("id","cotitulaire" + i);
+
+
+
+            //create nnom input
+            var inputname = document.createElement("input");
+            inputname.type = "text";
+            inputname.name = "nomct[" + i+"]";
+            inputname.className = "form-control col-3";
+
+
+            //label creation nom
+            var labeln = document.createElement("LABEL");
+            var labeltextn = document.createTextNode("nom");
+            labeln.setAttribute("for", "nomct[" + i +"]");
+            labeln.appendChild(labeltextn);
+
+
+            //create prenom input
+            var inputprenom = document.createElement("input");
+            inputprenom.type = "text";
+            inputprenom.name = "prenomct[" + i+"]";
+            inputprenom.className = "form-control col-3";
+
+
+            //label creation prenom
+            var labelp = document.createElement("LABEL");
+            var labeltextp = document.createTextNode("prenom");
+            labelp.setAttribute("for", "prenomct[" + i +"]");
+            labelp.appendChild(labeltextp);
+
+
+            //sexe/genre
+            
+            var select4 = document.createElement("SELECT");
+            select4.setAttribute("id", "sexe3["+i+"]");
+            select4.setAttribute("name","sexe3["+i+"]");
+            select4.setAttribute("class","form-control col-3");
+            //select4.setAttribute("onchange", "cotitulairesexe(this)");
+            select4.setAttribute("data-index", i);
+
+            listcotitulaire.appendChild(select4);
+            
+
+            var male = document.createElement("OPTION");
+            male.setAttribute("value", "M");
+            var textsexe = document.createTextNode("Homme");
+            male.appendChild(textsexe);
+            //console.log(phy);
+            var female = document.createElement("OPTION");
+            female.setAttribute("value", "F");
+            var textsexe2 = document.createTextNode("Femme");
+            female.appendChild(textsexe2);
+
+            document.getElementById("sexe3["+i+"]").appendChild(male);
+            document.getElementById("sexe3["+i+"]").appendChild(female);
+
+            //label sexe/genre
+            var labels = document.createElement("LABEL");
+            var labeltexts = document.createTextNode("sexe");
+            labels.setAttribute("for", "sexe3[" + i +"]");
+            labels.appendChild(labeltexts);
+
+            
+            //listcotitulire appending
+            listcotitulaire.appendChild(document.createElement("br"));
+            listcotitulaire.appendChild(divcotitl);
+
+
+            //div appending
+            divcotitl.appendChild(labeln);
+            divcotitl.appendChild(inputname);
+            divcotitl.appendChild(labelp);
+            divcotitl.appendChild(inputprenom);
+            divcotitl.appendChild(labels);
+            divcotitl.appendChild(document.getElementById("sexe3["+i+"]"));
+
+            listcotitulaire.appendChild(document.createElement("br"));
+
+        }
+    }
+
+    var i =0;
+
+    function addCaract(){
+
+        var listcaracteristique = document.getElementById("CaracteristiqueList");    
+
+        //div caracteristique
+        var divcaract = document.createElement("div");
+        divcaract.setAttribute("name","caract" + i);
+        divcaract.setAttribute("id","caract" + i);
+        divcaract.appendChild(document.createElement("br"));
+
+        //select caracteristique
+        var selectcaract = document.createElement("SELECT");
+        selectcaract.setAttribute("id", "code["+i+"]");
+        selectcaract.setAttribute("name","code["+i+"]");
+        selectcaract.setAttribute("class","form-control col-3");
+        //select4.setAttribute("onchange", "cotitulairesexe(this)");
+        selectcaract.setAttribute("data-index", i);
+
+
+
+        listcaracteristique.appendChild(divcaract);
+        divcaract.appendChild(selectcaract);
+
+        //$('<option value="TEEX">TE Exclusif</option>').appendTo(selectcaract);
+        $('<option value="TEEX">TE Exclusif</option><option value="TEPO">TE Possible</option><option value="EPEC">Essieux posés en charge</option><option value="PLMO">Places modulables</option><option value="VECO">Véhicule école</option><option value="PLME">Places médicales</option><option value="THAN">Transport handicapé</option><option value="GAZO">Gazogène</option><option value="GAZC">Gaz compr.</option><option value="RALE">Ralentisseur</option><option value="AG1P">Autre G1 possible</option><option value="AF3P">Autre F3 possible</option><option value="AJ1P">Autre J1 possible</option><option value="PLCO">PL convoi 6 km/h maxi</option><option value="EQAC">Equip. accumulat.</option><option value="AJ3P">Autre J3 possible</option><option value="VMAX">V max (remorque)</option>').appendTo(selectcaract);
+
+        //label creation valeur1
+        var labelv1 = document.createElement("LABEL");
+        var labeltextv1 = document.createTextNode("Valeur 1 de mention");
+        labelv1.setAttribute("for", "Valeur1[" + i +"]");
+        labelv1.appendChild(labeltextv1);
+
+
+        //create prenom valeur1
+        var inputv1 = document.createElement("input");
+        inputv1.type = "text";
+        inputv1.name = "Valeur1[" + i+"]";
+        inputv1.className = "form-control col-3";
+
+        divcaract.appendChild(labelv1);
+        divcaract.appendChild(inputv1);
+
+        //label creation valeur2
+        var labelv2 = document.createElement("LABEL");
+        var labeltextv2 = document.createTextNode("Valeur 2 de mention");
+        labelv2.setAttribute("for", "Valeur2[" + i +"]");
+        labelv2.appendChild(labeltextv2);
+
+
+        //create prenom valeur2
+        var inputv2 = document.createElement("input");
+        inputv2.type = "text";
+        inputv2.name = "Valeur2[" + i+"]";
+        inputv2.className = "form-control col-3";
+
+        divcaract.appendChild(labelv2);
+        divcaract.appendChild(inputv2);
+
+        divcaract.appendChild(document.createElement("br"));
+
+        i++;
+    }
+
+    function delCaract(){
+        //var listcaracteristique = document.getElementById("CaracteristiqueList");
+        //var caractI = document.getElementById("caract"+ i);
+        i--;
+        $("#caract"+i).remove();
+
+
+    }
+
+    function cotitulairetype(option){
+        var type6 = option.value;
+        var indexcot = "cotitulaire"+option.dataset.index;
+        var indexc = option.dataset.index;
+        console.log(type6);
+        console.log(indexcot);
+       
+        
+        if(type6 == "PersonnePhysique"){
+            document.getElementById(indexcot).innerHTML = '<label for="nomct['+indexc+']">nom</label><input type="text" name="nomct['+indexc+']" class="form-control col-3"><label for="prenomct['+indexc+']">prenom</label><input type="text" name="prenomct['+indexc+']" class="form-control col-3"><label for="sexe3['+indexc+']">sexe</label><select id="sexe3['+indexc+']" name="sexe3['+indexc+']" class="form-control col-3" data-index="'+indexc+'"><option value="M">Homme</option><option value="F">Femme</option></select>';
+        }
+        else{
+            document.getElementById(indexcot).innerHTML = '<label for="raisonct['+indexc+']">Raison sociale</label><input type="text" name="raisonct['+indexc+']" class="form-control col-3">';
+        }
+
+    }
+
+
+    function titulaire(){
+        var type = document.getElementById("personne").value;
+        if(type == "phy" ){
+            document.getElementById("titulaire").innerHTML = '<label for="NomPrenom">Nom Prénom</label><input class="form-control" name="NomPrenom" id="NomPrenom">';
+        }
+        else{
+             document.getElementById("titulaire").innerHTML = '<label for="RaisonSociale1">Raison Sociale</label><input class="form-control" name="RaisonSociale1" id="RaisonSociale">';
+        }
+        
+    }
+
+    function acquereur(){
+            var type2 = document.getElementById("personne2").value;
+            if(type2 == "phy"){
+                document.getElementById("acquereur").innerHTML = '<label for="Nom">Nom</label><input class="form-control" name="Nom"><br><label for="Prenom">Prenom</label><input class="form-control" name="Prenom"><br><label for="sexe">Sexe</label><select id="sexe" name="sexe" class="form-control" onchange="genre()"><option value="F">Feminin</option><option value="M">Masculin</option></select><div id="genre"><label for="NomUsage">NOM Usage</label><input class="form-control" name="NomUsage"></div>';
+                document.getElementById("naissance").innerHTML = '<div id="naissance"><label for="DateNaissance">Née le:</label><input class="form-control" name="DateNaissance" id="DateNaissance" type="date" required=""><label for="LieuNaissance">Ville de Naissance</label><input class="form-control" name="LieuNaissance" style="text-transform:uppercase" id="LieuNaissance" required=""></div>';
+            }
+            else{
+                 document.getElementById("acquereur").innerHTML = '<label for="RaisonSociale2">Raison Sociale</label><input class="form-control" name="RaisonSociale2"><br><label for="SocieteCommerciale" >Societe Commerciale</label><select id="societe" name=SocieteCommerciale class="form-control" onchange="societec()"><option value=1>oui</option><option value=0>non</option></select><br><div id="sirendisplay"><label for="SIREN">SIREN</label><input class="form-control" name="SIREN"></div><hr>';
+                 document.getElementById("naissance").innerHTML = "";
+            }
+        }
+
+        function societec(){
+            var type5 = document.getElementById("societe").value;
+            if(type5 == 1){
+                document.getElementById("sirendisplay").innerHTML = '<label for="SIREN">SIREN</label><input class="form-control" name="SIREN" required>';
+            }
+            else{
+                document.getElementById("sirendisplay").innerHTML = "";
+            }
+        }
+
+        function genre(){
+            var type3 = document.getElementById("sexe").value;
+            if(type3 == "F"){
+                document.getElementById("genre").innerHTML = '<label for="NomUsage">NOM Usage</label><input class="form-control" style="text-transform:uppercase" name="NomUsage">';
+            }
+            else{
+                document.getElementById("genre").innerHTML = "";
+            }
+        }
+
+    function cipresent(){
+        var type4 = document.getElementById("cip").value;
+        if(type4 == 1 ){
+            document.getElementById("immatinfo").innerHTML = '<label for="Immatriculation">Numero d\'Immatriculation</label><input class="form-control" onkeyup="this.value = this.value.toUpperCase();" placeholder="AB-123-CD ou 1234 AB 56 " pattern="[0-9]{1,4} [A-Z]{1,4} [0-9]{1,2}|[A-Z]{1,2}-[0-9]{1,3}-[A-Z]{1,2}" name="Immatriculation" id="Immatriculation"><br><label for="VIN">VIN</label><input class="form-control" onkeyup="this.value = this.value.toUpperCase();" name="VIN" id="VIN"><br><label for="NumFormule">Numero de Formule</label><input class="form-control" name="NumFormule" id="NumFormule"><br><label for="DateCI">Date CG</label><input type="date" class="form-control" name="DateCI" id="DateCI"><br>';
+        }
+        else{
+            document.getElementById("immatinfo").innerHTML = '<label for="Immatriculation">Numero d\'Immatriculation</label><input class="form-control" onkeyup="this.value = this.value.toUpperCase();" placeholder="AB-123-CD ou 1234 AB 56 " pattern="[0-9]{1,4} [A-Z]{1,4} [0-9]{1,2}|[A-Z]{1,2}-[0-9]{1,3}-[A-Z]{1,2}" name="Immatriculation" id="Immatriculation"><br><label for="VIN">VIN</label><input class="form-control" onkeyup="this.value = this.value.toUpperCase();" name="VIN" id="VIN"><br>'
+        }
+    }
+	</script>
+
+
+	
+{% endblock %}
+
+{% endif %}
+
+        </div>
+    </div>
+        </div>
+    </div>
+{% endblock %}

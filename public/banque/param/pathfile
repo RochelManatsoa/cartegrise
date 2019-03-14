@@ -1,0 +1,46 @@
+#########################################################################
+#
+#	Pathfile 
+#
+#	Liste des fichiers parametres utilises par le module de paiement
+#
+#########################################################################
+#
+#
+#-------------------------------------------------------------------------
+# Activation (YES) / Désactivation (NO) du mode DEBUG
+#-------------------------------------------------------------------------
+#
+DEBUG!NO!
+#
+# ------------------------------------------------------------------------
+# Chemin vers le répertoire des logos depuis le web alias  
+# Exemple pour le répertoire www.merchant.com/sherlocks/payment/logo/
+# indiquer:
+# ------------------------------------------------------------------------
+#
+D_LOGO!logo/!
+#
+# --------------------------------------------------------------------------
+#  Fichiers paramètres liés a l'api sherlocks paiement	
+# --------------------------------------------------------------------------
+#
+# fichier des  paramètres sherlocks
+#
+F_DEFAULT!/var/www/html/front/projectCG/public/banque/param/parmcom.sherlocks!
+#
+# fichier paramètre commercant
+#
+F_PARAM!/var/www/html/front/projectCG/public/banque/param/parmcom!
+#
+# certificat du commercant
+#
+F_CERTIFICATE!/var/www/html/front/projectCG/public/banque/param/certif!
+#
+# type du certificat
+#
+F_CTYPE!php!
+#
+# --------------------------------------------------------------------------
+# 	end of file
+# --------------------------------------------------------------------------

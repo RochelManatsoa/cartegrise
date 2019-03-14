@@ -1,0 +1,78 @@
+<!-- ________________________________________________________________________________________SIDEBAR ORDI -->
+<div class="col-4 sidebar hidden-md-down ">
+
+	<div class="col-12 row d-flex align-items-center">
+		<a class="col-6 mx-auto" href="{{ path('Accueil') }}">
+			<img class="rounded mx-auto d-block img-fluid" src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="logo">
+		</a>
+	</div>
+
+	{% if app.user %}
+	<div class="col-10 col-lg-8 col-xl-6 mx-auto mt-4">
+		<h5>
+		Bonjour {{ genre }} {{ client.clientPrenom }} {{ client.clientNom | upper}}
+		</h5>
+		<h5>
+			<a href="{{ path('compte') }}">Mon compte</a> | <a href="{{ path('logout') }}">Déconnexion</a>
+		</h5>
+	</div>
+	{% else %}
+	<div class="col-10 col-lg-8 col-xl-6 mx-auto mt-4">
+		<a class="col-12 mx-auto" href="#">
+			<img class="col-12 tooltipped rounded mx-auto d-block" data-position="top" data-delay="50" data-tooltip="Lisez les étapes suivantes puis essayez !" alt="1. Cliquez" src="{{ asset('asset/img/fcbouton.jpg')}}">
+		</a>
+	</div>
+
+	<div class="col-10 col-lg-8 col-xl-6 mx-auto mb-4 ">
+		<a class="col-12 mx-auto" href="/login">
+			<button type="button" class="col-12 btn btn-outline-primary btn-lg text-center mt-3 mb-3 ">mon Compte
+			</button>
+		</a>
+	</div>
+	{% endif %}
+
+	<div class="col-10 col-lg-8 col-xl-6 mx-auto mt-2">
+		<img class="col-12 mx-auto rounded float-right mb-3" src="{{ asset('asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png')}}" alt="agrément CGofficiel carte grise certificat immatriculation">
+	</div>
+
+	<div class="col-10 col-lg-8 col-xl-6 mx-auto row head-text d-flex flex-row align-items-end my-flex-container mb-5">
+		<div class="col-12 service-telephonique--flex---text----flex ">
+			<p class="col-12 mx-auto ">
+				<img class="col-12 mx-auto img-fluid" src="{{ asset('asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="0897010800 CGofficiel carte grise certificat immatriculation">
+			</p>
+		</div>
+	</div>
+</div>
+<!-- _____________________________________________________________________________________SIDEBAR ORDI fin -->
+
+<!-- _______________________________________________________________________________________SIDEBAR MOBILE -->
+<div class="col-12 row sidebar hidden-lg-up mt-2 mb-2">
+	<div class="col-12 row mt-3">
+		<a class="col-10 mx-auto" href="/Accueil">
+			<img class="logo-home rounded mx-auto d-block img-fluid" src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="logo">
+		</a>
+	</div>
+	<div class="col-6 mx-auto mt-2 text-center">
+		<img class="col-10 mx-auto rounded mb-3" src="{{ asset('asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png')}}" alt="agrément CGofficiel carte grise certificat immatriculation">
+	</div>
+	<div class="col-6 row d-flex flex-row justify-content-center my-flex-container mt-2">
+		<div class="col-10">
+			<a href="#">
+				<img class="col-12 tooltipped rounded mx-auto d-block" data-position="top" data-delay="50" data-tooltip="Lisez les étapes suivantes puis essayez !" alt="1. Cliquez" src="{{ asset('asset/img/fcbouton.jpg')}}">
+			</a>
+		</div>
+		<div class="col-12  row mt-2">
+			<div class="col-12 d-flex flex-row justify-content-center my-flex-container ">
+				<a class="col-12 mx-auto  d-flex flex-row justify-content-center my-flex-container" href="/login">
+					<button type="button" class="col-10 btn btn-outline-primary btn-lg text-center mt-3 mb-3 ">mon Compte
+					</button>
+				</a>
+			</div>
+			<div class="col-12 d-flex flex-row justify-content-center my-flex-container ">
+				<button type="button" class="btn btn-outline-primary btn-lg col-10 text-center mt-3 mb-3">Actualité
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ____________________________________________________________________________________SIDEBAR MOBILE fin-->

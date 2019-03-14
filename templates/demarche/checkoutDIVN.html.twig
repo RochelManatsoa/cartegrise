@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CheckoutP{% endblock %}
+
+{% block body %}
+
+	<h2 class=" col-12 mx-auto" style="text-align:center">Détails des Taxes</h2>
+
+<br>
+		<div class="col-6 mx-auto" id="demarche5">
+        </div>
+<br>
+        <div class="col-3 mx-auto" id="linkReglement">
+        	<a  class="mx-auto"><button type="button" class="mx-auto btn btn-outline-success">Procéder au Paiement</button></a>
+        </div>
+
+<br>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+<script>
+
+                $.ajax({
+                    url: "../../incphp/checkout5.php",
+                    method: "POST",
+                    type: "POST",
+                    data: { tmsId: {{ tmsId }}, type: '{{ type }}' },
+                    success: function (data) {
+                        $("#demarche5").html(data);
+                    }
+                });
+
+
+</script>
+
+
+
+{% endblock %}
