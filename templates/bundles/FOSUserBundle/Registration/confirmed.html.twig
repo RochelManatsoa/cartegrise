@@ -1,0 +1,14 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+	<div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
+		<div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
+		    <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+		    {% if targetUrl %}
+		    <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+		    {% endif %}
+	    </div>
+    </div>
+{% endblock fos_user_content %}

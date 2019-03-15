@@ -23,8 +23,13 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="Accueil")
      */
-    public function accueil(Request $request, TypeDemandeRepository $demarche, ObjectManager $manager, 
-        TaxesRepository $repo_taxe, CommandeRepository $repo_commande )
+    public function accueil(
+        Request $request,
+        TypeDemandeRepository $demarche,
+        ObjectManager $manager,
+        TaxesRepository $repo_taxe,
+        CommandeRepository $repo_commande
+        )
     {
         
         $commande = new Commande();
@@ -101,6 +106,8 @@ class HomeController extends AbstractController
                 $Immat = array("Immatriculation"=>$TMS_Immatriculation);
                 $params = array("Identification"=>$Ident, "Lot" => $Lot);
                 $value = $client->Envoyer($params);
+
+                dump($value);die;
 
                 if(isset($value->Lot->Demarche->ECGAUTO->Reponse->Negative->Erreur)){
                     return new Response(
