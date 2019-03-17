@@ -64,12 +64,7 @@ class Client
     private $clientAdresse;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="client")
-     */
-    private $clientCommandes;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="client")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Commande", mappedBy="client")
      */
     private $commande;
 
@@ -282,7 +277,7 @@ class Client
     {
         if (!$this->commande->contains($commande)) {
             $this->commande[] = $commande;
-            $commande->setClient($this);
+            $commande->addClient($this);
         }
 
         return $this;
@@ -292,14 +287,9 @@ class Client
     {
         if ($this->commande->contains($commande)) {
             $this->commande->removeElement($commande);
-            // set the owning side to null (unless already changed)
-            if ($commande->getClient() === $this) {
-                $commande->setClient(null);
-            }
+            $commande->removeClient($this);
         }
 
         return $this;
     }
-
-
 }

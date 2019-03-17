@@ -17,6 +17,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Manager\SessionManager;
+
 
 class HomeController extends AbstractController
 {
@@ -27,8 +29,9 @@ class HomeController extends AbstractController
         Request $request,
         TypeDemandeRepository $demarche,
         ObjectManager $manager,
-        TaxesRepository $repo_taxe,
-        CommandeRepository $repo_commande
+        TaxesRepository $taxesRepository,
+        CommandeRepository $commandeRepository,
+        SessionManager $sessionManager
         )
     {
         
@@ -45,40 +48,33 @@ class HomeController extends AbstractController
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $repository = $repo_commande->findOneBy([
+            $ifCommande = $commandeRepository->findOneBy([
                 'immatriculation' => $commande->getImmatriculation(),
                 'codePostal' => $commande->getCodePostal(),
                 'demarche' => $commande->getDemarche(),
             ]);
-            if($repository !== null){
-                $value = $repo_taxe->find($repository);
-                $recap = $repo_commande->find($repository);
-                dump($value);
-                dump($repository);
+            $sessionManager->initSession();
+            if($ifCommande !== null){
+                $recapCommand = $ifCommande;
+                $value = $taxesRepository->find($recapCommand);
+                $param = [
+                    'commandes' => $commande, 'recap' => $recapCommand,
+                    'value' => $value,        'database' => true,
+                    ];
                 if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
-                    $user = $this->getUser();
-                    $client = $user->getClient();
-                    $genre = $client->getClientGenre();
-
-                    return $this->render('home/accueil.html.twig', [
-                            'genre' => $genre,
-                            'client' => $client,
-                            'commandes' => $commande,
-                            'recap' => $recap,
-                            'value' => $value,
-                            'database' => true,
-                    ]);
+                    $param = array_merge([
+                            'genre' => $this->getUser()->getClient()->getClientGenre(),
+                            'client' => $this->getUser()->getClient(),
+                    ], $param);
+                } else {
+                    $param = array_merge(['tab' => $tabForm], $param);
                 }
-                return $this->render('home/accueil.html.twig', [
-                    'tab' => $tabForm,
-                    'commandes' => $commande,
-                    'recap' => $recap,
-                    'value' => $value,
-                    'database' => true,
-                    ]);
+                // set and get session attributes 
+                $sessionManager->addArraySession('IdsRecapCommande', [$recapCommand->getId()]);
+                // end treatment session
 
-            }else{
-
+                return $this->render('home/accueil.html.twig', $param);
+            } else {
                 $TMS_URL = "http://test.misiv.intra.misiv.fr/wsdl/ws_interface.php?v=2";
                 $TMS_CodeTMS = "31-000100";
                 $TMS_Login = "JE@n-Y100";
@@ -96,6 +92,14 @@ class HomeController extends AbstractController
                         ->setCeerLe($date_demarche);
                 $manager->persist($commande);
                 $manager->flush();
+                // set and get session attributes 
+                $sessionManager->addArraySession('IdsRecapCommande', [$recapCommand->getId()]);
+                // end treatment session
+
+                // set and get session attributes 
+                $sessionManager->initSession();
+                $sessionManager->addArraySession('IdsRecapCommande', [$recapCommand->getId()]);
+                // end treatment session
 
                 $Vehicule = array("Immatriculation" => $immatr, "Departement" => $code_postal);
                 $DateDemarche = date('Y-m-d H:i:s');
@@ -113,7 +117,7 @@ class HomeController extends AbstractController
                     return new Response(
                         '<html><body><h1>'.$value->Lot->Demarche->ECGAUTO->Reponse->Negative->Erreur.'</h1></body></html>'
                         );
-                }else{                   
+                } else {                   
 
                     $taxe = new Taxes();
                     $taxe->setTaxeRegionale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale)
