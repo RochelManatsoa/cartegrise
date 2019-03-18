@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr" xml:lang="fr">
+
+<head>
+    {{ include('home/layout/header.html.twig') }}
+
+    {% block seo %}{% endblock %}
+
+    <title>{% block title %}CGOfficiel{% endblock %}</title>
+</head>
+
+<body id="{% block body_id %}{% endblock %}" class="{% block class %}{% endblock %}">
+<div id="up" class="row">
+    {{ include('home/composant/menu.html.twig') }}
+    {{ include('home/composant/sidebar.html.twig') }}
+
+    {% block fos_user_content %}{% endblock %}
+</div>
+{% block pagetext_content %}{% endblock %}
+
+{{ include('home/composant/footer.html.twig') }}
+{{ include('home/layout/footer.html.twig') }}
+</body>
+</html>
