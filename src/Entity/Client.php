@@ -68,6 +68,21 @@ class Client
      */
     private $commande;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $clientLieuNaissance;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $clientDptNaissance;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $clientPaysNaissance;
+
 
 
     public function __construct()
@@ -292,4 +307,41 @@ class Client
 
         return $this;
     }
+    
+    public function getClientLieuNaissance(): ?string
+    {
+        return $this->clientLieuNaissance;
+    }
+
+    public function setClientLieuNaissance(string $clientLieuNaissance): self
+    {
+        $this->clientLieuNaissance = $clientLieuNaissance;
+
+        return $this;
+    }
+
+    public function getClientDptNaissance(): ?int
+    {
+        return $this->clientDptNaissance;
+    }
+
+    public function setClientDptNaissance(int $clientDptNaissance): self
+    {
+        $this->clientDptNaissance = $clientDptNaissance;
+
+        return $this;
+    }
+
+    public function getClientPaysNaissance(): ?string
+    {
+        return $this->clientPaysNaissance;
+    }
+
+    public function setClientPaysNaissance(string $clientPaysNaissance): self
+    {
+        $this->clientPaysNaissance = $clientPaysNaissance;
+
+        return $this;
+    }
+
 }
