@@ -33,11 +33,11 @@ class ClientType extends AbstractType
             ->add('clientDateNaissance', DateType::class, array(
                     'widget' => 'single_text',
                     ))
-            /*
+            
             ->add('clientLieuNaissance', TextType::class)
             ->add('clientDptNaissance', NumberType::class)
-            ->add('clientPaysNaissance', CountryType::class)
-            */
+            ->add('clientPaysNaissance', CountryType::class, array('label' => 'Pays','required'=> false, 'preferred_choices' => array('FR'=>'France')))
+            
             ->add('clientContact', ContactType::class)
             ->add('clientAdresse', AdresseType::class)
             /*
