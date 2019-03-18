@@ -70,7 +70,7 @@ class HomeController extends AbstractController
                     $param = array_merge(['tab' => $tabForm], $param);
                 }
                 // set and get session attributes 
-                $sessionManager->addArraySession('IdsRecapCommande', [$recapCommand->getId()]);
+                $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$recapCommand->getId()]);
                 // end treatment session
 
                 return $this->render('home/accueil.html.twig', $param);
@@ -93,12 +93,7 @@ class HomeController extends AbstractController
                 $manager->persist($commande);
                 $manager->flush();
                 // set and get session attributes 
-                $sessionManager->addArraySession('IdsRecapCommande', [$recapCommand->getId()]);
-                // end treatment session
-
-                // set and get session attributes 
-                $sessionManager->initSession();
-                $sessionManager->addArraySession('IdsRecapCommande', [$recapCommand->getId()]);
+                $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
                 // end treatment session
 
                 $Vehicule = array("Immatriculation" => $immatr, "Departement" => $code_postal);
