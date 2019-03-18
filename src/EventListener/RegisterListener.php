@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Repository\CommandeRepository;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Manager\SessionManager;
 
 /**
  * Listener responsible to change the redirection at the end of the password resetting
@@ -40,7 +41,7 @@ class RegisterListener implements EventSubscriberInterface
 
     public function onRegistrationCompleted(FilterUserResponseEvent $event)
     {
-        $idsRecapCommande = $event->getRequest()->getSession()->get('IdsRecapCommande');
+        $idsRecapCommande = $event->getRequest()->getSession()->get(SessionManager::IDS_COMMANDE);
         $user = $event->getUser();
         if (!$user instanceof User)
             return;
@@ -51,7 +52,9 @@ class RegisterListener implements EventSubscriberInterface
             }
             $this->em->persist($user);
             $this->em->flush();
+            $event->getRequest()->getSession()->remove(SessionManager::IDS_COMMANDE);
         }
+        
         return;
     }
 }
