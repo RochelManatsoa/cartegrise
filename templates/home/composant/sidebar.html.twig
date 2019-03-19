@@ -10,7 +10,7 @@
 	{% if app.user %}
 	<div class="col-10 col-lg-8 col-xl-6 mx-auto mt-4">
 		<h5>
-		Bonjour {{ genre }} {{ client.clientPrenom }} {{ client.clientNom | upper}}
+		Bonjour {{ app.user.client.clientGenre }} {{ app.user.client.clientPrenom }} {{ app.user.client.clientNom | upper}}
 		</h5>
 		<h5>
 			<a href="{{ path('compte') }}">Mon compte</a> | <a href="{{ path('logout') }}">Déconnexion</a>

@@ -50,4 +50,21 @@ class User extends BaseUser
 
         return $this;
     }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getRegisterDate(): ?\DateTimeInterface
+    {
+        return $this->registerDate;
+    }
+
+    public function setRegisterDate(?\DateTimeInterface $registerDate): self
+    {
+        $this->registerDate = $registerDate;
+
+        return $this;
+    }
 }

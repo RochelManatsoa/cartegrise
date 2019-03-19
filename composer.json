@@ -6,7 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "easycorp/easyadmin-bundle": "^2.0",
-        "friendsofsymfony/user-bundle": "^2.1",
+        "friendsofsymfony/user-bundle": "^2.0.1",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "4.2.*",
@@ -21,6 +21,7 @@
         "symfony/swiftmailer-bundle": "^3.2",
         "symfony/twig-bundle": "*",
         "symfony/validator": "*",
+        "symfony/webpack-encore-bundle": "^1.2",
         "symfony/yaml": "*",
         "twig/extensions": "^1.5"
     },
