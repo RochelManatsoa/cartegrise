@@ -1,0 +1,48 @@
+.menu-faq--box---item{
+  border: 2px solid #002a6b;
+  min-height: 15vh !important;
+  margin-bottom: 1vh;
+  margin-top: 1vh;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  font-family: textr;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+
+  &:hover{
+    cursor: pointer;
+  }
+}
+.menu-faq--box--titre{
+  font-family:textr;
+  font-size: 20px;
+  font-weight: bold;
+  color: #002a6b;
+}
+.body-faq{
+  a{
+    color: red;
+  }
+.commander  {
+  color: white;
+  font-family: textr;
+  font-size: 20px;
+}
+}
+.faq-firstview{
+padding-top: 10vh !important;
+padding-bottom: 20vh !important;
+  .faq-description--titre{
+    margin-top: 10vh;
+    text-align: center;
+    font-size: 30px;
+    font-family: textr;
+    color: #002a6b;
+    margin-bottom: 2vh;
+  }
+  .faq-description--texte{
+    font-size: 20px;
+    font-family: textr;
+    text-align: justify;
+  }
+}

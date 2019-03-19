@@ -1,0 +1,37 @@
+.contact-content--titre {
+  color: #012a6a;
+  font-family: textr;
+}
+
+.contact-content--texte {
+  padding-top: 20px;
+  font-family: textr;
+}
+
+.contact-content--texte {
+  p {
+    font-family: textr;
+    font-size: 20px;
+  }
+}
+
+.contact-content {
+  .card-header {
+    font-family: textr;
+    font-weight: bold;
+    font-size: 25px;
+    color: #012a6a;
+  }
+
+  .form-control-label {
+    font-family: textr;
+  }
+
+  .form-control {
+    border: 1px solid #012a6a;
+  }
+
+  .card {
+    border: 1px solid #012a6a;
+  }
+}
