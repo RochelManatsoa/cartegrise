@@ -400,6 +400,11 @@ class DemarcheController extends AbstractController
             $mobile = $contact->getContactTelmobile();
             $mail = $user->getEmail();
 
+            $demande = new Demande();
+            $form = $this->createForm(DemandeType::class, $demande);
+            $dupForm = $form->createView();
+
+
         return $this->render('demarche/dup.html.twig', [
                 'idclient' => $idclient,
                 'mail' => $mail,
