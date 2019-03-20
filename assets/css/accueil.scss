@@ -1,4 +1,9 @@
 .resultat-estimation{
+	display: block;
+	img{
+		height:200px;
+		width:auto;
+	}
 	h2{
 		text-align: left;
 		text-transform: uppercase;
@@ -6,12 +11,14 @@
 		color: $bleu;
 		font-weight: bold;
 	}
+
 	th{
 		text-align: left;
 		font-family: textr;
 		color: $bleu;
 		font-weight: bold;
 	}
+
 	td{
 		text-align: left;
 		font-family: textr;
@@ -126,7 +133,7 @@ white-space: nowrap;
 }
 .head {
   overflow: hidden;
-  background-image: url("/img/head.jpg");
+  background-image: url("/../../asset/img/head.jpg");
   background-size:cover;
 
   .head-logo img {
@@ -220,7 +227,7 @@ white-space: nowrap;
     margin-bottom: 45px;
     height: 40px;
     font-size: 20px;
-    background-image: url(/img/plaque-CGofficiel-carte-grise-certificat-immatriculation.png);
+    background-image: url(/../../asset/img/plaque-CGofficiel-carte-grise-certificat-immatriculation.png);
     background-size:contain;
     background-position: center;
     background-repeat: no-repeat;

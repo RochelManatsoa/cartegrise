@@ -8,7 +8,7 @@
 	</div>
 
 	{% if app.user %}
-	<div class="col-10 col-lg-8 col-xl-6 mx-auto mt-4">
+	<div class="espace-client-user col-10 col-lg-8 col-xl-6 mx-auto mt-4 mb-4 ">
 		<h5>
 		Bonjour {{ app.user.client.clientGenre }} {{ app.user.client.clientPrenom }} {{ app.user.client.clientNom | upper}}
 		</h5>
@@ -16,6 +16,25 @@
 			<a href="{{ path('compte') }}">Mon compte</a> | <a href="{{ path('logout') }}">Déconnexion</a>
 		</h5>
 	</div>
+
+	<ul class="espace-client-menu col-10 col-lg-8 col-xl-6 list-group mx-auto mb-4">
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+				<a href="/categorie/certificat-d-immatriculation">Information Personnelles</a>
+			</li>
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+				<a href="/categorie/demarches">Démarches</a>
+				<span class="badge badge-primary badge-pill">66</span>
+			</li>
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+				<a href="/categorie/controle-technique">Commandes</a>
+				<span class="badge badge-primary badge-pill">14</span>
+			</li>
+			
+		</ul>
+
+
+
+
 	{% else %}
 	<div class="col-10 col-lg-8 col-xl-6 mx-auto mt-4">
 		<a class="col-12 mx-auto" href="#">
