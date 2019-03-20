@@ -84,6 +84,16 @@ class Demande
      */
     private $nomDemande;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Ancientitulaire", inversedBy="demande", cascade={"persist", "remove"})
+     */
+    private $AncienTitulaire;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Vehicule", inversedBy="demande", cascade={"persist", "remove"})
+     */
+    private $vehicule;
+
     public function __toString()
     {
         return $this->typeDemande;
@@ -270,6 +280,30 @@ class Demande
     public function setNomDemande(?TypeDemande $nomDemande): self
     {
         $this->nomDemande = $nomDemande;
+
+        return $this;
+    }
+
+    public function getAncienTitulaire(): ?Ancientitulaire
+    {
+        return $this->AncienTitulaire;
+    }
+
+    public function setAncienTitulaire(?Ancientitulaire $AncienTitulaire): self
+    {
+        $this->AncienTitulaire = $AncienTitulaire;
+
+        return $this;
+    }
+
+    public function getVehicule(): ?Vehicule
+    {
+        return $this->vehicule;
+    }
+
+    public function setVehicule(?Vehicule $vehicule): self
+    {
+        $this->vehicule = $vehicule;
 
         return $this;
     }

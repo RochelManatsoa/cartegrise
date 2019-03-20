@@ -77,6 +77,21 @@ class Vehicule
      */
     private $Titulaire;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Demande", mappedBy="vehicule", cascade={"persist", "remove"})
+     */
+    private $demande;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Vehicule", inversedBy="vehicule", cascade={"persist", "remove"})
+     */
+    private $cotitulaire;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Vehicule", mappedBy="cotitulaire", cascade={"persist", "remove"})
+     */
+    private $vehicule;
+
 
     public function getId(): ?int
     {
@@ -223,6 +238,54 @@ class Vehicule
     public function setTitulaire(?NewTitulaire $Titulaire): self
     {
         $this->Titulaire = $Titulaire;
+
+        return $this;
+    }
+
+    public function getDemande(): ?Demande
+    {
+        return $this->demande;
+    }
+
+    public function setDemande(?Demande $demande): self
+    {
+        $this->demande = $demande;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newVehicule = $demande === null ? null : $this;
+        if ($newVehicule !== $demande->getVehicule()) {
+            $demande->setVehicule($newVehicule);
+        }
+
+        return $this;
+    }
+
+    public function getCotitulaire(): ?self
+    {
+        return $this->cotitulaire;
+    }
+
+    public function setCotitulaire(?self $cotitulaire): self
+    {
+        $this->cotitulaire = $cotitulaire;
+
+        return $this;
+    }
+
+    public function getVehicule(): ?self
+    {
+        return $this->vehicule;
+    }
+
+    public function setVehicule(?self $vehicule): self
+    {
+        $this->vehicule = $vehicule;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCotitulaire = $vehicule === null ? null : $this;
+        if ($newCotitulaire !== $vehicule->getCotitulaire()) {
+            $vehicule->setCotitulaire($newCotitulaire);
+        }
 
         return $this;
     }

@@ -31,6 +31,11 @@ class Ancientitulaire
      */
     private $nomprenom;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Demande", mappedBy="AncienTitulaire", cascade={"persist", "remove"})
+     */
+    private $demande;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,24 @@ class Ancientitulaire
     public function setNomprenom(string $nomprenom): self
     {
         $this->nomprenom = $nomprenom;
+
+        return $this;
+    }
+
+    public function getDemande(): ?Demande
+    {
+        return $this->demande;
+    }
+
+    public function setDemande(?Demande $demande): self
+    {
+        $this->demande = $demande;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAncienTitulaire = $demande === null ? null : $this;
+        if ($newAncienTitulaire !== $demande->getAncienTitulaire()) {
+            $demande->setAncienTitulaire($newAncienTitulaire);
+        }
 
         return $this;
     }

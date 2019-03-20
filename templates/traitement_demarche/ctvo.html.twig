@@ -11,8 +11,10 @@
 	    <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
 	        <div class="col-12 commander-firstview">
 		        <div class="row col-11 mx-auto">
-                    
-                    
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" class="btn btn-lg btn-success" value="Envoyer">
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
