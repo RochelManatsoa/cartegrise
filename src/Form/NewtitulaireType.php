@@ -24,7 +24,7 @@ class NewtitulaireType extends AbstractType
             ->add('societeCommerciale')
             ->add('siren')
             ->add('adresseNewTitulaire', AdresseNewTitulaireType::class)
-            ->add('demande')
+            // ->add('demande')
         ;
     }
 

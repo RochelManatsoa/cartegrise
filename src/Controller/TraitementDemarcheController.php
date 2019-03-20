@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Demande;
-use App\Form\DupFormType;
+use App\Form\CtvoFormType;
+use App\Form\DvinFormType;
 use App\Form\DcFormType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +39,7 @@ class TraitementDemarcheController extends AbstractController
             $mail = $user->getEmail();
 
             $demande = new Demande();
-            $form = $this->createForm(DupFormType::class, $demande);
+            $form = $this->createForm(CtvoFormType::class, $demande);
             $ctvoFrom = $form->createView();
 
         return $this->render('traitement_demarche/ctvo.html.twig', [
@@ -104,7 +105,7 @@ class TraitementDemarcheController extends AbstractController
             $mail = $user->getEmail();
 
             $demande = new Demande();
-            $form = $this->createForm(DemarcheType::class, $demande);
+            $form = $this->createForm(DvinFormType::class, $demande);
             $dvinFrom = $form->createView();
 
         return $this->render('traitement_demarche/dvin.html.twig', [
