@@ -76,7 +76,7 @@
 
 body{
 	// background-color: #eeeeee !important;
-	background: url("/img/fond-CGofficiel-carte-grise-certificat-immatriculation.png") !important;
+	background: url("/../../asset/img/fond-CGofficiel-carte-grise-certificat-immatriculation.png") !important;
 	background-color: #f9f9f9 !important;
 	background-position: top right !important;
 	background-size: 100% !important;
@@ -106,24 +106,24 @@ $bleu-hover: rgb(63, 87, 149);
 $rouge: rgb(175, 68, 68);
 @font-face {
 	font-family: textr;
-	src: url("/fonts/SourceSansPro-Regular.ttf");
+	src: url("/../../asset/fonts/SourceSansPro-Regular.ttf");
 }
 @font-face {
 	font-family: menu;
-	src: url("/fonts/calibril.ttf");
+	src: url("/../../asset/fonts/calibril.ttf");
 }
 @font-face {
 	font-family: menub;
-	src: url("/fonts/calibrib.ttf");
+	src: url("/../../asset/fonts/calibrib.ttf");
 }
 @font-face {
 	font-family: Raleway;
-	src: url("/fonts/Raleway-Regular.ttf");
+	src: url("/../../asset/fonts/Raleway-Regular.ttf");
 }
 
 @font-face {
 	font-family: font-awesome;
-	src: url("/fonts/fontawesome-webfont.woff");
+	src: url("/../../asset/fonts/fontawesome-webfont.woff");
 }
 
 
