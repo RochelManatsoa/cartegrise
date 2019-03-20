@@ -1,47 +1,58 @@
 {% trans_default_domain 'FOSUserBundle' %}
+<div class="col-8 div-account d-flex flex-row justify-content-center align-items-center my-flex-containe">
 
-<div class="m-lg-5">
+	{% if error %}
+	<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+	{% endif %}
 
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+<div class="col-md-12 col-lg-8 wrapper fadeInDown d-flex flex-row justify-content-center align-items-center my-flex-container">
+	<div id="formContent mt-5 mb-5">
 
-<form action="{{ path("fos_user_security_check") }}" method="post" >
-    {% if csrf_token %}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-    {% endif %}
-    <div class="form-group">
-        <label for="username">{{ 'security.login.username'|trans }}</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" class="form-control"/>
-    </div>
-    <div class="form-group">
-        <label for="password">{{ 'security.login.password'|trans }}</label>
-        <input type="password" id="password" name="_password" required="required" autocomplete="current-password" class="form-control"/>
-    </div>
-    <div class="form-group form-check">
-        <input type="checkbox" id="remember_me" name="_remember_me" value="on" class="form-check-input" />
-        <label for="remember_me" class="form-check-label">{{ 'security.login.remember_me'|trans }}</label>
-    </div>
-    <div class="form-group form-check">
-        <a href="{{ path('fos_user_resetting_request') }}">Oublie de votre mot de passe?</a>
-    </div>
-    <input type="submit" id="_submit" name="_submit" class="btn btn-primary" value="{{ 'security.login.submit'|trans }}" />
-</form>
+		<form class="formContent-bc col-12 row d-flex flex-row justify-content-center my-flex-container mt-5 pt-5" action="{{ path("fos_user_security_check") }}" method="post">
+			{% if csrf_token %}
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+			{% endif %}
+
+			<div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div>
+			<label class="hidden-xl-down" for="username">{{ 'security.login.username'|trans }}</label>
+			<input class="col-10 mx-auto fadeIn second" type="text" id="username" name="_username" placeholder="Votre identifiant" value="{{ last_username }}">
+
+
+			<div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div>
+			<label class="hidden-xl-down" for="password">{{ 'security.login.password'|trans }}</label>
+			<input class="col-10 mx-auto fadeIn third" type="password" id="password" name="_password" placeholder="Mot de passe">
+
+			<label for="remember_me" class="col-6 form-check-label text-right mt-3 mb-3">{{ 'security.login.remember_me'|trans }}</label>
+			<input type="checkbox" id="remember_me" name="_remember_me" value="on" class="col-6 form-check-input text-left mt-3 mb-3" />
+
+					<input type="submit" id="_submit" name="_submit" class="fadeIn fourth" value="{{ 'security.login.submit'|trans }}" />
+		</form>
+
+
+		<div id="formFooter">
+			<p>
+				<a class="underlineHover" href="Home.php">Retourner à l'accueil</a>
+				</br>
+				<div class="form-group form-check oublie-mdp">
+					<a href="{{ path('fos_user_resetting_request') }}">Oublie de votre mot de passe?</a>
+				</div>
+			</p>
+		</div>
+		{#<form action="{{ path("fos_user_security_check") }}" method="post">#}
+			{#{% if csrf_token %}#}
+			{#<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />#}
+			{#{% endif %}#}
+
+			{#<label for="username">{{ 'security.login.username'|trans }}</label>#}
+			{#<input type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />#}
+
+			{#<label for="password">{{ 'security.login.password'|trans }}</label>#}
+			{#<input type="password" id="password" name="_password" required="required" autocomplete="current-password" />#}
+
+			{#<input type="checkbox" id="remember_me" name="_remember_me" value="on" />#}
+			{#<label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>#}
+
+			{#<input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />#}
+			{#</form>#}
+	</div>
 </div>
-
-{#<form action="{{ path("fos_user_security_check") }}" method="post">#}
-    {#{% if csrf_token %}#}
-        {#<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />#}
-    {#{% endif %}#}
-
-    {#<label for="username">{{ 'security.login.username'|trans }}</label>#}
-    {#<input type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />#}
-
-    {#<label for="password">{{ 'security.login.password'|trans }}</label>#}
-    {#<input type="password" id="password" name="_password" required="required" autocomplete="current-password" />#}
-
-    {#<input type="checkbox" id="remember_me" name="_remember_me" value="on" />#}
-    {#<label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>#}
-
-    {#<input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />#}
-{#</form>#}
