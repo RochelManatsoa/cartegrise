@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -62,7 +63,7 @@ class Client
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Commande", mappedBy="client")
      */
-    private $commande;
+    private $commandes;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -84,8 +85,8 @@ class Client
     public function __construct()
     {
         $this->fichiers = new ArrayCollection();
-        $this->clientCommandes = new ArrayCollection();
         $this->commande = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
 
     public function __toString()
@@ -213,64 +214,6 @@ class Client
         return $this;
     }
 
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getClientCommandes(): Collection
-    {
-        return $this->clientCommandes;
-    }
-
-    public function addClientCommande(Commande $clientCommande): self
-    {
-        if (!$this->clientCommandes->contains($clientCommande)) {
-            $this->clientCommandes[] = $clientCommande;
-            $clientCommande->setClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeClientCommande(Commande $clientCommande): self
-    {
-        if ($this->clientCommandes->contains($clientCommande)) {
-            $this->clientCommandes->removeElement($clientCommande);
-            // set the owning side to null (unless already changed)
-            if ($clientCommande->getClient() === $this) {
-                $clientCommande->setClient(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getCommande(): Collection
-    {
-        return $this->commande;
-    }
-
-    public function addCommande(Commande $commande): self
-    {
-        if (!$this->commande->contains($commande)) {
-            $this->commande[] = $commande;
-            $commande->addClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): self
-    {
-        if ($this->commande->contains($commande)) {
-            $this->commande->removeElement($commande);
-            $commande->removeClient($this);
-        }
-
-        return $this;
-    }
     
     public function getClientLieuNaissance(): ?string
     {
@@ -306,6 +249,48 @@ class Client
         $this->clientPaysNaissance = $clientPaysNaissance;
 
         return $this;
+    }
+
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->addClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->contains($commande)) {
+            $this->commandes->removeElement($commande);
+            $commande->removeClient($this);
+        }
+
+        return $this;
+    }
+
+    public function getListDemande()
+    {
+        $criteria = Criteria::create()
+            ->andWhere(Criteria::expr()->gt('clientNom', 20))
+            ->orderBy(['clientNom', 'DESC']);
+        return $this->getGenusScientists()->matching($criteria);
+    }
+
+    public function getCountCommandes() {
+
+        return 0 < count($this->commandes) ? count($this->commandes) : 0;
     }
 
 }

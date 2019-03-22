@@ -1,3 +1,6 @@
 controllers:
     resource: ../../src/Controller/
     type: annotation
+client_controller:
+    resource: ../../src/Controller/Client
+    type: annotation

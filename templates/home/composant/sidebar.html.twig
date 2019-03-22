@@ -1,4 +1,3 @@
-<!-- ________________________________________________________________________________________SIDEBAR ORDI -->
 <div class="col-4 sidebar hidden-md-down ">
 
 	<div class="col-12 row d-flex align-items-center">
@@ -18,19 +17,23 @@
 	</div>
 
 	<ul class="espace-client-menu col-10 col-lg-8 col-xl-6 list-group mx-auto mb-4">
-				<li class="list-group-item d-flex justify-content-between align-items-center">
-				<a href="/categorie/certificat-d-immatriculation">Information Personnelles</a>
-			</li>
-				<li class="list-group-item d-flex justify-content-between align-items-center">
-				<a href="/categorie/demarches">Démarches</a>
-				<span class="badge badge-primary badge-pill">66</span>
-			</li>
-				<li class="list-group-item d-flex justify-content-between align-items-center">
-				<a href="/categorie/controle-technique">Commandes</a>
-				<span class="badge badge-primary badge-pill">14</span>
-			</li>
-			
-		</ul>
+		<li class="list-group-item d-flex justify-content-between align-items-center active">
+			<a href="#">Information Client</a>
+		</li>
+		<li class="list-group-item d-flex justify-content-between align-items-center">
+			<a href="{{ path('compte') }}">mes informations</a>
+		</li>
+		<li class="list-group-item d-flex justify-content-between align-items-center">
+			<a href="{{ path('commande_list') }}">Commande(s)</a>
+			<span class="badge badge-primary badge-pill">{{ app.user.client.countCommandes }}</span>
+		</li>
+		</li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+			<a href="/categorie/demarches">Demande(s)</a>
+			<span class="badge badge-primary badge-pill">0</span>
+		</li>
+		
+	</ul>
 
 
 
