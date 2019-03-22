@@ -288,6 +288,15 @@ class Client
         return $this->getGenusScientists()->matching($criteria);
     }
 
+    public function getCountDem()
+    {
+        // $criteria = Criteria::create('c')
+        // ->join('c.commandes as com')
+        // ->andWhere('com.demandes');
+        // return $this->getCommandes()->matching($criteria)->count();
+        return 4;
+    }
+
     public function getCountCommandes() {
 
         return 0 < count($this->commandes) ? count($this->commandes) : 0;

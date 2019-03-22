@@ -44,6 +44,11 @@ class Commande
     private $client;
 
     /**
+     * @ORM\OneToOne(targetEntity="Taxes", mappedBy="commande")
+     */
+    private $taxes;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="commande")
      */
     private $demandes;
@@ -161,6 +166,24 @@ class Commande
             if ($demande->getCommande() === $this) {
                 $demande->setCommande(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getTaxes(): ?Taxes
+    {
+        return $this->taxes;
+    }
+
+    public function setTaxes(?Taxes $taxes): self
+    {
+        $this->taxes = $taxes;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCommande = $taxes === null ? null : $this;
+        if ($newCommande !== $taxes->getCommande()) {
+            $taxes->setCommande($newCommande);
         }
 
         return $this;

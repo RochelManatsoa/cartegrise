@@ -47,7 +47,6 @@ class AdressNewTitulaireType extends AbstractType
             ->add('ville', TextType::class, array('label' => 'Ville (*)'))
             ->add('boitepostal', TextType::class, array('label' => 'Boîte postale', 'required'=>false))
             ->add('pays', CountryType::class, array('label' => 'Pays','required'=> false, 'preferred_choices' => array('FR'=>'France')))
-            ->add('titulaire')
         ;
     }
 

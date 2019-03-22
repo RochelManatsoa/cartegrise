@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Demande;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Entity\Demande;
+use App\Form\{AncientitulaireType, NewtitulaireType};
 
 class CtvoFormType extends AbstractType
 {
@@ -13,14 +15,14 @@ class CtvoFormType extends AbstractType
         $builder
             ->add('AncienTitulaire', AncientitulaireType::class)            
             ->add('Acquerreur', NewtitulaireType::class, array('label'=>"Nouveau titulaire"))
-            ->add('Vehicule', VehiculeType::class, array('label'=>"Information véhicule"))
+            // ->add('Vehicule', VehiculeType::class, array('label'=>"Information véhicule"))
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => Demande::class,
         ]);
     }
 }

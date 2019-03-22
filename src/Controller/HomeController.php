@@ -34,6 +34,8 @@ class HomeController extends AbstractController
         SessionManager $sessionManager
         )
     {
+
+        // dump($this->getUser()->getClient()->getCountDem());die;
         
         $commande = new Commande();
         $type = $demarche->findAll();
@@ -133,8 +135,9 @@ class HomeController extends AbstractController
                         ->setGenre($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Genre)
                         ->setPTAC($value->Lot->Demarche->ECGAUTO->Reponse->Positive->PTAC)
                         ->setEnergie($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Energie)
-                        ->setCommande($commande)
                         ->setDateMEC(\DateTime::createFromFormat('Y-m-d', $value->Lot->Demarche->ECGAUTO->Reponse->Positive->DateMEC));
+                    $commande->setTaxes($taxe);
+                    $manager->persist($$commande);
                     $manager->persist($taxe);
                     $manager->flush();
 

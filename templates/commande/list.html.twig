@@ -26,7 +26,7 @@
                             <td>{{ commande.immatriculation }}</td>
                             <td><span class="badge badge-warning">commande en cours</span></td>
                             <td>
-                                <button type="button" class="btn btn-primary btn-sm">passer Commande</button>
+                                <a href="{{path('new_demande', {'commande': commande.id })}}"><button type="button" class="btn btn-primary btn-sm">passer Commande</button></a>
                                 <button type="button" class="btn btn-danger btn-sm">annuler</button>
                             </td>
                         </tr>

@@ -19,12 +19,7 @@ class Demande
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $typeDemande;
-
-    /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",nullable=true, options={"default" : true})
      */
     private $opposeDemande;
 
@@ -35,12 +30,12 @@ class Demande
     private $commande;
 
     /**
-     * @ORM\Column(type="string", length=999)
+     * @ORM\Column(type="string", length=999, nullable=true)
      */
     private $statutDemande;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $paiementDemande;
 
@@ -80,11 +75,6 @@ class Demande
     private $Acquerreur;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TypeDemande", inversedBy="demandes")
-     */
-    private $nomDemande;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Ancientitulaire", inversedBy="demande", cascade={"persist", "remove"})
      */
     private $ancienTitulaire;
@@ -96,7 +86,7 @@ class Demande
 
     public function __toString()
     {
-        return $this->typeDemande;
+        // return $this->typeDemande;
     }
 
     public function __construct()
@@ -107,18 +97,6 @@ class Demande
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTypeDemande(): ?string
-    {
-        return $this->typeDemande;
-    }
-
-    public function setTypeDemande(string $typeDemande): self
-    {
-        $this->typeDemande = $typeDemande;
-
-        return $this;
     }
 
     public function getOpposeDemande(): ?bool
@@ -268,18 +246,6 @@ class Demande
     public function setAcquerreur(?NewTitulaire $Acquerreur): self
     {
         $this->Acquerreur = $Acquerreur;
-
-        return $this;
-    }
-
-    public function getNomDemande(): ?TypeDemande
-    {
-        return $this->nomDemande;
-    }
-
-    public function setNomDemande(?TypeDemande $nomDemande): self
-    {
-        $this->nomDemande = $nomDemande;
 
         return $this;
     }
