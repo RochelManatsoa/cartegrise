@@ -39,13 +39,19 @@ class Commande
     private $ceerLe;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Client", inversedBy="commande")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Client", inversedBy="commandes")
      */
     private $client;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="commande")
+     */
+    private $demandes;
 
     public function __construct()
     {
         $this->client = new ArrayCollection();
+        $this->demandes = new ArrayCollection();
     }
 
     public function __tostring(){
@@ -124,6 +130,37 @@ class Commande
     {
         if ($this->client->contains($client)) {
             $this->client->removeElement($client);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Demande[]
+     */
+    public function getDemandes(): Collection
+    {
+        return $this->demandes;
+    }
+
+    public function addDemande(Demande $demande): self
+    {
+        if (!$this->demandes->contains($demande)) {
+            $this->demandes[] = $demande;
+            $demande->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemande(Demande $demande): self
+    {
+        if ($this->demandes->contains($demande)) {
+            $this->demandes->removeElement($demande);
+            // set the owning side to null (unless already changed)
+            if ($demande->getCommande() === $this) {
+                $demande->setCommande(null);
+            }
         }
 
         return $this;

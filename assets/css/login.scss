@@ -1,10 +1,5 @@
-.body-account{
+.div-account{
 .fadeInDown{
-/* BASIC */
-min-height: 75vh;
-background-image: url("/img/background.png");
-background-position: center;
-background-size: cover;
 html {
   background-color: #1a3f78;
 }
@@ -15,10 +10,14 @@ body {
 }
 
 a {
-  color: #92badd;
+  color: white;
   display:inline-block;
   text-decoration: none;
   font-weight: 400;
+	font-weight: bold;
+	&:hover{
+		color: #92badd !important;
+	}
 }
 
 h2 {
@@ -34,6 +33,18 @@ h2 {
 
 
 /* STRUCTURE */
+.form-check-input{
+	position: relative;
+}
+.form-check-label{
+font-family: Raleway;
+color: #1a3f78 !important;
+font-weight: bold !important;
+}
+.oublie-mdp{
+	font-family: Raleway;
+	font-weight: bold;
+}
 
 .wrapper {
   display: flex;
@@ -44,9 +55,13 @@ h2 {
   min-height: 100%;
   padding: 20px;
 }
-
-#formContent {
-
+.formContent-bc{
+	background-color: white !important;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+.formContent {
+	background-color: white !important;
 	height: fit-content;
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
@@ -59,15 +74,26 @@ h2 {
   -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   text-align: center;
-}
 
+}
+.login-error{
+	font-family: Raleway;
+	color: #1a3f78 !important;
+	font-weight: bold !important;
+}
 #formFooter {
-  background-color: #f6f6f6;
+  background-color: #1a3f78;
   border-top: 1px solid #dce8f1;
   padding: 25px;
   text-align: center;
   -webkit-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
+
+	p{
+			color: white !important;
+			font-family: Raleway;
+			font-weight: bold;
+	}
 }
 
 
@@ -157,6 +183,37 @@ input[type=text]:placeholder {
 }
 
 
+input[type=password] {
+	font-family: Raleway;
+  background-color: #f6f6f6;
+  border: none;
+  color: #1a3f78;
+	font-weight: bold;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 85%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+
+input[type=password]:focus {
+  background-color: #fff;
+  border-bottom: 2px solid #5fbae9;
+}
+
+input[type=password]:placeholder {
+  color: #cccccc;
+}
 
 /* ANIMATIONS */
 

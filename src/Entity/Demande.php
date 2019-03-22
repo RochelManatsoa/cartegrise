@@ -29,10 +29,10 @@ class Demande
     private $opposeDemande;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="demandes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Commande", inversedBy="demandes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $client;
+    private $commande;
 
     /**
      * @ORM\Column(type="string", length=999)
@@ -304,6 +304,18 @@ class Demande
     public function setVehicule(?Vehicule $vehicule): self
     {
         $this->vehicule = $vehicule;
+
+        return $this;
+    }
+    
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): self
+    {
+        $this->commande = $commande;
 
         return $this;
     }
