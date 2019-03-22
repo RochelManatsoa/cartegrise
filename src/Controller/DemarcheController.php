@@ -25,18 +25,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class DemarcheController extends AbstractController
 {
     /**
-     * @Route("/compte", name="compte")
-     */
-    public function index(Request $request)
-    {
-        if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
-            return $this->render('demarche/index.html.twig');
-        } else {
-            return $this->redirectToRoute('home');
-        }
-    }
-
-    /**
      * @Route("/ctvo", name="ctvo")
      */
     public function ctvodemande(){

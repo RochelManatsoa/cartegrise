@@ -39,7 +39,7 @@ class Commande
     private $ceerLe;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Client", inversedBy="commande")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Client", inversedBy="commandes")
      */
     private $client;
 

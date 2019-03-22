@@ -66,12 +66,16 @@ class HomeController extends AbstractController
                             'genre' => $this->getUser()->getClient()->getClientGenre(),
                             'client' => $this->getUser()->getClient(),
                     ], $param);
+                    $this->getUser()->getClient()->addCommande($recapCommand);
+                    $manager->persist($this->getUser()->getClient());
+                    $manager->flush();
                 } else {
                     $param = array_merge(['tab' => $tabForm], $param);
+                    // set and get session attributes 
+                    $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$recapCommand->getId()]);
+                    // end treatment session
                 }
-                // set and get session attributes 
-                $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$recapCommand->getId()]);
-                // end treatment session
+
 
                 return $this->render('home/accueil.html.twig', $param);
             } else {
