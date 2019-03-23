@@ -21,19 +21,10 @@
                             </div>
                             <div class="col-3 mx-auto form-row">
                                 <div class="col-11">
-                                    <h5 class="text-center">{{ form_label(form.AncienTitulaire) }}</h5>
+                                    <h5 class="text-center">Nouveau Titulaire</h5>
                                         <hr>
-                                        {% for antiTitulaire in form.AncienTitulaire %}
-                                            <div class="form-group">
-                                                {{ form_label(antiTitulaire)}}
-                                                {{ form_errors(antiTitulaire)}}
-                                                {{ form_widget(antiTitulaire, {'attr': {'class': ''}})}}
-                                            </div>
-                                        {% endfor %}
-                                        <br>
                                     
-                                        <h3 class="text-center">Acquerreur</h3>
-                                        <h5> {{ form_label(form.Acquerreur.adresseNewTitulaire) }} </h3>
+                                        <h3> {{ form_label(form.Acquerreur.adresseNewTitulaire) }} </h3>
                                         <hr>
                                         {% for acquerreur in form.Acquerreur %}
                                             {% if loop.index < 7 %}

@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Demande;
 use App\Entity\Commande;
 use App\Form\Demande\CtvoFormType;
+use App\Form\Demande\DivnFormType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -40,6 +41,10 @@ class DemandeManager
         switch ($commande->getDemarche()->getType()) {
             case "CTVO":
                 $form = $this->formFactory->create(CtvoFormType::class, $demande);
+            break;
+            case "DIVN":
+                $form = $this->formFactory->create(DivnFormType::class, $demande);
+            break;
         }
         
         return $form;
@@ -66,6 +71,16 @@ class DemandeManager
                             'commande' => $demande->getCommande(),
                         ]
                 );
+            break;
+            case "DIVN":
+                $view = $this->twig->render(
+                        "demande/divn.html.twig",
+                        [
+                            'form'      => $form->createView(),
+                            'commande'  => $demande->getCommande(),
+                        ]
+                );
+            break;
         }
 
         return $view;
