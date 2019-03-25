@@ -55,10 +55,12 @@ class HomeController extends AbstractController
                 'codePostal' => $commande->getCodePostal(),
                 'demarche' => $commande->getDemarche(),
             ]);
+            // dump($ifCommande);die;
             $sessionManager->initSession();
             if($ifCommande !== null){
                 $recapCommand = $ifCommande;
                 $value = $taxesRepository->find($recapCommand);
+                // dump($value);die;
                 $param = [
                     'commandes' => $commande, 'recap' => $recapCommand,
                     'value' => $value,        'database' => true,
@@ -137,7 +139,7 @@ class HomeController extends AbstractController
                         ->setEnergie($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Energie)
                         ->setDateMEC(\DateTime::createFromFormat('Y-m-d', $value->Lot->Demarche->ECGAUTO->Reponse->Positive->DateMEC));
                     $commande->setTaxes($taxe);
-                    $manager->persist($$commande);
+                    $manager->persist($commande);
                     $manager->persist($taxe);
                     $manager->flush();
 

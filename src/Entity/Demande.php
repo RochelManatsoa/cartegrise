@@ -84,6 +84,11 @@ class Demande
      */
     private $vehicule;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateDeCession;
+
     public function __toString()
     {
         // return $this->typeDemande;
@@ -282,6 +287,18 @@ class Demande
     public function setCommande(?Commande $commande): self
     {
         $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getDateDeCession(): ?\DateTimeInterface
+    {
+        return $this->dateDeCession;
+    }
+
+    public function setDateDeCession(?\DateTimeInterface $dateDeCession): self
+    {
+        $this->dateDeCession = $dateDeCession;
 
         return $this;
     }
