@@ -47,4 +47,18 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function countDemande($user)
+    {
+        return $this->createQueryBuilder('u')
+            ->select('count(d)')
+            ->leftJoin('u.client','cl')
+            ->leftJoin('cl.commandes','com')
+            ->leftJoin('com.demandes','d')
+            ->where('u = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

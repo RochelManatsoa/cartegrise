@@ -45,9 +45,9 @@ class NewTitulaire
     private $adresseNewTitulaire;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Demande", mappedBy="Acquerreur", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", mappedBy="Acquerreur", cascade={"persist", "remove"})
      */
-    private $demande;
+    private $ctvo;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -242,6 +242,24 @@ class NewTitulaire
             if ($vehicule->getTitulaire() === $this) {
                 $vehicule->setTitulaire(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getCtvo(): ?Ctvo
+    {
+        return $this->ctvo;
+    }
+
+    public function setCtvo(?Ctvo $ctvo): self
+    {
+        $this->ctvo = $ctvo;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAcquerreur = $ctvo === null ? null : $this;
+        if ($newAcquerreur !== $ctvo->getAcquerreur()) {
+            $ctvo->setAcquerreur($newAcquerreur);
         }
 
         return $this;

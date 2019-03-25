@@ -22,9 +22,15 @@ class Ancientitulaire
     private $type;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable = true)
      */
     private $raisonsociale;
+
+    /**
+     * Opposé à la réutilisation des données à des fins d’enquête et de prospection commerciale
+     * ORM\Column(type="boolean", nullable=true)
+     */
+    private $opposeReuse;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -32,9 +38,9 @@ class Ancientitulaire
     private $nomprenom;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Demande", mappedBy="ancienTitulaire", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", mappedBy="ancienTitulaire", cascade={"persist", "remove"})
      */
-    private $demande;
+    private $ctvo;
 
     public function getId(): ?int
     {
@@ -90,6 +96,24 @@ class Ancientitulaire
         $newAncienTitulaire = $demande === null ? null : $this;
         if ($newAncienTitulaire !== $demande->getAncienTitulaire()) {
             $demande->setAncienTitulaire($newAncienTitulaire);
+        }
+
+        return $this;
+    }
+
+    public function getCtvo(): ?Ctvo
+    {
+        return $this->ctvo;
+    }
+
+    public function setCtvo(?Ctvo $ctvo): self
+    {
+        $this->ctvo = $ctvo;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAncienTitulaire = $ctvo === null ? null : $this;
+        if ($newAncienTitulaire !== $ctvo->getAncienTitulaire()) {
+            $ctvo->setAncienTitulaire($newAncienTitulaire);
         }
 
         return $this;

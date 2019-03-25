@@ -80,6 +80,11 @@ class Client
      */
     private $clientPaysNaissance;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="client", cascade={"persist", "remove"})
+     */
+    private $user;
+
 
 
     public function __construct()
@@ -300,6 +305,18 @@ class Client
     public function getCountCommandes() {
 
         return 0 < count($this->commandes) ? count($this->commandes) : 0;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
 }

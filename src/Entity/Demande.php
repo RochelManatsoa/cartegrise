@@ -70,19 +70,14 @@ class Demande
     private $fichiers;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\NewTitulaire", inversedBy="demande", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", inversedBy="demande", cascade={"persist", "remove"})
      */
-    private $Acquerreur;
+    private $ctvo;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Ancientitulaire", inversedBy="demande", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Duplicata", inversedBy="demande", cascade={"persist", "remove"})
      */
-    private $ancienTitulaire;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Vehicule", inversedBy="demande", cascade={"persist", "remove"})
-     */
-    private $vehicule;
+    private $duplicata;
 
     public function __toString()
     {
@@ -237,42 +232,6 @@ class Demande
 
         return $this;
     }
-
-    public function getAcquerreur(): ?NewTitulaire
-    {
-        return $this->Acquerreur;
-    }
-
-    public function setAcquerreur(?NewTitulaire $Acquerreur): self
-    {
-        $this->Acquerreur = $Acquerreur;
-
-        return $this;
-    }
-
-    public function getAncienTitulaire(): ?Ancientitulaire
-    {
-        return $this->ancienTitulaire;
-    }
-
-    public function setAncienTitulaire(?Ancientitulaire $ancienTitulaire): self
-    {
-        $this->ancienTitulaire = $ancienTitulaire;
-
-        return $this;
-    }
-
-    public function getVehicule(): ?Vehicule
-    {
-        return $this->vehicule;
-    }
-
-    public function setVehicule(?Vehicule $vehicule): self
-    {
-        $this->vehicule = $vehicule;
-
-        return $this;
-    }
     
     public function getCommande(): ?Commande
     {
@@ -282,6 +241,30 @@ class Demande
     public function setCommande(?Commande $commande): self
     {
         $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getCtvo(): ?Ctvo
+    {
+        return $this->ctvo;
+    }
+
+    public function setCtvo(?Ctvo $ctvo): self
+    {
+        $this->ctvo = $ctvo;
+
+        return $this;
+    }
+
+    public function getDuplicata(): ?Duplicata
+    {
+        return $this->duplicata;
+    }
+
+    public function setDuplicata(?Duplicata $duplicata): self
+    {
+        $this->duplicata = $duplicata;
 
         return $this;
     }

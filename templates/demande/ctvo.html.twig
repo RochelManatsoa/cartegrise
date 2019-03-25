@@ -21,9 +21,9 @@
                             </div>
                             <div class="col-3 mx-auto form-row">
                                 <div class="col-11">
-                                    <h5 class="text-center">{{ form_label(form.AncienTitulaire) }}</h3>
+                                    <h5 class="text-center">{{ form_label(form.ctvo.ancienTitulaire) }}</h3>
                                         <hr>
-                                        {% for antiTitulaire in form.AncienTitulaire %}
+                                        {% for antiTitulaire in form.ctvo.ancienTitulaire %}
                                             <div class="form-group">
                                                 {{ form_label(antiTitulaire)}}
                                                 {{ form_errors(antiTitulaire)}}
@@ -33,9 +33,9 @@
                                         <br>
                                     
                                         <h3 class="text-center">Acquerreur</h3>
-                                        <h5> {{ form_label(form.Acquerreur.adresseNewTitulaire) }} </h3>
+                                        <h5> {{ form_label(form.ctvo.acquerreur.adresseNewTitulaire) }} </h3>
                                         <hr>
-                                        {% for acquerreur in form.Acquerreur %}
+                                        {% for acquerreur in form.ctvo.acquerreur %}
                                             {% if loop.index < 7 %}
                                                 <div class="form-group">
                                                     {{ form_label(acquerreur)}}
@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-3 mx-auto">
                                 <div class="col-11">
-                                    {% for addresseNewTitulaire in form.Acquerreur.adresseNewTitulaire %}
+                                    {% for addresseNewTitulaire in form.ctvo.acquerreur.adresseNewTitulaire %}
                                         <div class="form-group">
                                             {{ form_label(addresseNewTitulaire)}}
                                             {{ form_errors(addresseNewTitulaire)}}

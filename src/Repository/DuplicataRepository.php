@@ -2,26 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Demande;
+use App\Entity\Duplicata;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use App\Entity\User;
 
 /**
- * @method Demande|null find($id, $lockMode = null, $lockVersion = null)
- * @method Demande|null findOneBy(array $criteria, array $orderBy = null)
- * @method Demande[]    findAll()
- * @method Demande[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Duplicata|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Duplicata|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Duplicata[]    findAll()
+ * @method Duplicata[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DemandeRepository extends ServiceEntityRepository
+class DuplicataRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Demande::class);
+        parent::__construct($registry, Duplicata::class);
     }
-    
+
     // /**
-    //  * @return Demande[] Returns an array of Demande objects
+    //  * @return Duplicata[] Returns an array of Duplicata objects
     //  */
     /*
     public function findByExampleField($value)
@@ -38,7 +37,7 @@ class DemandeRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Demande
+    public function findOneBySomeField($value): ?Duplicata
     {
         return $this->createQueryBuilder('d')
             ->andWhere('d.exampleField = :val')

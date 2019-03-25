@@ -25,7 +25,7 @@ class User extends BaseUser
     private $registerDate;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Client", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Client",inversedBy="user", cascade={"persist", "remove"})
      */
     private $client;
 

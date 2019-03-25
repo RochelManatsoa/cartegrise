@@ -5,10 +5,13 @@ namespace App\Manager;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Demande;
 use App\Entity\Commande;
-use App\Form\Demande\CtvoFormType;
+use App\Form\Demande\DemandeCtvoType;
+use App\Form\Demande\DemandeDuplicataType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
+use App\Entity\User;
+use App\Repository\DemandeRepository;
 use Twig_Environment as Twig;
 
 class DemandeManager
@@ -16,16 +19,19 @@ class DemandeManager
     private $em;
     private $formFactory;
     private $twig;
+    private $repository;
     public function __construct
     (
         EntityManagerInterface $em,
         FormFactoryInterface   $formFactory,
-        Twig                    $twig
+        Twig                   $twig,
+        DemandeRepository      $repository
     )
     {
-        $this->em = $em;
+        $this->em =          $em;
         $this->formFactory = $formFactory;
-        $this->twig = $twig;
+        $this->twig =        $twig;
+        $this->repository =  $repository;
     }
 
     private function init()
@@ -39,7 +45,11 @@ class DemandeManager
         $commande->addDemande($demande);
         switch ($commande->getDemarche()->getType()) {
             case "CTVO":
-                $form = $this->formFactory->create(CtvoFormType::class, $demande);
+                $form = $this->formFactory->create(DemandeCtvoType::class, $demande);
+            
+            case "DUP":
+                $form = $this->formFactory->create(DemandeDuplicataType::class, $demande);
+            
         }
         
         return $form;
@@ -66,9 +76,23 @@ class DemandeManager
                             'commande' => $demande->getCommande(),
                         ]
                 );
+            case "DUP":
+                $view = $this->twig->render(
+                        "demande/duplicata.html.twig",
+                        [
+                            'form'     => $form->createView(),
+                            'commande' => $demande->getCommande(),
+                        ]
+                );
         }
 
         return $view;
+    }
+
+    public function countDemandeOfUser(User $user)
+    {
+        dump($this->repository->countDemandeForUser($user));die;
+        return $this->repository->countDemandeForUser($user)[1];
     }
 
 }
