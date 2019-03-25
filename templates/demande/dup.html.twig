@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-ccm{% endblock %}
+
+{% block page_content %}
+<div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
+	<div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
+        <div class="col-12 commander-firstview">
+            <div class="row col-12 ">
+                <div class="container">
+                    <h2 class="text-center"> Formulaire pour <br> {{ commande.demarche.nom|upper }}</h2>
+                    <br>
+                        <hr>
+                        {{ form_start(form, {'attr': {'class': 'row'}}) }}
+                            <div class="col-4 mx-auto">
+                                {% include "demande/caracteristicVehicle.html.twig" %}
+                            </div>
+                            <div class="col-3 mx-auto form-row">
+                                <div class="col-11">
+                                    <h3 class="text-center">{{ form_label(form.motifDuplicata) }}</h3>
+                                        <hr>
+                                            <div class="form-group">
+                                                {{ form_label(form.motifDuplicata)}}
+                                                {{ form_errors(form.motifDuplicata)}}
+                                                {{ form_widget(form.motifDuplicata, {'attr': {'class': ''}})}}
+                                            </div>
+                                        <br>
+                                    <h3 class="text-center">{{ form_label(form.liaisonDuplicata) }}</h3>
+                                        <hr>
+                                            <div class="form-group">
+                                                {{ form_label(form.liaisonDuplicata)}}
+                                                {{ form_errors(form.liaisonDuplicata)}}
+                                                {{ form_widget(form.liaisonDuplicata, {'attr': {'class': ''}})}}
+                                            </div>
+                                        <br>
+                                    <h3 class="text-center">{{ form_label(form.AncienTitulaire) }}</h3>
+                                        <hr>
+                                        {% for antiTitulaire in form.AncienTitulaire %}
+                                            <div class="form-group">
+                                                {{ form_label(antiTitulaire)}}
+                                                {{ form_errors(antiTitulaire)}}
+                                                {{ form_widget(antiTitulaire, {'attr': {'class': ''}})}}
+                                            </div>
+                                        {% endfor %}
+                                        <br>
+                                </div>
+                            </div>
+                            <div class="col-3 mx-auto">
+                                <div class="col-11">
+                                </div>
+                            </div>
+                            {{form_rest(form)}}
+                            <div class="col-12 text-center mb-5">
+                                <br>
+                                <input type="submit" class="btn btn-lg btn-success" value="Valider">
+                            </div>
+                        {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+{% endblock %}

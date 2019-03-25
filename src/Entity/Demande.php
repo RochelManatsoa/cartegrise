@@ -84,6 +84,16 @@ class Demande
      */
     private $vehicule;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $motifDuplicata;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $liaisonDuplicata;
+
     public function __toString()
     {
         // return $this->typeDemande;
@@ -282,6 +292,30 @@ class Demande
     public function setCommande(?Commande $commande): self
     {
         $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getMotifDuplicata(): ?string
+    {
+        return $this->motifDuplicata;
+    }
+
+    public function setMotifDuplicata(?string $motifDuplicata): self
+    {
+        $this->motifDuplicata = $motifDuplicata;
+
+        return $this;
+    }
+
+    public function getLiaisonDuplicata(): ?bool
+    {
+        return $this->liaisonDuplicata;
+    }
+
+    public function setLiaisonDuplicata(?bool $liaisonDuplicata): self
+    {
+        $this->liaisonDuplicata = $liaisonDuplicata;
 
         return $this;
     }
