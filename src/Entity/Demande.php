@@ -79,6 +79,16 @@ class Demande
      */
     private $duplicata;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Divn", mappedBy="demande", cascade={"persist", "remove"})
+     */
+    private $divn;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Cession", mappedBy="demande", cascade={"persist", "remove"})
+     */
+    private $cession;
+
     public function __toString()
     {
         // return $this->typeDemande;
@@ -265,6 +275,42 @@ class Demande
     public function setDuplicata(?Duplicata $duplicata): self
     {
         $this->duplicata = $duplicata;
+
+        return $this;
+    }
+
+    public function getDivn(): ?Divn
+    {
+        return $this->divn;
+    }
+
+    public function setDivn(?Divn $divn): self
+    {
+        $this->divn = $divn;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newDemande = $divn === null ? null : $this;
+        if ($newDemande !== $divn->getDemande()) {
+            $divn->setDemande($newDemande);
+        }
+
+        return $this;
+    }
+
+    public function getCession(): ?Cession
+    {
+        return $this->cession;
+    }
+
+    public function setCession(?Cession $cession): self
+    {
+        $this->cession = $cession;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newDemande = $cession === null ? null : $this;
+        if ($newDemande !== $cession->getDemande()) {
+            $cession->setDemande($newDemande);
+        }
 
         return $this;
     }

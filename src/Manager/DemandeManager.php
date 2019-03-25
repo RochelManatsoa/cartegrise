@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Demande;
 use App\Entity\Commande;
 use App\Form\Demande\DemandeCtvoType;
+use App\Form\Demande\DemandeDivnType;
+use App\Form\Demande\DemandeCessionType;
 use App\Form\Demande\DemandeDuplicataType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,10 +48,19 @@ class DemandeManager
         switch ($commande->getDemarche()->getType()) {
             case "CTVO":
                 $form = $this->formFactory->create(DemandeCtvoType::class, $demande);
+            break;
             
             case "DUP":
                 $form = $this->formFactory->create(DemandeDuplicataType::class, $demande);
-            
+            break;
+
+            case "DIVN":
+                $form = $this->formFactory->create(DemandeDivnType::class, $demande);
+            break;
+
+            case "DC":
+                $form = $this->formFactory->create(DemandeCessionType::class, $demande);
+            break;
         }
         
         return $form;
@@ -76,6 +87,7 @@ class DemandeManager
                             'commande' => $demande->getCommande(),
                         ]
                 );
+            break;
             case "DUP":
                 $view = $this->twig->render(
                         "demande/duplicata.html.twig",
@@ -84,6 +96,25 @@ class DemandeManager
                             'commande' => $demande->getCommande(),
                         ]
                 );
+            break;
+            case "DIVN":
+                $view = $this->twig->render(
+                        "demande/divn.html.twig",
+                        [
+                            'form'     => $form->createView(),
+                            'commande' => $demande->getCommande(),
+                        ]
+                );
+            break;
+            case "DC":
+                $view = $this->twig->render(
+                        "demande/cession.html.twig",
+                        [
+                            'form'     => $form->createView(),
+                            'commande' => $demande->getCommande(),
+                        ]
+                );
+            break;
         }
 
         return $view;

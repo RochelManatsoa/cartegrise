@@ -42,6 +42,11 @@ class Ancientitulaire
      */
     private $ctvo;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Cession", mappedBy="ancienTitulaire", cascade={"persist", "remove"})
+     */
+    private $cession;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -114,6 +119,24 @@ class Ancientitulaire
         $newAncienTitulaire = $ctvo === null ? null : $this;
         if ($newAncienTitulaire !== $ctvo->getAncienTitulaire()) {
             $ctvo->setAncienTitulaire($newAncienTitulaire);
+        }
+
+        return $this;
+    }
+
+    public function getCession(): ?Cession
+    {
+        return $this->cession;
+    }
+
+    public function setCession(?Cession $cession): self
+    {
+        $this->cession = $cession;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAncienTitulaire = $cession === null ? null : $this;
+        if ($newAncienTitulaire !== $cession->getAncienTitulaire()) {
+            $cession->setAncienTitulaire($newAncienTitulaire);
         }
 
         return $this;
