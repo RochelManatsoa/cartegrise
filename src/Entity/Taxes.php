@@ -101,7 +101,7 @@ class Taxes
 
     public function __construct()
     {
-        $this->commande = new ArrayCollection();
+        // $this->commande = new ArrayCollection();
     }
 
     public function getId(): ?int
