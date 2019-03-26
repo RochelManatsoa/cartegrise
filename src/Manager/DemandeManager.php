@@ -9,6 +9,7 @@ use App\Form\Demande\DemandeCtvoType;
 use App\Form\Demande\DemandeDivnType;
 use App\Form\Demande\DemandeCessionType;
 use App\Form\Demande\DemandeDuplicataType;
+use App\Form\Demande\DemandeChangementAdresseType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -61,6 +62,10 @@ class DemandeManager
             case "DC":
                 $form = $this->formFactory->create(DemandeCessionType::class, $demande);
             break;
+            
+            case "DCA":
+                $form = $this->formFactory->create(DemandeChangementAdresseType::class, $demande);
+                break;
         }
         
         return $form;
@@ -88,6 +93,7 @@ class DemandeManager
                         ]
                 );
             break;
+
             case "DUP":
                 $view = $this->twig->render(
                         "demande/duplicata.html.twig",
@@ -97,6 +103,7 @@ class DemandeManager
                         ]
                 );
             break;
+
             case "DIVN":
                 $view = $this->twig->render(
                         "demande/divn.html.twig",
@@ -105,7 +112,18 @@ class DemandeManager
                             'commande' => $demande->getCommande(),
                         ]
                 );
+                break;
+            
+            case "DCA":
+                $view = $this->twig->render(
+                        "demande/changementAdresse.html.twig",
+                        [
+                            'form'     => $form->createView(),
+                            'commande' => $demande->getCommande(),
+                        ]
+                );
             break;
+
             case "DC":
                 $view = $this->twig->render(
                         "demande/cession.html.twig",
@@ -122,7 +140,6 @@ class DemandeManager
 
     public function countDemandeOfUser(User $user)
     {
-        dump($this->repository->countDemandeForUser($user));die;
         return $this->repository->countDemandeForUser($user)[1];
     }
 

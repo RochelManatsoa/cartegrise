@@ -89,6 +89,11 @@ class Demande
      */
     private $cession;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", inversedBy="demande", cascade={"persist", "remove"})
+     */
+    private $changementAdresse;
+
     public function __toString()
     {
         // return $this->typeDemande;
@@ -311,6 +316,18 @@ class Demande
         if ($newDemande !== $cession->getDemande()) {
             $cession->setDemande($newDemande);
         }
+
+        return $this;
+    }
+
+    public function getChangementAdresse(): ?ChangementAdresse
+    {
+        return $this->changementAdresse;
+    }
+
+    public function setChangementAdresse(?ChangementAdresse $changementAdresse): self
+    {
+        $this->changementAdresse = $changementAdresse;
 
         return $this;
     }
