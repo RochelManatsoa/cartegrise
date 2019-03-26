@@ -111,7 +111,7 @@ class HomeController extends AbstractController
                 $Immat = array("Immatriculation"=>$TMS_Immatriculation);
                 $params = array("Identification"=>$Ident, "Lot" => $Lot);
                 $value = $client->Envoyer($params);
-                dump($value);die;
+                // dump($value);die;
 
                 if(isset($value->Lot->Demarche->ECGAUTO->Reponse->Negative->Erreur)){
                     return new Response(
