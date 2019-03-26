@@ -136,7 +136,7 @@ class HomeController extends AbstractController
                         ->setEnergie($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Energie)
                         ->setDateMEC(\DateTime::createFromFormat('Y-m-d', $value->Lot->Demarche->ECGAUTO->Reponse->Positive->DateMEC));
                     $commande->setTaxes($taxe);
-                    $manager->persist($$commande);
+                    $manager->persist($commande);
                     $manager->persist($taxe);
                     $manager->flush();
 
