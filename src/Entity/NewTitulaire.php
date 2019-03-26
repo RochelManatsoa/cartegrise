@@ -50,6 +50,11 @@ class NewTitulaire
     private $ctvo;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", mappedBy="nouveauxTitulaire", cascade={"persist", "remove"})
+     */
+    private $changementAdresse;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $type;
@@ -260,6 +265,24 @@ class NewTitulaire
         $newAcquerreur = $ctvo === null ? null : $this;
         if ($newAcquerreur !== $ctvo->getAcquerreur()) {
             $ctvo->setAcquerreur($newAcquerreur);
+        }
+
+        return $this;
+    }
+
+    public function getChangementAdresse(): ?ChangementAdresse
+    {
+        return $this->changementAdresse;
+    }
+
+    public function setChangementAdresse(?ChangementAdresse $changementAdresse): self
+    {
+        $this->changementAdresse = $changementAdresse;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newNouveauxTitulaire = $changementAdresse === null ? null : $this;
+        if ($newNouveauxTitulaire !== $changementAdresse->getNouveauxTitulaire()) {
+            $changementAdresse->setNouveauxTitulaire($newNouveauxTitulaire);
         }
 
         return $this;

@@ -7,6 +7,7 @@ use App\Entity\Demande;
 use App\Entity\Commande;
 use App\Form\Demande\DemandeCtvoType;
 use App\Form\Demande\DemandeDuplicataType;
+use App\Form\Demande\DemandeChangementAdresseType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -46,9 +47,15 @@ class DemandeManager
         switch ($commande->getDemarche()->getType()) {
             case "CTVO":
                 $form = $this->formFactory->create(DemandeCtvoType::class, $demande);
+                break;
             
             case "DUP":
                 $form = $this->formFactory->create(DemandeDuplicataType::class, $demande);
+                break;
+            
+            case "DCA":
+                $form = $this->formFactory->create(DemandeChangementAdresseType::class, $demande);
+                break;
             
         }
         
@@ -76,6 +83,8 @@ class DemandeManager
                             'commande' => $demande->getCommande(),
                         ]
                 );
+                break;
+            
             case "DUP":
                 $view = $this->twig->render(
                         "demande/duplicata.html.twig",
@@ -84,6 +93,17 @@ class DemandeManager
                             'commande' => $demande->getCommande(),
                         ]
                 );
+                break;
+            
+            case "DCA":
+                $view = $this->twig->render(
+                        "demande/changementAdresse.html.twig",
+                        [
+                            'form'     => $form->createView(),
+                            'commande' => $demande->getCommande(),
+                        ]
+                );
+                break;
         }
 
         return $view;

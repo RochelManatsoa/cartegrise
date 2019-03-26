@@ -79,6 +79,11 @@ class Demande
      */
     private $duplicata;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", inversedBy="demande", cascade={"persist", "remove"})
+     */
+    private $changementAdresse;
+
     public function __toString()
     {
         // return $this->typeDemande;
@@ -265,6 +270,18 @@ class Demande
     public function setDuplicata(?Duplicata $duplicata): self
     {
         $this->duplicata = $duplicata;
+
+        return $this;
+    }
+
+    public function getChangementAdresse(): ?ChangementAdresse
+    {
+        return $this->changementAdresse;
+    }
+
+    public function setChangementAdresse(?ChangementAdresse $changementAdresse): self
+    {
+        $this->changementAdresse = $changementAdresse;
 
         return $this;
     }
