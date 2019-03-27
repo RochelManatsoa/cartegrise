@@ -59,25 +59,7 @@ class HomeController extends AbstractController
             if($ifCommande !== null){
                 $recapCommand = $ifCommande;
                 $value = $recapCommand->getTaxes();
-                $param = [
-                    'commandes' => $commande, 'recap' => $recapCommand,
-                    'value' => $value,        'database' => true,
-                    ];
-                if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
-                    $param = array_merge([
-                            'genre' => $this->getUser()->getClient()->getClientGenre(),
-                            'client' => $this->getUser()->getClient(),
-                    ], $param);
-                    $this->getUser()->getClient()->addCommande($recapCommand);
-                    $manager->persist($this->getUser()->getClient());
-                    $manager->flush();
-                } else {
-                    $param = array_merge(['tab' => $tabForm], $param);
-                    // set and get session attributes 
-                    $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$recapCommand->getId()]);
-                    // end treatment session
-                }
-
+                $param = $this->getParamHome($commande, $tabForm);
 
                 return $this->render('home/accueil.html.twig', $param);
             } else {
@@ -139,25 +121,10 @@ class HomeController extends AbstractController
                     $manager->persist($taxe);
                     $manager->flush();
 
-                    if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
-                        $user = $this->getUser();
-                        $client = $user->getClient();
-                        $genre = $client->getClientGenre();
+                    $value = $taxe;
+                    $param = $this->getParamHome($commande, $tabForm);
 
-                        return $this->render('home/accueil.html.twig', [
-                                'genre' => $genre,
-                                'client' => $client,
-                                'commandes' => $commande,
-                                'value' => $value,
-                                'database' => false,
-                        ]);
-                    }
-                    return $this->render('home/accueil.html.twig', [
-                        'tab' => $tabForm,
-                        'commandes' => $commande,
-                        'value' => $value,
-                        'database' => false,
-                        ]);
+                    return $this->render('home/accueil.html.twig', $param);
                 }
             }
         }
@@ -181,6 +148,32 @@ class HomeController extends AbstractController
             ]);
     }
 
+    private function getParamHome(Commande $commande, $tabForm)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $value = $commande->getTaxes();
+        $param = [
+            'commandes' => $commande, 'recap' => $commande,
+            'value' => $value,        'database' => true,
+        ];
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
+            $param = array_merge([
+                'genre' => $this->getUser()->getClient()->getClientGenre(),
+                'client' => $this->getUser()->getClient(),
+            ], $param);
+            $this->getUser()->getClient()->addCommande($commande);
+            $manager->persist($this->getUser()->getClient());
+            $manager->flush();
+        } else {
+            $param = array_merge(['tab' => $tabForm], $param);
+            // set and get session attributes 
+            $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
+            // end treatment session
+        }
+
+        return $param;
+    }
+
     /**
      * @Route("/commande", name="commande")
      */
@@ -196,40 +189,8 @@ class HomeController extends AbstractController
                 'client' => $client,
             ]);
         }
+
         return $this->render('home/demande.html.twig');
-            /*$commande = new Commande();
-            $form = $this->createForm(CommandeType::class, $commande);
-            $commandeForm = $form->createView();
-
-            $form->handleRequest($request);
-
-            if($form->isSubmitted() && $form->isValid()){
-
-                $client = new client();
-                $post = $commande;
-                $pricetotal = $client->calculerECGAuto($post);
-                dump($pricetotal);
-                $result = [];
-               $this->addFlash('success', 'Le fichier à bien été enregistrée.  ');
-               return $this->render('home/demande.html.twig', [
-                            'result' => $result,*/
-                            /*'pricetotal' => $pricetotal,
-                    /*]);
-            }
-
-            if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
-                    $user = $this->getUser();
-                    $client = $user->getClient();
-                    $genre = $client->getClientGenre();
-
-                    return $this->render('home/demande.html.twig', [
-                            'genre' => $genre,
-                            'client' => $client,
-                            'commandeForm' => $commandeForm,
-                    ]);
-            }
-            return $this->render('home/demande.html.twig', ['commandeForm' => $commandeForm]);*/
-            /*return $this->render('home/demande.html.twig');*/
     }
 
     /**
@@ -247,6 +208,7 @@ class HomeController extends AbstractController
                             'client' => $client,
                     ]);
             }
+
             return $this->render('home/CommentCaMarche.html.twig');
     }
 
@@ -265,6 +227,7 @@ class HomeController extends AbstractController
                 'client' => $client,
             ]);
         }
+
         return $this->render('home/faq.html.twig');
     }
 
@@ -282,7 +245,8 @@ class HomeController extends AbstractController
 							'genre' => $genre,
 							'client' => $client,
 					]);
-			}
+            }
+
 			return $this->render('home/cgv.html.twig');
 	}
 
