@@ -79,6 +79,11 @@ class Adresse
     private $client;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\NewTitulaire", inversedBy="adresseNewTitulaire", cascade={"persist", "remove"})
+     */
+    private $titulaire;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Vehicule", mappedBy="vehiculeAdresse")
      */
     private $vehicules;
@@ -272,6 +277,18 @@ class Adresse
                 $vehicule->setVehiculeAdresse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTitulaire(): ?NewTitulaire
+    {
+        return $this->titulaire;
+    }
+
+    public function setTitulaire(?NewTitulaire $titulaire): self
+    {
+        $this->titulaire = $titulaire;
 
         return $this;
     }

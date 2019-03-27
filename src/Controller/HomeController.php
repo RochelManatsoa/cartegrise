@@ -58,7 +58,7 @@ class HomeController extends AbstractController
             $sessionManager->initSession();
             if($ifCommande !== null){
                 $recapCommand = $ifCommande;
-                $value = $taxesRepository->find($recapCommand);
+                $value = $recapCommand->getTaxes();
                 $param = [
                     'commandes' => $commande, 'recap' => $recapCommand,
                     'value' => $value,        'database' => true,
@@ -97,7 +97,6 @@ class HomeController extends AbstractController
                         ->setCodePostal($code_postal)
                         ->setCeerLe($date_demarche);
                 $manager->persist($commande);
-                $manager->flush();
                 // set and get session attributes 
                 $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
                 // end treatment session

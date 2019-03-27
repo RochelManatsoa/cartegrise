@@ -40,7 +40,7 @@ class NewTitulaire
 
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\AdresseNewTitulaire", mappedBy="titulaire", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Adresse", mappedBy="titulaire", cascade={"persist", "remove"})
      */
     private $adresseNewTitulaire;
 
@@ -142,23 +142,6 @@ class NewTitulaire
         return $this;
     }
 
-    public function getAdresseNewTitulaire(): ?AdresseNewTitulaire
-    {
-        return $this->adresseNewTitulaire;
-    }
-
-    public function setAdresseNewTitulaire(?AdresseNewTitulaire $adresseNewTitulaire): self
-    {
-        $this->adresseNewTitulaire = $adresseNewTitulaire;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newTitulaire = $adresseNewTitulaire === null ? null : $this;
-        if ($newTitulaire !== $adresseNewTitulaire->getTitulaire()) {
-            $adresseNewTitulaire->setTitulaire($newTitulaire);
-        }
-
-        return $this;
-    }
 
     public function getDemande(): ?Demande
     {
@@ -306,6 +289,24 @@ class NewTitulaire
         $newNouveauxTitulaire = $changementAdresse === null ? null : $this;
         if ($newNouveauxTitulaire !== $changementAdresse->getNouveauxTitulaire()) {
             $changementAdresse->setNouveauxTitulaire($newNouveauxTitulaire);
+        }
+
+        return $this;
+    }
+
+    public function getAdresseNewTitulaire(): ?Adresse
+    {
+        return $this->adresseNewTitulaire;
+    }
+
+    public function setAdresseNewTitulaire(?Adresse $adresseNewTitulaire): self
+    {
+        $this->adresseNewTitulaire = $adresseNewTitulaire;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newTitulaire = $adresseNewTitulaire === null ? null : $this;
+        if ($newTitulaire !== $adresseNewTitulaire->getTitulaire()) {
+            $adresseNewTitulaire->setTitulaire($newTitulaire);
         }
 
         return $this;
