@@ -257,7 +257,7 @@
 						<div class="col-12 resultat-estimation-p">
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 						</div>
-						<a class="col-12 btn btn-primary mb-3" href="{{path('Accueil')}}{{ recap.demarche.type | lower}}/?commande={{ recap.id }}">FranceConnect</a>
+						<a class="col-12 btn btn-primary mb-3" href="{{path('Accueil')}}{{ commandes.demarche.type | lower}}/?commande={{ recap.id }}">FranceConnect</a>
 						{% if app.user %}
 							<a class="col-12 btn btn-success" href="{{path('Accueil')}}{{ commandes.demarche.type | lower}}/?commande={{ commandes.id }}">VALIDER</a>
 						{% else %}
