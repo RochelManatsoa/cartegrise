@@ -50,6 +50,7 @@ class HomeController extends AbstractController
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            // dump($commande);die;
             $ifCommande = $commandeRepository->findOneBy([
                 'immatriculation' => $commande->getImmatriculation(),
                 'codePostal' => $commande->getCodePostal(),
@@ -59,6 +60,8 @@ class HomeController extends AbstractController
             if($ifCommande !== null){
                 $recapCommand = $ifCommande;
                 $value = $taxesRepository->find($recapCommand);
+                // dump($recapCommand);
+                // dump($value);die;
                 $param = [
                     'commandes' => $commande, 'recap' => $recapCommand,
                     'value' => $value,        'database' => true,
