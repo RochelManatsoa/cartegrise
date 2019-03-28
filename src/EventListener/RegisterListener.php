@@ -47,8 +47,10 @@ class RegisterListener implements EventSubscriberInterface
             return;
         if (!is_null($idsRecapCommande)) {
             foreach ($idsRecapCommande as $idRecapCommande){
-                $commande = $this->commandeRepository->find($idRecapCommande);
-                $user->getClient()->addCommande($commande);
+                if (is_integer($idRecapCommande)){
+                    $commande = $this->commandeRepository->find($idRecapCommande);
+                    $user->getClient()->addCommande($commande);
+                }
             }
             $this->em->persist($user);
             $this->em->flush();
