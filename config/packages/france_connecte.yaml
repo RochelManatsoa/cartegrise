@@ -5,7 +5,7 @@ france_connect:
     #FranceConnect base URL
     provider_base_url: 'https://fcp.integ01.dev-franceconnect.fr/api/v1/'
     #route name for logout
-    logout_value: 'home'
+    logout_value: 'Accueil'
     result_value: 'compte'
     # data
     scopes:
