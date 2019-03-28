@@ -59,7 +59,7 @@ class HomeController extends AbstractController
             if($ifCommande !== null){
                 $recapCommand = $ifCommande;
                 $value = $recapCommand->getTaxes();
-                $param = $this->getParamHome($commande, $tabForm);
+                $param = $this->getParamHome($commande, $sessionManager, $tabForm);
 
                 return $this->render('home/accueil.html.twig', $param);
             } else {
@@ -122,7 +122,7 @@ class HomeController extends AbstractController
                     $manager->flush();
 
                     $value = $taxe;
-                    $param = $this->getParamHome($commande, $tabForm);
+                    $param = $this->getParamHome($commande, $sessionManager, $tabForm);
 
                     return $this->render('home/accueil.html.twig', $param);
                 }
@@ -148,7 +148,7 @@ class HomeController extends AbstractController
             ]);
     }
 
-    private function getParamHome(Commande $commande, $tabForm)
+    private function getParamHome(Commande $commande, SessionManager $sessionManager, $tabForm)
     {
         $manager = $this->getDoctrine()->getManager();
         $value = $commande->getTaxes();
