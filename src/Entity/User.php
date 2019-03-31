@@ -44,13 +44,6 @@ class User extends BaseUser
         return $this->client;
     }
 
-    public function setClient(?Client $client): self
-    {
-        $this->client = $client;
-
-        return $this;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -64,6 +57,13 @@ class User extends BaseUser
     public function setRegisterDate(?\DateTimeInterface $registerDate): self
     {
         $this->registerDate = $registerDate;
+
+        return $this;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
 
         return $this;
     }

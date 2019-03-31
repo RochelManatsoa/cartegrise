@@ -11,7 +11,7 @@
 		<h5>
 		Bonjour {{ app.user.client.clientGenre }} {{ app.user.client.clientPrenom }} {{ app.user.client.clientNom | upper}}
 		</h5>
-		<h5>
+		<h5 onclick="if(confirm( 'Value changed! Continue?' ))">
 			<a href="{{ path('compte') }}">Mon compte</a> | <a href="{{ path('logout') }}">Déconnexion</a>
 		</h5>
 	</div>
@@ -57,6 +57,8 @@
 			<button type="button" class="col-12 btn btn-outline-primary btn-lg text-center mt-3 mb-3 ">mon Compte
 			</button>
 		</a>
+
+		<button onclick="confirm( 'Value changed! Continue?' )"> manoana </button>
 	</div>
 	{% endif %}
 

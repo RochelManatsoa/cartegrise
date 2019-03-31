@@ -42,37 +42,28 @@ class Contact
         $this->id = $id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getContactTelmobile()
+    public function getContactTelmobile(): ?string
     {
         return $this->contact_telmobile;
     }
 
-    /**
-     * @param mixed $contact_telmobile
-     */
-    public function setContactTelmobile($contact_telmobile): void
+    public function setContactTelmobile(string $contact_telmobile): self
     {
         $this->contact_telmobile = $contact_telmobile;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getContactTelfixe()
+    public function getContactTelfixe(): ?string
     {
         return $this->contact_telfixe;
     }
 
-    /**
-     * @param mixed $contact_telfixe
-     */
-    public function setContactTelfixe($contact_telfixe): void
+    public function setContactTelfixe(?string $contact_telfixe): self
     {
         $this->contact_telfixe = $contact_telfixe;
-    }
 
+        return $this;
+    }
 
 }

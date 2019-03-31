@@ -6,11 +6,16 @@ france_connect:
     provider_base_url: 'https://fcp.integ01.dev-franceconnect.fr/api/v1/'
     #route name for logout
     logout_value: 'Accueil'
-    result_value: 'compte'
+    result_value: 'app.fc.return'
     # data
     scopes:
         - 'openid'
         - 'profile'
+        - 'email'
+        - 'address'
+        - 'phone'
+        - 'birthcountry'
+        - 'birthplace'
     providers_keys:
         - 'main'
         - 'secured_area'

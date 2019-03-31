@@ -316,6 +316,12 @@ class Client
     {
         $this->user = $user;
 
+        // set (or unset) the owning side of the relation if necessary
+        $newClient = $user === null ? null : $this;
+        if ($newClient !== $user->getClient()) {
+            $user->setClient($newClient);
+        }
+
         return $this;
     }
 

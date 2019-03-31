@@ -58,8 +58,7 @@ class HomeController extends AbstractController
             $sessionManager->initSession();
             if($ifCommande !== null){
                 $recapCommand = $ifCommande;
-                $value = $recapCommand->getTaxes();
-                $param = $this->getParamHome($commande, $sessionManager, $tabForm);
+                $param = $this->getParamHome($recapCommand, $sessionManager, $tabForm);
 
                 return $this->render('home/accueil.html.twig', $param);
             } else {
