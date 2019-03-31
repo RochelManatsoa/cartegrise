@@ -69,21 +69,27 @@ class UserManager
     {
         $user     = new User();
         $client   = new Client();
-        $contact  = new Contact();
-        $adresse  = new Adresse();
-        $pass     = $identity["preferred_username"] . (new \DateTime())->getTimestamp();
+        $pass     = $identity["family_name"] . (new \DateTime())->getTimestamp();
         $realPass = $this->encoder->encodePassword($user, $pass);
-        $user->setUsername($identity["preferred_username"])->setEmail($identity["email"])->setEnabled(true)
+        $user->setUsername(isset($identity["preferred_username"]) ? $identity["preferred_username"] : $pass)
+             ->setEmail($identity["email"])->setEnabled(true)->setFranceConnectId($identity["sub"])
              ->setPassWord($realPass);
-        $client->setClientNom($identity["family_name"])->setClientPrenom($identity["given_name"])
-             ->setClientGenre($identity["gender"] === "female" ? "Mme" : "M")->setClientNomUsage($identity["preferred_username"])
-             ->setClientDateNaissance(new \DateTime($identity["birthdate"]))->setUser($user)->setClientContact($contact)
-             ->setClientLieuNaissance($identity["birthplace"])->setClientDptNaissance($identity["birthplace"])
+        $client->setClientNom($identity["family_name"])->setClientPrenom($identity["given_name"])->setClientNomUsage($identity["family_name"])
+             ->setClientGenre($identity["gender"] === "female" ? "Mme" : "M")->setUser($user)->setClientDptNaissance($identity["birthplace"])
+             ->setClientDateNaissance(new \DateTime($identity["birthdate"]))->setClientLieuNaissance($identity["birthplace"])
              ->setClientPaysNaissance($identity["birthcountry"]);
-        $contact->setContactTelmobile($identity["phone_number"])->setContactTelfixe($identity["phone_number"]);
-        $adresse->setVille($identity["address"]["locality"])->setLieudit($identity["address"]["formatted"])
-                ->setCodepostal($identity["address"]["postal_code"])->setPays($identity["address"]["country"])
-                ->setAdprecision($identity["address"]["street_address"])->setClient($client);
+        if (isset($identity["phone_number"]) && is_array($identity["phone_number"])) {
+            $contact  = new Contact();
+            $client->setClientContact($contact);
+            $contact->setContactTelmobile($identity["phone_number"])->setContactTelfixe($identity["phone_number"]);
+        }
+        if (isset($identity["address"]) && is_array($identity["address"])) {
+            $adresse  = new Adresse();
+            $adresse->setVille($identity["address"]["locality"])->setLieudit($identity["address"]["formatted"])
+                    ->setCodepostal($identity["address"]["postal_code"])->setPays($identity["address"]["country"])
+                    ->setAdprecision($identity["address"]["street_address"])->setClient($client);
+        }
+
         $this->em->persist($user);
         $this->em->flush();
 

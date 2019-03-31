@@ -103,7 +103,6 @@ class FranceConnectController extends Controller
        $identity = $token->getIdentity(); // json array provided by FranceConnect 
        //check if email exist
        $ifUser = $userManager->checkEmail($identity["email"]);
-           $ifUser = $userManager->checkEmail($identity["email"]);
         if ($ifUser) {
             $userManager->connect($ifUser);
         } else {
@@ -112,8 +111,6 @@ class FranceConnectController extends Controller
         }
 
         return $this->redirectToRoute($this->getParameter('france_connect.logout_value'));
-    //    dump($identity);die;
-    //    [...]
    }
 
    /**

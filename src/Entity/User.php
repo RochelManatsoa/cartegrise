@@ -25,6 +25,11 @@ class User extends BaseUser
     private $registerDate;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $franceConnectId;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Client",inversedBy="user", cascade={"persist", "remove"})
      */
     private $client;
@@ -67,4 +72,17 @@ class User extends BaseUser
 
         return $this;
     }
+
+    public function getFranceConnectId(): ?string
+    {
+        return $this->franceConnectId;
+    }
+
+    public function setFranceConnectId(?string $franceConnectId): self
+    {
+        $this->franceConnectId = $franceConnectId;
+
+        return $this;
+    }
+
 }
