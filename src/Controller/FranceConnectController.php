@@ -104,16 +104,22 @@ class FranceConnectController extends Controller
        //check if email exist
        $ifUser = $userManager->checkEmail($identity["email"]);
         if ($ifUser) {
-            $userManager->connect($ifUser);
+            $user = $ifUser;
         } else {
             $user = $userManager->createUserFranceConnect($identity);
-            $userManager->connect($user);
         }
-
+        $userManager->connect($user);
+        // add commande in user
+        $idsRecapCommande = $request->getSession()->get(SessionManager::IDS_COMMANDE);
+        $this->userManager->addCommandeInSession($user, $idsRecapCommande);
+        $this->sessionManager->remove(SessionManager::IDS_COMMANDE);
+        //end add commande in user
+        
         return $this->redirectToRoute($this->getParameter('france_connect.logout_value'));
    }
 
    /**
+    * to simulate FranceConnect and don't touche please
     * @Route("/simulator", name="simulator")
     */
    public function simulatorFranceConnect(Request $request, UserManager $userManager)
