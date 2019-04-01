@@ -1,0 +1,4 @@
+france_connect:
+    resource: "@FranceConnectBundle/Controller/"
+    type:     annotation
+    prefix:   /

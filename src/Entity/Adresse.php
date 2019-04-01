@@ -19,7 +19,7 @@ class Adresse
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $numero;
 
@@ -79,6 +79,11 @@ class Adresse
     private $client;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\NewTitulaire", inversedBy="adresseNewTitulaire", cascade={"persist", "remove"})
+     */
+    private $titulaire;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Vehicule", mappedBy="vehiculeAdresse")
      */
     private $vehicules;
@@ -100,7 +105,7 @@ class Adresse
         return $this->numero;
     }
 
-    public function setNumero(int $numero): self
+    public function setNumero(?int $numero): self
     {
         $this->numero = $numero;
 
@@ -112,7 +117,7 @@ class Adresse
         return $this->extension;
     }
 
-    public function setExtension(string $extension): self
+    public function setExtension(?string $extension): self
     {
         $this->extension = $extension;
 
@@ -124,7 +129,7 @@ class Adresse
         return $this->adprecision;
     }
 
-    public function setAdprecision(string $adprecision): self
+    public function setAdprecision(?string $adprecision): self
     {
         $this->adprecision = $adprecision;
 
@@ -136,7 +141,7 @@ class Adresse
         return $this->typevoie;
     }
 
-    public function setTypevoie(string $typevoie): self
+    public function setTypevoie(?string $typevoie): self
     {
         $this->typevoie = $typevoie;
 
@@ -148,7 +153,7 @@ class Adresse
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(?string $nom): self
     {
         $this->nom = $nom;
 
@@ -160,7 +165,7 @@ class Adresse
         return $this->complement;
     }
 
-    public function setComplement(string $complement): self
+    public function setComplement(?string $complement): self
     {
         $this->complement = $complement;
 
@@ -172,7 +177,7 @@ class Adresse
         return $this->lieudit;
     }
 
-    public function setLieudit(string $lieudit): self
+    public function setLieudit(?string $lieudit): self
     {
         $this->lieudit = $lieudit;
 
@@ -184,7 +189,7 @@ class Adresse
         return $this->codepostal;
     }
 
-    public function setCodepostal(string $codepostal): self
+    public function setCodepostal(?string $codepostal): self
     {
         $this->codepostal = $codepostal;
 
@@ -196,7 +201,7 @@ class Adresse
         return $this->ville;
     }
 
-    public function setVille(string $ville): self
+    public function setVille(?string $ville): self
     {
         $this->ville = $ville;
 
@@ -208,7 +213,7 @@ class Adresse
         return $this->boitepostale;
     }
 
-    public function setBoitepostale(string $boitepostale): self
+    public function setBoitepostale(?string $boitepostale): self
     {
         $this->boitepostale = $boitepostale;
 
@@ -220,7 +225,7 @@ class Adresse
         return $this->pays;
     }
 
-    public function setPays(string $pays): self
+    public function setPays(?string $pays): self
     {
         $this->pays = $pays;
 
@@ -241,6 +246,18 @@ class Adresse
         if ($newClientAdresse !== $client->getClientAdresse()) {
             $client->setClientAdresse($newClientAdresse);
         }
+
+        return $this;
+    }
+
+    public function getTitulaire(): ?NewTitulaire
+    {
+        return $this->titulaire;
+    }
+
+    public function setTitulaire(?NewTitulaire $titulaire): self
+    {
+        $this->titulaire = $titulaire;
 
         return $this;
     }
@@ -275,6 +292,5 @@ class Adresse
 
         return $this;
     }
-
 
 }

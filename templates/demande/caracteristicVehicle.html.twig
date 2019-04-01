@@ -1,0 +1,51 @@
+
+<h2 class="col-12">CARACTÉRISTIQUES DU VÉHICULE</h2>
+<table class="table table-striped">
+    <tr>
+        <th>Marque</th>
+        <td>Renault</td>
+    </tr>
+    <tr>
+        <th>Modèle</th>
+        <td>Cacahuète</td>
+    </tr>
+    <tr>
+        <th>VIN</th>
+        <td>{{ commande.taxes.VIN }}</td>
+    </tr>
+    <tr>
+        <th>CO2</th>
+        <td>{{ commande.taxes.CO2 }}</td>
+    </tr>
+    <tr>
+        <th>Genre</th>
+        <td>{{ commande.taxes.Genre }}</td>
+    </tr>
+    <tr>
+        <th>PTAC</th>
+        <td>{{ commande.taxes.PTAC }}</td>
+    </tr>
+    <tr>
+        <th>Energie</th>
+        <td>{{ commande.taxes.Energie }}</td>
+    </tr>
+    <tr>
+        <th>Date de mise en ciruclation</th>
+        <td>{{ commande.taxes.DateMEC | date('Y-m-d') }}</td>
+    </tr>
+</table>
+<h2 class="col-12">Récapitulatif de la demande</h2>
+<table class="table table-striped">
+    <tr>
+        <th>Demarche</th>
+        <td>{{commande.demarche}}</td>
+    </tr>
+    <tr>
+        <th>Immatriculation</th>
+        <td>{{commande.immatriculation}}</td>
+    </tr>
+    <tr>
+        <th>Département</th>
+        <td>{{commande.codePostal}}</td>
+    </tr>
+</table>

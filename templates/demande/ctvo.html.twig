@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-ccm{% endblock %}
+
+{% block page_content %}
+<div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
+	<div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
+        <div class="col-12 commander-firstview">
+            <div class="row col-12 ">
+                <div class="container">
+                    <h2 class="text-center"> Formulaire pour <br> {{ commande.demarche.nom|upper }}</h2>
+                    <br>
+                        <hr>
+                        {{ form_start(form, {'attr': {'class': 'row'}}) }}
+                            <div class="col-4 mx-auto">
+                                {% include "demande/caracteristicVehicle.html.twig" %}
+                            </div>
+                            <div class="col-3 mx-auto form-row">
+                                <div class="col-11">
+                                    <h5 class="text-center">{{ form_label(form.ctvo.ancienTitulaire) }}</h3>
+                                        <hr>
+                                        {% for antiTitulaire in form.ctvo.ancienTitulaire %}
+                                            <div class="form-group">
+                                                {{ form_label(antiTitulaire)}}
+                                                {{ form_errors(antiTitulaire)}}
+                                                {{ form_widget(antiTitulaire, {'attr': {'class': ''}})}}
+                                            </div>
+                                        {% endfor %}
+                                        <br>
+                                    
+                                        <h3 class="text-center">Acquerreur</h3>
+                                        <hr>
+                                        {% for acquerreur in form.ctvo.acquerreur %}
+                                            {% if loop.index < 7 %}
+                                                <div class="form-group">
+                                                    {{ form_label(acquerreur)}}
+                                                    {{ form_errors(acquerreur)}}
+                                                    {{ form_widget(acquerreur, {'attr': {'class': ''}})}}
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-3 mx-auto">
+                                <div class="col-11">
+                                    <h5> {{ form_label(form.ctvo.acquerreur.adresseNewTitulaire) }} </h3>
+                                    {% for addresseNewTitulaire in form.ctvo.acquerreur.adresseNewTitulaire %}
+                                        <div class="form-group">
+                                            {{ form_label(addresseNewTitulaire)}}
+                                            {{ form_errors(addresseNewTitulaire)}}
+                                            {{ form_widget(addresseNewTitulaire, {'attr': {'class': ''}})}}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {{form_rest(form)}}
+                            <div class="col-12 text-center mb-5">
+                                <br>
+                                <input type="submit" class="btn btn-lg btn-success" value="Valider">
+                            </div>
+                        {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+{% endblock %}

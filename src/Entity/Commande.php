@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,9 +39,29 @@ class Commande
     private $ceerLe;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="commande")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Client", inversedBy="commandes")
      */
     private $client;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Taxes", mappedBy="commande")
+     */
+    private $taxes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="commande")
+     */
+    private $demandes;
+
+    public function __construct()
+    {
+        $this->client = new ArrayCollection();
+        $this->demandes = new ArrayCollection();
+    }
+
+    public function __tostring(){
+        return $this->codePostal . $this->immatriculation;
+    }
 
 
     public function getId(): ?int
@@ -100,11 +122,73 @@ class Commande
         return $this->client;
     }
 
-    public function setClient(?Client $client): self
+    public function addClient(Client $client): self
     {
-        $this->client = $client;
+        if (!$this->client->contains($client)) {
+            $this->client[] = $client;
+        }
 
         return $this;
     }
+
+    public function removeClient(Client $client): self
+    {
+        if ($this->client->contains($client)) {
+            $this->client->removeElement($client);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Demande[]
+     */
+    public function getDemandes(): Collection
+    {
+        return $this->demandes;
+    }
+
+    public function addDemande(Demande $demande): self
+    {
+        if (!$this->demandes->contains($demande)) {
+            $this->demandes[] = $demande;
+            $demande->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemande(Demande $demande): self
+    {
+        if ($this->demandes->contains($demande)) {
+            $this->demandes->removeElement($demande);
+            // set the owning side to null (unless already changed)
+            if ($demande->getCommande() === $this) {
+                $demande->setCommande(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTaxes(): ?Taxes
+    {
+        return $this->taxes;
+    }
+
+    public function setTaxes(?Taxes $taxes): self
+    {
+        $this->taxes = $taxes;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCommande = $taxes === null ? null : $this;
+        if ($newCommande !== $taxes->getCommande()) {
+            $taxes->setCommande($newCommande);
+        }
+
+        return $this;
+    }
+
+
 
 }
