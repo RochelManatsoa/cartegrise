@@ -137,7 +137,7 @@
 								class="form-check-label resultat-estimation-p" for="defaultCheck1"> <b>Oui, je souhaite que ma demande de carte grise débute immédiatement.</b> Ainsi je renonce expressément à mon droit de rétractation afin que la prestation débute avant la fin du
 								délai légal de rétractation. </label> </div> -->
 
-								<a class="col-12 btn btn-primary mb-3" href="#">FranceConnect</a>
+								<a class="col-12 btn btn-primary mb-3" href="{{ path('france_connect_login') }}" >FranceConnect</a>
 								{% if app.user %}
 									<a class="col-12 btn btn-success" href="{{path('new_demande', {'commande': recap.id })}}">Continuer</a>
 								{% else %}
