@@ -10,6 +10,7 @@ use App\Form\DemandeType;
 use App\Form\CommandeType;
 use App\Repository\CommandeRepository;
 use App\Repository\TaxesRepository;
+use App\Repository\TarifsPrestationsRepository;
 use App\Repository\DemandeRepository;
 use App\Repository\TypeDemandeRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -30,6 +31,7 @@ class HomeController extends AbstractController
         TypeDemandeRepository $demarche,
         ObjectManager $manager,
         TaxesRepository $taxesRepository,
+        TarifsPrestationsRepository $prestation,
         CommandeRepository $commandeRepository,
         SessionManager $sessionManager
         )
@@ -58,7 +60,17 @@ class HomeController extends AbstractController
             $sessionManager->initSession();
             if($ifCommande !== null){
                 $recapCommand = $ifCommande;
+                $prix = $prestation->find($commande->getDemarche());
+                if($prix == null){
+                    $prixPresta = 0;
+                }else{
+                    $prixPresta = $prix->getPrix();
+                }
+                
                 $param = $this->getParamHome($recapCommand, $sessionManager, $tabForm);
+                $param = array_merge([
+                    'prestation'=>$prixPresta,
+                ], $param);
 
                 return $this->render('home/accueil.html.twig', $param);
             } else {
@@ -93,6 +105,13 @@ class HomeController extends AbstractController
                 $value = $client->Envoyer($params);
                 // dump($value);die;
 
+                $prix = $prestation->find($commande->getDemarche());
+                if($prix == null){
+                    $prixPresta = 0;
+                }else{
+                    $prixPresta = $prix->getPrix();
+                }
+
                 if(isset($value->Lot->Demarche->ECGAUTO->Reponse->Negative->Erreur)){
                     return new Response(
                         '<html><body><h1>'.$value->Lot->Demarche->ECGAUTO->Reponse->Negative->Erreur.'</h1></body></html>'
@@ -122,6 +141,9 @@ class HomeController extends AbstractController
 
                     $value = $taxe;
                     $param = $this->getParamHome($commande, $sessionManager, $tabForm);
+                    $param = array_merge([
+                        'prestation'=>$prixPresta,
+                    ], $param);
 
                     return $this->render('home/accueil.html.twig', $param);
                 }
@@ -151,9 +173,27 @@ class HomeController extends AbstractController
     {
         $manager = $this->getDoctrine()->getManager();
         $value = $commande->getTaxes();
+        $majoration = 0;
+        $service = $value->getTaxeRegionale();
+
+        if($service > 101 && $service < 300){
+            $majoration = 7;
+        }elseif($service > 301 && $service < 400){
+            $majoration = 11;
+        }elseif($service > 401 && $service < 600){
+            $majoration = 17;
+        }elseif($service > 601 && $service < 800){
+            $majoration = 21;
+        }elseif($service > 801 && $service < 1000){
+            $majoration = 27;
+        }elseif($service > 1001 && $service < 1499){
+            $majoration = 31;
+        }elseif($service > 1500){
+            $majoration = 41;
+        }
         $param = [
             'commandes' => $commande, 'recap' => $commande,
-            'value' => $value,        'database' => true,
+            'value' => $value,        'database' => true,   'majoration' => $majoration,
         ];
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
             $param = array_merge([

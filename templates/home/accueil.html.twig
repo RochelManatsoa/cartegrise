@@ -114,23 +114,23 @@
 										<th>Taxe RedevanceSIV</th>
 										<td>{{ value.TaxeRedevanceSIV }}
 											€</td>
-									</tr>
+									</tr>								
 									<tr>
-										<th>Frais de traitement du dossier</th>
+										<th>Frais de traitement de dossier</th>
 										<td>
-											Nos Prix
+											{{prestation + majoration  }} €
 										</td>
 									</tr>
 									<tr>
-										<th>Taxe Totale</th>
+										<th>TOTAL:</th>							
 										<td>
-											<strong>{{ value.TaxeTotale }}
+											<strong>{{ value.TaxeTotale + prestation + majoration}}
 												€</strong>
 										</td>
 									</tr>
 								</table><br>
 								<div class="col-12 resultat-estimation-p mb-5">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+									<p>Les produits ou services achetés sur cgofficiel.fr doivent être réglés en euros soit en ligne, soit par chèque. Les catres bancaires accéptées par le système sécuriséHiPay sont Carte bleue, Visa, Eurocard Mastercard.</p>
 								</div>
 								<!-- <div class="form-check col-10 mx-auto mb-3"> <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"> <label class="form-check-label resultat-estimation-p" for="defaultCheck1"> J'ai lu et j'accepte les <b>Conditions Générales
 								de Vente</b> , notre <b>politique de confidentialité</b> et la liste des documents à retourner. </label> </div> <div class="form-check col-10 mx-auto"> <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"> <label
@@ -239,25 +239,25 @@
 								<th>Taxe RedevanceSIV</th>
 								<td>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.TaxeRedevanceSIV }}
 									€</td>
-							</tr>
+							</tr>								
 							<tr>
-								<th>Frais de traitement du dossier</th>
+								<th>Frais de traitement de dossier</th>
 								<td>
-									Nos Prix
+									{{prestation + majoration }} €
 								</td>
 							</tr>
 							<tr>
-								<th>Taxe Totale</th>
+								<th>TOTAL:</th>
 								<td>
-									<strong>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.TaxeTotale }}
+									<strong>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.TaxeTotale + prestation  }}
 										€</strong>
 								</td>
 							</tr>
 						</table><br>
 						<div class="col-12 resultat-estimation-p">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<p>Les produits ou services achetés sur cgofficiel.fr doivent être réglés en euros soit en ligne, soit par chèque. Les catres bancaires accéptées par le système sécuriséHiPay sont Carte bleue, Visa, Eurocard Mastercard.</p>
 						</div>
-						<a class="col-12 btn btn-primary mb-3" href="#">FranceConnect</a>
+						<a class="col-12 btn btn-primary mb-3" href="{{ path('france_connect_login') }}" >FranceConnect</a>
 						{% if app.user %}
 							<a class="col-12 btn btn-success" href="{{path('Accueil')}}{{ commandes.demarche.type | lower}}/?commande={{ commandes.id }}">VALIDER</a>
 						{% else %}
