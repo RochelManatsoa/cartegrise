@@ -143,4 +143,9 @@ class DemandeManager
         return $this->repository->countDemandeForUser($user)[1];
     }
 
+    public function getDemandeOfUser(User $user)
+    {
+        return $this->repository->getDemandeForUser($user);
+    }
+
 }
