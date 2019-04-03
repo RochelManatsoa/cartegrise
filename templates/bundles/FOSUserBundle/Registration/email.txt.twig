@@ -8,7 +8,8 @@
 {% block body_text %}
 {% endblock %}
 {% block body_html %}
-{% autoescape false %}
+<h1>Bonjour { user.name }</h1>
+{# {% autoescape false %}
 {{ 'registration.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl,'%email%': user.email}) }}
-{% endautoescape %}
+{% endautoescape %} #}
 {% endblock %}

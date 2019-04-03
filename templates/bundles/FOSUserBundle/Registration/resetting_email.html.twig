@@ -1,0 +1,83 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% block subject %}
+{%- autoescape false -%}
+{{ 'registration.email.subject'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
+{%- endautoescape -%}
+{% endblock %}
+
+{% block body_text %}
+{% endblock %}
+{% block body_html %}
+{% autoescape false %}
+<div dir="ltr" style="display: block; width: 100%; background: #ffffff">
+		<div style='width: 100%; border: none;background-color: #ffffff'>			
+			<center><img style="height:150px;width:auto;margin:auto;" src="https://ci4.googleusercontent.com/proxy/mJemm3T_DymwQsex1-Y_ypC4igpKrD0RAbH94SkU5yZVbwVwBd0NvY6UCn96c5Sh4sRzuUjtPLPm4v-57JTf=s0-d-e1-ft#http://dev2.cgofficiel.fr/asset/img/logo.png" alt="logo" class="CToWUd a6T" tabindex="0"> </center>
+			<div style="text-align:center;padding-top:15px;padding-bottom:15px;background-color:#002a6a;font-family:Raleway;color:white;font-weight:bold;padding-left:15px;padding-right:15px">
+					<span class="il">CGOfficiel</span>.fr
+			</div>
+			<div style="font-family:Raleway;font-weight:bold;color:#7296ce;font-size:35px;padding-top:50px;text-align:center">
+				Bonjour {{user.username}},
+			</div>
+			<p style="font-family:Raleway;font-weight:bold;color:#002a6a;font-size:25px;padding-top:20px;padding-bottom:15px;text-align:center;border-top:1px solid #002a6a;width:80%;margin-right:auto;margin-left:auto">
+				Pour réinitialiser votre mot de passe, merci de vous rendre sur{{confirmationUrl}}
+			</p>
+			<div style="font-family:Raleway;font-weight:bold;color:#002a6a;font-size:25px;text-align:center;width:80%;margin-right:auto;margin-left:auto;text-decoration:none!important;margin-top:0px;margin-bottom:0px">
+				<p style="font-family:Raleway;font-weight:bold;color:black;font-size:15px;margin-right:auto;margin-left:auto;border-radius:5px;width:fit-content;margin-top:5px;margin-bottom:15px">
+				Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.
+				</p>
+			</div>
+			<p style="font-family:Raleway;font-weight:bold;color:#002a6a;font-size:25px;padding-top:20px;padding-bottom:15px;text-align:center;border-top:1px solid #002a6a;width:80%;margin-right:auto;margin-left:auto">
+				Pour vous connecter lors de vos prochaines visites, cliquez sur Espace Client en haut de toutes les pages du site <a href="http://www.cgofficiel.fr" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://www.cgofficiel.fr&amp;source=gmail&amp;ust=1554281054107000&amp;usg=AFQjCNH7-I0PHyH2I5ZeG_yox4fgdziOSg">www.cgofficiel.fr</a> , puis saisissez votre e-mail et votre mot de passe.
+			</p>
+			<div style="font-family:Raleway;font-weight:bold;color:#002a6a;font-size:25px;padding-top:20px;padding-bottom:15px">
+				<p style="font-family:Raleway;font-weight:bold;color:#002a6a;font-size:25px;padding-top:20px;padding-bottom:15px;text-align:center;width:80%;margin-right:auto;margin-left:auto">
+				Si vous avez des questions au sujet de votre commande,<br> n'hésitez pas à nous contacter sur notre Formulaire de Contact ou par téléphone.</p>
+			</div>  
+			<div style="font-family:Raleway;font-weight:bold;color:#002a6a;font-size:25px;text-align:center;width:80%;margin-right:auto;margin-left:auto;text-decoration:none!important;margin-top:0px;margin-bottom:0px">
+				<p style="font-family:Raleway;font-weight:bold;color:black;font-size:15px;margin-right:auto;margin-left:auto;border-radius:5px;width:fit-content;margin-top:5px;margin-bottom:15px">
+				Possibilité de régler en ligne par CB, PayPal et même en 3xCB !</p>
+			</div>
+			<div style="font-family:Raleway;font-weight:bold;color:#002a6a;font-size:25px;text-align:center;width:100%;margin-right:auto;margin-left:auto;text-decoration:none!important;margin-top:0px;margin-bottom:0px">
+				<p style="font-family:Raleway;font-weight:bold;color:black;font-size:20px;margin-right:auto;margin-left:auto;border-radius:5px;width:fit-content;margin-top:0px;margin-bottom:0px">
+				Contactez nous au 0897 010 800 pour un conseil ou pour prendre un paiement.</p>
+			<div style="background-image:url(https://ci3.googleusercontent.com/proxy/sU8fWqpeIemlLvKikyOQH9NR15d8qpjakId9zdFecgJbbnpJLJiXGEDjcgPi0deCbJ3vZSAGXChdaNoWsQ=s0-d-e1-ft#http://dev2.cgofficiel.fr/asset/img/08.png);background-size:contain;background-repeat:no-repeat;background-position:center;height:50px;width:auto">
+			</div>
+			
+			<div style="font-family:Raleway;font-weight:bold;color:#002a6a;font-size:25px;text-align:center;width:80%;margin-right:auto;margin-left:auto;text-decoration:none!important;margin-top:50px;margin-bottom:0px">
+			
+				<p style="font-family:Raleway;font-weight:bold;color:#002a6a;font-size:20px;margin-right:auto;margin-left:auto;border-radius:5px;width:fit-content;margin-top:0px;margin-bottom:0px">
+			Merci de l'intérêt porté à notre service et de votre confiance,<br>le service Client CGofficiel.fr.</p>
+			</div>
+			
+			<div style="font-family:Raleway;font-weight:bold;color:#002a6a;font-size:25px;text-align:center;width:100%;margin-right:auto;margin-left:auto;text-decoration:none!important;margin-top:50px;margin-bottom:0px;background-color:rgb(213,213,213)">
+			
+				<p style="font-family:Raleway;color:black;font-size:15px;margin-right:auto;margin-left:auto;border-radius:5px;width:fit-content;margin-top:0px;margin-bottom:0px;padding-top:15px;padding-bottom:15px">
+			Agrément du Trésor Public N°55337<br>Habilitation du Ministère de l'Intérieur N°222442</p>
+			</div>
+			
+			
+			
+			<a href="#m_3924245667653304896_" style="font-family:Raleway;font-weight:bold;color:#002a6a;font-size:25px;padding-top:20px;text-align:center;width:80%;margin-right:auto;margin-left:auto;text-decoration:none!important">
+				<p style="font-family:Raleway;font-weight:bold;color:#5bab52;font-size:25px;margin-right:auto;margin-left:auto;border:1px solid #7bcf71;border-radius:5px;width:fit-content;padding-right:15px;padding-left:15px;padding-top:15px;padding-bottom:15px;margin-top:0px;margin-bottom:0px;margin-top:30px;margin-bottom:30px">
+				Je ne souhaite plus être sollicité pour ma carte grise (sauf à ma demande) </p>
+			</a>
+			
+			
+			<div style="font-family:Raleway;font-weight:bold;color:#002a6a;font-size:25px;text-align:center;width:100%;margin-right:auto;margin-left:auto;margin-bottom:0px">
+			
+				<p style="font-family:Raleway;color:black;font-size:15px;margin-right:auto;margin-left:auto;border-radius:5px;width:fit-content;margin-top:0px;margin-bottom:0px">
+			Cet email est envoyé automatiquement, veuillez ne PAS y répondre.
+			</p>
+			
+			<p style="font-family:Raleway;color:#002a6a;font-size:15px;margin-right:auto;margin-left:auto;border-radius:5px;width:fit-content;margin-top:0px;margin-bottom:0px;text-align:center">
+			Prix TTC. Voir nos conditions sur le site.<br>Contact: <a href="mailto:contact@cgofficiel.fr" target="_blank">contact@cgofficiel.fr</a> / 0897 010 800*<br>* 0,80€ TTC/min + coût de l'appel
+			</p>
+			</div><img src="https://ci4.googleusercontent.com/proxy/GVoPWZUgtELnm3WT6aRJmOBk4iZh6Tx8bH2Cnl032qA3Ro5GKtRVUhEGxFrR3lV6lvVl-zk8kBK4jeKqgGb0k4pViDZ9WKn_Shzv8-uPGFeMg6SXD4lryyakeAJXIeAvvgnOPrzEZJPdVsF4jSwloOY3CFgHMShhyg735xKLSaYk-y_UocQOmRhuIsgBSJFI8XI5xsHd5mlBZjrM1atwuNdCoGu1GrlGlWNyXPca3zEf6a1xUGuGvhVMGHosfKzXAz4I_-JewiyHIhU=s0-d-e1-ft#http://cbfggab.r.af.d.sendibt2.com/tr/op/yZqDoCBdUBoigpTefSSZodOmoi4QCAAMpf7w0Go6Yw16gHt-3u71NrX2hg5FJ9koKPMexxPqRu0tbZjBYtMLyr8oBX5Lzf4yWMGOezAAIn8jFQY9bXYNzCPwBqwjDYN06XurHq_hxlBNSA" alt="" class="CToWUd" height="1" width="1"><div class="yj6qo"></div><div class="adL">
+			
+			
+			</div></div>              
+		</div>
+	</div>
+
+{% endautoescape %}
+{% endblock %}
