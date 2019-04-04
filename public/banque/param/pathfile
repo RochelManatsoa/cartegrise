@@ -8,34 +8,34 @@
 #
 #
 #-------------------------------------------------------------------------
-# Activation (YES) / Désactivation (NO) du mode DEBUG
+# Activation (YES) / Dï¿½sactivation (NO) du mode DEBUG
 #-------------------------------------------------------------------------
 #
 DEBUG!NO!
 #
 # ------------------------------------------------------------------------
-# Chemin vers le répertoire des logos depuis le web alias  
-# Exemple pour le répertoire www.merchant.com/sherlocks/payment/logo/
+# Chemin vers le rï¿½pertoire des logos depuis le web alias  
+# Exemple pour le rï¿½pertoire www.merchant.com/sherlocks/payment/logo/
 # indiquer:
 # ------------------------------------------------------------------------
 #
 D_LOGO!logo/!
 #
 # --------------------------------------------------------------------------
-#  Fichiers paramètres liés a l'api sherlocks paiement	
+#  Fichiers paramï¿½tres liï¿½s a l'api sherlocks paiement	
 # --------------------------------------------------------------------------
 #
-# fichier des  paramètres sherlocks
+# fichier des  paramï¿½tres sherlocks
 #
-F_DEFAULT!/var/www/html/front/projectCG/public/banque/param/parmcom.sherlocks!
+F_DEFAULT!/home/rochel/Documents/cartegrise/cartegrise/public/banque/param/parmcom.sherlocks!
 #
-# fichier paramètre commercant
+# fichier paramï¿½tre commercant
 #
-F_PARAM!/var/www/html/front/projectCG/public/banque/param/parmcom!
+F_PARAM!/home/rochel/Documents/cartegrise/cartegrise/public/banque/param/parmcom!
 #
 # certificat du commercant
 #
-F_CERTIFICATE!/var/www/html/front/projectCG/public/banque/param/certif!
+F_CERTIFICATE!/home/rochel/Documents/cartegrise/cartegrise/public/banque/param/certif!
 #
 # type du certificat
 #

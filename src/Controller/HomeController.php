@@ -60,17 +60,8 @@ class HomeController extends AbstractController
             $sessionManager->initSession();
             if($ifCommande !== null){
                 $recapCommand = $ifCommande;
-                $prix = $prestation->find($commande->getDemarche());
-                if($prix == null){
-                    $prixPresta = 0;
-                }else{
-                    $prixPresta = $prix->getPrix();
-                }
-                
+                $prix = $prestation->find($commande->getDemarche());                
                 $param = $this->getParamHome($recapCommand, $sessionManager, $tabForm);
-                $param = array_merge([
-                    'prestation'=>$prixPresta,
-                ], $param);
 
                 return $this->render('home/accueil.html.twig', $param);
             } else {
@@ -106,11 +97,6 @@ class HomeController extends AbstractController
                 // dump($value);die;
 
                 $prix = $prestation->find($commande->getDemarche());
-                if($prix == null){
-                    $prixPresta = 0;
-                }else{
-                    $prixPresta = $prix->getPrix();
-                }
 
                 if(isset($value->Lot->Demarche->ECGAUTO->Reponse->Negative->Erreur)){
                     return new Response(
@@ -141,26 +127,23 @@ class HomeController extends AbstractController
 
                     $value = $taxe;
                     $param = $this->getParamHome($commande, $sessionManager, $tabForm);
-                    $param = array_merge([
-                        'prestation'=>$prixPresta,
-                    ], $param);
 
                     return $this->render('home/accueil.html.twig', $param);
                 }
             }
         }
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
-                $user = $this->getUser();
-                $client = $user->getClient();
-                $genre = $client->getClientGenre();
+            $user = $this->getUser();
+            $client = $user->getClient();
+            $genre = $client->getClientGenre();
 
-                return $this->render('home/accueil.html.twig', [
-                        'genre' => $genre,
-                        'client' => $client,
-                        'demarches' => $type,
-                        'tab' => $tabForm,
-                        'database' => false,
-                ]);
+            return $this->render('home/accueil.html.twig', [
+                'genre' => $genre,
+                'client' => $client,
+                'demarches' => $type,
+                'tab' => $tabForm,
+                'database' => false,
+            ]);
         }
         return $this->render('home/accueil.html.twig', [
             'demarches' => $type,

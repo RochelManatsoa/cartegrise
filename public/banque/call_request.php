@@ -1,10 +1,10 @@
 <!--
 -------------------------------------------------------------
- Topic	 : Exemple PHP traitement de la requête de paiement
+ Topic	 : Exemple PHP traitement de la requï¿½te de paiement
  Version : P617
 
  		Dans cet exemple, on affiche un formulaire HTML
-		de connection à l'internaute.
+		de connection ï¿½ l'internaute.
 
 -------------------------------------------------------------
 -->
@@ -18,7 +18,7 @@
 	print ("<center><H1>Test de l'API plug-in SHERLOCKS</H1></center><br><br>");
 
 
-	//		Affectation des paramètres obligatoires
+	//		Affectation des paramï¿½tres obligatoires
 
 	$parm="merchant_id=014295303911111";    // CODE DE TEST
         //$parm="merchant_id=083897291700010";    // CODE DE PRODUCTION
@@ -27,25 +27,25 @@
 	$parm="$parm currency_code=978";
 
 
-	// Initialisation du chemin du fichier pathfile (à modifier)
+	// Initialisation du chemin du fichier pathfile (ï¿½ modifier)
 	    //   ex :
 	    //    -> Windows : $parm="$parm pathfile=c:/repertoire/pathfile";
 	    //    -> Unix    : $parm="$parm pathfile=/home/repertoire/pathfile";
 	    
-	$parm="$parm pathfile=/var/www/html/front/projectCG/public/banque/param/pathfile";
+	$parm="$parm pathfile=/home/rochel/Documents/cartegrise/cartegrise/public/banque/param/pathfile";
 
-	//		Si aucun transaction_id n'est affecté, request en génère
-	//		un automatiquement à partir de heure/minutes/secondes
-	//		Référez vous au Guide du Programmeur pour
-	//		les réserves émises sur cette fonctionnalité
+	//		Si aucun transaction_id n'est affectï¿½, request en gï¿½nï¿½re
+	//		un automatiquement ï¿½ partir de heure/minutes/secondes
+	//		Rï¿½fï¿½rez vous au Guide du Programmeur pour
+	//		les rï¿½serves ï¿½mises sur cette fonctionnalitï¿½
 	//
 	//		$parm="$parm transaction_id=123456";
 
 
 
-	//		Affectation dynamique des autres paramètres
-	// 		Les valeurs proposées ne sont que des exemples
-	// 		Les champs et leur utilisation sont expliqués dans le Dictionnaire des données
+	//		Affectation dynamique des autres paramï¿½tres
+	// 		Les valeurs proposï¿½es ne sont que des exemples
+	// 		Les champs et leur utilisation sont expliquï¿½s dans le Dictionnaire des donnï¿½es
 	//
 	// 		$parm="$parm normal_return_url=http://www.maboutique.fr/cgi-bin/call_response.php";
 	//		$parm="$parm cancel_return_url=http://www.maboutique.fr/cgi-bin/call_response.php";
@@ -82,8 +82,8 @@
 	//		$parm="$parm home_street=";
 	//		$parm="$parm home_zipcode=";
 
-	//		Les valeurs suivantes ne sont utilisables qu'en pré-production
-	//		Elles nécessitent l'installation de vos fichiers sur le serveur de paiement
+	//		Les valeurs suivantes ne sont utilisables qu'en prï¿½-production
+	//		Elles nï¿½cessitent l'installation de vos fichiers sur le serveur de paiement
 	//
 	// 		$parm="$parm normal_return_logo=";
 	// 		$parm="$parm cancel_return_logo=";
@@ -95,36 +95,36 @@
 	// 		$parm="$parm templatefile=";
 
 
-	//		insertion de la commande en base de données (optionnel)
-	//		A développer en fonction de votre système d'information
+	//		insertion de la commande en base de donnï¿½es (optionnel)
+	//		A dï¿½velopper en fonction de votre systï¿½me d'information
 
-	// Initialisation du chemin de l'executable request (à modifier)
+	// Initialisation du chemin de l'executable request (ï¿½ modifier)
 	// ex :
 	// -> Windows : $path_bin = "c:/repertoire/bin/request";
 	// -> Unix    : $path_bin = "/home/repertoire/bin/request";
 	//
 
-	$path_bin = "/var/www/html/front/projectCG/public/banque/bin/request";
+	$path_bin = "/home/rochel/Documents/cartegrise/cartegrise/public/banque/bin/request";
 
 
 	//	Appel du binaire request
-	// La fonction escapeshellcmd() est incompatible avec certaines options avancées
-  	// comme le paiement en plusieurs fois qui nécessite  des caractères spéciaux 
-  	// dans le paramètre data de la requête de paiement.
-  	// Dans ce cas particulier, il est préférable d.exécuter la fonction escapeshellcmd()
-  	// sur chacun des paramètres que l.on veut passer à l.exécutable sauf sur le paramètre data.
+	// La fonction escapeshellcmd() est incompatible avec certaines options avancï¿½es
+  	// comme le paiement en plusieurs fois qui nï¿½cessite  des caractï¿½res spï¿½ciaux 
+  	// dans le paramï¿½tre data de la requï¿½te de paiement.
+  	// Dans ce cas particulier, il est prï¿½fï¿½rable d.exï¿½cuter la fonction escapeshellcmd()
+  	// sur chacun des paramï¿½tres que l.on veut passer ï¿½ l.exï¿½cutable sauf sur le paramï¿½tre data.
 	$parm = escapeshellcmd($parm);	
 	$result=exec("$path_bin $parm");
 
 	//	sortie de la fonction : $result=!code!error!buffer!
-	//	    - code=0	: la fonction génère une page html contenue dans la variable buffer
+	//	    - code=0	: la fonction gï¿½nï¿½re une page html contenue dans la variable buffer
 	//	    - code=-1 	: La fonction retourne un message d'erreur dans la variable error
 
 	//On separe les differents champs et on les met dans une variable tableau
 
 	$tableau = explode ("!", "$result");
 
-	//	récupération des paramètres
+	//	rï¿½cupï¿½ration des paramï¿½tres
 
 	$code = $tableau[1];
 	$error = $tableau[2];
@@ -150,7 +150,7 @@
 	else {
 		print ("<br><br>");
 		
-		# OK, affichage du mode DEBUG si activé
+		# OK, affichage du mode DEBUG si activï¿½
 		print (" $error <br>");
 		
 		print ("  $message <br>");

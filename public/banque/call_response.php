@@ -1,10 +1,10 @@
 <!--
 -------------------------------------------------------------
- Topic		: Exemple PHP traitement de la réponse de paiement
+ Topic		: Exemple PHP traitement de la rï¿½ponse de paiement
  Version 	: P617
 
-	Dans cet exemple, les données de la transaction	sont
-	décryptées et affichées sur le navigateur de l'internaute.
+	Dans cet exemple, les donnï¿½es de la transaction	sont
+	dï¿½cryptï¿½es et affichï¿½es sur le navigateur de l'internaute.
 
 -------------------------------------------------------------
 -->
@@ -19,23 +19,23 @@
 	print ("<Font color=#000000>");
 	print ("<center><H1>Test de l'API plug-in SHERLOCKS</H1></center><br><br>");
 
-	// Récupération de la variable cryptée DATA
+	// Rï¿½cupï¿½ration de la variable cryptï¿½e DATA
 	$message="message=$_POST[DATA]";
 	
-	// Initialisation du chemin du fichier pathfile (à modifier)
+	// Initialisation du chemin du fichier pathfile (ï¿½ modifier)
     //   ex :
     //    -> Windows : $pathfile="pathfile=c:/repertoire/pathfile";
     //    -> Unix    : $pathfile="pathfile=/home/repertoire/pathfile";
    
-   $pathfile="pathfile=/var/www/html/front/projectCG/public/banque/param/pathfile";
+   $pathfile="pathfile=/home/rochel/Documents/cartegrise/cartegrise/public/banque/param/pathfile";
 
-	// Initialisation du chemin de l'executable response (à modifier)
+	// Initialisation du chemin de l'executable response (ï¿½ modifier)
 	// ex :
 	// -> Windows : $path_bin = "c:/repertoire/bin/response";
 	// -> Unix    : $path_bin = "/home/repertoire/bin/response";
 	//
 
-	$path_bin = "/var/www/html/front/projectCG/public/banque/bin/response";
+	$path_bin = "/home/rochel/Documents/cartegrise/cartegrise/public/banque/bin/response";
 
 	// Appel du binaire response
   	$message = escapeshellcmd($message);
@@ -43,8 +43,8 @@
 
 
 	//	Sortie de la fonction : !code!error!v1!v2!v3!...!v29
-	//		- code=0	: la fonction retourne les données de la transaction dans les variables v1, v2, ...
-	//				: Ces variables sont décrites dans le GUIDE DU PROGRAMMEUR
+	//		- code=0	: la fonction retourne les donnï¿½es de la transaction dans les variables v1, v2, ...
+	//				: Ces variables sont dï¿½crites dans le GUIDE DU PROGRAMMEUR
 	//		- code=-1 	: La fonction retourne un message d'erreur dans la variable error
 
 
@@ -52,7 +52,7 @@
 
 	$tableau = explode ("!", $result);
 
-	//	Récupération des données de la réponse
+	//	Rï¿½cupï¿½ration des donnï¿½es de la rï¿½ponse
 
 	$code = $tableau[1];
 	$error = $tableau[2];
@@ -115,10 +115,10 @@
 		print (" message erreur : $error <br>");
 	}
 
-	// OK, affichage des champs de la réponse
+	// OK, affichage des champs de la rï¿½ponse
 	else {
 		
-	# OK, affichage du mode DEBUG si activé
+	# OK, affichage du mode DEBUG si activï¿½
 	print (" $error <br>");
 		
 	print("<center>\n");

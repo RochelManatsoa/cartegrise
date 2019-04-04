@@ -118,13 +118,13 @@
 									<tr>
 										<th>Frais de traitement de dossier</th>
 										<td>
-											{{prestation + majoration  }} €
+											{{ fraisTotalTraitement(fraisTraitement(recap.demarche), majoration) }} €
 										</td>
 									</tr>
 									<tr>
 										<th>TOTAL:</th>							
 										<td>
-											<strong>{{ value.TaxeTotale + prestation + majoration}}
+											<strong>{{ fraisTotal(value.TaxeTotale, fraisTraitement(recap.demarche), majoration) }}
 												€</strong>
 										</td>
 									</tr>
@@ -243,13 +243,13 @@
 							<tr>
 								<th>Frais de traitement de dossier</th>
 								<td>
-									{{prestation + majoration }} €
+									{{ fraisTotalTraitement(fraisTraitement(commandes.demarche), majoration) }} €
 								</td>
 							</tr>
 							<tr>
 								<th>TOTAL:</th>
 								<td>
-									<strong>{{ value.Lot.Demarche.ECGAUTO.Reponse.Positive.TaxeTotale + prestation  }}
+									<strong>{{ fraisTotal(value.Lot.Demarche.ECGAUTO.Reponse.Positive.TaxeTotale, fraisTraitement(commandes.demarche), majoration) }}
 										€</strong>
 								</td>
 							</tr>
