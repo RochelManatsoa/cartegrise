@@ -36,7 +36,7 @@ class DemandeController extends AbstractController
     }
 
     /**
-     * @Route("/lists")
+     * @Route("/list", name="demande_list")
      */
     public function list(DemandeManager $demandeManager)
     {
