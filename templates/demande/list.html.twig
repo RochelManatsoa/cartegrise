@@ -13,9 +13,11 @@
                         <tr>
                             <th scope="col">id</th>
                             <th scope="col">Type Demande</th>
-                            <th scope="col">CodePostal</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Nom et prénom</th>
+                            <th scope="col">Département</th>
                             <th scope="col">Immatriculation</th>
-                            <th scope="col">status</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -24,6 +26,8 @@
                         <tr>
                             <td>{{ demande.id }}</td>
                             <td>{{ demande.commande.demarche.nom }}</td>
+                            <td>{{ demande.commande.ceerLe | date('d-m-Y')}}</td>
+                            <td>{{ client.clientNom }} {{ client.clientPrenom }}</td>
                             <td>{{ demande.commande.codePostal }}</td>
                             <td>{{ demande.commande.immatriculation }}</td>
                             <td><span class="badge badge-warning">demandes Tms</span></td>
