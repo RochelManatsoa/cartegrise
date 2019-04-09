@@ -34,4 +34,18 @@ class DemandeController extends AbstractController
 
         return new Response($demandeManager->getView($form));
     }
+
+    /**
+     * @Route("/list", name="demande_list")
+     */
+    public function list(DemandeManager $demandeManager)
+    {
+        return $this->render(
+            'demande/list.html.twig',
+            [
+                'demandes' => $demandeManager->getDemandeOfUser($this->getUser()),
+                'client' => $this->getUser()->getClient(),
+            ]
+        );
+    }
 }

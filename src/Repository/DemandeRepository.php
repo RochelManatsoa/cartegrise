@@ -48,4 +48,15 @@ class DemandeRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getDemandeForUser(User $user)
+    {
+        return $this->createQueryBuilder('d')
+        ->join('d.commande','com')
+        ->join('com.client','c')
+        ->join('c.user','u')
+        ->where('u =:user')
+        ->setParameter('user', $user)->getQuery()->getResult();
+
+    }
 }

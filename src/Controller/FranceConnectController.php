@@ -67,7 +67,6 @@ class FranceConnectController extends Controller
         $this->logger->debug('Callback intercept.');
         $getParams = $request->query->all();
         $this->contextService->getUserInfo($getParams);
-
         switch ($this->getParameter('france_connect.result_type')) {
             case 'route' :
                 $redirection = $this->redirectToRoute($this->getParameter('france_connect.result_value'));

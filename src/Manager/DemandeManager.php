@@ -76,6 +76,7 @@ class DemandeManager
         $demande = $form->getData();
         if (!$demande instanceof Demande)
             return;
+        $demande->setDateDemande(new \Datetime());
         $this->em->persist($demande);
         $this->em->flush();
     }
@@ -141,6 +142,11 @@ class DemandeManager
     public function countDemandeOfUser(User $user)
     {
         return $this->repository->countDemandeForUser($user)[1];
+    }
+
+    public function getDemandeOfUser(User $user)
+    {
+        return $this->repository->getDemandeForUser($user);
     }
 
 }
