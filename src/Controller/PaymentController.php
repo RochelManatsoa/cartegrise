@@ -29,10 +29,11 @@ class PaymentController extends AbstractController
     public function request(Demande $demande, PaymentUtils $paymentUtils, ParameterBagInterface $parameterBag)
     {
         $taxes = $demande->getCommande()->getTaxes()->getTaxeTotale();
+        $email = $demande->getCommande()->getClient()->getUser()->getEmail();
         $taxes *=100;
         $paramDynamical = [
             'amount' => $taxes,
-            'customer_email' => 'joachim.peetroons@ynover.com',
+            'customer_email' => $email,
         ];
         $param = $parameterBag->get('payment_params');
         $bin   = $parameterBag->get('payment_binary');
