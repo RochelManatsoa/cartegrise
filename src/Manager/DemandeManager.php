@@ -76,6 +76,7 @@ class DemandeManager
         $demande = $form->getData();
         if (!$demande instanceof Demande)
             return;
+        $demande->setDateDemande(new \Datetime());
         $this->em->persist($demande);
         $this->em->flush();
     }
