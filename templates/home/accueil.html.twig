@@ -19,8 +19,8 @@
 			{% if value is defined %}
 				{% if recap is defined %}
 					<div class="col-md-12 row col-lg-8">
-						<div class="row col-md-12 col-lg-6 resultat-estimation mx-auto pt-5 pb-5" style="display:block">
-							<img src="https://www.oreca.com/wp-content/uploads/2017/04/renault-logo.png" class="rounded mx-auto d-block img-fluid mb-3" alt="" style="height:200px;width:auto;">
+						<div class="row col-md-12 col-lg-6 resultat-estimation mx-auto pt-5 pb-5">
+							<img src="https://www.oreca.com/wp-content/uploads/2017/04/renault-logo.png" class="rounded mx-auto d-block img-fluid mb-3" alt="">
 							<div class="col-10 mx-auto">
 								<h2 class="col-12">CARACTÉRISTIQUES DU VÉHICULE</h2>
 								<table class="table table-striped">
@@ -132,23 +132,14 @@
 								<div class="col-12 resultat-estimation-p mb-5">
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 								</div>
-								<!-- <div class="form-check col-10 mx-auto mb-3">
-									<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-									<label class="form-check-label resultat-estimation-p" for="defaultCheck1">
-										J'ai lu et j'accepte les <b>Conditions Générales de Vente</b> , notre <b>politique de confidentialité</b> et la liste des documents à retourner.
-									</label>
-								</div>
+								<!-- <div class="form-check col-10 mx-auto mb-3"> <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"> <label class="form-check-label resultat-estimation-p" for="defaultCheck1"> J'ai lu et j'accepte les <b>Conditions Générales
+								de Vente</b> , notre <b>politique de confidentialité</b> et la liste des documents à retourner. </label> </div> <div class="form-check col-10 mx-auto"> <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"> <label
+								class="form-check-label resultat-estimation-p" for="defaultCheck1"> <b>Oui, je souhaite que ma demande de carte grise débute immédiatement.</b> Ainsi je renonce expressément à mon droit de rétractation afin que la prestation débute avant la fin du
+								délai légal de rétractation. </label> </div> -->
 
-								<div class="form-check col-10 mx-auto">
-									<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-									<label class="form-check-label resultat-estimation-p" for="defaultCheck1">
-										<b>Oui, je souhaite que ma demande de carte grise débute immédiatement.</b> Ainsi je renonce expressément à mon droit de rétractation afin que la prestation débute avant la fin du délai légal de rétractation.
-									</label>
-								</div> -->
-
-								<a class="col-12 btn btn-primary mb-3" href="{{path('Accueil')}}{{ recap.demarche.type | lower}}/?commande={{ recap.id }}">FranceConnect</a>
+								<a class="col-12 btn btn-primary mb-3" href="{{ path('france_connect_login') }}" >FranceConnect</a>
 								{% if app.user %}
-									<a class="col-12 btn btn-success" href="{{path('Accueil')}}{{ recap.demarche.type | lower}}/?commande={{ recap.id }}">Continuer</a>
+									<a class="col-12 btn btn-success" href="{{path('new_demande', {'commande': recap.id })}}">Continuer</a>
 								{% else %}
 									<a class="col-12 btn btn-success" href="{{ path('fos_user_registration_register') }}">Continuer</a>
 								{% endif %}
@@ -266,7 +257,7 @@
 						<div class="col-12 resultat-estimation-p">
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 						</div>
-						<a class="col-12 btn btn-primary mb-3" href="{{path('Accueil')}}{{ recap.demarche.type | lower}}/?commande={{ recap.id }}">FranceConnect</a>
+						<a class="col-12 btn btn-primary mb-3" href="#">FranceConnect</a>
 						{% if app.user %}
 							<a class="col-12 btn btn-success" href="{{path('Accueil')}}{{ commandes.demarche.type | lower}}/?commande={{ commandes.id }}">VALIDER</a>
 						{% else %}
@@ -283,4 +274,9 @@
 
 {% block pagetext_content %}
 	{{ include('home/composant/texte/accueil-texte.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('javascripts/home.js') }}"></script>
 {% endblock %}

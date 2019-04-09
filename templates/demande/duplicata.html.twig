@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-ccm{% endblock %}
+
+{% block page_content %}
+<div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
+	<div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
+        <div class="col-12 commander-firstview">
+            <div class="row col-12 ">
+                <div class="container">
+                    <h2 class="text-center"> Formulaire pour <br> {{ commande.demarche.nom|upper }}</h2>
+                    <br>
+                        <hr>
+                        {{ form_start(form, {'attr': {'class': 'row'}}) }}
+                            <div class="col-5 mx-auto">
+                                {% include "demande/caracteristicVehicle.html.twig" %}
+                            </div>
+                            <div class="col-5 mx-auto form-row">
+                                <div class="col-11">
+                                    {{form_rest(form)}}
+                                    <div class="col-11 text-center mb-5">
+                                        <br>
+                                        <input type="submit" class="btn btn-lg btn-success" value="Valider">
+                                    </div>
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+{% endblock %}

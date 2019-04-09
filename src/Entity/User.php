@@ -25,7 +25,12 @@ class User extends BaseUser
     private $registerDate;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Client", cascade={"persist", "remove"})
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $franceConnectId;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Client",inversedBy="user", cascade={"persist", "remove"})
      */
     private $client;
 
@@ -44,13 +49,6 @@ class User extends BaseUser
         return $this->client;
     }
 
-    public function setClient(?Client $client): self
-    {
-        $this->client = $client;
-
-        return $this;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -67,4 +65,24 @@ class User extends BaseUser
 
         return $this;
     }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getFranceConnectId(): ?string
+    {
+        return $this->franceConnectId;
+    }
+
+    public function setFranceConnectId(?string $franceConnectId): self
+    {
+        $this->franceConnectId = $franceConnectId;
+
+        return $this;
+    }
+
 }

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block page_content %}
+    <div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
+        <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
+            <br>
+            <div>
+                <h3>Vos demandes TMS</h3>
+                <hr>
+                <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">Type Demande</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Nom et prénom</th>
+                            <th scope="col">Département</th>
+                            <th scope="col">Immatriculation</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for demande in demandes %}
+                        <tr>
+                            <td>{{ demande.id }}</td>
+                            <td>{{ demande.commande.demarche.nom }}</td>
+                            <td>{{ demande.commande.ceerLe | date('d-m-Y')}}</td>
+                            <td>{{ client.clientNom }} {{ client.clientPrenom }}</td>
+                            <td>{{ demande.commande.codePostal }}</td>
+                            <td>{{ demande.commande.immatriculation }}</td>
+                            <td><span class="badge badge-warning">demandes Tms</span></td>
+                            <td>
+                                <a href="{{path('payment_demande', {'demande': demande.id })}}"><button type="button" class="btn btn-primary btn-sm">payer</button></a>
+                                <button type="button" class="btn btn-danger btn-sm">annuler</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>                  
+{% endblock %}

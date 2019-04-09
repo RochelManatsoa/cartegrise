@@ -1,6 +1,6 @@
 <!-- ___________________________________________________________________________libs:-->
 <!-- LINK JQUERY-->
-<script src="{{ asset('asset/libs/js/jquery-3.2.1.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('asset/libs/js/jquery-3.3.1.min.js') }}" type="text/javascript"></script>
 <!-- LINK POPPER-->
 <script src="{{ asset('asset/libs/js/popper.min.js') }}" type="text/javascript"></script>
 <!-- LINK BOOTSTRAP-->
@@ -9,21 +9,14 @@
 <script src="{{ asset('asset/libs/js/fittext.js') }}" type="text/javascript"></script>
 <!-- LINK SCROLLMAGIC-->
 <script src="{{ asset('asset/libs/js/ScrollMagic.min.js') }}" type="text/javascript"></script>
-<!-- LINK SCROLLMAGIC INDICATOR-->
-<script src="{{ asset('asset/libs/js/debug.addIndicators.js') }}" type="text/javascript"></script>
 <!-- LINK SMOOTH-SCROLLING-->
 <script src="{{ asset('asset/libs/js/smooth-scrolling.js') }}" type="text/javascript"></script>
-
 <!-- ___________________________________________________________________________fin libs:-->
 <!-- ___________________________________________________________________________JS Custom:-->
-<!-- LINK SCROLLMAGIC-->
-<script src="{{ asset('asset/js/scrollmagic.js') }}" type="text/javascript"></script>
 <!-- LINK MENU-->
 <script src="{{ asset('asset/js/menu.js') }}" type="text/javascript"></script>
 <!-- ARROW-->
 <script src="{{ asset('asset/js/arrow.js') }}" type="text/javascript"></script>
-<!-- ACCORDION-->
-<script src="{{ asset('asset/js/accordion.js') }}" type="text/javascript"></script>
 <!-- ___________________________________________________________________________JS Custom:-->
 
 <script type="text/javascript">
@@ -68,7 +61,20 @@
 		minFontSize: '20px',
 		maxFontSize: '30px'
 	});
+	$(".blog-post--description h2").fitText(1.2, {
+		minFontSize: '15px',
+		maxFontSize: '25px'
+	});
+	$(".body-blog .article-suggestion-card-box-titre small").fitText(1.2, {
+		minFontSize: '15px',
+		maxFontSize: '25px'
+	});
 	<!--_________________________________________________________________FIN HOME-->
+</script>
+<script>
+	$('#myModal').on('shown.bs.modal', function() {
+		$('#myInput').trigger('focus')
+	})
 </script>
 <!-- <?php if (!empty($_POST)){ echo "<b>Voici nos résultat: <b><hr>"; if(isset($_POST['demande'])){ //echo '<b>'.$_POST['demande'].'</b><br>'; $demande = $_POST['demande']; switch ($demande) { case 1: echo "Changement propriétaire véhicule
 d'occasion<br>"; break; case 2: echo "Immatriculation d'un véhicule neuf<br>"; break; case 3: echo "Demande de duplicata<br>"; break; case 4: echo "Changement de domicile<br>"; break; case 5: echo "Changement d'état matrimonial<br>"; break; } }
@@ -131,36 +137,4 @@ ___________________________________________________________________________Calcu
 </div>
 
 {% block footer %}{% endblock %}
-{% block javascripts %}
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-<script src="{{ asset('javascript/ckeditor/adapters/jquery.js') }}" type="text/javascript"></script>
-<script src="{{ asset('javascript/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
-<script type="text/javascript">
-	$(function() {
-		$('textarea.ckeditor').ckeditor();
-	})
-	$('#myModal').on('shown.bs.modal', function() {
-		$('#myInput').trigger('focus')
-	});
-</script>
-{% endblock %}
-<script src="{{ asset('bundles/easyadmin/javascript/jquery.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('bundles/easyadmin/javascript/js/jquery.fittext.js') }}" type="text/javascript"></script>
-<script src="{{ asset('bundles/easyadmin/javascript/js/scrollmagic.js') }}" type="text/javascript"></script>
-<script type="text/javascript">
-	jQuery(".blog-post--description h2").fitText(1.2, {
-		minFontSize: '15px',
-		maxFontSize: '25px'
-	});
-	jQuery(".body-blog .article-suggestion-card-box-titre small").fitText(1.2, {
-		minFontSize: '15px',
-		maxFontSize: '25px'
-	});
-</script>
-<script>
-	$('#myModal').on('shown.bs.modal', function() {
-		$('#myInput').trigger('focus')
-	})
-</script>
+

@@ -34,6 +34,8 @@ class HomeController extends AbstractController
         SessionManager $sessionManager
         )
     {
+
+        // dump($this->getUser()->getClient()->getCountDem());die;
         
         $commande = new Commande();
         $type = $demarche->findAll();
@@ -56,22 +58,7 @@ class HomeController extends AbstractController
             $sessionManager->initSession();
             if($ifCommande !== null){
                 $recapCommand = $ifCommande;
-                $value = $taxesRepository->find($recapCommand);
-                $param = [
-                    'commandes' => $commande, 'recap' => $recapCommand,
-                    'value' => $value,        'database' => true,
-                    ];
-                if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
-                    $param = array_merge([
-                            'genre' => $this->getUser()->getClient()->getClientGenre(),
-                            'client' => $this->getUser()->getClient(),
-                    ], $param);
-                } else {
-                    $param = array_merge(['tab' => $tabForm], $param);
-                }
-                // set and get session attributes 
-                $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$recapCommand->getId()]);
-                // end treatment session
+                $param = $this->getParamHome($recapCommand, $sessionManager, $tabForm);
 
                 return $this->render('home/accueil.html.twig', $param);
             } else {
@@ -91,7 +78,6 @@ class HomeController extends AbstractController
                         ->setCodePostal($code_postal)
                         ->setCeerLe($date_demarche);
                 $manager->persist($commande);
-                $manager->flush();
                 // set and get session attributes 
                 $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
                 // end treatment session
@@ -105,8 +91,7 @@ class HomeController extends AbstractController
                 $Immat = array("Immatriculation"=>$TMS_Immatriculation);
                 $params = array("Identification"=>$Ident, "Lot" => $Lot);
                 $value = $client->Envoyer($params);
-
-                dump($value);die;
+                // dump($value);die;
 
                 if(isset($value->Lot->Demarche->ECGAUTO->Reponse->Negative->Erreur)){
                     return new Response(
@@ -129,30 +114,16 @@ class HomeController extends AbstractController
                         ->setGenre($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Genre)
                         ->setPTAC($value->Lot->Demarche->ECGAUTO->Reponse->Positive->PTAC)
                         ->setEnergie($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Energie)
-                        ->setCommande($commande)
                         ->setDateMEC(\DateTime::createFromFormat('Y-m-d', $value->Lot->Demarche->ECGAUTO->Reponse->Positive->DateMEC));
+                    $commande->setTaxes($taxe);
+                    $manager->persist($commande);
                     $manager->persist($taxe);
                     $manager->flush();
 
-                    if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
-                        $user = $this->getUser();
-                        $client = $user->getClient();
-                        $genre = $client->getClientGenre();
+                    $value = $taxe;
+                    $param = $this->getParamHome($commande, $sessionManager, $tabForm);
 
-                        return $this->render('home/accueil.html.twig', [
-                                'genre' => $genre,
-                                'client' => $client,
-                                'commandes' => $commande,
-                                'value' => $value,
-                                'database' => false,
-                        ]);
-                    }
-                    return $this->render('home/accueil.html.twig', [
-                        'tab' => $tabForm,
-                        'commandes' => $commande,
-                        'value' => $value,
-                        'database' => false,
-                        ]);
+                    return $this->render('home/accueil.html.twig', $param);
                 }
             }
         }
@@ -176,6 +147,32 @@ class HomeController extends AbstractController
             ]);
     }
 
+    private function getParamHome(Commande $commande, SessionManager $sessionManager, $tabForm)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $value = $commande->getTaxes();
+        $param = [
+            'commandes' => $commande, 'recap' => $commande,
+            'value' => $value,        'database' => true,
+        ];
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
+            $param = array_merge([
+                'genre' => $this->getUser()->getClient()->getClientGenre(),
+                'client' => $this->getUser()->getClient(),
+            ], $param);
+            $this->getUser()->getClient()->addCommande($commande);
+            $manager->persist($this->getUser()->getClient());
+            $manager->flush();
+        } else {
+            $param = array_merge(['tab' => $tabForm], $param);
+            // set and get session attributes 
+            $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
+            // end treatment session
+        }
+
+        return $param;
+    }
+
     /**
      * @Route("/commande", name="commande")
      */
@@ -191,40 +188,8 @@ class HomeController extends AbstractController
                 'client' => $client,
             ]);
         }
+
         return $this->render('home/demande.html.twig');
-            /*$commande = new Commande();
-            $form = $this->createForm(CommandeType::class, $commande);
-            $commandeForm = $form->createView();
-
-            $form->handleRequest($request);
-
-            if($form->isSubmitted() && $form->isValid()){
-
-                $client = new client();
-                $post = $commande;
-                $pricetotal = $client->calculerECGAuto($post);
-                dump($pricetotal);
-                $result = [];
-               $this->addFlash('success', 'Le fichier à bien été enregistrée.  ');
-               return $this->render('home/demande.html.twig', [
-                            'result' => $result,*/
-                            /*'pricetotal' => $pricetotal,
-                    /*]);
-            }
-
-            if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
-                    $user = $this->getUser();
-                    $client = $user->getClient();
-                    $genre = $client->getClientGenre();
-
-                    return $this->render('home/demande.html.twig', [
-                            'genre' => $genre,
-                            'client' => $client,
-                            'commandeForm' => $commandeForm,
-                    ]);
-            }
-            return $this->render('home/demande.html.twig', ['commandeForm' => $commandeForm]);*/
-            /*return $this->render('home/demande.html.twig');*/
     }
 
     /**
@@ -242,6 +207,7 @@ class HomeController extends AbstractController
                             'client' => $client,
                     ]);
             }
+
             return $this->render('home/CommentCaMarche.html.twig');
     }
 
@@ -260,6 +226,7 @@ class HomeController extends AbstractController
                 'client' => $client,
             ]);
         }
+
         return $this->render('home/faq.html.twig');
     }
 
@@ -277,7 +244,8 @@ class HomeController extends AbstractController
 							'genre' => $genre,
 							'client' => $client,
 					]);
-			}
+            }
+
 			return $this->render('home/cgv.html.twig');
 	}
 

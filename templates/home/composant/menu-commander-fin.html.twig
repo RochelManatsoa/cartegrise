@@ -40,13 +40,22 @@
 											{{ form_row(tab[(demarche.id)].demarche)}}
 										</div>
 
-										{{ form_row(tab[(demarche.id)].immatriculation, {'attr':{'onkeyup':'this.value = this.value.toUpperCase()','class': 'col-12 form-control-plaque'},
-												'label_attr': {'class': 'col-12 text-center text-uppercase'}
-												}
+										{{ form_row(tab[(demarche.id)].immatriculation, {
+											'attr':{
+												'onkeyup':'this.value = this.value.toUpperCase()',
+												'class': 'col-12 form-control-plaque ',
+												'onblur': 'this.value = valueTreatement(this.value)',
+												'maxlength': '9',
+												'minlength': '5'
+											},
+											'label_attr': {
+												'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
+											}
 												)}}
 
-										{{ form_row(tab[(demarche.id)].codePostal, {'attr':{'maxlength':'3','minlength':'2', 'class':'col-12 text-center'},
-										'label_attr': {'class': 'col-12 text-center text-uppercase'}
+										{{ form_row(tab[(demarche.id)].codePostal, {
+											'attr':{'maxlength':'3','minlength':'2', 'class':'col-6 mx-auto text-center form-control--dep'},
+											'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
 										}
 										)}}
 										<!-- <div class="col-12 mx-auto search-box bg-dark"> <div class="row col-12 mx-auto input-group "> <label for="Immatriculation" class="col-12 search-box--titre">Demarche</label> </div> </div> <div class="col-12 mx-auto search-box bg-dark"> <div

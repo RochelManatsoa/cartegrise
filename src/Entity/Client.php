@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,10 +49,6 @@ class Client
      */
     private $clientContact;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="client")
-     */
-    private $demandes;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Fichier", mappedBy="client")
@@ -66,16 +63,35 @@ class Client
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Commande", mappedBy="client")
      */
-    private $commande;
+    private $commandes;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $clientLieuNaissance;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $clientDptNaissance;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $clientPaysNaissance;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="client", cascade={"persist", "remove"})
+     */
+    private $user;
 
 
 
     public function __construct()
     {
-        $this->demandes = new ArrayCollection();
         $this->fichiers = new ArrayCollection();
-        $this->clientCommandes = new ArrayCollection();
         $this->commande = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
 
     public function __toString()
@@ -161,37 +177,6 @@ class Client
     }
 
     /**
-     * @return Collection|Demande[]
-     */
-    public function getDemandes(): Collection
-    {
-        return $this->demandes;
-    }
-
-    public function addDemande(Demande $demande): self
-    {
-        if (!$this->demandes->contains($demande)) {
-            $this->demandes[] = $demande;
-            $demande->setClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDemande(Demande $demande): self
-    {
-        if ($this->demandes->contains($demande)) {
-            $this->demandes->removeElement($demande);
-            // set the owning side to null (unless already changed)
-            if ($demande->getClient() === $this) {
-                $demande->setClient(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Fichier[]
      */
     public function getFichiers(): Collection
@@ -234,49 +219,56 @@ class Client
         return $this;
     }
 
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getClientCommandes(): Collection
+    
+    public function getClientLieuNaissance(): ?string
     {
-        return $this->clientCommandes;
+        return $this->clientLieuNaissance;
     }
 
-    public function addClientCommande(Commande $clientCommande): self
+    public function setClientLieuNaissance(string $clientLieuNaissance): self
     {
-        if (!$this->clientCommandes->contains($clientCommande)) {
-            $this->clientCommandes[] = $clientCommande;
-            $clientCommande->setClient($this);
-        }
+        $this->clientLieuNaissance = $clientLieuNaissance;
 
         return $this;
     }
 
-    public function removeClientCommande(Commande $clientCommande): self
+    public function getClientDptNaissance(): ?int
     {
-        if ($this->clientCommandes->contains($clientCommande)) {
-            $this->clientCommandes->removeElement($clientCommande);
-            // set the owning side to null (unless already changed)
-            if ($clientCommande->getClient() === $this) {
-                $clientCommande->setClient(null);
-            }
-        }
+        return $this->clientDptNaissance;
+    }
+
+    public function setClientDptNaissance(int $clientDptNaissance): self
+    {
+        $this->clientDptNaissance = $clientDptNaissance;
 
         return $this;
     }
 
+    public function getClientPaysNaissance(): ?string
+    {
+        return $this->clientPaysNaissance;
+    }
+
+    public function setClientPaysNaissance(string $clientPaysNaissance): self
+    {
+        $this->clientPaysNaissance = $clientPaysNaissance;
+
+        return $this;
+    }
+
+
     /**
      * @return Collection|Commande[]
      */
-    public function getCommande(): Collection
+    public function getCommandes(): Collection
     {
-        return $this->commande;
+        return $this->commandes;
     }
 
     public function addCommande(Commande $commande): self
     {
-        if (!$this->commande->contains($commande)) {
-            $this->commande[] = $commande;
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
             $commande->addClient($this);
         }
 
@@ -285,11 +277,52 @@ class Client
 
     public function removeCommande(Commande $commande): self
     {
-        if ($this->commande->contains($commande)) {
-            $this->commande->removeElement($commande);
+        if ($this->commandes->contains($commande)) {
+            $this->commandes->removeElement($commande);
             $commande->removeClient($this);
         }
 
         return $this;
     }
+
+    public function getListDemande()
+    {
+        $criteria = Criteria::create()
+            ->andWhere(Criteria::expr()->gt('clientNom', 20))
+            ->orderBy(['clientNom', 'DESC']);
+        return $this->getGenusScientists()->matching($criteria);
+    }
+
+    public function getCountDem()
+    {
+        // $criteria = Criteria::create('c')
+        // ->join('c.commandes as com')
+        // ->andWhere('com.demandes');
+        // return $this->getCommandes()->matching($criteria)->count();
+        return 4;
+    }
+
+    public function getCountCommandes() {
+
+        return 0 < count($this->commandes) ? count($this->commandes) : 0;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newClient = $user === null ? null : $this;
+        if ($newClient !== $user->getClient()) {
+            $user->setClient($newClient);
+        }
+
+        return $this;
+    }
+
 }

@@ -2,45 +2,60 @@
 
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register col-md-12 col-lg-8 row '}, 'label_attr': {'class': 'register-form--label'}} )}}
 <div class="col-10 row mx-auto mt-4">
-	<div class="col-5 mx-auto">
-		<h2>Civil</h2>
+	<h2>Identité du demandeur de la carte grise</h2>
+	<div class="col-10 mx-auto">
 		{{ form_row(form.client.clientGenre, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
+	</div>
+	<div class="col-5 mx-auto">
 		{{ form_row(form.client.clientNom, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
+	</div>
+	<div class="col-5 mx-auto">
 		{{ form_row(form.client.clientPrenom, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientNomUsage, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
+	</div>
+	<div class="col-5 mx-auto">
 		{{ form_row(form.client.clientDateNaissance, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-
+	</div>
+	<div class="col-5 mx-auto">
+		{{ form_row(form.client.clientLieuNaissance, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
+	</div>
+	<div class="col-5 mx-auto">
 		{{ form_row(form.client.clientContact.contact_telmobile, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
+	</div>
+	<div class="col-5 mx-auto">
 		{{ form_row(form.client.clientContact.contact_telfixe, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-
-		<h2>Compte CGOFFICIEL</h2>
+	</div>
+	<div class="col-10 mx-auto">
 		{{ form_row(form.email, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
+	</div>
+	<div class="col-10 mx-auto">
 		{{ form_row(form.username, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
+	</div>
+	<div class="col-5 mx-auto">
 		{{ form_row(form.plainPassword, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
 	</div>
-	<div class="col-5 mx-auto">
-		<h2>Adresse</h2>
-		{{ form_row(form.client.clientAdresse.numero, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.extension, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.adprecision, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.typevoie, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
+	<h2>Merci de renseigner votre adresse</h2>
+	<div class="col-10 mx-auto">
 		{{ form_row(form.client.clientAdresse.nom, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.complement, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.lieudit, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.codepostal, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.ville, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.boitepostale, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.pays, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
 	</div>
+	<div class="col-10 mx-auto">
+		{{ form_row(form.client.clientAdresse.complement, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
+	</div>
+	<div class="col-5 mx-auto">
+		{{ form_row(form.client.clientAdresse.codepostal, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
+	</div>
+	<div class="col-5 mx-auto">
+		{{ form_row(form.client.clientAdresse.ville, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
+	</div>
+	
 	<div class="col-10 mx-auto">
 		<div class="checkbox mt-3 mb-3">
 			<label class="fos_user_registration_register-checkbox">
-				<input class="" type="checkbox" value="">J'ai lu et j'accepte les <b>Conditions Générales de Vente</b> , notre <b>politique de confidentialité</b> et la liste des documents à retourner.
+				{{ form_row(form.termsAccepted, {'attr': {'class': 'registrer-form'}})}}				
 			</label>
 		</div>
 		<div class="checkbox mt-3 mb-3">
 			<label class="fos_user_registration_register-checkbox">
-				<input type="checkbox" value=""><b>Oui, je souhaite que ma demande de carte grise débute immédiatement.</b> Ainsi je renonce expressément à mon droit de rétractation afin que la prestation débute avant la fin du délai légal de rétractation.
+				{{ form_row(form.debutImmediat, {'attr': {'class': 'registrer-form'}})}}				
 			</label>
 		</div>
 	</div>

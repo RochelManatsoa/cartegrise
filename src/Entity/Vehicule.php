@@ -77,6 +77,11 @@ class Vehicule
      */
     private $Titulaire;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Demande", mappedBy="vehicule", cascade={"persist", "remove"})
+     */
+    private $demande;
+
 
     public function getId(): ?int
     {
@@ -223,6 +228,24 @@ class Vehicule
     public function setTitulaire(?NewTitulaire $Titulaire): self
     {
         $this->Titulaire = $Titulaire;
+
+        return $this;
+    }
+
+    public function getDemande(): ?Demande
+    {
+        return $this->demande;
+    }
+
+    public function setDemande(?Demande $demande): self
+    {
+        $this->demande = $demande;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newVehicule = $demande === null ? null : $this;
+        if ($newVehicule !== $demande->getVehicule()) {
+            $demande->setVehicule($newVehicule);
+        }
 
         return $this;
     }

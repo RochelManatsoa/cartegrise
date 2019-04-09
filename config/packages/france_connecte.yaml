@@ -1,0 +1,21 @@
+france_connect:
+    #Ids
+    client_id: '59f8b3fa309b61e744123ebf2a6f55a9ec723415169524918586dc158c093ffc'
+    client_secret: 'f35f90da044cb790480e82b6b85036af90750713f9d95b4eed2ec40343a7f0cd'
+    #FranceConnect base URL
+    provider_base_url: 'https://fcp.integ01.dev-franceconnect.fr/api/v1/'
+    #route name for logout
+    logout_value: 'Accueil'
+    result_value: 'app.fc.return'
+    # data
+    scopes:
+        - 'openid'
+        - 'profile'
+        - 'email'
+        - 'address'
+        - 'phone'
+        - 'birthcountry'
+        - 'birthplace'
+    providers_keys:
+        - 'main'
+        - 'secured_area'

@@ -19,28 +19,23 @@ class Demande
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $typeDemande;
-
-    /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",nullable=true, options={"default" : true})
      */
     private $opposeDemande;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="demandes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Commande", inversedBy="demandes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $client;
+    private $commande;
 
     /**
-     * @ORM\Column(type="string", length=999)
+     * @ORM\Column(type="string", length=999, nullable=true)
      */
     private $statutDemande;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $paiementDemande;
 
@@ -75,18 +70,33 @@ class Demande
     private $fichiers;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\NewTitulaire", inversedBy="demande", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", inversedBy="demande", cascade={"persist", "remove"})
      */
-    private $Acquerreur;
+    private $ctvo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TypeDemande", inversedBy="demandes")
+     * @ORM\OneToOne(targetEntity="App\Entity\Duplicata", inversedBy="demande", cascade={"persist", "remove"})
      */
-    private $nomDemande;
+    private $duplicata;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Divn", mappedBy="demande", cascade={"persist", "remove"})
+     */
+    private $divn;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Cession", mappedBy="demande", cascade={"persist", "remove"})
+     */
+    private $cession;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", inversedBy="demande", cascade={"persist", "remove"})
+     */
+    private $changementAdresse;
 
     public function __toString()
     {
-        return $this->typeDemande;
+        // return $this->typeDemande;
     }
 
     public function __construct()
@@ -99,18 +109,6 @@ class Demande
         return $this->id;
     }
 
-    public function getTypeDemande(): ?string
-    {
-        return $this->typeDemande;
-    }
-
-    public function setTypeDemande(string $typeDemande): self
-    {
-        $this->typeDemande = $typeDemande;
-
-        return $this;
-    }
-
     public function getOpposeDemande(): ?bool
     {
         return $this->opposeDemande;
@@ -119,18 +117,6 @@ class Demande
     public function setOpposeDemande(bool $opposeDemande): self
     {
         $this->opposeDemande = $opposeDemande;
-
-        return $this;
-    }
-
-    public function getClient(): ?Client
-    {
-        return $this->client;
-    }
-
-    public function setClient(?Client $client): self
-    {
-        $this->client = $client;
 
         return $this;
     }
@@ -249,27 +235,87 @@ class Demande
 
         return $this;
     }
-
-    public function getAcquerreur(): ?NewTitulaire
+    
+    public function getCommande(): ?Commande
     {
-        return $this->Acquerreur;
+        return $this->commande;
     }
 
-    public function setAcquerreur(?NewTitulaire $Acquerreur): self
+    public function setCommande(?Commande $commande): self
     {
-        $this->Acquerreur = $Acquerreur;
+        $this->commande = $commande;
 
         return $this;
     }
 
-    public function getNomDemande(): ?TypeDemande
+    public function getCtvo(): ?Ctvo
     {
-        return $this->nomDemande;
+        return $this->ctvo;
     }
 
-    public function setNomDemande(?TypeDemande $nomDemande): self
+    public function setCtvo(?Ctvo $ctvo): self
     {
-        $this->nomDemande = $nomDemande;
+        $this->ctvo = $ctvo;
+
+        return $this;
+    }
+
+    public function getDuplicata(): ?Duplicata
+    {
+        return $this->duplicata;
+    }
+
+    public function setDuplicata(?Duplicata $duplicata): self
+    {
+        $this->duplicata = $duplicata;
+
+        return $this;
+    }
+
+    public function getDivn(): ?Divn
+    {
+        return $this->divn;
+    }
+
+    public function setDivn(?Divn $divn): self
+    {
+        $this->divn = $divn;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newDemande = $divn === null ? null : $this;
+        if ($newDemande !== $divn->getDemande()) {
+            $divn->setDemande($newDemande);
+        }
+
+        return $this;
+    }
+
+    public function getCession(): ?Cession
+    {
+        return $this->cession;
+    }
+
+    public function setCession(?Cession $cession): self
+    {
+        $this->cession = $cession;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newDemande = $cession === null ? null : $this;
+        if ($newDemande !== $cession->getDemande()) {
+            $cession->setDemande($newDemande);
+        }
+
+        return $this;
+    }
+
+    public function getChangementAdresse(): ?ChangementAdresse
+    {
+        return $this->changementAdresse;
+    }
+
+    public function setChangementAdresse(?ChangementAdresse $changementAdresse): self
+    {
+        $this->changementAdresse = $changementAdresse;
 
         return $this;
     }

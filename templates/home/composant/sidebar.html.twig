@@ -1,4 +1,3 @@
-<!-- ________________________________________________________________________________________SIDEBAR ORDI -->
 <div class="col-4 sidebar hidden-md-down ">
 
 	<div class="col-12 row d-flex align-items-center">
@@ -8,18 +7,42 @@
 	</div>
 
 	{% if app.user %}
-	<div class="col-10 col-lg-8 col-xl-6 mx-auto mt-4">
+	<div class="espace-client-user col-10 col-lg-8 col-xl-6 mx-auto mt-4 mb-4 ">
 		<h5>
-		Bonjour {{ genre }} {{ client.clientPrenom }} {{ client.clientNom | upper}}
+		Bonjour {{ app.user.client.clientGenre }} {{ app.user.client.clientPrenom }} {{ app.user.client.clientNom | upper}}
 		</h5>
 		<h5>
 			<a href="{{ path('compte') }}">Mon compte</a> | <a href="{{ path('logout') }}">Déconnexion</a>
 		</h5>
 	</div>
+
+	<ul class="espace-client-menu col-10 col-lg-8 col-xl-6 list-group mx-auto mb-4">
+		<li class="list-group-item d-flex justify-content-between align-items-center active">
+			<a href="#">Information Client</a>
+		</li>
+		<li class="list-group-item d-flex justify-content-between align-items-center">
+			<a href="{{ path('compte') }}">mes informations</a>
+		</li>
+		<li class="list-group-item d-flex justify-content-between align-items-center">
+			<a href="{{ path('commande_list') }}">Commande(s)</a>
+			<span class="badge badge-primary badge-pill">{{ app.user.client.countCommandes }}</span>
+		</li>
+		</li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+			<a href="{{ path('demande_list')}}">Demande(s)</a>
+			<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
+		</li>
+		
+	</ul>
+
+
+
+
 	{% else %}
+	
 	<div class="col-10 col-lg-8 col-xl-6 mx-auto mt-4">
-		<a class="col-12 mx-auto" href="#">
-			<img class="col-12 tooltipped rounded mx-auto d-block" data-position="top" data-delay="50" data-tooltip="Lisez les étapes suivantes puis essayez !" alt="1. Cliquez" src="{{ asset('asset/img/fcbouton.jpg')}}">
+		<a class="col-12 mx-auto" href="{{ path('france_connect_login') }}" class="btnLink">
+			<img class="col-12 tooltipped rounded mx-auto d-block" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
 		</a>
 	</div>
 

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Demande;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\Entity\User;
 
 /**
  * @method Demande|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,19 +19,7 @@ class DemandeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Demande::class);
     }
-
-    /*public function findName($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->leftJoin('a.demandes','c')
-            ->where('c.type = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'DESC')
-            ->getQuery()
-            ->getResult()
-        ;
-    }*/
-
+    
     // /**
     //  * @return Demande[] Returns an array of Demande objects
     //  */
@@ -59,4 +48,15 @@ class DemandeRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getDemandeForUser(User $user)
+    {
+        return $this->createQueryBuilder('d')
+        ->join('d.commande','com')
+        ->join('com.client','c')
+        ->join('c.user','u')
+        ->where('u =:user')
+        ->setParameter('user', $user)->getQuery()->getResult();
+
+    }
 }

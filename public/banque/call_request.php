@@ -20,8 +20,8 @@
 
 	//		Affectation des paramètres obligatoires
 
-	//$parm="merchant_id=014295303911111";
-        $parm="merchant_id=083897291700010";
+	$parm="merchant_id=014295303911111";    // CODE DE TEST
+        //$parm="merchant_id=083897291700010";    // CODE DE PRODUCTION
 	$parm="$parm merchant_country=fr";
 	$parm="$parm amount=200";
 	$parm="$parm currency_code=978";

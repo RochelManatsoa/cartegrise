@@ -9,10 +9,10 @@ fos_user:
         mailer: fos_user.mailer.twig_swift
     resetting:
         email:
-            template:   '@FOSUser/Resetting/email.txt.twig'
+            template:   '@FOSUser/Resetting/resetting_email.html.twig'
     registration:
         confirmation:
             enabled: true
-            template:   '@FOSUser/Registration/email.txt.twig'
+            template:   '@FOSUser/Registration/registration_email.html.twig'
         form:
             type: App\Form\UserType

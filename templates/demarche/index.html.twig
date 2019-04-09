@@ -9,136 +9,13 @@
 {% block page_content %}
 <div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
     <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
-
-{#<div class="col-12 commander-firstview">#}
-  {#<div class="row col-11 mx-auto">#}
-    <!--<div class="jumbotron">
-        <h1>MiSIV interface test </h1>
-        <h6>MiSIV implementation provided by TMS</h6>
-        <hr>
-    </div>-->
     <br>
 
 {% if is_granted("IS_AUTHENTICATED_FULLY") %}
-    <div class="" id="demarche"></div>
-    {% if documents is not null  %}        
-        <div class="table-responsive">
-            <table class="table table-bordered">
-            {% for docs in documents %}
-                <tr>
-                    <th><h5>{{ docs.demande }} </h5>({{ docs.documents | length }} fichiers)</th>
-                    <th>Nécessaire</th>
-                    <th>Envoyé</th>
-                    <th>Validé</th>
-                    <th>Fichier</th>
-                </tr>
-                {% for file in files %}
-                    {% if file.demande.typeDemande == docs.type %}
-                            {% if file.status == 1 %}
-                    <tr class="bg-success">
-                            {% else %}
-                    <tr class="bg-warning">
-                            {% endif %}
-                        <td>{{ file.type.nom }}</td>
-                        <td><i class="material-icons">check_circle</i></td>
-                        <td>{{ file.envoyeLe | date('d/m/y à h:i') }}</td>
-                        <td>
-                            {% if file.status == 1 %}
-                                {{ file.valideLe | date('d/m/y à h:i') }}
-                            {% else %}
-                                <i class="material-icons">highlight_off</i>
-                            {% endif %}
-                        </td>
-                        <td>
-                            <a href="{{ asset('upload_files/' ~ file.url|slice(50,150)) }}" target="_blank">
-                                <button type="button" href="#Changement-de-titulaire" class="btn btn-success btn-sm">
-                                    <i class="material-icons">visibility</i>
-                                </button>
-                            </a>
-                        </td>
-                    </tr>
-                    {% else %}
-                    {% endif %}
-                {% endfor %}
-                {% for doc in docs.documents %}
-                    {% if doc.fichier.code in docs.fichiers %}
-                    {% else %}
-                        <tr class="bg-danger">
-                            <td>
-                                <span data-toggle="modal" data-target="#{{ doc.fichier.code }}">{{ doc.nom }}</span>
-                            </td>
-                            <td>
-                                {% if doc.obligation == 0 %}
-                                    <i class="material-icons">highlight_off</i>
-                                {% else %}
-                                    <i class="material-icons">check_circle</i>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <i class="material-icons">highlight_off</i>
-
-                            </td>
-                            <td>
-                                {% if doc.status == 1 %}
-                                    <i class="material-icons">check_circle</i>
-                                {% else %}
-                                    <i class="material-icons">highlight_off</i>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <button type="button" data-toggle="modal" data-target="#{{ doc.fichier.code }}-{{ docs.type }}" href="#Changement-de-titulaire" class="btn btn-warning btn-sm">
-                                    <i class="material-icons">contact_support</i>
-                                </button>
-
-                                <div class="modal" id="{{ doc.fichier.code }}-{{ docs.type }}">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-
-                                            <!-- Modal body -->
-                                            <div class="modal-body">
-                                                <div id="Changement-de-titulaire" class="row commander">
-                                                    <div class="col-12 commander-box d-flex flex-row align-items-center my-flex-container">
-                                                        <div class="row col-11 mx-auto commander-box--section">
-                                                            <div class="vos-demarches--texte1">
-                                                                <div class="vos-demarches--texte1---titre">
-                                                                    <h2><i class="far fa-circle"></i></i> {{ doc.fichier.nom }} ({{ docs.type }})</h2>
-                                                                </div>
-                                                                <div class="col-10 mx-auto vos-demarches--texte1---description">
-                                                                    {{ doc.texte | raw }}
-                                                                    <br>
-                                                                    <br>
-                                                                    {{ doc.info | raw}}
-                                                                    <br>
-                                                                    {{ form_start(tab[(doc.id ~ docs.id)], {'name':doc.fichier.code ~ docs.type})}}
-                                                                    {#<div style="display:none">#}
-                                                                    {{ form_row(tab[(doc.id ~ docs.id)].type)  }}
-                                                                    {{ form_row(tab[(doc.id ~ docs.id)].demande)  }}
-                                                                    {#</div>#}
-                                                                    {{ form_row(tab[(doc.id ~ docs.id)].url)}}
-                                                                    {{ form_end(tab[(doc.id ~ docs.id)])}}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-            </table>
-        </div>        
-    {% endif %}
     <div class="col-md-10 col-sm-12 mr-lg-5">
-        <hr><br><h3>Vos informations</h3>
+        <hr><br>
+        <h3>Vos informations</h3>
+        {% set client = app.user.client %}
         <div class="table-responsive">
         <table class="table table-striped">
             <tr>
@@ -151,11 +28,11 @@
             </tr>
             <tr>
                 <th>genre</th>
-                <td>{{ genre }}</td>
+                <td>{{ client.clientGenre }}</td>
             </tr>
             <tr>
                 <th>Date de naissance</th>
-                <td>{{ client.ClientDateNaissance| date("m/d/Y")}}  ({{ age }} ans)</td>
+                <td>{{ client.ClientDateNaissance| date("m/d/Y")}}</td>
             </tr>
             <tr>
                 <th>lieu de naissance</th>
@@ -163,217 +40,166 @@
             </tr>
             <tr>
                 <th>Pays de naissance</th>
-                <td>{{ pays }}</td>
+                <td>{{ client.clientPaysNaissance }}</td>
             </tr>
             <tr>
                 <th>Depatement naissance</th>
-                <td>{{ dptN }}</td>
+                <td>{{ client.clientDptNaissance }}</td>
             </tr>
             <tr>
                 <th> e-mail</th>
-                <td>{{ mail }}</td>
+                <td>{{ app.user.email }}</td>
             </tr>
           <tr>
             <th>telephone</th>
-            <td>{{ mobile }}</td>
+            <td>{{ client.clientContact.contactTelmobile }}</td>
           </tr>
-            <tr>
-                <th>demande</th>
-                <td>
-                    {% if demande is empty %}
-                        Aucune
-                    {% else %}
-                      {% for demandes in demande %}
-                      <ul>
-                        <li>
-                          {{ demandes.typeDemande }}
-                        </li>
-                      </ul>
-                      {% endfor %}
-                    {% endif %}
-                </td>
-            </tr>
         </table>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
-    <script>
-        function datashow2() {
-                $.ajax({
-                    url: "incphp/recapdemande.php",
-                    method: "POST",
-                    type: "POST",
-                    //async: false,
-                    data: {currentid: {{ app.user.id}}, currentnom: '{{client.ClientNom}}', currentprenom : '{{client.ClientPrenom}}', currentgenre : '{{genre}}', currentdaten: '{{ client.ClientDateNaissance| date("Y-m-d")}}', currentlieun: '{{ client.ClientLieuNaissance }}' },
-                    /*
-                     data: {
-                     date1: $('#date1').val(),
-                     date2: $('#date2').val()
-                     },*/
-                    success: function (data) {
-                        //console.log(data);
-                        $("#demarche").html(data);
-
-                       //document.getElementById("demarche").innerHTML = data;
-                        //console.log("serialization success");
-                        //console.log($('#dateselect').serializeArray());
-                        //console.log($('#dateselect').serialize());
-
-                    }
-                });
-            }
-            datashow2();
-
-    </script>
-    <script>
-        //$("#demarche").load("incphp/formCTVO.php");
-    </script>
-
-    {% else %}
-        <div class="col-12 show-container">
-            <div class="row search">
-                <div class="col-12 search-titre">
-                    <h2>Changement de Titulaire Vehicule d'Occasion</h2>
-                </div>
-                <button type="button" class="mx-auto btn btn-outline-light"><a href="{{ path('fos_user_registration_register') }}">ACCEDER AU FORMULAIRE</a></button>
+{% else %}
+    <div class="col-12 show-container">
+        <div class="row search">
+            <div class="col-12 search-titre">
+                <h2>Changement de Titulaire Vehicule d'Occasion</h2>
             </div>
-
+            <button type="button" class="mx-auto btn btn-outline-light"><a href="{{ path('fos_user_registration_register') }}">ACCEDER AU FORMULAIRE</a></button>
         </div>
 
-        <div class="col-12 bck1 padded">
+    </div>
 
-            <div class="col-12 col-lg-10 mx-auto service-telephonique">
-              <div class="col-12 d-flex flex-row flex-row-reverse align-items-center my-flex-container service-telephonique--flex">
-                <div class="col-lg-6 row service-telephonique--flex---text d-flex flex-row justify-content-center align-items-center my-flex-container">
-                  <div class="row service-telephonique--flex---text----flex ">
+    <div class="col-12 bck1 padded">
+        <div class="col-12 col-lg-10 mx-auto service-telephonique">
+          <div class="col-12 d-flex flex-row flex-row-reverse align-items-center my-flex-container service-telephonique--flex">
+            <div class="col-lg-6 row service-telephonique--flex---text d-flex flex-row justify-content-center align-items-center my-flex-container">
+              <div class="row service-telephonique--flex---text----flex ">
 
-                    <p class="col-12">Besoin d'aide dans votre démarche ?</p>
-                    <p class="col-12">Appelez notre service téléphonique</p>
-                            <img class="mx-auto" style="height: 100%;width: 75%;" src="asset/img/08.png" alt="cartouche">
-                    <p class="col-12">Disponible 7 jours sur 7, 24 heures sur 24</p>
+                <p class="col-12">Besoin d'aide dans votre démarche ?</p>
+                <p class="col-12">Appelez notre service téléphonique</p>
+                        <img class="mx-auto" style="height: 100%;width: 75%;" src="asset/img/08.png" alt="cartouche">
+                <p class="col-12">Disponible 7 jours sur 7, 24 heures sur 24</p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-10 mx-auto band-actualite">
+          <div class="col-12 d-flex flex-row  align-items-center my-flex-container band-actualite--flex">
+            <div class="col-md-6 row band-actualite--flex---text d-flex flex-row justify-content-center align-items-center my-flex-container">
+              <div class="row band-actualite--flex---text----flex ">
+                <p class="col-12">Toute l'actualite sur la route</p>
+        <button onclick="window.location.href='http://blog.cgofficiel.fr'" type="button" class="col-10 mx-auto btn mx-auto btn-primary btn-lg">Entrez</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+            <div class="col-12 home-titre">
+              <h1>CG Officiel</h1>
+            </div>
+            <div id="cadre" class="col-10 mx-auto">
+              <div class="row mx-auto home-texte">
+                <div class="col-12 col-md-12 home-texte1">
+                  <h2><i class="far fa-circle"></i> Avec CG Officiel, obtenez rapidement et facilement votre Certificat d'immatriculation / carte grise</h2>
+                  <div>
+                    <h6 class="col-12 mx-auto" style="margin-top: 2vh;">Effectuer une demande de certificat d’immatriculation en ligne est désormais chose simple grâce à notre service d’immatriculation des véhicules en ligne.</h6>
+                    <h6 class="col-12 mx-auto">Simplifiez-vous donc la vie ; Il n’est plus nécessaire de se déplacer pour <strong>obtenir un nouveau certificat d’immatriculation</strong>. Obtenez rapidement votre carte grise, tout en économisant du temps pour
+                      vos démarches ; nous réceptionnons vos documents via notre service d’immatriculation de carte grise en ligne, accessible à l’adresse <strong>www.cgofficiel.fr</strong>. </h6>
+                    <h6 class="col-12 mx-auto"><strong>Tout dossier complet sera traité dans les 24 heures</strong></h6>
+                    <h6 class="col-12 mx-auto">Dès réception de votre nouvelle carte grise, pensez à vous procurer sur le site officiel du Certificat qualité de l'air, une <strong>vignette Crit'Air</strong>, l'autocollant sécurisé obligatoire dans certaines
+                      grandes villes de France.</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="cadre2" class="col-10 mx-auto">
+              <div class="row mx-auto home-texte">
+                <h2 class="col-12"><i class="far fa-circle"></i> Démarche Simplifiée : Obtenez votre carte grise en 4 étapes</h2>
+                <div class="col-12 col-md-6 row home-texte2">
+                  <div class="col-1 home-texte2--number">1
+                  </div>
+                  <div class="col-10 mx-auto home-texte2--titre">
+                    <h4>Calculez le prix de votre certificat d’immatriculation en ligne</h4>
+                  </div>
+                  <div class="home-texte2--description">
+                    Calculez le tarif légal de votre carte grise grâce à notre outil en ligne </div>
+                </div>
+                <div class="col-12 col-md-6 row home-texte2">
+                  <div class="col-1 home-texte2--number">2
+                  </div>
+                  <div class="col-10 mx-auto home-texte2--titre">
+                    <h4>Procédez au paiement en ligne</h4>
+                  </div>
+                  <div class="home-texte2--description">
+                    Le règlement de votre certificat d’immatriculation et de la prestation de <strong>www.cgofficiel.fr</strong> s’effectuera par Carte Bancaire, <strong>via un paiement sécurisé</strong>. Vous recevrez, par la suite, un email de confirmation
+                    avec la liste des documents à nous faire parvenir. </div>
+                </div>
+                <div class="col-12 col-md-6 row home-texte2">
+                  <div class="col-1 home-texte2--number">3
+                  </div>
+                  <div class="col-10 mx-auto home-texte2--titre">
+                    <h4>Faites nous parvenir <br> votre dossier complet</h4>
+
+                  </div>
+                  <div class="home-texte2--description">
+                    Dès réception de vos documents à notre agence, <strong>nous traiterons votre demande immédiatement </strong>et vérifierons que votre dossier soit bien complet. Si une pièce justificative manque à votre dossier, vous serez immédiatement
+                    averti(e) par email et invité(e) à fournir les derniers éléments pour finaliser la procédure. En attendant, nous conserverons précieusement votre dossier.
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 row home-texte2">
+                  <div class="col-1 home-texte2--number">4
+                  </div>
+                  <div class="col-10 mx-auto home-texte2--titre">
+                    <h4>Recevez votre Carte Grise</h4>
+
+                  </div>
+                  <div class="home-texte2--description">
+                    <strong>Un Certificat Provisoire d'Immatriculation (CPI)</strong> ou un accusé d'enregistrement de changement de titulaire <strong>(AECT)</strong> vous sera d'abord envoyé dans un délai de 24 heures. Ensuite, le certificat d’immatriculation
+                    (ou carte grise) définitif sera expédié directement à votre domicile par <strong>l'Imprimerie Nationale</strong> sous pli sécurisé ("Lettre expert" en lettre suivie avec remise contre signature par la Poste) en moins d'une semaine.
+                    En cas d'absence, le courrier contenant votre carte grise est conservé 15 jours dans un bureau de poste. En cas de non retrait, il est renvoyé à l'<strong>Agence Nationale des Titres Sécurisés</strong> (ANTS) qui pourra procéder à un nouvel
+                    envoi, selon certaines conditions.
+                    En attendant votre certificat d'immatriculation définitif, vous recevrez une carte grise provisoire qui vous permettra de circuler librement.
 
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="col-12 col-lg-10 mx-auto band-actualite">
-              <div class="col-12 d-flex flex-row  align-items-center my-flex-container band-actualite--flex">
-                <div class="col-md-6 row band-actualite--flex---text d-flex flex-row justify-content-center align-items-center my-flex-container">
-                  <div class="row band-actualite--flex---text----flex ">
-                    <p class="col-12">Toute l'actualite sur la route</p>
-            <button onclick="window.location.href='http://blog.cgofficiel.fr'" type="button" class="col-10 mx-auto btn mx-auto btn-primary btn-lg">Entrez</button>
-                  </div>
+            <div id="cadre3" class="col-10 mx-auto">
+              <div class="row mx-auto home-texte">
+                <div class="home-texte3">
+                  <h2><i class="far fa-circle"></i> Les avantages de CG Officiel</h2>
+                  <ol>
+                    <li><span class="li-texte3">Gagnez du temps : </span> simplifiez vos démarches en accédant au service d'immatriculation de véhicules en ligne de CG Officiel. Tous les formulaires CERFA sont disponibles en téléchargement gratuit sur notre
+                      site. Économisez du temps et de l’argent sur vos frais de déplacement et stationnement.</li>
+                    <li><span class="li-texte3">Simplicité : </span>finies les files d’attente et le parcours du combattant en préfecture ; grâce au service de demande de certificat d’immatriculation de CG Officiel, vous effectuez vos démarches et passez
+                      commande depuis votre domicile.</li>
+                    <li><span class="li-texte3">Livraison rapide : </span>recevez rapidement votre certificat d’immatriculation directement à l’adresse de votre domicile.</li>
+                  </ol>
+                </div>
+                <div class="col-10 mx-auto home-texte4">
+                  <p>
+                    En tant que professionnel de l'automobile, CG Officiel est habilité par la Préfecture, au <strong>Système d'Immatriculation des Véhicules</strong> (SIV). Non affilié au gouvernement, CG officiel est également agréé par le <strong>Ministère
+                      de l'Intérieur</strong> (n°222442) , et habilité par le <strong>Trésor Public </strong>(n°55337) afin de vous proposer ce service d'immatriculation de véhicule en ligne et vous épargner ainsi tout déplacement pour vous démarches.
+                  </p>
+                </div>
+
+                <div class="col-10 mx-auto home-texte5">
+                  <p>Si vous préférez envoyer votre demande à l’ANTS, l’Agence nationale des Titres Sécurisés, prenez en compte les délais de traitement des demandes d’immatriculation bien plus importants, la plateforme gouvernementale accusant de nombreux
+                    retards avec son système automatisé de demandes de cartes grises mis en place le 6 novembre 2017 .</p>
+                </div>
+
+
+                <div class="col-12 arrow-up">
+                  <a href="#up">
+                    <span class="arrowup">Retour</span>
+                  </a>
                 </div>
               </div>
             </div>
-
-                <div class="col-12 home-titre">
-                  <h1>CG Officiel</h1>
-                </div>
-                <div id="cadre" class="col-10 mx-auto">
-                  <div class="row mx-auto home-texte">
-                    <div class="col-12 col-md-12 home-texte1">
-                      <h2><i class="far fa-circle"></i> Avec CG Officiel, obtenez rapidement et facilement votre Certificat d'immatriculation / carte grise</h2>
-                      <div>
-                        <h6 class="col-12 mx-auto" style="margin-top: 2vh;">Effectuer une demande de certificat d’immatriculation en ligne est désormais chose simple grâce à notre service d’immatriculation des véhicules en ligne.</h6>
-                        <h6 class="col-12 mx-auto">Simplifiez-vous donc la vie ; Il n’est plus nécessaire de se déplacer pour <strong>obtenir un nouveau certificat d’immatriculation</strong>. Obtenez rapidement votre carte grise, tout en économisant du temps pour
-                          vos démarches ; nous réceptionnons vos documents via notre service d’immatriculation de carte grise en ligne, accessible à l’adresse <strong>www.cgofficiel.fr</strong>. </h6>
-                        <h6 class="col-12 mx-auto"><strong>Tout dossier complet sera traité dans les 24 heures</strong></h6>
-                        <h6 class="col-12 mx-auto">Dès réception de votre nouvelle carte grise, pensez à vous procurer sur le site officiel du Certificat qualité de l'air, une <strong>vignette Crit'Air</strong>, l'autocollant sécurisé obligatoire dans certaines
-                          grandes villes de France.</h6>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div id="cadre2" class="col-10 mx-auto">
-                  <div class="row mx-auto home-texte">
-                    <h2 class="col-12"><i class="far fa-circle"></i> Démarche Simplifiée : Obtenez votre carte grise en 4 étapes</h2>
-                    <div class="col-12 col-md-6 row home-texte2">
-                      <div class="col-1 home-texte2--number">1
-                      </div>
-                      <div class="col-10 mx-auto home-texte2--titre">
-                        <h4>Calculez le prix de votre certificat d’immatriculation en ligne</h4>
-                      </div>
-                      <div class="home-texte2--description">
-                        Calculez le tarif légal de votre carte grise grâce à notre outil en ligne </div>
-                    </div>
-                    <div class="col-12 col-md-6 row home-texte2">
-                      <div class="col-1 home-texte2--number">2
-                      </div>
-                      <div class="col-10 mx-auto home-texte2--titre">
-                        <h4>Procédez au paiement en ligne</h4>
-                      </div>
-                      <div class="home-texte2--description">
-                        Le règlement de votre certificat d’immatriculation et de la prestation de <strong>www.cgofficiel.fr</strong> s’effectuera par Carte Bancaire, <strong>via un paiement sécurisé</strong>. Vous recevrez, par la suite, un email de confirmation
-                        avec la liste des documents à nous faire parvenir. </div>
-                    </div>
-                    <div class="col-12 col-md-6 row home-texte2">
-                      <div class="col-1 home-texte2--number">3
-                      </div>
-                      <div class="col-10 mx-auto home-texte2--titre">
-                        <h4>Faites nous parvenir <br> votre dossier complet</h4>
-
-                      </div>
-                      <div class="home-texte2--description">
-                        Dès réception de vos documents à notre agence, <strong>nous traiterons votre demande immédiatement </strong>et vérifierons que votre dossier soit bien complet. Si une pièce justificative manque à votre dossier, vous serez immédiatement
-                        averti(e) par email et invité(e) à fournir les derniers éléments pour finaliser la procédure. En attendant, nous conserverons précieusement votre dossier.
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-6 row home-texte2">
-                      <div class="col-1 home-texte2--number">4
-                      </div>
-                      <div class="col-10 mx-auto home-texte2--titre">
-                        <h4>Recevez votre Carte Grise</h4>
-
-                      </div>
-                      <div class="home-texte2--description">
-                        <strong>Un Certificat Provisoire d'Immatriculation (CPI)</strong> ou un accusé d'enregistrement de changement de titulaire <strong>(AECT)</strong> vous sera d'abord envoyé dans un délai de 24 heures. Ensuite, le certificat d’immatriculation
-                        (ou carte grise) définitif sera expédié directement à votre domicile par <strong>l'Imprimerie Nationale</strong> sous pli sécurisé ("Lettre expert" en lettre suivie avec remise contre signature par la Poste) en moins d'une semaine.
-                        En cas d'absence, le courrier contenant votre carte grise est conservé 15 jours dans un bureau de poste. En cas de non retrait, il est renvoyé à l'<strong>Agence Nationale des Titres Sécurisés</strong> (ANTS) qui pourra procéder à un nouvel
-                        envoi, selon certaines conditions.
-                        En attendant votre certificat d'immatriculation définitif, vous recevrez une carte grise provisoire qui vous permettra de circuler librement.
-
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div id="cadre3" class="col-10 mx-auto">
-                  <div class="row mx-auto home-texte">
-                    <div class="home-texte3">
-                      <h2><i class="far fa-circle"></i> Les avantages de CG Officiel</h2>
-                      <ol>
-                        <li><span class="li-texte3">Gagnez du temps : </span> simplifiez vos démarches en accédant au service d'immatriculation de véhicules en ligne de CG Officiel. Tous les formulaires CERFA sont disponibles en téléchargement gratuit sur notre
-                          site. Économisez du temps et de l’argent sur vos frais de déplacement et stationnement.</li>
-                        <li><span class="li-texte3">Simplicité : </span>finies les files d’attente et le parcours du combattant en préfecture ; grâce au service de demande de certificat d’immatriculation de CG Officiel, vous effectuez vos démarches et passez
-                          commande depuis votre domicile.</li>
-                        <li><span class="li-texte3">Livraison rapide : </span>recevez rapidement votre certificat d’immatriculation directement à l’adresse de votre domicile.</li>
-                      </ol>
-                    </div>
-                    <div class="col-10 mx-auto home-texte4">
-                      <p>
-                        En tant que professionnel de l'automobile, CG Officiel est habilité par la Préfecture, au <strong>Système d'Immatriculation des Véhicules</strong> (SIV). Non affilié au gouvernement, CG officiel est également agréé par le <strong>Ministère
-                          de l'Intérieur</strong> (n°222442) , et habilité par le <strong>Trésor Public </strong>(n°55337) afin de vous proposer ce service d'immatriculation de véhicule en ligne et vous épargner ainsi tout déplacement pour vous démarches.
-                      </p>
-                    </div>
-
-                    <div class="col-10 mx-auto home-texte5">
-                      <p>Si vous préférez envoyer votre demande à l’ANTS, l’Agence nationale des Titres Sécurisés, prenez en compte les délais de traitement des demandes d’immatriculation bien plus importants, la plateforme gouvernementale accusant de nombreux
-                        retards avec son système automatisé de demandes de cartes grises mis en place le 6 novembre 2017 .</p>
-                    </div>
-
-
-                    <div class="col-12 arrow-up">
-                      <a href="#up">
-                        <span class="arrowup">Retour</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-        </div>
+    </div>
 
     {% endif %}
 
