@@ -1,32 +1,55 @@
 version: "3.4"
 
 services:
+    symfony:
+      build: ./docker/symfony
+      container_name: symfony
+      volumes:
+        - ${SYMFONY_PATH}:/var/www/app
+      tty: true
+      depends_on:
+        - db
+        - maildev
+      env_file:
+        - ./.env
+      ports:
+        - "8080:80"
+      networks:
+          - "default"
 
-   symfony:
-     build: ./docker/symfony
-     container_name: symfony
-     volumes:
-         - ${SYMFONY_PATH}:/var/www/app
-     tty: true
-     depends_on:
-         - db
-     env_file:
-         - ./.env
-     ports:
-         - "8080:80"
+    db:
+        image: mysql:5.7
+        ports:
+            - "3306:3306"
+        environment:
+            - "MYSQL_ROOT_PASSWORD=root"
+            - "MYSQL_USER=dispojob"
+            - "MYSQL_PASSWORD=dispojob"
+            - "MYSQL_DATABASE=dispojob"
+        volumes:
+            - "db:/var/lib/mysql:rw"
+            - "./docker/db/my.cnf:/etc/mysql/my.cnf:ro"
+        networks:
+            - "default"
 
-   db:
-     image: mysql:5.7
-     container_name: mysql
-     volumes:
-       - db_data:/var/lib/mysql
-     environment:
-       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
-       MYSQL_DATABASE: ${SYMFONY_DB_NAME}
-       MYSQL_USER: ${SYMFONY_DB_USER}
-       MYSQL_PASSWORD: ${SYMFONY_DB_PATH}
-     ports:
-         - "3307:3306"
-
+    phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      links:
+        - db
+      ports:
+        - 8181:80
+      environment:
+        - PMA_ARBITRARY=1
+        - PMA_USER=root
+        - PMA_PASSWORD=root
+        - PMA_HOST=db
+        - PMA_PORT=3306
+    maildev:
+      image: djfarrelly/maildev
+      container_name: sf4_maildev
+      ports:
+      - 8001:80
+networks:
+    default: {}
 volumes:
-    db_data:
+  db: {}

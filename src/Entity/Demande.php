@@ -94,6 +94,11 @@ class Demande
      */
     private $changementAdresse;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Transaction", mappedBy="demande", cascade={"persist", "remove"})
+     */
+    private $transaction;
+
     public function __toString()
     {
         // return $this->typeDemande;
@@ -316,6 +321,24 @@ class Demande
     public function setChangementAdresse(?ChangementAdresse $changementAdresse): self
     {
         $this->changementAdresse = $changementAdresse;
+
+        return $this;
+    }
+
+    public function getTransaction(): ?Transaction
+    {
+        return $this->transaction;
+    }
+
+    public function setTransaction(?Transaction $transaction): self
+    {
+        $this->transaction = $transaction;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newDemande = $transaction === null ? null : $this;
+        if ($newDemande !== $transaction->getDemande()) {
+            $transaction->setDemande($newDemande);
+        }
 
         return $this;
     }
