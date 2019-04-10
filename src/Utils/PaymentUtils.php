@@ -57,7 +57,9 @@ class PaymentUtils
             $transIdTreatment = 'message='.$transIdTreatment[0];
             $pathfile = "pathfile=".$parameters['pathfile'];
             $transParams=exec("$path_bin_decode $pathfile  $transIdTreatment");
-            $transactionId = explode('!', $transParams)[6];
+            $transactionInfos = explode('!', $transParams);
+            if (isset($transactionInfos[6]))
+                $transactionId = explode('!', $transParams)[6];
         }
     //end transactionId
         
