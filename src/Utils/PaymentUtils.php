@@ -50,12 +50,15 @@ class PaymentUtils
             $response.="  $message <br>";
         }
     //get TransactionId
+        $transactionId = "";
         $transIdTreatment = explode('VALUE="', $message);
-        $transIdTreatment = explode('"', $transIdTreatment[1]);
-        $transIdTreatment = 'message='.$transIdTreatment[0];
-        $pathfile = "pathfile=".$parameters['pathfile'];
-        $transParams=exec("$path_bin_decode $pathfile  $transIdTreatment");
-        $transactionId = explode('!', $transParams)[6];
+        if (isset($transIdTreatment[1])){
+            $transIdTreatment = explode('"', $transIdTreatment[1]);
+            $transIdTreatment = 'message='.$transIdTreatment[0];
+            $pathfile = "pathfile=".$parameters['pathfile'];
+            $transParams=exec("$path_bin_decode $pathfile  $transIdTreatment");
+            $transactionId = explode('!', $transParams)[6];
+        }
     //end transactionId
         
         return [
