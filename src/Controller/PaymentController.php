@@ -74,7 +74,7 @@ class PaymentController extends AbstractController
         $bin   = $parameterBag->get('payment_binary');
         $return = $paymentUtils->decode($bin['response'], $param['pathfile'], $response);
 
-        $message = (new \Swift_Message('Hello Email'))
+        $message = (new \Swift_Message('Hello Email tabory'))
         ->setFrom('rapaelector@gmail.com')
         ->setTo('rapaelec@gmail.com')
         ->setBody(
