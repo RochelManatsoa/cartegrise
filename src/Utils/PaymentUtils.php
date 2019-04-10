@@ -18,6 +18,7 @@ class PaymentUtils
             $parm .= (strlen($parm) === 0) ? "".$key."=".$param : " ".$key."=".$param;
         
         $path_bin = $bin['request'];
+        $path_bin_decode = $bin['response'];
         $parm = escapeshellcmd($parm);	
         $result=exec("$path_bin $parm");
         $tableau = explode ("!", "$result");
@@ -48,7 +49,18 @@ class PaymentUtils
             
             $response.="  $message <br>";
         }
+    //get TransactionId
+        $transIdTreatment = explode('VALUE="', $message);
+        $transIdTreatment = explode('"', $transIdTreatment[1]);
+        $transIdTreatment = 'message='.$transIdTreatment[0];
+        $pathfile = "pathfile=".$parameters['pathfile'];
+        $transParams=exec("$path_bin_decode $pathfile  $transIdTreatment");
+        $transactionId = explode('!', $transParams)[6];
+    //end transactionId
         
-        return $response;
+        return [
+            'template'      => $response,
+            'transactionId' => $transactionId
+        ];
     }
 }
