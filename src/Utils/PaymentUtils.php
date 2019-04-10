@@ -71,6 +71,6 @@ class PaymentUtils
     public function decode($path_bin_response, $pathfile, $transIdTreatment)
     {
         $transIdTreatment = 'message='.$transIdTreatment;
-        return exec("$path_bin_decode $pathfile  $transIdTreatment");
+        return exec("$path_bin_response $pathfile  $transIdTreatment");
     }
 }
