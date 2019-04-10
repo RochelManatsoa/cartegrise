@@ -11,13 +11,13 @@ parameters:
         #merchant_id: '083897291700010'    # IN PROD
         merchant_country: fr
         currency_code: '978'
-        pathfile: '/var/www/app/src/Utils/pathfile'
-        # pathfile: '/var/www/html/front/projectCG/public/banque/param/pathfile'  # IN ENV DEV
+        #pathfile: '/var/www/app/src/Utils/pathfile'
+        pathfile: '/var/www/html/front/projectCG/src/Utils/pathfile'  # IN ENV DEV
     payment_binary:
-        request: '/var/www/app/src/Utils/bin/request'
-        response: '/var/www/app/src/Utils/bin/response'
-        # request: '/var/www/html/front/projectCG/public/banque/bin/request'  # IN ENV DEV
-        # response: '/var/www/html/front/projectCG/public/banque/bin/response'  # IN ENV DEV
+        #request: '/var/www/app/src/Utils/bin/request'
+        #response: '/var/www/app/src/Utils/bin/response'
+        request: '/var/www/html/front/projectCG/src/Utils/bin/request'  # IN ENV DEV
+        response: '/var/www/html/front/projectCG/src/Utils/bin/request'  # IN ENV DEV
 
 services:
     # default configuration for services in *this* file
