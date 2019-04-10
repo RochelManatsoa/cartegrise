@@ -5,6 +5,7 @@ namespace App\Manager;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Demande;
 use App\Entity\Commande;
+use App\Entity\Transaction;
 use App\Form\Demande\DemandeCtvoType;
 use App\Form\Demande\DemandeDivnType;
 use App\Form\Demande\DemandeCessionType;
@@ -14,6 +15,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Entity\User;
+use App\Manager\TransactionManager;
 use App\Repository\DemandeRepository;
 use Twig_Environment as Twig;
 
@@ -23,18 +25,21 @@ class DemandeManager
     private $formFactory;
     private $twig;
     private $repository;
+    private $transactionManager;
     public function __construct
     (
         EntityManagerInterface $em,
         FormFactoryInterface   $formFactory,
         Twig                   $twig,
-        DemandeRepository      $repository
+        DemandeRepository      $repository,
+        TransactionManager     $transactionManager
     )
     {
-        $this->em =          $em;
-        $this->formFactory = $formFactory;
-        $this->twig =        $twig;
-        $this->repository =  $repository;
+        $this->em                 = $em;
+        $this->formFactory        = $formFactory;
+        $this->twig               = $twig;
+        $this->repository         = $repository;
+        $this->transactionManager = $transactionManager;
     }
 
     private function init()
@@ -74,8 +79,14 @@ class DemandeManager
     public function save(Form $form)
     {
         $demande = $form->getData();
+        $this->saveDemande($demande);
+    }
+
+    public function saveDemande(Demande $demande)
+    {
         if (!$demande instanceof Demande)
             return;
+        $demande->setDateDemande(new \Datetime());
         $this->em->persist($demande);
         $this->em->flush();
     }
@@ -146,6 +157,15 @@ class DemandeManager
     public function getDemandeOfUser(User $user)
     {
         return $this->repository->getDemandeForUser($user);
+    }
+
+    public function checkPayment(Demande $demande)
+    {
+        if (!$demande->getTransaction() instanceof Transaction) {
+            $transaction = $this->transactionManager->init();
+            $demande->setTransaction($transaction);
+            $this->saveDemande($demande);
+        } 
     }
 
 }

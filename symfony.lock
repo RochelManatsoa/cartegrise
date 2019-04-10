@@ -1,4 +1,7 @@
 {
+    "defuse/php-encryption": {
+        "version": "v2.2.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -83,6 +86,9 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "jms/payment-core-bundle": {
+        "version": "1.4.1"
+    },
     "kleegroup/franceconnect-bundle": {
         "version": "0.7"
     },
@@ -140,6 +146,9 @@
     "symfony/asset": {
         "version": "v4.1.9"
     },
+    "symfony/browser-kit": {
+        "version": "v4.2.4"
+    },
     "symfony/cache": {
         "version": "v4.1.7"
     },
@@ -166,6 +175,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v4.1.7"
+    },
+    "symfony/dom-crawler": {
+        "version": "v4.2.4"
     },
     "symfony/dotenv": {
         "version": "v4.1.11"

@@ -16,4 +16,5 @@ return [
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
     KleeGroup\FranceConnectBundle\FranceConnectBundle::class => ['all' => true],
+    JMS\Payment\CoreBundle\JMSPaymentCoreBundle::class => ['all' => true],
 ];
