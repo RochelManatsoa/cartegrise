@@ -2,6 +2,8 @@
 
 namespace App\Utils;
 
+use App\Entity\Bank;
+
 class PaymentUtils
 {
     /**
