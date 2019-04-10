@@ -47,13 +47,15 @@ class PaymentController extends AbstractController
         $paramDynamical = [
             'amount' => $taxes,
             'customer_email' => $email,
-            'transaction_id' => $idTransaction,
         ];
         $param = $parameterBag->get('payment_params');
         $bin   = $parameterBag->get('payment_binary');
         $param = array_merge($param, $paramDynamical);
+        $response = $paymentUtils->request($param, $bin);
+        $demande->getTransaction()->setTransactionId($response['transactionId']);
+        $transactionManager->save($demande->getTransaction());
         
-        return new Response($paymentUtils->request($param, $bin));
+        return new Response($response['template']);
     }
 
     /**

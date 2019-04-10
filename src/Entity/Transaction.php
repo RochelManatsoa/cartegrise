@@ -29,6 +29,11 @@ class Transaction
     private $status;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $transactionId;
+
+    /**
      * @ORM\OneToOne(targetEntity="Demande", inversedBy="transaction")
      */
     private $demande;
@@ -70,6 +75,18 @@ class Transaction
     public function setDemande(?Demande $demande): self
     {
         $this->demande = $demande;
+
+        return $this;
+    }
+
+    public function getTransactionId(): ?string
+    {
+        return $this->transactionId;
+    }
+
+    public function setTransactionId(?string $transactionId): self
+    {
+        $this->transactionId = $transactionId;
 
         return $this;
     }
