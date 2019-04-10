@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DemandeRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Demande
 {
@@ -318,5 +319,13 @@ class Demande
         $this->changementAdresse = $changementAdresse;
 
         return $this;
+    }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->dateDemande = new \DateTime();
     }
 }
