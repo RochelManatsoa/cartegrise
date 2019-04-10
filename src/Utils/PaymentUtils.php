@@ -54,8 +54,7 @@ class PaymentUtils
         $transIdTreatment = explode('VALUE="', $message);
         if (isset($transIdTreatment[1])){
             $transIdTreatment = explode('"', $transIdTreatment[1]);
-            $pathfile = "pathfile=".$parameters['pathfile'];
-            $transParams= $this->decode($path_bin_decode, $pathfile, $transIdTreatment[0]);
+            $transParams= $this->decode($path_bin_decode, $parameters['pathfile'], $transIdTreatment[0]);
             $transactionInfos = explode('!', $transParams);
             if (isset($transactionInfos[6]))
                 $transactionId = explode('!', $transParams)[6];
@@ -71,6 +70,8 @@ class PaymentUtils
     public function decode($path_bin_response, $pathfile, $transIdTreatment)
     {
         $transIdTreatment = 'message='.$transIdTreatment;
-        return exec("$path_bin_response $pathfile  $transIdTreatment");
+        $pathfile = "pathfile=".$pathfile;
+        $message = escapeshellcmd($transIdTreatment);
+        return exec("$path_bin_response $pathfile  $message");
     }
 }
