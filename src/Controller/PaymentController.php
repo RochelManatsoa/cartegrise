@@ -61,27 +61,42 @@ class PaymentController extends AbstractController
     /**
      * @Route("/payment/ipn", name="instant_payment_notification")
      */
-    public function notification(Request $request, SessionManager $sessionManager, \Swift_Mailer $mailer)
+    public function notification(
+        Request $request, 
+        SessionManager $sessionManager, 
+        \Swift_Mailer $mailer,
+        PaymentUtils $paymentUtils,
+        ParameterBagInterface $parameterBag
+    )
     {
-        $sessionManager->initSession();
-        $sessionManager->addArraySession("payment", ["mandeha"]);
-        $sessionManager->addArraySession("dump", [$request]);
-
+        $response = $request->request->get('DATA');
+        $param = $parameterBag->get('payment_params');
+        $bin   = $parameterBag->get('payment_binary');
+        $return = $paymentUtils->decode($bin['response'], $param['pathfile'], $response);
 
         $message = (new \Swift_Message('Hello Email'))
-        ->setFrom('send@example.com')
-        ->setTo('recipient@example.com')
+        ->setFrom('rapaelector@gmail.com')
+        ->setTo('rapaelec@gmail.com')
         ->setBody(
             $this->renderView(
                 // templates/emails/registration.html.twig
                 'email/registration.html.twig',
-                array('name' => 'papat')
+                array('name' => $return)
             ),
             'text/html'
         );
 
         $mailer->send($message);
-        
+
         return new Response('ok');
+    }
+
+    /**
+     * @Route("/payment/success", name="payment_success")
+     */
+    public function success(Request $request, SessionManager $sessionManager, \Swift_Mailer $mailer)
+    {
+
+        return new Response('success');
     }
 }
