@@ -1,7 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends 'email_base.html.twig' %}
 
 
-{% block page_content %}
+{% block body %}
     <div class="col-8">
         <div >
             <h1>
@@ -9,6 +9,10 @@
             </h1>
         </div>
         <div >
+            <div>
+                le compte de {{ responses.customer_email }} à éfectuer un transaction avec l'historique : 
+                <br> <hr>
+            </div>
             <table class="table-striped">
                 <tbody>
                     <tr>
@@ -33,6 +37,7 @@
                     </tr>
                 </tbody>
             </table>
+            <hr>
         </div>
     </div>
 </body>

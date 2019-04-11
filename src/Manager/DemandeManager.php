@@ -161,11 +161,12 @@ class DemandeManager
 
     public function checkPayment(Demande $demande)
     {
-        if (!$demande->getTransaction() instanceof Transaction) {
+        // if (!$demande->getTransaction() instanceof Transaction) {
             $transaction = $this->transactionManager->init();
             $demande->setTransaction($transaction);
+            $transaction->setDemande($demande);
             $this->saveDemande($demande);
-        } 
+        // } 
     }
 
 }
