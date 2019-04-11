@@ -34,7 +34,7 @@ class Transaction
     private $transactionId;
 
     /**
-     * @ORM\OneToOne(targetEntity="Demande", inversedBy="transaction")
+     * @ORM\ManyToOne(targetEntity="Demande")
      */
     private $demande;
 
@@ -90,5 +90,6 @@ class Transaction
 
         return $this;
     }
+
 
 }

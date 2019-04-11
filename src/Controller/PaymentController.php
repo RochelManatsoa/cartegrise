@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Utils\PaymentUtils;
+use App\Utils\{PaymentUtils, PaymentResponseTreatment, StatusTreatment};
 use App\Entity\Demande;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Manager\SessionManager;
 use App\Manager\DemandeManager;
 use App\Manager\TransactionManager;
+use App\Manager\HistoryTransactionManager;
 use Symfony\Component\HttpFoundation\Cookie;
 
 class PaymentController extends AbstractController
@@ -66,27 +67,18 @@ class PaymentController extends AbstractController
         SessionManager $sessionManager, 
         \Swift_Mailer $mailer,
         PaymentUtils $paymentUtils,
-        ParameterBagInterface $parameterBag
+        ParameterBagInterface $parameterBag, 
+        PaymentResponseTreatment $responseTreatment, 
+        StatusTreatment $statusTreatment,
+        HistoryTransactionManager $historyTransactionManager
     )
     {
         $response = $request->request->get('DATA');
-        $param = $parameterBag->get('payment_params');
-        $bin   = $parameterBag->get('payment_binary');
-        $return = $paymentUtils->decode($bin['response'], $param['pathfile'], $response);
-
-        $message = (new \Swift_Message('Hello Email tabory'))
-        ->setFrom('rapaelector@gmail.com')
-        ->setTo('rapaelec@gmail.com')
-        ->setBody(
-            $this->renderView(
-                // templates/emails/registration.html.twig
-                'email/registration.html.twig',
-                array('name' => $return)
-            ),
-            'text/html'
-        );
-
-        $mailer->send($message);
+        $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
+        // send mail
+            $this->sendMail($mailer, $responses, $responses["customer_email"], $parameterBag->get('admin_mail'));
+            $this->addHistoryTransaction($responses, $historyTransactionManager);
+        // end send mail
 
         return new Response('ok');
     }
@@ -94,9 +86,79 @@ class PaymentController extends AbstractController
     /**
      * @Route("/payment/success", name="payment_success")
      */
-    public function success(Request $request, SessionManager $sessionManager, \Swift_Mailer $mailer)
+    public function success(
+        Request $request,
+        PaymentUtils $paymentUtils,
+        ParameterBagInterface $parameterBag,
+        PaymentResponseTreatment $responseTreatment
+    )
     {
+        $response = $request->request->get('DATA');
+        $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
 
-        return new Response('success');
+        return $this->render(
+                'transaction/transactionResponse.html.twig',
+                array('responses' => $responses)
+        );
+    }
+
+    /**
+     * @Route("/payment/cancel", name="payment_cancel")
+     */
+    public function cancel(
+        Request $request,
+        PaymentUtils $paymentUtils,
+        ParameterBagInterface $parameterBag, 
+        PaymentResponseTreatment $responseTreatment
+    )
+    {
+        $response = $request->request->get('DATA');
+        $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
+
+        return $this->render(
+                'email/registration.mail.twig',
+                array('responses' => $responses)
+        );
+    }
+
+    // to get response
+    private function getResponse($response, $paymentUtils, $parameterBag, $responseTreatment)
+    {
+        $param = $parameterBag->get('payment_params');
+        $bin   = $parameterBag->get('payment_binary');
+        $return = $paymentUtils->decode($bin['response'], $param['pathfile'], $response);
+    
+        return $responses = $responseTreatment->getResponse($return);
+    }
+
+    //function to send email with response in sherlock treatment
+    public function sendMail($mailer, $responses, $mail , $admins = [])
+    {
+        $this->send($mailer, $mail, $responses);
+        foreach ( $admins as $admin)
+        {
+            $this->send($mailer, $mail, $responses, "chère Admin, ");
+        }
+    }
+    //function to send email unit
+    public function send($mailer, $mail, $responses, $objectPrepend='')
+    {
+            // $message = (new \Swift_Message($object . ' de '. $responses["customer_email"] . ' ' . $responses["transaction_id"]))
+            $message = (new \Swift_Message($objectPrepend.'Transaction  n°: ' .$responses["transaction_id"]. ' de ' . $responses["customer_email"] ))
+            ->setFrom('noreply@cgofficiel.fr')
+            ->setTo($mail)
+            ->setBody(
+                $this->renderView(
+                    'email/registration.mail.twig',
+                    array('responses' => $responses)
+                ),
+                'text/html'
+            );
+            $mailer->send($message);
+    }
+
+    public function addHistoryTransaction($responses, HistoryTransactionManager $historyTransactionManager)
+    {
+        $historyTransactionManager->saveResponseTransaction($responses);
     }
 }

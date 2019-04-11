@@ -95,7 +95,7 @@ class Demande
     private $changementAdresse;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Transaction", mappedBy="demande", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Transaction", cascade={"persist", "remove"})
      */
     private $transaction;
 
@@ -333,12 +333,6 @@ class Demande
     public function setTransaction(?Transaction $transaction): self
     {
         $this->transaction = $transaction;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newDemande = $transaction === null ? null : $this;
-        if ($newDemande !== $transaction->getDemande()) {
-            $transaction->setDemande($newDemande);
-        }
 
         return $this;
     }
