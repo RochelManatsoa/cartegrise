@@ -116,7 +116,7 @@ class PaymentController extends AbstractController
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
 
         return $this->render(
-                'email/registration.mail.twig',
+                'transaction/transactionResponse.html.twig',
                 array('responses' => $responses)
         );
     }
