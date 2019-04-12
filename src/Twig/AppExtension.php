@@ -16,7 +16,7 @@ class AppExtension extends AbstractExtension
     private $demandeManager;
     private $prestation;
     private $statusTreatment;
-    public function __construct(UserManager $userManager, StatusTreatment $statusTreatment)
+    public function __construct(UserManager $userManager, StatusTreatment $statusTreatment, TarifsPrestationsRepository $prestation)
     {
         $this->userManager     = $userManager;
         $this->statusTreatment = $statusTreatment;
