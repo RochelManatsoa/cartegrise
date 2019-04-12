@@ -6,22 +6,29 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigFilter;
 use App\Entity\User;
+use App\Entity\TypeDemande;
+use App\Repository\TarifsPrestationsRepository;
 use App\Manager\UserManager;
 use App\Utils\StatusTreatment;
 
 class AppExtension extends AbstractExtension
 {
     private $demandeManager;
+    private $prestation;
     private $statusTreatment;
     public function __construct(UserManager $userManager, StatusTreatment $statusTreatment)
     {
         $this->userManager     = $userManager;
         $this->statusTreatment = $statusTreatment;
+        $this->prestation = $prestation;
     }
     public function getFunctions()
     {
         return [
             new TwigFunction('countDemande', [$this, 'countDemande']),
+            new TwigFunction('fraisTraitement', [$this, 'fraisTraitement']),
+            new TwigFunction('fraisTotalTraitement', [$this, 'fraisTotalTraitement']),
+            new TwigFunction('fraisTotal', [$this, 'fraisTotal']),
         ];
     }
 
@@ -74,5 +81,24 @@ class AppExtension extends AbstractExtension
     public function countDemande(User $user)
     {
         return $this->userManager->countDemande($user)[1];
+    }
+
+    public function fraisTraitement(TypeDemande $commande)
+    {
+        $price = $this->prestation->find($commande);
+        if($price == null){
+            return 0;
+        }
+        return $price->getPrix();
+    }
+
+    public function fraisTotalTraitement(int $prestation, int $majoration)
+    {
+        return $prestation + $majoration;
+    }
+
+    public function fraisTotal(int $taxe, int $prestation, int $majoration)
+    {
+        return $taxe + $prestation + $majoration;
     }
 }
