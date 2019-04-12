@@ -18,7 +18,7 @@ parameters:
         #response: '/var/www/app/src/Utils/bin/response'
         request: '/var/www/html/front/projectCG/src/Utils/bin/request'  # IN ENV DEV
         response: '/var/www/html/front/projectCG/src/Utils/bin/response'  # IN ENV DEV
-    admin_mail: ['rapaelec@gmail.com']
+    admin_mail: ['rapaelec@gmail.com', 'technique@cgofficiel.fr', 'rapaelec@gmail.com', 'nirinarochelmiandrisoa@gmail.com', 'rochel2fnclm@gmail.com']
 
 services:
     # default configuration for services in *this* file
