@@ -94,6 +94,11 @@ class Demande
      */
     private $changementAdresse;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Transaction", cascade={"persist", "remove"})
+     */
+    private $transaction;
+
     public function __toString()
     {
         // return $this->typeDemande;
@@ -117,18 +122,6 @@ class Demande
     public function setOpposeDemande(bool $opposeDemande): self
     {
         $this->opposeDemande = $opposeDemande;
-
-        return $this;
-    }
-
-    public function getClient(): ?Client
-    {
-        return $this->client;
-    }
-
-    public function setClient(?Client $client): self
-    {
-        $this->client = $client;
 
         return $this;
     }
@@ -328,6 +321,18 @@ class Demande
     public function setChangementAdresse(?ChangementAdresse $changementAdresse): self
     {
         $this->changementAdresse = $changementAdresse;
+
+        return $this;
+    }
+
+    public function getTransaction(): ?Transaction
+    {
+        return $this->transaction;
+    }
+
+    public function setTransaction(?Transaction $transaction): self
+    {
+        $this->transaction = $transaction;
 
         return $this;
     }

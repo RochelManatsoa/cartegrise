@@ -6,6 +6,19 @@
 parameters:
     locale: 'fr'
     upload_directory: '%kernel.project_dir%/public/allfiles'
+    payment_params:
+        merchant_id: '014295303911111'    # CODE DE TEST
+        #merchant_id: '083897291700010'    # IN PROD
+        merchant_country: fr
+        currency_code: '978'
+        #pathfile: '/var/www/app/src/Utils/pathfile'
+        pathfile: '/var/www/html/front/projectCG/src/Utils/pathfile'  # IN ENV DEV
+    payment_binary:
+        #request: '/var/www/app/src/Utils/bin/request'
+        #response: '/var/www/app/src/Utils/bin/response'
+        request: '/var/www/html/front/projectCG/src/Utils/bin/request'  # IN ENV DEV
+        response: '/var/www/html/front/projectCG/src/Utils/bin/response'  # IN ENV DEV
+    admin_mail: ['rapaelec@gmail.com', 'technique@cgofficiel.fr', 'rapaelec@gmail.com', 'nirinarochelmiandrisoa@gmail.com', 'rochel2fnclm@gmail.com']
 
 services:
     # default configuration for services in *this* file
