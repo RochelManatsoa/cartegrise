@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Demande;
 use App\Entity\Commande;
 use App\Entity\Taxes;
+use App\Entity\Vehicule;
+use App\Entity\VehiculeInfo;
 use App\Entity\TypeDemande;
 use App\Form\DemandeType;
 use App\Form\CommandeType;
@@ -90,6 +92,10 @@ class HomeController extends AbstractController
                 $params = array("Identification"=>$Ident, "Lot" => $Lot);
                 $Immat = array("Immatriculation"=>$TMS_Immatriculation);
                 $params = array("Identification"=>$Ident, "Lot" => $Lot);
+
+                $Info_vehicule = array("Identification"=>$Ident, "Immatriculation"=>$immatr);
+                $InfoVehicule = $client->InfoImmat($Info_vehicule);
+                // dump($InfoVehicule);die;
                 $value = $client->Envoyer($params);
                 // dump($value);die;
 
@@ -100,6 +106,8 @@ class HomeController extends AbstractController
                 } else {                   
 
                     $taxe = new Taxes();
+                    $infoSupVehic = new VehiculeInfo();
+                    $vehic = new Vehicule();
                     $taxe->setTaxeRegionale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale)
                         ->setTaxe35cv($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Taxe35cv)
                         ->setTaxeParafiscale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeParafiscale)
@@ -116,7 +124,34 @@ class HomeController extends AbstractController
                         ->setEnergie($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Energie)
                         ->setDateMEC(\DateTime::createFromFormat('Y-m-d', $value->Lot->Demarche->ECGAUTO->Reponse->Positive->DateMEC));
                     $commande->setTaxes($taxe);
+                    $infoSupVehic->setImmatriculation($InfoVehicule->InfoVehicule->Reponse->Positive->Immatriculation)
+                        ->setVin($InfoVehicule->InfoVehicule->Reponse->Positive->VIN)
+                        ->setCarrosserie($InfoVehicule->InfoVehicule->Reponse->Positive->Carrosserie)
+                        ->setCarrosserieCG($InfoVehicule->InfoVehicule->Reponse->Positive->CarrosserieCG)
+                        ->setCo2($InfoVehicule->InfoVehicule->Reponse->Positive->CO2)
+                        ->setConsoExurb($InfoVehicule->InfoVehicule->Reponse->Positive->ConsoExurb)
+                        ->setCylindree($InfoVehicule->InfoVehicule->Reponse->Positive->Cylindree)
+                        ->setCouleur($InfoVehicule->InfoVehicule->Reponse->Positive->Couleur)
+                        ->setDateMec(\DateTime::createFromFormat('Y-m-d', $InfoVehicule->InfoVehicule->Reponse->Positive->DateMec))
+                        ->setDateCG(\DateTime::createFromFormat('Y-m-d', $InfoVehicule->InfoVehicule->Reponse->Positive->DateCG))
+                        ->setEnergie($InfoVehicule->InfoVehicule->Reponse->Positive->Energie)
+                        ->setGenre($InfoVehicule->InfoVehicule->Reponse->Positive->Genre)
+                        ->setMarque($InfoVehicule->InfoVehicule->Reponse->Positive->Marque)
+                        ->setModele($InfoVehicule->InfoVehicule->Reponse->Positive->Modele)
+                        ->setNSerie($InfoVehicule->InfoVehicule->Reponse->Positive->NSerie)
+                        ->setType($InfoVehicule->InfoVehicule->Reponse->Positive->Type)
+                        ;
+                    $vehic->setImmatriculation($InfoVehicule->InfoVehicule->Reponse->Positive->Immatriculation)
+                        ->setVin($InfoVehicule->InfoVehicule->Reponse->Positive->VIN)
+                        ->setCommande($commande)
+                        ->setVehiculeInfo($infoSupVehic)
+                        ;
+                    $commande->setVehicule($vehic);
+                    // dump($vehic);
+                    // dump($commande);die;
+                    $manager->persist($vehic);
                     $manager->persist($commande);
+                    $manager->persist($infoSupVehic);
                     $manager->persist($taxe);
                     $manager->flush();
 
@@ -151,9 +186,11 @@ class HomeController extends AbstractController
     {
         $manager = $this->getDoctrine()->getManager();
         $value = $commande->getTaxes();
+        $vehicule = $commande->getVehicule()->getVehiculeInfo();
         $param = [
             'commandes' => $commande, 'recap' => $commande,
-            'value' => $value,        'database' => true,
+            'value' => $value,        'database' => true, 
+            'vehicule' => $vehicule,
         ];
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
             $param = array_merge([

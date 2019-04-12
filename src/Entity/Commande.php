@@ -53,6 +53,11 @@ class Commande
      */
     private $demandes;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Vehicule", mappedBy="commande")
+     */
+    private $vehicule;
+
     public function __construct()
     {
         $this->client = new ArrayCollection();
@@ -184,6 +189,24 @@ class Commande
         $newCommande = $taxes === null ? null : $this;
         if ($newCommande !== $taxes->getCommande()) {
             $taxes->setCommande($newCommande);
+        }
+
+        return $this;
+    }
+
+    public function getVehicule(): ?Vehicule
+    {
+        return $this->vehicule;
+    }
+
+    public function setVehicule(?Vehicule $vehicule): self
+    {
+        $this->vehicule = $vehicule;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCommande = $vehicule === null ? null : $this;
+        if ($newCommande !== $vehicule->getCommande()) {
+            $vehicule->setCommande($newCommande);
         }
 
         return $this;

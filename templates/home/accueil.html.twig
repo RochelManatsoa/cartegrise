@@ -26,35 +26,35 @@
 								<table class="table table-striped">
 									<tr>
 										<th>Marque</th>
-										<td>Renault</td>
+										<td>{{ vehicule.marque }}</td>
 									</tr>
 									<tr>
 										<th>Modèle</th>
-										<td>Cacahuète</td>
+										<td>{{ vehicule.modele }}</td>
 									</tr>
 									<tr>
 										<th>VIN</th>
-										<td>{{ value.VIN }}</td>
+										<td>{{ vehicule.Vin }}</td>
 									</tr>
 									<tr>
 										<th>CO2</th>
-										<td>{{ value.CO2 }}</td>
+										<td>{{ vehicule.Co2 }}</td>
 									</tr>
 									<tr>
 										<th>Genre</th>
-										<td>{{ value.Genre }}</td>
+										<td>{{ vehicule.Genre }}</td>
 									</tr>
 									<tr>
-										<th>PTAC</th>
-										<td>{{ value.PTAC }}</td>
+										<th>Type</th>
+										<td>{{ vehicule.type }}</td>
 									</tr>
 									<tr>
 										<th>Energie</th>
-										<td>{{ value.Energie }}</td>
+										<td>{{ vehicule.Energie }}</td>
 									</tr>
 									<tr>
 										<th>Date de mise en ciruclation</th>
-										<td>{{ value.DateMEC | date('Y-m-d') }}</td>
+										<td>{{ vehicule.dateMec | date('Y-m-d') }}</td>
 									</tr>
 								</table>
 								<h2 class="col-12">Récapitulatif de la demande</h2>

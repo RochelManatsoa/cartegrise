@@ -17,17 +17,17 @@ class Vehicule
     private $id;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $cgpresent;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $immatriculation;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $vin;
 
@@ -53,19 +53,10 @@ class Vehicule
     private $vehiculeCartegrise;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Demande", cascade={"persist", "remove"})
-     */
-    private $vehiculeDemande;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="vehicules")
      */
     private $vehiculeClient;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="clientVehicule")
-     */
-    private $client;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\InfoSupVeh", inversedBy="vehicule", cascade={"persist", "remove"})
@@ -81,6 +72,16 @@ class Vehicule
      * @ORM\OneToOne(targetEntity="App\Entity\Demande", mappedBy="vehicule", cascade={"persist", "remove"})
      */
     private $demande;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\VehiculeInfo", mappedBy="vehicule", cascade={"persist", "remove"})
+     */
+    private $vehiculeInfo;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Commande", inversedBy="vehicule", cascade={"persist", "remove"})
+     */
+    private $commande;
 
 
     public function getId(): ?int
@@ -172,18 +173,6 @@ class Vehicule
         return $this;
     }
 
-    public function getVehiculeDemande(): ?Demande
-    {
-        return $this->vehiculeDemande;
-    }
-
-    public function setVehiculeDemande(?Demande $vehiculeDemande): self
-    {
-        $this->vehiculeDemande = $vehiculeDemande;
-
-        return $this;
-    }
-
     public function getVehiculeClient(): ?Client
     {
         return $this->vehiculeClient;
@@ -192,18 +181,6 @@ class Vehicule
     public function setVehiculeClient(?Client $vehiculeClient): self
     {
         $this->vehiculeClient = $vehiculeClient;
-
-        return $this;
-    }
-
-    public function getClient(): ?Client
-    {
-        return $this->client;
-    }
-
-    public function setClient(?Client $client): self
-    {
-        $this->client = $client;
 
         return $this;
     }
@@ -246,6 +223,36 @@ class Vehicule
         if ($newVehicule !== $demande->getVehicule()) {
             $demande->setVehicule($newVehicule);
         }
+
+        return $this;
+    }
+
+    public function getVehiculeInfo(): ?VehiculeInfo
+    {
+        return $this->vehiculeInfo;
+    }
+
+    public function setVehiculeInfo(?VehiculeInfo $vehiculeInfo): self
+    {
+        $this->vehiculeInfo = $vehiculeInfo;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newVehicule = $vehiculeInfo === null ? null : $this;
+        if ($newVehicule !== $vehiculeInfo->getVehicule()) {
+            $vehiculeInfo->setVehicule($newVehicule);
+        }
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): self
+    {
+        $this->commande = $commande;
 
         return $this;
     }

@@ -95,7 +95,12 @@ class Demande
     private $changementAdresse;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Transaction", mappedBy="demande", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Vehicule", mappedBy="demande", cascade={"persist", "remove"})
+     */
+    private $vehicule;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Transaction", inversedBy="demande", cascade={"persist", "remove"})
      */
     private $transaction;
 
@@ -339,6 +344,18 @@ class Demande
         if ($newDemande !== $transaction->getDemande()) {
             $transaction->setDemande($newDemande);
         }
+
+        return $this;
+    }
+
+    public function getVehicule(): ?Vehicule
+    {
+        return $this->vehicule;
+    }
+
+    public function setVehicule(?Vehicule $Vehicule): self
+    {
+        $this->vehicule = $Vehicule;
 
         return $this;
     }
