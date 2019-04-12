@@ -95,7 +95,6 @@ class PaymentController extends AbstractController
     {
         $response = $request->request->get('DATA');
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
-
         return $this->render(
                 'transaction/transactionResponse.html.twig',
                 array('responses' => $responses)
@@ -135,18 +134,20 @@ class PaymentController extends AbstractController
     public function sendMail($mailer, $responses, $mail , $admins = [])
     {
         $this->send($mailer, $mail, $responses);
-        foreach ( $admins as $admin)
-        {
-            $this->send($mailer, $mail, $responses, "chère Admin, ");
-        }
+        $this->send($mailer, $admins, $responses, "chère Admin, ");
     }
     //function to send email unit
-    public function send($mailer, $mail, $responses, $objectPrepend='')
+    public function send($mailer, $mail, $responses, $adminPrepend='')
     {
-            // $message = (new \Swift_Message($object . ' de '. $responses["customer_email"] . ' ' . $responses["transaction_id"]))
-            $message = (new \Swift_Message($objectPrepend.'Transaction  n°: ' .$responses["transaction_id"]. ' de ' . $responses["customer_email"] ))
-            ->setFrom('noreply@cgofficiel.fr')
-            ->setTo($mail)
+            $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["transaction_id"]. ' de ' . $responses["customer_email"] ))
+            ->setFrom('noreply@cgofficiel.fr');
+            if ($adminPrepend != '' && is_iterable($mail) && count($mail)>0) {
+                $message->setTo(array_shift($mail))
+                ->setBcc($mail);
+            } else {
+                $message->setTo($mail);
+            }
+            $message
             ->setBody(
                 $this->renderView(
                     'email/registration.mail.twig',
