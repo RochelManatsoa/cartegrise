@@ -25,18 +25,21 @@ class HistoryTransactionManager
     private $repository;
     private $statusTreatment;
     private $transactionRepository;
+    private $transactionManager;
     public function __construct
     (
         EntityManagerInterface            $em,
         HistoryTransactionRepository      $repository,
         StatusTreatment                   $statusTreatment,
-        TransactionRepository             $transactionRepository
+        TransactionRepository             $transactionRepository,
+        TransactionManager                $transactionManager
     )
     {
         $this->em                       =  $em;
         $this->repository               =  $repository;
-        $this->statusTreatment =  $statusTreatment;
-        $this->transactionRepository =  $transactionRepository;
+        $this->statusTreatment          =  $statusTreatment;
+        $this->transactionRepository    =  $transactionRepository;
+        $this->transactionManager       =  $transactionManager;
     }
 
     public function init()
@@ -63,8 +66,11 @@ class HistoryTransactionManager
         ->setData(json_encode($responses))->setStatus($responses["response_code"])
         ->setStatusMessage($this->statusTreatment->getMessageStatus($responses["response_code"]));
         $transaction = $this->transactionRepository->findOneBy(["transactionId" => $responses["transaction_id"]]);
-        if ($transaction instanceof Transaction)
+        if ($transaction instanceof Transaction) {
             $historyTransaction->setDemande($transaction->getDemande());
+            $transaction->setStatus($responses["response_code"]);
+            $this->transactionManager->save($transaction);
+        }   
         $this->save($historyTransaction);
     }
 
