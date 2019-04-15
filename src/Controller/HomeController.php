@@ -101,11 +101,8 @@ class HomeController extends AbstractController
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             $client = $this->getUser()->getClient();
 
-            $homeParams = [
-                'genre' => $client->getClientGenre(),
-                'client' => $client,
-                'tab' => $tabForm,
-            ];
+            $homeParams['genre'] = $client->getClientGenre();
+            $homeParams['client'] = $client;
         }
 
         return $this->render('home/accueil.html.twig', $homeParams);
