@@ -216,6 +216,16 @@ class HomeController extends AbstractController
     }
 
     /**
+     * @Route("/commande/{commande}", name="authentification")
+     */
+    public function authentification(Commande $commande)
+    {
+        return $this->render('home/authentification.html.twig', [
+            'commande' => $commande,
+            ]);
+    }
+
+    /**
      * @Route("/CommentCaMarche", name="CommentCaMarche")
      */
     public function CommentCaMarche()

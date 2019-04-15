@@ -15,14 +15,14 @@
 						<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 					{% endif %}
 
-					<div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div>
+					<div class=" col-10 mx-auto fadeIn login-error mt-2">Nom d'utilisateur ou adresse éléctronique : </div>
 					<label class="hidden-xl-down" for="username">{{ 'security.login.username'|trans }}</label>
 					<input class="col-10 mx-auto fadeIn second" type="text" id="username" name="_username" placeholder="Votre identifiant" value="{{ last_username }}">
 
 
-					<div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div>
+					<div class=" col-10 mx-auto fadeIn login-error mt-2">Mot de passe : </div>
 					<label class="hidden-xl-down" for="password">{{ 'security.login.password'|trans }}</label>
-					<input class="col-10 mx-auto fadeIn third" type="password" id="password" name="_password" placeholder="Mot de passe">
+					<input class="col-10 mx-auto fadeIn third" type="password" id="password" name="_password" placeholder="Votre mot de passe">
 
 					<label for="remember_me" class="col-6 form-check-label text-right mt-3 mb-3">{{ 'security.login.remember_me'|trans }}</label>
 					<input type="checkbox" id="remember_me" name="_remember_me" value="on" class="col-6 form-check-input text-left mt-3 mb-3" />

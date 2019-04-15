@@ -141,7 +141,7 @@
 								{% if app.user %}
 									<a class="col-12 btn btn-success" href="{{path('new_demande', {'commande': recap.id })}}">Continuer</a>
 								{% else %}
-									<a class="col-12 btn btn-success" href="{{ path('fos_user_registration_register') }}">Continuer</a>
+									<a class="col-12 btn btn-success" href="{{ path('authentification', {'commande':recap.id}) }}">Continuer</a>
 								{% endif %}
 
 							</div>
@@ -261,7 +261,7 @@
 						{% if app.user %}
 							<a class="col-12 btn btn-success" href="{{path('Accueil')}}{{ commandes.demarche.type | lower}}/?commande={{ commandes.id }}">VALIDER</a>
 						{% else %}
-							<a class="col-12 btn btn-success" href="{{ path('fos_user_registration_register',{'commande':commandes.id}) }}">VALIDER</a>
+							<a class="col-12 btn btn-success" href="{{ path('authentification',{'commande':commandes.id}) }}">CONTINUER</a>
 						{% endif %}
 					</div>
 				</div>
