@@ -49,5 +49,5 @@ services:
     Symfony\Component\HttpFoundation\Session\Session:
         public: true
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    App\Services\Tms\TmsClient:
+        arguments: ['%env(resolve:TMS_ENDPOINT)%', '%env(resolve:TMS_CODE_TMS)%', '%env(resolve:TMS_LOGIN)%', '%env(resolve:TMS_PASSWORD)%']
