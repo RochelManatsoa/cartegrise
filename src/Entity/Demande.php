@@ -81,6 +81,7 @@ class Demande
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Divn", mappedBy="demande", cascade={"persist", "remove"})
+     * @ORM\JoinColumn()
      */
     private $divn;
 
