@@ -92,12 +92,12 @@ class AppExtension extends AbstractExtension
         return $price->getPrix();
     }
 
-    public function fraisTotalTraitement(int $prestation, int $majoration)
+    public function fraisTotalTraitement(float $prestation, float $majoration)
     {
         return $prestation + $majoration;
     }
 
-    public function fraisTotal(int $taxe, int $prestation, int $majoration)
+    public function fraisTotal(float $taxe, float $prestation, float $majoration)
     {
         return $taxe + $prestation + $majoration;
     }
