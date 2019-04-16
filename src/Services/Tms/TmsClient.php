@@ -33,4 +33,20 @@ class TmsClient
 
         return new Response($client->Envoyer($params));
 	}
+
+	/**
+	 * Info about immatriculation
+	 */
+	public function infoImmat($Immat)
+	{
+        $client = new \SoapClient($this->endpoint);
+        $identification = [
+        	"CodeTMS" => $this->codeTMS,
+        	"Login" => $this->login,
+        	"Password" => $this->password,
+        ];
+		$Immat['Identification'] = $identification;
+
+        return new Response($client->InfoImmat($Immat));
+	}
 }
