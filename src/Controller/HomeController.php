@@ -71,6 +71,7 @@ class HomeController extends AbstractController
                 return $this->render('home/accueil.html.twig', $param);
             } else {
                 $tmsResponse = $commandeManager->tmsEnvoyer($commande);
+                $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
 
                 if (!$tmsResponse->isSuccessfull()) {
                     return new Response(
@@ -78,13 +79,12 @@ class HomeController extends AbstractController
                     );
                 } else {                   
                     $value = $tmsResponse->getRawData();
-
+                    $vehic = $tmsInfoImmat->getRawData();
                     $taxe = $taxesManager->createFromTmsResponse($tmsResponse);
                     $commande->setTaxes($taxe);
                     $manager->persist($commande);
                     $manager->persist($taxe);
                     $manager->flush();
-
                     $param = $this->getParamHome($commande, $sessionManager, $tabForm);
 
                     return $this->render('home/accueil.html.twig', $param);

@@ -57,4 +57,14 @@ class CommandeManager
         
         return $this->tmsClient->envoyer($params);
 	}
+
+	/**
+	 * Get information by immatriculation
+	 */
+	public function tmsInfoImmat(Commande $commande)
+	{
+        $Immat = ["Immatriculation" => $commande->getImmatriculation()];
+        
+        return $this->tmsClient->infoImmat($Immat);
+	}
 }
