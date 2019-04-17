@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #daf-list-wrapper ol > li > ul {
+            color: #d9534f;
+        }
+    </style>
+{% endblock %}
+
+{% block page_content %}
+    <div class="col-md-12 col-lg-8 mt-0 mt-md-5">
+        <h1 class="pl-4">Votre demande</h1>
+        <ul>
+            <li><b>Type Demande : </b> {{ demande.commande.demarche.nom }}</li>
+            <li><b>Date : </b> {{ demande.commande.ceerLe | date('d-m-Y')}}</li>
+            <li><b>Nom et prénom : </b> {{ client.clientNom }} {{ client.clientPrenom }}</li>
+            <li><b>Département : </b> {{ demande.commande.codePostal }}</li>
+            <li><b>Immatriculation : </b> {{ demande.commande.immatriculation }}</li>
+        </ul>
+        <h1 class="pl-4">Dossiers à fournir pour votre demande</h1>
+        <div id="daf-list-wrapper">
+            {{ daf|raw }}
+        </div>
+        <div class="pl-4 mb-3 mb-md-0">
+            <a href="{{ path('demande_list') }}">
+                <i class="fa fa-arrow-left"></i> Retour à la liste de vos demandes
+            </a>
+        </div>
+    </div>
+{% endblock %}
