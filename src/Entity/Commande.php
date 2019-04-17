@@ -53,6 +53,11 @@ class Commande
      */
     private $demandes;
 
+    /**
+     * @ORM\OneToOne(targetEntity="CarInfo", mappedBy="commande", cascade={"persist", "remove"})
+     */
+    private $carInfo;
+
     public function __construct()
     {
         $this->client = new ArrayCollection();
@@ -189,6 +194,19 @@ class Commande
         return $this;
     }
 
+    public function getCarInfo(): ?CarInfo
+    {
+        return $this->carInfo;
+    }
 
+    public function setCarInfo(?CarInfo $carInfo): self
+    {
+        $this->carInfo = $carInfo;
+        if ($carInfo instanceof CarInfo) {
+            $carInfo->setCommande($this);
+        }
+
+        return $this;
+    }
 
 }
