@@ -11,6 +11,21 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TypeDemande
 {
+    const TYPE_CTVO = 'CTVO';
+    const TYPE_DUP = 'DUP';
+    const TYPE_DIVN = 'DIVN';
+    const TYPE_DCA = 'DCA';
+    const TYPE_DC = 'DC';
+    const TYPE_DCS = 'DCS';
+    const TYPE_CHOICES = [
+        self::TYPE_CTVO,
+        self::TYPE_DUP,
+        self::TYPE_DIVN,
+        self::TYPE_DCA,
+        self::TYPE_DC,
+        self::TYPE_DCS,
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
