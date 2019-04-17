@@ -26,6 +26,11 @@ class Response
 		return !isset($value->Lot->Demarche->ECGAUTO->Reponse->Negative->Erreur);
 	}
 
+	public function getErrorMessage()
+	{
+		return '<html><body><h1>'.$value->Lot->Demarche->ECGAUTO->Reponse->Negative->Erreur.'</h1></body></html>';
+	}
+
 	public function getRawData()
 	{
 		return $this->rawData;

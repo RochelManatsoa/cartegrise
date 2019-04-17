@@ -68,11 +68,6 @@ class Vehicule
     private $client;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\InfoSupVeh", inversedBy="vehicule", cascade={"persist", "remove"})
-     */
-    private $infosup;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\NewTitulaire", inversedBy="vehicules")
      */
     private $Titulaire;
@@ -204,18 +199,6 @@ class Vehicule
     public function setClient(?Client $client): self
     {
         $this->client = $client;
-
-        return $this;
-    }
-
-    public function getInfosup(): ?InfoSupVeh
-    {
-        return $this->infosup;
-    }
-
-    public function setInfosup(?InfoSupVeh $infosup): self
-    {
-        $this->infosup = $infosup;
 
         return $this;
     }

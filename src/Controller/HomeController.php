@@ -22,6 +22,7 @@ use App\Manager\SessionManager;
 use App\Services\Tms\TmsClient;
 use App\Manager\CommandeManager;
 use App\Manager\TaxesManager;
+use App\Manager\CarInfoManager;
 
 
 class HomeController extends AbstractController
@@ -39,12 +40,10 @@ class HomeController extends AbstractController
         SessionManager $sessionManager,
         TmsClient $tmsClient,
         CommandeManager $commandeManager,
+        CarInfoManager $carInfoManager,
         TaxesManager $taxesManager
         )
-    {
-
-        // dump($this->getUser()->getClient()->getCountDem());die;
-        
+    {   
         $commande = $commandeManager->createCommande();
 
         $type = $demarche->findAll();
@@ -65,8 +64,7 @@ class HomeController extends AbstractController
             ]);
             $sessionManager->initSession();
             if (!is_null($ifCommande)) {
-                $recapCommand = $ifCommande;
-                $param = $this->getParamHome($recapCommand, $sessionManager, $tabForm);
+                $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
 
                 return $this->render('home/accueil.html.twig', $param);
             } else {
@@ -74,14 +72,12 @@ class HomeController extends AbstractController
                 $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
 
                 if (!$tmsResponse->isSuccessfull()) {
-                    return new Response(
-                        '<html><body><h1>'.$value->Lot->Demarche->ECGAUTO->Reponse->Negative->Erreur.'</h1></body></html>'
-                    );
-                } else {                   
-                    $value = $tmsResponse->getRawData();
-                    $vehic = $tmsInfoImmat->getRawData();
+                    return new Response($tmsResponse->getErrorMessage());
+                } else {
                     $taxe = $taxesManager->createFromTmsResponse($tmsResponse);
+                    $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
                     $commande->setTaxes($taxe);
+                    $commande->setCarInfo($carInfo);
                     $manager->persist($commande);
                     $manager->persist($taxe);
                     $manager->flush();
