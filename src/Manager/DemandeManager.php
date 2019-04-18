@@ -186,4 +186,23 @@ class DemandeManager
 
         return '';
     }
+
+    public function removeDemande(Demande $demande)
+    {
+        if ($duplicata = $demande->getDuplicata()) {
+            $duplicata->setDemande(null);
+            $demande->setDuplicata(null);
+            $this->em->flush();
+            $this->em->remove($duplicata);
+        }
+        if ($ctvo = $demande->getCtvo()) {
+            $this->em->remove($ctvo);
+        }
+        if ($changementAdresse = $demande->getChangementAdresse()) {
+            $this->em->remove($changementAdresse);
+        }
+
+        $this->em->remove($demande);
+        $this->em->flush();
+    }
 }

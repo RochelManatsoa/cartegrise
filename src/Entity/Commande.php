@@ -44,12 +44,12 @@ class Commande
     private $client;
 
     /**
-     * @ORM\OneToOne(targetEntity="Taxes", mappedBy="commande")
+     * @ORM\OneToOne(targetEntity="Taxes", mappedBy="commande", cascade={"all"})
      */
     private $taxes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="commande")
+     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="commande", cascade={"all"})
      */
     private $demandes;
 
