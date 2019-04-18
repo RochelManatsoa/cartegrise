@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
+ * @Date: 2019-04-17 13:14:01 
+ * @Last Modified by:   Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
+ * @Last Modified time: 2019-04-17 13:14:01 
+ */
 namespace App\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -80,6 +86,8 @@ class DemandeManager
     {
         $demande = $form->getData();
         $this->saveDemande($demande);
+        
+        return $demande;
     }
 
     public function saveDemande(Demande $demande)

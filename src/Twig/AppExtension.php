@@ -7,8 +7,9 @@ use Twig\TwigFunction;
 use Twig\TwigFilter;
 use App\Entity\User;
 use App\Entity\TypeDemande;
+use App\Entity\Commande;
 use App\Repository\TarifsPrestationsRepository;
-use App\Manager\UserManager;
+use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager};
 use App\Utils\StatusTreatment;
 
 class AppExtension extends AbstractExtension
@@ -16,11 +17,21 @@ class AppExtension extends AbstractExtension
     private $demandeManager;
     private $prestation;
     private $statusTreatment;
-    public function __construct(UserManager $userManager, StatusTreatment $statusTreatment, TarifsPrestationsRepository $prestation)
+    private $taxManager;
+    private $fraisTreatmentManager;
+    public function __construct(
+        UserManager $userManager, 
+        StatusTreatment $statusTreatment,
+        TarifsPrestationsRepository $prestation,
+        TaxesManager $taxManager, 
+        FraisTreatmentManager $fraisTreatmentManager
+    )
     {
         $this->userManager     = $userManager;
         $this->statusTreatment = $statusTreatment;
         $this->prestation = $prestation;
+        $this->taxManager = $taxManager;
+        $this->fraisTreatmentManager = $fraisTreatmentManager;
     }
     public function getFunctions()
     {
@@ -83,22 +94,20 @@ class AppExtension extends AbstractExtension
         return $this->userManager->countDemande($user)[1];
     }
 
-    public function fraisTraitement(TypeDemande $commande)
+    private function fraisTraitement(Commande $commande)
     {
-        $price = $this->prestation->find($commande);
-        if($price == null){
-            return 0;
-        }
-        return $price->getPrix();
+        return $this->fraisTreatmentManager->fraisTreatmentOfCommande($commande);
     }
 
-    public function fraisTotalTraitement(int $prestation, int $majoration)
+    public function fraisTotalTraitement(Commande $commande)
     {
-        return $prestation + $majoration;
+
+        return $this->fraisTreatmentManager->fraisTotalTreatmentOfCommande($commande);
     }
 
-    public function fraisTotal(int $taxe, int $prestation, int $majoration)
+    public function fraisTotal(Commande $commande)
     {
-        return $taxe + $prestation + $majoration;
+
+        return $this->fraisTreatmentManager->fraisTotalOfCommande($commande);
     }
 }
