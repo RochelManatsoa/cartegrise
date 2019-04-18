@@ -17,4 +17,5 @@ return [
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
     KleeGroup\FranceConnectBundle\FranceConnectBundle::class => ['all' => true],
     JMS\Payment\CoreBundle\JMSPaymentCoreBundle::class => ['all' => true],
+    Knp\Bundle\SnappyBundle\KnpSnappyBundle::class => ['all' => true],
 ];

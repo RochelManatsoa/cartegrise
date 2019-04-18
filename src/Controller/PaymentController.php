@@ -15,6 +15,7 @@ use App\Manager\FraisTreatmentManager;
 use App\Manager\TransactionManager;
 use App\Manager\HistoryTransactionManager;
 use Symfony\Component\HttpFoundation\Cookie;
+use Knp\Snappy\Pdf;
 
 class PaymentController extends AbstractController
 {
@@ -121,6 +122,43 @@ class PaymentController extends AbstractController
                 'transaction/transactionResponse.html.twig',
                 array('responses' => $responses)
         );
+    }
+
+    /**
+     * @Route("/payment/{demande}/facture", name="payment_facture")
+     */
+    public function facture(Demande $demande)
+    {
+        $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
+        $filename = "Facture";
+        $TVA = $this->calculateTVA($demande->getPrix());
+        $TOTAL = $this->calculateTOTAL($demande->getPrix());
+        $html = $this->renderView("payment/facture.html.twig", array(
+            "title"=>"Facture CGOfficiel",
+            "demande"=> $demande,
+            "tva"=> $TVA,
+            "total"=> $TOTAL,
+        ));
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'=>'application/pdf',
+                'Content-disposition'=>'inline; filename="'.$filename.'.pdf"'
+            )
+        );
+    }
+
+    // price with TVA
+    private function calculateTOTAL($prix)
+    {
+        return ($prix) + ($prix * 20 / 100);
+    }
+
+    // calculate TVA 20%
+    private function calculateTVA($prix)
+    {
+        return $prix * 20 / 100;
     }
 
     // to get response

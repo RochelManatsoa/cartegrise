@@ -35,7 +35,12 @@
                                     <td>{{ client.clientNom }} {{ client.clientPrenom }}</td>
                                     <td>{{ demande.commande.codePostal }}</td>
                                     <td>{{ demande.commande.immatriculation }}</td>
-                                    <td><span class="badge badge-warning">demandes Tms</span></td>
+                                    <td>
+                                        <span class="badge badge-warning">demandes Tms</span>                                        
+                                        <a href="{{path('payment_facture', {'demande': demande.id })}}" target="_blank">
+                                                <button type="button" class="btn btn-warning btn-sm">Facture</button>
+                                            </a>
+                                    </td>
                                     <td>
                                         <a href="{{path('demande_recap', {'demande': demande.id })}}">
                                             <button type="button" class="btn btn-primary btn-sm">Résumer</button>
