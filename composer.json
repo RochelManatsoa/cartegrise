@@ -9,6 +9,8 @@
         "friendsofsymfony/user-bundle": "^2.1",
         "jms/payment-core-bundle": "^1.4",
         "kleegroup/franceconnect-bundle": "^0.7.0",
+        "knplabs/knp-snappy": "^1.1",
+        "knplabs/knp-snappy-bundle": "^1.6",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "4.2.*",

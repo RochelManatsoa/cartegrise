@@ -43,7 +43,7 @@ class Cotitulaires
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Cartegrise", inversedBy="cotitulaires")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $carteGrise;
 
