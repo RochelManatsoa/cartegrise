@@ -32,10 +32,8 @@
                             <td>{{ demande.commande.immatriculation }}</td>
                             <td><span class="badge badge-warning">demandes Tms</span></td>
                             <td>
-                                <a href="{{path('payment_demande', {'demande': demande.id })}}">
-                                    <button type="button" class="btn btn-primary btn-sm mb-1">payer</button>
-                                </a>
-                                <button type="button" class="btn btn-danger btn-sm mb-1">annuler</button>
+                                <a href="{{path('demande_recap', {'demande': demande.id })}}"><button type="button" class="btn btn-primary btn-sm">Résumer</button></a>
+                                <button type="button" class="btn btn-danger btn-sm">annuler</button>
                                 <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
                                     <button type="button" class="btn btn-primary btn-sm">dossiers à fournir</button>
                                 </a>

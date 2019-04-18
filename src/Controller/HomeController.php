@@ -107,28 +107,11 @@ class HomeController extends AbstractController
     private function getParamHome(Commande $commande, SessionManager $sessionManager, $tabForm)
     {
         $manager = $this->getDoctrine()->getManager();
-        $value = $commande->getTaxes();
+        $taxe = $commande->getTaxes();
         $majoration = 0;
-        $service = $value->getTaxeRegionale();
-
-        if ($service > 101 && $service < 300) {
-            $majoration = 7;
-        }elseif ($service > 301 && $service < 400) {
-            $majoration = 11;
-        }elseif ($service > 401 && $service < 600) {
-            $majoration = 17;
-        }elseif ($service > 601 && $service < 800) {
-            $majoration = 21;
-        }elseif ($service > 801 && $service < 1000) {
-            $majoration = 27;
-        }elseif ($service > 1001 && $service < 1499) {
-            $majoration = 31;
-        }elseif ($service > 1500) {
-            $majoration = 41;
-        }
         $param = [
-            'commandes' => $commande, 'recap' => $commande,
-            'value' => $value,        'database' => true,   'majoration' => $majoration,
+            'commande' => $commande, 'recap' => $commande,
+            'taxe' => $taxe,        'database' => true,   'majoration' => $majoration,
         ];
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             $param = array_merge([

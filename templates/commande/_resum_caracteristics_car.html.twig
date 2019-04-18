@@ -1,0 +1,50 @@
+    <table class="table table-striped">
+        <tr>
+            <th>Marque</th>
+            <td>{{ commande.carInfo.marque }}</td>
+        </tr>
+        <tr>
+            <th>Modèle</th>
+            <td>{{ commande.carInfo.model }}</td>
+        </tr>
+        <tr>
+            <th>Couleur</th>
+            <td>{{ commande.carInfo.color }}</td>
+        </tr>
+        <tr>
+            <th>Nb Places</th>
+            <td>{{ commande.carInfo.nbPlace }}</td>
+        </tr>
+        <tr>
+            <th>Puissance</th>
+            <td>{{ commande.carInfo.horsePower }} ch</td>
+        </tr>
+        <tr>
+            <th>Numéro de série</th>
+            <td>{{ commande.carInfo.serialNumber }}</td>
+        </tr>
+        <tr>
+            <th>VIN</th>
+            <td>{{ commande.carInfo.vin }}</td>
+        </tr>
+        <tr>
+            <th>CO2</th>
+            <td>{{ taxe.CO2 }}</td>
+        </tr>
+        <tr>
+            <th>Genre</th>
+            <td>{{ taxe.Genre }}</td>
+        </tr>
+        <tr>
+            <th>PTAC</th>
+            <td>{{ taxe.PTAC }}</td>
+        </tr>
+        <tr>
+            <th>Energie</th>
+            <td>{{ taxe.Energie }}</td>
+        </tr>
+        <tr>
+            <th>Date de mise en ciruclation</th>
+            <td>{{ taxe.DateMEC | date('Y-m-d') }}</td>
+        </tr>
+    </table>

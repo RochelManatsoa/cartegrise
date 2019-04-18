@@ -27,9 +27,14 @@ class DemandeController extends AbstractController
         $form = $demandeManager->generateForm($commande);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $demandeManager->save($form);
+            $demande = $demandeManager->save($form);
             // redirect after save
-            return $this->redirectToRoute('Accueil');
+            return $this->redirectToRoute(
+                'demande_recap', 
+                [
+                    'demande' => $demande->getId()
+                ]
+            );
         }
 
         return new Response($demandeManager->getView($form));
@@ -45,6 +50,20 @@ class DemandeController extends AbstractController
             [
                 'demandes' => $demandeManager->getDemandeOfUser($this->getUser()),
                 'client' => $this->getUser()->getClient(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/{demande}/recap", name="demande_recap")
+     */
+    public function recap(Demande $demande)
+    {
+
+        return $this->render(
+            'demande/resum.html.twig',
+            [
+                'demande' => $demande,
             ]
         );
     }
