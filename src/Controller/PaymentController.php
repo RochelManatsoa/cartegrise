@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Manager\SessionManager;
 use App\Manager\DemandeManager;
+use App\Manager\FraisTreatmentManager;
 use App\Manager\TransactionManager;
 use App\Manager\HistoryTransactionManager;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -37,16 +38,17 @@ class PaymentController extends AbstractController
         PaymentUtils $paymentUtils, 
         ParameterBagInterface $parameterBag, 
         DemandeManager $demandeManager, 
-        TransactionManager $transactionManager
+        TransactionManager $transactionManager,
+        FraisTreatmentManager $fraisTreatmentManager
     )
     {
-        $taxes = $demande->getCommande()->getTaxes()->getTaxeTotale();
+        $amount = $fraisTreatmentManager->fraisTotalOfCommande($demande->getCommande());
         $email = $this->getUser()->getEmail();
         $demandeManager->checkPayment($demande);
         $idTransaction = $transactionManager->generateIdTransaction($demande->getTransaction());
-        $taxes *=100;
+        $amount *=100;
         $paramDynamical = [
-            'amount' => $taxes,
+            'amount' => $amount,
             'customer_email' => $email,
         ];
         $param = $parameterBag->get('payment_params');
