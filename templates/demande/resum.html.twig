@@ -23,9 +23,15 @@
                     <h2 class="col-12">DÉTAIL DES TAXES</h2>
                     {{ include('commande/_resum_taxe_car.html.twig') }}
                     <br>
-                    <div>
-                        <a href="{{path('payment_demande', {'demande': demande.id })}}"><button class="btn btn-success"> procéder au paiment </button></a>
-                    </div>
+                    {% if demande.transaction is null %}
+                        <div>
+                            <a href="{{path('payment_demande', {'demande': demande.id })}}">
+                                <button class="btn btn-success"> 
+                                    procéder au paiment
+                                </button>
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -80,6 +80,7 @@ class HomeController extends AbstractController
                     $commande->setCarInfo($carInfo);
                     $manager->persist($commande);
                     $manager->persist($taxe);
+                    
                     $manager->flush();
                     $param = $this->getParamHome($commande, $sessionManager, $tabForm);
 

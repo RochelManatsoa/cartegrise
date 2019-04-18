@@ -3,8 +3,8 @@
 /*
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-17 13:14:01 
- * @Last Modified by:   Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
- * @Last Modified time: 2019-04-17 13:14:01 
+ * @Last Modified by: Patrick << rapaelec@gmail.com >>
+ * @Last Modified time: 2019-04-18 14:58:11
  */
 namespace App\Manager;
 
@@ -62,7 +62,7 @@ class DemandeManager
     public function generateForm(Commande $commande)
     {
         $demande = $this->init();
-        $commande->addDemande($demande);
+        $commande->setDemande($demande);
         switch ($commande->getDemarche()->getType()) {
             case "CTVO":
                 $form = $this->formFactory->create(DemandeCtvoType::class, $demande);
@@ -208,6 +208,11 @@ class DemandeManager
         }
         if ($changementAdresse = $demande->getChangementAdresse()) {
             $this->em->remove($changementAdresse);
+        }
+
+        if ($commande = $demande->getCommande()) {
+            $commande->setDemande(null);
+            $this->em->flush();
         }
 
         $this->em->remove($demande);

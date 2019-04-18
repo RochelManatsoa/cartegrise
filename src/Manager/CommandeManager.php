@@ -3,8 +3,8 @@
 /**
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
- * @Last Modified by:   stephan
- * @Last Modified time: 2019-04-15 12:16:58
+ * @Last Modified by: Patrick << rapaelec@gmail.com >>
+ * @Last Modified time: 2019-04-18 17:50:32
  */
 
 namespace App\Manager;
@@ -14,14 +14,21 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Services\Tms\TmsClient;
 use App\Entity\Commande;
 use App\Manager\SessionManager;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class CommandeManager
 {
-	public function __construct(TmsClient $tmsClient, EntityManagerInterface $em, SessionManager $sessionManager)
+	public function __construct(
+		TmsClient $tmsClient, 
+		EntityManagerInterface $em, 
+		SessionManager $sessionManager,
+		TokenStorageInterface $tokenStorage 
+	)
 	{
 		$this->tmsClient = $tmsClient;
 		$this->em = $em;
 		$this->sessionManager = $sessionManager;
+		$this->tokenStorage = $tokenStorage;
 	}
 
 	public function createCommande()
@@ -66,5 +73,46 @@ class CommandeManager
         $Immat = ["Immatriculation" => $commande->getImmatriculation()];
         
         return $this->tmsClient->infoImmat($Immat);
+	}
+
+	/**
+	 * get Cerfa
+	 */
+	public function editer(Commande $commande, $type = "Mandat")
+	{
+		$client = $this->tokenStorage->getToken()->getUser()->getClient();
+		$adresse = $client->getClientAdresse();
+		$carInfo = $commande->getCarInfo();
+		$params = [
+			"Demarche" => $commande->getDemarche()->getType(),
+			"DateDemarche" => "17/11/2010 12:00:00",
+			"Titulaire" => [
+				"NomPrenom" => $client->getClientNomPrenom(),
+			],
+			"Type"     => $type,
+			"Acquereur" => [
+				"DroitOpposition" => true,
+				"Adresse" => [
+					"TypeVoie" => $adresse->getTypevoie(),
+					"NomVoie" => $adresse->getNom(),
+					"CodePostal" => $adresse->getCodepostal(),
+					"Ville" => $adresse->getVille(),
+					"Pays" => $adresse->getPays(),
+				],
+				"PersonneMorale" => [
+					"RaisonSociale" => "TMS",
+					"SocieteCommerciale" =>true,
+					//"SIREN" => "123456789", // siren si exist
+				]
+			],
+			"Vehicule" => [
+				"VIN" => $carInfo->getVin(),
+				"Immatriculation" => $commande->getImmatriculation(),
+				"Marque" => $carInfo->getMarque(),
+				"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+			]
+		];
+
+		return $this->tmsClient->editer($params);
 	}
 }
