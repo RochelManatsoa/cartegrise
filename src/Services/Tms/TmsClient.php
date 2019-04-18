@@ -62,7 +62,6 @@ class TmsClient
         	"Password" => $this->password,
         ];
 		$params['Identification'] = $identification;
-		dump($client->Editer($params));die;
 
         return new Response($client->Editer($params));
 	}

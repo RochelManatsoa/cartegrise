@@ -80,10 +80,6 @@ class HomeController extends AbstractController
                     $commande->setCarInfo($carInfo);
                     $manager->persist($commande);
                     $manager->persist($taxe);
-
-                    $cerfa = $commandeManager->editer($commande);
-                    dump(json_encode($cerfa));die;
-                    dump(\base64_decode($cerfa->getRawData()));die;
                     
                     $manager->flush();
                     $param = $this->getParamHome($commande, $sessionManager, $tabForm);
