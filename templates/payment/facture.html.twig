@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
   <div class="container">
   <div class="invoice">
     <div class="row">
@@ -26,17 +25,18 @@
       <div class="col-7">
         <p>
           <strong>
-                {{ app.user.client.clientGenre }} 
-                {{ app.user.client.clientPrenom }} 
-                {{ app.user.client.clientNom | upper}}
-          </strong><br>
-          {{ app.user.client.clientAdresse.numero }} 
-          {{ app.user.client.clientAdresse.nom }} 
-          {{ app.user.client.clientAdresse.complement }} 
-          {{ app.user.client.clientAdresse.extension }} 
+            {{ app.user.client.clientGenre }} 
+            {{ app.user.client.clientPrenom }} 
+            {{ app.user.client.clientNom | upper}}
+          </strong>
           <br>
-          {{ app.user.client.clientAdresse.codePostal }} 
-          {{ app.user.client.clientAdresse.ville | upper }} 
+            {{ app.user.client.clientAdresse.numero }} 
+            {{ app.user.client.clientAdresse.nom }} 
+            {{ app.user.client.clientAdresse.complement }} 
+            {{ app.user.client.clientAdresse.extension }} 
+          <br>
+            {{ app.user.client.clientAdresse.codePostal }} 
+            {{ app.user.client.clientAdresse.ville | upper }} 
         </p>
       </div>
       <div class="col-5">
@@ -64,7 +64,7 @@
         <tr>
           <td>{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</td>
           <td>{{demande.dateDemande | date('d/m/Y')}}</td>
-          <td>8486487</td>
+          <td>{{demande.transaction.transactionId}}</td>
         </tr>
       </tbody>
     </table>
@@ -73,7 +73,7 @@
       <thead>
         <tr>
           <th>Libellé</th>
-          <th>Description</th>
+          <th>Frais HT</th>
           <th>Montant HT</th>
           <th>TVA</th>
           <th>Montant TTC</th>
@@ -82,10 +82,10 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{demande.commande.demarche.nom}}</td>
-          <td>1</td>
-          <td>{{demande.prix}} €</td>
-          <td class="text-right">{{tva}} €</td>
+          <td>{{ demande.commande.demarche.nom }}</td>
+          <td>{{ fraisTotalTraitement(demande.commande) }} €</td>
+          <td>{{ demande.commande.taxes.taxeTotale }} €</td>
+          <td>{{tva}} €</td>
           <td>{{total}} €</td>
 
         </tr>
@@ -98,7 +98,7 @@
         <table class="table table-sm text-right">
           <tr>
             <td><strong>Total HT</strong></td>
-            <td class="text-right">{{demande.prix}} €</td>
+            <td class="text-right">{{ fraisTotal(demande.commande) }} €</td>
           </tr>
           <tr>
             <td>TVA 20%</td>
@@ -126,11 +126,7 @@
       En cas de retard de paiement, indemnité forfaitaire pour frais de recouvrement : 40 euros (art. L.4413 et L.4416 code du commerce).
     </p>
 
-    <br>
-    <br>
-    <br>
-    <br>
-
+    <hr>
     <p class="bottom-page text-right">
       CG Officiel - N° SIRET 99999999999 Toulouse<br>
 			20 Impasse Camille Langlade,31000 Toulouse 05 61 51 69 222 - www.cgofficiel.fr<br>
@@ -141,9 +137,6 @@
 {% if lien is defined %}
 {{ lien|raw }}
 {% endif %}
-
-
 </body>
-
 </html>
 
