@@ -29,15 +29,9 @@ class DemandeController extends AbstractController
     {
         $form = $demandeManager->generateForm($commande);
         $form->handleRequest($request);
-<<<<<<< HEAD
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $demandeManager->save($form);
-
-=======
         if($form->isSubmitted() && $form->isValid()){
             $demande = $demandeManager->save($form);
->>>>>>> dev
             // redirect after save
             return $this->redirectToRoute(
                 'demande_recap', 
