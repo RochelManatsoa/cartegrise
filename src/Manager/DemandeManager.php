@@ -8,21 +8,23 @@
  */
 namespace App\Manager;
 
-use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Demande;
 use App\Entity\Commande;
+use App\Entity\Demande;
 use App\Entity\Transaction;
+use App\Entity\TypeDemande;
+use App\Entity\User;
 use App\Form\Demande\DemandeCtvoType;
 use App\Form\Demande\DemandeDivnType;
 use App\Form\Demande\DemandeCessionType;
 use App\Form\Demande\DemandeDuplicataType;
 use App\Form\Demande\DemandeChangementAdresseType;
+use App\Manager\TransactionManager;
+use App\Repository\DemandeRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
-use App\Entity\User;
-use App\Manager\TransactionManager;
-use App\Repository\DemandeRepository;
+use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Environment as Twig;
 
 class DemandeManager
@@ -32,13 +34,16 @@ class DemandeManager
     private $twig;
     private $repository;
     private $transactionManager;
+    private $translator;
+
     public function __construct
     (
         EntityManagerInterface $em,
         FormFactoryInterface   $formFactory,
         Twig                   $twig,
         DemandeRepository      $repository,
-        TransactionManager     $transactionManager
+        TransactionManager     $transactionManager,
+        TranslatorInterface    $translator
     )
     {
         $this->em                 = $em;
@@ -46,6 +51,7 @@ class DemandeManager
         $this->twig               = $twig;
         $this->repository         = $repository;
         $this->transactionManager = $transactionManager;
+        $this->translator         = $translator;
     }
 
     private function init()
@@ -177,4 +183,15 @@ class DemandeManager
         // } 
     }
 
+    public function getDossiersAFournir(Demande $demande)
+    {
+        $typeDemande = $demande->getCommande()->getDemarche()->getType();
+        $typeDemande = TypeDemande::TYPE_CTVO;
+
+        if (in_array($typeDemande, TypeDemande::TYPE_CHOICES)) {
+            return $this->translator->trans('type_demande.daf.' . strtolower($typeDemande));
+        }
+
+        return '';
+    }
 }
