@@ -65,7 +65,7 @@ class Demande
     private $nomfic;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Fichier", mappedBy="demande")
+     * @ORM\OneToMany(targetEntity="App\Entity\Fichier", mappedBy="demande", cascade={"remove"})
      */
     private $fichiers;
 

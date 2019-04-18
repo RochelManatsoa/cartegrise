@@ -1,0 +1,8 @@
+{% macro delete_form(routeName, routeParams, token, confirmMessage, submitContent, deleteFormClassName, submitBtnClassName) %}
+	<form method="post" class="{{ deleteFormClassName ?? 'd-inline-block' }}" action="{{ path(routeName, routeParams) }}"
+		onsubmit="return confirm('{{ confirmMessage ?? 'Etes-vous sûr de cette suppression ?' }}');">
+	    <input type="hidden" name="_method" value="DELETE">
+	    <input type="hidden" name="_token" value="{{ csrf_token(token) }}">
+	    <button class="{{ submitBtnClassName ?? 'btn btn-danger' }}">{{ (submitContent ?? 'Supprimer')|raw }}</button>
+	</form>
+{% endmacro %}

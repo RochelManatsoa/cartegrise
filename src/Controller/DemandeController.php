@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @Route("/demande")
@@ -17,6 +19,7 @@ class DemandeController extends AbstractController
 {
     /**
      * @Route("/new/{commande}", name="new_demande")
+     * @IsGranted(\App\Security\Voter\CommandeVoter::PASSER, subject="commande", message="Vous avez déjà passé cette commande")
      */
     public function new(
         Commande        $commande,
@@ -26,8 +29,15 @@ class DemandeController extends AbstractController
     {
         $form = $demandeManager->generateForm($commande);
         $form->handleRequest($request);
+<<<<<<< HEAD
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $demandeManager->save($form);
+
+=======
         if($form->isSubmitted() && $form->isValid()){
             $demande = $demandeManager->save($form);
+>>>>>>> dev
             // redirect after save
             return $this->redirectToRoute(
                 'demande_recap', 
@@ -80,5 +90,18 @@ class DemandeController extends AbstractController
             'daf' => $daf,
             'client' => $this->getUser()->getClient(),
         ]);
+    }
+
+    /**
+     * @route("/{id}/annuler", name="demande_annuler", methods={"DELETE"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     */
+    public function annuler(Request $request, Demande $demande, DemandeManager $demandeManager)
+    {
+        if ($this->isCsrfTokenValid('demande'.$demande->getId(), $request->request->get('_token'))) {
+            $demandeManager->removeDemande($demande);
+        }
+
+        return $this->redirectToRoute('demande_list');
     }
 }
