@@ -24,7 +24,7 @@ class Demande
     private $opposeDemande;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Commande", inversedBy="demandes")
+     * @ORM\OneToOne(targetEntity="App\Entity\Commande", inversedBy="demande")
      * @ORM\JoinColumn(nullable=false)
      */
     private $commande;
@@ -241,18 +241,6 @@ class Demande
 
         return $this;
     }
-    
-    public function getCommande(): ?Commande
-    {
-        return $this->commande;
-    }
-
-    public function setCommande(?Commande $commande): self
-    {
-        $this->commande = $commande;
-
-        return $this;
-    }
 
     public function getCtvo(): ?Ctvo
     {
@@ -334,6 +322,18 @@ class Demande
     public function setTransaction(?Transaction $transaction): self
     {
         $this->transaction = $transaction;
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(Commande $commande): self
+    {
+        $this->commande = $commande;
 
         return $this;
     }

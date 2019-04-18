@@ -325,4 +325,10 @@ class Client
         return $this;
     }
 
+    public function getClientNomPrenom()
+    {
+
+        return $this->clientNom . ' ' .$this->clientPrenom;
+    }
+
 }

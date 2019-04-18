@@ -33,8 +33,13 @@
                                             <a href="{{path('new_demande', {'commande': commande.id })}}">
                                                 <button type="button" class="btn btn-primary btn-sm mb-1">passer Commande</button>
                                             </a>
+                                            <button data-url="{{ path('commande_annuler', {id: commande.id, _token: csrf_token('delete' ~ commande.id)}) }}"
+                                                type="button" class="cancel-btn btn btn-danger btn-sm mb-1">annuler</button>
+                                        {% else %}
+                                            <a href="{{path('demande_recap', {'demande': commande.demande.id })}}">
+                                                <button type="button" class="btn btn-primary btn-sm mb-1">récapitulatif du demande</button>
+                                            </a>
                                         {% endif %}
-                                        <button data-url="{{ path('commande_annuler', {id: commande.id, _token: csrf_token('delete' ~ commande.id)}) }}" type="button" class="cancel-btn btn btn-danger btn-sm mb-1">annuler</button>
                                     </td>
                                 </tr>
                             {% else %}
