@@ -6,7 +6,7 @@
   <title>{{title}}</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <link rel="stylesheet" href="{{ pathToWeb ~ asset('css/style.css') }}">
 </head>
 
 <body>
@@ -15,13 +15,18 @@
   <div class="invoice">
     <div class="row">
       <div class="col-7">
-        <img src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" class="logo">
+        <img src="{{  pathToWeb ~ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" class="logo">
       </div>
       <div class="col-5">
         <h1 class="document-type display-4">FACTURE</h1>
-        <p class="text-right"><strong>N°{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</strong></p>
+        <br>
+        <br>
+        <p><strong>N°{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}</strong></p>
       </div>
     </div>
+    <br>
+    <br>
+    <br>
     <div class="row">
       <div class="col-7">
         <p>
@@ -29,7 +34,8 @@
                 {{ app.user.client.clientGenre }} 
                 {{ app.user.client.clientPrenom }} 
                 {{ app.user.client.clientNom | upper}}
-          </strong><br>
+          </strong>
+          <br>
           {{ app.user.client.clientAdresse.numero }} 
           {{ app.user.client.clientAdresse.nom }} 
           {{ app.user.client.clientAdresse.complement }} 
@@ -40,7 +46,9 @@
         </p>
       </div>
       <div class="col-5">
-        <br><br><br>
+        <br>
+        <br>
+        <br>
 				<p>
           <strong>CG Officiel</strong><br>
           20 Impasse Camille Langlade, <br>
@@ -50,67 +58,63 @@
     </div>
     <br>
     <br>
-    <br>
 
-    <table class="table table-striped">
-      <thead>
+    <table class="table table-bordered table-sm">
+      <thead class="table-active">
         <tr>
           <th>N° de facture</th>
-          <th>Date</th>
-          <th>Ref client</th>
+          <th class="text-center">Date</th>
+          <th class="text-center">Ref client</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</td>
-          <td>{{demande.dateDemande | date('d/m/Y')}}</td>
-          <td>8486487</td>
+          <td>{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}</td>
+          <td class="text-center">{{demande.dateDemande | date('d/m/Y')}}</td>
+          <td class="text-center">8486487</td>
         </tr>
       </tbody>
     </table>
-
-		<table class="table table-striped">
-      <thead>
+    <br>
+		<table class="table table-bordered table-sm">
+      <thead class="table-active">
         <tr>
           <th>Libellé</th>
-          <th>Description</th>
-          <th>Montant HT</th>
-          <th>TVA</th>
-          <th>Montant TTC</th>
+          <th class="text-center">Montant HT</th>
+          <th class="text-center">TVA</th>
+          <th class="text-center">Montant TTC</th>
 
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>{{demande.commande.demarche.nom}}</td>
-          <td>1</td>
-          <td>{{demande.prix}} €</td>
-          <td class="text-right">{{tva}} €</td>
-          <td>{{total}} €</td>
-
+          <td>{{demande.commande.demarche.nom}} <strong><small>(1)</small></strong></td>
+          <td></td>
+          <td></td>
+          <td class="text-center">{{demande.commande.taxes.taxeTotale}} €</td>
+        </tr>
+        <tr>
+          <td>Frais de dossier <strong><small>(2)</small></strong></td>
+          <td class="text-center">{{frais}} €</td>
+          <td class="text-center">{{tva}} €</td>
+          <td class="text-center">{{fraisTotalTva}} €</td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td><strong>Total TTC</strong></td>
+          <td></td>
+          <td></td>
+          <td class="text-center"><strong>{{total}} €</strong></td>
+        </tr>
+      </tfoot>
     </table>
-    <div class="row">
-      <div class="col-8">
-      </div>
-      <div class="col-4">
-        <table class="table table-sm text-right">
-          <tr>
-            <td><strong>Total HT</strong></td>
-            <td class="text-right">{{demande.prix}} €</td>
-          </tr>
-          <tr>
-            <td>TVA 20%</td>
-            <td class="text-right">{{tva}} €</td>
-          </tr>
-          <tr>
-            <td><strong>Total TTC</strong></td>
-            <td class="text-right">{{total}} €</td>
-          </tr>
-        </table>
-      </div>
-    </div>
+    <p>
+      <small>(1) Non soumis TVA <br>
+      (2) Soumis TVA 20%</small>
+    </p>
+    <br>
+    <br>
 
     <p class="conditions">
       En votre aimable règlement
@@ -128,21 +132,16 @@
 
     <br>
     <br>
-    <br>
-    <br>
 
     <p class="bottom-page text-right">
-      CG Officiel - N° SIRET 99999999999 Toulouse<br>
-			20 Impasse Camille Langlade,31000 Toulouse 05 61 51 69 222 - www.cgofficiel.fr<br>
-      IBAN FR31 9999 9999 9999 9999 9999 9999 - SWIFT CCBPFRPPMTZ
+      <small>
+          CG Officiel - N° SIRET 99999999999 Toulouse<br>
+          20 Impasse Camille Langlade,31000 Toulouse 05 61 51 69 222 - www.cgofficiel.fr<br>
+          IBAN FR31 9999 9999 9999 9999 9999 9999 - SWIFT CCBPFRPPMTZ
+      </small>      
     </p>
   </div>
 </div>
-{% if lien is defined %}
-{{ lien|raw }}
-{% endif %}
-
-
 </body>
 
 </html>
