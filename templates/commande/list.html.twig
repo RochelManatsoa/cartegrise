@@ -27,7 +27,11 @@
                                     <td>{{ commande.demarche.nom }}</td>
                                     <td>{{ commande.codePostal }}</td>
                                     <td>{{ commande.immatriculation }}</td>
-                                    <td><span class="badge badge-warning">commande en cours</span></td>
+                                    <td>
+                                        <span class="badge badge-{{ statusOfCommande(commande, "style") }}">
+                                            {{ statusOfCommande(commande, "text") }}
+                                        </span>
+                                    </td>
                                     <td class="pb-2">
                                         {% if is_granted(constant('\\App\\Security\\Voter\\CommandeVoter::PASSER'), commande) %}
                                             <a href="{{path('new_demande', {'commande': commande.id })}}">

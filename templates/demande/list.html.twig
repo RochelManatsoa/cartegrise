@@ -36,18 +36,18 @@
                                     <td>{{ demande.commande.codePostal }}</td>
                                     <td>{{ demande.commande.immatriculation }}</td>
                                     <td>
-                                        <span class="badge badge-warning">demandes Tms</span>                                        
+                                        <span class="badge badge-{{ statusOfCommande(demande.commande, "style") }}">{{ statusOfCommande(demande.commande, "text") }}</span>                                        
                                     </td>
                                     <td>
                                         <a href="{{path('demande_recap', {'demande': demande.id })}}">
                                             <button type="button" class="btn btn-primary btn-sm">Résumer</button>
                                         </a>
-                                        {% if demande.transaction is null %}
-                                            {{ delete_form('demande_annuler', {id: demande.id}, 'demande' ~ demande.id, confirmMessage, 'annuler', null, 'btn btn-danger btn-sm mb-1') }}
-                                        {% else %}
+                                        {% if demande.transaction is not null and demande.transaction.status == "00" %}
                                             <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
                                                 <button type="button" class="btn btn-primary btn-sm">dossiers à fournir</button>
                                             </a>
+                                        {% else %}
+                                            {{ delete_form('demande_annuler', {id: demande.id}, 'demande' ~ demande.id, confirmMessage, 'annuler', null, 'btn btn-danger btn-sm mb-1') }}
                                         {% endif %}
                                     </td>
                                 </tr>
