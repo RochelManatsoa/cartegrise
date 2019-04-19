@@ -50,4 +50,24 @@
 
         return $fraisTotal + $taxeTotal;
      }
+
+     public function fraisTotalOfCommandeWithTva(Commande $commande)
+     {
+        $fraisTotal = $this->fraisTotalTreatmentOfCommande($commande);
+        $taxeTotal = $commande->getTaxes()->getTaxeTotale();
+        $result = ($fraisTotal + $taxeTotal) * 1.2;
+
+        return $result;
+     }
+
+     public function getTvaTotalOfCommande(Commande $commande)
+     {
+        $fraisTotal = $this->fraisTotalTreatmentOfCommande($commande);
+        $taxeTotal = $commande->getTaxes()->getTaxeTotale();
+        $result = ($fraisTotal + $taxeTotal) * 0.2;
+
+        return $result;
+     }
+
+     
  }

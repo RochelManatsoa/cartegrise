@@ -127,12 +127,12 @@ class PaymentController extends AbstractController
     /**
      * @Route("/payment/{demande}/facture", name="payment_facture")
      */
-    public function facture(Demande $demande)
+    public function facture(Demande $demande, FraisTreatmentManager $fraistreatementManger)
     {
         $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
         $filename = "Facture";
-        $TVA = $this->calculateTVA($demande->getPrix());
-        $TOTAL = $this->calculateTOTAL($demande->getPrix());
+        $TVA = $fraistreatementManger->getTvaTotalOfCommande($demande->getCommande());
+        $TOTAL = $fraistreatementManger->fraisTotalOfCommandeWithTva($demande->getCommande());
         $html = $this->renderView("payment/facture.html.twig", array(
             "title"=>"Facture CGOfficiel",
             "demande"=> $demande,
@@ -149,17 +149,6 @@ class PaymentController extends AbstractController
         );
     }
 
-    // price with TVA
-    private function calculateTOTAL($prix)
-    {
-        return ($prix) + ($prix * 20 / 100);
-    }
-
-    // calculate TVA 20%
-    private function calculateTVA($prix)
-    {
-        return $prix * 20 / 100;
-    }
 
     // to get response
     private function getResponse($response, $paymentUtils, $parameterBag, $responseTreatment)
