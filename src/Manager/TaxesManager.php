@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 12:27:51
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-04-19 12:05:20
+ * @Last Modified time: 2019-04-19 12:23:13
  */
 
 namespace App\Manager;
@@ -49,8 +49,9 @@ class TaxesManager
     public function getMajoration(Taxes $taxe)
     {
         $service = $taxe->getTaxeRegionale();
-        $majoration = 0;
-        if ($service > 101 && $service < 300) {
+        if ($service <= 100) {
+            $majoration = 0;
+        }elseif ($service > 101 && $service < 300) {
             $majoration = 7;
         }elseif ($service > 301 && $service < 400) {
             $majoration = 11;
