@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-19 10:20:12 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-04-19 10:54:20
+ * @Last Modified time: 2019-04-19 11:14:05
  */
 namespace App\Manager;
 
@@ -11,9 +11,9 @@ use App\Entity\Commande;
 
 class StatusManager
 {
-    public const FIRST_STEP="demande efectué";
-    public const SECOND_STEP="paiment efectué";
-    public const THIRD_STEP="document remplis";
+    public const FIRST_STEP="attente de demande";
+    public const SECOND_STEP="attente de paiment";
+    public const THIRD_STEP="attente de document";
     public const FIRST_STEP_STYLE="danger";
     public const SECOND_STEP_STYLE="warning";
     public const THIRD_STEP_STYLE="info";
