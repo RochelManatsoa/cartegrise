@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
   <div class="container">
   <div class="invoice">
     <div class="row">
@@ -31,18 +30,18 @@
       <div class="col-7">
         <p>
           <strong>
-                {{ app.user.client.clientGenre }} 
-                {{ app.user.client.clientPrenom }} 
-                {{ app.user.client.clientNom | upper}}
+            {{ app.user.client.clientGenre }} 
+            {{ app.user.client.clientPrenom }} 
+            {{ app.user.client.clientNom | upper}}
           </strong>
           <br>
-          {{ app.user.client.clientAdresse.numero }} 
-          {{ app.user.client.clientAdresse.nom }} 
-          {{ app.user.client.clientAdresse.complement }} 
-          {{ app.user.client.clientAdresse.extension }} 
+            {{ app.user.client.clientAdresse.numero }} 
+            {{ app.user.client.clientAdresse.nom }} 
+            {{ app.user.client.clientAdresse.complement }} 
+            {{ app.user.client.clientAdresse.extension }} 
           <br>
-          {{ app.user.client.clientAdresse.codePostal }} 
-          {{ app.user.client.clientAdresse.ville | upper }} 
+            {{ app.user.client.clientAdresse.codePostal }} 
+            {{ app.user.client.clientAdresse.ville | upper }} 
         </p>
       </div>
       <div class="col-5">
@@ -69,9 +68,9 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}</td>
-          <td class="text-center">{{demande.dateDemande | date('d/m/Y')}}</td>
-          <td class="text-center">8486487</td>
+          <td>{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</td>
+          <td>{{demande.dateDemande | date('d/m/Y')}}</td>
+          <td>{{demande.transaction.transactionId}}</td>
         </tr>
       </tbody>
     </table>
@@ -83,7 +82,6 @@
           <th class="text-center">Montant HT</th>
           <th class="text-center">TVA</th>
           <th class="text-center">Montant TTC</th>
-
         </tr>
       </thead>
       <tbody>
@@ -130,9 +128,7 @@
       En cas de retard de paiement, indemnité forfaitaire pour frais de recouvrement : 40 euros (art. L.4413 et L.4416 code du commerce).
     </p>
 
-    <br>
-    <br>
-
+    <hr>
     <p class="bottom-page text-right">
       <small>
           CG Officiel - N° SIRET 99999999999 Toulouse<br>
@@ -143,6 +139,5 @@
   </div>
 </div>
 </body>
-
 </html>
 

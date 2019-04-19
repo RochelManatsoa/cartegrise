@@ -23,7 +23,13 @@
                     <h2 class="col-12">DÉTAIL DES TAXES</h2>
                     {{ include('commande/_resum_taxe_car.html.twig') }}
                     <br>
-                    {% if demande.transaction is null %}
+                    {% if demande.transaction is not null and demande.transaction.status == "00" %}
+                        <div class="text-center">
+                            <a href="{{path('payment_facture', {'demande': demande.id })}}" target="_blank">
+                                <button type="button" class="btn btn-info ">Facture</button>
+                            </a>
+                        </div>
+                    {% else %}
                         <div>
                             <a href="{{path('payment_demande', {'demande': demande.id })}}">
                                 <button class="btn btn-success"> 

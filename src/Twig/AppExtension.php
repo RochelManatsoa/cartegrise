@@ -9,7 +9,7 @@ use App\Entity\User;
 use App\Entity\TypeDemande;
 use App\Entity\Commande;
 use App\Repository\TarifsPrestationsRepository;
-use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager};
+use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager};
 use App\Utils\StatusTreatment;
 
 class AppExtension extends AbstractExtension
@@ -19,12 +19,14 @@ class AppExtension extends AbstractExtension
     private $statusTreatment;
     private $taxManager;
     private $fraisTreatmentManager;
+    private $statusManager;
     public function __construct(
         UserManager $userManager, 
         StatusTreatment $statusTreatment,
         TarifsPrestationsRepository $prestation,
         TaxesManager $taxManager, 
-        FraisTreatmentManager $fraisTreatmentManager
+        FraisTreatmentManager $fraisTreatmentManager,
+        StatusManager $statusManager
     )
     {
         $this->userManager     = $userManager;
@@ -32,6 +34,7 @@ class AppExtension extends AbstractExtension
         $this->prestation = $prestation;
         $this->taxManager = $taxManager;
         $this->fraisTreatmentManager = $fraisTreatmentManager;
+        $this->statusManager = $statusManager;
     }
     public function getFunctions()
     {
@@ -40,6 +43,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('fraisTraitement', [$this, 'fraisTraitement']),
             new TwigFunction('fraisTotalTraitement', [$this, 'fraisTotalTraitement']),
             new TwigFunction('fraisTotal', [$this, 'fraisTotal']),
+            new TwigFunction('statusOfCommande', [$this, 'statusOfCommande']),
         ];
     }
 
@@ -109,5 +113,11 @@ class AppExtension extends AbstractExtension
     {
 
         return $this->fraisTreatmentManager->fraisTotalOfCommande($commande);
+    }
+
+    public function statusOfCommande(Commande $commande, string $need)
+    {
+
+        return $this->statusManager->getStatusOfCommande($commande)[$need];
     }
 }
