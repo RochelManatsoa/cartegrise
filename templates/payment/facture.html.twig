@@ -85,7 +85,7 @@
           <td>{{ demande.commande.demarche.nom }}</td>
           <td>{{ fraisTotalTraitement(demande.commande) }} €</td>
           <td>{{ demande.commande.taxes.taxeTotale }} €</td>
-          <td>{{tva}} €</td>
+          <td>{{tvaFraisTotalTraitement(demande.commande)}} €</td>
           <td>{{total}} €</td>
 
         </tr>
@@ -102,7 +102,7 @@
           </tr>
           <tr>
             <td>TVA 20%</td>
-            <td class="text-right">{{tva}} €</td>
+            <td class="text-right">{{tvaFraisTotalTraitement(demande.commande)}} €</td>
           </tr>
           <tr>
             <td><strong>Total TTC</strong></td>

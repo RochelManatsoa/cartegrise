@@ -136,10 +136,7 @@ class PaymentController extends AbstractController
                     $demande->getCommande()
                 );
         $html = $this->renderView("payment/facture.html.twig", array(
-            "title"=>"Facture CGOfficiel",
             "demande"=> $demande,
-            "tva"=> $tva,
-            "total"=> $total,
         ));
         return new Response(
             $snappy->getOutputFromHtml($html),
