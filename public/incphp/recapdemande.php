@@ -5,9 +5,9 @@ $client = new Client();
 
 $servername2 = "localhost";
 $username2 = "root";
-$password2 = "KrS7gj72";
+$password2 = "root";
 //$password2 = "";
-$database2 = "cgdatabaseoff";
+$database2 = "cgrise";
 
 // Create connection
 $conn2 = new mysqli($servername2, $username2, $password2, $database2);

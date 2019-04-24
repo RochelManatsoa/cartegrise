@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class NewTitulaire
 {
+    const TYPE_PERS_PHYSIQUE = 0;
+    const TYPE_PERS_MORALE   = 1;
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -45,9 +48,14 @@ class NewTitulaire
     private $adresseNewTitulaire;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", mappedBy="Acquerreur", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", mappedBy="acquerreur", cascade={"persist", "remove"})
      */
     private $ctvo;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Divn", mappedBy="acquerreur", cascade={"persist", "remove"})
+     */
+    private $divn;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", mappedBy="nouveauxTitulaire", cascade={"persist", "remove"})
@@ -307,6 +315,24 @@ class NewTitulaire
         $newTitulaire = $adresseNewTitulaire === null ? null : $this;
         if ($newTitulaire !== $adresseNewTitulaire->getTitulaire()) {
             $adresseNewTitulaire->setTitulaire($newTitulaire);
+        }
+
+        return $this;
+    }
+
+    public function getDivn(): ?Divn
+    {
+        return $this->divn;
+    }
+
+    public function setDivn(?Divn $divn): self
+    {
+        $this->divn = $divn;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAcquerreur = $divn === null ? null : $this;
+        if ($newAcquerreur !== $divn->getAcquerreur()) {
+            $divn->setAcquerreur($newAcquerreur);
         }
 
         return $this;

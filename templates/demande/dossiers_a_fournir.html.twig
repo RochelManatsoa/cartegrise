@@ -23,6 +23,14 @@
         <div id="daf-list-wrapper">
             {{ daf|raw }}
         </div>
+        <div class="text-center">
+            <a href="{{ asset(pathCerfa) }}" target="blank">
+                <button class="btn btn-success">
+                    cerfa
+                </button>
+            </a>
+        </div>
+        <hr>
         <div class="pl-4 mb-3 mb-md-0">
             <a href="{{ path('demande_list') }}">
                 <i class="fa fa-arrow-left"></i> Retour à la liste de vos demandes
