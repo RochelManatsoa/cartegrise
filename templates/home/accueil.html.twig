@@ -36,7 +36,8 @@
 									<a class="col-12 btn btn-success" href="{{path('new_demande', {'commande': recap.id })}}">Continuer</a>
 								{% else %}
 									<a class="col-12 btn btn-primary mb-3" href="{{ path('france_connect_login') }}">FranceConnect</a>
-									<a class="col-12 btn btn-success" href="{{ path('fos_user_registration_register') }}">Continuer</a>
+									<a class="col-12 btn btn-success mb-3" href="{{ path('fos_user_security_login') }}">S'identifier</a>
+									<a class="col-12 btn btn-info" href="{{ path('fos_user_registration_register') }}">S'enregistrer</a>
 								{% endif %}
 
 							</div>
