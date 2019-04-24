@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-04-18 17:50:32
+ * @Last Modified time: 2019-04-24 01:43:59
  */
 
 namespace App\Manager;
@@ -22,13 +22,15 @@ class CommandeManager
 		TmsClient $tmsClient, 
 		EntityManagerInterface $em, 
 		SessionManager $sessionManager,
-		TokenStorageInterface $tokenStorage 
+		TokenStorageInterface $tokenStorage,
+		DocumentTmsManager $documentTmsManager
 	)
 	{
 		$this->tmsClient = $tmsClient;
 		$this->em = $em;
 		$this->sessionManager = $sessionManager;
 		$this->tokenStorage = $tokenStorage;
+		$this->documentTmsManager = $documentTmsManager;
 	}
 
 	public function createCommande()
@@ -78,41 +80,14 @@ class CommandeManager
 	/**
 	 * get Cerfa
 	 */
-	public function editer(Commande $commande, $type = "Mandat")
+	public function editer(Commande $commande, $type = "Cerfa")
 	{
-		$client = $this->tokenStorage->getToken()->getUser()->getClient();
-		$adresse = $client->getClientAdresse();
-		$carInfo = $commande->getCarInfo();
-		$params = [
-			"Demarche" => $commande->getDemarche()->getType(),
-			"DateDemarche" => "17/11/2010 12:00:00",
-			"Titulaire" => [
-				"NomPrenom" => $client->getClientNomPrenom(),
-			],
-			"Type"     => $type,
-			"Acquereur" => [
-				"DroitOpposition" => true,
-				"Adresse" => [
-					"TypeVoie" => $adresse->getTypevoie(),
-					"NomVoie" => $adresse->getNom(),
-					"CodePostal" => $adresse->getCodepostal(),
-					"Ville" => $adresse->getVille(),
-					"Pays" => $adresse->getPays(),
-				],
-				"PersonneMorale" => [
-					"RaisonSociale" => "TMS",
-					"SocieteCommerciale" =>true,
-					//"SIREN" => "123456789", // siren si exist
-				]
-			],
-			"Vehicule" => [
-				"VIN" => $carInfo->getVin(),
-				"Immatriculation" => $commande->getImmatriculation(),
-				"Marque" => $carInfo->getMarque(),
-				"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
-			]
-		];
+		$params = $this->documentTmsManager->getParamsByCommande($commande, $type);
 
-		return $this->tmsClient->editer($params);
+		if (false == $params) 
+			return $params;
+		$result = $this->tmsClient->editer($params);
+
+		return $result->getRawData()->Document;
 	}
 }

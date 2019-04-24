@@ -325,4 +325,20 @@ class HomeController extends AbstractController
             }
                
     }
+
+    /**
+     *@Route("/tay", name="tay")
+     */
+    public function tay(CommandeManager $commandeManager)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $client = $this->getUser()->getClient();
+        $commande = $em->getRepository(Commande::class)->find(46);
+        $document = $commandeManager->editer($commande);
+
+        $decoded = \base64_decode($document->getRawData()->Document);
+        $file = 'CERFA.pdf';
+        $filefinal = file_put_contents($file, $decoded);
+        echo $file;die;
+    }
 }

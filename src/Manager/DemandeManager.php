@@ -25,6 +25,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Twig_Environment as Twig;
 
 class DemandeManager
@@ -35,6 +36,8 @@ class DemandeManager
     private $repository;
     private $transactionManager;
     private $translator;
+    private $commandeManager;
+    private $tokenStorage;
 
     public function __construct
     (
@@ -43,7 +46,9 @@ class DemandeManager
         Twig                   $twig,
         DemandeRepository      $repository,
         TransactionManager     $transactionManager,
-        TranslatorInterface    $translator
+        TranslatorInterface    $translator,
+        CommandeManager        $commandeManager,
+        TokenStorageInterface  $tokenStorage
     )
     {
         $this->em                 = $em;
@@ -51,7 +56,9 @@ class DemandeManager
         $this->twig               = $twig;
         $this->repository         = $repository;
         $this->transactionManager = $transactionManager;
+        $this->commandeManager    = $commandeManager;
         $this->translator         = $translator;
+        $this->tokenStorage       = $tokenStorage;  
     }
 
     private function init()
@@ -217,5 +224,27 @@ class DemandeManager
 
         $this->em->remove($demande);
         $this->em->flush();
+    }
+
+    public function generateCerfa(Demande $demande)
+    {
+
+        $folder = $demande->getGeneratedCerfaPath();
+        $file = $demande->getGeneratedCerfaPathFile();
+        // create directory
+        // dump($folder);die;
+        if (!is_dir($folder)) mkdir($folder, 0777, true);
+        // end create file 
+        // get cerfa if not exist
+        // if (!is_file($file)) { // attente de finalité du process
+            $cerfa = $this->commandeManager->editer($demande->getCommande());
+            if ($cerfa == false) {
+                return "#";
+            }
+            $decoded = \base64_decode($cerfa);
+            $filefinal = file_put_contents($file, $decoded);
+        // }
+        
+        return $file;
     }
 }
