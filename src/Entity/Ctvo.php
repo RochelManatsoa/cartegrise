@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -24,10 +25,26 @@ class Ctvo
      * @ORM\OneToOne(targetEntity="App\Entity\Ancientitulaire", inversedBy="ctvo", cascade={"persist", "remove"})
      */
     private $ancienTitulaire;
+
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\NewTitulaire", inversedBy="ctvo", cascade={"persist", "remove"})
      */
     private $acquerreur;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cotitulaires", mappedBy="ctvo", cascade={"persist"})
+     */
+    private $cotitulaire;
+
+    public function __construct()
+    {
+        $this->cotitulaire = new ArrayCollection();
+    }
+
+    public function getCotitulaire()
+    {
+        return $this->cotitulaire;
+    }
 
     public function getDemande(): ?Demande
     {
@@ -68,6 +85,29 @@ class Ctvo
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function addCotitulaire(Cotitulaires $cotitulaire): self
+    {
+        if (!$this->cotitulaire->contains($cotitulaire)) {
+            $this->cotitulaire[] = $cotitulaire;
+            $cotitulaire->setCtvo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCotitulaire(Cotitulaires $cotitulaire): self
+    {
+        if ($this->cotitulaire->contains($cotitulaire)) {
+            $this->cotitulaire->removeElement($cotitulaire);
+            // set the owning side to null (unless already changed)
+            if ($cotitulaire->getCtvo() === $this) {
+                $cotitulaire->setCtvo(null);
+            }
+        }
+
+        return $this;
     }
 
 }
