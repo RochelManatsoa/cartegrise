@@ -18,20 +18,23 @@ class ClientType extends AbstractType
     {
         $builder
             ->add('clientNom', TextType::class,[
-                'attr' => array( 'class' => 'text-uppercase' )
+                'attr'  => array( 'class' => 'text-uppercase' ),
+                'label' => 'Nom'
             ])
-            ->add('clientPrenom', TextType::class)
+            ->add('clientPrenom', TextType::class, ['label' => 'Prénom(s)'])
             ->add('clientGenre', ChoiceType::class, array(
-                'choices' => array(
+                'choices'   => array(
                     'Homme' => "M",
                     'Femme' => "F",
                 ),
+                'label'=> "Sexe",
             ))
             ->add('clientDateNaissance', DateType::class, array(
                     'widget' => 'single_text',
+                    'label'  => "Date de naissance",
                     ))
             
-            ->add('clientLieuNaissance', TextType::class)
+            ->add('clientLieuNaissance', TextType::class, ['label' => 'Lieu de naissance'])
             //->add('clientDptNaissance', NumberType::class)
             //->add('clientPaysNaissance', CountryType::class, array('label' => 'Pays','required'=> false, 'preferred_choices' => array('FR'=>'France')))
             

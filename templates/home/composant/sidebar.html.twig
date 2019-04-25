@@ -21,15 +21,15 @@
 			<a href="#">Information Client</a>
 		</li>
 		<li class="list-group-item d-flex justify-content-between align-items-center">
-			<a href="{{ path('compte') }}">mes informations</a>
+			<a href="{{ path('compte') }}">Mon Profil</a>
 		</li>
 		<li class="list-group-item d-flex justify-content-between align-items-center">
-			<a href="{{ path('commande_list') }}">Commande(s)</a>
+			<a href="{{ path('commande_list') }}">Estimation en cours</a>
 			<span class="badge badge-primary badge-pill">{{ app.user.client.countCommandes }}</span>
 		</li>
 		</li>
 			<li class="list-group-item d-flex justify-content-between align-items-center">
-			<a href="{{ path('demande_list')}}">Demande(s)</a>
+			<a href="{{ path('demande_list')}}">Mes commandes</a>
 			<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
 		</li>
 		
