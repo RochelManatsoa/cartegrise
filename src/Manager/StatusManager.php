@@ -12,7 +12,7 @@ use App\Entity\Commande;
 class StatusManager
 {
     public const FIRST_STEP="attente de demande";
-    public const SECOND_STEP="attente de paiment";
+    public const SECOND_STEP="attente de paiement";
     public const THIRD_STEP="attente de document";
     public const FIRST_STEP_STYLE="danger";
     public const SECOND_STEP_STYLE="warning";
