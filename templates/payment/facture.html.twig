@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>{{title}}</title>
+  <title>Facture CGOfficiel</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   <link rel="stylesheet" href="{{ pathToWeb ~ asset('css/style.css') }}">
@@ -93,9 +93,9 @@
         </tr>
         <tr>
           <td>Frais de dossier <strong><small>(2)</small></strong></td>
-          <td class="text-center">{{frais}} €</td>
-          <td class="text-center">{{tva}} €</td>
-          <td class="text-center">{{fraisTotalTva}} €</td>
+          <td class="text-center">{{fraisTotalTraitement(demande.commande)}} €</td>
+          <td class="text-center">{{tvaTraitement(demande.commande)}} €</td>
+          <td class="text-center">{{fraisTraitementWhithTva(demande.commande)}} €</td>
         </tr>
       </tbody>
       <tfoot>
@@ -103,7 +103,7 @@
           <td><strong>Total TTC</strong></td>
           <td></td>
           <td></td>
-          <td class="text-center"><strong>{{total}} €</strong></td>
+          <td class="text-center"><strong>{{Total(demande.commande)}} €</strong></td>
         </tr>
       </tfoot>
     </table>
@@ -140,4 +140,3 @@
 </div>
 </body>
 </html>
-
