@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Facture CGOfficiel</title>
+  <title>Facture N°{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   <link rel="stylesheet" href="{{ pathToWeb ~ asset('css/style.css') }}">

@@ -75,13 +75,19 @@ class DemandeController extends AbstractController
     /**
      * @Route("/{id}/dossiers-a-fournir", name="demande_dossiers_a_fournir")
      */
-    public function daf(Demande $demande, DemandeManager $demandeManager)
+    public function daf
+    (
+        Demande $demande, 
+        DemandeManager $demandeManager
+    )
     {
         $daf = $demandeManager->getDossiersAFournir($demande);
+        $pathCerfa = $demandeManager->generateCerfa($demande);
 
         return $this->render('demande/dossiers_a_fournir.html.twig', [
             'demande' => $demande,
             'daf' => $daf,
+            'pathCerfa' => $pathCerfa,
             'client' => $this->getUser()->getClient(),
         ]);
     }
