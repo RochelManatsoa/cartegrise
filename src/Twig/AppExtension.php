@@ -126,7 +126,7 @@ class AppExtension extends AbstractExtension
     public function fraisTotal(Commande $commande)
     {
 
-        return $this->fraisTreatmentManager->fraisTotalOfCommande($commande);
+        return $this->total($commande);
     }
 
     public function tvaTraitement(Commande $commande)
