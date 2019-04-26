@@ -60,4 +60,13 @@
 
          return $this->fraisTotalTreatmentOfCommandeWithTva($commande) + $taxeTotal;
      }
+
+
+     public function fraisTotalOfCommande(Commande $commande)
+     {
+        $fraisTotal = $this->fraisTotalTreatmentOfCommande($commande);
+        $taxeTotal = $commande->getTaxes()->getTaxeTotale();
+
+        return $fraisTotal + $taxeTotal;
+     }
  }
