@@ -13,6 +13,8 @@ class NewTitulaire
 {
     const TYPE_PERS_PHYSIQUE = 0;
     const TYPE_PERS_MORALE   = 1;
+    const GENRE_M   = "hom";
+    const GENRE_F   = "fem";
     
     /**
      * @ORM\Id()

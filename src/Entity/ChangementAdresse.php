@@ -25,6 +25,12 @@ class ChangementAdresse
      */
     private $ancienAdresse;
 
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Demande", inversedBy="changementAdresse", cascade={"persist", "remove"})
+     */
+    private $demande;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,6 +68,18 @@ class ChangementAdresse
     public function setNewAdresse(?Adresse $newAdresse): self
     {
         $this->newAdresse = $newAdresse;
+
+        return $this;
+    }
+
+    public function getDemande(): ?Demande
+    {
+        return $this->demande;
+    }
+
+    public function setDemande(?Demande $demande): self
+    {
+        $this->demande = $demande;
 
         return $this;
     }
