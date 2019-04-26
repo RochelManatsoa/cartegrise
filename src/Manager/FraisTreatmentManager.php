@@ -66,6 +66,6 @@
      public function Total(Commande $commande)
      {
 
-         return $this->fraisTotalTreatmentOfCommandeWithTva($commande) + fraisTotalOfCommande($commande);
+         return $this->fraisTotalTreatmentOfCommandeWithTva($commande) + $this->fraisTotalOfCommande($commande);
      }
  }
