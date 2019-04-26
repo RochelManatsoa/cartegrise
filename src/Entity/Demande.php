@@ -88,11 +88,13 @@ class Demande
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Cession", mappedBy="demande", cascade={"persist", "remove"})
+     * @ORM\JoinColumn()
      */
     private $cession;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", inversedBy="demande", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", mappedBy="demande", cascade={"persist", "remove"})
+     * @ORM\JoinColumn()
      */
     private $changementAdresse;
 
@@ -313,18 +315,6 @@ class Demande
         return $this;
     }
 
-    public function getChangementAdresse(): ?ChangementAdresse
-    {
-        return $this->changementAdresse;
-    }
-
-    public function setChangementAdresse(?ChangementAdresse $changementAdresse): self
-    {
-        $this->changementAdresse = $changementAdresse;
-
-        return $this;
-    }
-
     public function getTransaction(): ?Transaction
     {
         return $this->transaction;
@@ -384,6 +374,24 @@ class Demande
     public function setCerfaPath(?string $cerfa_path): self
     {
         $this->cerfa_path = $cerfa_path;
+
+        return $this;
+    }
+
+    public function getChangementAdresse(): ?ChangementAdresse
+    {
+        return $this->changementAdresse;
+    }
+
+    public function setChangementAdresse(?ChangementAdresse $changementAdresse): self
+    {
+        $this->changementAdresse = $changementAdresse;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newDemande = $changementAdresse === null ? null : $this;
+        if ($newDemande !== $changementAdresse->getDemande()) {
+            $changementAdresse->setDemande($newDemande);
+        }
 
         return $this;
     }

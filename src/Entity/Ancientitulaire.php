@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Ancientitulaire
 {
+    const PERSONE_PHYSIQUE  = "phy";
+    const PERSONE_MORALE    = "mor";
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
