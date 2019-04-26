@@ -44,7 +44,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('fraisTotalTraitement', [$this, 'fraisTotalTraitement']),
             new TwigFunction('tvaTraitement', [$this, 'tvaTraitement']),
             new TwigFunction('fraisTotal', [$this, 'fraisTotal']),
-            new TwigFunction('Total', [$this, 'Total']),
+            new TwigFunction('total', [$this, 'total']),
             new TwigFunction('fraisTraitementWhithTva', [$this, 'fraisTraitementWhithTva']),
             new TwigFunction('statusOfCommande', [$this, 'statusOfCommande']),
         ];
@@ -132,7 +132,7 @@ class AppExtension extends AbstractExtension
     public function tvaTraitement(Commande $commande)
     {
 
-        return $this->fraisTreatmentManager->fraisTotalTva($commande);
+        return $this->fraisTreatmentManager->tvaOfFraisTreatment($commande);
     }
 
     public function statusOfCommande(Commande $commande, string $need)
@@ -141,9 +141,9 @@ class AppExtension extends AbstractExtension
         return $this->statusManager->getStatusOfCommande($commande)[$need];
     }
 
-    public function Total(Commande $commande)
+    public function total(Commande $commande)
     {
 
-        return $this->fraisTreatmentManager->Total($commande);
+        return $this->fraisTreatmentManager->total($commande);
     }
 }

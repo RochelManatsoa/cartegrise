@@ -131,10 +131,6 @@ class PaymentController extends AbstractController
     {
         $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
         $filename = "Facture";
-        $tva = $fraisTreatmentManager->fraisTotalTva($demande->getCommande());
-        $total = $fraisTreatmentManager->fraisTotalTreatmentOfCommandeWithTva(
-                    $demande->getCommande()
-                );
         $html = $this->renderView("payment/facture.html.twig", array(
             "demande"=> $demande,
         ));

@@ -43,29 +43,21 @@
         return $prestation + $majoration;
      }
 
-     public function fraisTotalOfCommande(Commande $commande)
-     {
-        $fraisTotal = $this->fraisTotalTreatmentOfCommande($commande);
-        $taxeTotal = $commande->getTaxes()->getTaxeTotale();
-
-        return $fraisTotal + $taxeTotal;
-     }
-
      public function fraisTotalTreatmentOfCommandeWithTva(Commande $commande)
      {
 
-        return $this->fraisTotalOfCommande($commande) * 1.2;
+        return $this->fraisTotalTreatmentOfCommande($commande) * 1.2;
      }
 
-     public function fraisTotalTva(Commande $commande)
+     public function tvaOfFraisTreatment(Commande $commande)
      {
-
-        return $this->fraisTotalOfCommande($commande) * 0.2;
+        return $this->fraisTotalTreatmentOfCommande($commande) * 0.2;
      }
 
-     public function Total(Commande $commande)
+     public function total(Commande $commande)
      {
+        $taxeTotal = $commande->getTaxes()->getTaxeTotale();
 
-         return $this->fraisTotalTreatmentOfCommandeWithTva($commande) + $this->fraisTotalOfCommande($commande);
+         return $this->fraisTotalTreatmentOfCommandeWithTva($commande) + $taxeTotal;
      }
  }

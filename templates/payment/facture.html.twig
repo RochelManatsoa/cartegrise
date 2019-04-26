@@ -69,8 +69,8 @@
       <tbody>
         <tr>
           <td>{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</td>
-          <td>{{demande.dateDemande | date('d/m/Y')}}</td>
-          <td>{{demande.transaction.transactionId}}</td>
+          <td class="text-center">{{demande.dateDemande | date('d/m/Y')}}</td>
+          <td class="text-center">{{demande.transaction.transactionId}}</td>
         </tr>
       </tbody>
     </table>
@@ -103,7 +103,7 @@
           <td><strong>Total TTC</strong></td>
           <td></td>
           <td></td>
-          <td class="text-center"><strong>{{Total(demande.commande)}} €</strong></td>
+          <td class="text-center"><strong>{{total(demande.commande)}} €</strong></td>
         </tr>
       </tfoot>
     </table>
