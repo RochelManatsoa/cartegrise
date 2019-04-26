@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -108,6 +109,11 @@ class Ctvo
         }
 
         return $this;
+    }
+
+    public function countCotitulaire()
+    {
+        return count($this->cotitulaire);
     }
 
 }
