@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,16 @@ class Divn
      * @ORM\OneToOne(targetEntity="App\Entity\NewTitulaire",inversedBy="divn", cascade={"persist", "remove"})
      */
     private $acquerreur;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cotitulaires", mappedBy="divn", cascade={"persist"})
+     */
+    private $cotitulaire;
+
+    public function __construct()
+    {
+        $this->cotitulaire = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -52,6 +64,37 @@ class Divn
     public function setAcquerreur(?NewTitulaire $acquerreur): self
     {
         $this->acquerreur = $acquerreur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cotitulaires[]
+     */
+    public function getCotitulaire(): Collection
+    {
+        return $this->cotitulaire;
+    }
+
+    public function addCotitulaire(Cotitulaires $cotitulaire): self
+    {
+        if (!$this->cotitulaire->contains($cotitulaire)) {
+            $this->cotitulaire[] = $cotitulaire;
+            $cotitulaire->setDivn($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCotitulaire(Cotitulaires $cotitulaire): self
+    {
+        if ($this->cotitulaire->contains($cotitulaire)) {
+            $this->cotitulaire->removeElement($cotitulaire);
+            // set the owning side to null (unless already changed)
+            if ($cotitulaire->getDivn() === $this) {
+                $cotitulaire->setDivn(null);
+            }
+        }
 
         return $this;
     }

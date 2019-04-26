@@ -17,10 +17,16 @@ class AdresseType extends AbstractType
     {
         $builder
             //->add('numero', IntegerType::class, array('label' => 'Numero de Voie', 'required' => true))
-            ->add('nom', TextType::class, array('label' => 'Nom de la Voie', 'required' => true))
-            ->add('complement',  TextType::class, array('required' => false, 'attr' => array('placeholder' => 'Immeuble, Bâtiment, Résidence')))
+            ->add('nom', TextType::class, array('label' => 'Adresse', 'required' => true))
+            ->add('complement',  TextType::class, array(
+                'required' => false, 
+                'label'    => "Complément d'adresse",
+                'attr' => array(
+                    'placeholder' => 'lieu dit, numéro boîte aux lettres, nom de la résidence'
+                    )
+                ))
             ->add('codepostal', TextType::class, array('label' => 'Code Postal', 'required' => true))
-            ->add('ville', TextType::class, array('required' => true))
+            ->add('ville', TextType::class, array('label' => 'Ville', 'required' => true))
             //->add('pays', CountryType::class, array('label' => 'Pays','required'=> false, 'preferred_choices' => array('FR'=>'France')))
         ;
     }

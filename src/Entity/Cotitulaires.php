@@ -47,6 +47,16 @@ class Cotitulaires
      */
     private $carteGrise;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Divn", inversedBy="cotitulaire")
+     */
+    private $divn;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ctvo", inversedBy="cotitulaire")
+     */
+    private $ctvo;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +130,30 @@ class Cotitulaires
     public function setCarteGrise(?Cartegrise $carteGrise): self
     {
         $this->carteGrise = $carteGrise;
+
+        return $this;
+    }
+
+    public function getDivn(): ?Divn
+    {
+        return $this->divn;
+    }
+
+    public function setDivn(?Divn $divn): self
+    {
+        $this->divn = $divn;
+
+        return $this;
+    }
+
+    public function getCtvo(): ?Ctvo
+    {
+        return $this->ctvo;
+    }
+
+    public function setCtvo(?Ctvo $ctvo): self
+    {
+        $this->ctvo = $ctvo;
 
         return $this;
     }
