@@ -69,7 +69,7 @@
 <!-- _____________________________________________________________________________________SIDEBAR ORDI fin -->
 
 <!-- _______________________________________________________________________________________SIDEBAR MOBILE -->
-<div class="col-12 row sidebar hidden-lg-up mt-2 mb-2">
+<div class="col-12 row sidebar hidden-lg-up mt-2 mb-2 {% if commande is defined %}{% if taxe is defined %}hidden-home-mobile{% endif %}{% endif %}">
 	<div class="col-12 row mt-3 logo-mobile">
 		<a class="col-10 mx-auto" href="/Accueil">
 			<img class="logo-home rounded mx-auto d-block img-fluid" src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="logo">
@@ -95,6 +95,11 @@
 				<button type="button" class="btn btn-outline-primary btn-lg col-10 text-center mt-3 mb-3">Actualité
 				</button>
 			</div>
+		</div>
+		<div class="col-10 service-telephonique--flex---text----flex ">
+			<p class="col-12 mx-auto ">
+				<img class="col-12 mx-auto img-fluid" src="{{ asset('asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="0897010800 CGofficiel carte grise certificat immatriculation">
+			</p>
 		</div>
 	</div>
 </div>
