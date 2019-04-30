@@ -61,4 +61,18 @@ class UserRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    public function countCommandeUnchecked($user)
+    {
+        return $this->createQueryBuilder('u')
+            ->select('count(com)')
+            ->leftJoin('u.client','cl')
+            ->leftJoin('cl.commandes','com')
+            ->where('com.demande IS NULL')
+            ->andWhere('u = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
