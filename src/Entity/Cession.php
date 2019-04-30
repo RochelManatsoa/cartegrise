@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CessionRepository")
@@ -32,7 +33,8 @@ class Cession
     private $acquerreur;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
+     * @Assert\NotNull(message="Vous devez informer la date de cession")
      */
     private $dateCession;
 

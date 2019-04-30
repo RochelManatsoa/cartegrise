@@ -19,7 +19,7 @@ class CessionType extends AbstractType
                 'widget' => 'single_text',
                 ))
             ->add('ancienTitulaire', AncientitulaireType::class)
-            ->add('acquerreur', NewtitulaireType::class, array('label'=>"Nouveau titulaire"))
+            ->add('acquerreur', NewtitulaireType::class)
         ;
     }
 

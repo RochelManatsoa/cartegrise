@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CotitulairesRepository")
@@ -22,12 +23,14 @@ class Cotitulaires
     private $typeCotitulaire;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message = "Champs requis")
      */
     private $nomCotitulaires;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message = "Champs requis")
      */
     private $prenomCotitulaire;
 
@@ -37,7 +40,8 @@ class Cotitulaires
     private $raisonSocialCotitulaire;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message = "Champs requis")
      */
     private $sexeCotitulaire;
 
