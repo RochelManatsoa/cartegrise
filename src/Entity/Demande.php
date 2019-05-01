@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\File\Files;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -112,6 +113,12 @@ class Demande
      * @ORM\Column(type="text", nullable=true)
      */
     private $cerfa_path;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\File\Files", mappedBy="demande")
+     * @ORM\JoinColumn()
+     */
+    private $files;
 
     public function __toString()
     {
@@ -392,6 +399,18 @@ class Demande
         if ($newDemande !== $changementAdresse->getDemande()) {
             $changementAdresse->setDemande($newDemande);
         }
+
+        return $this;
+    }
+
+    public function getFiles(): ?Files
+    {
+        return $this->files;
+    }
+
+    public function setFiles(?Files $files): self
+    {
+        $this->files = $files;
 
         return $this;
     }

@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\DocumentDemande\DemandeDuplicataType;
+use App\Entity\File\DemandeDuplicata;
+use App\Entity\File\Files;
 
 /**
  * @Route("/demande")
@@ -83,11 +86,14 @@ class DemandeController extends AbstractController
     {
         $daf = $demandeManager->getDossiersAFournir($demande);
         $pathCerfa = $demandeManager->generateCerfa($demande);
+        $files = new DemandeDuplicata();
+        $fileForm = $this->createForm(DemandeDuplicataType::class, $files);
 
         return $this->render('demande/dossiers_a_fournir.html.twig', [
             'demande' => $demande,
             'daf' => $daf,
             'pathCerfa' => $pathCerfa,
+            'form' => $fileForm->createView(),
             'client' => $this->getUser()->getClient(),
         ]);
     }

@@ -236,14 +236,14 @@ class DemandeManager
         if (!is_dir($folder)) mkdir($folder, 0777, true);
         // end create file 
         // get cerfa if not exist
-        // if (!is_file($file)) { // attente de finalité du process
+        if (!is_file($file)) { // attente de finalité du process
             $cerfa = $this->commandeManager->editer($demande->getCommande());
             if ($cerfa == false) {
                 return "#";
             }
             $decoded = \base64_decode($cerfa);
             $filefinal = file_put_contents($file, $decoded);
-        // }
+        }
         
         return $file;
     }
