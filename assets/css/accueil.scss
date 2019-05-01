@@ -473,6 +473,9 @@ font-size: 18px;
 
 @media (max-width:991px) {
   body {
+    .hidden-home-mobile {
+      display: none;
+    }
     .logo-mobile {
       -webkit-flex: 0 0 52% !important;
       -ms-flex: 0 0 52% !important;
