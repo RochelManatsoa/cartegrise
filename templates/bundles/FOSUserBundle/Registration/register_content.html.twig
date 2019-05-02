@@ -140,6 +140,10 @@
 		</div>
 
 		<div class="{{ wrapperClassName }}">
+			{{ form_row(form.plainPassword, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+		</div>
+
+		<div class="{{ wrapperClassName }}">
 			<div class="row">
 				{% for passwordForm in form.plainPassword %}
 					<div class="{{ smallWrapperClassName }}">
@@ -150,9 +154,16 @@
 		</div>
 
 		<div class="{{ wrapperClassName }}"><h2>Merci de renseigner votre adresse</h2></div>
-
+		
 		<div class="{{ wrapperClassName }}">
-			{{ form_row(form.client.clientAdresse.nom, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+			<div class="row">
+				<div class="{{ smallWrapperClassName }}">
+					{{ form_row(form.client.clientAdresse.typevoie, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+				</div>
+				<div class="{{ smallWrapperClassName }}">
+					{{ form_row(form.client.clientAdresse.nom, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+				</div>
+			</div>
 		</div>
 
 		<div class="{{ wrapperClassName }}">
