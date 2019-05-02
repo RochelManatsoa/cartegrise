@@ -23,6 +23,7 @@
                             </thead>
                             <tbody>
                             {% for commande in commandes %}
+                                {% if statusOfCommande(commande, "style") == "danger" %}
                                 <tr>
                                     <td>{{ commande.demarche.nom }}</td>
                                     <td>{{ commande.codePostal }}</td>
@@ -46,6 +47,7 @@
                                         {% endif %}
                                     </td>
                                 </tr>
+                                {% endif %}
                             {% else %}
                                 <tr><td colspan="5">Aucune commande trouvée</td></tr>
                             {% endfor %}
