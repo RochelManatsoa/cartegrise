@@ -9,7 +9,7 @@
 	{% if app.user %}
 	<div class="espace-client-user col-10 col-lg-8 col-xl-6 mx-auto mt-4 mb-4 ">
 		<h5>
-		Bonjour {{ app.user.client.clientGenre }} {{ app.user.client.clientPrenom }} {{ app.user.client.clientNom | upper}}
+		Bonjour {{ app.user.client.clientPrenom }} {{ app.user.client.clientNom | upper}}
 		</h5>
 		<h5>
 			<a href="{{ path('compte') }}">Mon compte</a> | <a href="{{ path('logout') }}">Déconnexion</a>
@@ -24,12 +24,12 @@
 			<a href="{{ path('compte') }}">Mon Profil</a>
 		</li>
 		<li class="list-group-item d-flex justify-content-between align-items-center">
-			<a href="{{ path('commande_list') }}">Estimation en cours</a>
-			<span class="badge badge-primary badge-pill">{{ app.user.client.countCommandes }}</span>
+			<a href="{{ path('commande_list') }}">Demandes en cours</a>
+			<span class="badge badge-primary badge-pill">{{ countCommandeUnchecked(app.user) }}</span>
 		</li>
 		</li>
 			<li class="list-group-item d-flex justify-content-between align-items-center">
-			<a href="{{ path('demande_list')}}">Mes commandes</a>
+			<a href="{{ path('demande_list')}}">Commandes effectuées</a>
 			<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
 		</li>
 		

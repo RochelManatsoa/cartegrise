@@ -40,6 +40,11 @@ class UserManager
         return $this->repository->countDemande($user);
     }
 
+    public function countCommandeUnchecked(User $user)
+    {
+        return $this->repository->countCommandeUnchecked($user);
+    }
+
     public function checkEmail($email)
     {
         return $this->repository->findOneBy(['email' => $email]);
