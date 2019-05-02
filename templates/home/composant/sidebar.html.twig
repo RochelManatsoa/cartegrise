@@ -108,8 +108,10 @@
 
 
 	{% else %}
-	
 	<div class="col-6 mx-auto mt-2 text-center habilitation-mobile">
+		<img class="col-10 mx-auto rounded mb-3" src="{{ asset('asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png')}}" alt="agrément CGofficiel carte grise certificat immatriculation">
+	</div>
+	{# <div class="col-6 mx-auto mt-2 text-center habilitation-mobile">
 		<a class="col-12 mx-auto" href="{{ path('france_connect_login') }}" class="btnLink">
 			<img class="col-12 tooltipped rounded mx-auto d-block" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
 		</a>
@@ -120,6 +122,26 @@
 			<button type="button" class="col-12 btn btn-outline-primary btn-lg text-center mt-3 mb-3 ">mon Compte
 			</button>
 		</a>
+	</div> #}
+	<div class="col-6 row d-flex flex-row justify-content-center my-flex-container mt-2 cta-home-mobile">
+		<div class="col-10">
+			<a href="#">
+				<img class="col-12 tooltipped rounded mx-auto d-block" data-position="top" data-delay="50" data-tooltip="Lisez les étapes suivantes puis essayez !" alt="1. Cliquez" src="{{ asset('asset/img/fcbouton.jpg')}}">
+			</a>
+		</div>
+		<div class="col-12  row mt-2">
+			<div class="col-12 d-flex flex-row justify-content-center my-flex-container ">
+				<a class="col-12 mx-auto  d-flex flex-row justify-content-center my-flex-container" href="/login">
+					<button type="button" class="col-10 btn btn-outline-primary btn-lg text-center mt-3 mb-3 ">mon Compte
+					</button>
+				</a>
+			</div>
+		</div>
+		<div class="col-10 service-telephonique--flex---text----flex ">
+			<p class="col-12 mx-auto ">
+				<img class="col-12 mx-auto img-fluid" src="{{ asset('asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="0897010800 CGofficiel carte grise certificat immatriculation">
+			</p>
+		</div>
 	</div>
 	{% endif %}
 
