@@ -1,0 +1,35 @@
+.custom-form {
+    select.form-control,
+    input.form-control {
+        width: -moz-calc(100% - 24px);
+        width: -ms-calc(100% - 24px);
+        width: -webkit-calc(100% - 24px);
+        width: calc(100% - 24px);
+    }
+    .form-check-input {
+        margin-left: 0;
+    }
+    fieldset {
+        fieldset {
+            padding: 0;
+        }
+    }
+}
+@media (max-width:991px) {
+    .mobile-center {
+        display: block !important;
+        margin: auto !important;
+    }
+}
+@media (max-width:767px) {
+    .custom-form {
+        h2 {
+            font-size: 26px;
+        }
+    }
+    .full-mobile {
+        flex: 0 0 83.33333% !important;
+        max-width: 83.33333% !important;
+        width: 83.333333% !important;
+    }
+}
