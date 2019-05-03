@@ -15,12 +15,14 @@
 						<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 					{% endif %}
 
-					<div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div>
+					{# <div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div> #}
+					<div class=" col-10 mx-auto fadeIn login-error mt-2">Adresse éléctronique : </div>
 					<label class="hidden-xl-down" for="username">{{ 'security.login.username'|trans }}</label>
-					<input class="col-10 mx-auto fadeIn second" type="text" id="username" name="_username" placeholder="Votre identifiant" value="{{ last_username }}">
+					<input class="col-10 mx-auto fadeIn second" type="text" id="username" name="_username" placeholder="Votre adresse mail" value="{{ last_username }}">
 
 
-					<div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div>
+					{# <div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div> #}
+					<div class=" col-10 mx-auto fadeIn login-error mt-2">Mot de passe : </div>
 					<label class="hidden-xl-down" for="password">{{ 'security.login.password'|trans }}</label>
 					<input class="col-10 mx-auto fadeIn third" type="password" id="password" name="_password" placeholder="Mot de passe">
 
@@ -32,7 +34,7 @@
 
 				<div id="formFooter">
 					<p>
-						<a class="underlineHover" href="Home.php">Retourner à l'accueil</a>
+						<a class="underlineHover" href="{{ path('Accueil')}}">Retourner à l'accueil</a>
 						<div class="form-group form-check oublie-mdp">
 							<a href="{{ path('fos_user_resetting_request') }}">Oublie de votre mot de passe?</a>
 						</div>

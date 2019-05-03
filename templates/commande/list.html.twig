@@ -36,13 +36,13 @@
                                     <td class="pb-2">
                                         {% if is_granted(constant('\\App\\Security\\Voter\\CommandeVoter::PASSER'), commande) %}
                                             <a href="{{path('new_demande', {'commande': commande.id })}}">
-                                                <button type="button" class="btn btn-primary btn-sm mb-1">passer Commande</button>
+                                                <button type="button" class="btn btn-primary btn-sm mb-1">Faire la demande</button>
                                             </a>
                                             <button data-url="{{ path('commande_annuler', {id: commande.id, _token: csrf_token('delete' ~ commande.id)}) }}"
                                                 type="button" class="cancel-btn btn btn-danger btn-sm mb-1">annuler</button>
                                         {% else %}
                                             <a href="{{path('demande_recap', {'demande': commande.demande.id })}}">
-                                                <button type="button" class="btn btn-primary btn-sm mb-1">récapitulatif du demande</button>
+                                                <button type="button" class="btn btn-primary btn-sm mb-1">Récapitulatif de la demande</button>
                                             </a>
                                         {% endif %}
                                     </td>
