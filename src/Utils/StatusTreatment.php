@@ -6,7 +6,7 @@ class StatusTreatment
 {
     private $message =
         [
-            "00" => "Transaction approuvée ou traitée avec succès",
+            "00" => "Transaction approuvée",
             "02" => "Contacter l'émetteur de carte",
             "03" => "Accepteur invalide",
             "04" => "Conserver la carte",
