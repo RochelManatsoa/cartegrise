@@ -75,7 +75,77 @@
 			<img class="logo-home rounded mx-auto d-block img-fluid" src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="logo">
 		</a>
 	</div>
+	{% if app.user %}
+	<div class="espace-client-user col-10 col-lg-8 col-xl-6 mx-auto mt-4 mb-4 ">
+		<h5>
+		Bonjour {{ app.user.client.clientGenre }} {{ app.user.client.clientPrenom }} {{ app.user.client.clientNom | upper}}
+		</h5>
+		<h5>
+			<a href="{{ path('compte') }}">Mon compte</a> | <a href="{{ path('logout') }}">Déconnexion</a>
+		</h5>
+	</div>
+
+	<ul class="espace-client-menu col-10 col-lg-8 col-xl-6 list-group mx-auto mb-4">
+		<li class="list-group-item d-flex justify-content-between align-items-center active">
+			<a href="#">Information Client</a>
+		</li>
+		<li class="list-group-item d-flex justify-content-between align-items-center">
+			<a href="{{ path('compte') }}">Mon Profil</a>
+		</li>
+		<li class="list-group-item d-flex justify-content-between align-items-center">
+			<a href="{{ path('commande_list') }}">Estimation en cours</a>
+			<span class="badge badge-primary badge-pill">{{ app.user.client.countCommandes }}</span>
+		</li>
+		</li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+			<a href="{{ path('demande_list')}}">Mes commandes</a>
+			<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
+		</li>
+		
+	</ul>
+
+
+
+
+	{% else %}
 	<div class="col-6 mx-auto mt-2 text-center habilitation-mobile">
+		<img class="col-10 mx-auto rounded mb-3" src="{{ asset('asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png')}}" alt="agrément CGofficiel carte grise certificat immatriculation">
+	</div>
+	{# <div class="col-6 mx-auto mt-2 text-center habilitation-mobile">
+		<a class="col-12 mx-auto" href="{{ path('france_connect_login') }}" class="btnLink">
+			<img class="col-12 tooltipped rounded mx-auto d-block" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
+		</a>
+	</div>
+
+	<div class="col-6 row d-flex flex-row justify-content-center my-flex-container mt-2 cta-home-mobile">
+		<a class="col-12 mx-auto" href="/login">
+			<button type="button" class="col-12 btn btn-outline-primary btn-lg text-center mt-3 mb-3 ">mon Compte
+			</button>
+		</a>
+	</div> #}
+	<div class="col-6 row d-flex flex-row justify-content-center my-flex-container mt-2 cta-home-mobile">
+		<div class="col-10">
+			<a href="#">
+				<img class="col-12 tooltipped rounded mx-auto d-block" data-position="top" data-delay="50" data-tooltip="Lisez les étapes suivantes puis essayez !" alt="1. Cliquez" src="{{ asset('asset/img/fcbouton.jpg')}}">
+			</a>
+		</div>
+		<div class="col-12  row mt-2">
+			<div class="col-12 d-flex flex-row justify-content-center my-flex-container ">
+				<a class="col-12 mx-auto  d-flex flex-row justify-content-center my-flex-container" href="/login">
+					<button type="button" class="col-10 btn btn-outline-primary btn-lg text-center mt-3 mb-3 ">mon Compte
+					</button>
+				</a>
+			</div>
+		</div>
+		<div class="col-10 service-telephonique--flex---text----flex ">
+			<p class="col-12 mx-auto ">
+				<img class="col-12 mx-auto img-fluid" src="{{ asset('asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="0897010800 CGofficiel carte grise certificat immatriculation">
+			</p>
+		</div>
+	</div>
+	{% endif %}
+
+	{# <div class="col-6 mx-auto mt-2 text-center habilitation-mobile">
 		<img class="col-10 mx-auto rounded mb-3" src="{{ asset('asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png')}}" alt="agrément CGofficiel carte grise certificat immatriculation">
 	</div>
 	<div class="col-6 row d-flex flex-row justify-content-center my-flex-container mt-2 cta-home-mobile">
@@ -101,6 +171,6 @@
 				<img class="col-12 mx-auto img-fluid" src="{{ asset('asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="0897010800 CGofficiel carte grise certificat immatriculation">
 			</p>
 		</div>
-	</div>
+	</div> #}
 </div>
 <!-- ____________________________________________________________________________________SIDEBAR MOBILE fin-->
