@@ -498,7 +498,9 @@ font-size: 18px;
       -webkit-transform: translateY(-50%);
       transform: translateY(-50%);
     }
-    #cadre3 {
+    .accueil-texte > #cadre,
+    .accueil-texte > #cadre2,
+    .accueil-texte > #cadre3 {
       padding-left: 0 !important;
       padding-right: 0 !important;
     }
