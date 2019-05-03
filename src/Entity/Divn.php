@@ -33,6 +33,11 @@ class Divn
      */
     private $cotitulaire;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\DossiersDVIN", mappedBy="divn", cascade={"persist", "remove"})
+     */
+    private $dossiersDVIN;
+
     public function __construct()
     {
         $this->cotitulaire = new ArrayCollection();
@@ -94,6 +99,23 @@ class Divn
             if ($cotitulaire->getDivn() === $this) {
                 $cotitulaire->setDivn(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getDossiersDVIN(): ?DossiersDVIN
+    {
+        return $this->dossiersDVIN;
+    }
+
+    public function setDossiersDVIN(DossiersDVIN $dossiersDVIN): self
+    {
+        $this->dossiersDVIN = $dossiersDVIN;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $dossiersDVIN->getDivn()) {
+            $dossiersDVIN->setDivn($this);
         }
 
         return $this;

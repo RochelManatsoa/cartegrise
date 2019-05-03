@@ -31,6 +31,11 @@ class ChangementAdresse
      */
     private $demande;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\DossiersDCA", mappedBy="dca", cascade={"persist", "remove"})
+     */
+    private $dossiersDCA;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -80,6 +85,23 @@ class ChangementAdresse
     public function setDemande(?Demande $demande): self
     {
         $this->demande = $demande;
+
+        return $this;
+    }
+
+    public function getDossiersDCA(): ?DossiersDCA
+    {
+        return $this->dossiersDCA;
+    }
+
+    public function setDossiersDCA(DossiersDCA $dossiersDCA): self
+    {
+        $this->dossiersDCA = $dossiersDCA;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $dossiersDCA->getDca()) {
+            $dossiersDCA->setDca($this);
+        }
 
         return $this;
     }

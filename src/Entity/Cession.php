@@ -38,6 +38,11 @@ class Cession
      */
     private $dateCession;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\DossiersDC", mappedBy="dc", cascade={"persist", "remove"})
+     */
+    private $dossiersDC;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +92,23 @@ class Cession
     public function setDateCession(?\DateTimeInterface $dateCession): self
     {
         $this->dateCession = $dateCession;
+
+        return $this;
+    }
+
+    public function getDossiersDC(): ?DossiersDC
+    {
+        return $this->dossiersDC;
+    }
+
+    public function setDossiersDC(DossiersDC $dossiersDC): self
+    {
+        $this->dossiersDC = $dossiersDC;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $dossiersDC->getDc()) {
+            $dossiersDC->setDc($this);
+        }
 
         return $this;
     }
