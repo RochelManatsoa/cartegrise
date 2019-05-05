@@ -21,7 +21,6 @@ class CommandeController extends AbstractController
     public function listAction(Request $request)
     {
         $commandes = $this->getUser()->getClient()->getCommandes();
-
         return $this->render('commande/list.html.twig', [
             "commandes" => $commandes,
         ]);

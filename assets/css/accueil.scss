@@ -473,6 +473,9 @@ font-size: 18px;
 
 @media (max-width:991px) {
   body {
+    .hidden-home-mobile {
+      display: none;
+    }
     .logo-mobile {
       -webkit-flex: 0 0 52% !important;
       -ms-flex: 0 0 52% !important;
@@ -495,7 +498,9 @@ font-size: 18px;
       -webkit-transform: translateY(-50%);
       transform: translateY(-50%);
     }
-    #cadre3 {
+    .accueil-texte > #cadre,
+    .accueil-texte > #cadre2,
+    .accueil-texte > #cadre3 {
       padding-left: 0 !important;
       padding-right: 0 !important;
     }
