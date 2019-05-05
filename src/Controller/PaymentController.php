@@ -134,6 +134,7 @@ class PaymentController extends AbstractController
         $html = $this->renderView("payment/facture.html.twig", array(
             "demande"=> $demande,
         ));
+        // return new Response($html);
         return new Response(
             $snappy->getOutputFromHtml($html),
             200,

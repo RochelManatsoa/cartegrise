@@ -470,3 +470,98 @@ font-size: 18px;
 font-family: textr;
 font-size: 18px;
 }
+
+@media (max-width:991px) {
+  body {
+    .logo-mobile {
+      -webkit-flex: 0 0 52% !important;
+      -ms-flex: 0 0 52% !important;
+      flex: 0 0 52% !important;
+    }
+    .habilitation-mobile {
+      margin-left: 0 !important;
+      order: 2;
+      -webkit-flex: 0 0 52% !important;
+      -ms-flex: 0 0 52% !important;
+      flex: 0 0 52% !important;
+    }
+    .cta-home-mobile {
+      order: 1;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      -moz-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
+    #cadre3 {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  } 
+}
+@media (max-width:768px) {
+  body {
+    .search-titre.mt-5 {
+      margin-top: 15px !important;
+    }
+    .modal-body {
+      .search-titre {
+        h2 {
+          font-size: 22px !important;
+        }
+        p {
+          flex: 0 0 100% !important;
+          font-size: 16px !important;
+          max-width: 100% !important;
+        }
+      }
+      .search {
+        .btn-primary {
+          margin-top: 20px !important;
+        }
+      }
+    }
+  }
+}
+@media (max-width:480px) {
+  body {
+    .home-secondview--titre {
+      font-size: 26px !important;
+    }
+    .modal-body {
+      .search-titre {
+        h2 {
+          font-size: 18px !important;
+        }
+        p {
+          font-size: 14px !important;
+        }
+      }
+      .form-control {
+        height: 4vh !important;
+      }
+      .form-control-plaque {
+        margin-bottom: 10px !important;
+      }
+      .search {
+        .btn-primary {
+          font-size: 22px !important;
+          height: auto !important;
+          margin-bottom: 0 !important;
+          margin-top: 0 !important;
+        }
+        .search-box {
+          height: auto !important;
+        }
+      }
+    }
+    .modal-footer {
+      padding-top: 0 !important;   
+    }
+    .modal-dialog {
+      margin-top: 10px !important;
+    }
+  }
+}

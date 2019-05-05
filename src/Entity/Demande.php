@@ -52,7 +52,7 @@ class Demande
     private $progressionDemande;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=false)
      */
     private $dateDemande;
 

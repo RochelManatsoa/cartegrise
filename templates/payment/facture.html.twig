@@ -20,17 +20,29 @@
         <h1 class="document-type display-4">FACTURE</h1>
         <br>
         <br>
-        <p><strong>N°{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}</strong></p>
+        <p><strong>N°{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</strong></p>
       </div>
     </div>
     <br>
-    <br>
-    <br>
     <div class="row">
       <div class="col-7">
+				<p>
+          <strong>CG Officiel</strong><br>
+          20 Impasse Camille Langlade, <br>
+          31000 TOULOUSE
+        </p>        
+      </div>
+      <div class="col-5">
+        <br>
+        <br>
+        <br>
         <p>
           <strong>
-            {{ app.user.client.clientGenre }} 
+            {% if app.user.client.clientgenre starts with 'F' %}
+             Madame 
+            {% else %}
+             Monsieur 
+            {% endif %}
             {{ app.user.client.clientPrenom }} 
             {{ app.user.client.clientNom | upper}}
           </strong>
@@ -42,16 +54,6 @@
           <br>
             {{ app.user.client.clientAdresse.codePostal }} 
             {{ app.user.client.clientAdresse.ville | upper }} 
-        </p>
-      </div>
-      <div class="col-5">
-        <br>
-        <br>
-        <br>
-				<p>
-          <strong>CG Officiel</strong><br>
-          20 Impasse Camille Langlade, <br>
-          31000 Toulouse
         </p>
       </div>
     </div>
@@ -78,55 +80,66 @@
 		<table class="table table-bordered table-sm">
       <thead class="table-active">
         <tr>
-          <th>Libellé</th>
-          <th class="text-center">Montant HT</th>
+          <th>Produit</th>
+          <th class="text-center">Prix HT</th>
+          <th class="text-center">Taux TVA</th>
           <th class="text-center">TVA</th>
-          <th class="text-center">Montant TTC</th>
+          <th class="text-center">Prix TTC</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>{{demande.commande.demarche.nom}} <strong><small>(1)</small></strong></td>
-          <td></td>
-          <td></td>
-          <td class="text-center">{{demande.commande.taxes.taxeTotale}} €</td>
+          <td>
+            <strong>Taxes fiscales carte grise </strong>
+            <br>Démarche : {{demande.commande.demarche.nom}} 
+            <br>Département de résidence : {{demande.commande.codePostal}} 
+            <br>Numéro d'immatriculation : {{demande.commande.immatriculation}} 
+            <br>VIN : {{demande.commande.taxes.VIN}} 
+            <br>Modèle : {{demande.commande.carInfo.model}} 
+            <br>Marque : {{demande.commande.carInfo.marque}} 
+            <br>Département plaque : {{demande.commande.codePostal}} 
+        </td>
+          <td class="text-center"><strong>{{demande.commande.taxes.taxeTotale}} €</strong></td>
+          <td class="text-center">0%</td>
+          <td class="text-center"><strong>0,00 €</strong></td>
+          <td class="text-center"><strong>{{demande.commande.taxes.taxeTotale}} €</strong></td>
         </tr>
         <tr>
-          <td>Frais de dossier <strong><small>(2)</small></strong></td>
-          <td class="text-center">{{fraisTotalTraitement(demande.commande)}} €</td>
-          <td class="text-center">{{tvaTraitement(demande.commande)}} €</td>
-          <td class="text-center">{{fraisTraitementWhithTva(demande.commande)}} €</td>
+          <td><strong>Frais de dossier</strong></td>
+          <td class="text-center"><strong>{{fraisTotalTraitement(demande.commande)}} €</strong></td>
+          <td class="text-center">20%</td>
+          <td class="text-center"><strong>{{tvaTraitement(demande.commande)}} €</strong></td>
+          <td class="text-center"><strong>{{fraisTraitementWhithTva(demande.commande)}} €</strong></td>
         </tr>
       </tbody>
-      <tfoot>
-        <tr>
-          <td><strong>Total TTC</strong></td>
-          <td></td>
-          <td></td>
-          <td class="text-center"><strong>{{total(demande.commande)}} €</strong></td>
-        </tr>
-      </tfoot>
     </table>
-    <p>
-      <small>(1) Non soumis TVA <br>
-      (2) Soumis TVA 20%</small>
-    </p>
     <br>
-    <br>
-
-    <p class="conditions">
-      En votre aimable règlement
-      <br>
-      Et avec nos remerciements.
-      <br><br>
-      Conditions de paiement : paiement à réception de facture, à 15 jours.
-      <br>
-      Aucun escompte consenti pour règlement anticipé.
-      <br>
-      Règlement par virement bancaire.
-      <br><br>
-      En cas de retard de paiement, indemnité forfaitaire pour frais de recouvrement : 40 euros (art. L.4413 et L.4416 code du commerce).
-    </p>
+    <div class="row">
+      <div class="col-7">
+        <p> Merci d’avoir fait confiance à CG Officiel </p>
+      </div>
+      <div class="col-5">
+        <table class="table table-md text-right table-active">
+            <tr>
+              <td><strong>Sous-total facture HT : </strong></td>
+              <td class="text-right"><strong>{{fraisTotal(demande.commande)}} €</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Total HT :</strong></td>
+              <td class="text-right"><strong>{{fraisTotal(demande.commande)}} €</strong></td>
+            </tr>
+          <tr>
+            <td><strong>TVA 20% :</strong></td>
+            <td class="text-right bg"><strong>{{tvaTraitement(demande.commande)}} €</strong></td>
+          </tr>
+          <tr class="table-active">
+            <td><strong>Total TTC :</strong></td>
+            <td class="text-right"><strong>{{total(demande.commande)}} €</strong></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <br><br>
 
     <hr>
     <p class="bottom-page text-right">
