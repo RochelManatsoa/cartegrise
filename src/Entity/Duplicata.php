@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\File\DemandeDuplicata;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +41,11 @@ class Duplicata
      * @ORM\OneToOne(targetEntity="App\Entity\Demande", inversedBy="duplicata", cascade={"persist", "remove"})
      */
     private $demande;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\File\DemandeDuplicata", inversedBy="demandeDuplicata", cascade={"persist", "remove"})
+     */
+    private $file;
 
     public function getId(): ?int
     {
@@ -90,6 +96,18 @@ class Duplicata
     public function setDemande(?Demande $demande): self
     {
         $this->demande = $demande;
+
+        return $this;
+    }
+
+    public function getFile(): ?DemandeDuplicata
+    {
+        return $this->file;
+    }
+
+    public function setFile(?DemandeDuplicata $file): self
+    {
+        $this->file = $file;
 
         return $this;
     }

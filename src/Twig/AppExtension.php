@@ -11,6 +11,7 @@ use App\Entity\Commande;
 use App\Repository\TarifsPrestationsRepository;
 use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager};
 use App\Utils\StatusTreatment;
+use App\Manager\DocumentAFournirManager;
 
 class AppExtension extends AbstractExtension
 {
@@ -20,13 +21,15 @@ class AppExtension extends AbstractExtension
     private $taxManager;
     private $fraisTreatmentManager;
     private $statusManager;
+    private $documentAFournirManager;
     public function __construct(
         UserManager $userManager, 
         StatusTreatment $statusTreatment,
         TarifsPrestationsRepository $prestation,
         TaxesManager $taxManager, 
         FraisTreatmentManager $fraisTreatmentManager,
-        StatusManager $statusManager
+        StatusManager $statusManager,
+        DocumentAFournirManager $documentAFournirManager
     )
     {
         $this->userManager     = $userManager;
@@ -35,6 +38,7 @@ class AppExtension extends AbstractExtension
         $this->taxManager = $taxManager;
         $this->fraisTreatmentManager = $fraisTreatmentManager;
         $this->statusManager = $statusManager;
+        $this->documentAFournirManager = $documentAFournirManager;
     }
     public function getFunctions()
     {
@@ -48,6 +52,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('total', [$this, 'total']),
             new TwigFunction('fraisTraitementWhithTva', [$this, 'fraisTraitementWhithTva']),
             new TwigFunction('statusOfCommande', [$this, 'statusOfCommande']),
+            new TwigFunction('checkFile', [$this, 'checkFile']),
         ];
     }
 
@@ -151,5 +156,10 @@ class AppExtension extends AbstractExtension
     {
 
         return $this->fraisTreatmentManager->total($commande);
+    }
+
+    public function checkFile($entity, $name)
+    {
+        return $this->documentAFournirManager->checkFile($entity, $name);
     }
 }

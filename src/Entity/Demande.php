@@ -114,12 +114,6 @@ class Demande
      */
     private $cerfa_path;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\File\Files", mappedBy="demande")
-     * @ORM\JoinColumn()
-     */
-    private $files;
-
     public function __toString()
     {
         // return $this->typeDemande;
@@ -359,6 +353,11 @@ class Demande
     {
 
         return $this->getGeneratedCerfaPath().'/cerfa.pdf';
+    }
+
+    public function getUploadPath()
+    {
+        return $this->getGeneratedCerfaPath();
     }
 
     public function getCerfa64(): ?string

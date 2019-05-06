@@ -1,0 +1,19 @@
+{{ form_start(form) }}
+    {% for col in form %}
+        {% if col.vars.type is defined and col.vars.type == 'file' %}
+            <div>
+                <h4>{{ form_label(col) }}
+                    {% if checkFile(files, col.vars.name) != "" %}
+                        <small>
+                            <a href="{{ asset(checkFile(files, col.vars.name)) }}" target="_blank">{{ col.vars.name }}</a>
+                        </small>
+                    {% endif %}
+                </h4>
+            </div>
+            <div>{{ form_errors(col) }}</div>
+            <div>{{ form_widget(col) }}</div>
+        {% endif %}
+        <hr>
+    {% endfor %}
+    {{ form_rest(form)}}
+{{ form_end(form)}}

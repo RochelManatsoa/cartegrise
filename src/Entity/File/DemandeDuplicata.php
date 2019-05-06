@@ -7,6 +7,7 @@
  */
 namespace App\Entity\File;
                                                                            
+use App\Entity\Duplicata;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
                 
@@ -115,6 +116,11 @@ class DemandeDuplicata
     * )
     */
     private $justificatifDomicile;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Duplicata", mappedBy="file")
+     */
+    private $demandeDuplicata;
 
     public function getId(): ?int
     {
@@ -261,6 +267,24 @@ class DemandeDuplicata
     public function setJustificatifDomicile(?string $justificatifDomicile): self
     {
         $this->justificatifDomicile = $justificatifDomicile;
+
+        return $this;
+    }
+
+    public function getDemandeDuplicata(): ?Duplicata
+    {
+        return $this->demandeDuplicata;
+    }
+
+    public function setDemandeDuplicata(?Duplicata $demandeDuplicata): self
+    {
+        $this->demandeDuplicata = $demandeDuplicata;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newFile = $demandeDuplicata === null ? null : $this;
+        if ($newFile !== $demandeDuplicata->getFile()) {
+            $demandeDuplicata->setFile($newFile);
+        }
 
         return $this;
     }

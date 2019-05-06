@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Demande;
 use App\Entity\Commande;
-use App\Manager\DemandeManager;
+use App\Manager\{DemandeManager, DocumentAFournirManager};
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,20 +81,29 @@ class DemandeController extends AbstractController
     public function daf
     (
         Demande $demande, 
-        DemandeManager $demandeManager
+        DemandeManager $demandeManager, 
+        DocumentAFournirManager $documentAFournirManager,
+        Request $request
     )
     {
         $daf = $demandeManager->getDossiersAFournir($demande);
         $pathCerfa = $demandeManager->generateCerfa($demande);
-        $files = new DemandeDuplicata();
+        $files = $documentAFournirManager->getDaf($demande);
+        $path = $demande->getUploadPath();
         $fileForm = $this->createForm(DemandeDuplicataType::class, $files);
+        $fileForm->handleRequest($request);
+
+        if ($fileForm->isSubmitted() && $fileForm->isValid()) {
+            $documentAFournirManager->handleForm($fileForm, $path)->save($fileForm);
+        }
 
         return $this->render('demande/dossiers_a_fournir.html.twig', [
-            'demande' => $demande,
-            'daf' => $daf,
+            'demande'   => $demande,
+            'daf'       => $daf,
             'pathCerfa' => $pathCerfa,
-            'form' => $fileForm->createView(),
-            'client' => $this->getUser()->getClient(),
+            'form'      => $fileForm->createView(),
+            'client'    => $this->getUser()->getClient(),
+            "files"     => $files,
         ]);
     }
 
