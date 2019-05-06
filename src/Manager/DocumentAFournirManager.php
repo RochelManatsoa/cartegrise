@@ -6,6 +6,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Demande;
 use App\Entity\File\DemandeDuplicata;
+use App\Form\DocumentDemande\DemandeDuplicataType;
 
 class DocumentAFournirManager
 {
@@ -22,8 +23,22 @@ class DocumentAFournirManager
         switch($demande->getCommande()->getDemarche()->getType()) {
             case "DUP":
                 return $this->getFileDup($demande);
+                break;
             default:
                 return null;
+                break;
+        }
+    }
+
+    public function getType(Demande $demande)
+    {
+        switch($demande->getCommande()->getDemarche()->getType()) {
+            case "DUP":
+                return DemandeDuplicataType::class;
+                break;
+            default:
+                return null;
+                break;
         }
     }
 

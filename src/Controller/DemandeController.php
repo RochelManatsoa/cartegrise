@@ -89,8 +89,11 @@ class DemandeController extends AbstractController
         $daf = $demandeManager->getDossiersAFournir($demande);
         $pathCerfa = $demandeManager->generateCerfa($demande);
         $files = $documentAFournirManager->getDaf($demande);
+        $fileType = $documentAFournirManager->getType($demande);
         $path = $demande->getUploadPath();
-        $fileForm = $this->createForm(DemandeDuplicataType::class, $files);
+        if ($fileType === null)
+            throw new \Exception('en cours de developpment');
+        $fileForm = $this->createForm($fileType, $files);
         $fileForm->handleRequest($request);
 
         if ($fileForm->isSubmitted() && $fileForm->isValid()) {
