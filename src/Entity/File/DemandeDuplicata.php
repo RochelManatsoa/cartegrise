@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
                 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\File\DemandeDuplicataType")
+ * @ORM\Entity(repositoryClass="App\Repository\File\DemandeDuplicataRepository")
  */
 class DemandeDuplicata
 {

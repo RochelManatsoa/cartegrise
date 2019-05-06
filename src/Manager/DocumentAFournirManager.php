@@ -5,8 +5,8 @@ namespace App\Manager;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Demande;
-use App\Entity\File\{DemandeDuplicata, DemandeIvn, DemandeCtvo};
-use App\Form\DocumentDemande\{DemandeDuplicataType, DemandeCtvoType, DemandeIvnType};
+use App\Entity\File\{DemandeDuplicata, DemandeIvn, DemandeCtvo, DemandeCession};
+use App\Form\DocumentDemande\{DemandeDuplicataType, DemandeCtvoType, DemandeCessionType};
 
 class DocumentAFournirManager
 {
@@ -30,6 +30,9 @@ class DocumentAFournirManager
             case "DIVN":
                 return $this->getFileDivn($demande);
                 break;
+            case "DC":
+                return $this->getFileDc($demande);
+                break;
             default:
                 return null;
                 break;
@@ -48,10 +51,24 @@ class DocumentAFournirManager
             case "DIVN":
                 return DemandeIvnType::class;
                 break;
+            case "DC":
+                return DemandeCessionType::class;
+                break;
             default:
                 return null;
                 break;
         }
+    }
+
+    public function getFileDc(Demande $demande) {
+        if ($demande->getCession()->getFile() == null ) {
+            $fileCession = new DemandeCession();
+            $demande->getCession()->setFile($fileCession);
+            $this->entityManager->persist($demande);
+            $this->entityManager->flush();
+        }
+
+        return $demande->getCession()->getFile();
     }
 
     public function getFileDivn(Demande $demande) {

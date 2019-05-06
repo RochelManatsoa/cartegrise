@@ -7,15 +7,16 @@
  */
 namespace App\Entity\File;
                                                                            
+use App\Entity\Cession;
 use App\Entity\Ctvo;
 use App\Entity\Duplicata;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
                 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\File\DemandeCtvoRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\File\DemandeCessionReporitory")
  */
-class DemandeCtvo
+class DemandeCession
 {
     /**
     * @ORM\ID
@@ -23,105 +24,21 @@ class DemandeCtvo
     * @ORM\Column(type="integer")
     */
     private $id;
-    /**
-    * @ORM\OneToOne(targetEntity="Files", inversedBy="demandeDuplicata")
-    */
-    private $files;
-    /**
-    * @ORM\Column(type="string", nullable=true)
-    * @Assert\File(
-    *     maxSize = "1024k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
-    * )
-    */
-    private $rectoVersoCarteGrise;
-    /**
-    * @ORM\Column(type="string", nullable=true)
-    * @Assert\File(
-    *     maxSize = "1024k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
-    * )
-    */
-    private $declatationCession;
-    /**
-    * @ORM\Column(type="string", nullable=true)
-    * @Assert\File(
-    *     maxSize = "1024k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
-    * )
-    */
-    private $demandeCertificat;
-    /**
-    * @ORM\Column(type="string", nullable=true)
-    * @Assert\File(
-    *     maxSize = "1024k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
-    * )
-    */
-    private $procurationManda;
-    /**
-    * @ORM\Column(type="string", nullable=true)
-    * @Assert\File(
-    *     maxSize = "1024k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
-    * )
-    */
-    private $pieceIdentite;
-    /**
-    * @ORM\Column(type="string", nullable=true)
-    * @Assert\File(
-    *     maxSize = "1024k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
-    * )
-    */
-    private $copieControleTechnique;
-    /**
-    * @ORM\Column(type="string", nullable=true)
-    * @Assert\File(
-    *     maxSize = "1024k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
-    * )
-    */
-    private $recepiseDemandeAchat;
-    /**
-    * @ORM\Column(type="string", nullable=true)
-    * @Assert\File(
-    *     maxSize = "1024k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
-    * )
-    */
-    private $copieAttestationAssurance;
-    /**
-    * @ORM\Column(type="string", nullable=true)
-    * @Assert\File(
-    *     maxSize = "1024k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
-    * )
-    */
-    private $copiePermisConduireTitulaire;
-    /**
-    * @ORM\Column(type="string", nullable=true)
-    * @Assert\File(
-    *     maxSize = "1024k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
-    * )
-    */
-    private $justificatifDomicile;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", mappedBy="file")
+    * @ORM\Column(type="string", nullable=true)
+    * @Assert\File(
+    *     maxSize = "1024k",
+    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypesMessage = "Please upload a valid PDF"
+    * )
+    */
+    private $formulaireCerfaRemplis;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Cession", mappedBy="file")
      */
-    private $ctvo;
+    private $cession;
 
     public function getId(): ?int
     {
@@ -285,6 +202,36 @@ class DemandeCtvo
         $newFile = $ctvo === null ? null : $this;
         if ($newFile !== $ctvo->getFile()) {
             $ctvo->setFile($newFile);
+        }
+
+        return $this;
+    }
+
+    public function getFormulaireCerfaRemplis(): ?string
+    {
+        return $this->formulaireCerfaRemplis;
+    }
+
+    public function setFormulaireCerfaRemplis(?string $formulaireCerfaRemplis): self
+    {
+        $this->formulaireCerfaRemplis = $formulaireCerfaRemplis;
+
+        return $this;
+    }
+
+    public function getCession(): ?Cession
+    {
+        return $this->cession;
+    }
+
+    public function setCession(?Cession $cession): self
+    {
+        $this->cession = $cession;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newFile = $cession === null ? null : $this;
+        if ($newFile !== $cession->getFile()) {
+            $cession->setFile($newFile);
         }
 
         return $this;
