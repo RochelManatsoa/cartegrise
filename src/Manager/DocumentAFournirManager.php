@@ -5,8 +5,8 @@ namespace App\Manager;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Demande;
-use App\Entity\File\{DemandeDuplicata, DemandeIvn, DemandeCtvo, DemandeCession};
-use App\Form\DocumentDemande\{DemandeDuplicataType, DemandeCtvoType, DemandeCessionType};
+use App\Entity\File\{DemandeDuplicata, DemandeIvn, DemandeCtvo, DemandeCession, DemandeChangementAdresse};
+use App\Form\DocumentDemande\{DemandeDuplicataType, DemandeCtvoType, DemandeIvnType, DemandeCessionType, DemandeChangementAdresseType};
 
 class DocumentAFournirManager
 {
@@ -33,6 +33,9 @@ class DocumentAFournirManager
             case "DC":
                 return $this->getFileDc($demande);
                 break;
+            case "DCA":
+                return $this->getFileDca($demande);
+                break;
             default:
                 return null;
                 break;
@@ -54,10 +57,24 @@ class DocumentAFournirManager
             case "DC":
                 return DemandeCessionType::class;
                 break;
+            case "DCA":
+                return DemandeChangementAdresseType::class;
+                break;
             default:
                 return null;
                 break;
         }
+    }
+
+    public function getFileDca(Demande $demande) {
+        if ($demande->getChangementAdresse()->getFile() == null ) {
+            $fileCession = new DemandeChangementAdresse();
+            $demande->getChangementAdresse()->setFile($fileCession);
+            $this->entityManager->persist($demande);
+            $this->entityManager->flush();
+        }
+
+        return $demande->getChangementAdresse()->getFile();
     }
 
     public function getFileDc(Demande $demande) {
