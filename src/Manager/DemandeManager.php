@@ -193,7 +193,6 @@ class DemandeManager
     public function getDossiersAFournir(Demande $demande)
     {
         $typeDemande = $demande->getCommande()->getDemarche()->getType();
-        $typeDemande = TypeDemande::TYPE_CTVO;
 
         if (in_array($typeDemande, TypeDemande::TYPE_CHOICES)) {
             return $this->translator->trans('type_demande.daf.' . strtolower($typeDemande));

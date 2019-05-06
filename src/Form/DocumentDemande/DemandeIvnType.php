@@ -12,31 +12,23 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Entity\File\DemandeDuplicata;
+use App\Entity\File\DemandeIvn;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-class DemandeDuplicataType extends AbstractType
+class DemandeIvnType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('rectoVersoCarteGrise', FileType::class, [
+        ->add('originalCertificatConformiteEuropeen', FileType::class, [
             "required" => false,
             "data_class" => null,
         ])
-        ->add('certificatImmatriculation', FileType::class, [
-            "required" => false,
-            "data_class" => null,
-        ])
-        ->add('declarationdePerteOuVol', FileType::class, [
-            "required" => false,
-            "data_class" => null,
-        ])
-        ->add('copieControleTechniqueEnCoursValidite', FileType::class, [
+        ->add('certificatVenteOriginalFactureAchat', FileType::class, [
             "required" => false,
             "data_class" => null,
         ])
@@ -48,7 +40,19 @@ class DemandeDuplicataType extends AbstractType
             "required" => false,
             "data_class" => null,
         ])
-        ->add('permisDeConduireDuTitulaire', FileType::class, [
+        ->add('copiePermisConduireTitulaire', FileType::class, [
+            "required" => false,
+            "data_class" => null,
+        ])
+        ->add('demandeOriginalCertificatImmatriculation', FileType::class, [
+            "required" => false,
+            "data_class" => null,
+        ])
+        ->add('procurationParMandat', FileType::class, [
+            "required" => false,
+            "data_class" => null,
+        ])
+        ->add('justificatifDomicileRecent', FileType::class, [
             "required" => false,
             "data_class" => null,
         ])
@@ -60,7 +64,7 @@ class DemandeDuplicataType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => DemandeDuplicata::class,
+            'data_class' => DemandeIvn::class,
         ]);
     }
 }

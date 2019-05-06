@@ -31,7 +31,9 @@
             </a>
         </div>
         <div class="">
-            {% include 'demande/file/DemandeDuplicata.html.twig' %}
+            {% if form is not null %}
+                {% include 'demande/file/DemandeDuplicata.html.twig' %}
+            {% endif %}
         </div>
         <hr>
         <div class="pl-4 mb-3 mb-md-0">

@@ -5,8 +5,8 @@ namespace App\Manager;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Demande;
-use App\Entity\File\DemandeDuplicata;
-use App\Form\DocumentDemande\DemandeDuplicataType;
+use App\Entity\File\{DemandeDuplicata, DemandeIvn, DemandeCtvo};
+use App\Form\DocumentDemande\{DemandeDuplicataType, DemandeCtvoType, DemandeIvnType};
 
 class DocumentAFournirManager
 {
@@ -24,6 +24,12 @@ class DocumentAFournirManager
             case "DUP":
                 return $this->getFileDup($demande);
                 break;
+            case "CTVO":
+                return $this->getFileCtvo($demande);
+                break;
+            case "DIVN":
+                return $this->getFileDivn($demande);
+                break;
             default:
                 return null;
                 break;
@@ -36,10 +42,38 @@ class DocumentAFournirManager
             case "DUP":
                 return DemandeDuplicataType::class;
                 break;
+            case "CTVO":
+                return DemandeCtvoType::class;
+                break;
+            case "DIVN":
+                return DemandeIvnType::class;
+                break;
             default:
                 return null;
                 break;
         }
+    }
+
+    public function getFileDivn(Demande $demande) {
+        if ($demande->getDivn()->getFile() == null ) {
+            $fileDivn = new DemandeIvn();
+            $demande->getDivn()->setFile($fileDivn);
+            $this->entityManager->persist($demande);
+            $this->entityManager->flush();
+        }
+
+        return $demande->getDivn()->getFile();
+    }
+
+    public function getFileCtvo(Demande $demande) {
+        if ($demande->getCtvo()->getFile() == null ) {
+            $fileCtvo = new DemandeCtvo();
+            $demande->getCtvo()->setFile($fileCtvo);
+            $this->entityManager->persist($demande);
+            $this->entityManager->flush();
+        }
+
+        return $demande->getCtvo()->getFile();
     }
 
     public function getFileDup(Demande $demande) {

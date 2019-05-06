@@ -12,14 +12,14 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Entity\File\DemandeDuplicata;
+use App\Entity\File\DemandeCtvo;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-class DemandeDuplicataType extends AbstractType
+class DemandeCtvoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -28,27 +28,39 @@ class DemandeDuplicataType extends AbstractType
             "required" => false,
             "data_class" => null,
         ])
-        ->add('certificatImmatriculation', FileType::class, [
+        ->add('declatationCession', FileType::class, [
             "required" => false,
             "data_class" => null,
         ])
-        ->add('declarationdePerteOuVol', FileType::class, [
+        ->add('demandeCertificat', FileType::class, [
             "required" => false,
             "data_class" => null,
         ])
-        ->add('copieControleTechniqueEnCoursValidite', FileType::class, [
+        ->add('procurationManda', FileType::class, [
             "required" => false,
             "data_class" => null,
         ])
-        ->add('pieceIdentiteValid', FileType::class, [
+        ->add('pieceIdentite', FileType::class, [
             "required" => false,
             "data_class" => null,
         ])
-        ->add('copieAttestationAssuranceValide', FileType::class, [
+        ->add('copieControleTechnique', FileType::class, [
             "required" => false,
             "data_class" => null,
         ])
-        ->add('permisDeConduireDuTitulaire', FileType::class, [
+        ->add('recepiseDemandeAchat', FileType::class, [
+            "required" => false,
+            "data_class" => null,
+        ])
+        ->add('copieAttestationAssurance', FileType::class, [
+            "required" => false,
+            "data_class" => null,
+        ])
+        ->add('copiePermisConduireTitulaire', FileType::class, [
+            "required" => false,
+            "data_class" => null,
+        ])
+        ->add('justificatifDomicile', FileType::class, [
             "required" => false,
             "data_class" => null,
         ])
@@ -60,7 +72,7 @@ class DemandeDuplicataType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => DemandeDuplicata::class,
+            'data_class' => DemandeCtvo::class,
         ]);
     }
 }

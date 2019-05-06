@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\File\DemandeCtvo;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -36,6 +37,11 @@ class Ctvo
      * @ORM\OneToMany(targetEntity="App\Entity\Cotitulaires", mappedBy="ctvo", cascade={"persist"})
      */
     private $cotitulaire;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\File\DemandeCtvo", inversedBy="ctvo", cascade={"persist", "remove"})
+     */
+    private $file;
 
     public function __construct()
     {
@@ -114,6 +120,18 @@ class Ctvo
     public function countCotitulaire()
     {
         return count($this->cotitulaire);
+    }
+
+    public function getFile(): ?DemandeCtvo
+    {
+        return $this->file;
+    }
+
+    public function setFile(?DemandeCtvo $file): self
+    {
+        $this->file = $file;
+
+        return $this;
     }
 
 }

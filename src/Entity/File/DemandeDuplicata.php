@@ -22,10 +22,7 @@ class DemandeDuplicata
     * @ORM\Column(type="integer")
     */
     private $id;
-    /**
-    * @ORM\OneToOne(targetEntity="Files", inversedBy="demandeDuplicata")
-    */
-    private $files;
+
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Assert\File(
@@ -35,6 +32,7 @@ class DemandeDuplicata
     * )
     */
     private $rectoVersoCarteGrise;
+
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Assert\File(
@@ -43,7 +41,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $declatationCession;
+    private $certificatImmatriculation;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Assert\File(
@@ -52,7 +50,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $demandeCertificat;
+    private $declarationdePerteOuVol;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Assert\File(
@@ -61,7 +59,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $procurationManda;
+    private $copieControleTechniqueEnCoursValidite;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Assert\File(
@@ -70,7 +68,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $pieceIdentite;
+    private $pieceIdentiteValid;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Assert\File(
@@ -79,7 +77,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $copieControleTechnique;
+    private $copieAttestationAssuranceValide;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Assert\File(
@@ -88,34 +86,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $recepiseDemandeAchat;
-    /**
-    * @ORM\Column(type="string", nullable=true)
-    * @Assert\File(
-    *     maxSize = "1024k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
-    * )
-    */
-    private $copieAttestationAssurance;
-    /**
-    * @ORM\Column(type="string", nullable=true)
-    * @Assert\File(
-    *     maxSize = "1024k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
-    * )
-    */
-    private $copiePermisConduireTitulaire;
-    /**
-    * @ORM\Column(type="string", nullable=true)
-    * @Assert\File(
-    *     maxSize = "1024k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
-    * )
-    */
-    private $justificatifDomicile;
+    private $permisDeConduireDuTitulaire;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Duplicata", mappedBy="file")
@@ -125,30 +96,6 @@ class DemandeDuplicata
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getRectoVerso()
-    {
-        return $this->rectoVerso;
-    }
-
-    public function setRectoVerso($rectoVerso): self
-    {
-        $this->rectoVerso = $rectoVerso;
-
-        return $this;
-    }
-
-    public function getFiles(): ?Files
-    {
-        return $this->files;
-    }
-
-    public function setFiles(?Files $files): self
-    {
-        $this->files = $files;
-
-        return $this;
     }
 
     public function getRectoVersoCarteGrise(): ?string
@@ -163,110 +110,74 @@ class DemandeDuplicata
         return $this;
     }
 
-    public function getDeclatationCession(): ?string
+    public function getCertificatImmatriculation(): ?string
     {
-        return $this->declatationCession;
+        return $this->certificatImmatriculation;
     }
 
-    public function setDeclatationCession(?string $declatationCession): self
+    public function setCertificatImmatriculation(?string $certificatImmatriculation): self
     {
-        $this->declatationCession = $declatationCession;
+        $this->certificatImmatriculation = $certificatImmatriculation;
 
         return $this;
     }
 
-    public function getDemandeCertificat(): ?string
+    public function getDeclarationdePerteOuVol(): ?string
     {
-        return $this->demandeCertificat;
+        return $this->declarationdePerteOuVol;
     }
 
-    public function setDemandeCertificat(?string $demandeCertificat): self
+    public function setDeclarationdePerteOuVol(?string $declarationdePerteOuVol): self
     {
-        $this->demandeCertificat = $demandeCertificat;
+        $this->declarationdePerteOuVol = $declarationdePerteOuVol;
 
         return $this;
     }
 
-    public function getProcurationManda(): ?string
+    public function getCopieControleTechniqueEnCoursValidite(): ?string
     {
-        return $this->procurationManda;
+        return $this->copieControleTechniqueEnCoursValidite;
     }
 
-    public function setProcurationManda(?string $procurationManda): self
+    public function setCopieControleTechniqueEnCoursValidite(?string $copieControleTechniqueEnCoursValidite): self
     {
-        $this->procurationManda = $procurationManda;
+        $this->copieControleTechniqueEnCoursValidite = $copieControleTechniqueEnCoursValidite;
 
         return $this;
     }
 
-    public function getPieceIdentite(): ?string
+    public function getPieceIdentiteValid(): ?string
     {
-        return $this->pieceIdentite;
+        return $this->pieceIdentiteValid;
     }
 
-    public function setPieceIdentite(?string $pieceIdentite): self
+    public function setPieceIdentiteValid(?string $pieceIdentiteValid): self
     {
-        $this->pieceIdentite = $pieceIdentite;
+        $this->pieceIdentiteValid = $pieceIdentiteValid;
 
         return $this;
     }
 
-    public function getCopieControleTechnique(): ?string
+    public function getCopieAttestationAssuranceValide(): ?string
     {
-        return $this->copieControleTechnique;
+        return $this->copieAttestationAssuranceValide;
     }
 
-    public function setCopieControleTechnique(?string $copieControleTechnique): self
+    public function setCopieAttestationAssuranceValide(?string $copieAttestationAssuranceValide): self
     {
-        $this->copieControleTechnique = $copieControleTechnique;
+        $this->copieAttestationAssuranceValide = $copieAttestationAssuranceValide;
 
         return $this;
     }
 
-    public function getRecepiseDemandeAchat(): ?string
+    public function getPermisDeConduireDuTitulaire(): ?string
     {
-        return $this->recepiseDemandeAchat;
+        return $this->permisDeConduireDuTitulaire;
     }
 
-    public function setRecepiseDemandeAchat(?string $recepiseDemandeAchat): self
+    public function setPermisDeConduireDuTitulaire(?string $permisDeConduireDuTitulaire): self
     {
-        $this->recepiseDemandeAchat = $recepiseDemandeAchat;
-
-        return $this;
-    }
-
-    public function getCopieAttestationAssurance(): ?string
-    {
-        return $this->copieAttestationAssurance;
-    }
-
-    public function setCopieAttestationAssurance(?string $copieAttestationAssurance): self
-    {
-        $this->copieAttestationAssurance = $copieAttestationAssurance;
-
-        return $this;
-    }
-
-    public function getCopiePermisConduireTitulaire(): ?string
-    {
-        return $this->copiePermisConduireTitulaire;
-    }
-
-    public function setCopiePermisConduireTitulaire(?string $copiePermisConduireTitulaire): self
-    {
-        $this->copiePermisConduireTitulaire = $copiePermisConduireTitulaire;
-
-        return $this;
-    }
-
-    public function getJustificatifDomicile(): ?string
-    {
-        return $this->justificatifDomicile;
-    }
-
-    public function setJustificatifDomicile(?string $justificatifDomicile): self
-    {
-        $this->justificatifDomicile = $justificatifDomicile;
+        $this->permisDeConduireDuTitulaire = $permisDeConduireDuTitulaire;
 
         return $this;
     }

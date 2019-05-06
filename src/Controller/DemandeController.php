@@ -91,20 +91,21 @@ class DemandeController extends AbstractController
         $files = $documentAFournirManager->getDaf($demande);
         $fileType = $documentAFournirManager->getType($demande);
         $path = $demande->getUploadPath();
-        if ($fileType === null)
-            throw new \Exception('en cours de developpment');
-        $fileForm = $this->createForm($fileType, $files);
-        $fileForm->handleRequest($request);
+        $fileForm = null;
+        if (!null == $fileType) {
+            $fileForm = $this->createForm($fileType, $files);
+            $fileForm->handleRequest($request);
 
-        if ($fileForm->isSubmitted() && $fileForm->isValid()) {
-            $documentAFournirManager->handleForm($fileForm, $path)->save($fileForm);
+            if ($fileForm->isSubmitted() && $fileForm->isValid()) {
+                $documentAFournirManager->handleForm($fileForm, $path)->save($fileForm);
+            }
         }
 
         return $this->render('demande/dossiers_a_fournir.html.twig', [
             'demande'   => $demande,
             'daf'       => $daf,
             'pathCerfa' => $pathCerfa,
-            'form'      => $fileForm->createView(),
+            'form'      => is_null($fileForm) ? null :$fileForm->createView(),
             'client'    => $this->getUser()->getClient(),
             "files"     => $files,
         ]);
