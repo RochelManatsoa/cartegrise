@@ -1,6 +1,7 @@
 framework:
     templating:
         engine: ['twig','php']
+    trusted_hosts:  ['^cgofficiel\.com$', '^cgofficiel\.fr$']
 
     secret: '%env(APP_SECRET)%'
     #default_locale: en
