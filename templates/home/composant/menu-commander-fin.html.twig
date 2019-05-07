@@ -4,7 +4,7 @@
 
 		{% for demarche in demarches %}
 			<div class="col-12 col-sm-6 col-lg-6">
-				<button type="button" data-toggle="modal" onclick="$('#{{demarche.type}}').modal('toggle');"data-target="#{{demarche.type}}" class="row col-10 mx-auto menu-commander  d-flex align-items-center justify-content-center my-flex-container">
+				<button type="button" data-toggle="modal" data-target="#{{demarche.type}}" class="row col-10 mx-auto menu-commander  d-flex align-items-center justify-content-center my-flex-container">
 					<span class="col-4 menu-commander--button---icon d-flex flex-row justify-content-center my-flex-container mt-3 mb-3">
 						<i class="fas fa-3x fa-clone"></i>
 					</span>
