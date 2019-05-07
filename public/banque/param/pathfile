@@ -8,28 +8,28 @@
 #
 #
 #-------------------------------------------------------------------------
-# Activation (YES) / Désactivation (NO) du mode DEBUG
+# Activation (YES) / DÃ©sactivation (NO) du mode DEBUG
 #-------------------------------------------------------------------------
 #
 DEBUG!NO!
 #
 # ------------------------------------------------------------------------
-# Chemin vers le répertoire des logos depuis le web alias  
-# Exemple pour le répertoire www.merchant.com/sherlocks/payment/logo/
+# Chemin vers le rÃ©pertoire des logos depuis le web alias  
+# Exemple pour le rÃ©pertoire www.merchant.com/sherlocks/payment/logo/
 # indiquer:
 # ------------------------------------------------------------------------
 #
 D_LOGO!logo/!
 #
 # --------------------------------------------------------------------------
-#  Fichiers paramètres liés a l'api sherlocks paiement	
+#  Fichiers paramÃ¨tres liÃ©s a l'api sherlocks paiement	
 # --------------------------------------------------------------------------
 #
-# fichier des  paramètres sherlocks
+# fichier des  paramÃ¨tres sherlocks
 #
 F_DEFAULT!/var/www/html/front/projectCG/public/banque/param/parmcom.sherlocks!
 #
-# fichier paramètre commercant
+# fichier paramÃ¨tre commercant
 #
 F_PARAM!/var/www/html/front/projectCG/public/banque/param/parmcom!
 #

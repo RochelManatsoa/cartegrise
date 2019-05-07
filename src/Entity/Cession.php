@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\File\DemandeCession;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CessionRepository")
@@ -32,9 +34,15 @@ class Cession
     private $acquerreur;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
+     * @Assert\NotNull(message="Vous devez informer la date de cession")
      */
     private $dateCession;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\File\DemandeCession", inversedBy="cession", cascade={"persist", "remove"})
+     */
+    private $file;
 
     public function getId(): ?int
     {
@@ -85,6 +93,18 @@ class Cession
     public function setDateCession(?\DateTimeInterface $dateCession): self
     {
         $this->dateCession = $dateCession;
+
+        return $this;
+    }
+
+    public function getFile(): ?DemandeCession
+    {
+        return $this->file;
+    }
+
+    public function setFile(?DemandeCession $file): self
+    {
+        $this->file = $file;
 
         return $this;
     }

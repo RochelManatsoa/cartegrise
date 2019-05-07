@@ -9,6 +9,7 @@ RUN apt-get install -y vim git libzip-dev zlib1g-dev zip unzip nano
 # Install php extensions
 RUN docker-php-ext-configure zip --with-libzip
 RUN docker-php-ext-install pdo pdo_mysql zip opcache
+RUN apt-get install -y libxml2-dev
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

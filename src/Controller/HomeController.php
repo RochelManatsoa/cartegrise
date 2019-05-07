@@ -10,6 +10,7 @@ use App\Form\DemandeType;
 use App\Form\CommandeType;
 use App\Repository\CommandeRepository;
 use App\Repository\TaxesRepository;
+use App\Repository\TarifsPrestationsRepository;
 use App\Repository\DemandeRepository;
 use App\Repository\TypeDemandeRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -18,6 +19,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Manager\SessionManager;
+use App\Services\Tms\TmsClient;
+use App\Manager\CommandeManager;
+use App\Manager\TaxesManager;
+use App\Manager\CarInfoManager;
 
 
 class HomeController extends AbstractController
@@ -30,132 +35,86 @@ class HomeController extends AbstractController
         TypeDemandeRepository $demarche,
         ObjectManager $manager,
         TaxesRepository $taxesRepository,
+        TarifsPrestationsRepository $prestation,
         CommandeRepository $commandeRepository,
-        SessionManager $sessionManager
+        SessionManager $sessionManager,
+        TmsClient $tmsClient,
+        CommandeManager $commandeManager,
+        CarInfoManager $carInfoManager,
+        TaxesManager $taxesManager
         )
-    {
+    {   
+        $commande = $commandeManager->createCommande();
 
-        // dump($this->getUser()->getClient()->getCountDem());die;
-        
-        $commande = new Commande();
         $type = $demarche->findAll();
-        foreach($type as $typeId){
+        foreach($type as $typeId) {
             $defaultType = $demarche->find($typeId->getId());            
-            $form = $this->createForm(CommandeType::class, $commande , array(
-                'defaultType'=>$defaultType)
-            );
+            $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType]);
             $num = $typeId->getId();
-            $tabForm[$num]=$form->createView();
+            $tabForm[$num] = $form->createView();
         }
 
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $ifCommande = $commandeRepository->findOneBy([
                 'immatriculation' => $commande->getImmatriculation(),
                 'codePostal' => $commande->getCodePostal(),
                 'demarche' => $commande->getDemarche(),
             ]);
             $sessionManager->initSession();
-            if($ifCommande !== null){
-                $recapCommand = $ifCommande;
-                $param = $this->getParamHome($recapCommand, $sessionManager, $tabForm);
+            if (!is_null($ifCommande)) {
+                $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
 
                 return $this->render('home/accueil.html.twig', $param);
             } else {
-                $TMS_URL = "http://test.misiv.intra.misiv.fr/wsdl/ws_interface.php?v=2";
-                $TMS_CodeTMS = "31-000100";
-                $TMS_Login = "JE@n-Y100";
-                $TMS_Password = "GY-31@mLA";
-                $TMS_Immatriculation = $commande->getImmatriculation();
-                $client = new \SoapClient($TMS_URL);
-                $Ident = array("CodeTMS"=>$TMS_CodeTMS, "Login"=>$TMS_Login, "Password"=>$TMS_Password);
-                $type_demarche = $commande->getDemarche();
-                $code_postal = $commande->getCodePostal();
-                $immatr = $commande->getImmatriculation();
-                $date_demarche = new \Datetime();
-                $commande->setDemarche($type_demarche)
-                        ->setImmatriculation($immatr)
-                        ->setCodePostal($code_postal)
-                        ->setCeerLe($date_demarche);
-                $manager->persist($commande);
-                // set and get session attributes 
-                $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
-                // end treatment session
+                $tmsResponse = $commandeManager->tmsEnvoyer($commande);
+                $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
 
-                $Vehicule = array("Immatriculation" => $immatr, "Departement" => $code_postal);
-                $DateDemarche = date('Y-m-d H:i:s');
-                $ECG = array("ID" => "", "TypeDemarche" => "ECGAUTO", "DateDemarche" => $DateDemarche, "Vehicule" => $Vehicule);
-                $Demarche = array("ECGAUTO" => $ECG);
-                $Lot = array("Demarche" => $Demarche);
-                $params = array("Identification"=>$Ident, "Lot" => $Lot);
-                $Immat = array("Immatriculation"=>$TMS_Immatriculation);
-                $params = array("Identification"=>$Ident, "Lot" => $Lot);
-                $value = $client->Envoyer($params);
-                // dump($value);die;
-
-                if(isset($value->Lot->Demarche->ECGAUTO->Reponse->Negative->Erreur)){
-                    return new Response(
-                        '<html><body><h1>'.$value->Lot->Demarche->ECGAUTO->Reponse->Negative->Erreur.'</h1></body></html>'
-                        );
-                } else {                   
-
-                    $taxe = new Taxes();
-                    $taxe->setTaxeRegionale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale)
-                        ->setTaxe35cv($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Taxe35cv)
-                        ->setTaxeParafiscale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeParafiscale)
-                        ->setTaxeCO2($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeCO2)
-                        ->setTaxeMalus($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeMalus)
-                        ->setTaxeSIV($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeSIV)
-                        ->setTaxeRedevanceSIV($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRedevanceSIV)
-                        ->setTaxeTotale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeTotale)
-                        ->setVIN($value->Lot->Demarche->ECGAUTO->Reponse->Positive->VIN)
-                        ->setCO2($value->Lot->Demarche->ECGAUTO->Reponse->Positive->CO2)
-                        ->setPuissance($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Puissance)
-                        ->setGenre($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Genre)
-                        ->setPTAC($value->Lot->Demarche->ECGAUTO->Reponse->Positive->PTAC)
-                        ->setEnergie($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Energie)
-                        ->setDateMEC(\DateTime::createFromFormat('Y-m-d', $value->Lot->Demarche->ECGAUTO->Reponse->Positive->DateMEC));
+                if (!$tmsResponse->isSuccessfull()) {
+                    return new Response($tmsResponse->getErrorMessage());
+                } else {
+                    $taxe = $taxesManager->createFromTmsResponse($tmsResponse);
+                    $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
                     $commande->setTaxes($taxe);
+                    $commande->setCarInfo($carInfo);
                     $manager->persist($commande);
                     $manager->persist($taxe);
+                    
                     $manager->flush();
-
-                    $value = $taxe;
                     $param = $this->getParamHome($commande, $sessionManager, $tabForm);
 
                     return $this->render('home/accueil.html.twig', $param);
                 }
             }
         }
-        if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
-                $user = $this->getUser();
-                $client = $user->getClient();
-                $genre = $client->getClientGenre();
 
-                return $this->render('home/accueil.html.twig', [
-                        'genre' => $genre,
-                        'client' => $client,
-                        'demarches' => $type,
-                        'tab' => $tabForm,
-                        'database' => false,
-                ]);
-        }
-        return $this->render('home/accueil.html.twig', [
+        $homeParams = [
             'demarches' => $type,
             'tab' => $tabForm,
             'database' => false,
-            ]);
+        ];
+
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $client = $this->getUser()->getClient();
+
+            $homeParams['genre'] = $client->getClientGenre();
+            $homeParams['client'] = $client;
+        }
+
+        return $this->render('home/accueil.html.twig', $homeParams);
     }
 
     private function getParamHome(Commande $commande, SessionManager $sessionManager, $tabForm)
     {
         $manager = $this->getDoctrine()->getManager();
-        $value = $commande->getTaxes();
+        $taxe = $commande->getTaxes();
+        $majoration = 0;
         $param = [
-            'commandes' => $commande, 'recap' => $commande,
-            'value' => $value,        'database' => true,
+            'commande' => $commande, 'recap' => $commande,
+            'taxe' => $taxe,        'database' => true,   'majoration' => $majoration,
         ];
-        if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             $param = array_merge([
                 'genre' => $this->getUser()->getClient()->getClientGenre(),
                 'client' => $this->getUser()->getClient(),
@@ -178,7 +137,7 @@ class HomeController extends AbstractController
      */
     public function demande(Request $request)
     {
-        if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             $user = $this->getUser();
             $client = $user->getClient();
             $genre = $client->getClientGenre();
@@ -197,7 +156,7 @@ class HomeController extends AbstractController
      */
     public function CommentCaMarche()
     {
-            if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
+            if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
                     $user = $this->getUser();
                     $client = $user->getClient();
                     $genre = $client->getClientGenre();
@@ -216,7 +175,7 @@ class HomeController extends AbstractController
      */
     public function faq()
     {
-        if($this->isGranted('IS_AUTHENTICATED_FULLY')){
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             $user = $this->getUser();
             $client = $user->getClient();
             $genre = $client->getClientGenre();
@@ -235,7 +194,7 @@ class HomeController extends AbstractController
 	 */
 	public function cgv()
 	{
-			if($this->isGranted('IS_AUTHENTICATED_FULLY')){
+			if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
 					$user = $this->getUser();
 					$client = $user->getClient();
 					$genre = $client->getClientGenre();
@@ -254,7 +213,7 @@ class HomeController extends AbstractController
 	 */
 	public function retractation()
 	{
-			if($this->isGranted('IS_AUTHENTICATED_FULLY')){
+			if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
 					$user = $this->getUser();
 					$client = $user->getClient();
 					$genre = $client->getClientGenre();
@@ -272,7 +231,7 @@ class HomeController extends AbstractController
      */
     public function contact()
     {
-        if($this->isGranted('IS_AUTHENTICATED_FULLY')){
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             $user = $this->getUser();
             $client = $user->getClient();
             $genre = $client->getClientGenre();
@@ -290,7 +249,7 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        if ($this->isGranted('IS_AUTHENTICATED_FULLY')){
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             $user = $this->getUser();
             $client = $user->getClient();
             $genre = $client->getClientGenre();
@@ -306,7 +265,7 @@ class HomeController extends AbstractController
 	/**
     * @Route("/dc", name="dc")
     */
-    public function dcdemande(){
+    public function dcdemande() {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
             $user = $this->getUser();
@@ -341,7 +300,7 @@ class HomeController extends AbstractController
     /**
     *@Route("/dc/checkout/{tmsId}", name="checkoutdc")
     */
-    public function chekoutDC($tmsId){
+    public function chekoutDC($tmsId) {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $user = $this->getUser();
@@ -351,7 +310,7 @@ class HomeController extends AbstractController
         $demande = $this->getDoctrine()
             ->getRepository(Demande::class)
             ->findOneBy(['client' => $idclient, 'typeDemande' => 'DC', 'TmsIdDemande' => $tmsId]);
-            if($demande == NULL){
+            if ($demande == NULL) {
                 return $this->redirectToRoute('dc');
             }
             else{
@@ -365,5 +324,21 @@ class HomeController extends AbstractController
                 ]);
             }
                
+    }
+
+    /**
+     *@Route("/tay", name="tay")
+     */
+    public function tay(CommandeManager $commandeManager)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $client = $this->getUser()->getClient();
+        $commande = $em->getRepository(Commande::class)->find(46);
+        $document = $commandeManager->editer($commande);
+
+        $decoded = \base64_decode($document->getRawData()->Document);
+        $file = 'CERFA.pdf';
+        $filefinal = file_put_contents($file, $decoded);
+        echo $file;die;
     }
 }

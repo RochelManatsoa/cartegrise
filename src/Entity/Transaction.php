@@ -24,12 +24,18 @@ class Transaction
     private $amount;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $status;
 
     /**
-     * @ORM\OneToOne(targetEntity="Demande", inversedBy="transaction")
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $transactionId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Demande")
+
      */
     private $demande;
 
@@ -50,18 +56,6 @@ class Transaction
         return $this;
     }
 
-    public function getStatus(): ?bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?bool $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
     public function getDemande(): ?Demande
     {
         return $this->demande;
@@ -70,6 +64,30 @@ class Transaction
     public function setDemande(?Demande $demande): self
     {
         $this->demande = $demande;
+
+        return $this;
+    }
+
+    public function getTransactionId(): ?string
+    {
+        return $this->transactionId;
+    }
+
+    public function setTransactionId(?string $transactionId): self
+    {
+        $this->transactionId = $transactionId;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

@@ -16,13 +16,41 @@ class AdresseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('numero', IntegerType::class, array('label' => 'Numero de Voie', 'required' => true))
-            ->add('nom', TextType::class, array('label' => 'Nom de la Voie', 'required' => true))
-            ->add('complement',  TextType::class, array('required' => false, 'attr' => array('placeholder' => 'Immeuble, Bâtiment, Résidence')))
-            ->add('codepostal', TextType::class, array('label' => 'Code Postal', 'required' => true))
-            ->add('ville', TextType::class, array('required' => true))
-            //->add('pays', CountryType::class, array('label' => 'Pays','required'=> false, 'preferred_choices' => array('FR'=>'France')))
-        ;
+            ->add('typevoie', ChoiceType::class, [
+                'choices'  => [
+                    '...' => "SANS",
+                    'Rue' => "RUE",
+                    'Boulevard' => "BLVD",
+                    'Avenue' => "AVN",
+                    'Allée' => "ALL",
+                    'Place' => "PLC",
+                    'Impasse' => "IMP",
+                    'Chemin' => "CHM",
+                    'Quai' => "QUAI",
+                    'Fort' => "FORT",
+                    'Route' => "RTE",
+                    'Passage' => "PASS",
+                    'Cour' => "COUR",
+                    'Chaussée' => "CHAU",
+                    'Parc' => "PARC",
+                    'Faubourg' => "FBG",
+                    'Lieu-Dit' => "LDIT",
+                    'Square' => "SQUA",
+                    'Sente' => "SENT",
+                ],
+                'label' => 'Type de Voie',         
+                ])
+            ->add('nom', TextType::class, array('label' => 'Nom de la voie'))
+            ->add('complement',  TextType::class, array(
+                'required' => false, 
+                'label'    => "Complément d'adresse",
+                'attr' => array(
+                    'placeholder' => 'lieu dit, numéro boîte aux lettres, nom de la résidence'
+                    )
+                ))
+            ->add('codepostal', TextType::class, array('label' => 'Code Postal'))
+            ->add('ville', TextType::class, array('label' => 'Ville'))
+           ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

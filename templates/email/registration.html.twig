@@ -1,12 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    hello {{name}}
+{% extends 'base.html.twig' %}
+
+{% block page_content %}
+    <div class="col-8">
+        <div >
+            <h1>
+                {{ "#{responses.response_code}" | statusMessage }}
+            </h1>
+        </div>
+        <div >
+            <table class="table-striped">
+                <tbody>
+                    <tr>
+                        <td>Référence de la transaction </td>
+                        <td>{{ responses.transaction_id }}</td>
+                    </tr>
+                    <tr>
+                        <td>Montant de la transaction </td>
+                        <td>{{ responses.amount | amount(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Numéro de la carte </td>
+                        <td>{{ responses.card_number | cardNumber(responses.card_validity) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Autorisation </td>
+                        <td>{{ responses.authorisation_id }}</td>
+                    </tr>
+                    <tr>
+                        <td>Certificat de la transaction </td>
+                        <td>{{ responses.payment_certificate }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>
+{% endblock %}

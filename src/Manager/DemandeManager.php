@@ -1,22 +1,31 @@
 <?php
 
+/*
+ * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
+ * @Date: 2019-04-17 13:14:01 
+ * @Last Modified by: Patrick << rapaelec@gmail.com >>
+ * @Last Modified time: 2019-04-18 14:58:11
+ */
 namespace App\Manager;
 
-use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Demande;
 use App\Entity\Commande;
+use App\Entity\Demande;
 use App\Entity\Transaction;
+use App\Entity\TypeDemande;
+use App\Entity\User;
 use App\Form\Demande\DemandeCtvoType;
 use App\Form\Demande\DemandeDivnType;
 use App\Form\Demande\DemandeCessionType;
 use App\Form\Demande\DemandeDuplicataType;
 use App\Form\Demande\DemandeChangementAdresseType;
+use App\Manager\TransactionManager;
+use App\Repository\DemandeRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
-use App\Entity\User;
-use App\Manager\TransactionManager;
-use App\Repository\DemandeRepository;
+use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Twig_Environment as Twig;
 
 class DemandeManager
@@ -26,13 +35,20 @@ class DemandeManager
     private $twig;
     private $repository;
     private $transactionManager;
+    private $translator;
+    private $commandeManager;
+    private $tokenStorage;
+
     public function __construct
     (
         EntityManagerInterface $em,
         FormFactoryInterface   $formFactory,
         Twig                   $twig,
         DemandeRepository      $repository,
-        TransactionManager     $transactionManager
+        TransactionManager     $transactionManager,
+        TranslatorInterface    $translator,
+        CommandeManager        $commandeManager,
+        TokenStorageInterface  $tokenStorage
     )
     {
         $this->em                 = $em;
@@ -40,6 +56,9 @@ class DemandeManager
         $this->twig               = $twig;
         $this->repository         = $repository;
         $this->transactionManager = $transactionManager;
+        $this->commandeManager    = $commandeManager;
+        $this->translator         = $translator;
+        $this->tokenStorage       = $tokenStorage;  
     }
 
     private function init()
@@ -50,7 +69,7 @@ class DemandeManager
     public function generateForm(Commande $commande)
     {
         $demande = $this->init();
-        $commande->addDemande($demande);
+        $commande->setDemande($demande);
         switch ($commande->getDemarche()->getType()) {
             case "CTVO":
                 $form = $this->formFactory->create(DemandeCtvoType::class, $demande);
@@ -80,6 +99,9 @@ class DemandeManager
     {
         $demande = $form->getData();
         $this->saveDemande($demande);
+
+        return $demande;
+
     }
 
     public function saveDemande(Demande $demande)
@@ -161,11 +183,68 @@ class DemandeManager
 
     public function checkPayment(Demande $demande)
     {
-        if (!$demande->getTransaction() instanceof Transaction) {
+        // if (!$demande->getTransaction() instanceof Transaction) {
             $transaction = $this->transactionManager->init();
             $demande->setTransaction($transaction);
+            $transaction->setDemande($demande);
             $this->saveDemande($demande);
-        } 
+        // } 
     }
 
+    public function getDossiersAFournir(Demande $demande)
+    {
+        $typeDemande = $demande->getCommande()->getDemarche()->getType();
+
+        if (in_array($typeDemande, TypeDemande::TYPE_CHOICES)) {
+            return $this->translator->trans('type_demande.daf.' . strtolower($typeDemande));
+        }
+
+        return '';
+    }
+
+    public function removeDemande(Demande $demande)
+    {
+        if ($duplicata = $demande->getDuplicata()) {
+            $duplicata->setDemande(null);
+            $demande->setDuplicata(null);
+            $this->em->flush();
+            $this->em->remove($duplicata);
+        }
+        if ($ctvo = $demande->getCtvo()) {
+            $this->em->remove($ctvo);
+        }
+        if ($changementAdresse = $demande->getChangementAdresse()) {
+            $this->em->remove($changementAdresse);
+        }
+
+        if ($commande = $demande->getCommande()) {
+            $commande->setDemande(null);
+            $this->em->flush();
+        }
+
+        $this->em->remove($demande);
+        $this->em->flush();
+    }
+
+    public function generateCerfa(Demande $demande)
+    {
+
+        $folder = $demande->getGeneratedCerfaPath();
+        $file = $demande->getGeneratedCerfaPathFile();
+        // create directory
+        // dump($folder);die;
+        if (!is_dir($folder)) mkdir($folder, 0777, true);
+        // end create file 
+        // get cerfa if not exist
+        if (!is_file($file)) { // attente de finalité du process
+            $cerfa = $this->commandeManager->editer($demande->getCommande());
+            if ($cerfa == false) {
+                return "#";
+            }
+            $decoded = \base64_decode($cerfa);
+            $filefinal = file_put_contents($file, $decoded);
+        }
+        
+        return $file;
+    }
 }

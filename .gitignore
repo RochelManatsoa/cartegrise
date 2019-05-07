@@ -2,8 +2,10 @@
 ###> symfony/framework-bundle ###
 /.env
 /public/bundles/
+/public/document/*
 /var/
 /vendor/
+.vscode/
 ###< symfony/framework-bundle ###
 
 ###> symfony/web-server-bundle ###

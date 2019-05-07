@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\File\Files;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Demande
 {
+    const DOC_DOWNLOAD = 'document/';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -24,7 +26,7 @@ class Demande
     private $opposeDemande;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Commande", inversedBy="demandes")
+     * @ORM\OneToOne(targetEntity="App\Entity\Commande", inversedBy="demande")
      * @ORM\JoinColumn(nullable=false)
      */
     private $commande;
@@ -50,7 +52,7 @@ class Demande
     private $progressionDemande;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=false)
      */
     private $dateDemande;
 
@@ -65,7 +67,7 @@ class Demande
     private $nomfic;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Fichier", mappedBy="demande")
+     * @ORM\OneToMany(targetEntity="App\Entity\Fichier", mappedBy="demande", cascade={"remove"})
      */
     private $fichiers;
 
@@ -81,23 +83,36 @@ class Demande
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Divn", mappedBy="demande", cascade={"persist", "remove"})
+     * @ORM\JoinColumn()
      */
     private $divn;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Cession", mappedBy="demande", cascade={"persist", "remove"})
+     * @ORM\JoinColumn()
      */
     private $cession;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", inversedBy="demande", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", mappedBy="demande", cascade={"persist", "remove"})
+     * @ORM\JoinColumn()
      */
     private $changementAdresse;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Transaction", mappedBy="demande", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Transaction", cascade={"persist", "remove"})
      */
     private $transaction;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $cerfa64;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $cerfa_path;
 
     public function __toString()
     {
@@ -240,18 +255,6 @@ class Demande
 
         return $this;
     }
-    
-    public function getCommande(): ?Commande
-    {
-        return $this->commande;
-    }
-
-    public function setCommande(?Commande $commande): self
-    {
-        $this->commande = $commande;
-
-        return $this;
-    }
 
     public function getCtvo(): ?Ctvo
     {
@@ -313,6 +316,74 @@ class Demande
         return $this;
     }
 
+    public function getTransaction(): ?Transaction
+    {
+        return $this->transaction;
+    }
+
+    public function setTransaction(?Transaction $transaction): self
+    {
+        $this->transaction = $transaction;
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(Commande $commande): self
+    {
+        $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getGeneratedCerfaPath(): ?string
+    {
+        $path = $this::DOC_DOWNLOAD . $this->id ."/".
+            $this->commande->getImmatriculation(). '-' .
+            $this->commande->getCodePostal();
+
+        return $path;
+    }
+
+    public function getGeneratedCerfaPathFile(): ?string
+    {
+
+        return $this->getGeneratedCerfaPath().'/cerfa.pdf';
+    }
+
+    public function getUploadPath()
+    {
+        return $this->getGeneratedCerfaPath();
+    }
+
+    public function getCerfa64(): ?string
+    {
+        return $this->cerfa64;
+    }
+
+    public function setCerfa64(?string $cerfa64): self
+    {
+        $this->cerfa64 = $cerfa64;
+
+        return $this;
+    }
+
+    public function getCerfaPath(): ?string
+    {
+        return $this->cerfa_path;
+    }
+
+    public function setCerfaPath(?string $cerfa_path): self
+    {
+        $this->cerfa_path = $cerfa_path;
+
+        return $this;
+    }
+
     public function getChangementAdresse(): ?ChangementAdresse
     {
         return $this->changementAdresse;
@@ -321,6 +392,24 @@ class Demande
     public function setChangementAdresse(?ChangementAdresse $changementAdresse): self
     {
         $this->changementAdresse = $changementAdresse;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newDemande = $changementAdresse === null ? null : $this;
+        if ($newDemande !== $changementAdresse->getDemande()) {
+            $changementAdresse->setDemande($newDemande);
+        }
+
+        return $this;
+    }
+
+    public function getFiles(): ?Files
+    {
+        return $this->files;
+    }
+
+    public function setFiles(?Files $files): self
+    {
+        $this->files = $files;
 
         return $this;
     }

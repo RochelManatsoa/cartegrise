@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Commande;
+use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -44,6 +45,17 @@ class CommandeRepository extends ServiceEntityRepository
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
+        ;
+    }
+    
+    public function findByCommandeByClient(Client $client)
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.client', 'client')
+            ->andWhere('client = :val')
+            ->setParameter('val', $client)
+            ->getQuery()
+            ->getResult()
         ;
     }
     

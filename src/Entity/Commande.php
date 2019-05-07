@@ -44,19 +44,24 @@ class Commande
     private $client;
 
     /**
-     * @ORM\OneToOne(targetEntity="Taxes", mappedBy="commande")
+     * @ORM\OneToOne(targetEntity="Taxes", mappedBy="commande", cascade={"all"})
      */
     private $taxes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="commande")
+     * @ORM\OneToOne(targetEntity="App\Entity\Demande", mappedBy="commande", cascade={"all"})
+     * @ORM\JoinColumn()
      */
-    private $demandes;
+    private $demande;
+
+    /**
+     * @ORM\OneToOne(targetEntity="CarInfo", mappedBy="commande", cascade={"persist", "remove"})
+     */
+    private $carInfo;
 
     public function __construct()
     {
         $this->client = new ArrayCollection();
-        $this->demandes = new ArrayCollection();
     }
 
     public function __tostring(){
@@ -117,7 +122,7 @@ class Commande
         return $this;
     }
 
-    public function getClient(): ?Client
+    public function getClient()
     {
         return $this->client;
     }
@@ -135,37 +140,6 @@ class Commande
     {
         if ($this->client->contains($client)) {
             $this->client->removeElement($client);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Demande[]
-     */
-    public function getDemandes(): Collection
-    {
-        return $this->demandes;
-    }
-
-    public function addDemande(Demande $demande): self
-    {
-        if (!$this->demandes->contains($demande)) {
-            $this->demandes[] = $demande;
-            $demande->setCommande($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDemande(Demande $demande): self
-    {
-        if ($this->demandes->contains($demande)) {
-            $this->demandes->removeElement($demande);
-            // set the owning side to null (unless already changed)
-            if ($demande->getCommande() === $this) {
-                $demande->setCommande(null);
-            }
         }
 
         return $this;
@@ -189,6 +163,35 @@ class Commande
         return $this;
     }
 
+    public function getCarInfo(): ?CarInfo
+    {
+        return $this->carInfo;
+    }
 
+    public function setCarInfo(?CarInfo $carInfo): self
+    {
+        $this->carInfo = $carInfo;
+        if ($carInfo instanceof CarInfo) {
+            $carInfo->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function getDemande(): ?Demande
+    {
+        return $this->demande;
+    }
+
+    public function setDemande(?Demande $demande): self
+    {
+        $this->demande = $demande;
+
+        if ($demande instanceof Demande) {
+            $demande->setCommande($this);
+        }
+
+        return $this;
+    }
 
 }

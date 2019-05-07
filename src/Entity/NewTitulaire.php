@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class NewTitulaire
 {
+    const TYPE_PERS_PHYSIQUE = 0;
+    const TYPE_PERS_MORALE   = 1;
+    const GENRE_M   = "M";
+    const GENRE_F   = "F";
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -19,22 +25,26 @@ class NewTitulaire
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Champs requis")
      */
     private $nomPrenomTitulaire;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Champs requis")
      */
     private $genre;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
+     * @Assert\NotNull(message="Champs requis")
      */
     private $dateN;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Champs requis")
      */
     private $lieuN;
 
@@ -45,9 +55,14 @@ class NewTitulaire
     private $adresseNewTitulaire;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", mappedBy="Acquerreur", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", mappedBy="acquerreur", cascade={"persist", "remove"})
      */
     private $ctvo;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Divn", mappedBy="acquerreur", cascade={"persist", "remove"})
+     */
+    private $divn;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", mappedBy="nouveauxTitulaire", cascade={"persist", "remove"})
@@ -83,6 +98,11 @@ class NewTitulaire
      * @ORM\OneToOne(targetEntity="App\Entity\Cession", mappedBy="acquerreur", cascade={"persist", "remove"})
      */
     private $cession;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenomTitulaire;
 
     public function __construct()
     {
@@ -308,6 +328,36 @@ class NewTitulaire
         if ($newTitulaire !== $adresseNewTitulaire->getTitulaire()) {
             $adresseNewTitulaire->setTitulaire($newTitulaire);
         }
+
+        return $this;
+    }
+
+    public function getDivn(): ?Divn
+    {
+        return $this->divn;
+    }
+
+    public function setDivn(?Divn $divn): self
+    {
+        $this->divn = $divn;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAcquerreur = $divn === null ? null : $this;
+        if ($newAcquerreur !== $divn->getAcquerreur()) {
+            $divn->setAcquerreur($newAcquerreur);
+        }
+
+        return $this;
+    }
+
+    public function getPrenomTitulaire(): ?string
+    {
+        return $this->prenomTitulaire;
+    }
+
+    public function setPrenomTitulaire(string $prenomTitulaire): self
+    {
+        $this->prenomTitulaire = $prenomTitulaire;
 
         return $this;
     }

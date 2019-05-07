@@ -21,9 +21,8 @@ class AncientitulaireType extends AbstractType
                     'Personne Morale' => "mor",
                 ),
             ))
-            ->add('raisonsociale', TextType::class, array('label'=>"Raison sociale", 'required'=>false))
+            ->add('raisonsociale', TextType::class, array('label'=>"Raison sociale"))
             ->add('nomprenom', TextType::class, array('label'=>"Nom et prénom(s) (*)"))
-            // ->add('demande')
         ;
     }
 

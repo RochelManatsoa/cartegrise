@@ -126,7 +126,7 @@ $rouge: rgb(175, 68, 68);
 	src: url("/../../asset/fonts/fontawesome-webfont.woff");
 }
 
-
+@import '_custom-form.scss';
 @import 'menu.scss';
 @import 'sidebar.scss';
 @import 'footer.scss';
@@ -150,4 +150,7 @@ $rouge: rgb(175, 68, 68);
 /*________________________________________________________________Arrow :*/
 .modal-dialog{
 	margin-top: 60px !important;
+}
+input[type="file"]{
+	opacity: 1 !important;
 }

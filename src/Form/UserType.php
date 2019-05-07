@@ -31,7 +31,7 @@ class UserType extends AbstractType
     public function getParent()
 
     {
-        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
+        return 'App\Form\Registration\RegistrationFormType';
     }
 
     public function getBlockPrefix()
