@@ -45,7 +45,7 @@
                                         {% if demande.transaction is not null and demande.transaction.status == "00" %}
                                             <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
                                                 <button type="button" class="btn btn-primary btn-sm">Dossiers à fournir</button>
-                                            </a>
+                                            </a>                                            
                                         {% else %}
                                             {{ delete_form('demande_annuler', {id: demande.id}, 'demande' ~ demande.id, confirmMessage, 'Annuler', null, 'btn btn-danger btn-sm mb-1') }}
                                         {% endif %}
