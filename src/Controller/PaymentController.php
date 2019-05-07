@@ -17,6 +17,7 @@ use App\Manager\HistoryTransactionManager;
 use Symfony\Component\HttpFoundation\Cookie;
 use Knp\Snappy\Pdf;
 
+
 class PaymentController extends AbstractController
 {
     /**
@@ -200,3 +201,4 @@ class PaymentController extends AbstractController
         $historyTransactionManager->saveResponseTransaction($responses);
     }
 }
+
