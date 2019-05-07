@@ -11,7 +11,9 @@
                 </h4>
             </div>
             <div>{{ form_errors(col) }}</div>
-            <div>{{ form_widget(col) }}</div>
+            <div>
+                {{ form_widget(col) }}
+            </div>
         {% endif %}
         <hr>
     {% endfor %}
