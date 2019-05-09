@@ -17,12 +17,7 @@ class UserType extends AbstractType
         $builder->add('client', ClientType::class)
                 ->add('termsAccepted', CheckboxType::class, [
                     'mapped' => false,
-                    'label' => "J'ai lu et j'accepte les Conditions Générales de Vente , notre politique de confidentialité et la liste des documents à retourner.",
-                    'constraints' => new IsTrue(),
-                ])
-                ->add('debutImmediat', CheckboxType::class, [
-                    'mapped' => false,
-                    'label' => "Oui, je souhaite que ma demande de carte grise débute immédiatement. Ainsi je renonce expressément à mon droit de rétractation afin que la prestation débute avant la fin du délai légal de rétractation.",
+                    'label' => "J'ai lu et j'accepte les Conditions Générales de Vente , notre politique de confidentialité et la liste des documents à retourner. Et je renonce expressément à mon droit de rétractation afin que la prestation débute immédiatement.",
                     'constraints' => new IsTrue(),
                 ])
         ;
