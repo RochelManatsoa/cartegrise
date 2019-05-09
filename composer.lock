@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "content-hash": "393d96af0cf1610493be4a4d171f59e2",
+
     "packages": [
         {
             "name": "defuse/php-encryption",

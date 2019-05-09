@@ -35,6 +35,7 @@ class Transaction
 
     /**
      * @ORM\ManyToOne(targetEntity="Demande")
+
      */
     private $demande;
 
@@ -90,6 +91,5 @@ class Transaction
 
         return $this;
     }
-
 
 }
