@@ -7,51 +7,35 @@
 {% block class %}body-ccm{% endblock %}
 
 {% block page_content %}
-<div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
+<div class="col-sm-10 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center mobile-center">
     <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
-        <div class="col-12 commander-firstview">
-            <div class="row col-12 ">
-                <div class="container">
-                    <h2 class="text-center"> Formulaire pour <br> {{ commande.demarche.nom|upper }}</h2>
-                    <br>
-                    <hr>
-                    {{ form_start(form, {'attr': {'class': 'row'}}) }}
-                    <div class="col-3 mx-auto">
-                        {% include "demande/caracteristicVehicle.html.twig" %}
-                    </div>
-                    <div class="col-3 mx-auto form-row">
-                        <div class="col-11">
-                            <h5 class="text-center">{{ form_label(form.changementAdresse.nouveauxTitulaire) }}</h3>
-                                <hr>
-                                {% for newTitulaire in form.changementAdresse.nouveauxTitulaire %}
-                                    {% if loop.index <7 %}
-                                    <div class="form-group">
-                                        {{ form_label(newTitulaire)}}
-                                        {{ form_errors(newTitulaire)}}
-                                        {{ form_widget(newTitulaire, {'attr': {'class': ''}})}}
-                                    </div>
-                                    {% endif %}
-                                {% endfor %}
-                                <br>
-                                
-                            <h5 class="text-center">{{ form_label(form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire) }}</h3>
-                                <hr>
-                                {% for address in form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire %}
-                                    {% if loop.index < 9 %}
-                                    <div class="form-group">
-                                        {{ form_label(address)}}
-                                        {{ form_errors(address)}}
-                                        {{ form_widget(address, {'attr': {'class': ''}})}}
-                                    </div>
-                                    {% endif %}
-                                {% endfor %}
-                                <br>
-                        </div>
-                    </div>
-                    <div class="col-3 mx-auto">
-                        <div class="col-11">
+        <div class="col-12 commander-firstview custom-form">
+            <h2 class="text-center"> Formulaire pour <br> {{ commande.demarche.nom|upper }}</h2>
+            <div class="row">
+                <hr>
+                {{ form_start(form, {'attr': {'class': 'row'}}) }}
+                <div class="col-4 col-md-10 mx-auto full-mobile">
+                    {% include "demande/caracteristicVehicle.html.twig" %}
+                </div>
+                <div class="col-3 col-md-5 mx-auto form-row full-mobile">
+                    <div class="col-10 col-sm-12 mx-auto">
+                        <h5>{{ form_label(form.changementAdresse.nouveauxTitulaire) }}</h5>
+                            <hr>
+                            {% for newTitulaire in form.changementAdresse.nouveauxTitulaire %}
+                                {% if loop.index <7 %}
+                                <div class="form-group">
+                                    {{ form_label(newTitulaire)}}
+                                    {{ form_errors(newTitulaire)}}
+                                    {{ form_widget(newTitulaire, {'attr': {'class': ''}})}}
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                            <br>
+                            
+                        <h5>{{ form_label(form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire) }}</h3>
+                            <hr>
                             {% for address in form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire %}
-                                {% if loop.index >= 9 %}
+                                {% if loop.index < 9 %}
                                 <div class="form-group">
                                     {{ form_label(address)}}
                                     {{ form_errors(address)}}
@@ -60,25 +44,36 @@
                                 {% endif %}
                             {% endfor %}
                             <br>
-                                <hr>
-                            <h5> {{ form_label(form.changementAdresse.ancienAdresse) }} </h3>
-                                <hr>
-                            {% for adresse in form.changementAdresse.ancienAdresse %}
-                                    <div class="form-group">
-                                        {{ form_label(adresse)}}
-                                        {{ form_errors(adresse)}}
-                                        {{ form_widget(adresse, {'attr': {'class': ''}})}}
-                                    </div>
-                            {% endfor %}
-                        </div>
                     </div>
-                    {{form_rest(form)}}
-                    <div class="col-12 text-center mb-5">
-                        <br>
-                        <input type="submit" class="btn btn-lg btn-success" value="Valider">
-                    </div>
-                    {{ form_end(form) }}
                 </div>
+                <div class="col-3 col-md-5 mx-auto form-row full-mobile">
+                    <div class="col-10 col-sm-12 mx-auto">
+                        {% for address in form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire %}
+                            {% if loop.index >= 9 %}
+                            <div class="form-group">
+                                {{ form_label(address)}}
+                                {{ form_errors(address)}}
+                                {{ form_widget(address, {'attr': {'class': ''}})}}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                        <h5> {{ form_label(form.changementAdresse.ancienAdresse) }} </h3>
+                            <hr>
+                        {% for adresse in form.changementAdresse.ancienAdresse %}
+                                <div class="form-group">
+                                    {{ form_label(adresse)}}
+                                    {{ form_errors(adresse)}}
+                                    {{ form_widget(adresse, {'attr': {'class': ''}})}}
+                                </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {{form_rest(form)}}
+                <div class="col-12 text-center mb-5">
+                    <br>
+                    <input type="submit" class="btn btn-lg btn-success" value="Valider">
+                </div>
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
