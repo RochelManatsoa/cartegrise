@@ -12,6 +12,7 @@ use App\Entity\Ctvo;
 use App\Entity\Duplicata;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
                 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\File\DemandeCessionReporitory")
