@@ -3,13 +3,14 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-29 12:14:35 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-04-29 16:22:44
+ * @Last Modified time: 2019-05-09 22:29:19
  */
 namespace App\Entity\File;
                                                                            
 use App\Entity\Duplicata;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
                 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\File\DemandeDuplicataRepository")
@@ -25,6 +26,7 @@ class DemandeDuplicata
 
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -35,6 +37,7 @@ class DemandeDuplicata
 
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -44,6 +47,7 @@ class DemandeDuplicata
     private $certificatImmatriculation;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -53,6 +57,7 @@ class DemandeDuplicata
     private $declarationdePerteOuVol;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -62,6 +67,7 @@ class DemandeDuplicata
     private $copieControleTechniqueEnCoursValidite;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -71,6 +77,7 @@ class DemandeDuplicata
     private $pieceIdentiteValid;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -80,6 +87,7 @@ class DemandeDuplicata
     private $copieAttestationAssuranceValide;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},

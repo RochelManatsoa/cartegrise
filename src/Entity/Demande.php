@@ -316,18 +316,6 @@ class Demande
         return $this;
     }
 
-    public function getTransaction(): ?Transaction
-    {
-        return $this->transaction;
-    }
-
-    public function setTransaction(?Transaction $transaction): self
-    {
-        $this->transaction = $transaction;
-
-        return $this;
-    }
-
     public function getCommande(): ?Commande
     {
         return $this->commande;
@@ -413,6 +401,7 @@ class Demande
 
         return $this;
     }
+
 
     public function getTransaction(): ?Transaction
     {

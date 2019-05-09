@@ -92,24 +92,6 @@ class Ancientitulaire
         return $this;
     }
 
-    public function getDemande(): ?Demande
-    {
-        return $this->demande;
-    }
-
-    public function setDemande(?Demande $demande): self
-    {
-        $this->demande = $demande;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newAncienTitulaire = $demande === null ? null : $this;
-        if ($newAncienTitulaire !== $demande->getAncienTitulaire()) {
-            $demande->setAncienTitulaire($newAncienTitulaire);
-        }
-
-        return $this;
-    }
-
     public function getCtvo(): ?Ctvo
     {
         return $this->ctvo;
