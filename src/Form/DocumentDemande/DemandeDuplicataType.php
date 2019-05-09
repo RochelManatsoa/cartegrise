@@ -27,6 +27,7 @@ class DemandeDuplicataType extends AbstractType
         ->add('rectoVersoCarteGrise', FileType::class, [
             "required" => false,
             "data_class" => null,
+            "label" => 'test',
         ])
         ->add('certificatImmatriculation', FileType::class, [
             "required" => false,
