@@ -47,7 +47,7 @@
                                                 <button type="button" class="btn btn-primary btn-sm">Dossiers à fournir</button>
                                             </a>
                                         {% else %}
-                                            {{ delete_form('demande_annuler', {id: demande.id}, 'demande' ~ demande.id, confirmMessage, 'annuler', null, 'btn btn-danger btn-sm mb-1') }}
+                                            {{ delete_form('demande_annuler', {id: demande.id}, 'demande' ~ demande.id, confirmMessage, 'Annuler', null, 'btn btn-danger btn-sm mb-1') }}
                                         {% endif %}
                                     </td>
                                 </tr>

@@ -30,7 +30,7 @@
                                             </div>
                                         <br>
 
-                                    <h3 class="text-center">{{ form_label(form.cession.ancienTitulaire) }}</h3>
+                                    <h3 class="text-center">Ancien Titulaire</h3>
                                         <hr>
                                         {% for antiTitulaire in form.cession.ancienTitulaire %}
                                             <div class="form-group">
@@ -41,8 +41,7 @@
                                         {% endfor %}
                                         <br>
                                     
-                                        <h3 class="text-center">Acquerreur</h3>
-                                        <h5> {{ form_label(form.cession.acquerreur.adresseNewTitulaire) }} </h3>
+                                        <h3 class="text-center">Acquéreur</h3>
                                         <hr>
                                         {% for acquerreur in form.cession.acquerreur %}
                                             {% if loop.index < 7 %}

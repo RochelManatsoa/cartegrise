@@ -15,12 +15,13 @@ class NewtitulaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nomPrenomTitulaire', TextType::class, array('label'=>"Nom et prénom(s) du titulaire (*)"))
+            ->add('nomPrenomTitulaire', TextType::class, array('label'=>"Nom de l’acquéreur (*)"))
+            ->add('prenomTitulaire', TextType::class, array('label'=>"Prénom(s) de l’acquéreur (*)"))
             ->add('genre', ChoiceType::class, array(
                 'label' => "Sexe (*)",
                 'choices' => array(
-                    'Féminin' => "fem",
-                    'Masculin' => "hom",
+                    'Féminin' => "F",
+                    'Masculin' => "M",
                 ),
             ))
             ->add('dateN', DateType::class, array(
