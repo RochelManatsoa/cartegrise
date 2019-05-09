@@ -26,6 +26,7 @@ class DemandeChangementAdresse
 
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -36,6 +37,7 @@ class DemandeChangementAdresse
 
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -45,6 +47,7 @@ class DemandeChangementAdresse
     private $demandeCertificatImmatriculation;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -54,6 +57,7 @@ class DemandeChangementAdresse
     private $pieceIdentiteValid;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -63,6 +67,7 @@ class DemandeChangementAdresse
     private $copieAttestationAssuranceValide;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -72,6 +77,7 @@ class DemandeChangementAdresse
     private $copiePermisConduire;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},

@@ -32,10 +32,14 @@
         </div>
         <div class="">
             {% if form is not null %}
-                {% include 'demande/file/DemandeDuplicata.html.twig' %}
+                {% include 'demande/file/FormDossier.html.twig' %}
             {% endif %}
+            <a href="{{ path("validate_file", {'demande': demande.id}) }}">
+                <button class="btn btn-info">
+                    Valider les dossiers
+                </button>
+            </a>
         </div>
-        <hr>
         <div class="pl-4 mb-3 mb-md-0">
             <a href="{{ path('demande_list') }}">
                 <i class="fa fa-arrow-left"></i> Retour à la liste de vos demandes

@@ -29,6 +29,7 @@ class DemandeCtvo
     private $files;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -38,6 +39,7 @@ class DemandeCtvo
     private $rectoVersoCarteGrise;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -47,6 +49,7 @@ class DemandeCtvo
     private $declatationCession;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -56,6 +59,7 @@ class DemandeCtvo
     private $demandeCertificat;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -65,6 +69,7 @@ class DemandeCtvo
     private $procurationManda;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -74,6 +79,7 @@ class DemandeCtvo
     private $pieceIdentite;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -83,6 +89,7 @@ class DemandeCtvo
     private $copieControleTechnique;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -92,6 +99,7 @@ class DemandeCtvo
     private $recepiseDemandeAchat;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -101,6 +109,7 @@ class DemandeCtvo
     private $copieAttestationAssurance;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -110,6 +119,7 @@ class DemandeCtvo
     private $copiePermisConduireTitulaire;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
