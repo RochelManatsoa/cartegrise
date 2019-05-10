@@ -19,6 +19,7 @@ parameters:
         request: '/var/www/html/cgofficiel/src/Utils/bin/request'  # IN ENV DEV
         response: '/var/www/html/cgofficiel/src/Utils/bin/response'  # IN ENV DEV
     admin_mail: ['rapaelec@gmail.com', 'technique@cgofficiel.fr', 'rapaelec@gmail.com', 'nirinarochelmiandrisoa@gmail.com', 'rochel2fnclm@gmail.com']
+    admin_doc_validator: ["rapaelec@gmail.com", "test@gmail.com", "rakoto@gmail.com"]
 
 services:
     # default configuration for services in *this* file

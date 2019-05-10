@@ -6,6 +6,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Entity\Demande;
+use App\Manager\Model\ParamDocumentAFournir;
 use App\Entity\File\{DemandeDuplicata, DemandeIvn, DemandeCtvo, DemandeCession, DemandeChangementAdresse};
 use App\Form\DocumentDemande\{DemandeDuplicataType, DemandeCtvoType, DemandeIvnType, DemandeCessionType, DemandeChangementAdresseType};
 
@@ -172,10 +173,10 @@ class DocumentAFournirManager
     public function getFilesList(Demande $demande)
     {
         $daf = $this->getDaf($demande);
+        $paramDaf = new ParamDocumentAFournir();
+        $paramDaf->setName($demande->getCommande()->getDemarche()->getNom())
+        ->setDocuments($this->serializer->normalize($daf, 'json', ['groups'=>'file']));
 
-        return [
-            "dataType" => $demande->getCommande()->getDemarche()->getType(),
-            "dataFile" => $this->serializer->normalize($daf, 'json', ['groups'=>'file']),
-        ];
+        return $paramDaf;
     }
 }
