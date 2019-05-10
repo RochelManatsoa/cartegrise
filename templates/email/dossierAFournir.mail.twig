@@ -15,15 +15,13 @@
 </div>
 <div class="text-center">
 <a href="{{ absolute_url(path("demande_document_validate", {"demande": demande.id, "checker": demande.checker})) }}" class="">
-    <button class="btn btn-primary">
-        Valider
-    </button>
+    valider
 </a>
 
 <a href="{{ absolute_url(path("demande_document_nonvalidate", {"demande": demande.id, "checker": demande.checker})) }}"
     class="">
     <input class="btn btn-primary" value="">
-        Non Validé
+        
     </button>
 </a>
 </div>
