@@ -14,6 +14,8 @@ class Demande
 {
     const DOC_DOWNLOAD = 'document/';
     const DOC_VALID = 1;
+    const DOC_PENDING = 0;
+    const DOC_NONVALID = 2;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -125,6 +127,11 @@ class Demande
      * @ORM\Column(type="string", nullable=true)
      */
     private $statusDoc;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $motifDeRejet;
 
 
 
@@ -455,6 +462,18 @@ class Demande
     public function setStatusDoc(?string $statusDoc): self
     {
         $this->statusDoc = $statusDoc;
+
+        return $this;
+    }
+
+    public function getMotifDeRejet(): ?string
+    {
+        return $this->motifDeRejet;
+    }
+
+    public function setMotifDeRejet(?string $motifDeRejet): self
+    {
+        $this->motifDeRejet = $motifDeRejet;
 
         return $this;
     }

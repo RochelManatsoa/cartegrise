@@ -37,7 +37,7 @@ class MailManager
         $daf = $this->demandeManager->getDossiersAFournir($demande);
         $now = (new \DateTime())->getTimestamp();
         $encoder = hash('sha256', $now);
-        $demande->setChecker($encoder);
+        $demande->setChecker($encoder)->setStatusDoc(Demande::DOC_PENDING);
         $this->demandeManager->saveDemande($demande);
         $emailDests = $this->parameterBagInterface->get("admin_doc_validator");
         if (\is_iterable($emailDests) && 0 < count($emailDests)){

@@ -3,16 +3,18 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-05-09 21:15:58 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-05-10 03:07:02
+ * @Last Modified time: 2019-05-10 10:37:31
  */
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\Entity\Demande;
+use App\Form\DocumentDemande\DemandeNonValidateType;
 use App\Manager\{DocumentAFournirManager, MailManager, DemandeManager};
 
 class FileDemarcheController extends AbstractController
@@ -30,7 +32,7 @@ class FileDemarcheController extends AbstractController
         $response = $mailManager->sendMailDocumentAFournir($demande, $infos);
 
         
-        return new JsonResponse($response, 202);
+        return $this->redirect($this->generateUrl('demande_dossiers_a_fournir', ["id" => $demande->getId()]));
     }
 
     /**
@@ -45,5 +47,40 @@ class FileDemarcheController extends AbstractController
         $demandeManager->saveDemande($demande);
 
         return new Response('success');
+    }
+
+    /**
+     * @Route("/nonvalidate/{demande}/document/{checker}", name="demande_document_nonvalidate")
+     */
+    public function nonValiderDocument(Demande $demande, $checker, DemandeManager $demandeManager, Request $request)
+    {
+        if ($demande->getChecker() != $checker ) {
+            Throw new \Exception("Check lien de l'email non valide");
+        }
+        $form = $this->createForm(DemandeNonValidateType::class, $demande);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $demande->setStatusDoc(Demande::DOC_NONVALID);
+            $demandeManager->saveDemande($demande);
+
+            return $this->redirect($this->generateUrl("notification_success"));
+        }
+
+        return $this->render(
+            'demande/motif_reject.html.twig',
+            [
+                "form" => $form->createView()
+            ]
+        );
+    }
+
+    /**
+     * @Route("/success/notification_document_demande", name="notification_success")
+     */
+    public function notificationSuccess()
+    {
+        return $this->render(
+            'demande/notificationSuccess.html.twig'
+        );
     }
 }
