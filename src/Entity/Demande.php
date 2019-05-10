@@ -14,8 +14,8 @@ class Demande
 {
     const DOC_DOWNLOAD = 'document/';
     const DOC_VALID = 1;
-    const DOC_PENDING = 0;
-    const DOC_NONVALID = 2;
+    const DOC_PENDING = 2;
+    const DOC_NONVALID = 3;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
