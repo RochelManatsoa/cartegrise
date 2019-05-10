@@ -31,7 +31,6 @@
         <ul>
             <li><b>Type Demande : </b> {{ demande.commande.demarche.nom }}</li>
             <li><b>Date : </b> {{ demande.commande.ceerLe | date('d-m-Y')}}</li>
-            <li><b>Nom et prénom : </b> {{ client.clientNom }} {{ client.clientPrenom }}</li>
             <li><b>Département : </b> {{ demande.commande.codePostal }}</li>
             <li><b>Immatriculation : </b> {{ demande.commande.immatriculation }}</li>
         </ul>
@@ -39,24 +38,16 @@
         <div id="daf-list-wrapper">
             {{ daf|raw }}
         </div>
-        <div class="text-center">
-            <a href="{{ asset(pathCerfa) }}" target="blank">
-                <button class="btn btn-success">
-                    cerfa
-                </button>
-            </a>
-        </div>
         <div class="">
-            {% if form is not null %}
-                {% include 'demande/file/FormDossier.html.twig' %}
-            {% endif %}
-            {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') %}
-                <a href="{{ path("validate_file", {'demande': demande.id}) }}">
-                    <button class="btn btn-info">
-                        Valider les dossiers
-                    </button>
-                </a>
-            {% endif %}
+            {% for key,file in files %}
+                <label for="">{{ key }}</label>
+                {% if file is not null %}
+                    <small>
+                        <a href=" {{ asset(file) }}" target="_blank">{{ key }}</a>
+                    </small>
+                {% endif %}
+                <hr>
+            {% endfor %}
         </div>
         <div class="pl-4 mb-3 mb-md-0">
             <a href="{{ path('demande_list') }}">

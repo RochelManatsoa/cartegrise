@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Demande;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\Manager\Crm\Modele\CrmSearch;
 use App\Entity\User;
 
 /**
@@ -59,4 +60,49 @@ class DemandeRepository extends ServiceEntityRepository
         ->setParameter('user', $user)->getQuery()->getResult();
 
     }
+
+
+
+    public function getCrmFilter(CrmSearch $crmSearch)
+    {
+        if (!$crmSearch->isFilterable())
+            return [];
+        /**
+         * search started
+         */
+        $builder = $this->createQueryBuilder('d');
+        #filter email
+        if (null != $crmSearch->getEmail()) {
+            $builder
+            ->join('d.commande', 'comm')
+            ->join('comm.client', 'client')
+            ->join('client.user', 'user')
+            ->andWhere('user.email like :email')
+            ->setParameter('email', '%'.$crmSearch->getEmail().'%');
+        }
+        #filter nom
+        if (null != $crmSearch->getNom()) {
+            if (null == $crmSearch->getEmail()) {
+                $builder
+                ->join('d.commande', 'comm')
+                ->join('comm.client', 'client');
+            }
+            $builder
+            ->andWhere('client.clientNom like :nom OR client.clientPrenom like :nom')
+            ->setParameter('nom', '%'.$crmSearch->getNom().'%');
+        }
+        #filter immatriculation
+        if (null != $crmSearch->getImmatriculation()) {
+            if ((!$crmSearch->getNom() && !$crmSearch->getEmail())) {
+            $builder
+                ->join('d.commande', 'comm');
+            }
+            $builder
+            ->andWhere('comm.immatriculation = :immatriculation')
+            ->setParameter('immatriculation', $crmSearch->getImmatriculation());
+        }
+
+        return $builder->getQuery()->getResult();        
+    }
+
 }
