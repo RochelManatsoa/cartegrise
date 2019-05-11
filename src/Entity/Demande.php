@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Demande
 {
     const DOC_DOWNLOAD = 'document/';
+    const DOC_VALID = 1;
+    const DOC_PENDING = 2;
+    const DOC_NONVALID = 3;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -113,6 +116,24 @@ class Demande
      * @ORM\Column(type="text", nullable=true)
      */
     private $cerfa_path;
+
+    
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $checker;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $statusDoc;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $motifDeRejet;
+
+
 
     public function __toString()
     {
@@ -417,6 +438,42 @@ class Demande
         if ($newDemande !== $transaction->getDemande()) {
             $transaction->setDemande($newDemande);
         }
+
+        return $this;
+    }
+
+    public function getChecker(): ?string
+    {
+        return $this->checker;
+    }
+
+    public function setChecker(?string $checker): self
+    {
+        $this->checker = $checker;
+
+        return $this;
+    }
+
+    public function getStatusDoc(): ?string
+    {
+        return $this->statusDoc;
+    }
+
+    public function setStatusDoc(?string $statusDoc): self
+    {
+        $this->statusDoc = $statusDoc;
+
+        return $this;
+    }
+
+    public function getMotifDeRejet(): ?string
+    {
+        return $this->motifDeRejet;
+    }
+
+    public function setMotifDeRejet(?string $motifDeRejet): self
+    {
+        $this->motifDeRejet = $motifDeRejet;
 
         return $this;
     }
