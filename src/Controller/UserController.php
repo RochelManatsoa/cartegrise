@@ -57,7 +57,7 @@ class UserController extends AbstractController
             $user->setPassword($password);
             $userManager->save($user);
 
-            return new Response('okay');
+            return $this->redirectToRoute('home_crm');
         }
         // $utilisateurs = $repository->findAll();
         return $this->render('crm/register.html.twig', [

@@ -64,4 +64,14 @@ class DashboardController extends AbstractController
             ]
         );
     }
+
+    /**
+     * @Route("dasboard/crm/{demande}/recap", name="crm_demande_recap")
+     * @IsGranted("ROLE_CRM")
+     */
+    public function crmDemandeRecap(Demande $demande)
+    {
+
+        return $this->render('crm/demande_recap.html.twig', ['demande'=>$demande]);
+    }
 }
