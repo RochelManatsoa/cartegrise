@@ -14,15 +14,19 @@
     {{ daf|raw }}
 </div>
 <div class="text-center">
-<a href="{{ absolute_url(path("demande_document_validate", {"demande": demande.id, "checker": demande.checker})) }}" class="">
-    valider
-</a>
-
-<a href="{{ absolute_url(path("demande_document_nonvalidate", {"demande": demande.id, "checker": demande.checker})) }}"
-    class="">
-    <input class="btn btn-primary" value="">
-        
-    </button>
-</a>
+<div >
+    Si vous trouvez que les document sont ok , veuillez clicker sur ce lien pour valiser : 
+    <a href="{{ absolute_url(path("demande_document_validate", {"demande": demande.id, "checker": demande.checker})) }}"
+        class="">
+        valider
+    </a>
+</div>
+<div >
+    Si vous pensez que ces documents ne sont pas valide, veuillez mettre les raisons dans le champs text du lien suivant :
+    <a href="{{ absolute_url(path("demande_document_nonvalidate", {"demande": demande.id, "checker": demande.checker})) }}"
+        class="">
+        non valider
+    </a>
+</div>
 </div>
 {% endblock %}
