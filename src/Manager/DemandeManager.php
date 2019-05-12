@@ -254,4 +254,10 @@ class DemandeManager
         
         return $file;
     }
+
+    public function find($id)
+    {
+
+        return $this->repository->find($id);
+    }
 }

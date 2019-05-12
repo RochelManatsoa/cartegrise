@@ -52,3 +52,6 @@ services:
 
     App\Services\Tms\TmsClient:
         arguments: ['%env(resolve:TMS_ENDPOINT)%', '%env(resolve:TMS_CODE_TMS)%', '%env(resolve:TMS_LOGIN)%', '%env(resolve:TMS_PASSWORD)%']
+    App\EventListener\AnnotationValidator:
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, methode: onKernelController}

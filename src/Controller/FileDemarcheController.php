@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-05-09 21:15:58 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-05-12 17:52:07
+ * @Last Modified time: 2019-05-12 23:02:27
  */
 namespace App\Controller;
 
@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\Entity\Demande;
 use App\Manager\{DocumentAFournirManager, MailManager, DemandeManager};
+use App\Annotation\MailDocumentValidator;
 
 class FileDemarcheController extends AbstractController
 {
@@ -35,13 +36,11 @@ class FileDemarcheController extends AbstractController
     }
 
     /**
+     * @MailDocumentValidator(property="checker", entity="demande")
      * @Route("/validate/{demande}/document/{checker}", name="demande_document_validate")
      */
     public function validerDocument(Demande $demande, $checker, DemandeManager $demandeManager)
     {
-        if ($demande->getChecker() != $checker ) {
-            Throw new \Exception("Ce lien n'est plus valid");
-        }
         $demande->setStatusDoc(Demande::DOC_VALID);
         $demandeManager->saveDemande($demande);
 
@@ -49,13 +48,11 @@ class FileDemarcheController extends AbstractController
     }
 
     /**
+     * @MailDocumentValidator(property="checker", entity="demande")
      * @Route("/nonvalidate/{demande}/document/{checker}", name="demande_document_nonvalidate")
      */
     public function nonValiderDocument(Demande $demande, $checker, DemandeManager $demandeManager, Request $request)
     {
-        if ($demande->getChecker() != $checker ) {
-            Throw new \Exception("Ce lien n'est plus valid");
-        }
         $form = $demandeManager->generateFormDeniedFiles($demande);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
