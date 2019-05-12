@@ -1,4 +1,10 @@
 <?php
+/*
+ * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
+ * @Date: 2019-05-13 00:37:24 
+ * @Last Modified by:   Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
+ * @Last Modified time: 2019-05-13 00:37:24 
+ */
 namespace App\EventListener;
 
 use Doctrine\Common\Annotations\Reader;
@@ -61,8 +67,12 @@ class AnnotationValidator
                 if ($valueInEntity === $valueProperty) {
                     continue;
                 }
- 
-                Throw new \Exception($entity::DOC_INVALID_MESSAGE);
+
+                if ($configuration->invalidMessage) {
+                    Throw new \Exception($propertyAccessor->getValue($entity, $configuration->invalidMessage));
+                }
+                // to have an custom error message , please fill the parameter "invalidMessage" in annotation
+                Throw new \Exception("error");
             }
         }
     }

@@ -478,4 +478,9 @@ class Demande
 
         return $this;
     }
+
+    public function getDocInvalidMessage():string
+    {
+        return $this::DOC_INVALID_MESSAGE;
+    }
 }
