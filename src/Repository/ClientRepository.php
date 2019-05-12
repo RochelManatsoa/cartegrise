@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\Entity\Demande;
 
 /**
  * @method Client|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +48,5 @@ class ClientRepository extends ServiceEntityRepository
         ;
     }
     */
+
 }
