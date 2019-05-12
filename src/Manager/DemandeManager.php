@@ -4,7 +4,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-17 13:14:01 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-04-18 14:58:11
+ * @Last Modified time: 2019-05-12 16:38:46
  */
 namespace App\Manager;
 
@@ -18,6 +18,7 @@ use App\Form\Demande\DemandeDivnType;
 use App\Form\Demande\DemandeCessionType;
 use App\Form\Demande\DemandeDuplicataType;
 use App\Form\Demande\DemandeChangementAdresseType;
+use App\Form\DocumentDemande\DemandeNonValidateType;
 use App\Manager\TransactionManager;
 use App\Repository\DemandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -93,6 +94,12 @@ class DemandeManager
         }
         
         return $form;
+    }
+
+    public function generateFormDeniedFiles(Demande $demande)
+    {
+        $demande->setMotifDeRejet('')->setChecker(null);
+        return $this->formFactory->create(DemandeNonValidateType::class, $demande);
     }
 
     public function save(Form $form)

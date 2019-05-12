@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-05-09 21:15:58 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-05-10 10:37:31
+ * @Last Modified time: 2019-05-12 17:52:07
  */
 namespace App\Controller;
 
@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\Entity\Demande;
-use App\Form\DocumentDemande\DemandeNonValidateType;
 use App\Manager\{DocumentAFournirManager, MailManager, DemandeManager};
 
 class FileDemarcheController extends AbstractController
@@ -41,7 +40,7 @@ class FileDemarcheController extends AbstractController
     public function validerDocument(Demande $demande, $checker, DemandeManager $demandeManager)
     {
         if ($demande->getChecker() != $checker ) {
-            Throw new \Exception("Check lien de l'email non valide");
+            Throw new \Exception("Ce lien n'est plus valid");
         }
         $demande->setStatusDoc(Demande::DOC_VALID);
         $demandeManager->saveDemande($demande);
@@ -55,9 +54,9 @@ class FileDemarcheController extends AbstractController
     public function nonValiderDocument(Demande $demande, $checker, DemandeManager $demandeManager, Request $request)
     {
         if ($demande->getChecker() != $checker ) {
-            Throw new \Exception("Check lien de l'email non valide");
+            Throw new \Exception("Ce lien n'est plus valid");
         }
-        $form = $this->createForm(DemandeNonValidateType::class, $demande);
+        $form = $demandeManager->generateFormDeniedFiles($demande);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $demande->setStatusDoc(Demande::DOC_NONVALID);
