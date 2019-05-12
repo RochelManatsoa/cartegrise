@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-05-09 21:15:58 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-05-12 23:02:27
+ * @Last Modified time: 2019-05-13 00:36:37
  */
 namespace App\Controller;
 
@@ -36,7 +36,7 @@ class FileDemarcheController extends AbstractController
     }
 
     /**
-     * @MailDocumentValidator(property="checker", entity="demande")
+     * @MailDocumentValidator(property="checker", entity="demande", invalidMessage="docInvalidMessage")
      * @Route("/validate/{demande}/document/{checker}", name="demande_document_validate")
      */
     public function validerDocument(Demande $demande, $checker, DemandeManager $demandeManager)
@@ -48,7 +48,7 @@ class FileDemarcheController extends AbstractController
     }
 
     /**
-     * @MailDocumentValidator(property="checker", entity="demande")
+     * @MailDocumentValidator(property="checker", entity="demande", invalidMessage="docInvalidMessage")
      * @Route("/nonvalidate/{demande}/document/{checker}", name="demande_document_nonvalidate")
      */
     public function nonValiderDocument(Demande $demande, $checker, DemandeManager $demandeManager, Request $request)
