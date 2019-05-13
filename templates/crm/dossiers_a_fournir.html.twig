@@ -1,0 +1,82 @@
+{% extends 'crm_base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #daf-list-wrapper ol > li > ul {
+            color: #d9534f;
+        }
+    </style>
+{% endblock %}
+
+{% block page_content %}
+<div class="col-md-12 row col-lg-12">
+        <div class="row col-md-12 col-lg-7 pt-5 pb-5">
+            {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
+                <div class="alert alert-success">
+                    Votre document est valider , Vous pouvez l'envoyer par poste
+                </div>
+            {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
+                <div class="alert alert-warning" role="alert">
+                    Votre document est en cours de validation, Veuillez attendre le retour de l'administrateur
+                </div>
+            {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
+                <div class="alert alert-danger">
+                    Votre document n'est pas valide, Voici le retour:
+                    <p>
+                        {{ demande.motifDeRejet|nl2br }}
+                    </p>
+                </div> 
+            {% endif %}
+            <hr>
+            <h2 class="text-center">Résumé de la demande </h2>
+            <table class="table ">
+                <tr>
+                    <th class="text-right"><b>Type Demande : </b></th>
+                    <td>{{ demande.commande.demarche.nom }}</td>
+                </tr>
+                <tr>
+                    <th class="text-right"><b>Date : </b></th>
+                    <td>{{ demande.commande.ceerLe | date('d-m-Y') }}</td>
+                </tr>
+                <tr>
+                    <th class="text-right"><b>Département : </b></th>
+                    <td>{{ demande.commande.codePostal }}</td>
+                </tr>
+                <tr>
+                    <th class="text-right"><b>Immatriculation : </b> </th>
+                    <td>{{ demande.commande.immatriculation }}</td>
+                </tr>
+            </table>
+            <hr>
+            <h2 class="text-center">Dossiers à fournir </h2>
+
+            <div id="daf-list-wrapper">
+                {{ daf|raw }}
+            </div>
+            <div class="pl-4 mb-3 mb-md-0">
+                <a href="{{ path('home_crm') }}" class="btn btn-warning">
+                    <i class="fa fa-arrow-left"></i> Retour à la recherche
+                </a>
+            </div>
+        </div>
+        <div class="row col-md-12 col-lg-5 resultat-estimation mx-auto pt-5 pb-5">
+
+        <h2 class="text-center">Dossiers envoyés </h2>
+            <table class="table">
+                {% for key,file in files %}
+                <tr>
+                    <th><b>{{ key }} </b> </th>
+                    {% if file is not null %}
+                        <td>
+                            <a href=" {{ asset(file) }}" target="_blank">{{ key }}</a>
+                        </td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                {% endfor %}
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}
