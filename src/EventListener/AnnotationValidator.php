@@ -15,6 +15,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
  
@@ -52,6 +53,9 @@ class AnnotationValidator
         $routeMatch = $options['routeMatch'];
         $defaultRoute = $options['defaultRoute'];
         if ($configuration instanceof Route) {
+            if (!$this->tokenStorage->getToken()->getUser() instanceof User) {
+                return;
+            }
             if ($this->tokenStorage->getToken()->getUser()->hasRole($role)) {
                 if (!is_numeric(strpos($configuration->getName(), $routeMatch))) {
                     // redirect to the right way
