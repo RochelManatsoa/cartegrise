@@ -2,31 +2,59 @@
 
 
 {% block body %}
-<ul>
-    <li><b>Type Demande : </b> {{ demande.commande.demarche.nom }}</li>
-    <li><b>Date : </b> {{ demande.commande.ceerLe | date('d-m-Y')}}</li>
-    <li><b>Nom et prénom : </b> {{ client.clientNom }} {{ client.clientPrenom }}</li>
-    <li><b>Département : </b> {{ demande.commande.codePostal }}</li>
-    <li><b>Immatriculation : </b> {{ demande.commande.immatriculation }}</li>
-</ul>
-<h1 class="pl-4">Dossiers à valider sont en pièce joint et doivent comporter :</h1>
-<div id="daf-list-wrapper">
-    {{ daf|raw }}
-</div>
-<div class="text-center">
-<div >
-    Si vous trouvez que les document sont ok , veuillez clicker sur ce lien pour valiser : 
-    <a href="{{ absolute_url(path("demande_document_validate", {"demande": demande.id, "checker": demande.checker})) }}"
-        class="">
-        valider
-    </a>
-</div>
-<div >
-    Si vous pensez que ces documents ne sont pas valide, veuillez mettre les raisons dans le champs text du lien suivant :
-    <a href="{{ absolute_url(path("demande_document_nonvalidate", {"demande": demande.id, "checker": demande.checker})) }}"
-        class="">
-        non valider
-    </a>
-</div>
-</div>
+<table width="100%" summary="" border="0" cellpadding="0" cellspacing="0" align="left" bgcolor="#FFFFFF" style="margin:0 auto">
+    <tr>
+        <td width="130" height="20"><b style="color:#1a3f78;">Type Demande </b></td>
+        <td>: {{ demande.commande.demarche.nom }}</td>
+    </tr>
+    <tr>
+        <td width="130" height="20"><b style="color:#1a3f78;">Date </b></td>
+        <td>: {{ demande.commande.ceerLe | date('d-m-Y')}}</td>
+    </tr>
+    <tr>
+        <td width="130" height="20"><b style="color:#1a3f78;">Nom et prénom </b></td>
+        <td>: {{ client.clientNom }} {{ client.clientPrenom }}</td>
+    </tr>
+    <tr>
+        <td width="130" height="20"><b style="color:#1a3f78;">Département </b></td>
+        <td>: {{ demande.commande.codePostal }}</td>
+    </tr>
+    <tr>
+        <td width="130" height="20"><b style="color:#1a3f78;">Immatriculation </b></td>
+        <td>: {{ demande.commande.immatriculation }}</td>
+    </tr>
+    <tr>
+        <td height="20" colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2"><h1 class="pl-4" style="color:#1a3f78;font-size:24px;margin-top:20px;">Dossiers à valider sont en pièce joint et doivent comporter :</h1></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div id="daf-list-wrapper">
+                {{ daf|raw }}
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div>
+                Si vous trouvez que les document sont ok , veuillez clicker sur ce lien pour valider : 
+                <a style="color:#1a3f78;" href="{{ absolute_url(path("demande_document_validate", {"demande": demande.id, "checker": demande.checker})) }}">
+                    <b>valider</b>
+                </a>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div>
+                Si vous pensez que ces documents ne sont pas valide, veuillez mettre les raisons dans le champs text du lien suivant :
+                <a style="color:#1a3f78;" href="{{ absolute_url(path("demande_document_nonvalidate", {"demande": demande.id, "checker": demande.checker})) }}">
+                    <b>non valider</b>
+                </a>
+            </div>
+        </td>
+    </tr>
+</table>
 {% endblock %}

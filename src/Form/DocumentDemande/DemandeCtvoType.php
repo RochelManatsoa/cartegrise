@@ -29,38 +29,47 @@ class DemandeCtvoType extends AbstractType
             "data_class" => null,
         ])
         ->add('declatationCession', FileType::class, [
+            "label" => "Declaration de cession",
             "required" => false,
             "data_class" => null,
         ])
         ->add('demandeCertificat', FileType::class, [
+            "label" => "Demande de certificat",
             "required" => false,
             "data_class" => null,
         ])
         ->add('procurationManda', FileType::class, [
+            "label" => "Mandat d'immatriculation",
             "required" => false,
             "data_class" => null,
         ])
         ->add('pieceIdentite', FileType::class, [
+            "label" => "Pièce d'identité",
             "required" => false,
             "data_class" => null,
         ])
         ->add('copieControleTechnique', FileType::class, [
+            "label" => "Copie du controle technique",
             "required" => false,
             "data_class" => null,
         ])
         ->add('recepiseDemandeAchat', FileType::class, [
+            "label" => "Recepise de la demande d'achat",
             "required" => false,
             "data_class" => null,
         ])
         ->add('copieAttestationAssurance', FileType::class, [
+            "label" => "Copie de l'attestation assurance",
             "required" => false,
             "data_class" => null,
         ])
         ->add('copiePermisConduireTitulaire', FileType::class, [
+            "label" => "Copie du permis de conduire titulaire",
             "required" => false,
             "data_class" => null,
         ])
         ->add('justificatifDomicile', FileType::class, [
+            "label" => "Justificatif de domicile",
             "required" => false,
             "data_class" => null,
         ])
