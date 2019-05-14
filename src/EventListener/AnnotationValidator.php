@@ -12,6 +12,11 @@ use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use App\Manager\DemandeManager;
 use App\Annotation\MailDocumentValidator;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
  
 class AnnotationValidator
 {
@@ -21,6 +26,8 @@ class AnnotationValidator
     private $reader;
 
     private $demandeManager;
+    private $tokenStorage;
+    private $routerInterface;
  
     /**
      * AnnotationDriver constructor.
@@ -29,11 +36,32 @@ class AnnotationValidator
      */
     public function __construct(
         Reader $reader,
-        DemandeManager $demandeManager
+        DemandeManager $demandeManager,
+        TokenStorageInterface $tokenStorage,
+        RouterInterface $routerInterface
     )
     {
         $this->reader = $reader;
         $this->demandeManager = $demandeManager;
+        $this->tokenStorage = $tokenStorage;
+        $this->routerInterface = $routerInterface;
+    }
+
+    private function retirectRole(FilterControllerEvent $event, $configuration, array $options){
+        $role = $options['role'];
+        $routeMatch = $options['routeMatch'];
+        $defaultRoute = $options['defaultRoute'];
+        if ($configuration instanceof Route) {
+            if ($this->tokenStorage->getToken()->getUser()->hasRole($role)) {
+                if (!is_numeric(strpos($configuration->getName(), $routeMatch))) {
+                    // redirect to the right way
+                    $redirectUrl = $this->routerInterface->generate($defaultRoute);
+                    $event->setController(function() use ($redirectUrl) {
+                        return new RedirectResponse($redirectUrl);
+                    });
+                }
+            }
+        }
     }
  
     /**
@@ -46,11 +74,18 @@ class AnnotationValidator
         if (!is_array($controller = $event->getController())) {
             return;
         }
- 
+
         $object = new \ReflectionObject($controller[0]);
         $method = $object->getMethod($controller[1]);
  
         foreach ($this->reader->getMethodAnnotations($method) as $configuration) {
+            $this->retirectRole($event, $configuration,
+            [
+                "role" => "ROLE_CRM",
+                "routeMatch" => "route_crm_",
+                "defaultRoute" => "route_crm_home",
+            ]);
+
             if ($configuration instanceof MailDocumentValidator) {
                 $request = $event->getRequest();
                 $valueProperty = $request->get($configuration->property);
