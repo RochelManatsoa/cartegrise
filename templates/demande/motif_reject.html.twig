@@ -1,7 +1,11 @@
 {% extends "base.html.twig" %}
 
 {% block page_content %}
-    {{form_start(form)}}
-    {{form_rest(form)}}
-    {{form_end(form)}}
+    <div class="col-6 my-flex-container">
+        <div class="mail-rejet">
+            {{form_start(form)}}
+            {{form_rest(form)}}
+            {{form_end(form)}}
+        </div>
+    </div>
 {% endblock page_content %}

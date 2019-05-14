@@ -29,22 +29,27 @@ class DemandeChangementAdresseType extends AbstractType
             "data_class" => null,
         ])
         ->add('demandeCertificatImmatriculation', FileType::class, [
+            "label" => "Demande de certificat d'immatriculation",
             "required" => false,
             "data_class" => null,
         ])
         ->add('pieceIdentiteValid', FileType::class, [
+            "label" => "Pièce d'identité valide",
             "required" => false,
             "data_class" => null,
         ])
         ->add('copieAttestationAssuranceValide', FileType::class, [
+            "label" => "Copie d'attestation d'assurance valide",
             "required" => false,
             "data_class" => null,
         ])
         ->add('copiePermisConduire', FileType::class, [
+            "label" => "Copie du permis de conduire",
             "required" => false,
             "data_class" => null,
         ])
         ->add('justificatifDomicile', FileType::class, [
+            "label" => "Justificatif de domicile",
             "required" => false,
             "data_class" => null,
         ])

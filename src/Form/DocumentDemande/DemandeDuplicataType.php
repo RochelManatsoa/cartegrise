@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-29 10:13:32 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-05-09 23:40:44
+ * @Last Modified time: 2019-04-29 16:24:54
  */
 namespace App\Form\DocumentDemande;
 
@@ -29,18 +29,22 @@ class DemandeDuplicataType extends AbstractType
             "data_class" => null,
         ])
         ->add('certificatImmatriculation', FileType::class, [
+            "label" => 'Certificat d\'immatriculation',
             "required" => false,
             "data_class" => null,
         ])
         ->add('declarationdePerteOuVol', FileType::class, [
+            "label" => 'Declaration de perte ou vol',
             "required" => false,
             "data_class" => null,
         ])
         ->add('copieControleTechniqueEnCoursValidite', FileType::class, [
+            "label" => 'copie controle technique en cours de validité',
             "required" => false,
             "data_class" => null,
         ])
         ->add('pieceIdentiteValid', FileType::class, [
+            "label" => 'piece d\'identite valide',
             "required" => false,
             "data_class" => null,
         ])

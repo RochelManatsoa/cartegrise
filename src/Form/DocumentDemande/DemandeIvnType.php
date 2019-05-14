@@ -25,6 +25,7 @@ class DemandeIvnType extends AbstractType
     {
         $builder
         ->add('originalCertificatConformiteEuropeen', FileType::class, [
+            "label" => "Original du certificat de conformité europeen",
             "required" => false,
             "data_class" => null,
         ])
@@ -33,18 +34,22 @@ class DemandeIvnType extends AbstractType
             "data_class" => null,
         ])
         ->add('pieceIdentiteValid', FileType::class, [
+            "label" => "Piece d'identité valide",  
             "required" => false,
             "data_class" => null,
         ])
         ->add('copieAttestationAssuranceValide', FileType::class, [
+            "label" => "Copie d'attestation d'assurance valide",
             "required" => false,
             "data_class" => null,
         ])
         ->add('copiePermisConduireTitulaire', FileType::class, [
+            "label" => "Copie du permis de conduire du titulaire",
             "required" => false,
             "data_class" => null,
         ])
         ->add('demandeOriginalCertificatImmatriculation', FileType::class, [
+            "label" => "Demande original du certificat d'immatriculation",
             "required" => false,
             "data_class" => null,
         ])
@@ -53,6 +58,7 @@ class DemandeIvnType extends AbstractType
             "data_class" => null,
         ])
         ->add('justificatifDomicileRecent', FileType::class, [
+            "label" => "Justificatif de domicile recent",
             "required" => false,
             "data_class" => null,
         ])
