@@ -341,4 +341,19 @@ class HomeController extends AbstractController
         $filefinal = file_put_contents($file, $decoded);
         echo $file;die;
     }
+    /**
+     *@Route("/mail_test", name="mail_test")
+     */
+    public function mail(\Swift_Mailer $mailer)
+    {
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('no-reply@cgofficiel.fr')
+            ->setTo('rapaelec@gmail.com')
+            ->setBody('mandeha')
+        ;
+
+        $mailer->send($message);
+
+        return new Response("vita");
+    }
 }

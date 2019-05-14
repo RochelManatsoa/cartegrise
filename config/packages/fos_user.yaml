@@ -3,7 +3,7 @@ fos_user:
     firewall_name: main
     user_class: App\Entity\User
     from_email:
-        address: "contact@cgofficiel.fr" 
+        address: "no-reply@cgofficiel.fr" 
         sender_name: "cgofficiel.fr" 
     service:
         mailer: fos_user.mailer.twig_swift
