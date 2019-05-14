@@ -12,13 +12,14 @@ parameters:
         merchant_country: fr
         currency_code: '978'
         #pathfile: '/var/www/app/src/Utils/pathfile'
-        pathfile: '/var/www/html/cgofficiel/src/Utils/pathfile'  # IN ENV DEV
+        pathfile: '/var/www/html/front/projectCG/src/Utils/pathfile'  # IN ENV DEV
     payment_binary:
         #request: '/var/www/app/src/Utils/bin/request'
         #response: '/var/www/app/src/Utils/bin/response'
-        request: '/var/www/html/cgofficiel/src/Utils/bin/request'  # IN ENV DEV
-        response: '/var/www/html/cgofficiel/src/Utils/bin/response'  # IN ENV DEV
+        request: '/var/www/html/front/projectCG/src/Utils/bin/request'  # IN ENV DEV
+        response: '/var/www/html/front/projectCG/src/Utils/bin/response'  # IN ENV DEV
     admin_mail: ['rapaelec@gmail.com', 'technique@cgofficiel.fr', 'rapaelec@gmail.com', 'nirinarochelmiandrisoa@gmail.com', 'rochel2fnclm@gmail.com']
+    admin_doc_validator: ["rapaelec@gmail.com", "test@gmail.com", "rakoto@gmail.com"]
 
 services:
     # default configuration for services in *this* file
@@ -48,6 +49,12 @@ services:
             - { name: kernel.event_subscriber }
     Symfony\Component\HttpFoundation\Session\Session:
         public: true
-
+    app.authentication_success_handler:
+        class: App\EventListener\LoginAuthenticationHandler
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
     App\Services\Tms\TmsClient:
         arguments: ['%env(resolve:TMS_ENDPOINT)%', '%env(resolve:TMS_CODE_TMS)%', '%env(resolve:TMS_LOGIN)%', '%env(resolve:TMS_PASSWORD)%']
+    App\EventListener\AnnotationValidator:
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, methode: onKernelController}

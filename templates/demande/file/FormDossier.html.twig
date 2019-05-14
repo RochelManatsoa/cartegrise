@@ -14,8 +14,11 @@
             <div>
                 {{ form_widget(col) }}
             </div>
+            <hr>
         {% endif %}
-        <hr>
+        
     {% endfor %}
-    {{ form_rest(form)}}
+    <div class="">
+        {{ form_rest(form)}}
+    </div>
 {{ form_end(form)}}

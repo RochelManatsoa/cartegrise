@@ -65,9 +65,14 @@ class UserManager
                     $user->getClient()->addCommande($commande);
                 }
             }
-            $this->em->persist($user);
-            $this->em->flush();
+            $this->save($user);
         }
+    }
+
+    public function save(User $user)
+    {
+        $this->em->persist($user);
+        $this->em->flush();
     }
 
     public function createUserFranceConnect(array $identity) : User

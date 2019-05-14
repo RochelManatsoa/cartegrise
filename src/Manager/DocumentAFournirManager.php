@@ -4,37 +4,42 @@ namespace App\Manager;
 
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 use App\Entity\Demande;
+use App\Manager\Model\ParamDocumentAFournir;
 use App\Entity\File\{DemandeDuplicata, DemandeIvn, DemandeCtvo, DemandeCession, DemandeChangementAdresse};
 use App\Form\DocumentDemande\{DemandeDuplicataType, DemandeCtvoType, DemandeIvnType, DemandeCessionType, DemandeChangementAdresseType};
 
 class DocumentAFournirManager
 {
     private $entityManager;
+    private $serializer;
     public function __construct(
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        SerializerInterface $serializer
     )
     {
         $this->entityManager = $entityManager;
+        $this->serializer = $serializer;
     }
 
     public function getDaf(Demande $demande)
     {
         switch($demande->getCommande()->getDemarche()->getType()) {
             case "DUP":
-                return $this->getFileDup($demande);
+                return  $this->getFileDup($demande);
                 break;
             case "CTVO":
-                return $this->getFileCtvo($demande);
+                return  $this->getFileCtvo($demande);
                 break;
             case "DIVN":
-                return $this->getFileDivn($demande);
+                return  $this->getFileDivn($demande);
                 break;
             case "DC":
-                return $this->getFileDc($demande);
+                return  $this->getFileDc($demande);
                 break;
             case "DCA":
-                return $this->getFileDca($demande);
+                return  $this->getFileDca($demande);
                 break;
             default:
                 return null;
@@ -163,5 +168,15 @@ class DocumentAFournirManager
         $data = $form->getData();
         $this->entityManager->persist($data);
         $this->entityManager->flush();
+    }
+
+    public function getFilesList(Demande $demande)
+    {
+        $daf = $this->getDaf($demande);
+        $paramDaf = new ParamDocumentAFournir();
+        $paramDaf->setName($demande->getCommande()->getDemarche()->getNom())
+        ->setDocuments($this->serializer->normalize($daf, 'json', ['groups'=>'file']));
+
+        return $paramDaf;
     }
 }

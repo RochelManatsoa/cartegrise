@@ -27,17 +27,20 @@ D_LOGO!../../banque/logo/!
 #
 # fichier des  param�tres sherlocks
 #
-F_DEFAULT!/var/www/html/cgofficiel/src/Utils/param/parmcom.sherlocks! #in deployment
+F_DEFAULT!/var/www/html/front/projectCG/src/Utils/param/parmcom.sherlocks! #in dev
+#F_DEFAULT!/var/www/html/cgofficiel/src/Utils/param/parmcom.sherlocks! #in deployment
 #F_DEFAULT!/var/www/app/src/Utils/param/parmcom.sherlocks!
 #
 # fichier param�tre commercant
 #
-F_PARAM!/var/www/html/cgofficiel/src/Utils/param/parmcom!  #in deployment
+F_PARAM!/var/www/html/front/projectCG/src/Utils/param/parmcom!  #in dev
+#F_PARAM!/var/www/html/cgofficiel/src/Utils/param/parmcom!  #in deployment
 #F_PARAM!/var/www/app/src/Utils/param/parmcom!
 #
 # certificat du commercant
 #
-F_CERTIFICATE!/var/www/html/cgofficiel/src/Utils/param/certif!  #in deployment
+F_CERTIFICATE!/var/www/html/front/projectCG/src/Utils/param/certif!  #in deployment
+#F_CERTIFICATE!/var/www/html/cgofficiel/src/Utils/param/certif!  #in deployment
 #F_CERTIFICATE!/var/www/app/src/Utils/param/certif!
 #
 # type du certificat

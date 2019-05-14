@@ -125,7 +125,18 @@ $rouge: rgb(175, 68, 68);
 	font-family: font-awesome;
 	src: url("/../../asset/fonts/fontawesome-webfont.woff");
 }
-
+.error {
+	color: #f0064c
+}
+.custom-table tr td {
+	word-break: break-word;
+}
+@media (max-width:480px) {
+	.custom-table tr td,
+	.custom-table tr th {
+		font-size: 14px !important;
+	}	
+}
 @import '_custom-form.scss';
 @import '_custom-buton-file.scss';
 @import 'menu.scss';
@@ -154,4 +165,5 @@ $rouge: rgb(175, 68, 68);
 }
 input[type="file"]{
 	opacity: 1 !important;
+	width: 100% !important;
 }

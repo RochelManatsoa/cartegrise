@@ -11,7 +11,23 @@
 
 {% block page_content %}
     <div class="col-md-12 col-lg-8 mt-0 mt-md-5">
-        <h1 class="pl-4">Votre demande</h1>
+        <h1 class="pl-4">Votre demande </h1>
+                {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
+                    <div class="alert alert-success">
+                        Votre document est valider , Vous pouvez l'envoyer par post
+                    </div>
+                {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
+                    <div class="alert alert-warning" role="alert">
+                        Votre document est en cours de validation, Veuillez attendre le retour de l'administrateur
+                    </div>
+                {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
+                    <div class="alert alert-danger">
+                        Votre document n'est pas valide, Voici le retour:
+                        <p>
+                            {{ demande.motifDeRejet|nl2br }}
+                        </p>
+                    </div> 
+                {% endif %}
         <ul>
             <li><b>Type Demande : </b> {{ demande.commande.demarche.nom }}</li>
             <li><b>Date : </b> {{ demande.commande.ceerLe | date('d-m-Y')}}</li>
@@ -32,10 +48,16 @@
         </div>
         <div class="">
             {% if form is not null %}
-                {% include 'demande/file/DemandeDuplicata.html.twig' %}
+                {% include 'demande/file/FormDossier.html.twig' %}
+            {% endif %}
+            {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') %}
+                <a href="{{ path("validate_file", {'demande': demande.id}) }}">
+                    <button class="btn btn-info">
+                        Valider les dossiers
+                    </button>
+                </a>
             {% endif %}
         </div>
-        <hr>
         <div class="pl-4 mb-3 mb-md-0">
             <a href="{{ path('demande_list') }}">
                 <i class="fa fa-arrow-left"></i> Retour à la liste de vos demandes

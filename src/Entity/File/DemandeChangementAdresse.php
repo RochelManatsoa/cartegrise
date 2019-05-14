@@ -11,6 +11,7 @@ use App\Entity\ChangementAdresse;
 use App\Entity\Duplicata;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
                 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\File\DemandeChangementAdresseRepository")
@@ -26,6 +27,7 @@ class DemandeChangementAdresse
 
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -36,6 +38,7 @@ class DemandeChangementAdresse
 
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -45,6 +48,7 @@ class DemandeChangementAdresse
     private $demandeCertificatImmatriculation;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -54,6 +58,7 @@ class DemandeChangementAdresse
     private $pieceIdentiteValid;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -63,6 +68,7 @@ class DemandeChangementAdresse
     private $copieAttestationAssuranceValide;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -72,6 +78,7 @@ class DemandeChangementAdresse
     private $copiePermisConduire;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},

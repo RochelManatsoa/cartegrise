@@ -1,0 +1,32 @@
+{% extends 'email_base.html.twig' %}
+
+
+{% block body %}
+<ul>
+    <li><b>Type Demande : </b> {{ demande.commande.demarche.nom }}</li>
+    <li><b>Date : </b> {{ demande.commande.ceerLe | date('d-m-Y')}}</li>
+    <li><b>Nom et prénom : </b> {{ client.clientNom }} {{ client.clientPrenom }}</li>
+    <li><b>Département : </b> {{ demande.commande.codePostal }}</li>
+    <li><b>Immatriculation : </b> {{ demande.commande.immatriculation }}</li>
+</ul>
+<h1 class="pl-4">Dossiers à valider sont en pièce joint et doivent comporter :</h1>
+<div id="daf-list-wrapper">
+    {{ daf|raw }}
+</div>
+<div class="text-center">
+<div >
+    Si vous trouvez que les document sont ok , veuillez clicker sur ce lien pour valiser : 
+    <a href="{{ absolute_url(path("demande_document_validate", {"demande": demande.id, "checker": demande.checker})) }}"
+        class="">
+        valider
+    </a>
+</div>
+<div >
+    Si vous pensez que ces documents ne sont pas valide, veuillez mettre les raisons dans le champs text du lien suivant :
+    <a href="{{ absolute_url(path("demande_document_nonvalidate", {"demande": demande.id, "checker": demande.checker})) }}"
+        class="">
+        non valider
+    </a>
+</div>
+</div>
+{% endblock %}

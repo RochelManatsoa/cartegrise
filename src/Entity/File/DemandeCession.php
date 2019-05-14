@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-29 12:14:35 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-04-29 16:22:44
+ * @Last Modified time: 2019-05-09 23:08:28
  */
 namespace App\Entity\File;
                                                                            
@@ -12,6 +12,7 @@ use App\Entity\Ctvo;
 use App\Entity\Duplicata;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
                 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\File\DemandeCessionReporitory")
@@ -27,6 +28,7 @@ class DemandeCession
 
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},

@@ -5,6 +5,7 @@ namespace App\Entity\File;
 use App\Entity\Divn;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\File\DemandeIvnRepository")
@@ -24,6 +25,7 @@ class DemandeIvn
 
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -34,6 +36,7 @@ class DemandeIvn
 
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -43,6 +46,7 @@ class DemandeIvn
     private $certificatVenteOriginalFactureAchat;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -52,6 +56,7 @@ class DemandeIvn
     private $pieceIdentiteValid;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -61,6 +66,7 @@ class DemandeIvn
     private $copieAttestationAssuranceValide;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -70,6 +76,7 @@ class DemandeIvn
     private $copiePermisConduireTitulaire;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -79,6 +86,7 @@ class DemandeIvn
     private $demandeOriginalCertificatImmatriculation;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
@@ -88,6 +96,7 @@ class DemandeIvn
     private $procurationParMandat;
     /**
     * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "1024k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
