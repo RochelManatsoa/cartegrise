@@ -47,11 +47,11 @@
                                 class="badge badge-{{ statusOfCommande(demande.commande, "style") }}">{{ statusOfCommande(demande.commande, "text") }}</span>
                         </td>
                         <td>
-                            <a href="{{path('crm_demande_recap', {'demande': demande.id })}}">
+                            <a href="{{path('route_crm_demande_recap', {'demande': demande.id })}}">
                                 <button type="button" class="badge badge-pill badge-primary ">Résumé</button>
                             </a>
                             {% if demande.transaction is not null and demande.transaction.status == "00" %}
-                            <a href="{{path('crm_dossier_fournir', {'demande': demande.id })}}">
+                            <a href="{{path('route_crm_dossier_fournir', {'demande': demande.id })}}">
                                 <button type="button" class="badge badge-pill badge-warning ">Documents</button>
                             </a>
                             {% endif %}

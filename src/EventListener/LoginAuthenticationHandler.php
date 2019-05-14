@@ -25,7 +25,7 @@ class LoginAuthenticationHandler implements AuthenticationSuccessHandlerInterfac
         $user = $token->getUser();
         if ($user->hasRole("ROLE_CRM")) {
 
-            return new RedirectResponse($this->routerInterface->generate('home_crm'));
+            return new RedirectResponse($this->routerInterface->generate('route_crm_home'));
         }
 
         return new RedirectResponse($this->routerInterface->generate('Accueil'));

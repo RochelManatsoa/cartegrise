@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class DashboardController extends AbstractController
 {
     /**
-     * @Route("dashboard/crm", name="home_crm")
+     * @Route("dashboard/crm", name="route_crm_home")
      * @IsGranted("ROLE_CRM")
      */
     public function dashboardCrm(Request $request, SearchManager $searchManager)
@@ -41,7 +41,7 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * @Route("dashboard/crm/{demande}/dossier_a_fournir", name="crm_dossier_fournir")
+     * @Route("dashboard/crm/{demande}/dossier_a_fournir", name="route_crm_dossier_fournir")
      * @IsGranted("ROLE_CRM")
      */
     public function crmDossierAFournir(
@@ -66,7 +66,7 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * @Route("dasboard/crm/{demande}/recap", name="crm_demande_recap")
+     * @Route("dasboard/crm/{demande}/recap", name="route_crm_demande_recap")
      * @IsGranted("ROLE_CRM")
      */
     public function crmDemandeRecap(Demande $demande)
