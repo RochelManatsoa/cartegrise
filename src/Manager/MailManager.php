@@ -43,7 +43,7 @@ class MailManager
         if (\is_iterable($emailDests) && 0 < count($emailDests)){
             $message = (new \Swift_Message($infos->getName() . ' ' . $this->tokenStorage->getToken()->getUser()->getEmail()))
             // ->setFrom($this->tokenStorage->getToken()->getUser()->getEmail());
-            ->setFrom('no-reply@cgofficiel.fr', 'cgofficiel.fr');
+            ->setFrom('no-reply@cgofficiel.fr');
             foreach ($emailDests as $key => $emailDest) {
                 if (0 == $key) {
                     $message->setTo($emailDest);

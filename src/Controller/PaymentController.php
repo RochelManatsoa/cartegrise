@@ -178,7 +178,7 @@ class PaymentController extends AbstractController
     public function send($mailer, $mail, $responses, $adminPrepend='')
     {
             $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["transaction_id"]. ' de ' . $responses["customer_email"] ))
-            ->setFrom('no-reply@cgofficiel.fr', 'cgofficiel.fr');
+            ->setFrom('no-reply@cgofficiel.fr');
             if ($adminPrepend != '' && is_iterable($mail) && count($mail)>0) {
                 $message->setTo(array_shift($mail))
                 ->setBcc($mail);
