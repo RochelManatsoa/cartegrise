@@ -23,7 +23,10 @@ class TaxesManager
 
 	public function createFromTmsResponse(Response $tmsResponse): Taxes
 	{
-		$value = $tmsResponse->getRawData();
+        $value = $tmsResponse->getRawData();
+        if(isset($value->Erreur)){
+            throw new \Exception($value->Erreur);
+        }
         $taxe = new Taxes();
 
         $taxe->setTaxeRegionale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale)
