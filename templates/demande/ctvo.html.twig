@@ -33,7 +33,7 @@
                                 <h3 class="text-center">Acquerreur</h3>
                                 <hr>
                                 {% for acquerreur in form.ctvo.acquerreur %}
-                                    {% if loop.index < 7 %}
+                                    {% if loop.index < 8 %}
                                         <div class="form-group">
                                             {{ form_label(acquerreur)}}
                                             {{ form_errors(acquerreur)}}
@@ -68,7 +68,9 @@
                         </div>
                     </div>
                     <div class="col-12 text-center">
-                        {{form_rest(form)}}
+                        <div style="display:none;">
+                            {{form_rest(form)}}
+                        </div>
                     </div>
                     <div class="col-12 text-center mb-5">
                         <br>
