@@ -43,7 +43,7 @@
             </tbody>
         </table>
     </div>
-    {% if transaction is not null && transaction.demande is not null %}
+    {% if transaction is not null and transaction.demande is not null %}
         <div>
             <a href="{{path('demande_dossiers_a_fournir', {id: transaction.demande.id })}}" >
                 <button class="btn btn-primary">
