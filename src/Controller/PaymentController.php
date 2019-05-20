@@ -94,15 +94,20 @@ class PaymentController extends AbstractController
         Request $request,
         PaymentUtils $paymentUtils,
         ParameterBagInterface $parameterBag,
-        PaymentResponseTreatment $responseTreatment
+        PaymentResponseTreatment $responseTreatment,
+        TransactionManager $transactionManager
     )
     {
         $response = $request->request->get('DATA');
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
+        $transaction = $transactionManager->findByTransactionId($response->transaction_id);
 
         return $this->render(
                 'transaction/transactionResponse.html.twig',
-                array('responses' => $responses)
+                [
+                    'responses' => $responses,
+                    'transaction' => $transaction,
+                ]
         );
     }
 

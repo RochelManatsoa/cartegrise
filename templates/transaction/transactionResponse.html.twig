@@ -43,6 +43,15 @@
             </tbody>
         </table>
     </div>
+    {% if transaction is not null && transaction.demande is not null %}
+        <div>
+            <a href="{{path('demande_dossiers_a_fournir', {id: transaction.demande.id })}}" >
+                <button class="btn btn-primary">
+                    Finaliser ma commande
+                </button>
+            </a>
+        </div>
+    {% endif %}
 </div>
 </body>
 
