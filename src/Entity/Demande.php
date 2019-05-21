@@ -138,7 +138,7 @@ class Demande
 
     public function __toString()
     {
-        // return $this->typeDemande;
+        return $this->typeDemande;
     }
 
     public function __construct()

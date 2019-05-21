@@ -52,12 +52,10 @@ class RegisterListener implements EventSubscriberInterface
 
     public function onRegistrationCompleted(FilterUserResponseEvent $event)
     {
-        $idsRecapCommande = $event->getRequest()->getSession()->get(SessionManager::IDS_COMMANDE);
         $user = $event->getUser();
         if (!$user instanceof User)
             return;
-        $this->userManager->addCommandeInSession($user, $idsRecapCommande);
-        $this->sessionManager->remove(SessionManager::IDS_COMMANDE);
+        $this->userManager->checkCommandeInSession($user);
         
         return;
     }

@@ -2,8 +2,8 @@
 /*
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-05-13 00:37:24 
- * @Last Modified by:   Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
- * @Last Modified time: 2019-05-13 00:37:24 
+ * @Last Modified by: Patrick << rapaelec@gmail.com >>
+ * @Last Modified time: 2019-05-21 17:20:00
  */
 namespace App\EventListener;
 
@@ -81,6 +81,7 @@ class AnnotationValidator
 
         $object = new \ReflectionObject($controller[0]);
         $method = $object->getMethod($controller[1]);
+        dump($this->reader->getMethodAnnotations($method));die;
  
         foreach ($this->reader->getMethodAnnotations($method) as $configuration) {
             $this->retirectRole($event, $configuration,

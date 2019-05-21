@@ -17,6 +17,7 @@ class UserManager
     private $em;
     private $token;
     private $session;
+    private $sessionManager;
     private $encoder;
     private $commandeRepository;
     public function __construct(
@@ -32,6 +33,7 @@ class UserManager
         $this->em         = $em;
         $this->token      = $token;
         $this->session    = $sessionManager->initSession();
+        $this->sessionManager    = $sessionManager;
         $this->encoder    = $encoder;
         $this->commandeRepository    = $commandeRepository;
     }
@@ -66,6 +68,22 @@ class UserManager
                 }
             }
             $this->save($user);
+            $this->sessionManager->remove(SessionManager::IDS_COMMANDE);
+        }
+    }
+
+    public function checkCommandeInSession(User $user)
+    {
+        $idsCommande = $this->sessionManager->get(SessionManager::IDS_COMMANDE);
+        if (!is_null($idsRecapCommande)) {
+            foreach ($idsRecapCommande as $idRecapCommande){
+                if (is_integer($idRecapCommande)){
+                    $commande = $this->commandeRepository->find($idRecapCommande);
+                    $user->getClient()->addCommande($commande);
+                }
+            }
+            $this->save($user);
+            $this->sessionManager->remove(SessionManager::IDS_COMMANDE);
         }
     }
 
