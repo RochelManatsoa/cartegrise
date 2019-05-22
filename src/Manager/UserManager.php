@@ -6,7 +6,7 @@ use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Entity\{User, Client, Contact, Adresse};
+use App\Entity\{User, Client, Contact, Adresse, Commande};
 use App\Manager\SessionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommandeRepository;
@@ -79,6 +79,9 @@ class UserManager
             foreach ($idsRecapCommande as $idRecapCommande){
                 if (is_integer($idRecapCommande)){
                     $commande = $this->commandeRepository->find($idRecapCommande);
+                    if (!$commande instanceof Commande) {
+                        return;
+                    }
                     $user->getClient()->addCommande($commande);
                 }
             }
