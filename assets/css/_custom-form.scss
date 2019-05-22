@@ -18,6 +18,27 @@
         padding-left: 0;
     }
 }
+.form-client {
+    legend {
+        font-family: Raleway;
+        color: #1a3f78;
+    }
+    label {
+        color: #1a3f78;
+    }
+    .form-control {
+        width: -moz-calc(100% - 1.5rem);
+        width: -ms-calc(100% - 1.5rem);
+        width: -webkit-calc(100% - 1.5rem);
+        width: calc(100% - 1.5rem);
+    }
+    select.form-control {
+        height: auto !important;
+    }
+    &+.form-group {
+        text-align: center;
+    } 
+}
 @media (max-width:1200px) {
     
 }
