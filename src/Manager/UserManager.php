@@ -74,7 +74,7 @@ class UserManager
 
     public function checkCommandeInSession(User $user)
     {
-        $idsCommande = $this->sessionManager->get(SessionManager::IDS_COMMANDE);
+        $idsRecapCommande = $this->sessionManager->get(SessionManager::IDS_COMMANDE);
         if (!is_null($idsRecapCommande)) {
             foreach ($idsRecapCommande as $idRecapCommande){
                 if (is_integer($idRecapCommande)){
