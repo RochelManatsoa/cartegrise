@@ -78,6 +78,14 @@ class Documents
      */
     private $fichier;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Fichier", mappedBy="type")
+     */
+    private $fichiers;
+
+
+
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\TypeDemande", inversedBy="documents")
      */
@@ -117,6 +125,7 @@ class Documents
     public function __construct()
     {
         $this->type = new ArrayCollection();
+        $this->fichiers = new ArrayCollection();
     }
 
     public function __toString()
@@ -367,6 +376,37 @@ class Documents
     public function setCode(string $code): self
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Fichier[]
+     */
+    public function getFichiers(): Collection
+    {
+        return $this->fichiers;
+    }
+
+    public function addFichier(Fichier $fichier): self
+    {
+        if (!$this->fichiers->contains($fichier)) {
+            $this->fichiers[] = $fichier;
+            $fichier->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFichier(Fichier $fichier): self
+    {
+        if ($this->fichiers->contains($fichier)) {
+            $this->fichiers->removeElement($fichier);
+            // set the owning side to null (unless already changed)
+            if ($fichier->getType() === $this) {
+                $fichier->setType(null);
+            }
+        }
 
         return $this;
     }

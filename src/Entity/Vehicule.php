@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -76,6 +78,16 @@ class Vehicule
      * @ORM\OneToOne(targetEntity="App\Entity\Demande", mappedBy="vehicule", cascade={"persist", "remove"})
      */
     private $demande;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Adresse", mappedBy="vehicules")
+     */
+    private $adresse;
+
+    public function __construct()
+    {
+        $this->adresse = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -228,6 +240,37 @@ class Vehicule
         $newVehicule = $demande === null ? null : $this;
         if ($newVehicule !== $demande->getVehicule()) {
             $demande->setVehicule($newVehicule);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Adresse[]
+     */
+    public function getAdresse(): Collection
+    {
+        return $this->adresse;
+    }
+
+    public function addAdresse(Adresse $adresse): self
+    {
+        if (!$this->adresse->contains($adresse)) {
+            $this->adresse[] = $adresse;
+            $adresse->setVehicules($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdresse(Adresse $adresse): self
+    {
+        if ($this->adresse->contains($adresse)) {
+            $this->adresse->removeElement($adresse);
+            // set the owning side to null (unless already changed)
+            if ($adresse->getVehicules() === $this) {
+                $adresse->setVehicules(null);
+            }
         }
 
         return $this;
