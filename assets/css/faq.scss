@@ -46,3 +46,24 @@ padding-bottom: 20vh !important;
     text-align: justify;
   }
 }
+ #menu-faq {
+    .search {
+      h2 {
+        text-align: center;
+      }
+      p {
+        color: #292b2c;
+        font-size: 18px;
+        text-align: justify;
+        font-family: textr;
+        line-height: 25px;
+      }
+      ul {
+        padding-left: 55px !important;
+      }
+      li,
+      a {
+        color: #002a6a;
+      }
+    }
+ }
