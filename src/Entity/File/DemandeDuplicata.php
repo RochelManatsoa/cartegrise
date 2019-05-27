@@ -17,6 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class DemandeDuplicata
 {
+    use FileTrait;
     /**
     * @ORM\ID
     * @ORM\GeneratedValue(strategy="AUTO")

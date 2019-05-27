@@ -66,9 +66,6 @@ body .custom-file-input {
     padding: 0 15px;
     cursor: pointer;
 }
-.custom-file-label::after {
-    content:"Choisir un fichier..."
-}
 .custom-file-label::before {
     position: absolute;
     top: -1px;

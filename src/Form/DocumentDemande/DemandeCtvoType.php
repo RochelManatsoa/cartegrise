@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-29 10:13:32 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-04-29 16:24:54
+ * @Last Modified time: 2019-05-27 12:42:01
  */
 namespace App\Form\DocumentDemande;
 
@@ -29,16 +29,16 @@ class DemandeCtvoType extends AbstractType
             "data_class" => null,
         ])
         ->add('declatationCession', FileType::class, [
-            "label" => "Declaration de cession",
+            "label" => "Déclaration de cession => Cerfa 15776*01",
             "required" => false,
             "data_class" => null,
         ])
         ->add('demandeCertificat', FileType::class, [
-            "label" => "Demande de certificat",
+            "label" => "Demande de certificat => Cerfa 13750*05",
             "required" => false,
             "data_class" => null,
         ])
-        ->add('procurationManda', FileType::class, [
+        ->add('procurationMandat', FileType::class, [
             "label" => "Mandat d'immatriculation",
             "required" => false,
             "data_class" => null,
@@ -53,8 +53,8 @@ class DemandeCtvoType extends AbstractType
             "required" => false,
             "data_class" => null,
         ])
-        ->add('recepiseDemandeAchat', FileType::class, [
-            "label" => "Recepise de la demande d'achat",
+        ->add('recepisseDemandeAchat', FileType::class, [
+            "label" => "Récépissé de la demande d'achat",
             "required" => false,
             "data_class" => null,
         ])

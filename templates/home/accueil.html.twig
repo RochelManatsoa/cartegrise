@@ -50,19 +50,30 @@
 										<div class="modal-body">
 												<div class="col-10 col-lg-8 col-xl-6 mx-auto mt-4">
 													<div class="col-12 mx-auto resultat-estimation-p mt-5">
-														<p class="text-center">J'ai déjà un compte CG OFFICIEL.</p>
+														<p class="text-center">Créez votre compte et identifiez-vous en quelques <br>
+														clics, pour valider et suivre votre commande
+														</p>
 													</div>
-													<a class="col-12 btn btn-outline-primary btn-lg mt-3 mb-3" href="{{ path('fos_user_security_login') }}">S'identifier</a>
+
 													<div class="col-12 resultat-estimation-p mt-5 mx-auto">
-														<p class="text-center">utiliser France connect.</p>
+														<p class="text-center">je n'ai pas encore de compte sur CG officiel</p>
+													</div>
+													<a class="col-12 btn btn-outline-primary btn-lg mt-3 mb-3" href="{{ path('fos_user_registration_register') }}">
+														CREER MON COMPTE
+													</a>
+													<div class="col-12 resultat-estimation-p mt-5 mx-auto">
+														<p class="text-center">j'ai déjà un compte sur CG officiel</p>
+													</div>
+													<a class="col-12 btn btn-outline-primary btn-lg mt-3 mb-3" href="{{ path('fos_user_security_login') }}">
+														S'IDENTIFIER
+													</a>
+													<div class="col-12 resultat-estimation-p mt-5 mx-auto">
+														<p class="text-center">Je préfère m'identifier avec France Connect</p>
 													</div>
 													<a class="col-12 mx-auto" href="{{ path('france_connect_login') }}" class="btnLink">
 														<img class="img-fluid col-12 rounded mx-auto d-block tooltiped" style="max-width: 100%;height:auto;" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
 													</a>
-													<div class="col-12 resultat-estimation-p mt-5 mx-auto">
-														<p class="text-center">Créer un compte.</p>
-													</div>
-													<a class="col-12 btn btn-outline-primary btn-lg mt-3 mb-3" href="{{ path('fos_user_registration_register') }}">S'enregistrer</a>														
+																											
 												</div>													
 										</div>
 										<div class="modal-footer">
