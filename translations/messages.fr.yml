@@ -2,17 +2,9 @@ type_demande:
     daf:
         ctvo: |
             <ol>
-                <li>Copie recto/verso de la Carte Grise (copie recto/verso du certificat d'immatriculation (carte grise) barré, daté et signé par le vendeur)</li>
-                <li>Déclaration de cession / CERFA 15776*01</li>
-                <li>Demande de certificat d'immatriculation / CERFA 13750*05</li>
-                <li>Procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)</li>
-                <li>Pièce d'identité valide (copie recto/verso d'une carte d'identité (ou passeport) en cours de validité, d'un permis de conduire français ou d'un titre de séjour (dans ce cas, même adresse que la carte grise)</li>
-                <li>Copie du contrôle technique (moins de 6 mois) ou la vignette collée au dos de la carte grise</li>
-                <li>Récépissé de la Déclaration d'Achat si achat auprès d'un professionnel</li>
-                <li>Copie de l'attestation d'assurance du véhicule en cours de validité</li>
-                <li>Copie du permis de conduire du titulaire (preuve que le titulaire dispose du droit de conduire le véhicule)</li>
+                <li>une pièce d'identité en cours de validité</li>
                 <li>
-                    Justificatif de domicile récent (moins de 6 mois) :
+                    un justificatif de domicile de moins de 6 mois (au choix) :
                     <ul>
                         <li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
                         <li>Dernier avis d'imposition ou de non imposition</li>
@@ -24,28 +16,36 @@ type_demande:
                         <li>Attestation d'assurance habitation</li>
                     </ul>
                 </li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750)</li>
+                <li>la déclaration de cession (cerfa 15776), à remplir conjointement par l'ancien propriétaire ou une facture établie par le vendeur</li>
+                <li>la déclaration d'achat d'un véhicule d'occasion si l'acquéreur est un professionnel (cerfa 13751)</li>
+                <li>L'ancien certificat d'immatriculation remis par le précédent propriétaire, revêtu de la mention "vendu le ../../.... (date de cession)", suivi de sa signature, la preuve d'un contrôle technique de moins de 6 mois remis par le vendeur.</li>
+                <li>Dans le cas de copropriétaires mariés (hors régime de la séparation des bien), si le demandeur agit seul, il doit présenter un livret de famille.<br>
+                Si l'un des époux effectue la demande d'immatriculation à son nom propre, il doit fournir une attestation signée par l'autre époux lorsqu'il n'y pas concordance entre l'acquéreur et le demandeur ud titre.</li>
+                <li>le permis de conduire du titulaire du véhicule</li>
+                <li>l'attestation d'assurance du véhicule</li>  
             </ol>
         dup: |
             <ol>
-                <li>Copie recto/verso de la Carte Grise </li>
-                <li>Demande de certificat d'immatriculation / CERFA 13750*05</li>
-                <li>Déclaration originale de perte ou vol (la déclaration de vol doit être enregistrée et tamponnée par la police)</li>
-                <li>Copie du contrôle technique  en cours de validité encore 1 mois minimum sauf pour les motos, cyclo, caravanes, remorques et engins agricoles </li>
-                <li>Pièce d'identité valide (copie recto/verso d'une carte d'identité (ou passeport) en cours de validité, d'un permis de conduire français ou d'un titre de séjour (dans ce cas, même adresse que la carte grise)</li>
-                <li>Copie de l'attestation d'assurance du véhicule en cours de validité</li>
-                <li>Copie du permis de conduire du titulaire (preuve que le titulaire dispose du droit de conduire le véhicule)</li>
+                <li>une copie recto/verso de la Carte Grise </li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750)</li>
+                <li>la déclaration originale de perte ou vol (la déclaration de vol doit être enregistrée et tamponnée par la police)</li>
+                <li>une copie du contrôle technique  en cours de validité encore 1 mois minimum sauf pour les motos, cyclo, caravanes, remorques et engins agricoles </li>
+                <li>une pièce d'identité en cours de validité</li>
+                <li>l'attestation d'assurance du véhicule</li> 
+                <li>le permis de conduire du titulaire du véhicule</li>
             </ol>
         divn: |
             <ol>
-                <li>Original du certificat de conformité Européen (COC)</li>
-                <li>Certificat de vente ORIGINAL ou facture d'achat du véhicule / CERFA 15776*01</li>
-                <li>Pièce d'identité valide (copie recto/verso d'une carte d'identité (ou passeport) en cours de validité, d'un permis de conduire français ou d'un titre de séjour (dans ce cas, même adresse que la carte grise)</li>
-                <li>Copie de l'attestation d'assurance du véhicule en cours de validité</li>
-                <li>Copie du permis de conduire du titulaire (preuve que le titulaire dispose du droit de conduire le véhicule)</li>
-                <li>Demande ORIGINALE de certificat d'immatriculation / CERFA 13750*05</li>
-                <li>Procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)</li>
+                <li>l'original du certificat de conformité Européen (COC)</li>
+                <li>le certificat de vente ORIGINAL ou facture d'achat du véhicule (cerfa 15776)</li>
+                <li>une pièce d'identité en cours de validité</li>
+                <li>l'attestation d'assurance du véhicule</li> 
+                <li>le permis de conduire du titulaire du véhicule</li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750)</li>
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)</li>
                 <li>
-                    Justificatif de domicile récent (moins de 6 mois) :
+                    un justificatif de domicile de moins de 6 mois (au choix) :
                     <ul>
                         <li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
                         <li>Dernier avis d'imposition ou de non imposition</li>
@@ -60,13 +60,13 @@ type_demande:
             </ol>
         dca: |
             <ol>
-                <li>Copie recto/verso de la Carte Grise </li>
-                <li>Demande de certificat d'immatriculation / CERFA 13750*05</li>
-                <li>Pièce d'identité valide (copie recto/verso d'une carte d'identité (ou passeport) en cours de validité, d'un permis de conduire français ou d'un titre de séjour (dans ce cas, même adresse que la carte grise)</li>
-                <li>Copie de l'attestation d'assurance du véhicule en cours de validité</li>
-                <li>Copie du permis de conduire du titulaire (preuve que le titulaire dispose du droit de conduire le véhicule)</li>
+                <li>une copie recto/verso de la Carte Grise </li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750)</li>
+                <li>une pièce d'identité en cours de validité</li>
+                <li>l'attestation d'assurance du véhicule</li> 
+                <li>le permis de conduire du titulaire du véhicule</li>
                 <li>
-                    Justificatif de domicile récent (moins de 6 mois) :
+                    un justificatif de domicile de moins de 6 mois (au choix) :
                     <ul>
                         <li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
                         <li>Dernier avis d'imposition ou de non imposition</li>
@@ -87,16 +87,16 @@ type_demande:
             </div>
         dcs: |
             <ol>
-                <li>Copie recto/verso de la Carte Grise </li>
-                <li>Demande de certificat d'immatriculation / CERFA 13750*05</li>
+                <li>une copie recto/verso de la Carte Grise </li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750)</li>
                 <li>Extrait d'Acte de mariage / jugement de divorce / livret de famille</li>
-                <li>Copie du contrôle technique en cours de validité pour les véhicules de plus de 4 ans</li>
-                <li>Pièce d'identité valide (copie recto/verso d'une carte d'identité (ou passeport) en cours de validité, d'un permis de conduire français ou d'un titre de séjour (dans ce cas, même adresse que la carte grise)</li>
-                <li>Procuration par Mandat</li>
-                <li>Copie de l'attestation d'assurance du véhicule en cours de validité</li>
-                <li>Copie du permis de conduire du titulaire (preuve que le titulaire dispose du droit de conduire le véhicule)</li>
+                <li>une copie du contrôle technique en cours de validité pour les véhicules de plus de 4 ans</li>
+                <li>une pièce d'identité en cours de validité</li>
+                <li>la procuration par Mandat</li>
+                <li>l'attestation d'assurance du véhicule</li> 
+                <li>le permis de conduire du titulaire du véhicule</li>
                 <li>
-                    Justificatif de domicile récent (moins de 6 mois) :
+                    un justificatif de domicile de moins de 6 mois (au choix) :
                     <ul>
                         <li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
                         <li>Dernier avis d'imposition ou de non imposition</li>
