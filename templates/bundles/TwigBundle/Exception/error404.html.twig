@@ -1,0 +1,13 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block page_content %}
+<div>
+    <h1>PAGE INEXISTANTE ou INTROUVABLE</h1>
+    <p>
+        La page que vous recherchez est introuvable ou n'existe pas.
+        <br><br>
+        <a href="{{ path('Accueil') }}">retour à l'ACCUEIL</a>.
+    </p>
+</div>
+{% endblock %}
