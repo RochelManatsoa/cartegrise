@@ -76,12 +76,14 @@ class Demande
     private $fichiers;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", inversedBy="demande", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", mappedBy="demande", cascade={"persist", "remove"})
+     * @ORM\JoinColumn()
      */
     private $ctvo;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Duplicata", inversedBy="demande", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Duplicata", mappedBy="demande", cascade={"persist", "remove"})
+     * @ORM\JoinColumn()
      */
     private $duplicata;
 
@@ -286,6 +288,7 @@ class Demande
     public function setCtvo(?Ctvo $ctvo): self
     {
         $this->ctvo = $ctvo;
+        $ctvo->setDemande($this);
 
         return $this;
     }

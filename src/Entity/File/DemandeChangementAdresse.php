@@ -18,6 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class DemandeChangementAdresse
 {
+    use FileTrait;
     /**
     * @ORM\ID
     * @ORM\GeneratedValue(strategy="AUTO")

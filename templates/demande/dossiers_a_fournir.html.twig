@@ -54,7 +54,7 @@
             {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') %}
                 <a href="{{ path("validate_file", {'demande': demande.id}) }}">
                     <button class="btn btn-info">
-                        Valider les dossiers
+                        Valider
                     </button>
                 </a>
             {% endif %}
@@ -65,4 +65,23 @@
             </a>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript">
+        $('input.custom-file-input[type="file"]').change(function (e) {
+            let name = e.target.files[0].name;
+            let element = $(e.target);
+            element.next('label.custom-file-label').text(name);
+            });
+        $('.group-input').find('h4 label').map(
+            (key, item) => { 
+                if ($(item).next().length === 1) {
+                     $(item).parents('div.group-input').find('label.custom-file-label').text($(item).next().text());
+                } else {
+                    $(item).parents('div.group-input').find('label.custom-file-label').text('Choisir un fichier...');
+                }
+            }
+        );
+    </script>
 {% endblock %}

@@ -1,0 +1,53 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig
+{% extends 'base.html.twig' %}
+
+{% block page_content %}
+<div>
+        <h1>Oops! An Error Occurred</h1>
+        <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
+        
+        <p>
+            Something is broken. Please let us know what you were doing when this error occurred.
+            We will fix it as soon as possible. Sorry for any inconvenience caused.
+            <br>
+            La page demandée n'a pas pu être localisée
+            <br><a href="{{ path('Accueil') }}">retour à l'acceuil</a>.
+        </p>
+</div>
+{% endblock %} #}
+
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block page_content %}
+<div>
+    <h1>The server returned a "{{ status_code }} {{ status_text }}".</h1>
+    <p>
+        Quelque chose est cassé. S'il vous plaît laissez-nous savoir ce que vous faisiez. Désolé pour tout inconvénient causé.
+        <br><a href="{{ path('Accueil') }}">retour à l'acceuil</a>.
+    </p>
+</div>
+
+        <style>
+            body {
+                background-color: #fff;
+                color: #222;
+                font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                margin: 0;
+            }
+        
+            .container {
+                margin: 30px;
+                max-width: 600px;
+            }
+        
+            h1 {
+                color: #dc3545;
+                font-size: 24px;
+            }
+        
+            h2 {
+                font-size: 18px;
+            }
+        </style>
+{% endblock %}

@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-29 12:14:35 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-04-29 16:22:44
+ * @Last Modified time: 2019-05-27 12:37:22
  */
 namespace App\Entity\File;
                                                                            
@@ -18,6 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class DemandeCtvo
 {
+    use FileTrait;
     /**
     * @ORM\ID
     * @ORM\GeneratedValue(strategy="AUTO")
@@ -67,7 +68,7 @@ class DemandeCtvo
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $procurationManda;
+    private $procurationMandat;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -97,7 +98,7 @@ class DemandeCtvo
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $recepiseDemandeAchat;
+    private $recepisseDemandeAchat;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -199,17 +200,6 @@ class DemandeCtvo
         return $this;
     }
 
-    public function getProcurationManda(): ?string
-    {
-        return $this->procurationManda;
-    }
-
-    public function setProcurationManda(?string $procurationManda): self
-    {
-        $this->procurationManda = $procurationManda;
-
-        return $this;
-    }
 
     public function getPieceIdentite(): ?string
     {
@@ -231,18 +221,6 @@ class DemandeCtvo
     public function setCopieControleTechnique(?string $copieControleTechnique): self
     {
         $this->copieControleTechnique = $copieControleTechnique;
-
-        return $this;
-    }
-
-    public function getRecepiseDemandeAchat(): ?string
-    {
-        return $this->recepiseDemandeAchat;
-    }
-
-    public function setRecepiseDemandeAchat(?string $recepiseDemandeAchat): self
-    {
-        $this->recepiseDemandeAchat = $recepiseDemandeAchat;
 
         return $this;
     }
@@ -297,6 +275,30 @@ class DemandeCtvo
         if ($newFile !== $ctvo->getFile()) {
             $ctvo->setFile($newFile);
         }
+
+        return $this;
+    }
+
+    public function getProcurationMandat(): ?string
+    {
+        return $this->procurationMandat;
+    }
+
+    public function setProcurationMandat(?string $procurationMandat): self
+    {
+        $this->procurationMandat = $procurationMandat;
+
+        return $this;
+    }
+
+    public function getRecepisseDemandeAchat(): ?string
+    {
+        return $this->recepisseDemandeAchat;
+    }
+
+    public function setRecepisseDemandeAchat(?string $recepisseDemandeAchat): self
+    {
+        $this->recepisseDemandeAchat = $recepisseDemandeAchat;
 
         return $this;
     }

@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class DemandeIvn
 {
+    use FileTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue()

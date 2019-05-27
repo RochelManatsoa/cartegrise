@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-29 12:14:35 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-05-09 23:08:28
+ * @Last Modified time: 2019-05-27 11:13:13
  */
 namespace App\Entity\File;
                                                                            
@@ -19,6 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class DemandeCession
 {
+    use FileTrait;
     /**
     * @ORM\ID
     * @ORM\GeneratedValue(strategy="AUTO")
