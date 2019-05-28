@@ -102,6 +102,12 @@ class DemandeDuplicata
      */
     private $demandeDuplicata;
 
+    // don't touch
+    public function getParent() : Duplicata
+    {
+        return $this->demandeDuplicata;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

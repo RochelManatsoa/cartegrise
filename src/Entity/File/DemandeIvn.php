@@ -106,6 +106,12 @@ class DemandeIvn
     */
     private $justificatifDomicileRecent;
 
+    // don't touch
+    public function getParent() : Divn
+    {
+        return $this->divn;
+    }
+
 
     public function getDivn(): ?Divn
     {
