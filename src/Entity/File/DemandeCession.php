@@ -43,6 +43,12 @@ class DemandeCession
      */
     private $cession;
 
+    // don't touch
+    public function getParent() : Cession
+    {
+        return $this->cession;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

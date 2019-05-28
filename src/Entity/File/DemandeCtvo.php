@@ -135,6 +135,12 @@ class DemandeCtvo
      */
     private $ctvo;
 
+    // don't touch
+    public function getParent() : Ctvo
+    {
+        return $this->ctvo;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

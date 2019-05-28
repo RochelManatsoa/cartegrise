@@ -14,11 +14,19 @@
         <div class="row col-md-12 col-lg-7 pt-5 pb-5">
             {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
                 <div class="alert alert-success">
-                    Votre document est valider , Vous pouvez l'envoyer par poste
+                    Votre demande est en cours de validation, une fois validée, veuillez nous envoyer vos documents physiques à l'adresse
+                    suivante :
+                    <br>CG Officiel
+                    <br>20 Impasse Camille Langlade
+                    <br>31100 Toulouse
                 </div>
             {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
                 <div class="alert alert-warning" role="alert">
-                    Votre document est en cours de validation, Veuillez attendre le retour de l'administrateur
+                    Votre demande est en cours de validation, une fois validée, veuillez nous envoyer vos documents physiques à l'adresse
+                    suivante : 
+                    <br>CG Officiel
+                    <br>20 Impasse Camille Langlade
+                    <br>31100 Toulouse
                 </div>
             {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
                 <div class="alert alert-danger">
