@@ -93,6 +93,12 @@ class DemandeChangementAdresse
      */
     private $changementAdresse;
 
+    // don't touch
+    public function getParent() : ChangementAdresse
+    {
+        return $this->changementAdresse;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
