@@ -43,16 +43,17 @@
             <li><b>Département : </b> {{ demande.commande.codePostal }}</li>
             <li><b>Immatriculation : </b> {{ demande.commande.immatriculation }}</li>
         </ul>
-        <h1 class="pl-4">Dossiers à fournir pour votre demande</h1>
+        <h1 class="pl-4">Pièces à fournir pour votre demande</h1>
         <div id="daf-list-wrapper">
             {{ daf|raw }}
         </div>
-        <div class="text-center">
-            <a href="{{ asset(pathCerfa) }}" target="blank">
-                <button class="btn btn-success">
-                    cerfa
-                </button>
-            </a>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Télécharger et remplissez le formulaire CERFA" aria-label="Télécharger et remplissez le formulaire CERFA" aria-describedby="button-addon2" readonly>
+            <div class="input-group-append">
+                <a href="{{ asset(pathCerfa) }}" target="blank">
+                    <button class="btn btn-success" type="button" id="button-addon2">CERFA</button>
+                </a>
+            </div>
         </div>
         <div class="">
             {% if form is not null %}
