@@ -76,14 +76,15 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
 
-    public function checkDemande($user)
+    public function checkDemande(User $user)
     {
         return $this->createQueryBuilder('u')
             ->select('count(d)')
             ->leftJoin('u.client','cl')
             ->leftJoin('cl.commandes','com')
-            ->leftJoin('com.demande','d')
-            ->where('d.transaction IS NULL')
+            ->leftJoin('com.demande','dem')
+            ->leftJoin('dem.transaction','d')
+            ->where('d.status = 00')
             ->andWhere('u = :user')
             ->setParameter('user', $user)
             ->getQuery()
