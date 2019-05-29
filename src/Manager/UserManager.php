@@ -41,6 +41,11 @@ class UserManager
     {
         return $this->repository->countDemande($user);
     }
+    
+    public function checkDemande(User $user)
+    {
+        return $this->repository->checkDemande($user);
+    }
 
     public function countCommandeUnchecked(User $user)
     {

@@ -44,6 +44,7 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFunction('countDemande', [$this, 'countDemande']),
+            new TwigFunction('checkDemande', [$this, 'checkDemande']),
             new TwigFunction('countCommandeUnchecked', [$this, 'countCommandeUnchecked']),
             new TwigFunction('fraisTraitement', [$this, 'fraisTraitement']),
             new TwigFunction('fraisTotalTraitement', [$this, 'fraisTotalTraitement']),
@@ -105,6 +106,11 @@ class AppExtension extends AbstractExtension
     public function countDemande(User $user)
     {
         return $this->userManager->countDemande($user)[1];
+    }
+
+    public function checkDemande(User $user)
+    {
+        return $this->userManager->checkDemande($user)[1];
     }
 
     public function countCommandeUnchecked(User $user)
