@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Transaction
 {
+    const STATUS_SUCCESS = '00';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

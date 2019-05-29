@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\User;
+use App\Entity\{User, Transaction};
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -84,9 +84,10 @@ class UserRepository extends ServiceEntityRepository
             ->leftJoin('cl.commandes','com')
             ->leftJoin('com.demande','dem')
             ->leftJoin('dem.transaction','d')
-            ->where('d.status = 00')
+            ->where('d.status = :success')
             ->andWhere('u = :user')
             ->setParameter('user', $user)
+            ->setParameter('success', Transaction::STATUS_SUCCESS)
             ->getQuery()
             ->getOneOrNullResult()
         ;
