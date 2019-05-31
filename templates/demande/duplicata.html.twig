@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'demande/demande_custom_theme.html.twig'%}
+
 {% block title %}{% endblock %}
 
 {% block body_id %}{% endblock %}
@@ -19,7 +21,22 @@
                     </div>
                     <div class="col-5 mx-auto form-row full-mobile">
                         <div class="col-12">
-                            {{form_rest(form)}}
+                            <div class="form-titulaire">
+                                {{ form_label(form.duplicata)}}
+                                {{ form_row(form.duplicata.titulaire.type)}}
+                                {{ form_row(form.duplicata.titulaire.raisonsociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.duplicata.titulaire.nomprenom)}}
+                            </div>
+
+                            <div class="">
+                                {{ form_row(form.duplicata.motifDemande)}}
+                            </div>
+
+                            <div class="">
+                                {{ form_row(form.duplicata.demandeChangementTitulaire)}}
+                            </div>
+
+                            {{ form_rest(form) }}
                             <div class="col-12 text-center mb-5">
                                 <br>
                                 <input type="submit" class="btn btn-lg btn-success" value="Valider">
@@ -31,4 +48,11 @@
         </div>
 	</div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="application/javascript">
+$('.choice-type-ancientitulaire').on('change', function(e) {$(e.target).parent('.form-group').siblings().toggle();})
+</script>
 {% endblock %}
