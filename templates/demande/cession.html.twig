@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'demande/demande_custom_theme.html.twig'%}
+
 {% block title %}{% endblock %}
 
 {% block body_id %}{% endblock %}
@@ -29,13 +31,12 @@
                             <br>
                             <h5>Ancien Titulaire</h5>
                             <hr>
-                            {% for antiTitulaire in form.cession.ancienTitulaire %}
-                                <div class="form-group">
-                                    {{ form_label(antiTitulaire)}}
-                                    {{ form_errors(antiTitulaire)}}
-                                    {{ form_widget(antiTitulaire, {'attr': {'class': ''}})}}
-                                </div>
-                            {% endfor %}
+                            <div class="ancientitulaire">
+                                {{ form_row(form.cession.ancienTitulaire.type)}}
+                                {{ form_row(form.cession.ancienTitulaire.raisonsociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.cession.ancienTitulaire.nomprenom)}}
+                                <br>
+                            </div>
                             <h5>Acquéreur</h5>
                             <hr>
                             {% for acquerreur in form.cession.acquerreur %}
@@ -72,4 +73,11 @@
         </div>
 	</div>
 </div>
+{% endblock %}
+{% block javascripts %}
+<script type="application/javascript">
+$('.choice-type-ancientitulaire').on('change', function(e) {
+    $(e.target).parent('.form-group').siblings().toggle();
+})
+</script>
 {% endblock %}
