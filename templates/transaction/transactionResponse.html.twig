@@ -7,7 +7,7 @@
         <br>
         <h3>
             {% if responses.response_code == "00" %}
-                    Felicitation ! <br>
+                    Félicitation ! <br>
                 {% else %}
                     Désolé ! Votre transaction n'a pas réussit. <br>
             {% endif %}
@@ -16,7 +16,7 @@
         </h3>
     </div>
     <div><br>
-        Voici le récapitulatif de votre transaciton : 
+        Voici le récapitulatif de votre transaction : 
         <br><br>
         <table class="table-striped">
             <tbody>
@@ -43,6 +43,16 @@
             </tbody>
         </table>
     </div>
+    <br>
+    {% if transaction is not null and transaction.demande is not null %}
+        <div>
+            <a href="{{path('demande_dossiers_a_fournir', {id: transaction.demande.id })}}" >
+                <button class="btn btn-primary">
+                    Finaliser ma commande
+                </button>
+            </a>
+        </div>
+    {% endif %}
 </div>
 </body>
 

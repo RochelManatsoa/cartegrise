@@ -87,13 +87,12 @@ class Adresse
     private $titulaire;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Vehicule", mappedBy="vehiculeAdresse")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Vehicule", inversedBy="adresse")
      */
     private $vehicules;
 
     public function __construct()
     {
-        $this->vehicules = new ArrayCollection();
     }
 
 
@@ -265,35 +264,17 @@ class Adresse
         return $this;
     }
 
-    /**
-     * @return Collection|Vehicule[]
-     */
-    public function getVehicules(): Collection
+    public function getVehicules(): ?Vehicule
     {
         return $this->vehicules;
     }
 
-    public function addVehicule(Vehicule $vehicule): self
+    public function setVehicules(?Vehicule $vehicules): self
     {
-        if (!$this->vehicules->contains($vehicule)) {
-            $this->vehicules[] = $vehicule;
-            $vehicule->setVehiculeAdresse($this);
-        }
+        $this->vehicules = $vehicules;
 
         return $this;
     }
 
-    public function removeVehicule(Vehicule $vehicule): self
-    {
-        if ($this->vehicules->contains($vehicule)) {
-            $this->vehicules->removeElement($vehicule);
-            // set the owning side to null (unless already changed)
-            if ($vehicule->getVehiculeAdresse() === $this) {
-                $vehicule->setVehiculeAdresse(null);
-            }
-        }
-
-        return $this;
-    }
 
 }

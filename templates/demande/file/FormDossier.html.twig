@@ -1,24 +1,49 @@
-{{ form_start(form) }}
+{% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') %}
+    {{ form_start(form, {'attr':{'id':'form-dossier'}}) }}
+        {% for col in form %}
+            {% if col.vars.type is defined and col.vars.type == 'file' %}
+            <div class="group-input">
+                <div>
+                    <h4>{{ form_label(col) }}
+                        {% if checkFile(files, col.vars.name) != "" %}
+                            <small>
+                                <a href="{{ asset(checkFile(files, col.vars.name)) }}" target="_blank">{{ form.vars.value.getRealFileName(col.vars.name) }}</a>
+                            </small>
+                        {% endif %}
+                    </h4>
+                </div>
+                <div>{{ form_errors(col) }}</div>
+                <div>
+                    {{ form_widget(col) }}
+                    <button onclick="$('#form-dossier').submit();" type="button" class="btn btn-outline-primary">
+                        <i class="fas fa-save" title="Download"></i>
+                    </span></button>
+                </div>
+            </div>
+                <hr>
+            {% endif %}
+            
+        {% endfor %}
+        <div class="">
+            {{ form_rest(form)}}
+        </div>
+    {{ form_end(form)}}
+{% else %}
     {% for col in form %}
         {% if col.vars.type is defined and col.vars.type == 'file' %}
-            <div>
-                <h4>{{ form_label(col) }}
-                    {% if checkFile(files, col.vars.name) != "" %}
+            <div class="group-input">
+                <div>
+                    <h4>{{ form_label(col) }}
+                        {% if checkFile(files, col.vars.name) != "" %}
                         <small>
-                            <a href="{{ asset(checkFile(files, col.vars.name)) }}" target="_blank">{{ col.vars.name }}</a>
+                            <a href="{{ asset(checkFile(files, col.vars.name)) }}"
+                                target="_blank">{{ form.vars.value.getRealFileName(col.vars.name) }}</a>
                         </small>
-                    {% endif %}
-                </h4>
-            </div>
-            <div>{{ form_errors(col) }}</div>
-            <div>
-                {{ form_widget(col) }}
+                        {% endif %}
+                    </h4>
+                </div>
             </div>
             <hr>
         {% endif %}
-        
     {% endfor %}
-    <div class="">
-        {{ form_rest(form)}}
-    </div>
-{{ form_end(form)}}
+{% endif %}

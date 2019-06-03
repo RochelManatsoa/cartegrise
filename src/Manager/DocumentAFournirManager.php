@@ -125,7 +125,6 @@ class DocumentAFournirManager
 
         return $demande->getDuplicata()->getFile();
     }
-
     public function handleForm($form, $path)
     {
         $propertyAccessor = PropertyAccess::createPropertyAccessor();

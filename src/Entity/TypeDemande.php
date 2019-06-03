@@ -49,11 +49,6 @@ class TypeDemande
     private $documents;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="nomDemande")
-     */
-    private $demandes;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Documents", mappedBy="typeDemande")
      */
     private $docs;
@@ -67,7 +62,6 @@ class TypeDemande
     {
         $this->documents = new ArrayCollection();
         $this->docs = new ArrayCollection();
-        $this->demandes = new ArrayCollection();
         $this->commandes = new ArrayCollection();
     }
 
@@ -128,37 +122,6 @@ class TypeDemande
         if ($this->documents->contains($document)) {
             $this->documents->removeElement($document);
             $document->removeType($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Demande[]
-     */
-    public function getDemandes(): Collection
-    {
-        return $this->demandes;
-    }
-
-    public function addDemande(Demande $demande): self
-    {
-        if (!$this->demandes->contains($demande)) {
-            $this->demandes[] = $demande;
-            $demande->setNomDemande($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDemande(Demande $demande): self
-    {
-        if ($this->demandes->contains($demande)) {
-            $this->demandes->removeElement($demande);
-            // set the owning side to null (unless already changed)
-            if ($demande->getNomDemande() === $this) {
-                $demande->setNomDemande(null);
-            }
         }
 
         return $this;

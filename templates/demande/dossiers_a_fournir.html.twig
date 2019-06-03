@@ -14,11 +14,19 @@
         <h1 class="pl-4">Votre demande </h1>
                 {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
                     <div class="alert alert-success">
-                        Votre document est valider , Vous pouvez l'envoyer par post
+                        Votre demande est validée, veuillez nous envoyer vos documents physiques à l'adresse
+                        suivante :
+                        <br>CG Officiel
+                        <br>20 Impasse Camille Langlade
+                        <br>31100 Toulouse
                     </div>
                 {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
                     <div class="alert alert-warning" role="alert">
-                        Votre document est en cours de validation, Veuillez attendre le retour de l'administrateur
+                        Votre demande est en cours de validation, une fois validée, veuillez nous envoyer vos documents physiques à l'adresse
+                        suivante :
+                        <br>CG Officiel
+                        <br>20 Impasse Camille Langlade
+                        <br>31100 Toulouse
                     </div>
                 {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
                     <div class="alert alert-danger">
@@ -35,16 +43,17 @@
             <li><b>Département : </b> {{ demande.commande.codePostal }}</li>
             <li><b>Immatriculation : </b> {{ demande.commande.immatriculation }}</li>
         </ul>
-        <h1 class="pl-4">Dossiers à fournir pour votre demande</h1>
+        <h1 class="pl-4">Pièces à fournir pour votre demande</h1>
         <div id="daf-list-wrapper">
             {{ daf|raw }}
         </div>
-        <div class="text-center">
-            <a href="{{ asset(pathCerfa) }}" target="blank">
-                <button class="btn btn-success">
-                    cerfa
-                </button>
-            </a>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Télécharger et remplissez le formulaire CERFA" aria-label="Télécharger et remplissez le formulaire CERFA" aria-describedby="button-addon2" readonly>
+            <div class="input-group-append">
+                <a href="{{ asset(pathCerfa) }}" target="blank">
+                    <button class="btn btn-success" type="button" id="button-addon2">CERFA</button>
+                </a>
+            </div>
         </div>
         <div class="">
             {% if form is not null %}
@@ -53,7 +62,7 @@
             {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') %}
                 <a href="{{ path("validate_file", {'demande': demande.id}) }}">
                     <button class="btn btn-info">
-                        Valider les dossiers
+                        Valider
                     </button>
                 </a>
             {% endif %}
@@ -64,4 +73,23 @@
             </a>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript">
+        $('input.custom-file-input[type="file"]').change(function (e) {
+            let name = e.target.files[0].name;
+            let element = $(e.target);
+            element.next('label.custom-file-label').text(name);
+            });
+        $('.group-input').find('h4 label').map(
+            (key, item) => { 
+                if ($(item).next().length === 1) {
+                     $(item).parents('div.group-input').find('label.custom-file-label').text($(item).next().text());
+                } else {
+                    $(item).parents('div.group-input').find('label.custom-file-label').text('Choisir un fichier...');
+                }
+            }
+        );
+    </script>
 {% endblock %}

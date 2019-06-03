@@ -18,6 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class DemandeChangementAdresse
 {
+    use FileTrait;
     /**
     * @ORM\ID
     * @ORM\GeneratedValue(strategy="AUTO")
@@ -91,6 +92,12 @@ class DemandeChangementAdresse
      * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", mappedBy="file")
      */
     private $changementAdresse;
+
+    // don't touch
+    public function getParent() : ChangementAdresse
+    {
+        return $this->changementAdresse;
+    }
 
     public function getId(): ?int
     {

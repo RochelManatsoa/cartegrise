@@ -10,7 +10,7 @@
 <div class="col-sm-10 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center mobile-center">
 	<div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
         <div class="col-12 commander-firstview custom-form">
-            <h2 class="text-center"> Formulaire pour <br> {{ commande.demarche.nom|upper }}</h2>
+            <h2 class="col-md-10 mx-auto full-mobile">{{ commande.demarche.nom|upper }}</h2>
             <div class="row col-12 ">
                 <hr>
                 {{ form_start(form, {'attr': {'class': 'row'}}) }}
@@ -33,7 +33,7 @@
                                 <h3 class="text-center">Acquerreur</h3>
                                 <hr>
                                 {% for acquerreur in form.ctvo.acquerreur %}
-                                    {% if loop.index < 7 %}
+                                    {% if loop.index < 8 %}
                                         <div class="form-group">
                                             {{ form_label(acquerreur)}}
                                             {{ form_errors(acquerreur)}}
@@ -68,7 +68,9 @@
                         </div>
                     </div>
                     <div class="col-12 text-center">
-                        {{form_rest(form)}}
+                        <div style="display:none;">
+                            {{form_rest(form)}}
+                        </div>
                     </div>
                     <div class="col-12 text-center mb-5">
                         <br>

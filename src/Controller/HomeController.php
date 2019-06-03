@@ -29,6 +29,7 @@ class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="Accueil")
+     * @Route("/", name="home")
      */
     public function accueil(
         Request $request,

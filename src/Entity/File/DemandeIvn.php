@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class DemandeIvn
 {
+    use FileTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue()
@@ -104,6 +105,12 @@ class DemandeIvn
     * )
     */
     private $justificatifDomicileRecent;
+
+    // don't touch
+    public function getParent() : Divn
+    {
+        return $this->divn;
+    }
 
 
     public function getDivn(): ?Divn

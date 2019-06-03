@@ -17,6 +17,7 @@ class MailManager
     private $mailer;
     private $demandeManager;
     private $parameterBagInterface;
+    const SENDER_MAIL = "no-reply@cgofficiel.fr";
     public function __construct
     (
         TokenStorageInterface $tokenStorage,

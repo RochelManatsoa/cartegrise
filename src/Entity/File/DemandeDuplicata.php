@@ -17,6 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class DemandeDuplicata
 {
+    use FileTrait;
     /**
     * @ORM\ID
     * @ORM\GeneratedValue(strategy="AUTO")
@@ -100,6 +101,12 @@ class DemandeDuplicata
      * @ORM\OneToOne(targetEntity="App\Entity\Duplicata", mappedBy="file")
      */
     private $demandeDuplicata;
+
+    // don't touch
+    public function getParent() : Duplicata
+    {
+        return $this->demandeDuplicata;
+    }
 
     public function getId(): ?int
     {

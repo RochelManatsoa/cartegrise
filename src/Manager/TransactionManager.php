@@ -54,4 +54,14 @@ class TransactionManager
         return $tempsId;
     }
 
+    public function findByTransactionId($transactionId)
+    {
+        $transaction = $this->repository->findOneBy(['transactionId' => $transactionId]);
+        if (!$transaction instanceof Transaction) {
+            return null;
+        }
+
+        return $transaction;
+    }
+
 }

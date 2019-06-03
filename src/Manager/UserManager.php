@@ -6,7 +6,7 @@ use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Entity\{User, Client, Contact, Adresse};
+use App\Entity\{User, Client, Contact, Adresse, Commande};
 use App\Manager\SessionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommandeRepository;
@@ -17,6 +17,7 @@ class UserManager
     private $em;
     private $token;
     private $session;
+    private $sessionManager;
     private $encoder;
     private $commandeRepository;
     public function __construct(
@@ -32,12 +33,18 @@ class UserManager
         $this->em         = $em;
         $this->token      = $token;
         $this->session    = $sessionManager->initSession();
+        $this->sessionManager    = $sessionManager;
         $this->encoder    = $encoder;
         $this->commandeRepository    = $commandeRepository;
     }
     public function countDemande(User $user)
     {
         return $this->repository->countDemande($user);
+    }
+    
+    public function checkDemande(User $user)
+    {
+        return $this->repository->checkDemande($user);
     }
 
     public function countCommandeUnchecked(User $user)
@@ -66,6 +73,25 @@ class UserManager
                 }
             }
             $this->save($user);
+            $this->sessionManager->remove(SessionManager::IDS_COMMANDE);
+        }
+    }
+
+    public function checkCommandeInSession(User $user)
+    {
+        $idsRecapCommande = $this->sessionManager->get(SessionManager::IDS_COMMANDE);
+        if (!is_null($idsRecapCommande)) {
+            foreach ($idsRecapCommande as $idRecapCommande){
+                if (is_integer($idRecapCommande)){
+                    $commande = $this->commandeRepository->find($idRecapCommande);
+                    if (!$commande instanceof Commande) {
+                        return;
+                    }
+                    $user->getClient()->addCommande($commande);
+                }
+            }
+            $this->save($user);
+            $this->sessionManager->remove(SessionManager::IDS_COMMANDE);
         }
     }
 
