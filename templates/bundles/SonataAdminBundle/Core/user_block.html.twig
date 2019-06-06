@@ -1,0 +1,18 @@
+{% block user_block %}
+    <li class="user-header bg-light-blue">
+        <img src="{{ asset('admin/default_avatar.png') }}" class="img-circle" alt="Avatar">
+        <p>admin</p>
+    </li>
+    <li class="user-footer">
+        {# <div class="pull-left">
+            <a href="https://nqvpxb.demo.sonata-project.org/admin/app/user-user/1/edit"
+                class="btn btn-default btn-flat"><i class="fa fa-user"></i> Profile</a>
+        </div> #}
+
+        <div class="text-center">
+            <a href="{{ path('admin_logout') }}" class="btn btn-default btn-flat">
+                <iclass="fa fa-sign-out fa-fw"></i> Logout
+            </a>
+        </div>
+    </li>
+{% endblock %}
