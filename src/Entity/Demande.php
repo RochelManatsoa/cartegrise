@@ -136,13 +136,6 @@ class Demande
      */
     private $motifDeRejet;
 
-
-
-    public function __toString()
-    {
-        return $this->typeDemande;
-    }
-
     public function __construct()
     {
         $this->fichiers = new ArrayCollection();

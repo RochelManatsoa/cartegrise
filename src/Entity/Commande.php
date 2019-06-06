@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Commande
 {
+    use \App\Manager\TraitList\CommandeStatusTrait;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -59,9 +60,15 @@ class Commande
      */
     private $carInfo;
 
+
     public function __construct()
     {
         $this->client = new ArrayCollection();
+    }
+
+    public function getStatus()
+    {
+        return $this->getStatusOfCommande($this)['text'];
     }
 
     public function __tostring(){
