@@ -9,7 +9,8 @@
 
 {% block title %}{{ 'title_dashboard'|trans({}, 'SonataAdminBundle') }}{% endblock%}
 {% block content %}
-
-    manoana
-
+    <div id="root"></div>
+    {{ encore_entry_script_tags('react') }}
+    {% if block("javascripts") is defined %}
+    {% endif %}
 {% endblock %}
