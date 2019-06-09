@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { VictoryPie, VictoryTheme, VictoryChart, VictoryLegend, VictoryGroup } from 'victory';
+import { VictoryPie, VictoryTheme } from 'victory';
 import axios from 'axios';
 
 class Chart extends Component

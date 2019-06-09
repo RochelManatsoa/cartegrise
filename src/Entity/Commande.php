@@ -38,6 +38,7 @@ class Commande
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TypeDemande", inversedBy="commandes")
+     * @Groups("read")
      */
     private $demarche;
 

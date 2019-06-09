@@ -1,11 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Card from './../../Widget/Card/card';
-import Chart from './../../Widget/hightChart/chart';
-import Column from './../../Widget/hightChart/column';
-import ReactChart from './../../Widget/hightChart/ReactChart';
-import MyResponsivePie from './../../Widget/hightChart/NivoChart';
-import ReRechart from './../../Widget/hightChart/Rechart';
+import PieChart from '../../Widget/hightChart/PieChart';
 
 class UserItem extends React.Component {
     constructor() {
@@ -19,9 +15,6 @@ class UserItem extends React.Component {
         this.renderAllItems = this.renderAllItems.bind(this);
         
     }
-
-    
-    
 
     componentDidMount() {
         axios({
@@ -69,57 +62,52 @@ class UserItem extends React.Component {
     renderAllItems() {
         return (
             <div>
-                <Card
-                    type="topCard"
-                    title={this.state.userEntries.length}
-                    text='Utilisateurs'
-                    textClass=''
-                    innerClass='inner'
-                    iconName='user'
-                    linkDetail='/'
-                    textDetail='detail'
-                    background='aqua'
-                />
+                <div className="col-md-12">
+                    <Card
+                        type="topCard"
+                        title={this.state.userEntries.length}
+                        text='Utilisateurs'
+                        textClass=''
+                        innerClass='inner'
+                        iconName='user'
+                        linkDetail='/'
+                        textDetail='detail'
+                        background='aqua'
+                    />
 
-                <Card
-                    type="topCard"
-                    title={this.state.commandeEntries.length}
-                    text='Comandes'
-                    textClass=''
-                    innerClass='inner'
-                    iconName='archive'
-                    linkDetail='/'
-                    textDetail='detail'
-                    background='yellow'
-                />
+                    <Card
+                        type="topCard"
+                        title={this.state.commandeEntries.length}
+                        text='Comandes'
+                        textClass=''
+                        innerClass='inner'
+                        iconName='archive'
+                        linkDetail='/'
+                        textDetail='detail'
+                        background='yellow'
+                    />
 
-                <Card
-                    type="topCard"
-                    title={this.state.demandeEntries.length}
-                    text='Demandes'
-                    textClass=''
-                    innerClass='inner'
-                    iconName='archive'
-                    linkDetail='/'
-                    textDetail='detail'
-                    background='purple'
-                />
-                <Chart 
-                    col={6}
-                    paramOptions={this.state.commandeEntries}
-                    dataCommandeHighchart={this.state.dataCommandeHighchart}
-                    type="pie"
-                    title="Commande Status"
-                />
-                <Column 
-                    col={6}
-                    paramOptions={this.state.commandeEntries}
-                    dataCommandeHighchart={this.state.dataCommandeHighchart}
-                    type="pie"
-                    title="Commande Status"
-                />
-
-                <ReRechart />
+                    <Card
+                        type="topCard"
+                        title={this.state.demandeEntries.length}
+                        text='Demandes'
+                        textClass=''
+                        innerClass='inner'
+                        iconName='archive'
+                        linkDetail='/'
+                        textDetail='detail'
+                        background='purple'
+                    />
+                </div>
+                <div className="col-md-12">
+                    <PieChart
+                        col={6}
+                        datas={this.state.commandeEntries}
+                        height={400}
+                        type="donut"
+                        treatment="payment"
+                    />
+                </div>
             </div>
         )
     }
