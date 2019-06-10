@@ -16,10 +16,13 @@ class UserItem extends React.Component {
             transactionEntries: [],
         };
         this.renderAllItems = this.renderAllItems.bind(this);
+        this.getUsers = this.getUsers.bind(this);
+        this.synchro = this.synchro.bind(this);
         
     }
 
-    componentDidMount() {
+    getUsers()
+    {
         axios({
             method: 'get',
             url: `${param.ENTRYPOINT}/users`,
@@ -28,12 +31,24 @@ class UserItem extends React.Component {
                 'accept': 'application/json'
             }
         })
-        .then(userEntries => {
-            this.setState({
-                userEntries: userEntries.data
-            });
+            .then(userEntries => {
+                if (this.state.userEntries !== userEntries.data){
+                    this.setState({
+                        userEntries: userEntries.data
+                    });
+                }  
         });
+    }
 
+    synchro()
+    {
+        setInterval(() => {
+            this.getUsers();
+        }, 5000);
+    }
+
+    componentDidMount() {
+        this.getUsers();
         axios({
             method: 'get',
             url: `${param.ENTRYPOINT}/commandes`,
@@ -73,6 +88,9 @@ class UserItem extends React.Component {
                 transactionEntries: transactionEntries.data
             });
         });
+
+        // for synchronisation : 
+        this.synchro();
     }
 
     renderAllItems() {
