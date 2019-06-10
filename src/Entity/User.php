@@ -11,7 +11,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
- * @ApiResource(
+ *  @ApiResource(
+ *     attributes={"filters"={"offer.order_filter"}},
+ *     forceEager= false,
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
  * )
@@ -39,6 +41,7 @@ class User extends BaseUser
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Client",inversedBy="user", cascade={"persist", "remove"})
+     * @Groups({"read"})
      */
     private $client;
 
