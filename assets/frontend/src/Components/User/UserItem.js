@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import Card from './../../Widget/Card/card';
 import PieChart from '../../Widget/hightChart/PieChart';
+import LineChart from '../../Widget/hightChart/AreaChart';
+import param from '../../params';
 
 class UserItem extends React.Component {
     constructor() {
@@ -11,6 +13,7 @@ class UserItem extends React.Component {
             userEntries: [],
             commandeEntries: [],
             demandeEntries: [],
+            transactionEntries: [],
         };
         this.renderAllItems = this.renderAllItems.bind(this);
         
@@ -19,7 +22,7 @@ class UserItem extends React.Component {
     componentDidMount() {
         axios({
             method: 'get',
-            url: 'https://127.0.0.1:8000/api/users',
+            url: `${param.ENTRYPOINT}/users`,
             headers: {
                 'content-type': 'application/vnd.myapp.type+json',
                 'accept': 'application/json'
@@ -33,7 +36,7 @@ class UserItem extends React.Component {
 
         axios({
             method: 'get',
-            url: 'https://127.0.0.1:8000/api/commandes',
+            url: `${param.ENTRYPOINT}/commandes`,
             headers: {
                 'content-type': 'application/vnd.myapp.type+json',
                 'accept': 'application/json'
@@ -46,7 +49,7 @@ class UserItem extends React.Component {
         });
         axios({
             method: 'get',
-            url: 'https://127.0.0.1:8000/api/demandes',
+            url: `${param.ENTRYPOINT}/demandes`,
             headers: {
                 'content-type': 'application/vnd.myapp.type+json',
                 'accept': 'application/json'
@@ -55,6 +58,19 @@ class UserItem extends React.Component {
         .then(demandeEntries => {
             this.setState({
                 demandeEntries: demandeEntries.data
+            });
+        });
+        axios({
+            method: 'get',
+            url: `${param.ENTRYPOINT}/transactions`,
+            headers: {
+                'content-type': 'application/vnd.myapp.type+json',
+                'accept': 'application/json'
+            }
+        })
+        .then(transactionEntries => {
+            this.setState({
+                transactionEntries: transactionEntries.data
             });
         });
     }
@@ -81,7 +97,7 @@ class UserItem extends React.Component {
                         text='Comandes'
                         textClass=''
                         innerClass='inner'
-                        iconName='archive'
+                        iconName='file'
                         linkDetail='/'
                         textDetail='detail'
                         background='yellow'
@@ -93,19 +109,48 @@ class UserItem extends React.Component {
                         text='Demandes'
                         textClass=''
                         innerClass='inner'
-                        iconName='archive'
+                        iconName='folder'
                         linkDetail='/'
                         textDetail='detail'
                         background='purple'
+                    />
+
+                    <Card
+                        type="topCard"
+                        title={this.state.transactionEntries.length}
+                        text='Paiement'
+                        textClass=''
+                        innerClass='inner'
+                        iconName='euro'
+                        linkDetail='/'
+                        textDetail='detail'
+                        background='teal'
                     />
                 </div>
                 <div className="col-md-12">
                     <PieChart
                         col={6}
                         datas={this.state.commandeEntries}
-                        height={400}
+                        height={500}
                         type="donut"
-                        treatment="payment"
+                        case="commandPaiment"
+                    />
+
+                    <PieChart
+                        col={6}
+                        datas={this.state.commandeEntries}
+                        height={500}
+                        type="donut"
+                        case="commandType"
+                    />
+                </div>
+                <div className="col-md-12">
+                    <LineChart 
+                        datas={this.state.userEntries}
+                        paddingTop={15}
+                        height={400}
+                        borderRadius={4}
+                        type='Area1'
                     />
                 </div>
             </div>

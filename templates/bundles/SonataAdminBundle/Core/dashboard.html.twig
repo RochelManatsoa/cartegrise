@@ -9,7 +9,7 @@
 
 {% block title %}{{ 'title_dashboard'|trans({}, 'SonataAdminBundle') }}{% endblock%}
 {% block content %}
-    <div id="root"></div>
+    <div id="root" class="row"></div>
     {{ encore_entry_script_tags('react') }}
     {% if block("javascripts") is defined %}
     {% endif %}

@@ -20,7 +20,7 @@ const renderActiveShape = (props) => {
 
     return (
         <g>
-            <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill} style={{ fontSize: 15 }} >{payload.name}</text>
+            <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill} style={{ fontSize: 15 }} >{payload.centerLabel || payload.name}</text>
             <Sector
                 cx={cx}
                 cy={cy}
@@ -51,4 +51,71 @@ const renderActiveShape = (props) => {
     );
 };
 
-export default {renderActiveShape};
+
+const dataManagerComandePaiment = (item, data) => {
+    if (item.demande === null || item.demande === undefined) {
+        data = [...data];
+        data[0].value = data[0].value + 1;
+
+        return data;
+    }
+    else if (item.demande.transaction === null) {
+        data = [...data];
+        data[1].value = data[1].value + 1;
+
+        return data;
+    } else if (item.demande.transaction.status !== '00') {
+        data = [...data];
+        data[2].value = data[2].value + 1;
+
+        return data;
+    }
+    data = [...data];
+    data[3].value = data[3].value + 1;
+
+    return data;
+}
+const dataManagerComandeType = (item, data) => {
+    if (item.demarche.type === "DUP") {
+        data = [...data];
+        data[0].value = data[0].value + 1;
+        data[0].type = 'DUP';
+        data[0].centerLabel = 'DUP';
+        return data;
+    }
+    else if (item.demarche.type === "DIVN") {
+        data = [...data];
+        data[1].value = data[1].value + 1;
+        data[1].type = 'DIVN';
+        data[1].centerLabel = 'DIVN';
+        return data;
+    } else if (item.demarche.type === "CTVO") {
+        data = [...data];
+        data[2].value = data[2].value + 1;
+        data[2].type = 'CTVO';
+        data[2].centerLabel = 'CTVO';
+        return data;
+    }
+    else if (item.demarche.type === "DCA") {
+        data = [...data];
+        data[3].value = data[2].value + 1;
+        data[3].type = 'DCA';
+        data[3].centerLabel = 'DCA';
+        return data;
+    }
+    else if (item.demarche.type === "DC") {
+        data = [...data];
+        data[4].value = data[2].value + 1;
+        data[4].type = 'DC';
+        data[4].centerLabel = 'DC';
+
+        return data;
+    }
+
+    return data;
+}
+
+
+////for export all foncig statics
+
+export default { renderActiveShape, dataManagerComandePaiment, dataManagerComandeType};

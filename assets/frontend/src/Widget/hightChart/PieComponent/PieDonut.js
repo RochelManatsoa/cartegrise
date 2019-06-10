@@ -4,7 +4,7 @@ import config from './../config/PieChartConfig'
 
 const PieDonut = (props) => {
     return (
-        <div style={{ width: '100%', height: props.height, background: 'white' }}>
+        <div style={{ width: '100%', height: props.height, background: 'white', borderRadius: '4px' }}>
             <ResponsiveContainer>
                 <PieChart>
                     <Legend verticalAlign="top" height={36} />
