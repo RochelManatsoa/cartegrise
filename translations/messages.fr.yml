@@ -110,3 +110,16 @@ type_demande:
                 </li>
             </ol>
 
+label:
+    nomPrenomTitulaire: Nom de l'acquérreur (*)
+    acquerreur: Aquérreur
+    dateN: Date de naissance (*)
+    adresseNewTitulaire: Adresse de l'Acquérreur 
+    ancienTitulaire: Ancien Titulaire
+    cotitulaire: Cotitulaire(s)
+    dateCession: Date de cession
+    ancienAdresse: Ancienne adresse
+
+
+
+
