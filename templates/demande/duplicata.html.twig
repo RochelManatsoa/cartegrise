@@ -21,8 +21,8 @@
                     </div>
                     <div class="col-5 mx-auto form-row full-mobile">
                         <div class="col-12">
+                            {{ form_label(form.duplicata)}}
                             <div class="form-titulaire">
-                                {{ form_label(form.duplicata)}}
                                 {{ form_row(form.duplicata.titulaire.type)}}
                                 {{ form_row(form.duplicata.titulaire.raisonsociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 {{ form_row(form.duplicata.titulaire.nomprenom)}}
@@ -53,6 +53,8 @@
 {% block javascripts %}
 {{ parent() }}
 <script type="application/javascript">
-$('.choice-type-ancientitulaire').on('change', function(e) {$(e.target).parent('.form-group').siblings().toggle();})
+$('.choice-type-ancientitulaire').on('change', function(e) {
+    $(e.target).parent().siblings().toggle();
+})
 </script>
 {% endblock %}

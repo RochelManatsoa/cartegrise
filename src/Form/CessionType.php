@@ -15,11 +15,11 @@ class CessionType extends AbstractType
     {
         $builder
             ->add('dateCession', DateType::class, array(
-                'label'=>"Date de cession (*)",
+                'label'=> 'label.dateCession',
                 'widget' => 'single_text',
                 ))
-            ->add('ancienTitulaire', AncientitulaireType::class)
-            ->add('acquerreur', NewtitulaireType::class)
+            ->add('ancienTitulaire', AncientitulaireType::class, array('label'=>'label.ancienTitulaire'))
+            ->add('acquerreur', NewtitulaireType::class, array('label'=>'label.acquerreur'))
         ;
     }
 
