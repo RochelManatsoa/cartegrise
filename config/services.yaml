@@ -7,8 +7,8 @@ parameters:
     locale: 'fr'
     upload_directory: '%kernel.project_dir%/public/allfiles'
     payment_params:
-        merchant_id: '014295303911111'    # CODE DE TEST
-        #merchant_id: '083897291700010'    # IN PROD
+        #merchant_id: '014295303911111'    # CODE DE TEST
+        merchant_id: '083897291700010'    # IN PROD
         merchant_country: fr
         currency_code: '978'
         #pathfile: '/var/www/app/src/Utils/pathfile'

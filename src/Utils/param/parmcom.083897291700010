@@ -10,15 +10,18 @@
 
 # URL de retour automatique de la reponse du paiement
 
-AUTO_RESPONSE_URL!http://dev2.cgofficiel.fr/banque/call_autoresponse.php!
+#AUTO_RESPONSE_URL!http://dev2.cgofficiel.fr/banque/call_autoresponse.php!
+AUTO_RESPONSE_URL!https://www.cgofficiel.fr/payment/ipn!
 
 # URL de retour suite a paiement refuse
 
-CANCEL_URL!http://dev2.cgofficiel.fr/banque/trans_ko.php!
+#CANCEL_URL!http://dev2.cgofficiel.fr/banque/trans_ko.php!
+CANCEL_URL!https://www.cgofficiel.fr/payment/cancel!
 
 # URL de retour suite a paiement accepte
 
-RETURN_URL!http://dev2.cgofficiel.fr/banque/trans_ok.php!
+#RETURN_URL!http://dev2.cgofficiel.fr/banque/trans_ok.php!
+RETURN_URL!http://www.cgofficiel.fr/payment/success!
 
 # Code devise  ( 978=EURO )
 
