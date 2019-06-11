@@ -112,7 +112,7 @@ type_demande:
 
 label:
     nomPrenomTitulaire: Nom de l'acquérreur (*)
-    acquerreur: Aquérreur
+    acquerreur: Acquérreur
     dateN: Date de naissance (*)
     adresseNewTitulaire: Adresse de l'Acquérreur 
     ancienTitulaire: Ancien Titulaire
