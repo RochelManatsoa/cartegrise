@@ -19,9 +19,9 @@
                 </div>
                 <div class="col-3 col-md-5 mx-auto form-row full-mobile">
                     <div class="col-10 col-sm-12 mx-auto">
-                        <h5>{{ form_label(form.changementAdresse.nouveauxTitulaire) }}</h5>
+                        <h5>{{ form_label(form.changementAdresse.acquerreur) }}</h5>
                             <hr>
-                            {% for newTitulaire in form.changementAdresse.nouveauxTitulaire %}
+                            {% for newTitulaire in form.changementAdresse.acquerreur %}
                                 {% if loop.index <8 %}
                                 <div class="form-group">
                                     {{ form_label(newTitulaire)}}
@@ -32,9 +32,9 @@
                             {% endfor %}
                             <br>
                             
-                        <h5>{{ form_label(form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire) }}</h3>
+                        <h5>{{ form_label(form.changementAdresse.acquerreur.adresseNewTitulaire) }}</h3>
                             <hr>
-                            {% for address in form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire %}
+                            {% for address in form.changementAdresse.acquerreur.adresseNewTitulaire %}
                                 {% if loop.index < 9 %}
                                 <div class="form-group">
                                     {{ form_label(address)}}
@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-3 col-md-5 mx-auto form-row full-mobile">
                     <div class="col-10 col-sm-12 mx-auto">
-                        {% for address in form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire %}
+                        {% for address in form.changementAdresse.acquerreur.adresseNewTitulaire %}
                             {% if loop.index >= 9 %}
                             <div class="form-group">
                                 {{ form_label(address)}}
@@ -69,7 +69,9 @@
                     </div>
                 </div>
                 <div class="col-12 text-center">
-                    {{form_rest(form)}}
+                    <div style="display:none">
+                        {{form_rest(form)}}
+                    </div>
                 </div>
 
                 <div class="col-12 text-center mb-5">

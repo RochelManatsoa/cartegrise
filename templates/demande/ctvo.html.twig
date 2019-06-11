@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'demande/demande_custom_theme.html.twig'%}
+
 {% block title %}{% endblock %}
 
 {% block body_id %}{% endblock %}
@@ -19,18 +21,16 @@
                     </div>
                     <div class="col-3 col-md-5 mx-auto form-row full-mobile">
                         <div class="col-10 col-sm-12 mx-auto">
-                            <h5 class="text-center">{{ form_label(form.ctvo.ancienTitulaire) }}</h3>
+                                <h3 class="text-center">{{ form_label(form.ctvo.ancienTitulaire) }}</h3>
                                 <hr>
-                                {% for antiTitulaire in form.ctvo.ancienTitulaire %}
-                                    <div class="form-group">
-                                        {{ form_label(antiTitulaire)}}
-                                        {{ form_errors(antiTitulaire)}}
-                                        {{ form_widget(antiTitulaire, {'attr': {'class': ''}})}}
-                                    </div>
-                                {% endfor %}
+                            <div class="ancientitulaire">
+                                {{ form_row(form.ctvo.ancienTitulaire.type)}}
+                                {{ form_row(form.ctvo.ancienTitulaire.raisonsociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.ctvo.ancienTitulaire.nomprenom)}}
                                 <br>
+                            </div>
                             
-                                <h3 class="text-center">Acquéreur</h3>
+                                <h3 class="text-center">{{ form_label(form.ctvo.acquerreur) }}</h3>
                                 <hr>
                                 {% for acquerreur in form.ctvo.acquerreur %}
                                     {% if loop.index < 8 %}
@@ -45,7 +45,8 @@
                     </div>
                     <div class="col-3 col-md-5 mx-auto full-mobile">
                         <div class="col-10 col-sm-12 mx-auto">
-                            <h5> {{ form_label(form.ctvo.acquerreur.adresseNewTitulaire) }} </h5>
+                            <h3 class="text-center"> {{ form_label(form.ctvo.acquerreur.adresseNewTitulaire) }} </h3>
+                            <hr>
                             {% for addresseNewTitulaire in form.ctvo.acquerreur.adresseNewTitulaire %}
                                 <div class="form-group">
                                     {{ form_label(addresseNewTitulaire)}}
@@ -53,7 +54,8 @@
                                     {{ form_widget(addresseNewTitulaire, {'attr': {'class': ''}})}}
                                 </div>
                             {% endfor %}
-                            <h5>{{ form_label(form.ctvo.cotitulaire) }}</h5>
+                            <h3 class="text-center">{{ form_label(form.ctvo.cotitulaire) }}</h3>
+                            <hr>
                             <ul class="tags" data-prototype="{{ form_widget(form.ctvo.cotitulaire.vars.prototype)|e('html_attr') }}">
                                 {% for tag in form.ctvo.cotitulaire %}
                                     {% if loop.index < 5 %}
@@ -88,7 +90,7 @@
     var $collectionHolder;
 
     // setup an "add a tag" link
-    var $addTagButton = $('<button type="button" class="add_tag_link btn btn-primary btn-md">Ajouter cotitulaire</button>');
+    var $addTagButton = $('<center><button type="button" class="add_tag_link btn btn-outline-primary btn-md">Ajouter cotitulaire</button></center>');
     var $newLinkLi = $('<p></p>').append($addTagButton);
 
     jQuery(document).ready(function() {
@@ -139,7 +141,7 @@
     }
 
     function addTagFormDeleteLink($tagFormLi) {
-        var $removeFormButton = $('<button type="button" class="btn btn-danger btn-md">Supprimer ce cotitulaire</button>');
+        var $removeFormButton = $('<center><button type="button" class="btn btn-outline-danger btn-md">Supprimer ce cotitulaire</button></center>');
         $tagFormLi.append($removeFormButton);
     
         $removeFormButton.on('click', function(e) {

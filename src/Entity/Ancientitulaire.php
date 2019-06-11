@@ -36,8 +36,7 @@ class Ancientitulaire
     private $opposeReuse;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull(message = "Champs requis")
+     * @ORM\Column(type="string", length=255, nullable = true)
      */
     private $nomprenom;
 
