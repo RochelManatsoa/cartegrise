@@ -6,9 +6,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
+ *  @ApiResource(
+ *     forceEager= false,
+ *     normalizationContext={"groups"={"read"}, "enable_max_depth"=false},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
  */
 class Client
 {
@@ -56,7 +63,8 @@ class Client
     private $fichiers;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Adresse", inversedBy="client", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Adresse", mappedBy="client", cascade={"persist", "remove"})
+     * @ORM\JoinColumn()
      */
     private $clientAdresse;
 
@@ -82,6 +90,7 @@ class Client
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="client", cascade={"persist", "remove"})
+     * @Groups({"read"})
      */
     private $user;
 

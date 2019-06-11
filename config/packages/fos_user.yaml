@@ -7,6 +7,7 @@ fos_user:
         sender_name: "cgofficiel.fr" 
     service:
         mailer: fos_user.mailer.twig_swift
+        # user_manager: sonata.user.orm.user_manager
     resetting:
         email:
             template:   '@FOSUser/Resetting/resetting_email.html.twig'
@@ -16,3 +17,6 @@ fos_user:
             template:   '@FOSUser/Registration/registration_email.html.twig'
         form:
             type: App\Form\UserType
+    group:
+        group_class:   '@FOSUser/Entity/Group'
+        # group_manager: sonata.user.orm.group_manager
