@@ -16,8 +16,7 @@ class NewtitulaireType extends AbstractType
     {
         $builder
             ->add('nomPrenomTitulaire', TextType::class, array(
-                'label'=>'label.nomPrenomTitulaire', 
-                'translation_domain'=>'locale'
+                'label'=>'label.nomPrenomTitulaire'
                 ))
             ->add('prenomTitulaire', TextType::class, array('label'=>"Prénom(s) de l’acquéreur (*)"))
             ->add('genre', ChoiceType::class, array(
@@ -28,7 +27,7 @@ class NewtitulaireType extends AbstractType
                 ),
             ))
             ->add('dateN', DateType::class, array(
-                'label'=>"Date de naissance (*)",
+                'label'=>"label.dateN",
                 'widget' => 'single_text',
                 ))
             ->add('lieuN', TextType::class, array('label'=>"Lieu de naissance (*)"))
@@ -36,7 +35,7 @@ class NewtitulaireType extends AbstractType
             ->add('raisonSociale')
             ->add('societeCommerciale', null, array('label'=>"Société commerciale"))
             // ->add('siren')
-            ->add('adresseNewTitulaire', AdresseType::class, array('label'=>"Adresse du nouveau titulaire "))
+            ->add('adresseNewTitulaire', AdresseType::class, array('label'=>'label.adresseNewTitulaire'))
             // ->add('demande')
         ;
     }
