@@ -21,15 +21,15 @@
                     </div>
                     <div class="col-3 col-md-5 mx-auto form-row full-mobile">
                         <div class="col-10 col-sm-12 mx-auto">
-                            <h5>Date de cession</h5>
+                            <h3 class="text-center"> {{ form_label(form.cession.dateCession) }} </h3>
                             <hr>
-                                <div class="form-group">
-                                    {{ form_label(form.cession.dateCession)}}
-                                    {{ form_errors(form.cession.dateCession)}}
-                                    {{ form_widget(form.cession.dateCession, {'attr': {'class': ''}})}}
-                                </div>
+                            <div class="form-group">
+                                {{ form_label(form.cession.dateCession)}}
+                                {{ form_errors(form.cession.dateCession)}}
+                                {{ form_widget(form.cession.dateCession, {'attr': {'class': ''}})}}
+                            </div>
                             <br>
-                            <h5>Ancien Titulaire</h5>
+                            <h3 class="text-center"> {{ form_label(form.cession.ancienTitulaire) }} </h3>
                             <hr>
                             <div class="ancientitulaire">
                                 {{ form_row(form.cession.ancienTitulaire.type)}}
@@ -37,7 +37,7 @@
                                 {{ form_row(form.cession.ancienTitulaire.nomprenom)}}
                                 <br>
                             </div>
-                            <h5>Acquéreur</h5>
+                            <h3 class="text-center"> {{ form_label(form.cession.acquerreur) }} </h3>
                             <hr>
                             {% for acquerreur in form.cession.acquerreur %}
                                 {% if loop.index < 8 %}
@@ -52,6 +52,8 @@
                     </div>
                     <div class="col-3 col-md-5 mx-auto form-row full-mobile">
                         <div class="col-10 col-sm-12 mx-auto">
+                            <h3 class="text-center"> {{ form_label(form.cession.acquerreur.adresseNewTitulaire) }} </h3>
+                            <hr>
                             {% for addresseNewTitulaire in form.cession.acquerreur.adresseNewTitulaire %}
                                 <div class="form-group">
                                     {{ form_label(addresseNewTitulaire)}}
@@ -62,7 +64,9 @@
                         </div>
                     </div>
                     <div class="col-12 text-center">
-                        {{form_rest(form)}}
+                        <div style="display:none">
+                            {{form_rest(form)}}
+                        </div>
                     </div>
                     <div class="col-12 text-center mb-5">
                         <br>
