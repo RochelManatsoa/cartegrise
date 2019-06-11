@@ -170,3 +170,18 @@ input[type="file"]{
 	opacity: 1 !important;
 	width: 100% !important;
 }
+@media (max-width:768px) {
+	body .custom-mobile-modal {
+		flex: 0 0 95%;
+		max-width: 95%;
+	  	.font-24 {
+			font-size: 18px;
+	  	}
+		.custom-container-flex {
+			width: -moz-calc(100% - 30px);
+			width: -ms-calc(100% - 30px);
+			width: -webkit-calc(100% - 30px);
+			width: calc(100% - 30px);
+		}
+	}
+}
