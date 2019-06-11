@@ -77,7 +77,7 @@ class Adresse
     private $pays;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Client", mappedBy="clientAdresse", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Client", inversedBy="clientAdresse")
      */
     private $client;
 

@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Services\Tms\TmsClient;
 use App\Entity\Commande;
 use App\Manager\SessionManager;
+use App\Manager\StatusManager;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class CommandeManager
@@ -22,6 +23,7 @@ class CommandeManager
 		TmsClient $tmsClient, 
 		EntityManagerInterface $em, 
 		SessionManager $sessionManager,
+		StatusManager $statusManager,
 		TokenStorageInterface $tokenStorage,
 		DocumentTmsManager $documentTmsManager
 	)
@@ -29,6 +31,7 @@ class CommandeManager
 		$this->tmsClient = $tmsClient;
 		$this->em = $em;
 		$this->sessionManager = $sessionManager;
+		$this->statusManager = $statusManager;
 		$this->tokenStorage = $tokenStorage;
 		$this->documentTmsManager = $documentTmsManager;
 	}
@@ -89,5 +92,13 @@ class CommandeManager
 		$result = $this->tmsClient->editer($params);
 
 		return $result->getRawData()->Document;
+	}
+
+	/**
+	 * function to get status
+	 */
+	public function getStatus(Commande $commande)
+	{
+		return $this->statusManager->getStatusOfCommande($commande);
 	}
 }

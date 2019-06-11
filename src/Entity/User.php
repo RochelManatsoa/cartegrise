@@ -5,10 +5,18 @@ namespace App\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ *  @ApiResource(
+ *     attributes={"filters"={"offer.order_filter"}},
+ *     forceEager= false,
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
  */
 class User extends BaseUser
 {
@@ -16,11 +24,13 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"read"})
      */
     protected $id;
 
     /**
     * @ORM\Column(type="datetime", nullable=true)
+    * @Groups({"read"})
     */
     private $registerDate;
 
@@ -31,6 +41,7 @@ class User extends BaseUser
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Client",inversedBy="user", cascade={"persist", "remove"})
+     * @Groups({"read"})
      */
     private $client;
 
