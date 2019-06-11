@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-24 01:39:17 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-04-25 17:06:39
+ * @Last Modified time: 2019-06-11 18:57:42
  */
 
  namespace App\Manager;
@@ -52,13 +52,15 @@
     {
         $client = $this->tokenStorage->getToken()->getUser()->getClient();
         $adresse = $client->getClientAdresse();
-        $carInfo = $commande->getCarInfo();
+		$carInfo = $commande->getCarInfo();
+		$now = new \DateTime();
         return [
 			"Type"     => $type,
 			"Demarche" => [
 				$commande->getDemarche()->getType() => [
 					'TypeDemarche' => $commande->getDemarche()->getType(),
 					"MotifDuplicata" => $commande->getDemande()->getDuplicata()->getMotifDemande(),
+					"DateDemarche" => $now->format('Y-m-d H:i:s'),
 					"Titulaire" => [
 						"DroitOpposition" => true,
 						"NomPrenom" => $client->getClientNomPrenom(),
