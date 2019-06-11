@@ -15,7 +15,10 @@ class NewtitulaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nomPrenomTitulaire', TextType::class, array('label'=>"Nom de l’acquéreur (*)"))
+            ->add('nomPrenomTitulaire', TextType::class, array(
+                'label'=>'label.nomPrenomTitulaire', 
+                'translation_domain'=>'locale'
+                ))
             ->add('prenomTitulaire', TextType::class, array('label'=>"Prénom(s) de l’acquéreur (*)"))
             ->add('genre', ChoiceType::class, array(
                 'label' => "Civilité (*)",

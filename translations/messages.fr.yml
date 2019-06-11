@@ -110,3 +110,8 @@ type_demande:
                 </li>
             </ol>
 
+label:
+    departement: Département
+    nomPrenomTitulaire: Nom de l'acquérreur
+
+
