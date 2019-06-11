@@ -58,3 +58,11 @@ services:
     App\EventListener\AnnotationValidator:
         tags:
             - { name: kernel.event_listener, event: kernel.controller, methode: onKernelController}
+    App\Admin\CommandeAdmin:
+        arguments: [~, App\Entity\Commande, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'TMS', label: Commande }
+    App\Admin\DemandeAdmin:
+        arguments: [~, App\Entity\Demande, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'TMS', label: Demande }
