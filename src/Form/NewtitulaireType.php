@@ -18,7 +18,9 @@ class NewtitulaireType extends AbstractType
             ->add('nomPrenomTitulaire', TextType::class, array(
                 'label'=>'label.nomPrenomTitulaire'
                 ))
-            ->add('prenomTitulaire', TextType::class, array('label'=>"Prénom(s) de l’acquéreur (*)"))
+            ->add('prenomTitulaire', TextType::class, array(
+                'label'=>'label.prenomTitulaire'
+                ))
             ->add('genre', ChoiceType::class, array(
                 'label' => "Civilité (*)",
                 'choices' => array(
