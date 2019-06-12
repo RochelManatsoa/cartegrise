@@ -19,7 +19,7 @@ class Taxes
     private $id;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxeRegionale;
 
@@ -101,6 +101,7 @@ class Taxes
 
     public function __construct()
     {
+        $this->taxeRegionale = 0;
         // $this->commande = new ArrayCollection();
     }
 
