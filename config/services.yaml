@@ -72,4 +72,4 @@ services:
     App\Admin\ConfigurationAdmin:
         arguments: [~, App\Entity\Configuration, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'CONFIGURATION', label: Configuration }
+            - { name: sonata.admin, manager_type: orm,group: 'CONFIGURATION', label: 'Suppression de taxe régionale' }

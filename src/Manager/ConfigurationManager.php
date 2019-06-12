@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-06-12 11:56:04 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-06-12 12:07:57
+ * @Last Modified time: 2019-06-12 15:07:53
  */
 
 namespace App\Manager;
@@ -26,7 +26,7 @@ class ConfigurationManager
 
     public function find(string $key):?Configuration
     {
-        return $this->repository->findOneBy(['key'=>$key]);
+        return $this->repository->findOneBy(['keyConf'=>$key]);
     }
 
     public function save(Configuration $configuration)
