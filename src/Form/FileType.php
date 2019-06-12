@@ -15,7 +15,7 @@ class FileType extends AbstractType
     {
         $builder
             ->add('url', FileType::class, [
-                'label'=>'Choisissez vos fichiers',
+                'label'=>'label.url',
             ])
             ->add('type', HiddenType::class, [
                 'class'=> TypeDemande::class,

@@ -19,30 +19,27 @@ class ClientType extends AbstractType
         $builder
             ->add('clientNom', TextType::class,[
                 'attr'  => array( 'class' => 'text-uppercase' ),
-                'label' => 'Nom'
+                'label' => 'label.clientNom'
             ])
-            ->add('clientPrenom', TextType::class, ['label' => 'Prénom(s)'])
+            ->add('clientPrenom', TextType::class, ['label' => 'label.clientPrenom'])
             ->add('clientGenre', ChoiceType::class, array(
                 'choices'   => array(
                     'Homme' => "M",
                     'Femme' => "F",
                 ),
-                'label'=> "Sexe",
+                'label'=> 'label.genre',
             ))
             ->add('clientDateNaissance', DateType::class, array(
                     'widget' => 'single_text',
-                    'label'  => "Date de naissance",
+                    'label'  => 'label.dateN',
                     ))
             
-            ->add('clientLieuNaissance', TextType::class, ['label' => 'Lieu de naissance'])
+            ->add('clientLieuNaissance', TextType::class, ['label' => 'label.lieuN'])
             //->add('clientDptNaissance', NumberType::class)
-            //->add('clientPaysNaissance', CountryType::class, array('label' => 'Pays','required'=> false, 'preferred_choices' => array('FR'=>'France')))
-            
-            ->add('clientContact', ContactType::class)
-            ->add('clientAdresse', AdresseType::class)
-            /*
-            ->add('commande', CommandeClientType::class)
-            */
+            //->add('clientPaysNaissance', CountryType::class, array('label' => 'Pays','required'=> false, 'preferred_choices' => array('FR'=>'France')))            
+            ->add('clientContact', ContactType::class, ['label' => 'label.clientContact'])
+            ->add('clientAdresse', AdresseType::class, ['label' => 'label.clientAdresse'])
+            //->add('commande', CommandeClientType::class)
         ;
     }
 

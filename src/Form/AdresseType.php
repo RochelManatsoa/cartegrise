@@ -38,18 +38,18 @@ class AdresseType extends AbstractType
                     'Square' => "SQUA",
                     'Sente' => "SENT",
                 ],
-                'label' => 'Type de Voie',         
+                'label' => 'label.typevoie',         
                 ])
-            ->add('nom', TextType::class, array('label' => 'Nom de la voie'))
+            ->add('nom', TextType::class, array('label' => 'label.nom.voie'))
             ->add('complement',  TextType::class, array(
                 'required' => false, 
-                'label'    => "Complément d'adresse",
+                'label'    => 'label.complement',
                 'attr' => array(
-                    'placeholder' => 'lieu dit, numéro boîte aux lettres, nom de la résidence'
+                    'placeholder' => 'Lieu dit, numéro boîte aux lettres, nom de la résidence'
                     )
                 ))
-            ->add('codepostal', TextType::class, array('label' => 'Code Postal'))
-            ->add('ville', TextType::class, array('label' => 'Ville'))
+            ->add('codepostal', TextType::class, array('label' => 'label.codepostal'))
+            ->add('ville', TextType::class, array('label' => 'label.ville'))
            ;
     }
 
