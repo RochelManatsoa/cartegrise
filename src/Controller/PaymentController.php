@@ -126,7 +126,10 @@ class PaymentController extends AbstractController
 
         return $this->render(
                 'transaction/transactionResponse.html.twig',
-                array('responses' => $responses)
+                [
+                    'responses' => $responses,
+                    'transaction' => null,
+                ]
         );
     }
 
