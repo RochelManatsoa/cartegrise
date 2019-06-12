@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-06-12 11:41:26 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-06-12 12:59:11
+ * @Last Modified time: 2019-06-12 14:37:28
  */
 namespace App\Entity;
 
@@ -15,20 +15,18 @@ use Doctrine\ORM\Mapping as ORM;
 class Configuration
 {
     /**
-     * @ORM\Id
+     * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     *
-     * @var [type]
      */
     private $id;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
     private $key;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
     private $value;
 
@@ -60,4 +58,5 @@ class Configuration
 
         return $this;
     }
+
 }
