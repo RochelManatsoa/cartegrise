@@ -19,10 +19,11 @@ class DuplicataType extends AbstractType
                     Duplicata::VOL  => "VOL",
                     Duplicata::PERT => "PERT",
                     Duplicata::DET  => "DET",
-                ]
+                ],
+                'label' => 'label.motifDemande',
             ])
-            ->add('demandeChangementTitulaire')
-            ->add('titulaire', AncientitulaireType::class) 
+            ->add('demandeChangementTitulaire', null, ['label' => 'label.demandeChangementTitulaire'])
+            ->add('titulaire', AncientitulaireType::class, ['label' => 'label.titulaire']) 
         ;
     }
 

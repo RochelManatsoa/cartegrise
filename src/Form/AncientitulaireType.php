@@ -15,7 +15,7 @@ class AncientitulaireType extends AbstractType
     {
         $builder
             ->add('type', ChoiceType::class, array(
-                'label' => "Personne (*)",
+                'label' => 'label.type.personne',
                 'choices' => array(
                     'Personne Physique' => "phy",
                     'Personne Morale' => "mor",
@@ -25,12 +25,12 @@ class AncientitulaireType extends AbstractType
                 ]
             ))
             ->add('raisonsociale', TextType::class, [
-                'label'=>"Raison sociale",
+                'label'=> 'label.raisonsocial',
                 'required' => false,
                 ]
             )
             ->add('nomprenom', TextType::class, array(
-                'label'=>"Nom et prénom(s) (*)",
+                'label'=> 'label.nomprenom',
                 'required' => false,
                 ))
         ;
