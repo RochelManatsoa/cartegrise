@@ -13,7 +13,7 @@ class ChangementAdresseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('acquerreur', NewtitulaireType::class, array('label'=>'label.acquerreur'))
+            ->add('nouveauxTitulaire', NewtitulaireType::class, array('label'=>'label.acquerreur'))
             ->add('ancienAdresse', AdresseType::class, array('label'=>'label.ancienAdresse'))
         ;
     }
