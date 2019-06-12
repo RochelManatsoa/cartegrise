@@ -13,11 +13,14 @@ parameters:
         currency_code: '978'
         #pathfile: '/var/www/app/src/Utils/pathfile'
         pathfile: '/var/www/html/front/projectCG/src/Utils/pathfile'  # IN ENV DEV
+        #pathfile: '/var/www/html/cgofficiel/src/Utils/pathfile'  # IN ENV PROD
     payment_binary:
         #request: '/var/www/app/src/Utils/bin/request'
         #response: '/var/www/app/src/Utils/bin/response'
         request: '/var/www/html/front/projectCG/src/Utils/bin/request'  # IN ENV DEV
         response: '/var/www/html/front/projectCG/src/Utils/bin/response'  # IN ENV DEV
+        #request: '/var/www/html/cgofficiel/src/Utils/bin/request'  # IN ENV PROD
+        #response: '/var/www/html/cgofficiel/src/Utils/bin/response'  # IN ENV PROD
     admin_mail: ['rapaelec@gmail.com', 'technique@cgofficiel.fr', 'rapaelec@gmail.com', 'nirinarochelmiandrisoa@gmail.com', 'rochel2fnclm@gmail.com']
     admin_doc_validator: ["rapaelec@gmail.com", "test@gmail.com", "rakoto@gmail.com"]
 
@@ -69,4 +72,4 @@ services:
     App\Admin\ConfigurationAdmin:
         arguments: [~, App\Entity\Configuration, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'CONFIGURATION', label: Configuration }
+            - { name: sonata.admin, manager_type: orm,group: 'CONFIGURATION', label: 'Suppression de taxe régionale' }

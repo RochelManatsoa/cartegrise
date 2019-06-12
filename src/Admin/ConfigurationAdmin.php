@@ -14,9 +14,9 @@ final class ConfigurationAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-        ->add('key', TextType::class,[
+        ->add('keyConf', TextType::class,[
         ])
-        ->add('value', TextType::class,[
+        ->add('valueConf', TextType::class,[
         ])
         ;
     }
@@ -24,15 +24,17 @@ final class ConfigurationAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-        ->add('key');
+        ->add('id')
+        ->add('keyConf')
+        ->add('valueConf');
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-        ->add('id')
-        ->addIdentifier('key')
-        ->add('value')
+        ->addIdentifier('id')
+        ->addIdentifier('keyConf')
+        ->addIdentifier('valueConf')
         ;
     }
 }

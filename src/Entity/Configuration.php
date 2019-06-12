@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-06-12 11:41:26 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-06-12 12:59:11
+ * @Last Modified time: 2019-06-12 14:59:29
  */
 namespace App\Entity;
 
@@ -14,50 +14,50 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Configuration
 {
+    const TAXE_REGIONAL = 'taxeRegional';
     /**
-     * @ORM\Id
+     * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     *
-     * @var [type]
      */
     private $id;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
-    private $key;
+    private $keyConf;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
-    private $value;
+    private $valueConf;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getKey(): ?string
+    public function getKeyConf(): ?string
     {
-        return $this->key;
+        return $this->keyConf;
     }
 
-    public function setKey(string $key): self
+    public function setKeyConf(string $keyConf): self
     {
-        $this->key = $key;
+        $this->keyConf = $keyConf;
 
         return $this;
     }
 
-    public function getValue(): ?string
+    public function getValueConf(): ?string
     {
-        return $this->value;
+        return $this->valueConf;
     }
 
-    public function setValue(string $value): self
+    public function setValueConf(string $valueConf): self
     {
-        $this->value = $value;
+        $this->valueConf = $valueConf;
 
         return $this;
     }
+
 }
