@@ -112,6 +112,7 @@ type_demande:
 
 label:
     nomPrenomTitulaire: Nom de l'Acquéreur (*)
+    prenomTitulaire: Prénom(s) de l'Acquéreur (*)
     acquerreur: Acquéreur
     dateN: Date de naissance (*)
     lieuN: Lieu de naissance

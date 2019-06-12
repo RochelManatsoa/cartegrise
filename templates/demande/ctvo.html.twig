@@ -87,6 +87,11 @@
 {% block javascripts %} 
 {{ parent() }}
 <script type="application/javascript">
+    $('.choice-type-ancientitulaire').on('change', function(e) {
+        $(e.target).parent('.form-group').siblings().toggle();
+    })
+    </script>
+<script type="application/javascript">
     var $collectionHolder;
 
     // setup an "add a tag" link
