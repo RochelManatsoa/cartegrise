@@ -7,12 +7,11 @@
         <br>
         <h3>
             {% if responses.response_code == "00" %}
-                    Félicitation ! <br>
+                    Félicitations ! <br>
+                    {{ "#{responses.response_code}" | statusMessage }}
                 {% else %}
                     Désolé ! Votre transaction n'a pas réussit. <br>
             {% endif %}
-            
-            {{ "#{responses.response_code}" | statusMessage }}
         </h3>
     </div>
     <div><br>
@@ -52,7 +51,16 @@
                 </button>
             </a>
         </div>
+    {% else %}
+        <div>
+            <a href="{{path('home')}}">
+                <button class="btn btn-primary">
+                    Retour
+                </button>
+            </a>
+        </div>
     {% endif %}
+
 </div>
 </body>
 

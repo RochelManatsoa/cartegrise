@@ -24,21 +24,21 @@ class FichierType extends AbstractType
         $builder
            ->add('type', EntityType::class, array(
                'class' => Documents::class,
-               'label' => 'Type de fichier:',
+               'label' => 'label.type.fichier',
                'choice_label' => 'nom',
                'data'=>$options['defaultType'],
            ))
            ->add('demande', EntityType::class, array(
                'class' => Demande::class,
-               'label' => 'Type de demande:',
+               'label' => 'label.type.demande',
                'choice_label' => 'typeDemande',
                'data'=>$options['defaultDemande']
            ))
             ->add('url', FileType::class, [
-                'label'=>'Choisissez vos fichiers',
+                'label'=>'label.url',
             ])
             ->add('save', SubmitType::class, array(
-                    'label' => 'Envoyer',
+                    'label' => 'label.send',
                     'attr' => array(
                         'class'=>'btn btn-info btn-lg'
                     )
