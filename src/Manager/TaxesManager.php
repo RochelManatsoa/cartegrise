@@ -52,9 +52,10 @@ class TaxesManager
             throw new \Exception($value->Erreur);
         }
         $taxe = new Taxes();
-
+        // to know if the the configuration have taxeRegional
         $taxeRegional = $this->getTaxRegionalConfiguration();
         $withTaxeRegional = true;
+        //to check if command is with taxes regional or not
         if ($taxeRegional instanceof Configuration){
             $type = $commande->getDemarche()->getType();
             $configTaxesRegional = explode(',', $taxeRegional->getValue());
@@ -62,7 +63,7 @@ class TaxesManager
                 $withTaxeRegional = false;
             }      
         }
-        
+        //to apply if haven't taxes regional
         if ($withTaxeRegional) {
             $taxe->setTaxeRegionale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale);
         }  

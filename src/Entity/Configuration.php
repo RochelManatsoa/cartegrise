@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-06-12 11:41:26 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-06-12 11:51:20
+ * @Last Modified time: 2019-06-12 12:59:11
  */
 namespace App\Entity;
 
@@ -28,7 +28,7 @@ class Configuration
     private $key;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $value;
 

@@ -66,3 +66,7 @@ services:
         arguments: [~, App\Entity\Demande, ~]
         tags:
             - { name: sonata.admin, manager_type: orm,group: 'TMS', label: Demande }
+    App\Admin\ConfigurationAdmin:
+        arguments: [~, App\Entity\Configuration, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'CONFIGURATION', label: Configuration }
