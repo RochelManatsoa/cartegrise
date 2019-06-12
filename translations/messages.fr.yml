@@ -115,11 +115,45 @@ label:
     prenomTitulaire: Prénom(s) de l'Acquéreur (*)
     acquerreur: Acquéreur
     dateN: Date de naissance (*)
+    lieuN: Lieu de naissance
     adresseNewTitulaire: Adresse de l'Acquéreur 
     ancienTitulaire: Ancien Titulaire
     cotitulaire: Cotitulaire(s)
     dateCession: Date de cession
     ancienAdresse: Ancienne adresse
+    typevoie: Type de Voie
+    complement: Complément d'adresse
+    codepostal: Code Postal
+    ville: Ville
+    type: 
+        personne: Personne (*)
+        fichier: Type de fichier
+        demande: Type de demande
+
+    url: Choisissez vos fichiers
+    send: Envoyer
+    save: Enregistrer
+    raisonsocial: Raison sociale
+    societeCommerciale: Société commerciale
+    nomprenom: Nom et prénom(s) (*)
+    clientNom: Nom (*)
+    clientPrenom: Prénom(s) (*)
+    clientContact: Contacts
+    clientAdresse: Adresse
+    genre: Civilité (*)
+    dep: Département
+    immatriculation: Immatriculation
+    contactMobile: Téléphone mobile
+    contactFixe: Téléphone fixe
+    demandeChangementTitulaire: Demander un changement de titulaire
+    motifDemande: Motif de la demande
+    nom:
+        voie: Nom de la voie
+
+    termsAccepted: J'ai lu et j'accepte les Conditions Générales de Vente , notre politique de confidentialité et la liste des documents à retourner. Et je renonce expressément à mon droit de rétractation afin que la prestation débute immédiatement
+    numformule: Numéro de la formule
+    vin: VIN
+    datecg: Date de la -Carte Grise (*)
 
 
 
