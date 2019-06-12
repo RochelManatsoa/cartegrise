@@ -7,20 +7,20 @@ parameters:
     locale: 'fr'
     upload_directory: '%kernel.project_dir%/public/allfiles'
     payment_params:
-        #merchant_id: '014295303911111'    # CODE DE TEST
-        merchant_id: '083897291700010'    # IN PROD
+        merchant_id: '014295303911111'    # CODE DE TEST
+        #merchant_id: '083897291700010'    # IN PROD
         merchant_country: fr
         currency_code: '978'
         #pathfile: '/var/www/app/src/Utils/pathfile'
-        #pathfile: '/var/www/html/front/projectCG/src/Utils/pathfile'  # IN ENV DEV
-        pathfile: '/var/www/html/cgofficiel/src/Utils/pathfile'  # IN ENV PROD
+        pathfile: '/var/www/html/front/projectCG/src/Utils/pathfile'  # IN ENV DEV
+        #pathfile: '/var/www/html/cgofficiel/src/Utils/pathfile'  # IN ENV PROD
     payment_binary:
         #request: '/var/www/app/src/Utils/bin/request'
         #response: '/var/www/app/src/Utils/bin/response'
-        #request: '/var/www/html/front/projectCG/src/Utils/bin/request'  # IN ENV DEV
-        #response: '/var/www/html/front/projectCG/src/Utils/bin/response'  # IN ENV DEV
-        request: '/var/www/html/cgofficiel/src/Utils/bin/request'  # IN ENV PROD
-        response: '/var/www/html/cgofficiel/src/Utils/bin/response'  # IN ENV PROD
+        request: '/var/www/html/front/projectCG/src/Utils/bin/request'  # IN ENV DEV
+        response: '/var/www/html/front/projectCG/src/Utils/bin/response'  # IN ENV DEV
+        #request: '/var/www/html/cgofficiel/src/Utils/bin/request'  # IN ENV PROD
+        #response: '/var/www/html/cgofficiel/src/Utils/bin/response'  # IN ENV PROD
     admin_mail: ['rapaelec@gmail.com', 'technique@cgofficiel.fr', 'rapaelec@gmail.com', 'nirinarochelmiandrisoa@gmail.com', 'rochel2fnclm@gmail.com']
     admin_doc_validator: ["rapaelec@gmail.com", "test@gmail.com", "rakoto@gmail.com"]
 
