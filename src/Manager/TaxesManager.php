@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 12:27:51
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-06-12 15:16:31
+ * @Last Modified time: 2019-06-12 16:28:55
  */
 
 namespace App\Manager;
@@ -65,15 +65,21 @@ class TaxesManager
         }
         //to apply if haven't taxes regional
         if ($withTaxeRegional) {
-            $taxe->setTaxeRegionale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale);
-        }  
+            $taxe
+            ->setTaxeRegionale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale)
+            ->setTaxeTotale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeTotale);
+        } else {
+            $taxeRegional = $value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale;
+            $taxeTotal = $value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeTotale;
+            $taxeTotal = $taxeTotal - $taxeRegional;
+            $taxe->setTaxeTotale($taxeTotal);
+        } 
         $taxe->setTaxe35cv($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Taxe35cv)
             ->setTaxeParafiscale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeParafiscale)
             ->setTaxeCO2($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeCO2)
             ->setTaxeMalus($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeMalus)
             ->setTaxeSIV($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeSIV)
             ->setTaxeRedevanceSIV($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRedevanceSIV)
-            ->setTaxeTotale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeTotale)
             ->setVIN($value->Lot->Demarche->ECGAUTO->Reponse->Positive->VIN)
             ->setCO2($value->Lot->Demarche->ECGAUTO->Reponse->Positive->CO2)
             ->setPuissance($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Puissance)
