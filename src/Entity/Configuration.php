@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Configuration
 {
+    const TAXE_REGIONAL = 'taxeRegional';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
