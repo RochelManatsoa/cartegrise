@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 12:27:51
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-06-12 15:09:42
+ * @Last Modified time: 2019-06-12 15:16:31
  */
 
 namespace App\Manager;
@@ -58,7 +58,7 @@ class TaxesManager
         //to check if command is with taxes regional or not
         if ($taxeRegional instanceof Configuration){
             $type = $commande->getDemarche()->getType();
-            $configTaxesRegional = explode(',', $taxeRegional->getValue());
+            $configTaxesRegional = explode(',', $taxeRegional->getValueConf());
             if (in_array($type, $configTaxesRegional)) {
                 $withTaxeRegional = false;
             }      
