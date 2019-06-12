@@ -20,8 +20,8 @@ class CommandeType extends AbstractType
                'choice_label' => 'nom',
                'data'=>$options['defaultType'],
            ))
-            ->add('codePostal', null, ['label' => 'Département'])
-            ->add('immatriculation', null, ['label' => 'Immatriculation'])
+            ->add('codePostal', null, ['label' => 'label.dep'])
+            ->add('immatriculation', null, ['label' => 'label.immatriculation'])
         ;
     }
 

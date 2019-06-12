@@ -16,7 +16,7 @@ class UpdateUserType extends AbstractType
 
     {
         $builder->add('client', ClientType::class)
-        ->add('enregistrer', SubmitType::class)
+                ->add('enregistrer', SubmitType::class, ['label' => 'label.save'])
         ;
     }
 

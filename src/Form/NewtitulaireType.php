@@ -22,7 +22,7 @@ class NewtitulaireType extends AbstractType
                 'label'=>'label.prenomTitulaire'
                 ))
             ->add('genre', ChoiceType::class, array(
-                'label' => "Civilité (*)",
+                'label' => 'label.genre',
                 'choices' => array(
                     'Féminin' => "F",
                     'Masculin' => "M",
@@ -32,10 +32,10 @@ class NewtitulaireType extends AbstractType
                 'label'=>"label.dateN",
                 'widget' => 'single_text',
                 ))
-            ->add('lieuN', TextType::class, array('label'=>"Lieu de naissance (*)"))
+            ->add('lieuN', TextType::class, array('label'=> 'label.lieuN'))
             // ->add('type')
             ->add('raisonSociale')
-            ->add('societeCommerciale', null, array('label'=>"Société commerciale"))
+            ->add('societeCommerciale', null, array('label'=> 'label.societeCommerciale'))
             // ->add('siren')
             ->add('adresseNewTitulaire', AdresseType::class, array('label'=>'label.adresseNewTitulaire'))
             // ->add('demande')

@@ -16,11 +16,11 @@ class VehiculeType extends AbstractType
     {
         $builder
             ->add('cgpresent')
-            ->add('immatriculation', TextType::class, array('label' => 'Immatriculation'))
-            ->add('vin', TextType::class, array('label' => 'VIN'))
-            ->add('numformule', TextType::class, array('label' => 'Numéro de la formule'))
+            ->add('immatriculation', TextType::class, array('label' => 'label.immatriculation'))
+            ->add('vin', TextType::class, array('label' => 'label.vin'))
+            ->add('numformule', TextType::class, array('label' => 'label.numformule'))
             ->add('datecg', DateType::class, array(
-                'label'=>"Date de Carte Grise (*)",
+                'label'=> 'label.datecg',
                 'widget' => 'single_text',
                 ))
             ->add('vehiculeAncientitulaire')
