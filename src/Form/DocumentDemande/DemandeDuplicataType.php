@@ -39,20 +39,22 @@ class DemandeDuplicataType extends AbstractType
             "data_class" => null,
         ])
         ->add('copieControleTechniqueEnCoursValidite', FileType::class, [
-            "label" => 'copie controle technique en cours de validité',
+            "label" => 'Copie controle technique en cours de validité',
             "required" => false,
             "data_class" => null,
         ])
         ->add('pieceIdentiteValid', FileType::class, [
-            "label" => 'piece d\'identite valide',
+            "label" => 'Piece d\'identite valide',
             "required" => false,
             "data_class" => null,
         ])
         ->add('copieAttestationAssuranceValide', FileType::class, [
+            "label" => 'Copie d\'attestation d\'assurance valide',
             "required" => false,
             "data_class" => null,
         ])
         ->add('permisDeConduireDuTitulaire', FileType::class, [
+            "label" => 'Permis de conduire du titulaire',
             "required" => false,
             "data_class" => null,
         ])
