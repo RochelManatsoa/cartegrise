@@ -149,6 +149,9 @@ label:
     motifDemande: Motif de la demande
     nom:
         voie: Nom de la voie
+        cotitulaire: Nom du Cotitulaire
+    prenom:
+        cotitulaire: Prénom(s) du Cotitulaire
 
     termsAccepted: J'ai lu et j'accepte les Conditions Générales de Vente , notre politique de confidentialité et la liste des documents à retourner. Et je renonce expressément à mon droit de rétractation afin que la prestation débute immédiatement
     numformule: Numéro de la formule

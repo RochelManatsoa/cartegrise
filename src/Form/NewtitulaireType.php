@@ -15,14 +15,27 @@ class NewtitulaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('type', ChoiceType::class, array(
+                'label' => 'label.type.personne',
+                'choices' => array(
+                    'Personne Physique' => "phy",
+                    'Personne Morale' => "mor",
+                ),
+                'attr' => [
+                    'class' => 'choice-type-newtitulaire'
+                ]
+            ))
             ->add('nomPrenomTitulaire', TextType::class, array(
-                'label'=>'label.nomPrenomTitulaire'
+                'label'=>'label.nomPrenomTitulaire',
+                'required'=>false,
                 ))
             ->add('prenomTitulaire', TextType::class, array(
-                'label'=>'label.prenomTitulaire'
+                'label'=>'label.prenomTitulaire',
+                'required'=>false,
                 ))
             ->add('genre', ChoiceType::class, array(
                 'label' => 'label.genre',
+                'required'=>false,
                 'choices' => array(
                     'Féminin' => "F",
                     'Masculin' => "M",
@@ -30,12 +43,19 @@ class NewtitulaireType extends AbstractType
             ))
             ->add('dateN', DateType::class, array(
                 'label'=>"label.dateN",
+                'required'=>false,
                 'widget' => 'single_text',
                 ))
-            ->add('lieuN', TextType::class, array('label'=> 'label.lieuN'))
+            ->add('lieuN', TextType::class, array(
+                'required'=>false,
+                'label'=> 'label.lieuN',
+                ))
             // ->add('type')
             ->add('raisonSociale')
-            ->add('societeCommerciale', null, array('label'=> 'label.societeCommerciale'))
+            ->add('societeCommerciale', null, array(
+                'required'=>false,
+                'label'=> 'label.societeCommerciale'
+                ))
             // ->add('siren')
             ->add('adresseNewTitulaire', AdresseType::class, array('label'=>'label.adresseNewTitulaire'))
             // ->add('demande')

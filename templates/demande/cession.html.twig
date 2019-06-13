@@ -39,15 +39,16 @@
                             </div>
                             <h3 class="text-center"> {{ form_label(form.cession.acquerreur) }} </h3>
                             <hr>
-                            {% for acquerreur in form.cession.acquerreur %}
-                                {% if loop.index < 8 %}
-                                    <div class="form-group">
-                                        {{ form_label(acquerreur)}}
-                                        {{ form_errors(acquerreur)}}
-                                        {{ form_widget(acquerreur, {'attr': {'class': ''}})}}
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
+                            <div class="newtitulaire">
+                            {{ form_row(form.cession.acquerreur.type)}}
+                            {{ form_row(form.cession.acquerreur.nomPrenomTitulaire)}}
+                            {{ form_row(form.cession.acquerreur.prenomTitulaire)}}
+                            {{ form_row(form.cession.acquerreur.genre)}}
+                            {{ form_row(form.cession.acquerreur.dateN)}}
+                            {{ form_row(form.cession.acquerreur.lieuN)}}
+                            {{ form_row(form.cession.acquerreur.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                            {{ form_row(form.cession.acquerreur.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                            </div>
                         </div>
                     </div>
                     <div class="col-3 col-md-5 mx-auto form-row full-mobile">
@@ -79,6 +80,11 @@
 </div>
 {% endblock %}
 {% block javascripts %}
+<script type="application/javascript">
+$('.choice-type-newtitulaire').on('change', function(e) {
+    $(e.target).parent('.form-group').siblings().toggle();
+})
+</script>
 <script type="application/javascript">
 $('.choice-type-ancientitulaire').on('change', function(e) {
     $(e.target).parent('.form-group').siblings().toggle();

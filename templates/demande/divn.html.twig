@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'demande/demande_custom_theme.html.twig'%}
+
 {% block title %}{% endblock %}
 
 {% block body_id %}{% endblock %}
@@ -21,15 +23,17 @@
                         <div class="col-10 col-sm-12 mx-auto">
                             <h3 class="text-center"> {{ form_label(form.divn.acquerreur) }} </h3>
                             <hr>
-                            {% for acquerreur in form.divn.acquerreur %}
-                                {% if loop.index < 8 %}
-                                    <div class="form-group">
-                                        {{ form_label(acquerreur)}}
-                                        {{ form_errors(acquerreur)}}
-                                        {{ form_widget(acquerreur, {'attr': {'class': ''}})}}
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
+                            <div class="newtitulaire">
+                            {{ form_row(form.divn.acquerreur.type)}}
+                            {{ form_row(form.divn.acquerreur.nomPrenomTitulaire)}}
+                            {{ form_row(form.divn.acquerreur.prenomTitulaire)}}
+                            {{ form_row(form.divn.acquerreur.genre)}}
+                            {{ form_row(form.divn.acquerreur.dateN)}}
+                            {{ form_row(form.divn.acquerreur.lieuN)}}
+                            {{ form_row(form.divn.acquerreur.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                            {{ form_row(form.divn.acquerreur.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                            </div>
+                            <br>
                         </div>
                     </div>
                     <div class="col-3 col-md-5 mx-auto form-row full-mobile">
@@ -75,6 +79,11 @@
 {% endblock %}
 {% block javascripts %} 
 {{ parent() }}
+<script type="application/javascript">
+    $('.choice-type-newtitulaire').on('change', function(e) {
+        $(e.target).parent('.form-group').siblings().toggle();
+    })
+</script>
 <script type="application/javascript">
     var $collectionHolder;
 
