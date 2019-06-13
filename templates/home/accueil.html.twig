@@ -15,26 +15,26 @@
 						<div class="row col-md-12 col-lg-6 resultat-estimation mx-auto pt-5 pb-5">
 							<img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}" class="rounded mx-auto d-block img-fluid mb-3" alt="">
 							<div class="col-10 mx-auto">
-								<h2 class="col-12 text-center">CARACTÉRISTIQUES DU VÉHICULE</h2>
+								<h2 class="col-12 text-center">{{ 'home.carSkills'|trans}}</h2>
 								{{ include('commande/_resum_caracteristics_car.html.twig') }}
 								<hr>
-								<h2 class="col-12">Récapitulatif de la demande</h2>
+								<h2 class="col-12">{{ 'home.recapDemande'|trans}}</h2>
 								{{ include('commande/_resum_recap_demande.html.twig') }}
 							</div>
 						</div>
 						<div class="row col-md-12 col-lg-6 resultat-estimation mx-auto d-flex flex-row-reverse my-flex-container pt-5 pb-5">
 							<div class="col-10 mx-auto">
 
-								<h2 class="col-12">DÉTAIL DES TAXES</h2>
+								<h2 class="col-12">{{ 'home.detailTaxes'|trans}}</h2>
 								{{ include('commande/_resum_taxe_car.html.twig') }}
 								<br>
 
 								{% if app.user %}
-									<a class="col-12 btn btn-success" href="{{path('new_demande', {'commande': recap.id })}}">Continuer</a>
+									<a class="col-12 btn btn-success" href="{{path('new_demande', {'commande': recap.id })}}">{{ 'home.continue'|trans}}</a>
 								{% else %}
 								<!-- Button trigger modal -->
 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-									Je valide ma commande
+									{{ 'home.validateComand'|trans}}
 								</button>
 								
 								<!-- Modal -->
@@ -50,25 +50,25 @@
 										<div class="modal-body">
 												<div class="col-10 col-lg-10 mx-auto mt-4">
 													<div class="col-12 mx-auto resultat-estimation-p mt-5">
-														<p class="text-center font-24">Créez votre compte et identifiez-vous en quelques <br>
-														clics, pour valider et suivre votre commande
+														<p class="text-center font-24">
+															{{ 'home.createAcountDescription'|trans}}
 														</p>
 													</div>
 
 													<div class="custom-container-flex">
-														<p class="text-center">je n'ai pas encore de compte sur CG officiel</p>
+														<p class="text-center">{{ 'home.noAcount'|trans}}</p>
 														<a class="link-connexion" href="{{ path('fos_user_registration_register') }}">
-															CREER MON COMPTE
+															{{ 'home.createAcountButton'|trans}}
 														</a>
 													</div>
 													<div class="custom-container-flex">
-														<p class="text-center">j'ai déjà un compte sur CG officiel</p>
+														<p class="text-center">{{ 'home.loginDescription'|trans}}</p>
 														<a class="link-connexion" href="{{ path('fos_user_security_login') }}">
-															S'IDENTIFIER
+															{{ 'home.login'|trans}}
 														</a>
 													</div>
 													<div class="custom-container-flex">
-														<p class="text-center">Je préfère m'identifier avec France Connect</p>
+														<p class="text-center">{{ 'home.franceConnecteDescription'|trans}}</p>
 														<a class="link-connexion no-border" href="{{ path('france_connect_login') }}" class="btnLink">
 															<img class="img-fluid col-12 rounded mx-auto d-block tooltiped" style="max-width: 100%;height:auto;" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
 														</a>
@@ -96,26 +96,29 @@
 					<div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
 						<img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}"
 							class="rounded mx-auto d-block img-fluid mb-3" alt="">
-						<h2 class="col-12">Récapitulatif de la demande
+						<h2 class="col-12">
+							{{ 'home.recapDemande'|trans}}
 							{{commande.demarche.type | lower}}</h2>
 						{{ include('commande/_resum_recap_demande.html.twig') }}
 
-						<h2 class="col-12">CARACTÉRISTIQUES DU VÉHICULE</h2>
+						<h2 class="col-12">{{ 'home.carSkills'|trans }}</h2>
 						{{ include('commande/_resum_caracteristics_car.html.twig') }}
 						<br>
 
-						<h2 class="col-12">DÉTAIL DES TAXES</h2>
+						<h2 class="col-12">{{'home.detailTaxes'|trans}}</h2>
 						{{ include('commande/_resum_taxe_car.html.twig') }}
 						<br>
 						<div class="col-12 resultat-estimation-p">
-							<p>Les produits ou services achetés sur cgofficiel.fr doivent être réglés en euros soit en ligne, soit par chèque. Les catres bancaires accéptées par le système sécuriséHiPay sont Carte bleue, Visa, Eurocard Mastercard.</p>
+							<p>
+								{{ 'home.condition'|trans }}
+							</p>
 						</div>
 						
 						{% if app.user %}
-							<a class="col-12 btn btn-success" href="{{path('Accueil')}}{{ commande.demarche.type | lower}}/?commande={{ commande.id }}">VALIDER</a>
+							<a class="col-12 btn btn-success" href="{{path('Accueil')}}{{ commande.demarche.type | lower}}/?commande={{ commande.id }}">{{ 'home.validate'|trans }}</a>
 						{% else %}
-							<a class="col-12 btn btn-primary mb-3" href="{{ path('france_connect_login') }}">FranceConnect</a>
-							<a class="col-12 btn btn-success" href="{{ path('fos_user_registration_register',{'commande':commande.id}) }}">VALIDER</a>
+							<a class="col-12 btn btn-primary mb-3" href="{{ path('france_connect_login') }}">{{ 'home.franceConnecte'|trans }}</a>
+							<a class="col-12 btn btn-success" href="{{ path('fos_user_registration_register',{'commande':commande.id}) }}">{{ 'home.validate'|trans }}</a>
 						{% endif %}
 					</div>
 				</div>

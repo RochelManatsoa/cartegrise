@@ -45,6 +45,12 @@ class CarInfo
      * @ORM\Column(type="string", nullable=true)
      */
     private $horsePower;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $horsePowerFiscal;
+
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -187,6 +193,18 @@ class CarInfo
     public function setCommande(?Commande $commande): self
     {
         $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getHorsePowerFiscal(): ?string
+    {
+        return $this->horsePowerFiscal;
+    }
+
+    public function setHorsePowerFiscal(?string $horsePowerFiscal): self
+    {
+        $this->horsePowerFiscal = $horsePowerFiscal;
 
         return $this;
     }
