@@ -4,33 +4,24 @@
  * @Author: stephan
  * @Date:   2019-04-15 12:27:51
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-06-12 15:16:31
+ * @Last Modified time: 2019-06-12 16:28:55
  */
 
 namespace App\Manager;
 
 use App\Entity\{Taxes, Configuration, Commande};
 use App\Services\Tms\Response;
-use App\Manager\ConfigurationManager;
+use App\Manager\TaxeUtils\TaxeLogicalManager;
 
 class TaxesManager
 {
-    /**
-     * configurationManager
-     *
-     * @var ConfigurationManager
-     */
-    private $configurationManager;
-    /**
-     * Undocumented function
-     *
-     * @param ConfigurationManager $configurationManager
-     */
+    private $taxLogicalManager;
+
     public function __construct(
-        ConfigurationManager $configurationManager
+        TaxeLogicalManager $taxLogicalManager
     )
     {
-        $this->configurationManager = $configurationManager;
+        $this->taxLogicalManager = $taxLogicalManager;
     }
 
 	public function createTax()
@@ -38,11 +29,6 @@ class TaxesManager
 		$taxes = new Taxes();
 
 		return $taxes;
-    }
-    
-    private function getTaxRegionalConfiguration() : ?Configuration
-    {
-        return $this->configurationManager->find(Configuration::TAXE_REGIONAL);
     }
 
 	public function createFromTmsResponse(Response $tmsResponse, Commande $commande): Taxes
@@ -52,28 +38,9 @@ class TaxesManager
             throw new \Exception($value->Erreur);
         }
         $taxe = new Taxes();
-        // to know if the the configuration have taxeRegional
-        $taxeRegional = $this->getTaxRegionalConfiguration();
-        $withTaxeRegional = true;
-        //to check if command is with taxes regional or not
-        if ($taxeRegional instanceof Configuration){
-            $type = $commande->getDemarche()->getType();
-            $configTaxesRegional = explode(',', $taxeRegional->getValueConf());
-            if (in_array($type, $configTaxesRegional)) {
-                $withTaxeRegional = false;
-            }      
-        }
-        //to apply if haven't taxes regional
-        if ($withTaxeRegional) {
-            $taxe->setTaxeRegionale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale);
-        }  
+        // manage taxe with configuration
+        $this->taxLogicalManager->getRealTaxes($taxe, $commande, $value);
         $taxe->setTaxe35cv($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Taxe35cv)
-            ->setTaxeParafiscale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeParafiscale)
-            ->setTaxeCO2($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeCO2)
-            ->setTaxeMalus($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeMalus)
-            ->setTaxeSIV($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeSIV)
-            ->setTaxeRedevanceSIV($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRedevanceSIV)
-            ->setTaxeTotale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeTotale)
             ->setVIN($value->Lot->Demarche->ECGAUTO->Reponse->Positive->VIN)
             ->setCO2($value->Lot->Demarche->ECGAUTO->Reponse->Positive->CO2)
             ->setPuissance($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Puissance)
