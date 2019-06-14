@@ -24,37 +24,37 @@ class Taxes
     private $taxeRegionale;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxe35cv;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxeParafiscale;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxeCO2;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxeMalus;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxeSIV;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxeRedevanceSIV;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxeTotale;
 
@@ -102,6 +102,13 @@ class Taxes
     public function __construct()
     {
         $this->taxeRegionale = 0;
+        $this->taxe35cv = 0;
+        $this->taxeParafiscale = 0;
+        $this->taxeCO2 = 0;
+        $this->taxeMalus = 0;
+        $this->taxeSIV = 0;
+        $this->taxeRedevanceSIV = 0;
+        $this->taxeTotale = 0;
         // $this->commande = new ArrayCollection();
     }
 
