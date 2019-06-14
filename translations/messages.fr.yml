@@ -184,6 +184,12 @@ home:
         ptac: PTAC
         energi: Energie
         dateCirculationStarted: Date de mise en ciruclation
+    commandeType:
+        dup: Demande de duplicata
+        divn: Demande d'immatriculation de vehicule neuf
+        ctvo: Changement de titulaire de vehicule d'ocasion
+        dc: Demande de cession
+        dca: Demande de changement d'adresse
 
 
 

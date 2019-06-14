@@ -14,8 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Configuration
 {
-    const TAXE_REGIONAL = 'taxeRegional';
+    const TAXE_REGIONAL = 'sansTaxeRegional';
     const TAXE_REGIONAL_WITHOUT_MULTIPLE_POWERFISC= 'taxeRegional/PuissanceFiscal';
+    const TAXE_REGIONAL_WITHOUT_TAXES= 'sansTaxes';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -28,9 +29,25 @@ class Configuration
     private $keyConf;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $valueConf;
+    private $DC;
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $DCA;
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $DUP;
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $CTVO;
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $DIVN;
 
     public function getId(): ?int
     {
@@ -49,14 +66,62 @@ class Configuration
         return $this;
     }
 
-    public function getValueConf(): ?string
+    public function getDC(): ?bool
     {
-        return $this->valueConf;
+        return $this->DC;
     }
 
-    public function setValueConf(string $valueConf): self
+    public function setDC(bool $DC): self
     {
-        $this->valueConf = $valueConf;
+        $this->DC = $DC;
+
+        return $this;
+    }
+
+    public function getDCA(): ?bool
+    {
+        return $this->DCA;
+    }
+
+    public function setDCA(bool $DCA): self
+    {
+        $this->DCA = $DCA;
+
+        return $this;
+    }
+
+    public function getDUP(): ?bool
+    {
+        return $this->DUP;
+    }
+
+    public function setDUP(bool $DUP): self
+    {
+        $this->DUP = $DUP;
+
+        return $this;
+    }
+
+    public function getCTVO(): ?bool
+    {
+        return $this->CTVO;
+    }
+
+    public function setCTVO(bool $CTVO): self
+    {
+        $this->CTVO = $CTVO;
+
+        return $this;
+    }
+
+    public function getDIVN(): ?bool
+    {
+        return $this->DIVN;
+    }
+
+    public function setDIVN(bool $DIVN): self
+    {
+        $this->DIVN = $DIVN;
 
         return $this;
     }
