@@ -9,15 +9,21 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 final class ConfigurationAdmin extends AbstractAdmin
 {
+    public function configureRoutes(RouteCollection $collection)
+    {
+        $collection->remove('delete');
+    }
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
         ->add('keyConf', TextType::class,[
             'attr' => [
-                // 'readonly'=>true,
+                'readonly'=>true,
             ]
         ])
         ->add('DC', CheckboxType::class, [
