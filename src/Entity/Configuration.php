@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Configuration
 {
     const TAXE_REGIONAL = 'taxeRegional';
+    const TAXE_REGIONAL_WITHOUT_MULTIPLE_POWERFISC= 'taxeRegional/PuissanceFiscal';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

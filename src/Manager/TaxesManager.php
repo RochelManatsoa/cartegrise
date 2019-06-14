@@ -40,9 +40,9 @@ class TaxesManager
 		return $taxes;
     }
     
-    private function getTaxRegionalConfiguration() : ?Configuration
+    private function getConfiguration($value) : ?Configuration
     {
-        return $this->configurationManager->find(Configuration::TAXE_REGIONAL);
+        return $this->configurationManager->find($value);
     }
 
 	public function createFromTmsResponse(Response $tmsResponse, Commande $commande): Taxes
@@ -53,11 +53,23 @@ class TaxesManager
         }
         $taxe = new Taxes();
         // to know if the the configuration have taxeRegional
-        $taxeRegional = $this->getTaxRegionalConfiguration();
+        $taxeRegional = $this->getConfiguration(Configuration::TAXE_REGIONAL);
+        // to know if the configuration have able or not to multiply with fiscal power
+        $taxeRegionalWithoutMultiplePuissFisc = $this->getConfiguration(Configuration::TAXE_REGIONAL_WITHOUT_MULTIPLE_POWERFISC);
+        // define default value
         $withTaxeRegional = true;
+        $withMultiplePuissanceFisc=true;
+        // get type of comande
+        $type = $commande->getDemarche()->getType();
+        //to check if command is with taxes regional or not
+        if ($taxeRegionalWithoutMultiplePuissFisc instanceof Configuration){
+            $taxeRegionalWithoutMultiplePuissFiscConfig = explode(',', $taxeRegionalWithoutMultiplePuissFisc->getValueConf());
+            if (in_array($type, $taxeRegionalWithoutMultiplePuissFiscConfig)) {
+                $withMultiplePuissanceFisc = false;
+            }      
+        }
         //to check if command is with taxes regional or not
         if ($taxeRegional instanceof Configuration){
-            $type = $commande->getDemarche()->getType();
             $configTaxesRegional = explode(',', $taxeRegional->getValueConf());
             if (in_array($type, $configTaxesRegional)) {
                 $withTaxeRegional = false;
@@ -65,9 +77,17 @@ class TaxesManager
         }
         //to apply if haven't taxes regional
         if ($withTaxeRegional) {
+            $taxeTotal = $value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeTotale;
+            $taxeRegionalInit = $value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale;
+            $taxeRegional = $value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale;
+            if (!$withMultiplePuissanceFisc) {
+                $taxeRegional = $taxeRegionalInit / $value->Lot->Demarche->ECGAUTO->Reponse->Positive->Puissance;
+            }
+            $taxeTotal = $taxeTotal - $taxeRegionalInit + $taxeRegional;
+
             $taxe
-            ->setTaxeRegionale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale)
-            ->setTaxeTotale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeTotale);
+            ->setTaxeRegionale($taxeRegional)
+            ->setTaxeTotale($taxeTotal);
         } else {
             $taxeRegional = $value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale;
             $taxeTotal = $value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeTotale;
