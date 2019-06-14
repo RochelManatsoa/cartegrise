@@ -73,3 +73,7 @@ services:
         arguments: [~, App\Entity\Configuration, ~]
         tags:
             - { name: sonata.admin, manager_type: orm,group: 'CONFIGURATION', label: 'Traitement Taxes' }
+    App\Admin\TarifPrestationAdmin:
+        arguments: [~, App\Entity\TarifsPrestations, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'TARIFS', label: 'Tarif prestation' }
