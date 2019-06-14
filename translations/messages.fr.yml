@@ -154,6 +154,42 @@ label:
     numformule: Numéro de la formule
     vin: VIN
     datecg: Date de la -Carte Grise (*)
+home:
+    carSkills: CARACTÉRISTIQUES DU VÉHICULE
+    recapDemande: Récapitulatif de la demande
+    detailTaxes: DÉTAIL DES TAXES
+    continue: Continuer
+    validateComand: Je valide ma commande
+    createAcountDescription: |
+        Créez votre compte et identifiez-vous en quelques <br> clics, pour valider et suivre votre commande
+    noAcount: "je n'ai pas encore de compte sur CG officiel"
+    createAcountButton: CREER MON COMPTE
+    login: "S'IDENTIFIER"
+    loginDescription: "j'ai déjà un compte sur CG officiel"
+    franceConnecteDescription: "Je préfère m'identifier avec France Connect"
+    condition: "Les produits ou services achetés sur cgofficiel.fr doivent être réglés en euros soit en ligne, soit par chèque. Les catres bancaires accéptées par le système sécuriséHiPay sont Carte bleue, Visa, Eurocard Mastercard."
+    validate: VALIDER
+    franceConnecte: FranceConnect
+    resum:
+        mark: Marque
+        model: Modèle
+        color: Couleur
+        nbPlace: Nombre de places
+        power: Puissance
+        powerFiscal: Puissance Fiscale (cv)
+        serialNum: Numéro de série
+        vin: VIN
+        co2: CO2
+        gender: Genre
+        ptac: PTAC
+        energi: Energie
+        dateCirculationStarted: Date de mise en ciruclation
+    commandeType:
+        dup: Demande de duplicata
+        divn: Demande d'immatriculation de vehicule neuf
+        ctvo: Changement de titulaire de vehicule d'ocasion
+        dc: Demande de cession
+        dca: Demande de changement d'adresse
 
 
 

@@ -1,50 +1,54 @@
     <table class="table table-striped">
         <tr>
-            <th>Marque</th>
+            <th>{{ 'home.resum.mark'|trans }}</th>
             <td>{{ commande.carInfo.marque }}</td>
         </tr>
         <tr>
-            <th>Modèle</th>
+            <th>{{ 'home.resum.model'|trans }}</th>
             <td>{{ commande.carInfo.model }}</td>
         </tr>
         <tr>
-            <th>Couleur</th>
+            <th>{{ 'home.resum.color'|trans }}</th>
             <td>{{ commande.carInfo.color }}</td>
         </tr>
         <tr>
-            <th>Nombre de places</th>
+            <th>{{ 'home.resum.nbPlace'|trans }}</th>
             <td>{{ commande.carInfo.nbPlace }}</td>
         </tr>
         <tr>
-            <th>Puissance</th>
+            <th>{{ 'home.resum.power'|trans }}</th>
             <td>{{ commande.carInfo.horsePower }} ch</td>
         </tr>
         <tr>
-            <th>Numéro de série</th>
+            <th>{{ 'home.resum.powerFiscal'|trans }}</th>
+            <td>{{ commande.carInfo.horsePowerFiscal }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'home.resum.serialNum'|trans }}</th>
             <td>{{ commande.carInfo.serialNumber }}</td>
         </tr>
         <tr>
-            <th>VIN</th>
+            <th>{{ 'home.resum.vin'|trans }}</th>
             <td>{{ commande.carInfo.vin }}</td>
         </tr>
         <tr>
-            <th>CO2</th>
+            <th>{{ 'home.resum.co2'|trans }}</th>
             <td>{{ taxe.CO2 }}</td>
         </tr>
         <tr>
-            <th>Genre</th>
+            <th>{{ 'home.resum.gender'|trans }}</th>
             <td>{{ taxe.Genre }}</td>
         </tr>
         <tr>
-            <th>PTAC</th>
+            <th>{{ 'home.resum.ptac'|trans }}</th>
             <td>{{ taxe.PTAC }}</td>
         </tr>
         <tr>
-            <th>Energie</th>
+            <th>{{ 'home.resum.energi'|trans }}</th>
             <td>{{ taxe.Energie }}</td>
         </tr>
         <tr>
-            <th>Date de mise en ciruclation</th>
+            <th>{{ 'home.resum.dateCirculationStarted'|trans }}</th>
             <td>{{ taxe.DateMEC | date('Y-m-d') }}</td>
         </tr>
     </table>

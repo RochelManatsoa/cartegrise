@@ -32,6 +32,7 @@ class CarInfoManager
             ->setColor($value->Couleur)
             ->setNbPlace($value->NbPlacesAss)
             ->setHorsePower($value->PuissCh)
+            ->setHorsePowerFiscal($value->PuissFisc)
             ->setVersion($value->Version)
             ->setVin($value->VIN)
             ->setData(json_encode($value))

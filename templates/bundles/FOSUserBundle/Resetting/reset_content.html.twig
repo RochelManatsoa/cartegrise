@@ -1,8 +1,22 @@
 {% trans_default_domain 'FOSUserBundle' %}
+<div class="col-lg-7 col-sm-10 mx-auto mb-5 d-flex align-items-center">
 
-{{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
-    {{ form_widget(form) }}
+{{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset mdp-oublie mail-rejet' } }) }}
+    <div class="form-group">
+        {{ form_label(form.plainPassword.first) }}
+        {{ form_errors(form.plainPassword.first) }}
+        {{ form_widget(form.plainPassword.first) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.plainPassword.second) }}
+        {{ form_errors(form.plainPassword.second) }}
+        {{ form_widget(form.plainPassword.second) }}
+    </div>
+    {{ form_rest(form) }}
+
     <div>
-        <input type="submit" value="{{ 'resetting.reset.submit'|trans }}" />
+        <input type="submit" class="btn btn btn-primary" value="{{ 'resetting.reset.submit'|trans }}" />
     </div>
 {{ form_end(form) }}
+
+</div>
