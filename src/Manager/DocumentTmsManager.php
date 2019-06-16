@@ -10,6 +10,7 @@
 
  use App\Entity\Commande;
  use App\Entity\TypeDemande;
+ use App\Entity\UserInfos;
  use App\Entity\NewTitulaire;
  use App\Entity\Ancientitulaire;
  use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -336,18 +337,18 @@
         $carInfo = $commande->getCarInfo();
 		$now = new \DateTime();
 		$dc = $commande->getDemande()->getCession();
-		$ancienTitulaire = $dc->getAncienTitulaire();
-		$nouvelleAdresse = $dc->getAcquerreur()->getAdresseNewTitulaire();
-		$acquerreur = $dc->getAcquerreur();
+		$vendeur = $dc->getVendeur();
+		$nouvelleAdresse = $dc->getAcheteur()->getAdresse();
+		$acheteur = $dc->getAcheteur();
 
 		$acquerreurValue = [];
 
-		if (Ancientitulaire::PERSONE_PHYSIQUE == $ancienTitulaire->getType()) {
+		if (UserInfos::USER_PARTICULAR == $vendeur->getParticulierOrSociete()) {
 			$acquerreurValue = [
 					"PersonnePhysique" => [
-						"Nom" => $acquerreur->getNomPrenomTitulaire(),
+						"Nom" => $acheteur->getNomPrenom(),
 						"Prenom" => "",
-						"Sexe" => NewTitulaire::GENRE_M == $acquerreur->getGenre()? "M" : "F",
+						"Sexe" => UserInfos::GENRE_MALE === $acheteur->getGenre()? "M" : "F",
 					],
 					"Adresse" => [
 						"TypeVoie" => $nouvelleAdresse->getComplement(),
@@ -372,7 +373,7 @@
                     'ID' => '',
 					'TypeDemarche' => $commande->getDemarche()->getType(),
 					"DateDemarche" => $now->format('Y-m-d H:i:s'),
-					"DateCession" => $dc->getDateCession()->format('Y-m-d H:i:s'),
+					"DateCession" => $dc->getDateHeureDeLaVente()->format('Y-m-d H:i:s'),
 					"Titulaire" => [
 						"PersonnePhysique" => [
 							"SocieteCommerciale" =>true,
