@@ -24,18 +24,27 @@ class Cession
     private $demande;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Ancientitulaire", inversedBy="cession", cascade={"persist", "remove"})
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $ancienTitulaire;
+    private $dateHeureDeLaVente;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\NewTitulaire", inversedBy="cession", cascade={"persist", "remove"})
+     * @ORM\Column()
      */
-    private $acquerreur;
+    private $numeroDeLaFormulCarteGrise;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Assert\NotNull(message="Vous devez informer la date de cession")
+     * @ORM\OneToOne(targetEntity="App\Entity\UserInfos", inversedBy="cessionVendeur", cascade={"persist", "remove"})
+     */
+    private $vendeur;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\UserInfos", inversedBy="cessionAcheteur", cascade={"persist", "remove"})
+     */
+    private $acheteur;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateCession;
 
@@ -73,18 +82,6 @@ class Cession
         return $this;
     }
 
-    public function getAcquerreur(): ?NewTitulaire
-    {
-        return $this->acquerreur;
-    }
-
-    public function setAcquerreur(?NewTitulaire $acquerreur): self
-    {
-        $this->acquerreur = $acquerreur;
-
-        return $this;
-    }
-
     public function getDateCession(): ?\DateTimeInterface
     {
         return $this->dateCession;
@@ -105,6 +102,54 @@ class Cession
     public function setFile(?DemandeCession $file): self
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    public function getDateHeureDeLaVente(): ?\DateTimeInterface
+    {
+        return $this->dateHeureDeLaVente;
+    }
+
+    public function setDateHeureDeLaVente(?\DateTimeInterface $dateHeureDeLaVente): self
+    {
+        $this->dateHeureDeLaVente = $dateHeureDeLaVente;
+
+        return $this;
+    }
+
+    public function getNumeroDeLaFormulCarteGrise(): ?string
+    {
+        return $this->numeroDeLaFormulCarteGrise;
+    }
+
+    public function setNumeroDeLaFormulCarteGrise(string $numeroDeLaFormulCarteGrise): self
+    {
+        $this->numeroDeLaFormulCarteGrise = $numeroDeLaFormulCarteGrise;
+
+        return $this;
+    }
+
+    public function getVendeur(): ?UserInfos
+    {
+        return $this->vendeur;
+    }
+
+    public function setVendeur(?UserInfos $vendeur): self
+    {
+        $this->vendeur = $vendeur;
+
+        return $this;
+    }
+
+    public function getAcheteur(): ?UserInfos
+    {
+        return $this->acheteur;
+    }
+
+    public function setAcheteur(?UserInfos $acheteur): self
+    {
+        $this->acheteur = $acheteur;
 
         return $this;
     }
