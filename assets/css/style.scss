@@ -182,3 +182,18 @@ input[type="file"]{
 		width: calc(100% - 5px);
 	}
 }
+.contact-title {
+    color: #002a6b;
+}
+.contact-form .form-control {
+	width: -moz-calc(100% - 30px);
+	width: -ms-calc(100% - 30px);
+	width: -webkit-calc(100% - 30px);
+    width: calc(100% - 30px);
+}
+@media (max-width:992px) {
+	.full-tablet {
+		max-width: 100% !important;
+    	flex: 0 0 100% !important;
+	}
+}
