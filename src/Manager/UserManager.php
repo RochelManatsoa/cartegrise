@@ -10,7 +10,6 @@ use App\Entity\{User, Client, Contact, Adresse, Commande};
 use App\Manager\SessionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommandeRepository;
-
 class UserManager
 {
     private $repository;

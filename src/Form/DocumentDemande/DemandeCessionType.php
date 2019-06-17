@@ -25,11 +25,11 @@ class DemandeCessionType extends AbstractType
     {
         $builder
         ->add('formulaireCerfaRemplis', FileType::class, [
-            "label" => "Formulaire de cerfa remplis",
-            "required" => false,
-            "data_class" => null,
+            'label' => 'label.demande.formulaireCerfaRemplis',
+            'required' => false,
+            'data_class' => null,
         ])
-        ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
+        ->add('save', SubmitType::class, ['label' => 'label.save'])
         ;
     }
 

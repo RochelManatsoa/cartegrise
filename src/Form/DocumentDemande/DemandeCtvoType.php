@@ -25,55 +25,56 @@ class DemandeCtvoType extends AbstractType
     {
         $builder
         ->add('rectoVersoCarteGrise', FileType::class, [
+            'label' => 'label.demande.rectoVersoCarteGrise',
             "required" => false,
             "data_class" => null,
         ])
         ->add('declatationCession', FileType::class, [
-            "label" => "Déclaration de cession => Cerfa 15776*01",
+            'label' => 'label.demande.declatationCession',
             "required" => false,
             "data_class" => null,
         ])
         ->add('demandeCertificat', FileType::class, [
-            "label" => "Demande de certificat => Cerfa 13750*05",
+            'label' => 'label.demande.demandeCertificat',
             "required" => false,
             "data_class" => null,
         ])
         ->add('procurationMandat', FileType::class, [
-            "label" => "Mandat d'immatriculation",
+            'label' => 'label.demande.procurationMandat',
             "required" => false,
             "data_class" => null,
         ])
         ->add('pieceIdentite', FileType::class, [
-            "label" => "Pièce d'identité",
+            'label' => 'label.demande.pieceIdentiteValid',
             "required" => false,
             "data_class" => null,
         ])
         ->add('copieControleTechnique', FileType::class, [
-            "label" => "Copie du controle technique",
+            'label' => 'label.demande.copieControleTechnique',
             "required" => false,
             "data_class" => null,
         ])
         ->add('recepisseDemandeAchat', FileType::class, [
-            "label" => "Récépissé de la demande d'achat",
+            'label' => 'label.demande.recepisseDemandeAchat',
             "required" => false,
             "data_class" => null,
         ])
         ->add('copieAttestationAssurance', FileType::class, [
-            "label" => "Copie de l'attestation assurance",
+            'label' => 'label.demande.copieAttestationAssuranceValide',
             "required" => false,
             "data_class" => null,
         ])
         ->add('copiePermisConduireTitulaire', FileType::class, [
-            "label" => "Copie du permis de conduire titulaire",
+            'label' => 'label.demande.copiePermisConduire',
             "required" => false,
             "data_class" => null,
         ])
         ->add('justificatifDomicile', FileType::class, [
-            "label" => "Justificatif de domicile",
+            'label' => 'label.demande.justificatifDomicile',
             "required" => false,
             "data_class" => null,
         ])
-        ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
+        ->add('save', SubmitType::class, ['label' => 'label.save'])
         ;
     }
 
