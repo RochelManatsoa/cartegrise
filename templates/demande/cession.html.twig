@@ -23,29 +23,31 @@
                         <h3 class="text-center"> INFORMATION DE LA VENTE DU VEHICULE </h3>
                     </div>
                     <div class="col-3 col-md-5 mx-auto form-row full-mobile">
-                        <div class="form-group row">
+                        <div class="form-group row d-flex flex-bottom-custom">
                             {{ form_errors(form.cession.dateHeureDeLaVente)}}
-                            <div class="col-md-8 row">
-                                <div class="col-md-12">
-                                    <h6 class="text-left"> {{ form_label(form.cession.dateHeureDeLaVente.date)}} </h6>           
-                                </div>
-                                <div class="col-md-4 mx-auto form-row full-mobile">
-                                    {{ form_widget(form.cession.dateHeureDeLaVente.date.day)}}
-                                </div>
-                                <div class="col-md-4 mx-auto form-row full-mobile">
-                                    {{ form_widget(form.cession.dateHeureDeLaVente.date.month)}}
-                                </div>
-                                <div class="col-md-4 mx-auto form-row full-mobile">
-                                    {{ form_widget(form.cession.dateHeureDeLaVente.date.year)}}
+                            <div class="col-md-7 col-12">
+                                <h6 class="text-left"> {{ form_label(form.cession.dateHeureDeLaVente.date)}} </h6>
+                                <div class="row d-flex">
+                                    <div class="col-3">
+                                        {{ form_widget(form.cession.dateHeureDeLaVente.date.day)}}
+                                    </div>
+                                    <div class="col-5">
+                                        {{ form_widget(form.cession.dateHeureDeLaVente.date.month)}}
+                                    </div>
+                                    <div class="col-4">
+                                        {{ form_widget(form.cession.dateHeureDeLaVente.date.year)}}
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 row">
-                                <div><h6 class="text-left"> {{ form_label(form.cession.dateHeureDeLaVente.time)}} </h6></div>
-                                <div class="col-md-6 mx-auto form-row full-mobile">
-                                    {{ form_widget(form.cession.dateHeureDeLaVente.time.hour)}}
-                                </div>
-                                <div class="col-md-6 mx-auto form-row full-mobile">
-                                    {{ form_widget(form.cession.dateHeureDeLaVente.time.minute)}}
+                            <div class="col-md-4 col-12">
+                                <h6 class="text-left"> {{ form_label(form.cession.dateHeureDeLaVente.time)}} </h6>
+                                <div class="row d-flex">
+                                    <div class="col-6">
+                                        {{ form_widget(form.cession.dateHeureDeLaVente.time.hour)}}
+                                    </div>
+                                    <div class="col-6">
+                                        {{ form_widget(form.cession.dateHeureDeLaVente.time.minute)}}
+                                    </div>
                                 </div>
                             </div>
                             
