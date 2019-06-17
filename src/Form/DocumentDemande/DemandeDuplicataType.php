@@ -25,40 +25,41 @@ class DemandeDuplicataType extends AbstractType
     {
         $builder
         ->add('rectoVersoCarteGrise', FileType::class, [
+            'label' => 'label.demande.rectoVersoCarteGrise',
             "required" => false,
             "data_class" => null,
         ])
         ->add('certificatImmatriculation', FileType::class, [
-            "label" => 'Certificat d\'immatriculation',
+            'label' => 'label.demande.certificatImmatriculation',
             "required" => false,
             "data_class" => null,
         ])
         ->add('declarationdePerteOuVol', FileType::class, [
-            "label" => 'Declaration de perte ou vol',
+            'label' => 'label.demande.declarationdePerteOuVol',
             "required" => false,
             "data_class" => null,
         ])
         ->add('copieControleTechniqueEnCoursValidite', FileType::class, [
-            "label" => 'Copie controle technique en cours de validité',
+            'label' => 'label.demande.copieControleTechniqueEnCoursValidite',
             "required" => false,
             "data_class" => null,
         ])
         ->add('pieceIdentiteValid', FileType::class, [
-            "label" => 'Piece d\'identite valide',
+            'label' => 'label.demande.pieceIdentiteValid',
             "required" => false,
             "data_class" => null,
         ])
         ->add('copieAttestationAssuranceValide', FileType::class, [
-            "label" => 'Copie d\'attestation d\'assurance valide',
+            'label' => 'label.demande.copieAttestationAssuranceValide',
             "required" => false,
             "data_class" => null,
         ])
         ->add('permisDeConduireDuTitulaire', FileType::class, [
-            "label" => 'Permis de conduire du titulaire',
+            'label' => 'label.demande.copiePermisConduire',
             "required" => false,
             "data_class" => null,
         ])
-        ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
+        ->add('save', SubmitType::class, ['label' => 'label.save'])
         ;
     }
 

@@ -19,16 +19,22 @@ class CessionType extends AbstractType
     {
         $builder
             ->add('dateHeureDeLaVente', DateTimeType::class,[
-                'date_label' => 'Date de la vente *',
-                'time_label' => 'Heure de la vente *',
+                'date_label' => 'label.dateVente',
+                'time_label' => 'label.heureVente',
                 'label_attr' => [
                     'style' => 'font-size: 12px',
                 ],
                 'years' => range(1990,2019),
             ])
-            ->add('numeroDeLaFormulCarteGrise', TextType::class, array())
-            ->add('vendeur', CessionVendeurType::class, array())
-            ->add('acheteur', CessionAcheteurType::class, array())
+            ->add('numeroDeLaFormulCarteGrise', TextType::class, [
+                'label' => 'label.numeroDeLaFormulCarteGrise',
+            ])
+            ->add('vendeur', CessionVendeurType::class,  [
+                'label' => 'label.vendeur',
+            ])
+            ->add('acheteur', CessionAcheteurType::class,  [
+                'label' => 'label.acheteur',
+            ])
         ;
     }
 

@@ -19,9 +19,9 @@ class ClientType extends AbstractType
         $builder
             ->add('clientNom', TextType::class,[
                 'attr'  => array( 'class' => 'text-uppercase' ),
-                'label' => 'label.clientNom'
+                'label' => 'label.nom.client'
             ])
-            ->add('clientPrenom', TextType::class, ['label' => 'label.clientPrenom'])
+            ->add('clientPrenom', TextType::class, ['label' => 'label.prenom.client'])
             ->add('clientGenre', ChoiceType::class, array(
                 'choices'   => array(
                     'Homme' => "M",

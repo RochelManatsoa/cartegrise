@@ -22,17 +22,19 @@ class CessionVendeurType extends AbstractType
                     UserInfos::GENRE_FEMAL => UserInfos::GENRE_FEMAL,
                     UserInfos::GENRE_MALE => UserInfos::GENRE_MALE,
                 ],
+                'label'=>'label.genre',
             ])
             ->add('particulierOrSociete', ChoiceType::class, [
                 'choices' => [
                     UserInfos::USER_PARTICULAR => UserInfos::USER_PARTICULAR,
                     UserInfos::USER_SOCIETY => UserInfos::USER_SOCIETY,
                 ],
+                'label'=>'label.particulierOrSociete',
             ])
-            ->add('nom')
-            ->add('prenom')
-            ->add('nomUsage')
-            ->add('phone')
+            ->add('nom', TextType::class, ['label'=>'label.nom.client'])
+            ->add('prenom', TextType::class, ['label'=>'label.prenom.client'])
+            ->add('nomUsage', TextType::class, ['label'=>'label.nom.usage'])
+            ->add('phone', TextType::class, ['label'=>'label.contactMobile'])
             ->add('adresse', AdresseType::class)
         ;
     }

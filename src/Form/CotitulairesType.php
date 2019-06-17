@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class CotitulairesType extends AbstractType
 {
@@ -14,20 +15,22 @@ class CotitulairesType extends AbstractType
     {
         $builder
             ->add('typeCotitulaire', ChoiceType::class, array(
-                'label' => "Personne (*)",
+                'label' => 'label.type.personne',
                 'choices' => array(
                     'Personne Physique' => "phy",
                     'Personne Morale' => "mor",
                     )
                 ))
-            ->add('nomCotitulaires')
-            ->add('prenomCotitulaire')
-            ->add('raisonSocialCotitulaire')
+            ->add('nomCotitulaires', TextType::class, ['label'=>'label.nom.cotitulaire'])
+            ->add('prenomCotitulaire', TextType::class, ['label'=>'label.prenom.cotitulaire'])
+            ->add('raisonSocialCotitulaire', TextType::class, ['label'=>'label.raisonsocial'])
             ->add('sexeCotitulaire', ChoiceType::class, array(
                 'choices' => array(
                     'Homme' => "M",
                     'Femme' => "F",
-                )))
+                    ) ,
+                'label' =>'label.genre'
+                ))
         ;
     }
 
