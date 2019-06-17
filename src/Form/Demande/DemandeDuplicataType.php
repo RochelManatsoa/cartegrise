@@ -13,7 +13,7 @@ class DemandeDuplicataType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('duplicata', DuplicataType::class) 
+            ->add('duplicata', DuplicataType::class, ['label'=>'home.commandeType.dup']) 
         ;
     }
 

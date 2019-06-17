@@ -25,35 +25,36 @@ class DemandeChangementAdresseType extends AbstractType
     {
         $builder
         ->add('rectoVersoCarteGrise', FileType::class, [
+            'label' => 'label.demande.rectoVersoCarteGrise',
             "required" => false,
             "data_class" => null,
         ])
         ->add('demandeCertificatImmatriculation', FileType::class, [
-            "label" => "Demande de certificat d'immatriculation",
+            'label' => 'label.demande.demandeCertificatImmatriculation',
             "required" => false,
             "data_class" => null,
         ])
         ->add('pieceIdentiteValid', FileType::class, [
-            "label" => "Pièce d'identité valide",
+            'label' => 'label.demande.pieceIdentiteValid',
             "required" => false,
             "data_class" => null,
         ])
         ->add('copieAttestationAssuranceValide', FileType::class, [
-            "label" => "Copie d'attestation d'assurance valide",
+            'label' => 'label.demande.copieAttestationAssuranceValide',
             "required" => false,
             "data_class" => null,
         ])
         ->add('copiePermisConduire', FileType::class, [
-            "label" => "Copie du permis de conduire",
+            'label' => 'label.demande.copiePermisConduire',
             "required" => false,
             "data_class" => null,
         ])
         ->add('justificatifDomicile', FileType::class, [
-            "label" => "Justificatif de domicile",
+            'label' => 'label.demande.justificatifDomicile',
             "required" => false,
             "data_class" => null,
         ])
-        ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
+        ->add('save', SubmitType::class, ['label' => 'label.save'])
         ;
     }
 

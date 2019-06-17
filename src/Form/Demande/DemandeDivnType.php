@@ -13,7 +13,7 @@ class DemandeDivnType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('divn', DivnType::class) 
+            ->add('divn', DivnType::class, ['label'=>'home.commandeType.divn']) 
         ;
     }
 
