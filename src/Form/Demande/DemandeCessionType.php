@@ -13,7 +13,7 @@ class DemandeCessionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('cession', CessionType::class) 
+            ->add('cession', CessionType::class, ['label'=>'home.commandeType.dc']) 
         ;
     }
 

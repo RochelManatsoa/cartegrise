@@ -13,7 +13,7 @@ class DemandeCtvoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ctvo', CtvoType::class) 
+            ->add('ctvo', CtvoType::class, ['label'=>'home.commandeType.ctvo']) 
         ;
     }
 

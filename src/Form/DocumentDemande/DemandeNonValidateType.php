@@ -19,8 +19,8 @@ class DemandeNonValidateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add("motifDeRejet", TextareaType::class)
-        ->add('Enregistrer', SubmitType::class)
+        ->add("motifDeRejet", TextareaType::class, ['label'=>'label.motifDeRejet'])
+        ->add('Enregistrer', SubmitType::class, ['label'=>'label.save'])
         ;
     }
 
