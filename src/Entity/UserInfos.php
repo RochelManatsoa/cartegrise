@@ -51,13 +51,13 @@ class UserInfos
     private $phone;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\UserInfos", mappedBy="acheteur", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Cession", mappedBy="acheteur", cascade={"persist", "remove"})
      * @ORM\JoinColumn()
      */
     private $cessionAcheteur;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\UserInfos", mappedBy="vendeur", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Cession", mappedBy="vendeur", cascade={"persist", "remove"})
      * @ORM\JoinColumn()
      */
     private $cessionVendeur;
