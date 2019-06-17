@@ -191,6 +191,10 @@ input[type="file"]{
 	width: -webkit-calc(100% - 30px);
     width: calc(100% - 30px);
 }
+.flex-bottom-custom {
+	justify-content: space-around;
+	align-items: flex-end;
+}
 @media (max-width:992px) {
 	.full-tablet {
 		max-width: 100% !important;
