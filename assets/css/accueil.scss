@@ -333,6 +333,9 @@ font-weight: bold;
     font-family: textr;
     margin-bottom: 4vh !important;
     text-transform: uppercase;
+    @media (max-width:480px) {
+      font-size: 30px;
+    }
   }
   h3{
     margin-left: 5vw;

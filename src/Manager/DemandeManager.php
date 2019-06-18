@@ -115,6 +115,7 @@ class DemandeManager
     {
         if (!$demande instanceof Demande)
             return;
+        // dd($demande);
         $demande->setDateDemande(new \Datetime());
         $this->em->persist($demande);
         $this->em->flush();
@@ -198,12 +199,12 @@ class DemandeManager
         // } 
     }
 
-    public function getDossiersAFournir(Demande $demande)
+    public function getDossiersAFournir(Demande $demande, $pathCerfa="")
     {
         $typeDemande = $demande->getCommande()->getDemarche()->getType();
 
         if (in_array($typeDemande, TypeDemande::TYPE_CHOICES)) {
-            return $this->translator->trans('type_demande.daf.' . strtolower($typeDemande));
+            return $this->translator->trans('type_demande.daf.' . strtolower($typeDemande), ['$cerfa'=>$pathCerfa]);
         }
 
         return '';
