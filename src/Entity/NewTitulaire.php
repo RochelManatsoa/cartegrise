@@ -95,11 +95,6 @@ class NewTitulaire
     private $vehicules;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Cession", mappedBy="acquerreur", cascade={"persist", "remove"})
-     */
-    private $cession;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $prenomTitulaire;
@@ -274,24 +269,6 @@ class NewTitulaire
         if ($newAcquerreur !== $ctvo->getAcquerreur()) {
             $ctvo->setAcquerreur($newAcquerreur);
         }
-
-        return $this;
-    }
-
-    public function getCession(): ?Cession
-    {
-        return $this->cession;
-    }
-
-    public function setCession(?Cession $cession): self
-    {
-        $this->cession = $cession;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newAcquerreur = $cession === null ? null : $this;
-        if ($newAcquerreur !== $cession->getAcquerreur()) {
-            $cession->setAcquerreur($newAcquerreur);
-                    }
 
         return $this;
     }
