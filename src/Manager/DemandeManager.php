@@ -199,12 +199,12 @@ class DemandeManager
         // } 
     }
 
-    public function getDossiersAFournir(Demande $demande)
+    public function getDossiersAFournir(Demande $demande, $pathCerfa="")
     {
         $typeDemande = $demande->getCommande()->getDemarche()->getType();
 
         if (in_array($typeDemande, TypeDemande::TYPE_CHOICES)) {
-            return $this->translator->trans('type_demande.daf.' . strtolower($typeDemande));
+            return $this->translator->trans('type_demande.daf.' . strtolower($typeDemande), ['$cerfa'=>$pathCerfa]);
         }
 
         return '';
@@ -244,14 +244,14 @@ class DemandeManager
         if (!is_dir($folder)) mkdir($folder, 0777, true);
         // end create file 
         // get cerfa if not exist
-        // if (!is_file($file)) { // attente de finalité du process
-            $cerfa = $this->commandeManager->editer($demande->getCommande(), "Mandat");
+        if (!is_file($file)) { // attente de finalité du process
+            $cerfa = $this->commandeManager->editer($demande->getCommande());
             if ($cerfa == false) {
                 return "#";
             }
             $decoded = \base64_decode($cerfa);
             $filefinal = file_put_contents($file, $decoded);
-        // }
+        }
         
         return $file;
     }

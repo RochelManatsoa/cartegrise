@@ -86,8 +86,8 @@ class DemandeController extends AbstractController
         Request $request
     )
     {
-        $daf = $demandeManager->getDossiersAFournir($demande);
         $pathCerfa = $demandeManager->generateCerfa($demande);
+        $daf = $demandeManager->getDossiersAFournir($demande, $pathCerfa);
         $files = $documentAFournirManager->getDaf($demande);
         $fileType = $documentAFournirManager->getType($demande);
         $path = $demande->getUploadPath();
