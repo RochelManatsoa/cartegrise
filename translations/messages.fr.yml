@@ -111,10 +111,8 @@ type_demande:
             </ol>
 
 label:
-    nomPrenomTitulaire: Nom de l'Acquéreur (*)
-    prenomTitulaire: Prénom(s) de l'Acquéreur (*)
     acquerreur: Acquéreur
-    dateN: Date de naissance (*)
+    dateN: Date de naissance *
     lieuN: Lieu de naissance
     adresseNewTitulaire: Adresse de l'Acquéreur 
     ancienTitulaire: Ancien Titulaire
@@ -126,21 +124,33 @@ label:
     codepostal: Code Postal
     ville: Ville
     type: 
-        personne: Personne (*)
+        personne: Personne *
         fichier: Type de fichier
         demande: Type de demande
+        content:
+            carteGrise: Carte grise
+            demandImm: Demande d'immatriculation
+            mandat: Mandat
+            quitusFisc: Quitus fiscal
+            certConformite: Certificat de conformité
+            pieceIdentite: Pièce d'identitée
+            justifDomicile: Justificatifs de domicile
+            pvControleTech: Contrôle technique
+            declarAchat: Déclaration d'achat
+            permisCond: Permis de conduire
+            attestAssur: Attestation d'assurance
 
-    url: Choisissez vos fichiers
+    file: Choisissez vos fichiers
     send: Envoyer
     save: Enregistrer
+    motifDeRejet: Motif du rejet
     raisonsocial: Raison sociale
     societeCommerciale: Société commerciale
-    nomprenom: Nom et prénom(s) (*)
-    clientNom: Nom (*)
-    clientPrenom: Prénom(s) (*)
+    nomprenom: Nom et prénom(s) *
     clientContact: Contacts
     clientAdresse: Adresse
-    genre: Civilité (*)
+    clientEmail: Adresse électronique
+    genre: Civilité *
     dep: Département
     immatriculation: Immatriculation
     contactMobile: Téléphone mobile
@@ -149,11 +159,50 @@ label:
     motifDemande: Motif de la demande
     nom:
         voie: Nom de la voie
+        cotitulaire: Nom du Cotitulaire
+        titulaire: Nom de l'Acquéreur *
+        client: Nom *
+        content: Nom
+        usage: Nom usage
+    prenom:
+        titulaire: Prénom(s) de l'Acquéreur *
+        cotitulaire: Prénom(s) du Cotitulaire
+        client: Prénom(s) *
+    demande:
+        formulaireCerfaRemplis: Formulaire de cerfa remplis
+        demandeCertificatImmatriculation: Demande de certificat d'immatriculation
+        justificatifDomicile: Justificatif de domicile récent
+        copiePermisConduire: Copie du permis de conduire
+        copieAttestationAssuranceValide: Copie d'attestation d'assurance valide
+        pieceIdentiteValid: Pièce d'identité valide
+        rectoVersoCarteGrise: Photocopie recto verso de la carte grise
+        recepisseDemandeAchat: Récépissé de la demande d'achat
+        copieControleTechnique: Copie du contrôle technique
+        copieControleTechniqueEnCoursValidite: Copie du contrôle technique en cours de validité
+        procurationMandat: Mandat d'immatriculation
+        demandeCertificat: Demande de certificat => Cerfa 13750*05
+        declatationCession: Déclaration de cession => Cerfa 15776*01
+        declarationdePerteOuVol: Déclaration de perte ou vol
+        certificatImmatriculation: Certificat d'immatriculation
+        procurationParMandat: Procuration par mandat
+        demandeOriginalCertificatImmatriculation: Demande originale du certificat d'immatriculation
+        certificatVenteOriginalFactureAchat: Certificat de vente original ou Facture d'achat
+        originalCertificatConformiteEuropeen: Original du certificat de conformité européen
+
+
 
     termsAccepted: J'ai lu et j'accepte les Conditions Générales de Vente , notre politique de confidentialité et la liste des documents à retourner. Et je renonce expressément à mon droit de rétractation afin que la prestation débute immédiatement
     numformule: Numéro de la formule
     vin: VIN
-    datecg: Date de la -Carte Grise (*)
+    datecg: Date de la -Carte Grise *
+    numeroDeLaFormulCarteGrise: Numéro de la Formule Carte Grise
+    vendeur: Vendeur
+    acheteur: Acheteur
+    dateVente: Date de la vente *
+    heureVente: Heure de la vente *
+    messages: Votre message
+    updateUser: Informations vous concernant
+    particulierOrSociete: Particulier ou Société
 home:
     carSkills: CARACTÉRISTIQUES DU VÉHICULE
     recapDemande: Récapitulatif de la demande
@@ -182,12 +231,12 @@ home:
         co2: CO2
         gender: Genre
         ptac: PTAC
-        energi: Energie
+        energi: Enérgie
         dateCirculationStarted: Date de mise en ciruclation
     commandeType:
         dup: Demande de duplicata
         divn: Demande d'immatriculation de vehicule neuf
-        ctvo: Changement de titulaire de vehicule d'ocasion
+        ctvo: Changement de titulaire de vehicule d'occasion
         dc: Demande de cession
         dca: Demande de changement d'adresse
 

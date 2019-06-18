@@ -15,7 +15,7 @@ class UpdateUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
 
     {
-        $builder->add('client', ClientType::class)
+        $builder->add('client', ClientType::class, ['label'=>'label.updateUser'])
                 ->add('enregistrer', SubmitType::class, ['label' => 'label.save'])
         ;
     }
