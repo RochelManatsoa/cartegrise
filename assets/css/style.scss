@@ -201,3 +201,28 @@ input[type="file"]{
     	flex: 0 0 100% !important;
 	}
 }
+.error-flex {
+	height: calc(100vh - 100px);
+    flex-wrap: wrap;
+	align-content: center;
+	justify-content: center;
+	.error-container {
+		background: rgba(255,255,255,0.4);
+		border-radius: 20px;
+		border: 2px solid #0275d8;
+		padding: 60px 30px;
+		text-align: center;
+		h1 {
+			font-weight: 700;
+		}
+		.desc-error {
+			text-align: center;
+			font-size: 18px;
+			width: 100%;
+			font-weight: 700;
+		}
+		a {
+			font-weight: 700;
+		}
+	}
+}
