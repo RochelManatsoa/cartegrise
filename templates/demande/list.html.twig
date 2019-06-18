@@ -16,7 +16,6 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">id</th>
                                     <th scope="col">Type Demande</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Nom et prénom</th>
@@ -29,12 +28,11 @@
                             <tbody>
                             {% for demande in demandes %}
                                 <tr>
-                                    <td>{{ demande.id }}</td>
                                     <td>{{ demande.commande.demarche.nom }}</td>
                                     <td>{{ demande.commande.ceerLe | date('d-m-Y')}}</td>
                                     <td>{{ client.clientNom }} {{ client.clientPrenom }}</td>
-                                    <td>{{ demande.commande.codePostal }}</td>
-                                    <td>{{ demande.commande.immatriculation }}</td>
+                                    <td class="text-center">{{ demande.commande.codePostal }}</td>
+                                    <td class="text-center">{{ demande.commande.immatriculation }}</td>
                                     <td>
                                         <span class="badge badge-{{ statusOfCommande(demande.commande, "style") }}">{{ statusOfCommande(demande.commande, "text") }}</span>                                        
                                     </td>

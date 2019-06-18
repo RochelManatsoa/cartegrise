@@ -16,7 +16,7 @@ class UserType extends AbstractType
 
     {
         $builder
-        ->add('Enregistrer', SubmitType::class)
+        ->add('Enregistrer', SubmitType::class, ['label'=>'label.save'])
         ;
     }
 

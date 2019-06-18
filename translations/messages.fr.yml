@@ -139,10 +139,21 @@ label:
             declarAchat: Déclaration d'achat
             permisCond: Permis de conduire
             attestAssur: Attestation d'assurance
+    
+    oppose: Opposé à la demande
+    status: Status de la demande
+    paiement: Paiement
+    tms: Tms 
+    progression: Progression de la demande
+
+    admin:
+        email: Adresse électronique
+        password: Mot de passe
 
     file: Choisissez vos fichiers
     send: Envoyer
     save: Enregistrer
+    search: Chercher
     motifDeRejet: Motif du rejet
     raisonsocial: Raison sociale
     societeCommerciale: Société commerciale
@@ -150,6 +161,7 @@ label:
     clientContact: Contacts
     clientAdresse: Adresse
     clientEmail: Adresse électronique
+    titulaire: Titulaire
     genre: Civilité *
     dep: Département
     immatriculation: Immatriculation
