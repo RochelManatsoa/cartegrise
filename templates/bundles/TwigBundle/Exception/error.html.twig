@@ -20,12 +20,15 @@
 {% extends 'base.html.twig' %}
 
 {% block page_content %}
-<div>
-    <h1>The server returned a "{{ status_code }} {{ status_text }}".</h1>
-    <p>
-        Quelque chose est cassé. S'il vous plaît laissez-nous savoir ce que vous faisiez. Désolé pour tout inconvénient causé.
-        <br><a href="{{ path('Accueil') }}">retour à l'acceuil</a>.
-    </p>
+<div class="col-md-12 col-lg-7 d-flex error-flex">
+    <div class="error-container">
+        {# <h1 class="text-center">The server returned a "{{ status_code }} {{ status_text }}".</h1> #}
+        <p class="desc-error">
+            {# Quelque chose est cassé. S'il vous plaît laissez-nous savoir ce que vous faisiez. Désolé pour tout inconvénient causé. #}
+            Oups, quelque chose est cassé! Vous pouvez <a href="{{ path('contact') }}">nous contacter</a> et nous pouvons vous aider!
+        </p>
+        <a class="btn btn-primary" href="{{ path('Accueil') }}">Retour à l'acceuil</a>
+    </div>
 </div>
 
         <style>

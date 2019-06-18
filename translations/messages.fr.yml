@@ -16,7 +16,11 @@ type_demande:
                         <li>Attestation d'assurance habitation</li>
                     </ul>
                 </li>
-                <li>la demande de certificat d'immatriculation (cerfa 13750)</li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750) 
+                    <a href="/../$cerfa" target="blank">
+                        <button class="btn btn-outline-success" type="button" id="button-addon2">CERFA</button>
+                    </a>
+                </li>
                 <li>la déclaration de cession (cerfa 15776), à remplir conjointement par l'ancien propriétaire ou une facture établie par le vendeur</li>
                 <li>la déclaration d'achat d'un véhicule d'occasion si l'acquéreur est un professionnel (cerfa 13751)</li>
                 <li>L'ancien certificat d'immatriculation remis par le précédent propriétaire, revêtu de la mention "vendu le ../../.... (date de cession)", suivi de sa signature, la preuve d'un contrôle technique de moins de 6 mois remis par le vendeur.</li>
@@ -28,7 +32,11 @@ type_demande:
         dup: |
             <ol>
                 <li>une copie recto/verso de la Carte Grise </li>
-                <li>la demande de certificat d'immatriculation (cerfa 13750)</li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750) 
+                    <a href="/../$cerfa" target="blank">
+                        <button class="btn btn-outline-success" type="button" id="button-addon2">CERFA</button>
+                    </a>
+                </li>
                 <li>la déclaration originale de perte ou vol (la déclaration de vol doit être enregistrée et tamponnée par la police)</li>
                 <li>une copie du contrôle technique  en cours de validité encore 1 mois minimum sauf pour les motos, cyclo, caravanes, remorques et engins agricoles </li>
                 <li>une pièce d'identité en cours de validité</li>
@@ -42,7 +50,11 @@ type_demande:
                 <li>une pièce d'identité en cours de validité</li>
                 <li>l'attestation d'assurance du véhicule</li> 
                 <li>le permis de conduire du titulaire du véhicule</li>
-                <li>la demande de certificat d'immatriculation (cerfa 13750)</li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750)
+                    <a href="/../$cerfa" target="blank">
+                        <button class="btn btn-outline-success" type="button" id="button-addon2">CERFA</button>
+                    </a>
+                </li>
                 <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)</li>
                 <li>
                     un justificatif de domicile de moins de 6 mois (au choix) :
@@ -61,7 +73,11 @@ type_demande:
         dca: |
             <ol>
                 <li>une copie recto/verso de la Carte Grise </li>
-                <li>la demande de certificat d'immatriculation (cerfa 13750)</li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750) 
+                    <a href="/../$cerfa" target="blank">
+                        <button class="btn btn-outline-success" type="button" id="button-addon2">CERFA</button>
+                    </a>
+                </li>
                 <li>une pièce d'identité en cours de validité</li>
                 <li>l'attestation d'assurance du véhicule</li> 
                 <li>le permis de conduire du titulaire du véhicule</li>
@@ -82,13 +98,21 @@ type_demande:
 
         dc: |
             <div>
-                Le formulaire CERFA n° 15776*01 doit être rempli par le vendeur et signé par l'acheteur.
+                Le formulaire CERFA n° 15776*01 
+                    <a href="/../$cerfa" target="blank">
+                        <button class="btn btn-outline-success" type="button" id="button-addon2">CERFA</button>
+                    </a>
+                doit être rempli par le vendeur et signé par l'acheteur.
                 Ce dernier est nécessaire au nouveau détenteur du véhicule pour l'immatriculer (carte grise) à son nom.
             </div>
         dcs: |
             <ol>
                 <li>une copie recto/verso de la Carte Grise </li>
-                <li>la demande de certificat d'immatriculation (cerfa 13750)</li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750) 
+                    <a href="/../$cerfa" target="blank">
+                        <button class="btn btn-outline-success" type="button" id="button-addon2">CERFA</button>
+                    </a>
+                </li>
                 <li>Extrait d'Acte de mariage / jugement de divorce / livret de famille</li>
                 <li>une copie du contrôle technique en cours de validité pour les véhicules de plus de 4 ans</li>
                 <li>une pièce d'identité en cours de validité</li>

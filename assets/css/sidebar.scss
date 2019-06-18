@@ -54,4 +54,22 @@
 			color: #002a6b;
 		}
 	}
+	.custom-compte {
+		align-items: center;		
+		justify-content: space-between;
+		margin: 10px 0;
+		a {
+			font-size: 16px;
+		}
+	}
+	.custom-compte-mobile {
+		a {
+			display: inline-block;
+			font-size: 18px;
+			margin: 5px;
+			&:first-child {
+				margin-left: 0;
+			}
+		}
+	}
 }
