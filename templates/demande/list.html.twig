@@ -33,8 +33,8 @@
                                     <td>{{ demande.commande.demarche.nom }}</td>
                                     <td>{{ demande.commande.ceerLe | date('d-m-Y')}}</td>
                                     <td>{{ client.clientNom }} {{ client.clientPrenom }}</td>
-                                    <td>{{ demande.commande.codePostal }}</td>
-                                    <td>{{ demande.commande.immatriculation }}</td>
+                                    <td class="text-center">{{ demande.commande.codePostal }}</td>
+                                    <td class="text-center">{{ demande.commande.immatriculation }}</td>
                                     <td>
                                         <span class="badge badge-{{ statusOfCommande(demande.commande, "style") }}">{{ statusOfCommande(demande.commande, "text") }}</span>                                        
                                     </td>

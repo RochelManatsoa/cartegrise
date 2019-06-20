@@ -13,11 +13,11 @@ class DemandeType extends AbstractType
     {
         $builder
             ->add('typeDemande')
-            ->add('opposeDemande')
-            ->add('statutDemande')
-            ->add('paiementDemande')
-            ->add('TmsIdDemande')
-            ->add('progressionDemande')
+            ->add('opposeDemande', null, ['label'=>'label.oppose'])
+            ->add('statutDemande', null, ['label'=>'label.status'])
+            ->add('paiementDemande', null, ['label'=>'label.paiement'])
+            ->add('TmsIdDemande', null, ['label'=>'label.tms'])
+            ->add('progressionDemande', null, ['label'=>'label.progression'])
             ->add('client')
             ->add('fichier', FichierType::class)
         ;
