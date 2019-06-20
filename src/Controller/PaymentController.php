@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Utils\{PaymentUtils, PaymentResponseTreatment, StatusTreatment};
 use App\Entity\Demande;
+use App\Entity\NotificationEmail;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -14,6 +15,7 @@ use App\Manager\DemandeManager;
 use App\Manager\FraisTreatmentManager;
 use App\Manager\TransactionManager;
 use App\Manager\HistoryTransactionManager;
+use App\Manager\NotificationEmailManager;
 use Symfony\Component\HttpFoundation\Cookie;
 use Knp\Snappy\Pdf;
 
@@ -74,13 +76,15 @@ class PaymentController extends AbstractController
         ParameterBagInterface $parameterBag, 
         PaymentResponseTreatment $responseTreatment, 
         StatusTreatment $statusTreatment,
-        HistoryTransactionManager $historyTransactionManager
+        HistoryTransactionManager $historyTransactionManager,
+        NotificationEmailManager $notificationManager
     )
     {
         $response = $request->request->get('DATA');
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
+        $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
         // send mail
-            $this->sendMail($mailer, $responses, $responses["customer_email"], $parameterBag->get('admin_mail'));
+            $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails);
             $this->addHistoryTransaction($responses, $historyTransactionManager);
         // end send mail
 
