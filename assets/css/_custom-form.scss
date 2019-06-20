@@ -46,6 +46,30 @@
 .custom-flex button {
     margin-left: 20px;
 }
+.titleDossier {
+    color: #22326b;
+    font-size: 36px;
+}
+.dossier-info-container {
+    .image-dossier-icon {
+        width: 100px;
+        height: 100px;
+        margin: 25px 0;
+        display: inline-block
+    }
+    .fas {
+        font-size: 100px;
+        display: block;
+        color: #22326b;
+    }
+    .desc-dossier {
+        display: block;
+        color: #22326b;
+        max-width: 80%;
+        line-height: normal;
+        margin: auto;
+    }
+}
 @media (max-width:1200px) {
     
 }

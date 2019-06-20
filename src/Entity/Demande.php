@@ -23,7 +23,7 @@ class Demande
     const DOC_VALID = 1;
     const DOC_PENDING = 2;
     const DOC_NONVALID = 3;
-    const DOC_INVALID_MESSAGE= "Ce lien n'est plus valid";
+    const DOC_INVALID_MESSAGE= "Ce lien n'est plus valide";
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
