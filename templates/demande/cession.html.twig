@@ -56,6 +56,8 @@
                     <div class="col-3 col-md-5 mx-auto form-row full-mobile">
                         <div class="ancientitulaire">
                             {{ form_label(form.cession.numeroDeLaFormulCarteGrise)}}
+                            <span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top" template='{% include "demande/tooltips/templateCessionNumFormulCarteGrise.html.twig" %}' title="{% include 'demande/tooltips/cessionNumFormulCarteGrise.html.twig' %}" >
+                            </span>
                             {{ form_errors(form.cession.numeroDeLaFormulCarteGrise)}}
                             {{ form_widget(form.cession.numeroDeLaFormulCarteGrise)}}
                             <br>
@@ -99,6 +101,12 @@
 </div>
 {% endblock %}
 {% block javascripts %}
+{{ parent() }}
+<script>
+    $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 <script type="application/javascript">
 $('.choice-type-ancientitulaire').on('change', function(e) {
     $(e.target).parent('.form-group').siblings().toggle();
