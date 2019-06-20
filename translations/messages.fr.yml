@@ -225,8 +225,6 @@ label:
         certificatVenteOriginalFactureAchat: Certificat de vente original ou Facture d'achat
         originalCertificatConformiteEuropeen: Original du certificat de conformité européen
 
-
-
     termsAccepted: J'ai lu et j'accepte les Conditions Générales de Vente , notre politique de confidentialité et la liste des documents à retourner. Et je renonce expressément à mon droit de rétractation afin que la prestation débute immédiatement
     numformule: Numéro de la formule
     vin: VIN
@@ -239,6 +237,7 @@ label:
     messages: Votre message
     updateUser: Informations vous concernant
     particulierOrSociete: Particulier ou Société
+    notificationType: Type de notification
 home:
     carSkills: CARACTÉRISTIQUES DU VÉHICULE
     recapDemande: Récapitulatif de la demande

@@ -6,7 +6,8 @@ use Swift_Mailer;
 use Swift_Attachment;
 use App\Entity\Demande;
 use App\Manager\Model\ParamDocumentAFournir;
-use App\Manager\DemandeManager;
+use App\Manager\{DemandeManager, NotificationEmailManager};
+use App\Entity\NotificationEmail;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -24,14 +25,17 @@ class MailManager
         DemandeManager $demandeManager,
         \Twig_Environment $template,
         Swift_Mailer $mailer,
-        ParameterBagInterface $parameterBagInterface
+        ParameterBagInterface $parameterBagInterface,
+        NotificationEmailManager $notificationManager
     )
     {
         $this->tokenStorage = $tokenStorage;
         $this->template = $template;
         $this->mailer = $mailer;
         $this->demandeManager = $demandeManager;
+        $this->notificationManager = $notificationManager;
         $this->parameterBagInterface = $parameterBagInterface;
+        $this->notificationManager = $notificationManager;
     }
     public function sendMailDocumentAFournir(Demande $demande, ParamDocumentAFournir $infos)
     {
@@ -40,7 +44,7 @@ class MailManager
         $encoder = hash('sha256', $now);
         $demande->setChecker($encoder)->setStatusDoc(Demande::DOC_PENDING);
         $this->demandeManager->saveDemande($demande);
-        $emailDests = $this->parameterBagInterface->get("admin_doc_validator");
+        $emailDests = $this->notificationManager->getAllEmailOf(NotificationEmail::FILE_NOTIF);
         if (\is_iterable($emailDests) && 0 < count($emailDests)){
             $message = (new \Swift_Message($infos->getName() . ' ' . $this->tokenStorage->getToken()->getUser()->getEmail()))
             // ->setFrom($this->tokenStorage->getToken()->getUser()->getEmail());

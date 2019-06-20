@@ -1,23 +1,38 @@
 <?php
+/*
+ * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
+ * @Date: 2019-06-20 12:57:00 
+ * @Last Modified by: Patrick << rapaelec@gmail.com >>
+ * @Last Modified time: 2019-06-20 13:15:30
+ */
 
 namespace App\Admin;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use App\Entity\NotificationEmail;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 
-final class UserAdmin extends AbstractAdmin
+final class NotificationEmailAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-        ->add('email')
-        ->add('roles', CollectionType::class, [
+        ->add('keyConf', ChoiceType::class, [
+            'choices' => [
+                NotificationEmail::PAIMENT_NOTIF => NotificationEmail::PAIMENT_NOTIF,
+                NotificationEmail::FILE_NOTIF => NotificationEmail::FILE_NOTIF,
+            ], 
+            'label' => 'label.notificationType'
+        ])
+        ->add('valueConf', CollectionType::class, [
+                'label' => 'label.clientEmail',
                 'required' => false,
                 'by_reference' => false, 
                 'allow_add' => true, 
@@ -31,9 +46,8 @@ final class UserAdmin extends AbstractAdmin
     {
         $datagridMapper
         ->add('id')
-        ->add('email')
-        ->add('client.clientNom')
-        ->add('roles')
+        ->add('keyConf')
+        ->add('valueConf')
         ;
     }
 
@@ -41,9 +55,8 @@ final class UserAdmin extends AbstractAdmin
     {
         $listMapper
         ->addIdentifier('id')
-        ->addIdentifier('email')
-        ->add('client.clientNom')
-        ->add('roles')
+        ->addIdentifier('keyConf')
+        ->add('valueConf')
         ;
     }
 }
