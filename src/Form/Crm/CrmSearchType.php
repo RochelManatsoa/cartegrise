@@ -16,15 +16,18 @@ class CrmSearchType extends AbstractType
     {
         $builder
         ->add('Email', TextType::class, [
+            'label' => 'label.clientEmail',
             'required' => false,
         ])
         ->add('Immatriculation', TextType::class, [
+            'label' => 'label.immatriculation',
             'required' => false,
         ])
         ->add('Nom', TextType::class, [
+            'label' => 'label.nom.content',
             'required' => false,
         ])
-        ->add('Chercher', SubmitType::class)
+        ->add('Chercher', SubmitType::class, ['label' => 'label.search'])
         ;
     }
 

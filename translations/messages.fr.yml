@@ -163,10 +163,21 @@ label:
             declarAchat: Déclaration d'achat
             permisCond: Permis de conduire
             attestAssur: Attestation d'assurance
+    
+    oppose: Opposé(e) à la diffusion de vos données personnelle
+    status: Status de la demande
+    paiement: Paiement
+    tms: Tms 
+    progression: Progression de la demande
+
+    admin:
+        email: Adresse électronique
+        password: Mot de passe
 
     file: Choisissez vos fichiers
     send: Envoyer
     save: Enregistrer
+    search: Chercher
     motifDeRejet: Motif du rejet
     raisonsocial: Raison sociale
     societeCommerciale: Société commerciale
@@ -174,6 +185,7 @@ label:
     clientContact: Contacts
     clientAdresse: Adresse
     clientEmail: Adresse électronique
+    titulaire: Titulaire
     genre: Civilité *
     dep: Département
     immatriculation: Immatriculation
@@ -218,7 +230,7 @@ label:
     termsAccepted: J'ai lu et j'accepte les Conditions Générales de Vente , notre politique de confidentialité et la liste des documents à retourner. Et je renonce expressément à mon droit de rétractation afin que la prestation débute immédiatement
     numformule: Numéro de la formule
     vin: VIN
-    datecg: Date de la -Carte Grise *
+    datecg: Date de la Carte Grise *
     numeroDeLaFormulCarteGrise: Numéro de la Formule Carte Grise
     vendeur: Vendeur
     acheteur: Acheteur
