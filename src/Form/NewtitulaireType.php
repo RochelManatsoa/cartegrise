@@ -16,10 +16,10 @@ class NewtitulaireType extends AbstractType
     {
         $builder
             ->add('nomPrenomTitulaire', TextType::class, array(
-                'label'=>'label.nomPrenomTitulaire'
+                'label'=>'label.nom.titulaire'
                 ))
             ->add('prenomTitulaire', TextType::class, array(
-                'label'=>'label.prenomTitulaire'
+                'label'=>'label.prenom.titulaire'
                 ))
             ->add('genre', ChoiceType::class, array(
                 'label' => 'label.genre',

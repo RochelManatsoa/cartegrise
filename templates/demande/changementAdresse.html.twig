@@ -22,7 +22,7 @@
                         <h3 class="text-center">{{ form_label(form.changementAdresse.nouveauxTitulaire) }}</h3>
                             <hr>
                             {% for newTitulaire in form.changementAdresse.nouveauxTitulaire %}
-                                {% if loop.index <8 %}
+                                {% if loop.index < 8 %}
                                 <div class="form-group">
                                     {{ form_label(newTitulaire)}}
                                     {{ form_errors(newTitulaire)}}
@@ -49,12 +49,12 @@
                 <div class="col-3 col-md-5 mx-auto form-row full-mobile">
                     <div class="col-10 col-sm-12 mx-auto">
                         {% for address in form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire %}
-                            {% if loop.index >= 9 %}
-                            <div class="form-group">
-                                {{ form_label(address)}}
-                                {{ form_errors(address)}}
-                                {{ form_widget(address, {'attr': {'class': ''}})}}
-                            </div>
+                            {% if loop.index >= 8 %}
+                                <div class="form-group">
+                                    {{ form_label(address)}}
+                                    {{ form_errors(address)}}
+                                    {{ form_widget(address, {'attr': {'class': ''}})}}
+                                </div>
                             {% endif %}
                         {% endfor %}
                         <h3 class="text-center"> {{ form_label(form.changementAdresse.ancienAdresse) }} </h3>

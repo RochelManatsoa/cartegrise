@@ -11,7 +11,7 @@ final class AdminLoginForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add('password', PasswordType::class);
+            ->add('email', EmailType::class, ['label'=>'label.admin.email'])
+            ->add('password', PasswordType::class, ['label'=>'label.admin.password']);
     }
 }
