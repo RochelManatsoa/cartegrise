@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande};
+use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit};
 use App\Form\{DemandeType, CommandeType, ContactUsType};
 use App\Repository\{CommandeRepository, TaxesRepository, TarifsPrestationsRepository, DemandeRepository, TypeDemandeRepository};
 use Doctrine\Common\Persistence\ObjectManager;
@@ -11,7 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Tms\TmsClient;
-use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager};
+use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager, DivnInitManager};
+use App\Form\DivnInitType;
 
 
 class HomeController extends AbstractController
@@ -31,20 +32,37 @@ class HomeController extends AbstractController
         TmsClient $tmsClient,
         CommandeManager $commandeManager,
         CarInfoManager $carInfoManager,
-        TaxesManager $taxesManager
+        TaxesManager $taxesManager,
+        DivnInitManager $divnInitManager
         )
     {   
-        $commande = $commandeManager->createCommande();
-
+        
         $type = $demarche->findAll();
         foreach($type as $typeId) {
-            $defaultType = $demarche->find($typeId->getId());            
-            $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType]);
-            $num = $typeId->getId();
-            $tabForm[$num] = $form->createView();
+            $commande = $commandeManager->createCommande();
+            $defaultType = $demarche->find($typeId->getId());
+            if ($typeId->getType() === "DIVN")
+            {
+                $divnInit = new DivnInit();
+                $formDivn = $this->createForm(DivnInitType::class, $divnInit);
+                $num = $typeId->getId();
+                $tabForm[$num] = $formDivn->createView();
+            } else {
+                $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType]);
+                $num = $typeId->getId();
+                $tabForm[$num] = $form->createView();
+            }
         }
 
         $form->handleRequest($request);
+        $formDivn->handleRequest($request);
+
+        if ($formDivn->isSubmitted() && $formDivn->isValid()) {
+            $divnInit = $formDivn->getData();
+            // dd($divnInitManager);
+            $divnInitManager->manageSubmit($divnInit);
+        }
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $ifCommande = $commandeRepository->findOneBy([
