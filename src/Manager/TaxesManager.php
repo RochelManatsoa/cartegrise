@@ -12,16 +12,20 @@ namespace App\Manager;
 use App\Entity\{Taxes, Configuration, Commande};
 use App\Services\Tms\Response;
 use App\Manager\TaxeUtils\TaxeLogicalManager;
+use App\Manager\CarInfoManager;
 
 class TaxesManager
 {
     private $taxLogicalManager;
+    private $carInfoManager;
 
     public function __construct(
-        TaxeLogicalManager $taxLogicalManager
+        TaxeLogicalManager $taxLogicalManager,
+        CarInfoManager $carInfoManager
     )
     {
         $this->taxLogicalManager = $taxLogicalManager;
+        $this->carInfoManager = $carInfoManager;
     }
 
 	public function createTax()
@@ -31,23 +35,31 @@ class TaxesManager
 		return $taxes;
     }
 
-	public function createFromTmsResponse(Response $tmsResponse, Commande $commande): Taxes
+	public function createFromTmsResponse(Response $tmsResponse, Commande $commande, $type = "ECGAUTO"): Taxes
 	{
         $value = $tmsResponse->getRawData();
         if(isset($value->Erreur)){
             throw new \Exception($value->Erreur);
         }
         $taxe = new Taxes();
+        $puissanceFisc = $type === "ECG" ? $value->Lot->Demarche->{$type}->Vehicule->Puissance :null;
+        $response = $value->Lot->Demarche->{$type}->Reponse;
         // manage taxe with configuration
-        $this->taxLogicalManager->getRealTaxes($taxe, $commande, $value);
-        $taxe->setTaxe35cv($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Taxe35cv)
-            ->setVIN($value->Lot->Demarche->ECGAUTO->Reponse->Positive->VIN)
-            ->setCO2($value->Lot->Demarche->ECGAUTO->Reponse->Positive->CO2)
-            ->setPuissance($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Puissance)
-            ->setGenre($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Genre)
-            ->setPTAC($value->Lot->Demarche->ECGAUTO->Reponse->Positive->PTAC)
-            ->setEnergie($value->Lot->Demarche->ECGAUTO->Reponse->Positive->Energie)
-            ->setDateMEC(\DateTime::createFromFormat('Y-m-d', $value->Lot->Demarche->ECGAUTO->Reponse->Positive->DateMEC))
+        $this->taxLogicalManager->getRealTaxes($taxe, $commande, $response, $puissanceFisc);
+        if ($type === "ECG")
+        {
+            $this->carInfoManager->generateCarInfoForDivn($tmsResponse, $commande);
+        }
+        $otherINfo = $type === "ECG" ? $value->Lot->Demarche->{$type}->Vehicule : $response->Positive;
+        $vin = $type === "ECG" ? null : $response->Positive->VIN;
+        $dateMec = $type === "ECG" ? \DateTime::createFromFormat('d/m/Y', $otherINfo->DateMEC) : \DateTime::createFromFormat('Y-m-d', $otherINfo->DateMEC);
+        $taxe->setVIN($vin)
+            ->setCO2($otherINfo->CO2)
+            ->setPuissance($otherINfo->Puissance)
+            ->setGenre($otherINfo->Genre)
+            ->setPTAC($otherINfo->PTAC)
+            ->setEnergie($otherINfo->Energie)
+            ->setDateMEC($dateMec)
         ;
 
         return $taxe;

@@ -36,6 +36,14 @@ class CommandeManager
 		$this->documentTmsManager = $documentTmsManager;
 	}
 
+	public function save(Commande $commande)
+	{
+		// hydrage sql
+		$this->em->persist($commande);
+		// save in database
+		$this->em->flush();
+	}
+
 	public function createCommande()
 	{
 		$commande = new Commande;
@@ -66,6 +74,43 @@ class CommandeManager
         $Lot = ["Demarche" => $Demarche];
         $Immat = ["Immatriculation" => $commande->getImmatriculation()];
         $params = ["Lot" => $Lot];
+        
+        return $this->tmsClient->envoyer($params);
+	}
+
+	public function tmsDivnEnvoyer(Commande $commande)
+	{
+        $this->em->persist($commande);
+		$this->sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
+		$divnInit = $commande->getDivnInit();
+		
+
+        $Vehicule = [
+        	"TypeVehicule" => 1, 
+			"Departement" => $commande->getCodePostal(),
+			"Puissance" => $divnInit->getPuissanceFiscale(),
+			"Genre" => $divnInit->getGenre(),
+			"PTAC" => 1,
+			"Energie" => $divnInit->getEnergie(),
+			"Departement" => $divnInit->getDepartment(),
+			"TypeAchat" => 1,
+			"PremiereImmat" => 1,
+			"CO2" => $divnInit->getTauxDeCo2(),
+			"Collection" => false,
+        ];
+        $DateDemarche = date('Y-m-d H:i:s');
+
+        $ECG = [
+        	"ID" => "", 
+        	"TypeDemarche" => "ECG", 
+        	"DateDemarche" => $DateDemarche,
+        	"Vehicule" => $Vehicule
+		];
+
+        $Demarche = ["ECG" => $ECG];
+        $Lot = ["Demarche" => $Demarche];
+        $Immat = ["Immatriculation" => $commande->getImmatriculation()];
+		$params = ["Lot" => $Lot];
         
         return $this->tmsClient->envoyer($params);
 	}
