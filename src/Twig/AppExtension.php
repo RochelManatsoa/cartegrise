@@ -6,6 +6,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigFilter;
 use App\Entity\User;
+use App\Entity\Taxes;
 use App\Entity\TypeDemande;
 use App\Entity\Commande;
 use App\Repository\TarifsPrestationsRepository;
@@ -64,6 +65,7 @@ class AppExtension extends AbstractExtension
             new TwigFilter('cardNumber', [$this, 'formatCard']),
             new TwigFilter('statusMessage', [$this, 'statusMessage']),
             new TwigFilter('displayValue', [$this, 'displayValue']),
+            new TwigFilter('displayEnergy', [$this, 'displayEnergy']),
         ];
     }
 
@@ -99,6 +101,16 @@ class AppExtension extends AbstractExtension
     public function displayValue($value, $default = null)
     {
         return $value !== null ? $value : ($default? $default : "--");
+    }
+
+    public function displayEnergy($value, $default = null)
+    {
+        $value = $this->displayValue($value, $default);
+        if (isset(Taxes::ENERGY_VALUES[$value])) {
+            return Taxes::ENERGY_VALUES[$value];
+        }
+
+        return $default? $default : "--";
     }
 
     public function getNStartAtEnd($val, $n = 1)

@@ -11,6 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Taxes
 {
+    const ENERGY_VALUES=[
+        1 => "Essence ou diesel (gasoil) ‘ES’ / ‘GO’",
+        2 => "GPL ou GNV uniquement ‘GP’ / ‘GN’",
+        3 => "Electricité uniquement ‘EL’",
+        4 => "Hybride",
+        5 => "Bioéthanol E85 ‘FE’",
+        6 => "Bicarburation",
+    ];
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
