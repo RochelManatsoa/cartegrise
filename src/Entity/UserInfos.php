@@ -160,4 +160,28 @@ class UserInfos
 
         return $this;
     }
+
+    public function getCessionAcheteur(): ?Cession
+    {
+        return $this->cessionAcheteur;
+    }
+
+    public function setCessionAcheteur(?Cession $cessionAcheteur): self
+    {
+        $this->cessionAcheteur = $cessionAcheteur;
+
+        return $this;
+    }
+
+    public function getCessionVendeur(): ?Cession
+    {
+        return $this->cessionVendeur;
+    }
+
+    public function setCessionVendeur(?Cession $cessionVendeur): self
+    {
+        $this->cessionVendeur = $cessionVendeur;
+
+        return $this;
+    }
 }
