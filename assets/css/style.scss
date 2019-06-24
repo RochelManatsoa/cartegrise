@@ -226,3 +226,31 @@ input[type="file"]{
 		}
 	}
 }
+body .popup-center-container {
+    width: 90%;
+	margin: auto;
+	.labelStep {
+		color: #0275d8;
+		font-weight: bold;
+		display: block;
+    	margin-bottom: 6px;
+		.stepNumber {
+			display: inline-block;
+			color: #fff;
+			background: #0275d8;
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			margin-right: 10px;
+			border-radius: 50%;
+		}
+	}
+	.form-control {
+		height: auto !important;
+		width: -moz-calc(100% - 40px);
+		width: -ms-calc(100% - 40px);
+		width: -webkit-calc(100% - 40px);
+		width: calc(100% - 40px);
+	}
+}

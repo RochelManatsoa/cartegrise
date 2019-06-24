@@ -52,7 +52,7 @@ class TaxeLogicalManager
         return false;
     }
 
-    public function getRealTaxes(Taxes $taxe, Commande $commande, $value)
+    public function getRealTaxes(Taxes $taxe, Commande $commande, $response, $puissanceFisc = null)
     {
         // get type of comande
         $type = $commande->getDemarche()->getType();
@@ -88,11 +88,15 @@ class TaxeLogicalManager
         }
         //to apply if haven't taxes regional
         if ($withTaxeRegional) {
-            $taxeTotal = $value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeTotale;
-            $taxeRegionalInit = $value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale;
-            $taxeRegional = $value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale;
+            $taxeTotal = $response->Positive->TaxeTotale;
+            $taxeRegionalInit = $response->Positive->TaxeRegionale;
+            $taxeRegional = $response->Positive->TaxeRegionale;
             if (!$withoutPuissanceMultipleFisc) {
-                $taxeRegional = $taxeRegionalInit / $value->Lot->Demarche->ECGAUTO->Reponse->Positive->Puissance;
+                if ($puissanceFisc !== null) {
+                    $taxeRegional = $taxeRegionalInit / $puissanceFisc;
+                } else {
+                    $taxeRegional = $taxeRegionalInit / $response->Positive->Puissance;
+                }
             }
             $taxeTotal = $taxeTotal - $taxeRegionalInit + $taxeRegional;
 
@@ -100,17 +104,19 @@ class TaxeLogicalManager
             ->setTaxeRegionale($taxeRegional)
             ->setTaxeTotale($taxeTotal);
         } else {
-            $taxeRegional = $value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRegionale;
-            $taxeTotal = $value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeTotale;
+            $taxeRegional = $response->Positive->TaxeRegionale;
+            $taxeTotal = $response->Positive->TaxeTotale;
             $taxeTotal = $taxeTotal - $taxeRegional;
             $taxe->setTaxeTotale($taxeTotal);
         }
 
-        $taxe->setTaxeParafiscale($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeParafiscale)
-            ->setTaxeCO2($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeCO2)
-            ->setTaxeMalus($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeMalus)
-            ->setTaxeSIV($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeSIV)
-            ->setTaxeRedevanceSIV($value->Lot->Demarche->ECGAUTO->Reponse->Positive->TaxeRedevanceSIV);
+        $taxe->setTaxeParafiscale($response->Positive->TaxeParafiscale)
+            ->setTaxeCO2($response->Positive->TaxeCO2)
+            ->setTaxeMalus($response->Positive->TaxeMalus)
+            ->setTaxeSIV($response->Positive->TaxeSIV)
+            ->setTaxeRedevanceSIV($response->Positive->TaxeRedevanceSIV)
+            ->setTaxe35cv($response->Positive->Taxe35cv);
+        $commande->setTaxes($taxe);
     }
 
 }

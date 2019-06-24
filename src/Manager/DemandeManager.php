@@ -236,7 +236,6 @@ class DemandeManager
 
     public function generateCerfa(Demande $demande)
     {
-
         $folder = $demande->getGeneratedCerfaPath();
         $file = $demande->getGeneratedCerfaPathFile();
         // create directory
@@ -245,13 +244,20 @@ class DemandeManager
         // end create file 
         // get cerfa if not exist
         if (!is_file($file)) { // attente de finalité du process
-            $cerfa = $this->commandeManager->editer($demande->getCommande());
+            if ($demande->getCommande()->getDemarche()->getType() !== "DC"){
+                $cerfa = $this->commandeManager->editer($demande->getCommande());
+                $cerfa = \base64_decode($cerfa);
+            } else {
+                $cerfa = file_get_contents('asset/CerfaSession/CerfaSession.pdf');
+            }
+            
             if ($cerfa == false) {
                 return "#";
             }
-            $decoded = \base64_decode($cerfa);
-            $filefinal = file_put_contents($file, $decoded);
+            
+            $filefinal = file_put_contents($file, $cerfa);
         }
+        // dd($file);
         
         return $file;
     }

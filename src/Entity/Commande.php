@@ -32,7 +32,7 @@ class Commande
     private $codePostal;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $immatriculation;
 
@@ -63,6 +63,12 @@ class Commande
      * @Groups({"read"})
      */
     private $demande;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\DivnInit", mappedBy="commande", cascade={"all"})
+     * @ORM\JoinColumn()
+     */
+    private $divnInit;
 
     /**
      * @ORM\OneToOne(targetEntity="CarInfo", mappedBy="commande", cascade={"persist", "remove"})
@@ -206,6 +212,19 @@ class Commande
         if ($demande instanceof Demande) {
             $demande->setCommande($this);
         }
+
+        return $this;
+    }
+
+    public function getDivnInit(): ?DivnInit
+    {
+        return $this->divnInit;
+    }
+
+    public function setDivnInit(?DivnInit $divnInit): self
+    {
+        $this->divnInit = $divnInit;
+        $divnInit->setCommande($this);
 
         return $this;
     }

@@ -59,7 +59,7 @@ class Taxes
     private $taxeTotale;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $VIN;
 
@@ -213,18 +213,6 @@ class Taxes
         return $this;
     }
 
-    public function getVIN(): ?string
-    {
-        return $this->VIN;
-    }
-
-    public function setVIN(string $VIN): self
-    {
-        $this->VIN = $VIN;
-
-        return $this;
-    }
-
     public function getCO2(): ?int
     {
         return $this->CO2;
@@ -305,6 +293,18 @@ class Taxes
     public function setCommande(?Commande $commande): self
     {
         $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getVIN(): ?string
+    {
+        return $this->VIN;
+    }
+
+    public function setVIN(?string $VIN): self
+    {
+        $this->VIN = $VIN;
 
         return $this;
     }

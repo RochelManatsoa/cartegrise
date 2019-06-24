@@ -28,7 +28,7 @@
      public function fraisTreatmentOfCommande(Commande $commande)
      {
         $typeDemarche = $commande->getDemarche();
-        $price = $this->tarifPrestationRepository->find($typeDemarche);
+        $price = $this->tarifPrestationRepository->findOneBy(["commande" => $typeDemarche->getId()]);
         if($price == null){
             return 0;
         }

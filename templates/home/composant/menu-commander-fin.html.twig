@@ -20,58 +20,72 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<!-- Modal body -->
-						<div class="modal-body">
-							<div id="{{demarche.type}}" class="row commander">
-								<div class="row search col-12">
-									<div class="col-12 search-titre mt-5">
-										<h2>Calculez le prix de votre
-											<br>certificat d'immatriculation</h2>
-									</div>
-									<div class="col-12 search-titre">
-										<p class="col-8 mx-auto text-center text-uppercase">
-											Saisissez votre plaque d'immatriculation ainsi que votre département afin de pouvoir calculer une estimation du prix de votre carte grise.
-										</p>
-									</div>
-
-									<div id="{{demarche.type}}" class="col-8 col-md-6 col-xl-4 mx-auto">
-
-										{{ form_start(tab[(demarche.id)])}}
-										<div style="display:none;">
-											{{ form_row(tab[(demarche.id)].demarche)}}
+						{% if demarche.type != 'DIVN' %}
+							<div class="modal-body">
+								<div id="{{demarche.type}}" class="row commander">
+									<div class="row search col-12">
+										<div class="col-12 search-titre mt-5">
+											<h2>Calculez le prix de votre
+												<br>certificat d'immatriculation</h2>
+										</div>
+										<div class="col-12 search-titre">
+											<p class="col-8 mx-auto text-center text-uppercase">
+												Saisissez votre plaque d'immatriculation ainsi que votre département afin de pouvoir calculer une estimation du prix de votre carte grise.
+											</p>
 										</div>
 
-										{{ form_row(tab[(demarche.id)].immatriculation, {
-											'attr':{
-												'onkeyup':'this.value = this.value.toUpperCase()',
-												'class': 'col-12 form-control-plaque ',
-												'onblur': 'this.value = valueTreatement(this.value)',
-												'maxlength': '9',
-												'minlength': '5'
-											},
-											'label_attr': {
-												'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
+										<div id="{{demarche.type}}" class="col-8 col-md-6 col-xl-4 mx-auto">
+
+											{{ form_start(tab[(demarche.id)])}}
+											<div style="display:none;">
+												{{ form_row(tab[(demarche.id)].demarche)}}
+											</div>
+
+											{{ form_row(tab[(demarche.id)].immatriculation, {
+												'attr':{
+													'onkeyup':'this.value = this.value.toUpperCase()',
+													'class': 'col-12 form-control-plaque ',
+													'onblur': 'this.value = valueTreatement(this.value)',
+													'maxlength': '9',
+													'minlength': '5'
+												},
+												'label_attr': {
+													'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
+												}
+													)}}
+
+											{{ form_row(tab[(demarche.id)].codePostal, {
+												'attr':{'maxlength':'3','minlength':'2', 'class':'col-6 mx-auto text-center form-control--dep'},
+												'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
 											}
-												)}}
+											)}}
+											<!-- <div class="col-12 mx-auto search-box bg-dark"> <div class="row col-12 mx-auto input-group "> <label for="Immatriculation" class="col-12 search-box--titre">Demarche</label> </div> </div> <div class="col-12 mx-auto search-box bg-dark"> <div
+											class="row col-12 mx-auto input-group "> <label for="Immatriculation" class="col-12 search-box--titre">Numero d'Immatriculation</label> </div> </div> <div class="col-12 mx-auto search-box mt-5"> <div class="row col-12 mx-auto input-group "> <label
+											for="Departement" class="col-12 search-box--titre">Departement d'immatriculation</label> </div> </div> -->
+											<div class="col-12 col-md-6 mx-auto text-center search-box">
+												<button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>
+											</div>
+											{{ form_end(tab[(demarche.id)])}}
 
-										{{ form_row(tab[(demarche.id)].codePostal, {
-											'attr':{'maxlength':'3','minlength':'2', 'class':'col-6 mx-auto text-center form-control--dep'},
-											'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
-										}
-										)}}
-										<!-- <div class="col-12 mx-auto search-box bg-dark"> <div class="row col-12 mx-auto input-group "> <label for="Immatriculation" class="col-12 search-box--titre">Demarche</label> </div> </div> <div class="col-12 mx-auto search-box bg-dark"> <div
-										class="row col-12 mx-auto input-group "> <label for="Immatriculation" class="col-12 search-box--titre">Numero d'Immatriculation</label> </div> </div> <div class="col-12 mx-auto search-box mt-5"> <div class="row col-12 mx-auto input-group "> <label
-										for="Departement" class="col-12 search-box--titre">Departement d'immatriculation</label> </div> </div> -->
-										<div class="col-12 col-md-6 mx-auto text-center search-box">
-											<button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>
+											<div id="resultecg"></div>
+
 										</div>
-										{{ form_end(tab[(demarche.id)])}}
-
-										<div id="resultecg"></div>
-
 									</div>
 								</div>
 							</div>
-						</div>
+						{% else %}
+							<div class="modal-body">
+								<div class="popup-center-container search">
+									{% set formDivn = tab[(demarche.id)] %}
+									{{ form_start(formDivn)}}
+										{{ form_widget(formDivn)}}
+										<div class="col-12 col-md-6 mx-auto text-center search-box">
+											<button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>
+										</div>
+									{{ form_end(formDivn)}}
+								</div>
+							</div>
+						{% endif %}
 						<!-- Modal footer -->
 						<div class="modal-footer">
 							<button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
