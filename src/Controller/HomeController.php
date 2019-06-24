@@ -59,8 +59,10 @@ class HomeController extends AbstractController
 
         if ($formDivn->isSubmitted() && $formDivn->isValid()) {
             $divnInit = $formDivn->getData();
-            // dd($divnInitManager);
             $divnInitManager->manageSubmit($divnInit);
+            $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
+
+            return $this->render('home/accueil.html.twig', $param);
         }
 
 

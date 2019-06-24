@@ -65,7 +65,7 @@ class Commande
     private $demande;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\DivnInit", inversedBy="commande", cascade={"all"})
+     * @ORM\OneToOne(targetEntity="App\Entity\DivnInit", mappedBy="commande", cascade={"all"})
      * @ORM\JoinColumn()
      */
     private $divnInit;
@@ -224,6 +224,7 @@ class Commande
     public function setDivnInit(?DivnInit $divnInit): self
     {
         $this->divnInit = $divnInit;
+        $divnInit->setCommande($this);
 
         return $this;
     }

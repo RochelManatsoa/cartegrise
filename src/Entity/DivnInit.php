@@ -55,6 +55,12 @@ class DivnInit
      */
     private $Marque;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\commande", inversedBy="divnInit", cascade={"all"})
+     * @ORM\JoinColumn()
+     */
+    private $commande;
+
 
     public function getId(): ?int
     {
@@ -133,12 +139,12 @@ class DivnInit
         return $this;
     }
 
-    public function getCommande(): ?Commande
+    public function getCommande(): ?commande
     {
         return $this->commande;
     }
 
-    public function setCommande(?Commande $commande): self
+    public function setCommande(?commande $commande): self
     {
         $this->commande = $commande;
 

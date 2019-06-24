@@ -63,6 +63,7 @@ class AppExtension extends AbstractExtension
             new TwigFilter('amount', [$this, 'formatAmount']),
             new TwigFilter('cardNumber', [$this, 'formatCard']),
             new TwigFilter('statusMessage', [$this, 'statusMessage']),
+            new TwigFilter('displayValue', [$this, 'displayValue']),
         ];
     }
 
@@ -93,6 +94,11 @@ class AppExtension extends AbstractExtension
     public function statusMessage($code)
     {
         return $this->statusTreatment->getMessageStatus($code);
+    }
+
+    public function displayValue($value, $default = null)
+    {
+        return $value !== null ? $value : ($default? $default : "--");
     }
 
     public function getNStartAtEnd($val, $n = 1)

@@ -1,28 +1,27 @@
 <table class="table table-bordered table-striped mx-auto">
     <tr>
         <th>Taxe Regionale</th>
-        <td>{{ taxe.TaxeRegionale }}
+        <td>{{ taxe.TaxeRegionale | displayValue }}
             €</td>
     </tr>
     <tr>
         <th>Taxe > 35CV</th>
-        <td>{{ taxe.Taxe35cv }}
+        <td>{{ taxe.Taxe35cv | displayValue }}
             €</td>
     </tr>
     <tr>
         <th>Taxe CO2</th>
-        <td>{{ taxe.TaxeCO2 }}
+        <td>{{ taxe.TaxeCO2 | displayValue}}
             €</td>
     </tr>
     <tr>
         <th>Taxe SIV</th>
-        <td>{{ taxe.TaxeSIV }}
+        <td>{{ taxe.TaxeSIV | displayValue}}
             €</td>
     </tr>
     <tr>
         <th>Taxe d'acheminement</th>
-        <td>{{ taxe.TaxeRedevanceSIV }}
-            €</td>
+        <td>{{ taxe.TaxeRedevanceSIV | displayValue}} €</td>
     </tr>
     <tr>
         <th>Frais de traitement de dossier</th>
@@ -33,8 +32,7 @@
     <tr>
         <th>TOTAL:</th>
         <td>
-            <strong>{{ fraisTotal(commande) }}
-                €</strong>
+            <strong>{{ fraisTotal(commande) }} €</strong>
         </td>
     </tr>
 </table>

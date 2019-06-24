@@ -23,29 +23,10 @@ class CommandeType extends AbstractType
                'choice_label' => 'nom',
                'data'=>$options['defaultType'],
             ));
-            
-            if ($options['defaultType'] instanceof TypeDemande && $options['defaultType']->getType() !== "DIVN")
-            {
-                $builder
-                    ->add('codePostal', null, ['label' => 'label.dep'])
-                    ->add('immatriculation', null, ['label' => 'label.immatriculation']);
-            } else {
-                $builder
-                    ->add('divnInit', DivnInitType::class);
-            }
-
-        $builder
-        ->addEventListener(
-            FormEvents::POST_SUBMIT,
-            [$this, 'onPreSubmit']
-        )
+            $builder
+            ->add('codePostal', null, ['label' => 'label.dep'])
+            ->add('immatriculation', null, ['label' => 'label.immatriculation']);
         ;
-    }
-
-    public function onPreSubmit(FormEvent $event)
-    {
-        dd($event->getData());
-        // ...
     }
 
     public function configureOptions(OptionsResolver $resolver)

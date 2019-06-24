@@ -1,14 +1,14 @@
 <table class="table table-striped">
     <tr>
         <th>Démarche</th>
-        <td>{{ commande.demarche}}</td>
+        <td>{{ commande.demarche | displayValue}}</td>
     </tr>
     <tr>
         <th>Immatriculation</th>
-        <td>{{ commande.immatriculation}}</td>
+        <td>{{ commande.immatriculation | displayValue}}</td>
     </tr>
     <tr>
         <th>Département</th>
-        <td>{{ commande.codePostal}}</td>
+        <td>{{ commande.codePostal | displayValue}}</td>
     </tr>
 </table>
