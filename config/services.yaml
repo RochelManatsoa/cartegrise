@@ -80,8 +80,8 @@ services:
     App\Admin\UserAdmin:
         arguments: [~, App\Entity\User, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'Utilisateurs', label: 'Gestion des Utilisateurs' }
+            - { name: sonata.admin, manager_type: orm,group: 'UTILISATEURS', label: 'Gestion des Utilisateurs' }
     App\Admin\NotificationEmailAdmin:
         arguments: [~, App\Entity\NotificationEmail, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'Notification', label: 'Gestions des notifications ' }
+            - { name: sonata.admin, manager_type: orm,group: 'NOTIFICATION', label: 'Gestions des notifications ' }
