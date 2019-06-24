@@ -29,12 +29,12 @@
                             <tbody>
                             {% for demande in demandes %}
                                 <tr>
-                                    <td>{{ demande.id }}</td>
-                                    <td>{{ demande.commande.demarche.nom }}</td>
+                                    <td>{{ demande.id | displayValue}}</td>
+                                    <td>{{ demande.commande.demarche.nom | displayValue}}</td>
                                     <td>{{ demande.commande.ceerLe | date('d-m-Y')}}</td>
-                                    <td>{{ client.clientNom }} {{ client.clientPrenom }}</td>
-                                    <td class="text-center">{{ demande.commande.codePostal }}</td>
-                                    <td class="text-center">{{ demande.commande.immatriculation }}</td>
+                                    <td>{{ client.clientNom | displayValue}} {{ client.clientPrenom | displayValue}}</td>
+                                    <td class="text-center">{{ demande.commande.codePostal | displayValue}}</td>
+                                    <td class="text-center">{{ demande.commande.immatriculation | displayValue}}</td>
                                     <td>
                                         <span class="badge badge-{{ statusOfCommande(demande.commande, "style") }}">{{ statusOfCommande(demande.commande, "text") }}</span>                                        
                                     </td>

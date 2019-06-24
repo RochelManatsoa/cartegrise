@@ -68,7 +68,7 @@ class CarInfo
     private $commande;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $data;
 

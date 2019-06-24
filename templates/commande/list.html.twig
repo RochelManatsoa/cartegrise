@@ -31,8 +31,8 @@
                                 {% if statusOfCommande(commande, "style") == "danger" %}
                                 <tr>
                                     <td>{{ commande.demarche.nom }}</td>
-                                    <td class="text-center">{{ commande.codePostal }}</td>
-                                    <td class="text-center">{{ commande.immatriculation }}</td>
+                                    <td class="text-center">{{ commande.codePostal | displayValue}}</td>
+                                    <td class="text-center">{{ commande.immatriculation | displayValue}}</td>
                                     <td>
                                         <span class="badge badge-{{ statusOfCommande(commande, "style") }}">
                                             {{ statusOfCommande(commande, "text") }}

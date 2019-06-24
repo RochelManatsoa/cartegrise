@@ -10,6 +10,7 @@
 namespace App\Manager;
 
 use App\Entity\CarInfo;
+use App\Entity\Commande;
 use App\Services\Tms\Response;
 
 class CarInfoManager
@@ -39,6 +40,17 @@ class CarInfoManager
             ;
 
         return $carInfo;
+    }
+
+    public function generateCarInfoForDivn(Response $tmsResponse, Commande $commande)
+    {
+        $carInfo = $this->createCarInfo();
+        $carInfo
+            ->setMarque($commande->getDivnInit()->getMarque())
+            ->setHorsePowerFiscal($commande->getDivnInit()->getPuissanceFiscale())
+            ;
+        $commande->setCarInfo($carInfo);
+
     }
     
     public function getResponseConvert(Response $tmsInfoImmat)
