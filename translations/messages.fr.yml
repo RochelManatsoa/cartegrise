@@ -205,7 +205,7 @@ label:
         cotitulaire: Prénom(s) du Cotitulaire
         client: Prénom(s) *
     demande:
-        formulaireCerfaRemplis: Formulaire de cerfa remplis
+        formulaireCerfaRemplis: Formulaire de cerfa rempli
         demandeCertificatImmatriculation: Demande de certificat d'immatriculation
         justificatifDomicile: Justificatif de domicile récent
         copiePermisConduire: Copie du permis de conduire
