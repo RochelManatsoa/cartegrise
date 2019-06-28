@@ -217,7 +217,7 @@ input[type="file"]{
 		}
 		.desc-error {
 			text-align: center;
-			font-size: 18px;
+			font-size: 20px;
 			width: 100%;
 			font-weight: 700;
 		}
@@ -253,4 +253,10 @@ body .popup-center-container {
 		width: -webkit-calc(100% - 40px);
 		width: calc(100% - 40px);
 	}
+}
+.w-90 {
+	width: 90%;
+}
+.color-blue {
+	color: #0275d8;
 }
