@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Tms\TmsClient;
-use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager, DivnInitManager};
+use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager, DivnInitManager, ContactUsManager};
 use App\Form\DivnInitType;
 
 
@@ -177,18 +177,17 @@ class HomeController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      */
-    public function contact(Request $request)
+    public function contact(Request $request, ContactUsManager $contactUsManger)
     {
         $contactU = new ContactUs();
         $form = $this->createForm(ContactUsType::class, $contactU);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $entityManager = $this->getDoctrine()->getManager();
-            // $entityManager->persist($contactU);
-            // $entityManager->flush();
+            $data = $form->getData();
+            $contactUsManger->save($data);
 
-            // return $this->redirectToRoute('contact_us_index');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('home/contact.html.twig', [
