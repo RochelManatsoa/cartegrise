@@ -1,0 +1,23 @@
+{% extends 'email_base.html.twig' %}
+
+
+{% block body %}
+    <div style="font-family:Raleway;color:#7296ce;font-size:35px;padding-top:50px;text-align:center">
+        
+    </div>
+    
+    <div style="font-family:Raleway;color:#002a6a;font-size:22px;padding-top:20px;padding-bottom:15px;border:1px solid #002a6a;border-radius:5px;width:fit-content;padding-left:20px;padding-right:20px;margin-right:auto;margin-left:auto">        
+        <div style="text-align:center;">
+            Bonjour {{ responses.username }} 
+            <br> <hr>
+        </div>       
+
+        <p>Vous vous êtes récemment inscrit sur CG Officiel, mais vous n’avez toujours pas fait de démarche.</p>
+        <p>Besoin d’assistance ? </p>
+        <p>Notre support téléphonique peut vous guider pour vous aider à réaliser vos démarches d’immatriculation.</p>
+        <p>Profitez de notre service sécurisé et rapide sans plus attendre et surtout, sans vous déplacer. </p>
+
+        <p style="text-align:center;">CG Officiel, démarches de carte grise en ligne.</p>
+        <hr>
+    </div>
+{% endblock %}

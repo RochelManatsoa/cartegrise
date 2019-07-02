@@ -1,0 +1,25 @@
+{% extends 'email_base.html.twig' %}
+
+
+{% block body %}
+    <div style="font-family:Raleway;color:#7296ce;font-size:35px;padding-top:50px;text-align:center">
+        
+    </div>
+    
+    <div style="font-family:Raleway;color:#002a6a;font-size:22px;padding-top:20px;padding-bottom:15px;border:1px solid #002a6a;border-radius:5px;width:fit-content;padding-left:20px;padding-right:20px;margin-right:auto;margin-left:auto">        
+        <div style="text-align:center;">
+            Bonjour {{ responses.username }} 
+            <br> <hr>
+        </div>       
+
+        <p>Vous avez effectué une commande sur CG Officiel mais il nous manque certains documents
+            pour finaliser votre demande.</p>
+        <p>Rendez vous sur votre espace client pour compléter votre dossier.</p>
+        <p>Si vous avez besoin d’assistance, n’hésitez pas à contacter notre support
+            téléphonique.</p>
+        <p>Profitez de notre service sécurisé et rapide sans plus attendre et surtout, sans vous déplacer. </p>
+
+        <p style="text-align:center;">L’équipe CG Officiel.</p>
+        <hr>
+    </div>
+{% endblock %}
