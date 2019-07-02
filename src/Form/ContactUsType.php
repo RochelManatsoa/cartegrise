@@ -19,7 +19,14 @@ class ContactUsType extends AbstractType
             ->add('firstName', TextType::class, ['label'=>'label.prenom.client'])
             ->add('name', TextType::class, ['label'=>'label.nom.client'])
             ->add('email', EmailType::class, ['label'=>'label.clientEmail'])
-            ->add('raison', ChoiceType::class, ['label'=>'label.raisonsocial'])
+            ->add('raison', ChoiceType::class, [
+                'choices' => [
+						"Sales" => "Sales",
+						"Tech Support" => "Tech Support",
+						"General Feedback" => "General Feedback",
+                ],
+                'label'=>'label.raisonsocial',
+            ])
             ->add('description', TextareaType::class, ['label'=>'label.messages'])
         ;
     }
