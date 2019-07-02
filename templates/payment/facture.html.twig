@@ -47,22 +47,22 @@
         <br>
         <p>
           <strong>
-            {% if app.user.client.clientgenre starts with 'F' %}
+            {% if demande.commande.clientFacture.clientgenre starts with 'F' %}
              Madame 
             {% else %}
              Monsieur 
             {% endif %}
-            {{ app.user.client.clientPrenom }} 
-            {{ app.user.client.clientNom | upper}}
+            {{ demande.commande.clientFacture.clientPrenom }} 
+            {{ demande.commande.clientFacture.clientNom | upper}}
           </strong>
           <br>
-            {{ app.user.client.clientAdresse.numero }} 
-            {{ app.user.client.clientAdresse.nom }} 
-            {{ app.user.client.clientAdresse.complement }} 
-            {{ app.user.client.clientAdresse.extension }} 
+            {{ demande.commande.clientFacture.clientAdresse.numero }} 
+            {{ demande.commande.clientFacture.clientAdresse.nom }} 
+            {{ demande.commande.clientFacture.clientAdresse.complement }} 
+            {{ demande.commande.clientFacture.clientAdresse.extension }} 
           <br>
-            {{ app.user.client.clientAdresse.codePostal }} 
-            {{ app.user.client.clientAdresse.ville | upper }} 
+            {{ demande.commande.clientFacture.clientAdresse.codePostal }} 
+            {{ demande.commande.clientFacture.clientAdresse.ville | upper }} 
         </p>
       </div>
     </div>
