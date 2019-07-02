@@ -163,6 +163,15 @@ class FranceConnectController extends Controller
     
     return $this->redirectToRoute($this->getParameter('france_connect.logout_value'));
    }
+
+   /**
+    * @Route("/in_progress", name="inprogress")
+    */
+    public function inProgress()
+    {
+        return $this->render('utils/in_progress.html.twig');
+
+    }
     
     
 }
