@@ -46,12 +46,12 @@
      public function fraisTotalTreatmentOfCommandeWithTva(Commande $commande)
      {
 
-        return $this->fraisTotalTreatmentOfCommande($commande) * 1.2;
+        return round(($this->fraisTotalTreatmentOfCommande($commande) * 1.2), 2);
      }
 
      public function tvaOfFraisTreatment(Commande $commande)
      {
-        return $this->fraisTotalTreatmentOfCommande($commande) * 0.2;
+        return round(($this->fraisTotalTreatmentOfCommande($commande) * 0.2), 2);
      }
 
      public function total(Commande $commande)
