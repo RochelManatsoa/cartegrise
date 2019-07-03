@@ -32,7 +32,7 @@ class TarifsPrestations
     private $prix;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", options={"default" : 0})
      */
     private $tva;
 
