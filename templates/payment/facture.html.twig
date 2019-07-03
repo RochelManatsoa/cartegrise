@@ -134,12 +134,12 @@
       <div class="col-5">
         <table class="table table-md text-right table-active">
             <tr>
-              <td><strong>Sous-total facture HT : </strong></td>
+              <td><strong>Total HT : </strong></td>
               <td class="text-right"><strong>{{fraisTotalHT(demande.commande)}} €</strong></td>
             </tr>
             <tr>
-              <td><strong>Total HT :</strong></td>
-              <td class="text-right"><strong>{{fraisTotalHT(demande.commande)}} €</strong></td>
+              <td><strong>Base HT pour TVA :</strong></td>
+              <td class="text-right"><strong>{{fraisdossierWithoutTva(demande.commande)}} €</strong></td>
             </tr>
           <tr>
             <td><strong>TVA {{ tvaCommande(demande.commande) }} :</strong></td>
