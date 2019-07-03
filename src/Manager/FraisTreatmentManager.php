@@ -34,6 +34,15 @@
         }
         return $price->getPrix();
      }
+     public function tvaTreatmentOfCommande(Commande $commande)
+     {
+        $typeDemarche = $commande->getDemarche();
+        $price = $this->tarifPrestationRepository->findOneBy(["commande" => $typeDemarche->getId()]);
+        if($price == null){
+            return 0;
+        }
+        return $price->getTva();
+     }
 
      public function fraisTotalTreatmentOfCommande(Commande $commande)
      {
@@ -46,12 +55,20 @@
      public function fraisTotalTreatmentOfCommandeWithTva(Commande $commande)
      {
 
-        return round(($this->fraisTotalTreatmentOfCommande($commande) * 1.2), 2);
+        return round(($this->fraisTotalTreatmentOfCommande($commande)), 2);
      }
 
      public function tvaOfFraisTreatment(Commande $commande)
      {
-        return round(($this->fraisTotalTreatmentOfCommande($commande) * 0.2), 2);
+        $tva = $this->tvaTreatmentOfCommande($commande)/100;
+        $ttc = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
+        return round(($this->fraisTotalTreatmentOfCommande($commande) * ($tva/$ttc)), 2);
+     }
+
+     public function fraisTreatmentWithoutTaxesOfCommande(Commande $commande)
+     {
+        $tva = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
+        return round(($this->fraisTotalTreatmentOfCommande($commande) / $tva), 2);
      }
 
      public function total(Commande $commande)
@@ -61,6 +78,14 @@
          return $this->fraisTotalTreatmentOfCommandeWithTva($commande) + $taxeTotal;
      }
 
+
+     public function fraisTotalHTOfCommande(Commande $commande)
+     {
+        $fraisTotal = $this->fraisTreatmentWithoutTaxesOfCommande($commande);
+        $taxeTotal = $commande->getTaxes()->getTaxeTotale();
+
+        return $fraisTotal + $taxeTotal;
+     }
 
      public function fraisTotalOfCommande(Commande $commande)
      {

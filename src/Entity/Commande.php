@@ -144,6 +144,11 @@ class Commande
         return $this;
     }
 
+    public function getClientFacture()
+    {
+        return $this->client[0];
+    }
+
     public function getClient()
     {
         return $this->client;

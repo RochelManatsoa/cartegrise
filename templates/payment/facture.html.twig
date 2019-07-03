@@ -51,22 +51,22 @@
       <div class="col-5">
         <p>
           <strong>
-            {% if app.user.client.clientgenre starts with 'F' %}
+            {% if demande.commande.clientFacture.clientgenre starts with 'F' %}
              Madame 
             {% else %}
              Monsieur 
             {% endif %}
-            {{ app.user.client.clientPrenom }} 
-            {{ app.user.client.clientNom | upper}}
+            {{ demande.commande.clientFacture.clientPrenom }} 
+            {{ demande.commande.clientFacture.clientNom | upper}}
           </strong>
           <br>
-            {{ app.user.client.clientAdresse.numero }} 
-            {{ app.user.client.clientAdresse.nom }} 
-            {{ app.user.client.clientAdresse.complement }} 
-            {{ app.user.client.clientAdresse.extension }} 
+            {{ demande.commande.clientFacture.clientAdresse.numero }} 
+            {{ demande.commande.clientFacture.clientAdresse.nom }} 
+            {{ demande.commande.clientFacture.clientAdresse.complement }} 
+            {{ demande.commande.clientFacture.clientAdresse.extension }} 
           <br>
-            {{ app.user.client.clientAdresse.codePostal }} 
-            {{ app.user.client.clientAdresse.ville | upper }} 
+            {{ demande.commande.clientFacture.clientAdresse.codePostal }} 
+            {{ demande.commande.clientFacture.clientAdresse.ville | upper }} 
         </p>
       </div>
     </div>
@@ -119,8 +119,8 @@
         </tr>
         <tr>
           <td><strong>Frais de dossier</strong></td>
-          <td class="text-center"><strong>{{fraisTotalTraitement(demande.commande)}} €</strong></td>
-          <td class="text-center">20%</td>
+          <td class="text-center"><strong>{{fraisdossierWithoutTva(demande.commande)}} €</strong></td>
+          <td class="text-center">{{ tvaCommande(demande.commande) }}</td>
           <td class="text-center"><strong>{{tvaTraitement(demande.commande)}} €</strong></td>
           <td class="text-center"><strong>{{fraisTraitementWhithTva(demande.commande)}} €</strong></td>
         </tr>
@@ -135,14 +135,14 @@
         <table class="table table-md text-right table-active">
             <tr>
               <td><strong>Sous-total facture HT : </strong></td>
-              <td class="text-right"><strong>{{fraisTotal(demande.commande)}} €</strong></td>
+              <td class="text-right"><strong>{{fraisTotalHT(demande.commande)}} €</strong></td>
             </tr>
             <tr>
               <td><strong>Total HT :</strong></td>
-              <td class="text-right"><strong>{{fraisTotal(demande.commande)}} €</strong></td>
+              <td class="text-right"><strong>{{fraisTotalHT(demande.commande)}} €</strong></td>
             </tr>
           <tr>
-            <td><strong>TVA 20% :</strong></td>
+            <td><strong>TVA {{ tvaCommande(demande.commande) }} :</strong></td>
             <td class="text-right bg"><strong>{{tvaTraitement(demande.commande)}} €</strong></td>
           </tr>
           <tr class="table-active">
