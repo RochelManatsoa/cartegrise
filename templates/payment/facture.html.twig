@@ -5,15 +5,24 @@
   <meta charset="UTF-8">
   <title>Facture N°{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ pathToWeb ~ asset('css/style.css') }}">
   <style type="text/css">
     .logo-facture{
       width:100px;
     }
     body{
-      font-family:Raleway;
-      font-size: 15px;
+      font-family:Roboto;
+      font-size: 14px;
+    }
+    .foot{
+      <!-- 
+        position:absolute;
+        top: 120%; 
+      -->
+    }
+    h1{
+      font-size: 30px;
     }
   </style>
 </head>
@@ -26,9 +35,7 @@
         <img src="{{  pathToWeb ~ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" class="logo-facture">
       </div>
       <div class="col-5">
-        <h1 class="document-type display-4">FACTURE</h1>
-        <br>
-        <br>
+        <h1>FACTURE</h1>
         <p><strong>N°{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</strong></p>
       </div>
     </div>
@@ -42,9 +49,6 @@
         </p>        
       </div>
       <div class="col-5">
-        <br>
-        <br>
-        <br>
         <p>
           <strong>
             {% if app.user.client.clientgenre starts with 'F' %}
@@ -149,15 +153,18 @@
       </div>
     </div>
     <br><br>
-
-    <hr>
-    <p class="bottom-page text-right">
-      <small>
-          CG Officiel - N° SIRET 83897291700010 Toulouse<br>
-          20 Impasse Camille Langlade, 31000 Toulouse 05 61 51 69 222 - www.cgofficiel.fr<br>
-          IBAN FR76 3000 4003 3900 0102 24 95 637 - SWIFT CCBPFRPPMTZ
-      </small>      
-    </p>
+    <div class="row">
+      <div class="col-12 foot">
+      <hr>
+      <p class="bottom-page text-right">
+        <small>
+            CG Officiel - N° SIRET 83897291700010 Toulouse<br>
+            20 Impasse Camille Langlade, 31000 Toulouse 05 61 51 69 222 - www.cgofficiel.fr<br>
+            IBAN FR76 3000 4003 3900 0102 24 95 637 - SWIFT CCBPFRPPMTZ
+        </small>      
+      </p>
+      </div>
+    </div>
   </div>
 </div>
 </body>
