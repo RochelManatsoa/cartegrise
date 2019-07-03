@@ -51,10 +51,13 @@ class AppExtension extends AbstractExtension
             new TwigFunction('fraisTotalTraitement', [$this, 'fraisTotalTraitement']),
             new TwigFunction('tvaTraitement', [$this, 'tvaTraitement']),
             new TwigFunction('fraisTotal', [$this, 'fraisTotal']),
+            new TwigFunction('fraisTotalHT', [$this, 'fraisTotalHT']),
             new TwigFunction('total', [$this, 'total']),
             new TwigFunction('fraisTraitementWhithTva', [$this, 'fraisTraitementWhithTva']),
             new TwigFunction('statusOfCommande', [$this, 'statusOfCommande']),
             new TwigFunction('checkFile', [$this, 'checkFile']),
+            new TwigFunction('tvaCommande', [$this, 'tvaCommande']),
+            new TwigFunction('fraisdossierWithoutTva', [$this, 'fraisdossierWithoutTva']),
         ];
     }
 
@@ -163,6 +166,11 @@ class AppExtension extends AbstractExtension
 
         return $this->fraisTreatmentManager->fraisTotalOfCommande($commande);
     }
+    public function fraisTotalHT(Commande $commande)
+    {
+
+        return $this->fraisTreatmentManager->fraisTotalHtOfCommande($commande);
+    }
 
     public function tvaTraitement(Commande $commande)
     {
@@ -185,5 +193,15 @@ class AppExtension extends AbstractExtension
     public function checkFile($entity, $name)
     {
         return $this->documentAFournirManager->checkFile($entity, $name);
+    }
+
+    public function tvaCommande(Commande $commande)
+    {
+        return $this->fraisTreatmentManager->tvaTreatmentOfCommande($commande) . ' %';
+    }
+
+    public function fraisdossierWithoutTva(Commande $commande)
+    {
+        return $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommande($commande);
     }
 }
