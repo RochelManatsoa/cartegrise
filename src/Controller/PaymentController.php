@@ -100,7 +100,8 @@ class PaymentController extends AbstractController
         ParameterBagInterface $parameterBag,
         PaymentResponseTreatment $responseTreatment,
         TransactionManager $transactionManager,
-        DemandeManager $demandeManager
+        DemandeManager $demandeManager,
+        \Swift_Mailer $mailer
     )
     {
         $response = $request->request->get('DATA');
