@@ -103,6 +103,7 @@ class PaymentController extends AbstractController
     )
     {
         $response = $request->request->get('DATA');
+        dd($response);
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
         $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
 
