@@ -111,8 +111,8 @@ class PaymentController extends AbstractController
         $file = $demandeManager->generateFacture($transaction->getDemande());
         // dd($responses["customer_email"]);
         $this->sendMail($mailer, $responses, $responses["customer_email"], []);
-        echo 'vita';die;
-        dd($file);
+        // echo 'vita';die;
+        // dd($file);
 
         return $this->render(
                 'transaction/transactionResponse.html.twig',
