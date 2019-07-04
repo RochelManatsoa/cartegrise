@@ -17,7 +17,7 @@ use App\Manager\TransactionManager;
 use App\Manager\HistoryTransactionManager;
 use App\Manager\NotificationEmailManager;
 use Symfony\Component\HttpFoundation\Cookie;
-use Knp\Snappy\Pdf;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 
 class PaymentController extends AbstractController
@@ -140,21 +140,11 @@ class PaymentController extends AbstractController
     /**
      * @Route("/payment/{demande}/facture", name="payment_facture")
      */
-    public function facture(Demande $demande, FraisTreatmentManager $fraisTreatmentManager)
+    public function facture(Demande $demande, FraisTreatmentManager $fraisTreatmentManager, DemandeManager $demandeManager)
     {
-        $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
-        $filename = "Facture";
-        $html = $this->renderView("payment/facture.html.twig", array(
-            "demande"=> $demande,
-        ));
-        return new Response(
-            $snappy->getOutputFromHtml($html),
-            200,
-            array(
-                'Content-Type'=>'application/pdf',
-                'Content-disposition'=>'inline; filename="'.$filename.'.pdf"'
-            )
-        );
+        $file = $demandeManager->generateFacture($demande);
+
+        return new BinaryFileResponse($file);
     }
 
     // price with TVA
