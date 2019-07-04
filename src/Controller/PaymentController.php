@@ -77,6 +77,8 @@ class PaymentController extends AbstractController
         PaymentResponseTreatment $responseTreatment, 
         StatusTreatment $statusTreatment,
         HistoryTransactionManager $historyTransactionManager,
+        TransactionManager $transactionManager,
+        DemandeManager $demandeManager,
         NotificationEmailManager $notificationManager
     )
     {
@@ -85,7 +87,9 @@ class PaymentController extends AbstractController
         $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
         // send mail
             $this->addHistoryTransaction($responses, $historyTransactionManager);
-            $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails);
+            $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
+            $file = $demandeManager->generateFacture($transaction->getDemande());
+            $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails, [$file]);
         // end send mail
 
         return new Response('ok');
@@ -100,17 +104,12 @@ class PaymentController extends AbstractController
         ParameterBagInterface $parameterBag,
         PaymentResponseTreatment $responseTreatment,
         TransactionManager $transactionManager,
-        DemandeManager $demandeManager,
-        \Swift_Mailer $mailer
     )
     {
         $response = $request->request->get('DATA');
         // dd($response);
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
         $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
-        $file = $demandeManager->generateFacture($transaction->getDemande());
-        // dd($responses["customer_email"]);
-        $this->sendMail($mailer, $responses, $responses["customer_email"], [], [$file]);
 
         return $this->render(
                 'transaction/transactionResponse.html.twig',
