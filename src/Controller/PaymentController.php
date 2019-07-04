@@ -103,7 +103,7 @@ class PaymentController extends AbstractController
         PaymentUtils $paymentUtils,
         ParameterBagInterface $parameterBag,
         PaymentResponseTreatment $responseTreatment,
-        TransactionManager $transactionManager,
+        TransactionManager $transactionManager
     )
     {
         $response = $request->request->get('DATA');
