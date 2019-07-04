@@ -1,0 +1,52 @@
+#########################################################################
+#
+#	Pathfile 
+#
+#	Liste des fichiers parametres utilises par le module de paiement
+#
+#########################################################################
+#
+#
+#-------------------------------------------------------------------------
+# Activation (YES) / D�sactivation (NO) du mode DEBUG
+#-------------------------------------------------------------------------
+#
+DEBUG!NO!
+#
+# ------------------------------------------------------------------------
+# Chemin vers le r�pertoire des logos depuis le web alias  
+# Exemple pour le r�pertoire www.merchant.com/sherlocks/payment/logo/
+# indiquer:
+# ------------------------------------------------------------------------
+#
+D_LOGO!../../banque/logo/!
+#
+# --------------------------------------------------------------------------
+#  Fichiers param�tres li�s a l'api sherlocks paiement	
+# --------------------------------------------------------------------------
+#
+# fichier des  param�tres sherlocks
+#
+F_DEFAULT!/var/www/html/front/projectCG/src/Utils/param/parmcom.sherlocks! #in dev
+#F_DEFAULT!/var/www/html/cgofficiel/src/Utils/param/parmcom.sherlocks! #in deployment
+#F_DEFAULT!/var/www/app/src/Utils/param/parmcom.sherlocks!
+#
+# fichier param�tre commercant
+#
+F_PARAM!/var/www/html/front/projectCG/src/Utils/param/parmcom!  #in dev
+#F_PARAM!/var/www/html/cgofficiel/src/Utils/param/parmcom!  #in deployment
+#F_PARAM!/var/www/app/src/Utils/param/parmcom!
+#
+# certificat du commercant
+#
+F_CERTIFICATE!/var/www/html/front/projectCG/src/Utils/param/certif!  #in deployment
+#F_CERTIFICATE!/var/www/html/cgofficiel/src/Utils/param/certif!  #in deployment
+#F_CERTIFICATE!/var/www/app/src/Utils/param/certif!
+#
+# type du certificat
+#
+F_CTYPE!php!
+#
+# --------------------------------------------------------------------------
+# 	end of file
+# --------------------------------------------------------------------------
