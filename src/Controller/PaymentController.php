@@ -17,7 +17,7 @@ use App\Manager\TransactionManager;
 use App\Manager\HistoryTransactionManager;
 use App\Manager\NotificationEmailManager;
 use Symfony\Component\HttpFoundation\Cookie;
-use Knp\Snappy\Pdf;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 
 class PaymentController extends AbstractController
@@ -84,8 +84,8 @@ class PaymentController extends AbstractController
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
         $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
         // send mail
-            $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails);
             $this->addHistoryTransaction($responses, $historyTransactionManager);
+            $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails);
         // end send mail
 
         return new Response('ok');
@@ -140,22 +140,11 @@ class PaymentController extends AbstractController
     /**
      * @Route("/payment/{demande}/facture", name="payment_facture")
      */
-    public function facture(Demande $demande, FraisTreatmentManager $fraisTreatmentManager)
+    public function facture(Demande $demande, FraisTreatmentManager $fraisTreatmentManager, DemandeManager $demandeManager)
     {
-        $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
-        $filename = "Facture";
-        $html = $this->renderView("payment/facture.html.twig", array(
-            "demande"=> $demande,
-        ));
-        // return new Response($html);
-        return new Response(
-            $snappy->getOutputFromHtml($html),
-            200,
-            array(
-                'Content-Type'=>'application/pdf',
-                'Content-disposition'=>'inline; filename="'.$filename.'.pdf"'
-            )
-        );
+        $file = $demandeManager->generateFacture($demande);
+
+        return new BinaryFileResponse($file);
     }
 
     // price with TVA
@@ -181,13 +170,13 @@ class PaymentController extends AbstractController
     }
 
     //function to send email with response in sherlock treatment
-    public function sendMail($mailer, $responses, $mail , $admins = [])
+    public function sendMail($mailer, $responses, $mail , $admins = [], $attachments=[])
     {
-        $this->send($mailer, $mail, $responses);
-        $this->send($mailer, $admins, $responses, "chère Admin, ");
+        $this->send($mailer, $mail, $responses, '', $attachments);
+        $this->send($mailer, $admins, $responses, "chère Admin, ", $attachments);
     }
     //function to send email unit
-    public function send($mailer, $mail, $responses, $adminPrepend='')
+    public function send($mailer, $mail, $responses, $adminPrepend='', $attachments)
     {
             $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["transaction_id"]. ' de ' . $responses["customer_email"] ))
             ->setFrom('no-reply@cgofficiel.fr');

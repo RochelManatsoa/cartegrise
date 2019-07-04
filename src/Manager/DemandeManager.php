@@ -4,7 +4,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-17 13:14:01 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-05-27 13:32:32
+ * @Last Modified time: 2019-07-04 12:21:39
  */
 namespace App\Manager;
 
@@ -26,6 +26,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Twig_Environment as Twig;
 
@@ -257,7 +258,28 @@ class DemandeManager
             
             $filefinal = file_put_contents($file, $cerfa);
         }
-        // dd($file);
+        
+        return $file;
+    }
+
+    public function generateFacture(Demande $demande)
+    {
+        $folder = $demande->getGeneratedCerfaPath();
+        $file = $demande->getGeneratedFacturePathFile();
+        // create directory
+        if (!is_dir($folder)) mkdir($folder, 0777, true);
+        // end create file 
+        // get facture if not exist
+        if (!is_file($file)) { // attente de finalité du process
+            $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
+            $filename = "Facture";
+            $html = $this->twig->render("payment/facture.html.twig", array(
+                "demande"=> $demande,
+            ));
+            $output = $snappy->getOutputFromHtml($html);
+            
+            $filefinal = file_put_contents($file, $output);
+        }
         
         return $file;
     }

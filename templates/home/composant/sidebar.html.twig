@@ -9,7 +9,7 @@
 	{% if app.user %}
 	<div class="espace-client-user col-10 col-lg-8 col-xl-6 mx-auto mt-4 mb-4 ">
 		<h5>
-		Bonjour {{ app.user.client.clientPrenom }} {{ app.user.client.clientNom | upper}}
+		Bonjour {% if app.user.client is defined and app.user.client is not null %}{{ app.user.client.clientPrenom | displayValue}} {{ app.user.client.clientNom | upper}}{% endif %}
 		</h5>
 		<h5 class="custom-compte d-flex">
 			<a href="{{ path('compte') }}">Mon compte</a> | <a href="{{ path('logout') }}">Déconnexion</a>
@@ -91,7 +91,9 @@
 	{% if app.user %}
 	<div class="espace-client-user col-10 col-lg-8 col-xl-6 mx-auto mt-4 mb-4 ">
 		<h5>
-		Bonjour {{ app.user.client.clientPrenom }} {{ app.user.client.clientNom | upper}}
+		Bonjour Bonjour
+		{% if app.user.client is defined and app.user.client is not null %}{{ app.user.client.clientPrenom | displayValue}}
+		{{ app.user.client.clientNom | upper}}{% endif %}
 		</h5>
 		<h5 class="custom-compte-mobile">
 			<a href="{{ path('compte') }}">Mon compte</a> | <a href="{{ path('logout') }}">Déconnexion</a>
