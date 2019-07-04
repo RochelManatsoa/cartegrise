@@ -45,7 +45,7 @@ class FranceConnectController extends Controller
     }
     
     /**
-     * @Route("/login_fc", methods="GET", name="france_connect_login")
+     * @Route("/login_fc", methods="GET", name="france_connect_login_real")
      * @return RedirectResponse
      */
     public function loginAction( )
@@ -165,7 +165,7 @@ class FranceConnectController extends Controller
    }
 
    /**
-    * @Route("/in_progress", name="inprogress")
+    * @Route("/in_progress", name="france_connect_login")
     */
     public function inProgress()
     {
