@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\User;
 use App\Form\UpdateUserType;
 use App\Manager\UserManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/compte")
@@ -28,7 +29,12 @@ class AccountController extends AbstractController
     /**
      * @Route("/update/{user}/acount", name="update_acount")
      */
-    public function update(Request $request, User $user, UserManager $userManager)
+    public function update(
+        Request $request, 
+        User $user, 
+        UserManager $userManager,
+        UserPasswordEncoderInterface $passwordEncoder
+        )
     {
         $form = $this->createForm(UpdateUserType::class, $user);
 
