@@ -99,14 +99,16 @@ class PaymentController extends AbstractController
         PaymentUtils $paymentUtils,
         ParameterBagInterface $parameterBag,
         PaymentResponseTreatment $responseTreatment,
-        TransactionManager $transactionManager
+        TransactionManager $transactionManager,
+        DemandeManager $demandeManager
     )
     {
         $response = $request->request->get('DATA');
         // dd($response);
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
         $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
-        dd($transaction->getDemande()->getCommande());
+        $file = $demandeManager->generateFacture($transaction->getDemande());
+        dd($file);
 
         return $this->render(
                 'transaction/transactionResponse.html.twig',
