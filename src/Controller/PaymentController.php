@@ -110,9 +110,7 @@ class PaymentController extends AbstractController
         $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
         $file = $demandeManager->generateFacture($transaction->getDemande());
         // dd($responses["customer_email"]);
-        $this->sendMail($mailer, $responses, $responses["customer_email"], []);
-        // echo 'vita';die;
-        // dd($file);
+        $this->sendMail($mailer, $responses, $responses["customer_email"], [], [$file]);
 
         return $this->render(
                 'transaction/transactionResponse.html.twig',
@@ -202,6 +200,9 @@ class PaymentController extends AbstractController
                 ),
                 'text/html'
             );
+            foreach ($attachments as $attachment){
+                $message->attach(\Swift_Attachment::fromPath($attachment));
+            }
             $mailer->send($message);
     }
 
