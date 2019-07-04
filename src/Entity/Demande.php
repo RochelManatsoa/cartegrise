@@ -370,6 +370,12 @@ class Demande
         return $this->getGeneratedCerfaPath().'/cerfa.pdf';
     }
 
+    public function getGeneratedFacturePathFile(): ?string
+    {
+
+        return $this->getGeneratedCerfaPath().'/facture.pdf';
+    }
+
     public function getUploadPath()
     {
         return $this->getGeneratedCerfaPath();
