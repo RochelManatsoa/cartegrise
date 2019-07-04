@@ -110,6 +110,7 @@ class PaymentController extends AbstractController
         $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
         $file = $demandeManager->generateFacture($transaction->getDemande());
         $this->sendMail($mailer, $responses, $responses["customer_email"], []);
+        echo 'vita';die;
         dd($file);
 
         return $this->render(
