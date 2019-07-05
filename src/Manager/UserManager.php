@@ -142,7 +142,7 @@ class UserManager
         $emails = [];
         foreach ($users as $user)
         {
-            $this->mailManager->sendEmail($emails=[$user->getEmail()], $template, ['responses'=> $user]);
+            $this->mailManager->sendEmail($emails=[$user->getEmail()], $template, "CG Officiel - Démarches Carte Grise en ligne", ['responses'=> $user]);
             $user->getClient()->setRelanceLevel($level+1);
             $this->em->persist($user);
         }

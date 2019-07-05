@@ -82,10 +82,10 @@ class MailManager
         return 'success';
     }
 
-    public function sendEmail($emails=[], $template, $params, $attachments=[], $cc=[], $from='no-reply@cgofficiel.fr')
+    public function sendEmail($emails=[], $template,string $object="", $params, $attachments=[], $cc=[], $from='no-reply@cgofficiel.fr')
     {
         if (\is_iterable($emails) && 0 < count($emails)){
-            $message = (new \Swift_Message())
+            $message = (new \Swift_Message($object))
             ->setFrom($from);
             foreach ($emails as $key => $emailDest) {
                 if (0 == $key) {
