@@ -89,6 +89,21 @@ class Client
     private $clientPaysNaissance;
 
     /**
+     * @ORM\Column(type="integer", options={"default":0})
+     */
+    private $countCommande;
+
+    /**
+     * @ORM\Column(type="integer", options={"default":0})
+     */
+    private $countDemande;
+
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $relanceLevel;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="client", cascade={"persist", "remove"})
      * @Groups({"read"})
      */
@@ -338,6 +353,42 @@ class Client
     {
 
         return $this->clientNom . ' ' .$this->clientPrenom;
+    }
+
+    public function getCountCommande(): ?int
+    {
+        return $this->countCommande;
+    }
+
+    public function setCountCommande(?int $countCommande): self
+    {
+        $this->countCommande = $countCommande;
+
+        return $this;
+    }
+
+    public function getCountDemande(): ?int
+    {
+        return $this->countDemande;
+    }
+
+    public function setCountDemande(?int $countDemande): self
+    {
+        $this->countDemande = $countDemande;
+
+        return $this;
+    }
+
+    public function getRelanceLevel(): ?int
+    {
+        return $this->relanceLevel;
+    }
+
+    public function setRelanceLevel(?int $relanceLevel): self
+    {
+        $this->relanceLevel = $relanceLevel;
+
+        return $this;
     }
 
 }

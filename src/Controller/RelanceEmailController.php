@@ -12,18 +12,18 @@ use Symfony\Component\HttpFoundation\Response;
 class RelanceEmailController extends AbstractController
 {
     /**
-     * @Route("/email_1", name="relance_email_1")
+     * @Route("/email/{index}", name="relance_email_1")
      */
-    public function relance(\Swift_Mailer $mailer)
+    public function relance(\Swift_Mailer $mailer, int $index)
     {
         $responses = $this->getUser();
         $response = $this->getUser()->getEmail();
-        $this->send($mailer, $response, $responses);
+        $this->send($mailer, $response, $responses, $index);
 
         return new Response('ok');
     }
 
-    public function send($mailer, $mail, $responses)
+    public function send($mailer, $mail, $responses, $index)
     {
         $message = (new \Swift_Message('Hello!'))
         ->setFrom('no-reply@cgofficiel.fr');
@@ -31,7 +31,7 @@ class RelanceEmailController extends AbstractController
         $message
         ->setBody(
             $this->renderView(
-                'relance/email3.html.twig',
+                'relance/email'.$index.'.html.twig',
                 array('responses' => $responses)
             ),
             'text/html'

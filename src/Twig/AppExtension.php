@@ -68,6 +68,8 @@ class AppExtension extends AbstractExtension
             new TwigFilter('cardNumber', [$this, 'formatCard']),
             new TwigFilter('statusMessage', [$this, 'statusMessage']),
             new TwigFilter('displayValue', [$this, 'displayValue']),
+            new TwigFilter('displayGender', [$this, 'displayGender']),
+            new TwigFilter('displayRelanceInfos', [$this, 'displayRelanceInfos']),
             new TwigFilter('displayEnergy', [$this, 'displayEnergy']),
         ];
     }
@@ -104,6 +106,14 @@ class AppExtension extends AbstractExtension
     public function displayValue($value, $default = null)
     {
         return $value !== null ? $value : ($default? $default : "--");
+    }
+    public function displayGender($value, $default = null)
+    {
+        return $value === "M" ? "Mr" : 'Mme';
+    }
+    public function displayRelanceInfos($value, $default = null)
+    {
+        return $this->displayGender($value->getClientGenre()).' '.$this->displayValue($value->getClientNom()).' '.$this->displayValue($value->getClientPrenom());
     }
 
     public function displayEnergy($value, $default = null)
