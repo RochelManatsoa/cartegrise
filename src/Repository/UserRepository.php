@@ -92,4 +92,41 @@ class UserRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    public function findUserForRelance($level = 0)
+    {
+        $date = $this->relanceDate($level);
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.client','cl')
+            ->where('cl.countDemande = :zero')
+            ->andWhere('cl IS NOT NULL')
+            ->andWhere('u.registerDate <= :date')
+            ->andWhere('cl.relanceLevel =:level')
+            ->setParameter('zero', 0)
+            ->setParameter('level', $level)
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    private function relanceDate($level)
+    {
+        $date = new \DateTime();
+        switch($level){
+            case 0:
+                $date->modify('-1hour');
+                break;
+            case 1:
+                $date->modify('-3day');
+                break;
+            case 2:
+                $date->modify('-7day');
+                break;
+            default:
+                break;
+        }
+
+        return $date;
+    }
 }

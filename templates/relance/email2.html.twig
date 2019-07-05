@@ -1,0 +1,25 @@
+{% extends 'email_base.html.twig' %}
+
+
+{% block body %}
+    <div style="font-family:Raleway;color:#7296ce;font-size:35px;padding-top:50px;text-align:center">
+        
+    </div>
+    
+    <div style="font-family:Raleway;color:#002a6a;font-size:22px;padding-top:20px;padding-bottom:15px;border:1px solid #002a6a;border-radius:5px;width:fit-content;padding-left:20px;padding-right:20px;margin-right:auto;margin-left:auto">        
+        <div style="text-align:center;">
+            Bonjour {{ responses.client |displayRelanceInfos }}
+            <br> <hr>
+        </div>       
+
+        <p>Vous vous êtes inscrit sur CG Officiel il y a une semaine, vous n’avez cependant pas fait de
+            commandes depuis, si vous rencontrez un souci n’hésitez pas à contacter notre support qui
+            saura vous guider étape par étape.</p>
+        <p>Duplicata, changement d’adresse, immatriculation, faites
+            toutes vos démarches de carte grise sur CG Officiel, la référence de la carte grise en ligne.</p>
+        
+        <p style="text-align:center;">L’équipe CG Officiel.</p>
+
+        <hr>
+    </div>
+{% endblock %}

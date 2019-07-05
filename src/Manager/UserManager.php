@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Entity\{User, Client, Contact, Adresse, Commande};
 use App\Manager\SessionManager;
+use App\Manager\MailManager;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommandeRepository;
 class UserManager
@@ -19,13 +20,15 @@ class UserManager
     private $sessionManager;
     private $encoder;
     private $commandeRepository;
+    private $mailManager;
     public function __construct(
         EntityManagerInterface $em,
         UserRepository $repository,
         TokenStorageInterface $token,
         SessionManager $sessionManager,
         UserPasswordEncoderInterface $encoder,
-        CommandeRepository $commandeRepository 
+        CommandeRepository $commandeRepository,
+        MailManager $mailManager
     )
     {
         $this->repository = $repository;
@@ -35,6 +38,7 @@ class UserManager
         $this->sessionManager    = $sessionManager;
         $this->encoder    = $encoder;
         $this->commandeRepository    = $commandeRepository;
+        $this->mailManager    = $mailManager;
     }
     public function countDemande(User $user)
     {
@@ -129,5 +133,21 @@ class UserManager
         $this->em->flush();
 
         return $user;
+    }
+
+    public function sendUserForRelance($level = 0)
+    {
+        $users = $this->repository->findUserForRelance($level);
+        $template = 'relance/email1.html.twig';
+        $emails = [];
+        foreach ($users as $user)
+        {
+            $this->mailManager->sendEmail($emails=[$user->getEmail()], $template, ['responses'=> $user]);
+            $user->getClient()->setRelanceLevel($level+1);
+            $this->em->persist($user);
+        }
+        $this->em->flush();
+        
+        return 'sended';
     }
 }
