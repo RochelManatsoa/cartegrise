@@ -81,4 +81,37 @@ class MailManager
 
         return 'success';
     }
+
+    public function sendEmail($emails=[], $template, $params, $attachments=[], $cc=[], $from='no-reply@cgofficiel.fr')
+    {
+        if (\is_iterable($emails) && 0 < count($emails)){
+            $message = (new \Swift_Message())
+            ->setFrom($from);
+            foreach ($emails as $key => $emailDest) {
+                if (0 == $key) {
+                    $message->setTo($emailDest);
+                } else {
+                    $message->addCc($emailDest);
+                }
+            }
+            $message
+            ->setBody(
+                $this->template->render(
+                    $template, 
+                    $params
+                ),
+                'text/html'
+            );
+            foreach ($attachments as $data) {
+                if (null != $data) {
+                    $message->attach(Swift_Attachment::fromPath($data));
+                }
+            }
+            
+            $this->mailer->send($message);
+        }
+        
+
+        return 'success';
+    }
 }
