@@ -18,7 +18,7 @@ class CotitulairesType extends AbstractType
                 'label' => 'label.type.personne',
                 'choices' => array(
                     'Personne Physique' => "phy",
-                    'Personne Morale' => "mor",
+                    'Société' => "mor",
                     )
                 ))
             ->add('nomCotitulaires', TextType::class, ['label'=>'label.nom.cotitulaire'])
