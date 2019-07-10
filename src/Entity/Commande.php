@@ -10,6 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommandeRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @ApiResource(
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
@@ -232,6 +233,15 @@ class Commande
         $divnInit->setCommande($this);
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prepersist()
+    {
+        $client = $this->client[0];
+        $client->setCountCommande($client->getCountCommande() + 1);
     }
 
 }
