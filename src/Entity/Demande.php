@@ -149,6 +149,7 @@ class Demande
     public function __construct()
     {
         $this->fichiers = new ArrayCollection();
+        $this->dateDemande = new \Datetime();
     }
 
     public function getId(): ?int
