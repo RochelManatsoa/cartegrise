@@ -51,10 +51,13 @@ class AppExtension extends AbstractExtension
             new TwigFunction('fraisTotalTraitement', [$this, 'fraisTotalTraitement']),
             new TwigFunction('tvaTraitement', [$this, 'tvaTraitement']),
             new TwigFunction('fraisTotal', [$this, 'fraisTotal']),
+            new TwigFunction('fraisTotalHT', [$this, 'fraisTotalHT']),
             new TwigFunction('total', [$this, 'total']),
             new TwigFunction('fraisTraitementWhithTva', [$this, 'fraisTraitementWhithTva']),
             new TwigFunction('statusOfCommande', [$this, 'statusOfCommande']),
             new TwigFunction('checkFile', [$this, 'checkFile']),
+            new TwigFunction('tvaCommande', [$this, 'tvaCommande']),
+            new TwigFunction('fraisdossierWithoutTva', [$this, 'fraisdossierWithoutTva']),
         ];
     }
 
@@ -65,6 +68,8 @@ class AppExtension extends AbstractExtension
             new TwigFilter('cardNumber', [$this, 'formatCard']),
             new TwigFilter('statusMessage', [$this, 'statusMessage']),
             new TwigFilter('displayValue', [$this, 'displayValue']),
+            new TwigFilter('displayGender', [$this, 'displayGender']),
+            new TwigFilter('displayRelanceInfos', [$this, 'displayRelanceInfos']),
             new TwigFilter('displayEnergy', [$this, 'displayEnergy']),
         ];
     }
@@ -101,6 +106,17 @@ class AppExtension extends AbstractExtension
     public function displayValue($value, $default = null)
     {
         return $value !== null ? $value : ($default? $default : "--");
+    }
+    public function displayGender($value, $default = null)
+    {
+        return $value === "M" ? "Mr" : 'Mme';
+    }
+    public function displayRelanceInfos($value, $default = null)
+    {
+        if (is_object($value))
+            return $this->displayGender($value->getClientGenre()).' '.$this->displayValue($value->getClientNom()).' '.$this->displayValue($value->getClientPrenom());
+
+        return $this->displayGender($value['clientGenre']).' '.$this->displayValue($value['clientNom']).' '.$this->displayValue($value['clientPrenom']);
     }
 
     public function displayEnergy($value, $default = null)
@@ -163,6 +179,11 @@ class AppExtension extends AbstractExtension
 
         return $this->fraisTreatmentManager->fraisTotalOfCommande($commande);
     }
+    public function fraisTotalHT(Commande $commande)
+    {
+
+        return $this->fraisTreatmentManager->fraisTotalHtOfCommande($commande);
+    }
 
     public function tvaTraitement(Commande $commande)
     {
@@ -185,5 +206,15 @@ class AppExtension extends AbstractExtension
     public function checkFile($entity, $name)
     {
         return $this->documentAFournirManager->checkFile($entity, $name);
+    }
+
+    public function tvaCommande(Commande $commande)
+    {
+        return $this->fraisTreatmentManager->tvaTreatmentOfCommande($commande) . ' %';
+    }
+
+    public function fraisdossierWithoutTva(Commande $commande)
+    {
+        return $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommande($commande);
     }
 }

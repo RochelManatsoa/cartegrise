@@ -12,6 +12,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DemandeRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @ApiResource(
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
@@ -148,6 +149,7 @@ class Demande
     public function __construct()
     {
         $this->fichiers = new ArrayCollection();
+        $this->dateDemande = new \Datetime();
     }
 
     public function getId(): ?int
@@ -370,6 +372,12 @@ class Demande
         return $this->getGeneratedCerfaPath().'/cerfa.pdf';
     }
 
+    public function getGeneratedFacturePathFile(): ?string
+    {
+
+        return $this->getGeneratedCerfaPath().'/facture.pdf';
+    }
+
     public function getUploadPath()
     {
         return $this->getGeneratedCerfaPath();
@@ -487,5 +495,14 @@ class Demande
     public function getDocInvalidMessage():string
     {
         return $this::DOC_INVALID_MESSAGE;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prepersist()
+    {
+        $client = $this->commande->getclient()[0];
+        $client->setCountDemande($client->getCountDemande() + 1);
     }
 }

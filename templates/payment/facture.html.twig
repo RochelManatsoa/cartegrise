@@ -5,15 +5,24 @@
   <meta charset="UTF-8">
   <title>Facture N°{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ pathToWeb ~ asset('css/style.css') }}">
   <style type="text/css">
     .logo-facture{
       width:100px;
     }
     body{
-      font-family:Raleway;
-      font-size: 15px;
+      font-family:Roboto;
+      font-size: 14px;
+    }
+    .foot{
+      <!-- 
+        position:absolute;
+        top: 120%; 
+      -->
+    }
+    h1{
+      font-size: 30px;
     }
   </style>
 </head>
@@ -26,9 +35,7 @@
         <img src="{{  pathToWeb ~ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" class="logo-facture">
       </div>
       <div class="col-5">
-        <h1 class="document-type display-4">FACTURE</h1>
-        <br>
-        <br>
+        <h1>FACTURE</h1>
         <p><strong>N°{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</strong></p>
       </div>
     </div>
@@ -42,27 +49,24 @@
         </p>        
       </div>
       <div class="col-5">
-        <br>
-        <br>
-        <br>
         <p>
           <strong>
-            {% if app.user.client.clientgenre starts with 'F' %}
+            {% if demande.commande.clientFacture.clientgenre starts with 'F' %}
              Madame 
             {% else %}
              Monsieur 
             {% endif %}
-            {{ app.user.client.clientPrenom }} 
-            {{ app.user.client.clientNom | upper}}
+            {{ demande.commande.clientFacture.clientPrenom }} 
+            {{ demande.commande.clientFacture.clientNom | upper}}
           </strong>
           <br>
-            {{ app.user.client.clientAdresse.numero }} 
-            {{ app.user.client.clientAdresse.nom }} 
-            {{ app.user.client.clientAdresse.complement }} 
-            {{ app.user.client.clientAdresse.extension }} 
+            {{ demande.commande.clientFacture.clientAdresse.numero }} 
+            {{ demande.commande.clientFacture.clientAdresse.nom }} 
+            {{ demande.commande.clientFacture.clientAdresse.complement }} 
+            {{ demande.commande.clientFacture.clientAdresse.extension }} 
           <br>
-            {{ app.user.client.clientAdresse.codePostal }} 
-            {{ app.user.client.clientAdresse.ville | upper }} 
+            {{ demande.commande.clientFacture.clientAdresse.codePostal }} 
+            {{ demande.commande.clientFacture.clientAdresse.ville | upper }} 
         </p>
       </div>
     </div>
@@ -115,8 +119,8 @@
         </tr>
         <tr>
           <td><strong>Frais de dossier</strong></td>
-          <td class="text-center"><strong>{{fraisTotalTraitement(demande.commande)}} €</strong></td>
-          <td class="text-center">20%</td>
+          <td class="text-center"><strong>{{fraisdossierWithoutTva(demande.commande)}} €</strong></td>
+          <td class="text-center">{{ tvaCommande(demande.commande) }}</td>
           <td class="text-center"><strong>{{tvaTraitement(demande.commande)}} €</strong></td>
           <td class="text-center"><strong>{{fraisTraitementWhithTva(demande.commande)}} €</strong></td>
         </tr>
@@ -130,15 +134,15 @@
       <div class="col-5">
         <table class="table table-md text-right table-active">
             <tr>
-              <td><strong>Sous-total facture HT : </strong></td>
-              <td class="text-right"><strong>{{fraisTotal(demande.commande)}} €</strong></td>
+              <td><strong>Total HT : </strong></td>
+              <td class="text-right"><strong>{{fraisTotalHT(demande.commande)}} €</strong></td>
             </tr>
             <tr>
-              <td><strong>Total HT :</strong></td>
-              <td class="text-right"><strong>{{fraisTotal(demande.commande)}} €</strong></td>
+              <td><strong>Base HT pour TVA :</strong></td>
+              <td class="text-right"><strong>{{fraisdossierWithoutTva(demande.commande)}} €</strong></td>
             </tr>
           <tr>
-            <td><strong>TVA 20% :</strong></td>
+            <td><strong>TVA {{ tvaCommande(demande.commande) }} :</strong></td>
             <td class="text-right bg"><strong>{{tvaTraitement(demande.commande)}} €</strong></td>
           </tr>
           <tr class="table-active">
@@ -149,15 +153,18 @@
       </div>
     </div>
     <br><br>
-
-    <hr>
-    <p class="bottom-page text-right">
-      <small>
-          CG Officiel - N° SIRET 83897291700010 Toulouse<br>
-          20 Impasse Camille Langlade, 31000 Toulouse 05 61 51 69 222 - www.cgofficiel.fr<br>
-          IBAN FR76 3000 4003 3900 0102 24 95 637 - SWIFT CCBPFRPPMTZ
-      </small>      
-    </p>
+    <div class="row">
+      <div class="col-12 foot">
+      <hr>
+      <p class="bottom-page text-right">
+        <small>
+            CG Officiel - N° SIRET 83897291700010 Toulouse<br>
+            20 Impasse Camille Langlade, 31000 Toulouse 05 61 51 69 222 - www.cgofficiel.fr<br>
+            IBAN FR76 3000 4003 3900 0102 24 95 637 - SWIFT CCBPFRPPMTZ
+        </small>      
+      </p>
+      </div>
+    </div>
   </div>
 </div>
 </body>

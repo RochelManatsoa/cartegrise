@@ -21,7 +21,8 @@ class DivnInitType extends AbstractType
         ->add("department", NumberType::class, [
             'attr' => [
                 'class' => 'row',
-            ]
+            ],
+            'label' => 'Departement'
         ])
         ->add("genre", ChoiceType::class, [
             "choices" => DivnInit::GENDERS,

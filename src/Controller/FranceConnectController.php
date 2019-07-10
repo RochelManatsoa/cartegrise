@@ -45,7 +45,7 @@ class FranceConnectController extends Controller
     }
     
     /**
-     * @Route("/login_fc", methods="GET", name="france_connect_login")
+     * @Route("/login_fc", methods="GET", name="france_connect_login_real")
      * @return RedirectResponse
      */
     public function loginAction( )
@@ -163,6 +163,15 @@ class FranceConnectController extends Controller
     
     return $this->redirectToRoute($this->getParameter('france_connect.logout_value'));
    }
+
+   /**
+    * @Route("/in_progress", name="france_connect_login")
+    */
+    public function inProgress()
+    {
+        return $this->render('utils/in_progress.html.twig');
+
+    }
     
     
 }
