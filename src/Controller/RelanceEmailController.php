@@ -5,12 +5,33 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Manager\DemandeManager;
+use App\Manager\MailManager;
 
 /**
  * @Route("/relance")
  */
 class RelanceEmailController extends AbstractController
 {
+    /**
+     * @Route("/user_paiment/{day}", name="user_paiment")
+     */
+    public function user_relance(int $day, DemandeManager $demandeManager, MailManager $mailManager)
+    {
+        $demandeManager->getUserWithoutSendDocumentInDay($day, $mailManager);
+
+        return new Response('ok');
+    }
+    /**
+     * @Route("/user_paiment_with_doc_non_valid/{day}", name="user_paiment")
+     */
+    public function user_relance_doc_non_valid(int $day, DemandeManager $demandeManager, MailManager $mailManager)
+    {
+        $demandeManager->getUserWithSendDocumentButNotValidInDay($day, $mailManager);
+
+        return new Response('ok');
+    }
+
     /**
      * @Route("/email/{index}", name="relance_email_1")
      */

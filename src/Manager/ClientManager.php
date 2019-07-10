@@ -56,9 +56,14 @@ class ClientManager
         }
     }
 
+    public function find(int $id)
+    {
+        return $this->repository->find($id);
+    }
+
     public function save(Client $client)
     {
-        $this->em->persist($user);
+        $this->em->persist($client);
         $this->em->flush();
     }
 }
