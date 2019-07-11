@@ -2,12 +2,16 @@
 {% extends 'base.html.twig' %}
 
 {% block page_content %}
-<div>
-    <h1>PAGE INEXISTANTE ou INTROUVABLE</h1>
+<div class="text-center">
+    <h1>URL malformée</h1>
     <p>
-        La page que vous recherchez est introuvable ou n'existe pas.
+        Le lien que vous avez entré ne semble pas être un lien CGOfficiel <br>valide. Si quelqu'un vous l'a transmis, nous vous conseillons de lui<br> demander de vérifier son exactitude.
         <br><br>
-        <a href="{{ path('Accueil') }}">retour à l'ACCUEIL</a>.
+        {% if app.user %}
+        Votre compte n'est pas {{ app.user.email }}? <a href="{{ path('login') }}">Changer de compte</a>.
+        {% else %}
+        <a class="btn btn-outline-info btn-lg" href="{{ path('Accueil') }}">Retour à l'Accueil</a>.
+        {% endif %}
     </p>
 </div>
 {% endblock %}
