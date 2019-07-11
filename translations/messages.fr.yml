@@ -143,7 +143,7 @@ label:
     cotitulaire: Cotitulaire(s)
     dateCession: Date de cession
     ancienAdresse: Ancienne adresse
-    typevoie: Type de Voie
+    typevoie: Type de voie *
     complement: Complément d'adresse
     codepostal: Code Postal
     ville: Ville
@@ -194,7 +194,7 @@ label:
     demandeChangementTitulaire: Demander un changement de titulaire
     motifDemande: Motif de la demande
     nom:
-        voie: Nom de la voie
+        voie: Nom de la voie *
         cotitulaire: Nom du Cotitulaire
         titulaire: Nom de l'Acquéreur *
         client: Nom *
@@ -204,6 +204,8 @@ label:
         titulaire: Prénom(s) de l'Acquéreur *
         cotitulaire: Prénom(s) du Cotitulaire
         client: Prénom(s) *
+    numero:
+        voie: Numéro de la voie *
     demande:
         formulaireCerfaRemplis: Formulaire de cerfa rempli
         demandeCertificatImmatriculation: Demande de certificat d'immatriculation

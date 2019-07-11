@@ -6,6 +6,7 @@ use App\Entity\Adresse;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -40,6 +41,13 @@ class AdresseType extends AbstractType
                 ],
                 'label' => 'label.typevoie',         
                 ])
+            ->add('numero', IntegerType::class, array(
+                'label' => 'label.numero.voie',
+                'constraints' => [
+                    new NotBlank(['message'=>'Ce champs est requis'])
+                ],
+                'invalid_message_parameters' => ['%num%' => 2],
+                ))
             ->add('nom', TextType::class, array('label' => 'label.nom.voie'))
             ->add('complement',  TextType::class, array(
                 'required' => false, 

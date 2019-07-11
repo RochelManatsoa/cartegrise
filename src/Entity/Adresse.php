@@ -21,6 +21,7 @@ class Adresse
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\NotNull( message="Ce champs est requis")
      */
     private $numero;
 
