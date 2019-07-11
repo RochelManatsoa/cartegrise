@@ -245,7 +245,7 @@ home:
     continue: Continuer
     validateComand: Je valide ma commande
     createAcountDescription: |
-        Créez votre compte et identifiez-vous en quelques <br> clics, pour valider et suivre votre commande
+        Créez votre compte et identifiez-vous en quelques clics, pour valider et suivre votre commande
     noAcount: "je n'ai pas encore de compte sur CG officiel"
     createAcountButton: CREER MON COMPTE
     login: "S'IDENTIFIER"
