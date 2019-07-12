@@ -241,7 +241,8 @@ class Commande
     public function prepersist()
     {
         $client = $this->client[0];
-        $client->setCountCommande($client->getCountCommande() + 1);
+        if (!is_null($client) && is_object($client))
+            $client->setCountCommande($client->getCountCommande() + 1);
     }
 
 }

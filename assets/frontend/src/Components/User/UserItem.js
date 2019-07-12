@@ -112,7 +112,7 @@ class UserItem extends React.Component {
                     <Card
                         type="topCard"
                         title={this.state.commandeEntries.length}
-                        text='Comandes'
+                        text='Estimations'
                         textClass=''
                         innerClass='inner'
                         iconName='file'
@@ -124,7 +124,7 @@ class UserItem extends React.Component {
                     <Card
                         type="topCard"
                         title={this.state.demandeEntries.length}
-                        text='Demandes'
+                        text='Panier'
                         textClass=''
                         innerClass='inner'
                         iconName='folder'
@@ -136,7 +136,7 @@ class UserItem extends React.Component {
                     <Card
                         type="topCard"
                         title={this.state.transactionEntries.length}
-                        text='Paiement'
+                        text='En attente de documents'
                         textClass=''
                         innerClass='inner'
                         iconName='euro'

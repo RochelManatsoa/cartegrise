@@ -42,6 +42,9 @@ final class UserAdmin extends AbstractAdmin
         $listMapper
         ->addIdentifier('id')
         ->addIdentifier('email')
+        ->add('client.clientContact.contact_telmobile', null, [
+            'label' => 'télephone'
+        ])
         ->add('client.clientNom')
         ->add('roles')
         ;
