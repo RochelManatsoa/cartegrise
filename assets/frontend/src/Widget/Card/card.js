@@ -15,9 +15,9 @@ const renderCard = (props) => {
                         <div className="icon">
                             <FontAwesome name={props.iconName} />
                         </div>
-                        <a href={props.linkDetail} className="small-box-footer">
+                        {/* <a href={props.linkDetail} className="small-box-footer">
                             {props.textDetail} <i className="fa fa-arrow-circle-right"></i>
-                        </a>
+                        </a> */}
                     </div>
                 </div>
             );

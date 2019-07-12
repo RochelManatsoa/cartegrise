@@ -64,11 +64,11 @@ services:
     App\Admin\CommandeAdmin:
         arguments: [~, App\Entity\Commande, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'TMS', label: Commande }
+            - { name: sonata.admin, manager_type: orm,group: 'TABLEAU DE BORD', label: Estimations }
     App\Admin\DemandeAdmin:
         arguments: [~, App\Entity\Demande, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'TMS', label: Demande }
+            - { name: sonata.admin, manager_type: orm,group: 'TABLEAU DE BORD', label: Panier }
     App\Admin\ConfigurationAdmin:
         arguments: [~, App\Entity\Configuration, ~]
         tags:

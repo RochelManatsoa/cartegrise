@@ -113,7 +113,10 @@ class AppExtension extends AbstractExtension
     }
     public function displayRelanceInfos($value, $default = null)
     {
-        return $this->displayGender($value->getClientGenre()).' '.$this->displayValue($value->getClientNom()).' '.$this->displayValue($value->getClientPrenom());
+        if (is_object($value))
+            return $this->displayGender($value->getClientGenre()).' '.$this->displayValue($value->getClientNom()).' '.$this->displayValue($value->getClientPrenom());
+
+        return $this->displayGender($value['clientGenre']).' '.$this->displayValue($value['clientNom']).' '.$this->displayValue($value['clientPrenom']);
     }
 
     public function displayEnergy($value, $default = null)

@@ -16,35 +16,33 @@
                         <td>{{ client.ClientNom}}</td>
                     </tr>
                     <tr>
-                        <th>Prenom</th>
+                        <th>Prénom(s)</th>
                         <td>{{ client.ClientPrenom}}</td>
                     </tr>
                     <tr>
-                        <th>genre</th>
-                        <td>{{ client.clientGenre }}</td>
+                        <th>Civilité</th>
+                        <td>
+                            {% if client.clientGenre starts with 'F' %}
+                                Madame 
+                            {% else %}
+                                Monsieur 
+                            {% endif %}
+                        </td>
                     </tr>
                     <tr>
                         <th>Date de naissance</th>
                         <td>{{ client.ClientDateNaissance| date("m/d/Y")}}</td>
                     </tr>
                     <tr>
-                        <th>lieu de naissance</th>
+                        <th>Lieu de naissance</th>
                         <td>{{ client.ClientLieuNaissance }}</td>
                     </tr>
                     <tr>
-                        <th>Pays de naissance</th>
-                        <td>{{ client.clientPaysNaissance }}</td>
-                    </tr>
-                    <tr>
-                        <th>Departement naissance</th>
-                        <td>{{ client.clientDptNaissance }}</td>
-                    </tr>
-                    <tr>
-                        <th> e-mail</th>
+                        <th> Adresse éléctronique</th>
                         <td>{{ app.user.email }}</td>
                     </tr>
                     <tr>
-                        <th>telephone</th>
+                        <th>Téléphone mobile</th>
                         <td>{{ client.clientContact.contactTelmobile }}</td>
                     </tr>
                 </table>

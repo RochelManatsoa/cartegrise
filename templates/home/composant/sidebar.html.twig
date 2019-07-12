@@ -91,7 +91,7 @@
 	{% if app.user %}
 	<div class="espace-client-user col-10 col-lg-8 col-xl-6 mx-auto mt-4 mb-4 ">
 		<h5>
-		Bonjour Bonjour
+		Bonjour
 		{% if app.user.client is defined and app.user.client is not null %}{{ app.user.client.clientPrenom | displayValue}}
 		{{ app.user.client.clientNom | upper}}{% endif %}
 		</h5>
