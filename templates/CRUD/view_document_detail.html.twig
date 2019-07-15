@@ -1,0 +1,79 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{% block sonata_admin_content %}
+<div>
+    {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
+        <div class="alert alert-success">
+            La demande est validée, attende des documents par courrier à l'adresse
+        </div>
+    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
+        <div class="alert alert-warning" role="alert">
+            La demande est en cours de validation
+        </div>
+    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
+        <div class="alert alert-danger">
+            Motif de rejet:
+            <p>
+                {{ demande.motifDeRejet|nl2br }}
+            </p>
+        </div>
+    {% endif %}
+    <h2>Récapitulatif: </h2>
+    <ul>
+        <li><b>Type Demande : </b> {{ demande.commande.demarche.nom }}</li>
+        <li><b>Date : </b> {{ demande.commande.ceerLe | date('d-m-Y')}}</li>
+        <li><b>Nom et prénom : </b> {{ demande.commande.client[0].clientNom }} {{ demande.commande.client[0].clientPrenom }}</li>
+        <li><b>Département : </b> {{ demande.commande.codePostal }}</li>
+        <li><b>Immatriculation : </b> {{ demande.commande.immatriculation }}</li>
+    </ul>
+</div>
+<div id="daf-list-wrapper">
+    <h2>La liste des documents attendu sont: </h2>
+    {{ daf|raw }}
+</div>
+<div>
+    <h2>Les documents fournis sont: </h2>
+    {% for col in form %}
+        {% if col.vars.type is defined and col.vars.type == 'file' %}
+                <div>
+                    <h3 style="margin-left: 40px;">{{ form_label(col) }}
+                        {% if checkFile(files, col.vars.name) != "" %}
+                            ==>
+                            <small>
+                                <a href="{{ asset(checkFile(files, col.vars.name)) }}"
+                                    target="_blank">
+                                    <button class="btn btn-default">
+                                        <span class="fa fa-eye"></span> Voir
+                                    </button>
+                                </a>
+                            </small>
+                        {% endif %}
+                    </h4>
+                </div>
+            <hr>
+        {% endif %}
+    {% endfor %}
+</div>
+{% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
+<form action="" id="formResponse" method="post">
+    <div>
+        <label for="valid_doc_simulate">
+            <input type="checkbox" name="valid_doc_simulate" id="valid_doc_simulate">
+            Valier les documents à envoyer
+        </label>
+    </div>
+    <input type="submit" class="btn btn-default" id="responseForm" value="Valider">
+</form>
+{% endif %}
+{% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
+<form action="" id="formResponse" method="post">
+    <div>
+        <label for="valid_doc_real">
+            <input type="checkbox" name="valid_doc_real" id="valid_doc_real">
+            Valier les documents reçus par couriel
+        </label>
+    </div>
+    <input type="submit" class="btn btn-default" id="responseForm" value="Valider">
+</form>
+{% endif %}
+{% endblock %}
