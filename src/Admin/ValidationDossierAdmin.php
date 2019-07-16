@@ -44,6 +44,7 @@ final class ValidationDossierAdmin extends AbstractAdmin
     {
         $datagridMapper
         ->add('id')
+        ->add('reference')
         ;
     }
 
@@ -51,6 +52,7 @@ final class ValidationDossierAdmin extends AbstractAdmin
     {
         $listMapper
         ->add('id')
+        ->add('reference')
         ->add('dateDemande')
         ->add('commande.immatriculation')
         ->add('commande.status')
