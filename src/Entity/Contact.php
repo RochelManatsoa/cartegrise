@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
@@ -17,11 +18,23 @@ class Contact
     private $id;
 
     /**
+     * @Assert\Length(
+     *      min=10, 
+     *      max=10, 
+     *      minMessage="Entrer un numéro à 10 chiffres",
+     *      maxMessage="Entrer un numéro à 10 chiffres",
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $contact_telmobile;
 
     /**
+     * @Assert\Length(
+     *      min=10, 
+     *      max=10, 
+     *      minMessage="Entrer un numéro à 10 chiffres",
+     *      maxMessage="Entrer un numéro à 10 chiffres",
+     * )
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $contact_telfixe;

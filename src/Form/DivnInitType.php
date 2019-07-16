@@ -18,7 +18,7 @@ class DivnInitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add("department", NumberType::class, [
+        ->add("department", null, [
             'attr' => [
                 'class' => 'row',
             ],
@@ -30,7 +30,7 @@ class DivnInitType extends AbstractType
                 'class' => 'row',
             ],
         ])
-        ->add("puissanceFiscale", NumberType::class, [
+        ->add("puissanceFiscale", null, [
             'attr' => [
                 'class' => 'row',
             ]
@@ -41,7 +41,7 @@ class DivnInitType extends AbstractType
                 'class' => 'row',
             ]
         ])
-        ->add("tauxDeCo2", NumberType::class, [
+        ->add("tauxDeCo2", null, [
             'attr' => [
                 'class' => 'row',
             ]

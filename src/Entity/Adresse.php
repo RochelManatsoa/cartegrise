@@ -57,6 +57,7 @@ class Adresse
     private $lieudit;
 
     /**
+     * @Assert\Regex("/^[0-9]{5}$/")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $codepostal;
