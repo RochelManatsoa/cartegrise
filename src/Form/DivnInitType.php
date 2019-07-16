@@ -22,34 +22,39 @@ class DivnInitType extends AbstractType
             'attr' => [
                 'class' => 'row',
             ],
-            'label' => 'Departement'
+            'label' => 'label.dep'
         ])
         ->add("genre", ChoiceType::class, [
             "choices" => DivnInit::GENDERS,
             'attr' => [
                 'class' => 'row',
             ],
+            'label' => 'label.divn.genre'
         ])
         ->add("puissanceFiscale", null, [
             'attr' => [
                 'class' => 'row',
-            ]
+            ],
+            'label' => 'label.divn.puissanceFiscale'
         ])
         ->add("energie", ChoiceType::class, [
             "choices" => DivnInit::ENERGIES,
             'attr' => [
                 'class' => 'row',
-            ]
+            ],
+            'label' => 'label.divn.energie'
         ])
         ->add("tauxDeCo2", null, [
             'attr' => [
                 'class' => 'row',
-            ]
+            ],
+            'label' => 'label.divn.tauxDeCo2'
         ])
         ->add("Marque", TextType::class, [
             'attr' => [
                 'class' => 'row',
-            ]
+            ],
+            'label' => 'label.divn.marque'
         ]);
     }
 

@@ -27,7 +27,7 @@ class DivnInit
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      * @Assert\Length(
      *      min=2,
      *      max=3
@@ -41,10 +41,9 @@ class DivnInit
     private $genre;
 
     /**
-     * @ORM\Column(type="integer", length=255)
-     * @Assert\Length(
-     *      min=1,
-     *      max=90
+     * @ORM\Column(type="integer")
+     * @Assert\LessThan(
+     *      value=90
      * )
      */
     private $puissanceFiscale;
@@ -56,10 +55,6 @@ class DivnInit
 
     /**
      * @ORM\Column(type="float", length=255)
-     * @Assert\Length(
-     *      min=1,
-     *      max=100
-     * )
      */
     private $tauxDeCo2;
 

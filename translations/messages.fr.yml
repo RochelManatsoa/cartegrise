@@ -238,6 +238,13 @@ label:
     updateUser: Informations vous concernant
     particulierOrSociete: Particulier ou Société
     notificationType: Type de notification
+
+    divn:
+        tauxDeCo2: Taxe de CO2
+        marque: Marque
+        energie: Enérgie
+        puissanceFiscale: Puissance fiscale
+        genre: Genre
 home:
     carSkills: CARACTÉRISTIQUES DU VÉHICULE
     recapDemande: Récapitulatif de la demande

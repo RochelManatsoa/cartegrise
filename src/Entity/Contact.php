@@ -18,23 +18,12 @@ class Contact
     private $id;
 
     /**
-     * @Assert\Length(
-     *      min=10, 
-     *      max=10, 
-     *      minMessage="Entrer un numéro à 10 chiffres",
-     *      maxMessage="Entrer un numéro à 10 chiffres",
-     * )
+     * @Assert\Regex("^0[1-68][0-9]{8}$")
      * @ORM\Column(type="string", length=255)
      */
     private $contact_telmobile;
 
     /**
-     * @Assert\Length(
-     *      min=10, 
-     *      max=10, 
-     *      minMessage="Entrer un numéro à 10 chiffres",
-     *      maxMessage="Entrer un numéro à 10 chiffres",
-     * )
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $contact_telfixe;

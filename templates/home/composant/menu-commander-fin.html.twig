@@ -79,7 +79,8 @@
 								<div class="popup-center-container search">
 									{% set formDivn = tab[(demarche.id)] %}
 									{{ form_start(formDivn)}}
-										{{ form_widget(formDivn)}}
+									{{ form_label(formDivn) }}
+										{{ form_row(formDivn)}}
 										<div class="col-12 col-md-6 mx-auto text-center search-box">
 											<button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>
 										</div>
