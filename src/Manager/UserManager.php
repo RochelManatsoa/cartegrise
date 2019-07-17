@@ -91,6 +91,7 @@ class UserManager
                         return;
                     }
                     $user->getClient()->addCommande($commande);
+                    $user->getClient()->setCountCommande($user->getClient()->getCountCommande() + 1);
                 }
             }
             $this->save($user);
