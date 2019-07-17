@@ -16,6 +16,7 @@ class AdresseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('numero', null, array('label' => 'label.numerovoie'))
             ->add('typevoie', ChoiceType::class, [
                 'choices'  => [
                     '...' => "SANS",

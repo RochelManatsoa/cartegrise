@@ -20,7 +20,8 @@ class Adresse
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min=1, max=4)
      */
     private $numero;
 
