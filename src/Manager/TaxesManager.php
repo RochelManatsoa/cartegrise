@@ -67,7 +67,7 @@ class TaxesManager
     
     public function getMajoration(Taxes $taxe)
     {
-        $service = $taxe->getTaxeRegionale();
+        $service = $taxe->getTaxeTotale();
         if ($service <= 100) {
             $majoration = 0;
         }elseif ($service > 101 && $service < 300) {
