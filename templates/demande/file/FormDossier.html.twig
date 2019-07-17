@@ -1,4 +1,4 @@
-{% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') %}
+{% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
     {{ form_start(form, {'attr':{'id':'form-dossier'}}) }}
         {% for col in form %}
             {% if col.vars.type is defined and col.vars.type == 'file' %}
