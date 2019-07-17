@@ -15,19 +15,20 @@
                 {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
                     <div class="alert alert-success">
                         Votre demande est validée, veuillez nous envoyer vos documents par courrier à l'adresse
-                        suivante.
-                        <br>pour un traitement plus rapide, veuillez mettre IMPÉRATIVEMENT sur votre enveloppe la référence suivante : {{ demande.reference | displayValue}}
+                        suivante:
                         <br>CG Officiel
                         <br>20 Impasse Camille Langlade
                         <br>31100 Toulouse
+                        <br>Pour un traitement plus rapide, veuillez mettre IMPÉRATIVEMENT sur votre enveloppe la référence suivante : {{ demande.reference | displayValue}}
                     </div>
                 {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
                     <div class="alert alert-warning" role="alert">
-                        Votre demande est en cours de validation, une fois validée, veuillez nous envoyer vos documents par courrier à l'adresse
+                        Votre demande est en cours de validation, veuillez nous envoyer vos documents par courrier à l'adresse
                         suivante :
                         <br>CG Officiel
                         <br>20 Impasse Camille Langlade
                         <br>31100 Toulouse
+                        <br>Pour un traitement plus rapide, veuillez mettre IMPÉRATIVEMENT sur votre enveloppe la référence suivante : {{ demande.reference | displayValue}}
                     </div>
                 {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
                     <div class="alert alert-info" role="alert">
