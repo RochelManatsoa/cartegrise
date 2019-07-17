@@ -55,6 +55,21 @@
     {% endfor %}
 </div>
 {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
+<h3>
+    Réponse:
+</h3>
+<form action="" id="formResponse" method="post">
+    <div>
+        <label for="invalidate_doc_simulate">
+            Motif d'invalidation des documents
+        </label>
+        <div>
+            <textarea name="invalidate_doc_simulate" id="invalidate_doc_simulate" cols="200" rows="10"></textarea>
+        </div>
+    </div>
+    <input type="submit" class="btn btn-default" id="denyForm" value="Refusé">
+</form>
+<hr>
 <form action="" id="formResponse" method="post">
     <div>
         <label for="valid_doc_simulate">
@@ -66,6 +81,9 @@
 </form>
 {% endif %}
 {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
+<h3>
+    Réponse:
+</h3>
 <form action="" id="formResponse" method="post">
     <div>
         <label for="valid_doc_real">
@@ -82,6 +100,19 @@
             if (!confirm('êtes-vous sur ?'))
             {
                 return false;
+            }
+        });
+        $('#denyForm').on('click', function(){
+            if ($('#invalidate_doc_simulate').val() === "") {
+                alert('vous devez ajouter une motif de rejet !')
+                return false;
+            } else {
+                if (!confirm('êtes-vous sur ?'))
+                {
+                    return false;
+                } else {
+                    return true;
+                }
             }
         });
     })

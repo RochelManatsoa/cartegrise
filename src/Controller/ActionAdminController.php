@@ -54,6 +54,10 @@ class ActionAdminController extends Controller
             } elseif ($request->request->get('valid_doc_real') === "on") {
                 $demande->setStatusDoc(Demande::DOC_RECEIVE_VALID);
                 $demandeManager->saveDemande($demande);
+            } elseif ($request->request->get('invalidate_doc_simulate') != "") {
+                $demande->setStatusDoc(Demande::DOC_NONVALID);
+                $demande->setMotifDeRejet($request->request->get('invalidate_doc_simulate'));
+                $demandeManager->saveDemande($demande);
             }
         }
 

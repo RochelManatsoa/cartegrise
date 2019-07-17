@@ -101,7 +101,7 @@
             {% if form is not null %}
                 {% include 'demande/file/FormDossier.html.twig' %}
             {% endif %}
-            {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID')  %}
+            {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
                 <a href="{{ path("validate_file", {'demande': demande.id}) }}">
                     <button class="btn btn-info">
                         Valider
