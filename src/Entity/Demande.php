@@ -24,6 +24,7 @@ class Demande
     const DOC_VALID = 1;
     const DOC_PENDING = 2;
     const DOC_NONVALID = 3;
+    const DOC_RECEIVE_VALID = 4;
     const DOC_INVALID_MESSAGE= "Ce lien n'est plus valide";
     /**
      * @ORM\Id()
@@ -140,6 +141,11 @@ class Demande
      * @ORM\Column(type="string", nullable=true)
      */
     private $statusDoc;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $reference;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -498,11 +504,34 @@ class Demande
     }
 
     /**
+     * @ORM\PreUpdate()
+     */
+    public function preupdate()
+    {
+        if ($this->statusDoc === "1"){
+            $ref = $this->getTransaction()->getTransactionId() . '-' . $this->id;
+            $this->reference = $ref;
+        }
+    }
+
+    /**
      * @ORM\PrePersist()
      */
     public function prepersist()
     {
         $client = $this->commande->getclient()[0];
         $client->setCountDemande($client->getCountDemande() + 1);
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(?string $reference): self
+    {
+        $this->reference = $reference;
+
+        return $this;
     }
 }

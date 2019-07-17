@@ -44,7 +44,7 @@ class UpdateFormType extends AbstractType
                 'label' => 'form.email', 
                 'translation_domain' => 'FOSUserBundle'
                 ))
-            ->add('username', null, array(
+            ->add('username', EmailType::class, array(
                 'label' => "Confirmer adresse mail", 
                 'translation_domain' => 'FOSUserBundle'
                 ))

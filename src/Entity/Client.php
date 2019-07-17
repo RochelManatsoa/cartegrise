@@ -116,8 +116,8 @@ class Client
         $this->fichiers = new ArrayCollection();
         $this->commande = new ArrayCollection();
         $this->commandes = new ArrayCollection();
-        $this->countCommande = 0;
         $this->countDemande = 0;
+        $this->countCommande = 0;
         $this->relanceLevel = 0;
     }
 
