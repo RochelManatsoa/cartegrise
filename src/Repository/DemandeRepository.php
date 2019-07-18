@@ -134,13 +134,13 @@ class DemandeRepository extends ServiceEntityRepository
         ->join('c.user','u')
         ->distinct()
         ->where('trans.status =:paramSuccess')
-        ->andWhere('trans.amount IS NOT NULL')
+        // ->andWhere('trans.amount IS NOT NULL')
         ->andWhere('d.dateDemande <= :now');
 
         $qb
         ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
         ->setParameter('now', $now);
-        dd($qb->getQuery()->getResult());
+        // dd($qb->getQuery()->getResult());
 
         return $qb->getQuery()->getResult();
     }
