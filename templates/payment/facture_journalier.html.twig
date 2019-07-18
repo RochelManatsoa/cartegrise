@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Facture N°{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</title>
+  <title>Facture N°{{ date|date('dmY')}}</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ pathToWeb ~ asset('css/style.css') }}">
@@ -36,7 +36,7 @@
       </div>
       <div class="col-5">
         <h1>Facture Journalière</h1>
-        <p><strong> -- Date --</strong></p>
+        <p><strong>{{ date|date('d-m-Y')}}</strong></p>
       </div>
     </div>
     <br>
@@ -59,44 +59,33 @@
       <thead class="table-active">
         <tr>
           <th>Produit</th>
-          <th class="text-center">Prix Unitaire HT</th>
+          <th class="text-center">Prix Unitaire HT (€)</th>
           <th class="text-center">Quantité</th>
-          <th class="text-center">Total HT</th>
-          <th class="text-center">Taux TVA</th>
+          <th class="text-center">Total HT (€)</th>
+          <th class="text-center">Taux TVA (€)</th>
           <th class="text-center">TVA</th>
-          <th class="text-center">Prix TTC</th>
+          <th class="text-center">Prix TTC (€)</th>
         </tr>
       </thead>
       <tbody>
+        {% for key,result in results %}
           <tr>
-            <td>Changement d'adresse</td>
-            <td class="text-center"><strong></strong></td>
-            <td class="text-center"></td>
-            <td class="text-center"><strong></strong></td>
-            <td class="text-center">20</td>
-            <td class="text-center"><strong></strong></td>
-            <td class="text-center"><strong></strong></td>
+            <td>{{ key }}</td>
+            <td class="text-center"><strong>{{ fraisdossierWithoutTvaDailyFacture(result[0].commande) }}</strong></td>
+            <td class="text-center">{{ result | length }}</td>
+            <td class="text-center"><strong>{{ fraisdossierWithoutTvaTotal(result) }}</strong></td>
+            <td class="text-center">{{ tvaCommande(result[0].commande) }}</td>
+            <td class="text-center"><strong>{{ tvaTraitementDailyTotal(result) }}</strong></td>
+            <td class="text-center"><strong>{{ fraisTraitementWhithTvaTotal(result) }}</strong></td>
           </tr>
+        {% endfor %} 
           <tr>
-            <td>
-              Changement Titulaire<br>
-              Véhicule d'Occassion
-            </td>
-            <td class="text-center"><strong></strong></td>
-            <td class="text-center"></td>
-            <td class="text-center"><strong></strong></td>
-            <td class="text-center">20</td>
-            <td class="text-center"><strong></strong></td>
-            <td class="text-center"><strong></strong></td>
-          </tr>
-          <tr>
-            <td>Demande de duplicata</td>
-            <td class="text-center"><strong></strong></td>
-            <td class="text-center"></td>
-            <td class="text-center"><strong></strong></td>
-            <td class="text-center">20</td>
-            <td class="text-center"><strong></strong></td>
-            <td class="text-center"><strong></strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
           <tr>
             <td></td>
@@ -109,100 +98,85 @@
           <tr>
             <td><strong>Majorations</strong></td>
             <td class="text-center"><strong></strong></td>
-            <td class="text-center"></td>
+            <td class="text-center"><strong>{{demandes | length}}</strong></td>
             <td class="text-center"><strong></strong></td>
             <td class="text-center"></td>
             <td class="text-center"><strong></strong></td>
             <td class="text-center"><strong></strong></td>
           </tr>
+          {% for key,taxes in majorations %}
           <tr>
             <td><strong></strong></td>
-            <td clospan="2" class="text-center"></td>
-            <td class="text-center"><strong></strong></td>
-            <td class="text-center">20</td>
-            <td class="text-center"><strong></strong></td>
-            <td class="text-center"><strong></strong></td>
+            <td clospan="2" class="text-center">{{ without20tva(key) }}</td>
+            <td class="text-center"><strong>{{ taxes | length }}</strong></td>
+            <td class="text-center">{{ without20tvaTotal(key, taxes|length) }}</td>
+            <td class="text-center"><strong>20 %</strong></td>
+            <td class="text-center"><strong>{{ just20tvaTotal(key, taxes|length) }}</strong></td>
+            <td class="text-center"><strong>{{ key }}</strong></td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td colspan="6" class="text-center"><strong>Total TTC</strong></td>
+            <td class="text-center"><strong>{{ totalOfDemandesDaily(demandes, majorations) }} </strong></td>
           </tr>
           <tr>
-            <td colspan="5" class="text-center"><strong>Total TTC</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Produit</strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center">Taxes</td>
+          </tr>
+          {% for key,result in results %}
+          <tr>
+            <td>{{ key }}</td>
+            <td clospan="2" class="text-center"><strong></strong></td>
+            <td clospan="2" class="text-center">{{ result | length }}</td>
+            <td clospan="2" class="text-center"><strong></strong></td>
+            <td class="text-center"></td>
             <td class="text-center"><strong></strong></td>
+            <td class="text-center"><strong>{{ getTaxesTotal(result) }}</strong></td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="6" class="text-center"><strong>Total Taxes</strong></td>
+            <td class="text-center"><strong>{{ getTaxesTotal(demandes) }}</strong></td>
           </tr>
       </tbody>
     </table>
     <br>
-
-		<table class="table table-bordered table-sm">
-        <thead class="table-active">
-          <tr>
-            <th>Produit</th>
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-            <th class="text-center">Taxes</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr>
-              <td>Changement d'adresse</td>
-              <td class="text-center"><strong></strong></td>
-              <td class="text-center"></td>
-              <td class="text-center"><strong></strong></td>
-              <td class="text-center">20</td>
-              <td class="text-center"><strong></strong></td>
-              <td class="text-center"><strong></strong></td>
-            </tr>
-            <tr>
-              <td>
-                Changement Titulaire<br>
-                Véhicule d'Occassion
-              </td>
-              <td class="text-center"><strong></strong></td>
-              <td class="text-center"></td>
-              <td class="text-center"><strong></strong></td>
-              <td class="text-center">20</td>
-              <td class="text-center"><strong></strong></td>
-              <td class="text-center"><strong></strong></td>
-            </tr>
-            <tr>
-              <td>Demande de duplicata</td>
-              <td class="text-center"><strong></strong></td>
-              <td class="text-center"></td>
-              <td class="text-center"><strong></strong></td>
-              <td class="text-center">20</td>
-              <td class="text-center"><strong></strong></td>
-              <td class="text-center"><strong></strong></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><strong></strong></td>
-              <td clospan="2" class="text-center"></td>
-              <td class="text-center"><strong></strong></td>
-              <td class="text-center">20</td>
-              <td class="text-center"><strong></strong></td>
-              <td class="text-center"><strong></strong></td>
-            </tr>
-            <tr>
-              <td colspan="5" class="text-center"><strong>Total Taxes</strong></td>
-              <td class="text-center"><strong></strong></td>
-            </tr>
-        </tbody>
-      </table>
       <div class="row">
         <div class="col-7"></div>
         <div class="col-5">
             <table class="table table-md text-right table-active">
               <tr class="table-active">
                 <td><strong>Total :</strong></td>
-                <td class="text-right"><strong></strong></td>
+                <td class="text-right"><strong>{{ finalTotalOfDaily(demandes, majorations) }}</strong></td>
               </tr>
             </table>
 
