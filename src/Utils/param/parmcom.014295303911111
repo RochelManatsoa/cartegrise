@@ -10,20 +10,17 @@
 
 # URL de retour automatique de la reponse du paiement
 
-#AUTO_RESPONSE_URL!http://127.0.0.1:8000/payment/ipn!
 AUTO_RESPONSE_URL!http://dev2.cgofficiel.fr/payment/ipn!
 #AUTO_RESPONSE_URL!http://www.cgofficiel.fr/payment/ipn!
 #AUTO_RESPONSE_URL!http://www.cgofficiel.fr//payment/ipn!
 
 # URL de retour suite a paiement refuse
 
-#CANCEL_URL!http://127.0.0.1:8000/payment/cancel!
 CANCEL_URL!http://dev2.cgofficiel.fr/payment/cancel!
 #CANCEL_URL!http://www.cgofficiel.fr/payment/cancel!
 #CANCEL_URL!http://localhost:8080/payment/cancel!
 # URL de retour suite a paiement accepte
 
-#RETURN_URL!http://127.0.0.1:8000/payment/success!
 RETURN_URL!http://dev2.cgofficiel.fr/payment/success!
 #RETURN_URL!http://www.cgofficiel.fr/payment/success!
 #RETURN_URL!http://localhost:8080/payment/success!

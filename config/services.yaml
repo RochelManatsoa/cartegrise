@@ -12,14 +12,11 @@ parameters:
         merchant_country: fr
         currency_code: '978'
         #pathfile: '/var/www/app/src/Utils/pathfile'
-        #pathfile: '/home/rochel/Documents/cartegrise/cartegrise/src/Utils/pathfile'
         pathfile: '/var/www/html/front/projectCG/src/Utils/pathfileDev'  # IN ENV DEV
         #pathfile: '/var/www/html/cgofficiel/src/Utils/pathfile'  # IN ENV PROD
     payment_binary:
         #request: '/var/www/app/src/Utils/bin/request'
         #response: '/var/www/app/src/Utils/bin/response'
-        #request: '/home/rochel/Documents/cartegrise/cartegrise/src/Utils/bin/request'
-        #response: '/home/rochel/Documents/cartegrise/cartegrise/src/Utils/bin/response'
         request: '/var/www/html/front/projectCG/src/Utils/bin/request'  # IN ENV DEV
         response: '/var/www/html/front/projectCG/src/Utils/bin/response'  # IN ENV DEV
         #request: '/var/www/html/cgofficiel/src/Utils/bin/request'  # IN ENV PROD
