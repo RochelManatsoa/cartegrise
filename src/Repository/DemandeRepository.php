@@ -123,6 +123,27 @@ class DemandeRepository extends ServiceEntityRepository
 
     }
 
+    public function getDailyDemandeFacture(\DateTime $now)
+    {
+        // $now->modify('- 40day');
+        $qb = $this->createQueryBuilder('d')
+        // ->select('u.email, c.clientNom, c.clientPrenom, c.id as idClient, c.clientGenre')
+        ->join('d.commande','com')
+        ->join('d.transaction','trans')
+        ->join('com.client','c')
+        ->join('c.user','u')
+        ->distinct()
+        ->where('trans.status =:paramSuccess')
+        ->andWhere('trans.amount IS NOT NULL')
+        ->andWhere('d.dateDemande <= :now');
+
+        $qb
+        ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
+        ->setParameter('now', $now);
+
+        return $qb->getQuery()->getResult();
+    }
+
 
 
     public function getCrmFilter(CrmSearch $crmSearch)

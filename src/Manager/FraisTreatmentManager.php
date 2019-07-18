@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-18 09:52:09 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-04-18 10:12:49
+ * @Last Modified time: 2019-07-18 12:24:05
  */
 
  namespace App\Manager;
@@ -52,10 +52,22 @@
         return $prestation + $majoration;
      }
 
+     public function fraisTotalTreatmentOfCommandeWithoutMajoration(Commande $commande)
+     {
+        $prestation = $this->fraisTreatmentOfCommande($commande);
+
+        return $prestation;
+     }
+
      public function fraisTotalTreatmentOfCommandeWithTva(Commande $commande)
      {
 
         return round(($this->fraisTotalTreatmentOfCommande($commande)), 2);
+     }
+     public function fraisTotalTreatmentOfCommandeWithTvaDaily(Commande $commande)
+     {
+
+        return round(($this->fraisTotalTreatmentOfCommandeWithoutMajoration($commande)), 2);
      }
 
      public function tvaOfFraisTreatment(Commande $commande)
@@ -64,11 +76,23 @@
         $ttc = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
         return round(($this->fraisTotalTreatmentOfCommande($commande) * ($tva/$ttc)), 2);
      }
+     public function tvaOfFraisTreatmentDaily(Commande $commande)
+     {
+        $tva = $this->tvaTreatmentOfCommande($commande)/100;
+        $ttc = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
+        return round(($this->fraisTotalTreatmentOfCommandeWithoutMajoration($commande) * ($tva/$ttc)), 2);
+     }
 
      public function fraisTreatmentWithoutTaxesOfCommande(Commande $commande)
      {
         $tva = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
         return round(($this->fraisTotalTreatmentOfCommande($commande) / $tva), 2);
+     }
+
+     public function fraisTreatmentWithoutTaxesOfCommandeDaily(Commande $commande)
+     {
+        $tva = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
+        return round(($this->fraisTotalTreatmentOfCommandeWithoutMajoration($commande) / $tva), 2);
      }
 
      public function total(Commande $commande)
