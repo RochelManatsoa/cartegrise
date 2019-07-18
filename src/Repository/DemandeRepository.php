@@ -140,6 +140,7 @@ class DemandeRepository extends ServiceEntityRepository
         $qb
         ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
         ->setParameter('now', $now);
+        dd($qb->getQuery()->getResult());
 
         return $qb->getQuery()->getResult();
     }
