@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
@@ -17,6 +18,7 @@ class Contact
     private $id;
 
     /**
+     * @Assert\Regex("^0[1-68][0-9]{8}$")
      * @ORM\Column(type="string", length=255)
      */
     private $contact_telmobile;

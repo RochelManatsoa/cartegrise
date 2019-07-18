@@ -4,7 +4,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-17 13:14:01 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-04 12:21:39
+ * @Last Modified time: 2019-07-18 15:00:47
  */
 namespace App\Manager;
 
@@ -22,6 +22,7 @@ use App\Form\DocumentDemande\DemandeNonValidateType;
 use App\Manager\{TransactionManager, MailManager};
 use App\Repository\DemandeRepository;
 use App\Manager\ClientManager;
+use App\Manager\TaxesManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +30,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use App\Entity\DailyFacture;
 use Twig_Environment as Twig;
 
 class DemandeManager
@@ -42,6 +44,7 @@ class DemandeManager
     private $commandeManager;
     private $clientManager;
     private $tokenStorage;
+    private $taxesManager;
 
     public function __construct
     (
@@ -53,7 +56,8 @@ class DemandeManager
         TranslatorInterface    $translator,
         CommandeManager        $commandeManager,
         TokenStorageInterface  $tokenStorage,
-        ClientManager          $clientManager
+        ClientManager          $clientManager,
+        TaxesManager           $taxesManager
     )
     {
         $this->em                 = $em;
@@ -65,6 +69,7 @@ class DemandeManager
         $this->translator         = $translator;
         $this->tokenStorage       = $tokenStorage;
         $this->clientManager      = $clientManager;
+        $this->taxesManager      = $taxesManager;
     }
 
     private function init()
@@ -286,6 +291,42 @@ class DemandeManager
         return $file;
     }
 
+    public function generateDailyFacture(array $demandes, \DateTime $now)
+    {
+        $results = [];
+        $majorations = [];
+        foreach($demandes as $demande) {
+            $results[$demande->getCommande()->getDemarche()->getNom()][] = $demande;
+            $majorations[$this->taxesManager->getMajoration($demande->getCommande()->getTaxes())][] = $demande->getCommande()->getTaxes();
+        }
+        ksort($majorations);
+        $dailyFacture = new DailyFacture();
+
+        $folder = $dailyFacture->getDailyFacturePath();
+        $file = $dailyFacture->getDailyFacturePathFile($now);
+
+        // create directory
+        if (!is_dir($folder)) mkdir($folder, 0777, true);
+        // end create file 
+        // get facture if not exist
+        // if (!is_file($file)) { // attente de finalité du process
+            $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
+            $filename = "Facture";
+            $html = $this->twig->render('payment/facture_journalier.html.twig',
+            [
+                'results' => $results,
+                'date' => $now,
+                'majorations' => $majorations,
+                'demandes' => $demandes,
+            ]);
+            $output = $snappy->getOutputFromHtml($html);
+            
+            $filefinal = file_put_contents($file, $output);
+        // }
+        
+        return $file;
+    }
+
     public function find($id)
     {
 
@@ -391,6 +432,13 @@ class DemandeManager
         $template = 'relance/email4.html.twig';
 
         return $template;
+    }
+
+    public function getDailyDemandeFacture(\DateTime $now)
+    {
+        $demandes = $this->repository->getDailyDemandeFacture($now);
+
+        return $demandes;
     }
 
     public function sendUserForRelance($level = 0)

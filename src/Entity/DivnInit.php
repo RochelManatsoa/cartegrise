@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DivnInitRepository")
@@ -26,7 +27,11 @@ class DivnInit
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min=2,
+     *      max=3
+     * )
      */
     private $department;
 
@@ -36,7 +41,10 @@ class DivnInit
     private $genre;
 
     /**
-     * @ORM\Column(type="integer", length=255)
+     * @ORM\Column(type="integer")
+     * @Assert\LessThan(
+     *      value=90
+     * )
      */
     private $puissanceFiscale;
 
