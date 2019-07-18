@@ -158,12 +158,16 @@
 		<div class="{{ wrapperClassName }}">
 			<div class="row">
 				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientAdresse.typevoie, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+					{{ form_row(form.client.clientAdresse.numero, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
 				</div>
 				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientAdresse.nom, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+					{{ form_row(form.client.clientAdresse.typevoie, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
 				</div>
 			</div>
+		</div>
+
+		<div class="{{ wrapperClassName }}">
+			{{ form_row(form.client.clientAdresse.nom, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
 		</div>
 
 		<div class="{{ wrapperClassName }}">

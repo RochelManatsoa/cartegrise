@@ -144,6 +144,7 @@ label:
     dateCession: Date de cession
     ancienAdresse: Ancienne adresse
     typevoie: Type de Voie
+    numerovoie: Numéro de la Voie
     complement: Complément d'adresse
     codepostal: Code Postal
     ville: Ville
