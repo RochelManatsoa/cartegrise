@@ -57,6 +57,12 @@
                             {{ form_errors(form.client.clientContact) }}
                             {{ form_widget(form.client.clientContact) }}
                         </div>
+                        <legend class="col-form-label">Adresse</legend>
+                        <div class="form-group">
+                            {{ form_label(form.client.clientAdresse.numero) }}
+                            {{ form_errors(form.client.clientAdresse.numero) }}
+                            {{ form_widget(form.client.clientAdresse.numero) }}
+                        </div>
                         <div class="form-group">
                             {{ form_label(form.client.clientAdresse.typevoie) }}
                             {{ form_errors(form.client.clientAdresse.typevoie) }}
