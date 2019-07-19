@@ -45,6 +45,13 @@
                         <th>Téléphone mobile</th>
                         <td>{{ client.clientContact.contactTelmobile }}</td>
                     </tr>
+                    <tr>
+                        <th>Adresse</th>
+                        <td>
+                            {{ client.clientAdresse.numero}} {{ client.clientAdresse.typevoie}} {{ client.clientAdresse.nom}}<br>
+                            {{ client.clientAdresse.codepostal}} {{ client.clientAdresse.ville}}
+                        </td>
+                    </tr>
                 </table>
                 <div class="text-center">
                     <a href="{{ path('update_acount', {user: app.user.id}) }}" class="">
