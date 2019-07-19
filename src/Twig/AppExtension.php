@@ -83,10 +83,32 @@ class AppExtension extends AbstractExtension
             new TwigFilter('displayGender', [$this, 'displayGender']),
             new TwigFilter('displayRelanceInfos', [$this, 'displayRelanceInfos']),
             new TwigFilter('displayEnergy', [$this, 'displayEnergy']),
+            new TwigFilter('formatFacture', [$this, 'formatFacture']),
         ];
     }
 
     // function 
+
+    public function formatFacture($value)
+    {
+        $case = strlen($value);
+        switch($case){
+            case "1": 
+                $return = '000'.$value;
+            break;
+            case "2": 
+                $return = '00'.$value;
+            break;
+            case "3": 
+                $return = '0'.$value;
+            break;
+            default: 
+                $return = $value;
+            break;
+        }
+
+        return $return;
+    }
 
     public function formatAmount($number, $decimals = 0, $decPoint = '.', $thousandsSep = ',')
     {
