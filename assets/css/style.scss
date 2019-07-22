@@ -260,3 +260,112 @@ body .popup-center-container {
 .color-blue {
 	color: #0275d8;
 }
+// refont HP
+ul {
+	list-style: none;
+}
+.new-header {
+    height: 150px;
+    background: #002a6b;
+    width: 100%;
+	color: #fff;
+	.title-header {
+		margin-left: 33.33%;
+		h1 {
+			text-transform: uppercase;
+			font-family: raleway;
+			font-weight: 500;
+			font-size: 40px;
+			line-height: 46px;
+		}
+	}
+}
+.new-sidebar {
+	margin-top:-100px;
+	.logo-sidebar {
+		position: relative;
+		max-width: 225px !important;
+		img {
+			background: #fff;
+			border-radius: 8px;
+			border: 8px solid #002a6b;
+		}
+		&:before {
+			content: '';
+			display: block;
+			position: fixed;
+			width: 225px;
+			height: 100%;
+			background: #002a6b;
+			bottom: 0;
+			margin-left: 8px;
+			top: 0;
+			z-index: -1;
+		}
+	}
+	.menu-sidebar {
+		ul {
+			width: calc(50% + 130px);
+			text-align: right;
+			padding: 0;
+			li {
+				background: #ccc;
+				margin: 20px 0;
+				.menu-item {
+					color: #000;
+					font-family: raleway;
+					font-size: 20px;
+					font-weight: 700;
+					text-decoration: none;
+					padding: 5px 10px;
+					display: block;
+				}
+			}
+		}
+	}
+	.espace-client-user,
+	.espace-client-menu,
+	.espace-client-menu + div,
+	.espace-client-menu + div + div {
+		padding-left: 15px !important;
+	}
+	.espace-client-user {
+		color: #fff;
+		a {
+			color: #fff;
+		}
+	}
+}
+.demande-element {
+    margin: 20px !important;
+	flex: 0 0 calc(33.33% - 50px) !important;
+	height: 150px;
+	background: #7296ce;
+	box-shadow: 10px 10px 0px #002a6b;
+	cursor: pointer;
+	&:hover {
+		opacity: 0.8;
+	}
+	.demande-btn {
+		border: none;
+		background: none;
+		padding: 15px 10px;
+		width: calc(100% - 20px);
+		cursor: pointer;
+		.fas,
+		h2 {
+			color: #fff;
+			font-weight: 300;
+		}
+		h2 {
+			font-size: 16px;
+			margin-top: 15px;
+			text-transform: uppercase;
+			line-height: 20px;
+			font-family: raleway;
+		}
+	}
+}
+.accueil-texte {
+    margin-left: 33.33% !important;	
+}
