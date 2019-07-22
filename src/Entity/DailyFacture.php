@@ -8,11 +8,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\AdresseRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\DailyFactureRepository")
  */
 class DailyFacture
 {
-    const DOC_DOWNLOAD = 'document/dailyFacture/';
+    const DOC_DOWNLOAD = 'document/dailyFacture';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -26,7 +26,7 @@ class DailyFacture
     private $path;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="date", length=255)
      * @Assert\NotNull( message="Ce champs est requis")
      */
     private $dateCreate;
@@ -48,18 +48,6 @@ class DailyFacture
         return $this;
     }
 
-    public function getDateCreate(): ?string
-    {
-        return $this->dateCreate;
-    }
-
-    public function setDateCreate(string $dateCreate): self
-    {
-        $this->dateCreate = $dateCreate;
-
-        return $this;
-    }
-
     public function getDailyFacturePath(): ?string
     {
 
@@ -69,6 +57,18 @@ class DailyFacture
     {
 
         return $this::DOC_DOWNLOAD.'/'.$now->format('Ymd').'.pdf';
+    }
+
+    public function getDateCreate(): ?\DateTimeInterface
+    {
+        return $this->dateCreate;
+    }
+
+    public function setDateCreate(\DateTimeInterface $dateCreate): self
+    {
+        $this->dateCreate = $dateCreate;
+
+        return $this;
     }
 
 }
