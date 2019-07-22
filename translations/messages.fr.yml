@@ -207,7 +207,7 @@ label:
         client: Prénom(s) *
     demande:
         formulaireCerfaRemplis: Formulaire de cerfa rempli
-        demandeCertificatImmatriculation: Demande de certificat d'immatriculation
+        demandeCertificatImmatriculation: Demande de certificat d'immatriculation (CERFA)
         justificatifDomicile: Justificatif de domicile récent
         copiePermisConduire: Copie du permis de conduire
         copieAttestationAssuranceValide: Copie d'attestation d'assurance valide
@@ -217,8 +217,8 @@ label:
         copieControleTechnique: Copie du contrôle technique
         copieControleTechniqueEnCoursValidite: Copie du contrôle technique en cours de validité
         procurationMandat: Mandat d'immatriculation
-        demandeCertificat: Demande de certificat => Cerfa 13750*05
-        declatationCession: Déclaration de cession => Cerfa 15776*01
+        demandeCertificat: Demande de certificat (CERFA 13750*05) 
+        declatationCession: Déclaration de cession (CERFA 15776*01)
         declarationdePerteOuVol: Déclaration de perte ou vol
         certificatImmatriculation: Certificat d'immatriculation
         procurationParMandat: Procuration par mandat
