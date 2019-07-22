@@ -123,7 +123,7 @@ class DemandeRepository extends ServiceEntityRepository
 
     }
 
-    public function getDailyDemandeFacture(\DateTime $now)
+    public function getDailyDemandeFacture(\DateTime $begin, \DateTime $now)
     {
         // $now->modify('- 40day');
         $qb = $this->createQueryBuilder('d')
