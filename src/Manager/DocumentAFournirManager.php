@@ -116,12 +116,17 @@ class DocumentAFournirManager
     }
 
     public function getFileDup(Demande $demande) {
-        if ($demande->getDuplicata()->getFile() == null ) {
-            $fileDemandeDuplicata = new DemandeDuplicata();
-            $demande->getDuplicata()->setFile($fileDemandeDuplicata);
-            $this->entityManager->persist($demande);
-            $this->entityManager->flush();
+        if ($demande->getDuplicata()){
+            if ($demande->getDuplicata()->getFile() == null ) {
+                $fileDemandeDuplicata = new DemandeDuplicata();
+                $demande->getDuplicata()->setFile($fileDemandeDuplicata);
+                $this->entityManager->persist($demande);
+                $this->entityManager->flush();
+            }
+        } else {
+            return null;
         }
+
 
         return $demande->getDuplicata()->getFile();
     }

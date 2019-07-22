@@ -1,6 +1,11 @@
 {% extends '@SonataAdmin/standard_layout.html.twig' %}
 
 {% block sonata_admin_content %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
 <div>
     {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
         <div class="alert alert-success">
@@ -16,6 +21,10 @@
             <p>
                 {{ demande.motifDeRejet|nl2br }}
             </p>
+        </div>
+    {% elseif demande.commande.saved %}
+        <div class="alert alert-success">
+            la demande est validée et a été envoyée
         </div>
     {% endif %}
     <h2>Récapitulatif: </h2>

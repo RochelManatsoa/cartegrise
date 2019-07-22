@@ -81,10 +81,16 @@ class Commande
      */
     private $carInfo;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $saved;
+
 
     public function __construct()
     {
         $this->client = new ArrayCollection();
+        $this->saved = false;
     }
 
     public function getStatus()
@@ -248,6 +254,18 @@ class Commande
         $client = $this->client[0];
         if (!is_null($client) && is_object($client))
             $client->setCountCommande($client->getCountCommande() + 1);
+    }
+
+    public function getSaved(): ?bool
+    {
+        return $this->saved;
+    }
+
+    public function setSaved(?bool $saved): self
+    {
+        $this->saved = $saved;
+
+        return $this;
     }
 
 }
