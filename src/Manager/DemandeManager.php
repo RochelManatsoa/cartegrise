@@ -4,7 +4,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-17 13:14:01 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-22 15:40:11
+ * @Last Modified time: 2019-07-22 16:03:48
  */
 namespace App\Manager;
 
@@ -443,7 +443,10 @@ class DemandeManager
     public function getDailyDemandeFacture(\DateTime $now)
     {
         $dailyFacture = $this->dailyFactureRepository->findOneBy([], ['id' => 'DESC']);
-        $demandes = $this->repository->getDailyDemandeFacture($dailyFacture->getDateCreate(),$now);
+        if (is_object($dailyFacture))
+            $demandes = $this->repository->getDailyDemandeFacture($dailyFacture->getDateCreate(),$now);
+        else 
+            $demandes = $this->repository->getDailyDemandeFacture(null,$now);
 
         return $demandes;
     }
