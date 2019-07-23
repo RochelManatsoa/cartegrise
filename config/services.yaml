@@ -6,6 +6,23 @@
 parameters:
     locale: 'fr'
     upload_directory: '%kernel.project_dir%/public/allfiles'
+    payment_params:
+        merchant_id: '014295303911111'    # CODE DE TEST
+        #merchant_id: '083897291700010'    # IN PROD
+        merchant_country: fr
+        currency_code: '978'
+        #pathfile: '/var/www/app/src/Utils/pathfile'
+        pathfile: '/var/www/html/front/projectCG/src/Utils/pathfileDev'  # IN ENV DEV
+        #pathfile: '/var/www/html/cgofficiel/src/Utils/pathfile'  # IN ENV PROD
+    payment_binary:
+        #request: '/var/www/app/src/Utils/bin/request'
+        #response: '/var/www/app/src/Utils/bin/response'
+        request: '/var/www/html/front/projectCG/src/Utils/bin/request'  # IN ENV DEV
+        response: '/var/www/html/front/projectCG/src/Utils/bin/response'  # IN ENV DEV
+        #request: '/var/www/html/cgofficiel/src/Utils/bin/request'  # IN ENV PROD
+        #response: '/var/www/html/cgofficiel/src/Utils/bin/response'  # IN ENV PROD
+    admin_mail: ['rapaelec@gmail.com', 'technique@cgofficiel.fr', 'rapaelec@gmail.com', 'nirinarochelmiandrisoa@gmail.com', 'rochel2fnclm@gmail.com']
+    admin_doc_validator: ["rapaelec@gmail.com", "test@gmail.com", "rakoto@gmail.com"]
 
 services:
     # default configuration for services in *this* file
@@ -35,6 +52,50 @@ services:
             - { name: kernel.event_subscriber }
     Symfony\Component\HttpFoundation\Session\Session:
         public: true
-
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    app.authentication_success_handler:
+        class: App\EventListener\LoginAuthenticationHandler
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
+    App\Services\Tms\TmsClient:
+        arguments: ['%env(resolve:TMS_ENDPOINT)%', '%env(resolve:TMS_CODE_TMS)%', '%env(resolve:TMS_LOGIN)%', '%env(resolve:TMS_PASSWORD)%']
+    App\EventListener\AnnotationValidator:
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, methode: onKernelController}
+    App\Admin\CommandeAdmin:
+        arguments: [~, App\Entity\Commande, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'TABLEAU DE BORD', label: Estimations }
+    App\Admin\DemandeAdmin:
+        arguments: [~, App\Entity\Demande, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'TABLEAU DE BORD', label: Panier }
+    App\Admin\ConfigurationAdmin:
+        arguments: [~, App\Entity\Configuration, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'CONFIGURATION', label: 'Traitement Taxes' }
+    App\Admin\TarifPrestationAdmin:
+        arguments: [~, App\Entity\TarifsPrestations, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'TARIFS', label: 'Tarif prestation' }
+    App\Admin\FactureJournalierAdmin:
+        arguments: [~, App\Entity\DailyFacture, App\Controller\ActionAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'FACTURE', label: 'Factures Journalier clients' }
+    App\Admin\UserAdmin:
+        arguments: [~, App\Entity\User, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'UTILISATEURS', label: 'Gestion des Utilisateurs' }
+    App\Admin\NotificationEmailAdmin:
+        arguments: [~, App\Entity\NotificationEmail, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'NOTIFICATION', label: 'Gestions des notifications ' }
+    App\Admin\FactureAdmin:
+        arguments: [~, App\Entity\Demande, App\Controller\ActionAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'FACTURE', label: 'Factures clients' }
+        public: true
+    App\Admin\ValidationDossierAdmin:
+        arguments: [~, App\Entity\Demande, App\Controller\ActionAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'DOCUMENTS', label: 'Valider les documents' }
+        public: true

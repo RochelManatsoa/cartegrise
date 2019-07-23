@@ -18,7 +18,6 @@ Encore
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
-    .addEntry('css/styles', './assets/css/style.scss')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
@@ -52,8 +51,8 @@ Encore
     //.autoProvidejQuery()
 
     // uncomment if you use API Platform Admin (composer req api-admin)
-    //.enableReactPreset()
-    //.addEntry('admin', './assets/js/admin.js')
+    .enableReactPreset()
+    .addEntry('react', './assets/frontend/src/index.js')
 ;
 
-module.exports = Encore.getWebpackConfig();
+module.exports = Encore.getWebpackConfig({});

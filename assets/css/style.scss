@@ -72,11 +72,13 @@
 	margin-right: 0 !important;
 	box-sizing: content-box !important;
 }
-
+.font-24 {
+	font-size: 24px;
+}
 
 body{
 	// background-color: #eeeeee !important;
-	background: url("/img/fond-CGofficiel-carte-grise-certificat-immatriculation.png") !important;
+	background: url("/../../asset/img/fond-CGofficiel-carte-grise-certificat-immatriculation.png") !important;
 	background-color: #f9f9f9 !important;
 	background-position: top right !important;
 	background-size: 100% !important;
@@ -106,27 +108,40 @@ $bleu-hover: rgb(63, 87, 149);
 $rouge: rgb(175, 68, 68);
 @font-face {
 	font-family: textr;
-	src: url("/fonts/SourceSansPro-Regular.ttf");
+	src: url("/../../asset/fonts/SourceSansPro-Regular.ttf");
 }
 @font-face {
 	font-family: menu;
-	src: url("/fonts/calibril.ttf");
+	src: url("/../../asset/fonts/calibril.ttf");
 }
 @font-face {
 	font-family: menub;
-	src: url("/fonts/calibrib.ttf");
+	src: url("/../../asset/fonts/calibrib.ttf");
 }
 @font-face {
 	font-family: Raleway;
-	src: url("/fonts/Raleway-Regular.ttf");
+	src: url("/../../asset/fonts/Raleway-Regular.ttf");
 }
 
 @font-face {
 	font-family: font-awesome;
-	src: url("/fonts/fontawesome-webfont.woff");
+	src: url("/../../asset/fonts/fontawesome-webfont.woff");
 }
-
-
+.error {
+	color: #f0064c
+}
+.custom-table tr td {
+	word-break: break-word;
+}
+@media (max-width:480px) {
+	.custom-table tr td,
+	.custom-table tr th {
+		font-size: 14px !important;
+	}	
+}
+@import '_mail-form.scss';
+@import '_custom-form.scss';
+@import '_custom-buton-file.scss';
 @import 'menu.scss';
 @import 'sidebar.scss';
 @import 'footer.scss';
@@ -150,4 +165,98 @@ $rouge: rgb(175, 68, 68);
 /*________________________________________________________________Arrow :*/
 .modal-dialog{
 	margin-top: 60px !important;
+}
+input[type="file"]{
+	opacity: 1 !important;
+	width: 100% !important;
+}
+.mdp-oublie {
+	width: 100%;
+	margin: 0;
+	min-height: 150px;
+	.form-control {
+		padding: 5px 10px;
+		width: -moz-calc(100% - 15px);
+		width: -ms-calc(100% - 15px);
+		width: -webkit-calc(100% - 15px);
+		width: calc(100% - 5px);
+	}
+}
+.contact-title {
+    color: #002a6b;
+}
+.contact-form .form-control {
+	width: -moz-calc(100% - 30px);
+	width: -ms-calc(100% - 30px);
+	width: -webkit-calc(100% - 30px);
+    width: calc(100% - 30px);
+}
+.flex-bottom-custom {
+	justify-content: space-around;
+	align-items: flex-end;
+}
+@media (max-width:992px) {
+	.full-tablet {
+		max-width: 100% !important;
+    	flex: 0 0 100% !important;
+	}
+}
+.error-flex {
+	height: calc(100vh - 100px);
+    flex-wrap: wrap;
+	align-content: center;
+	justify-content: center;
+	.error-container {
+		background: rgba(255,255,255,0.4);
+		border-radius: 20px;
+		border: 2px solid #0275d8;
+		padding: 60px 30px;
+		text-align: center;
+		h1 {
+			font-weight: 700;
+		}
+		.desc-error {
+			text-align: center;
+			font-size: 20px;
+			width: 100%;
+			font-weight: 700;
+		}
+		a {
+			font-weight: 700;
+		}
+	}
+}
+body .popup-center-container {
+    width: 90%;
+	margin: auto;
+	.labelStep {
+		color: #0275d8;
+		font-weight: bold;
+		display: block;
+    	margin-bottom: 6px;
+		.stepNumber {
+			display: inline-block;
+			color: #fff;
+			background: #0275d8;
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			margin-right: 10px;
+			border-radius: 50%;
+		}
+	}
+	.form-control {
+		height: auto !important;
+		width: -moz-calc(100% - 40px);
+		width: -ms-calc(100% - 40px);
+		width: -webkit-calc(100% - 40px);
+		width: calc(100% - 40px);
+	}
+}
+.w-90 {
+	width: 90%;
+}
+.color-blue {
+	color: #0275d8;
 }

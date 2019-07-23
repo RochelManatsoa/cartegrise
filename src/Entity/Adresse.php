@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,7 +20,8 @@ class Adresse
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min=1, max=4)
      */
     private $numero;
 
@@ -34,12 +36,14 @@ class Adresse
     private $adprecision;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull( message="Ce champs est requis")
      */
     private $typevoie;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull( message="Ce champs est requis")
      */
     private $nom;
 
@@ -54,6 +58,7 @@ class Adresse
     private $lieudit;
 
     /**
+     * @Assert\Regex("/^[0-9]{5}$/")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $codepostal;
@@ -74,18 +79,22 @@ class Adresse
     private $pays;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Client", mappedBy="clientAdresse", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Client", inversedBy="clientAdresse")
      */
     private $client;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Vehicule", mappedBy="vehiculeAdresse")
+     * @ORM\OneToOne(targetEntity="App\Entity\NewTitulaire", inversedBy="adresseNewTitulaire", cascade={"persist", "remove"})
+     */
+    private $titulaire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Vehicule", inversedBy="adresse")
      */
     private $vehicules;
 
     public function __construct()
     {
-        $this->vehicules = new ArrayCollection();
     }
 
 
@@ -100,7 +109,7 @@ class Adresse
         return $this->numero;
     }
 
-    public function setNumero(int $numero): self
+    public function setNumero(?int $numero): self
     {
         $this->numero = $numero;
 
@@ -112,7 +121,7 @@ class Adresse
         return $this->extension;
     }
 
-    public function setExtension(string $extension): self
+    public function setExtension(?string $extension): self
     {
         $this->extension = $extension;
 
@@ -124,7 +133,7 @@ class Adresse
         return $this->adprecision;
     }
 
-    public function setAdprecision(string $adprecision): self
+    public function setAdprecision(?string $adprecision): self
     {
         $this->adprecision = $adprecision;
 
@@ -136,7 +145,7 @@ class Adresse
         return $this->typevoie;
     }
 
-    public function setTypevoie(string $typevoie): self
+    public function setTypevoie(?string $typevoie): self
     {
         $this->typevoie = $typevoie;
 
@@ -148,7 +157,7 @@ class Adresse
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(?string $nom): self
     {
         $this->nom = $nom;
 
@@ -160,7 +169,7 @@ class Adresse
         return $this->complement;
     }
 
-    public function setComplement(string $complement): self
+    public function setComplement(?string $complement): self
     {
         $this->complement = $complement;
 
@@ -172,7 +181,7 @@ class Adresse
         return $this->lieudit;
     }
 
-    public function setLieudit(string $lieudit): self
+    public function setLieudit(?string $lieudit): self
     {
         $this->lieudit = $lieudit;
 
@@ -184,7 +193,7 @@ class Adresse
         return $this->codepostal;
     }
 
-    public function setCodepostal(string $codepostal): self
+    public function setCodepostal(?string $codepostal): self
     {
         $this->codepostal = $codepostal;
 
@@ -196,7 +205,7 @@ class Adresse
         return $this->ville;
     }
 
-    public function setVille(string $ville): self
+    public function setVille(?string $ville): self
     {
         $this->ville = $ville;
 
@@ -208,7 +217,7 @@ class Adresse
         return $this->boitepostale;
     }
 
-    public function setBoitepostale(string $boitepostale): self
+    public function setBoitepostale(?string $boitepostale): self
     {
         $this->boitepostale = $boitepostale;
 
@@ -220,7 +229,7 @@ class Adresse
         return $this->pays;
     }
 
-    public function setPays(string $pays): self
+    public function setPays(?string $pays): self
     {
         $this->pays = $pays;
 
@@ -245,33 +254,26 @@ class Adresse
         return $this;
     }
 
-    /**
-     * @return Collection|Vehicule[]
-     */
-    public function getVehicules(): Collection
+    public function getTitulaire(): ?NewTitulaire
     {
-        return $this->vehicules;
+        return $this->titulaire;
     }
 
-    public function addVehicule(Vehicule $vehicule): self
+    public function setTitulaire(?NewTitulaire $titulaire): self
     {
-        if (!$this->vehicules->contains($vehicule)) {
-            $this->vehicules[] = $vehicule;
-            $vehicule->setVehiculeAdresse($this);
-        }
+        $this->titulaire = $titulaire;
 
         return $this;
     }
 
-    public function removeVehicule(Vehicule $vehicule): self
+    public function getVehicules(): ?Vehicule
     {
-        if ($this->vehicules->contains($vehicule)) {
-            $this->vehicules->removeElement($vehicule);
-            // set the owning side to null (unless already changed)
-            if ($vehicule->getVehiculeAdresse() === $this) {
-                $vehicule->setVehiculeAdresse(null);
-            }
-        }
+        return $this->vehicules;
+    }
+
+    public function setVehicules(?Vehicule $vehicules): self
+    {
+        $this->vehicules = $vehicules;
 
         return $this;
     }

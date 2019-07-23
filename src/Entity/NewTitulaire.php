@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class NewTitulaire
 {
+    const TYPE_PERS_PHYSIQUE = 0;
+    const TYPE_PERS_MORALE   = 1;
+    const GENRE_M   = "M";
+    const GENRE_F   = "F";
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -19,35 +25,49 @@ class NewTitulaire
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Champs requis")
      */
     private $nomPrenomTitulaire;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Champs requis")
      */
     private $genre;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
+     * @Assert\NotNull(message="Champs requis")
      */
     private $dateN;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Champs requis")
      */
     private $lieuN;
 
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\AdresseNewTitulaire", mappedBy="titulaire", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Adresse", mappedBy="titulaire", cascade={"persist", "remove"})
      */
     private $adresseNewTitulaire;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Demande", mappedBy="Acquerreur", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", mappedBy="acquerreur", cascade={"persist", "remove"})
      */
-    private $demande;
+    private $ctvo;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Divn", mappedBy="acquerreur", cascade={"persist", "remove"})
+     */
+    private $divn;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", mappedBy="nouveauxTitulaire", cascade={"persist", "remove"})
+     */
+    private $changementAdresse;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -73,6 +93,11 @@ class NewTitulaire
      * @ORM\OneToMany(targetEntity="App\Entity\Vehicule", mappedBy="Titulaire")
      */
     private $vehicules;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenomTitulaire;
 
     public function __construct()
     {
@@ -132,23 +157,6 @@ class NewTitulaire
         return $this;
     }
 
-    public function getAdresseNewTitulaire(): ?AdresseNewTitulaire
-    {
-        return $this->adresseNewTitulaire;
-    }
-
-    public function setAdresseNewTitulaire(?AdresseNewTitulaire $adresseNewTitulaire): self
-    {
-        $this->adresseNewTitulaire = $adresseNewTitulaire;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newTitulaire = $adresseNewTitulaire === null ? null : $this;
-        if ($newTitulaire !== $adresseNewTitulaire->getTitulaire()) {
-            $adresseNewTitulaire->setTitulaire($newTitulaire);
-        }
-
-        return $this;
-    }
 
     public function getDemande(): ?Demande
     {
@@ -243,6 +251,90 @@ class NewTitulaire
                 $vehicule->setTitulaire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCtvo(): ?Ctvo
+    {
+        return $this->ctvo;
+    }
+
+    public function setCtvo(?Ctvo $ctvo): self
+    {
+        $this->ctvo = $ctvo;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAcquerreur = $ctvo === null ? null : $this;
+        if ($newAcquerreur !== $ctvo->getAcquerreur()) {
+            $ctvo->setAcquerreur($newAcquerreur);
+        }
+
+        return $this;
+    }
+
+    public function getChangementAdresse(): ?ChangementAdresse
+    {
+        return $this->changementAdresse;
+    }
+
+    public function setChangementAdresse(?ChangementAdresse $changementAdresse): self
+    {
+        $this->changementAdresse = $changementAdresse;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newNouveauxTitulaire = $changementAdresse === null ? null : $this;
+        if ($newNouveauxTitulaire !== $changementAdresse->getNouveauxTitulaire()) {
+            $changementAdresse->setNouveauxTitulaire($newNouveauxTitulaire);
+        }
+
+        return $this;
+    }
+
+    public function getAdresseNewTitulaire(): ?Adresse
+    {
+        return $this->adresseNewTitulaire;
+    }
+
+    public function setAdresseNewTitulaire(?Adresse $adresseNewTitulaire): self
+    {
+        $this->adresseNewTitulaire = $adresseNewTitulaire;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newTitulaire = $adresseNewTitulaire === null ? null : $this;
+        if ($newTitulaire !== $adresseNewTitulaire->getTitulaire()) {
+            $adresseNewTitulaire->setTitulaire($newTitulaire);
+        }
+
+        return $this;
+    }
+
+    public function getDivn(): ?Divn
+    {
+        return $this->divn;
+    }
+
+    public function setDivn(?Divn $divn): self
+    {
+        $this->divn = $divn;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAcquerreur = $divn === null ? null : $this;
+        if ($newAcquerreur !== $divn->getAcquerreur()) {
+            $divn->setAcquerreur($newAcquerreur);
+        }
+
+        return $this;
+    }
+
+    public function getPrenomTitulaire(): ?string
+    {
+        return $this->prenomTitulaire;
+    }
+
+    public function setPrenomTitulaire(string $prenomTitulaire): self
+    {
+        $this->prenomTitulaire = $prenomTitulaire;
 
         return $this;
     }

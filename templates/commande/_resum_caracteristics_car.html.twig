@@ -1,0 +1,54 @@
+    <table class="table table-striped">
+        <tr>
+            <th>{{ 'home.resum.mark'|trans }}</th>
+            <td>{{ commande.carInfo.marque }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'home.resum.model'|trans }}</th>
+            <td>{{ commande.carInfo.model | displayValue }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'home.resum.color'|trans }}</th>
+            <td>{{ commande.carInfo.color | displayValue }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'home.resum.nbPlace'|trans }}</th>
+            <td>{{ commande.carInfo.nbPlace | displayValue}}</td>
+        </tr>
+        <tr>
+            <th>{{ 'home.resum.power'|trans }}</th>
+            <td>{{ commande.carInfo.horsePower | displayValue}} ch</td>
+        </tr>
+        <tr>
+            <th>{{ 'home.resum.powerFiscal'|trans }}</th>
+            <td>{{ commande.carInfo.horsePowerFiscal | displayValue}}</td>
+        </tr>
+        <tr>
+            <th>{{ 'home.resum.serialNum'|trans }}</th>
+            <td>{{ commande.carInfo.serialNumber | displayValue}}</td>
+        </tr>
+        <tr>
+            <th>{{ 'home.resum.vin'|trans }}</th>
+            <td>{{ commande.carInfo.vin | displayValue}}</td>
+        </tr>
+        <tr>
+            <th>{{ 'home.resum.co2'|trans }}</th>
+            <td>{{ taxe.CO2 | displayValue}}</td>
+        </tr>
+        <tr>
+            <th>{{ 'home.resum.gender'|trans }}</th>
+            <td>{{ taxe.Genre | displayValue}}</td>
+        </tr>
+        <tr>
+            <th>{{ 'home.resum.ptac'|trans }}</th>
+            <td>{{ taxe.PTAC | displayValue}}</td>
+        </tr>
+        <tr>
+            <th>{{ 'home.resum.energi'|trans }}</th>
+            <td>{{ taxe.Energie | displayEnergy }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'home.resum.dateCirculationStarted'|trans }}</th>
+            <td>{{ taxe.DateMEC | date('Y-m-d') }}</td>
+        </tr>
+    </table>

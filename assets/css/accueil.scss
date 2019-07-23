@@ -1,4 +1,9 @@
 .resultat-estimation{
+	display: block;
+	img{
+		height:200px;
+		width:auto;
+	}
 	h2{
 		text-align: left;
 		text-transform: uppercase;
@@ -6,12 +11,14 @@
 		color: $bleu;
 		font-weight: bold;
 	}
+
 	th{
 		text-align: left;
 		font-family: textr;
 		color: $bleu;
 		font-weight: bold;
 	}
+
 	td{
 		text-align: left;
 		font-family: textr;
@@ -126,7 +133,7 @@ white-space: nowrap;
 }
 .head {
   overflow: hidden;
-  background-image: url("/img/head.jpg");
+  background-image: url("/../../asset/img/head.jpg");
   background-size:cover;
 
   .head-logo img {
@@ -220,7 +227,7 @@ white-space: nowrap;
     margin-bottom: 45px;
     height: 40px;
     font-size: 20px;
-    background-image: url(/img/plaque-CGofficiel-carte-grise-certificat-immatriculation.png);
+    background-image: url(/../../asset/img/plaque-CGofficiel-carte-grise-certificat-immatriculation.png);
     background-size:contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -326,6 +333,9 @@ font-weight: bold;
     font-family: textr;
     margin-bottom: 4vh !important;
     text-transform: uppercase;
+    @media (max-width:480px) {
+      font-size: 30px;
+    }
   }
   h3{
     margin-left: 5vw;
@@ -463,3 +473,153 @@ font-size: 18px;
 font-family: textr;
 font-size: 18px;
 }
+
+@media (max-width:991px) {
+  body {
+    .hidden-home-mobile {
+      display: none;
+    }
+    .logo-mobile {
+      -webkit-flex: 0 0 52% !important;
+      -ms-flex: 0 0 52% !important;
+      flex: 0 0 52% !important;
+    }
+    .habilitation-mobile {
+      margin-left: 0 !important;
+      order: 2;
+      -webkit-flex: 0 0 52% !important;
+      -ms-flex: 0 0 52% !important;
+      flex: 0 0 52% !important;
+    }
+    .cta-home-mobile {
+      order: 1;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      -moz-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
+    .accueil-texte > #cadre,
+    .accueil-texte > #cadre2,
+    .accueil-texte > #cadre3 {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  } 
+}
+@media (max-width:768px) {
+  body {
+    .search-titre.mt-5 {
+      margin-top: 15px !important;
+    }
+    .modal-body {
+      .search-titre {
+        h2 {
+          font-size: 22px !important;
+        }
+        p {
+          flex: 0 0 100% !important;
+          font-size: 16px !important;
+          max-width: 100% !important;
+        }
+      }
+      .search {
+        .btn-primary {
+          margin-top: 20px !important;
+        }
+      }
+    }
+  }
+}
+@media (max-width:480px) {
+  body {
+    .home-secondview--titre {
+      font-size: 26px !important;
+    }
+    .modal-body {
+      .search-titre {
+        h2 {
+          font-size: 18px !important;
+        }
+        p {
+          font-size: 14px !important;
+        }
+      }
+      .form-control {
+        height: 4vh !important;
+      }
+      .form-control-plaque {
+        margin-bottom: 10px !important;
+      }
+      .search {
+        .btn-primary {
+          font-size: 22px !important;
+          height: auto !important;
+          margin-bottom: 0 !important;
+          margin-top: 0 !important;
+        }
+        .search-box {
+          height: auto !important;
+        }
+      }
+    }
+    .modal-footer {
+      padding-top: 0 !important;   
+    }
+    .modal-dialog {
+      margin-top: 10px !important;
+    }
+  }
+}
+
+/*Début ajustement*/
+.custom-container-flex {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #0275d8;
+  margin: 30px 0;
+  border-radius: 5px;
+  font-weight: 700;
+  p {
+    margin: 0;
+    padding: 6px 15px;
+  }
+  .link-connexion {
+    width: 30%;
+    text-align: left;
+    display: block;
+    padding-left: 0;
+    padding-right: 0;
+    border: none;
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .font-24 {
+    font-size: 24px;
+  }
+  .no-border {
+    border: none !important;
+  }
+}
+@media (max-width:1024px) {
+  .custom-container-flex {
+    flex-wrap: wrap;
+    padding: 15px;
+    p {
+      width: 100%;
+    }
+    .link-connexion {
+      border: 1px solid #0275d8;
+      width: auto;
+      text-align: center;
+      padding: 15px 20px;
+      margin: 15px auto 0;
+      border-radius: 5px;
+    }
+  }
+}
+/*Fin ajustement*/

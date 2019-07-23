@@ -3,32 +3,43 @@ footer {
 		background-color: #7296ce;
 		font-family: Raleway;
 		z-index: 999999 !important;
-		a i{
-			color:white;
+
+		h6{
+			font-family: Raleway;
+			font-weight: bold;
+			color: white;
+		}
+
+		a i {
+			color: white;
 			transition: color 1s ease;
 		}
-		.fb-ic{
-			:hover{
-			color: #3b5998;
-			cursor: pointer !important;
+
+		.fb-ic {
+			:hover {
+				color: #3b5998;
+				cursor: pointer !important;
 			}
 		}
-		.tw-ic{
-			:hover{
-			color: #0084b4;
-			cursor: pointer !important;
+
+		.tw-ic {
+			:hover {
+				color: #0084b4;
+				cursor: pointer !important;
 			}
 		}
-		.gplus-ic{
-			:hover{
-			color: #dd4b39;
-			cursor: pointer !important;
+
+		.gplus-ic {
+			:hover {
+				color: #dd4b39;
+				cursor: pointer !important;
 			}
 		}
-		.ins-ic{
-			:hover{
-			color: #c32aa3;
-			cursor: pointer !important;
+
+		.ins-ic {
+			:hover {
+				color: #c32aa3;
+				cursor: pointer !important;
 			}
 		}
 	}
@@ -51,25 +62,27 @@ footer {
 				text-decoration: none !important;
 			}
 		}
-.footer-bottom{
-		h6 {
-			font-family: Raleway;
-			font-weight: bold !important;
-			margin-top: 1vh;
-			text-transform: uppercase;
-			-webkit-transition: color 1s ease-in;
-			-moz-transition: color 1s ease-in;
-			-o-transition: color 1s ease-in;
-			transition: color 1s ease-in;
-			font-weight: normal;
-			color: white;
-			text-decoration: none !important;
-			transition: color 1s ease;
-			&:hover {
+
+		.footer-bottom {
+			h6 {
+				font-family: Raleway;
+				font-weight: bold !important;
+				margin-top: 1vh;
+				text-transform: uppercase;
+				-webkit-transition: color 1s ease-in;
+				-moz-transition: color 1s ease-in;
+				-o-transition: color 1s ease-in;
+				transition: color 1s ease-in;
+				font-weight: normal;
+				color: white;
 				text-decoration: none !important;
-				color: #7296ce;
+				transition: color 1s ease;
+
+				&:hover {
+					text-decoration: none !important;
+					color: #7296ce;
+				}
 			}
-		}
 		}
 
 		.footer-menu-item:hover .footer-menu-line-span {
@@ -86,6 +99,16 @@ footer {
 
 		.footer-menu-item {
 			text-align: center;
+		}
+	}
+	.footer-link{
+		h4{
+			font-family: Raleway;
+			color: white;
+		}
+		h6{
+			font-family: Raleway;
+			color: white;
 		}
 	}
 }

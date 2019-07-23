@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AncientitulaireRepository")
  */
 class Ancientitulaire
 {
+    const PERSONE_PHYSIQUE  = "phy";
+    const PERSONE_MORALE    = "mor";
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -22,14 +25,30 @@ class Ancientitulaire
     private $type;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable = true)
      */
     private $raisonsociale;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * Opposé à la réutilisation des données à des fins d’enquête et de prospection commerciale
+     * ORM\Column(type="boolean", nullable=true)
+     */
+    private $opposeReuse;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable = true)
      */
     private $nomprenom;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", mappedBy="ancienTitulaire", cascade={"persist", "remove"})
+     */
+    private $ctvo;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Cession", mappedBy="ancienTitulaire", cascade={"persist", "remove"})
+     */
+    private $cession;
 
     public function getId(): ?int
     {
@@ -68,6 +87,42 @@ class Ancientitulaire
     public function setNomprenom(string $nomprenom): self
     {
         $this->nomprenom = $nomprenom;
+
+        return $this;
+    }
+
+    public function getCtvo(): ?Ctvo
+    {
+        return $this->ctvo;
+    }
+
+    public function setCtvo(?Ctvo $ctvo): self
+    {
+        $this->ctvo = $ctvo;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAncienTitulaire = $ctvo === null ? null : $this;
+        if ($newAncienTitulaire !== $ctvo->getAncienTitulaire()) {
+            $ctvo->setAncienTitulaire($newAncienTitulaire);
+        }
+
+        return $this;
+    }
+
+    public function getCession(): ?Cession
+    {
+        return $this->cession;
+    }
+
+    public function setCession(?Cession $cession): self
+    {
+        $this->cession = $cession;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAncienTitulaire = $cession === null ? null : $this;
+        if ($newAncienTitulaire !== $cession->getAncienTitulaire()) {
+            $cession->setAncienTitulaire($newAncienTitulaire);
+        }
 
         return $this;
     }

@@ -21,6 +21,10 @@
 		font-weight: 500;
 		text-align: left;
 		text-transform: uppercase;
+		img{
+			height: 90px;
+			width: 500px;
+		}
 
 		p {
 			font-size: 13px;
@@ -48,6 +52,24 @@
 		span {
 			font-size: 25px;
 			color: #002a6b;
+		}
+	}
+	.custom-compte {
+		align-items: center;		
+		justify-content: space-between;
+		margin: 10px 0;
+		a {
+			font-size: 16px;
+		}
+	}
+	.custom-compte-mobile {
+		a {
+			display: inline-block;
+			font-size: 18px;
+			margin: 5px;
+			&:first-child {
+				margin-left: 0;
+			}
 		}
 	}
 }

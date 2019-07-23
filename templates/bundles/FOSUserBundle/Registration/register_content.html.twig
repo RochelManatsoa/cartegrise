@@ -1,53 +1,203 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register col-md-12 col-lg-8 row '}, 'label_attr': {'class': 'register-form--label'}} )}}
-<div class="col-10 row mx-auto mt-4">
-	<div class="col-5 mx-auto">
-		<h2>Civil</h2>
-		{{ form_row(form.client.clientGenre, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientNom, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientPrenom, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientNomUsage, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientDateNaissance, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
+{% set inputAttrs = {class: 'registrer-form'} %}
+{% set labelAttrs = {class: 'register-form--label'} %}
+{% set wrapperClassName = 'col-11 col-sm-10' %}
+{% set smallWrapperClassName = 'col-12 col-sm-6' %}
 
-		{{ form_row(form.client.clientContact.contact_telmobile, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientContact.contact_telfixe, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
+<style>
+	.form-control {
+		box-sizing: border-box !important;
+	}
+	.with-mp.col, .with-mp .col,
+	.with-mp.col-1, .with-mp .col-3,
+	.with-mp.col-10, .with-mp .col-12,
+	.with-mp.col-11, .with-mp .col-13,
+	.with-mp.col-12, .with-mp .col-14,
+	.with-mp.col-2, .with-mp .col-4,
+	.with-mp.col-3, .with-mp .col-5,
+	.with-mp.col-4, .with-mp .col-6,
+	.with-mp.col-5, .with-mp .col-7,
+	.with-mp.col-6, .with-mp .col-8,
+	.with-mp.col-7, .with-mp .col-9,
+	.with-mp.col-8, .with-mp .col-10,
+	.with-mp.col-9, .with-mp .col-11,
+	.with-mp.col-lg, .with-mp .col-lg,
+	.with-mp.col-lg-1, .with-mp .col-lg-3,
+	.with-mp.col-lg-10, .with-mp .col-lg-12,
+	.with-mp.col-lg-11, .with-mp .col-lg-13,
+	.with-mp.col-lg-12, .with-mp .col-lg-14,
+	.with-mp.col-lg-2, .with-mp .col-lg-4,
+	.with-mp.col-lg-3, .with-mp .col-lg-5,
+	.with-mp.col-lg-4, .with-mp .col-lg-6,
+	.with-mp.col-lg-5, .with-mp .col-lg-7,
+	.with-mp.col-lg-6, .with-mp .col-lg-8,
+	.with-mp.col-lg-7, .with-mp .col-lg-9,
+	.with-mp.col-lg-8, .with-mp .col-lg-10,
+	.with-mp.col-lg-9, .with-mp .col-lg-11,
+	.with-mp.col-md, .with-mp .col-md,
+	.with-mp.col-md-1, .with-mp .col-md-3,
+	.with-mp.col-md-10, .with-mp .col-md-12,
+	.with-mp.col-md-11, .with-mp .col-md-13,
+	.with-mp.col-md-12, .with-mp .col-md-14,
+	.with-mp.col-md-2, .with-mp .col-md-4,
+	.with-mp.col-md-3, .with-mp .col-md-5,
+	.with-mp.col-md-4, .with-mp .col-md-6,
+	.with-mp.col-md-5, .with-mp .col-md-7,
+	.with-mp.col-md-6, .with-mp .col-md-8,
+	.with-mp.col-md-7, .with-mp .col-md-9,
+	.with-mp.col-md-8, .with-mp .col-md-10,
+	.with-mp.col-md-9, .with-mp .col-md-11,
+	.with-mp.col-sm, .with-mp .col-sm,
+	.with-mp.col-sm-1, .with-mp .col-sm-3,
+	.with-mp.col-sm-10, .with-mp .col-sm-12,
+	.with-mp.col-sm-11, .with-mp .col-sm-13,
+	.with-mp.col-sm-12, .with-mp .col-sm-14,
+	.with-mp.col-sm-2, .with-mp .col-sm-4,
+	.with-mp.col-sm-3, .with-mp .col-sm-5,
+	.with-mp.col-sm-4, .with-mp .col-sm-6,
+	.with-mp.col-sm-5, .with-mp .col-sm-7,
+	.with-mp.col-sm-6, .with-mp .col-sm-8,
+	.with-mp.col-sm-7, .with-mp .col-sm-9,
+	.with-mp.col-sm-8, .with-mp .col-sm-10,
+	.with-mp.col-sm-9, .with-mp .col-sm-11,
+	.with-mp.col-xl, .with-mp .col-xl,
+	.with-mp.col-xl-1, .with-mp .col-xl-3,
+	.with-mp.col-xl-10, .with-mp .col-xl-12,
+	.with-mp.col-xl-11, .with-mp .col-xl-13,
+	.with-mp.col-xl-12, .with-mp .col-xl-14,
+	.with-mp.col-xl-2, .with-mp .col-xl-4,
+	.with-mp.col-xl-3, .with-mp .col-xl-5,
+	.with-mp.col-xl-4, .with-mp .col-xl-6,
+	.with-mp.col-xl-5, .with-mp .col-xl-7,
+	.with-mp.col-xl-6, .with-mp .col-xl-8,
+	.with-mp.col-xl-7, .with-mp .col-xl-9,
+	.with-mp.col-xl-8, .with-mp .col-xl-10,
+	.with-mp.col-xl-9, .with-mp .col-xl-11 {
+		position: relative !important;
+	    width: 100% !important;
+	    min-height: 1px !important;
+	    padding-right: 15px !important;
+	    padding-left: 15px !important;
+		box-sizing: border-box !important;
+	}
+	.with-mp.row , .with-mp .row {
+		margin-right: -15px !important;
+		margin-left: -15px !important;
+	}
+</style>
 
-		<h2>Compte CGOFFICIEL</h2>
-		{{ form_row(form.email, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.username, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.plainPassword, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-	</div>
-	<div class="col-5 mx-auto">
-		<h2>Adresse</h2>
-		{{ form_row(form.client.clientAdresse.numero, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.extension, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.adprecision, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.typevoie, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.nom, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.complement, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.lieudit, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.codepostal, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.ville, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.boitepostale, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-		{{ form_row(form.client.clientAdresse.pays, {'attr': {'class': 'registrer-form'}, 'label_attr': {'class': 'register-form--label'}} )}}
-	</div>
-	<div class="col-10 mx-auto">
-		<div class="checkbox mt-3 mb-3">
-			<label class="fos_user_registration_register-checkbox">
-				<input class="" type="checkbox" value="">J'ai lu et j'accepte les <b>Conditions Générales de Vente</b> , notre <b>politique de confidentialité</b> et la liste des documents à retourner.
-			</label>
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register col-md-12 col-lg-8 row '}, 'label_attr': labelAttrs} )}}
+
+	<div class="row justify-content-center with-mp">
+
+		<div class="{{ wrapperClassName }}"><h2>Identité du demandeur de la carte grise</h2></div>
+
+		<div class="{{ wrapperClassName }}">
+			{{ form_row(form.client.clientGenre, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
 		</div>
-		<div class="checkbox mt-3 mb-3">
-			<label class="fos_user_registration_register-checkbox">
-				<input type="checkbox" value=""><b>Oui, je souhaite que ma demande de carte grise débute immédiatement.</b> Ainsi je renonce expressément à mon droit de rétractation afin que la prestation débute avant la fin du délai légal de rétractation.
-			</label>
+
+		<div class="{{ wrapperClassName }}">
+			<div class="row">
+				<div class="{{ smallWrapperClassName }}">
+					{{ form_row(form.client.clientNom, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+				</div>
+
+				<div class="{{ smallWrapperClassName }}">
+					{{ form_row(form.client.clientPrenom, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+				</div>
+			</div>
 		</div>
+
+		<div class="{{ wrapperClassName }}">
+			<div class="row">
+				<div class="{{ smallWrapperClassName }}">
+					{{ form_row(form.client.clientDateNaissance, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+				</div>
+				<div class="{{ smallWrapperClassName }}">
+					{{ form_row(form.client.clientLieuNaissance, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+				</div>
+			</div>
+		</div>
+
+		<div class="{{ wrapperClassName }}">
+			<div class="row">
+				<div class="{{ smallWrapperClassName }}">
+					{{ form_row(form.client.clientContact.contact_telmobile, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+				</div>
+				<div class="{{ smallWrapperClassName }}">
+					{{ form_row(form.client.clientContact.contact_telfixe, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+				</div>
+			</div>
+		</div>
+
+		<div class="{{ wrapperClassName }}">
+			{{ form_row(form.email, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+		</div>
+
+		<div class="{{ wrapperClassName }}">
+			{{ form_row(form.username, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+		</div>
+
+		<div class="{{ wrapperClassName }}">
+			{{ form_row(form.plainPassword, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+		</div>
+
+		<div class="{{ wrapperClassName }}">
+			<div class="row">
+				{% for passwordForm in form.plainPassword %}
+					<div class="{{ smallWrapperClassName }}">
+						{{ form_row(passwordForm, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+
+		<div class="{{ wrapperClassName }}"><h2>Merci de renseigner votre adresse</h2></div>
+		
+		<div class="{{ wrapperClassName }}">
+			<div class="row">
+				<div class="{{ smallWrapperClassName }}">
+					{{ form_row(form.client.clientAdresse.numero, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+				</div>
+				<div class="{{ smallWrapperClassName }}">
+					{{ form_row(form.client.clientAdresse.typevoie, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+				</div>
+			</div>
+		</div>
+
+		<div class="{{ wrapperClassName }}">
+			{{ form_row(form.client.clientAdresse.nom, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+		</div>
+
+		<div class="{{ wrapperClassName }}">
+			{{ form_row(form.client.clientAdresse.complement, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+		</div>
+
+		<div class="{{ wrapperClassName }}">
+			<div class="row">
+				<div class="{{ smallWrapperClassName }}">
+					{{ form_row(form.client.clientAdresse.codepostal, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+				</div>
+				<div class="{{ smallWrapperClassName }}">
+					{{ form_row(form.client.clientAdresse.ville, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+				</div>
+			</div>
+		</div>
+		
+		<div class="{{ wrapperClassName }}">
+			<div class="col-12">
+				<div class="checkbox mt-3 mb-3">
+					<label class="fos_user_registration_register-checkbox">
+						{{ form_row(form.termsAccepted, {'attr': inputAttrs})}}				
+					</label>
+				</div>
+				<div class="text-center mb-5">
+					<input type="submit" class="btn btn-success" value="{{ 'registration.submit'|trans }}" />
+				</div>
+			</div>
+		</div>
+
 	</div>
 
-
-	<div class="col-12 d-flex flex-row justify-content-center my-flex-container mb-5">
-		<input type="submit" class="btn btn-success" value="{{ 'registration.submit'|trans }}" />
-	</div>
-</div>
 {{ form_end(form )}}

@@ -1,0 +1,39 @@
+{% extends 'email_base.html.twig' %}
+
+{% block page_content %}
+    <div class="col-8">
+        <div >
+            <h1>
+                {{ "#{responses.response_code}" | statusMessage }}
+            </h1>
+        </div>
+        <div >
+            <table class="table-striped">
+                <tbody>
+                    <tr>
+                        <td class="text-left">Référence de la transaction </td>
+                        <td class="text-left">{{ responses.transaction_id }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Montant de la transaction </td>
+                        <td class="text-left">{{ responses.amount | amount(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Numéro de la carte </td>
+                        <td class="text-left">{{ responses.card_number | cardNumber(responses.card_validity) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Autorisation </td>
+                        <td class="text-left">{{ responses.authorisation_id }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Certificat de la transaction </td>
+                        <td class="text-left">{{ responses.payment_certificate }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

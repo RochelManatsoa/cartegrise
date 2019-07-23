@@ -4,10 +4,18 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
+ *  @ApiResource(
+ *     forceEager= false,
+ *     normalizationContext={"groups"={"read"}, "enable_max_depth"=false},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
  */
 class Client
 {
@@ -48,10 +56,6 @@ class Client
      */
     private $clientContact;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="client")
-     */
-    private $demandes;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Fichier", mappedBy="client")
@@ -59,14 +63,15 @@ class Client
     private $fichiers;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Adresse", inversedBy="client", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Adresse", mappedBy="client", cascade={"persist", "remove"})
+     * @ORM\JoinColumn()
      */
     private $clientAdresse;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Commande", mappedBy="client")
      */
-    private $commande;
+    private $commandes;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -74,23 +79,46 @@ class Client
     private $clientLieuNaissance;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $clientDptNaissance;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $clientPaysNaissance;
+
+    /**
+     * @ORM\Column(type="integer", options={"default":0})
+     */
+    private $countCommande;
+
+    /**
+     * @ORM\Column(type="integer", options={"default":0})
+     */
+    private $countDemande;
+
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $relanceLevel;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="client", cascade={"persist", "remove"})
+     * @Groups({"read"})
+     */
+    private $user;
 
 
 
     public function __construct()
     {
-        $this->demandes = new ArrayCollection();
         $this->fichiers = new ArrayCollection();
-        $this->clientCommandes = new ArrayCollection();
         $this->commande = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
+        $this->countDemande = 0;
+        $this->countCommande = 0;
+        $this->relanceLevel = 0;
     }
 
     public function __toString()
@@ -176,37 +204,6 @@ class Client
     }
 
     /**
-     * @return Collection|Demande[]
-     */
-    public function getDemandes(): Collection
-    {
-        return $this->demandes;
-    }
-
-    public function addDemande(Demande $demande): self
-    {
-        if (!$this->demandes->contains($demande)) {
-            $this->demandes[] = $demande;
-            $demande->setClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDemande(Demande $demande): self
-    {
-        if ($this->demandes->contains($demande)) {
-            $this->demandes->removeElement($demande);
-            // set the owning side to null (unless already changed)
-            if ($demande->getClient() === $this) {
-                $demande->setClient(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Fichier[]
      */
     public function getFichiers(): Collection
@@ -249,64 +246,6 @@ class Client
         return $this;
     }
 
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getClientCommandes(): Collection
-    {
-        return $this->clientCommandes;
-    }
-
-    public function addClientCommande(Commande $clientCommande): self
-    {
-        if (!$this->clientCommandes->contains($clientCommande)) {
-            $this->clientCommandes[] = $clientCommande;
-            $clientCommande->setClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeClientCommande(Commande $clientCommande): self
-    {
-        if ($this->clientCommandes->contains($clientCommande)) {
-            $this->clientCommandes->removeElement($clientCommande);
-            // set the owning side to null (unless already changed)
-            if ($clientCommande->getClient() === $this) {
-                $clientCommande->setClient(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getCommande(): Collection
-    {
-        return $this->commande;
-    }
-
-    public function addCommande(Commande $commande): self
-    {
-        if (!$this->commande->contains($commande)) {
-            $this->commande[] = $commande;
-            $commande->addClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): self
-    {
-        if ($this->commande->contains($commande)) {
-            $this->commande->removeElement($commande);
-            $commande->removeClient($this);
-        }
-
-        return $this;
-    }
     
     public function getClientLieuNaissance(): ?string
     {
@@ -340,6 +279,117 @@ class Client
     public function setClientPaysNaissance(string $clientPaysNaissance): self
     {
         $this->clientPaysNaissance = $clientPaysNaissance;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->addClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->contains($commande)) {
+            $this->commandes->removeElement($commande);
+            $commande->removeClient($this);
+        }
+
+        return $this;
+    }
+
+    public function getListDemande()
+    {
+        $criteria = Criteria::create()
+            ->andWhere(Criteria::expr()->gt('clientNom', 20))
+            ->orderBy(['clientNom', 'DESC']);
+        return $this->getGenusScientists()->matching($criteria);
+    }
+
+    public function getCountDem()
+    {
+        // $criteria = Criteria::create('c')
+        // ->join('c.commandes as com')
+        // ->andWhere('com.demandes');
+        // return $this->getCommandes()->matching($criteria)->count();
+        return 4;
+    }
+
+    public function getCountCommandes() {
+
+        return 0 < count($this->commandes) ? count($this->commandes) : 0;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newClient = $user === null ? null : $this;
+        if ($newClient !== $user->getClient()) {
+            $user->setClient($newClient);
+        }
+
+        return $this;
+    }
+
+    public function getClientNomPrenom()
+    {
+
+        return $this->clientNom . ' ' .$this->clientPrenom;
+    }
+
+    public function getCountCommande(): ?int
+    {
+        return $this->countCommande;
+    }
+
+    public function setCountCommande(?int $countCommande): self
+    {
+        $this->countCommande = $countCommande;
+
+        return $this;
+    }
+
+    public function getCountDemande(): ?int
+    {
+        return $this->countDemande;
+    }
+
+    public function setCountDemande(?int $countDemande): self
+    {
+        $this->countDemande = $countDemande;
+
+        return $this;
+    }
+
+    public function getRelanceLevel(): ?int
+    {
+        return $this->relanceLevel;
+    }
+
+    public function setRelanceLevel(?int $relanceLevel): self
+    {
+        $this->relanceLevel = $relanceLevel;
 
         return $this;
     }

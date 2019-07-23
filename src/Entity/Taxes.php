@@ -11,6 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Taxes
 {
+    const ENERGY_VALUES=[
+        1 => "Essence ou diesel (gasoil) ‘ES’ / ‘GO’",
+        2 => "GPL ou GNV uniquement ‘GP’ / ‘GN’",
+        3 => "Electricité uniquement ‘EL’",
+        4 => "Hybride",
+        5 => "Bioéthanol E85 ‘FE’",
+        6 => "Bicarburation",
+    ];
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -19,47 +27,47 @@ class Taxes
     private $id;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxeRegionale;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxe35cv;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxeParafiscale;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxeCO2;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxeMalus;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxeSIV;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxeRedevanceSIV;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true, options={"default" : 0})
      */
     private $taxeTotale;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $VIN;
 
@@ -94,14 +102,22 @@ class Taxes
     private $DateMEC;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Commande", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Commande", inversedBy="taxes", cascade={"persist", "remove"})
      */
     private $commande;
 
 
     public function __construct()
     {
-        $this->commande = new ArrayCollection();
+        $this->taxeRegionale = 0;
+        $this->taxe35cv = 0;
+        $this->taxeParafiscale = 0;
+        $this->taxeCO2 = 0;
+        $this->taxeMalus = 0;
+        $this->taxeSIV = 0;
+        $this->taxeRedevanceSIV = 0;
+        $this->taxeTotale = 0;
+        // $this->commande = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -205,18 +221,6 @@ class Taxes
         return $this;
     }
 
-    public function getVIN(): ?string
-    {
-        return $this->VIN;
-    }
-
-    public function setVIN(string $VIN): self
-    {
-        $this->VIN = $VIN;
-
-        return $this;
-    }
-
     public function getCO2(): ?int
     {
         return $this->CO2;
@@ -297,6 +301,18 @@ class Taxes
     public function setCommande(?Commande $commande): self
     {
         $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getVIN(): ?string
+    {
+        return $this->VIN;
+    }
+
+    public function setVIN(?string $VIN): self
+    {
+        $this->VIN = $VIN;
 
         return $this;
     }

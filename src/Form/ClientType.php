@@ -18,31 +18,28 @@ class ClientType extends AbstractType
     {
         $builder
             ->add('clientNom', TextType::class,[
-                'attr' => array( 'class' => 'text-uppercase' )
+                'attr'  => array( 'class' => 'text-uppercase' ),
+                'label' => 'label.nom.client'
             ])
-            ->add('clientPrenom', TextType::class)
+            ->add('clientPrenom', TextType::class, ['label' => 'label.prenom.client'])
             ->add('clientGenre', ChoiceType::class, array(
-                'choices' => array(
+                'choices'   => array(
                     'Homme' => "M",
                     'Femme' => "F",
                 ),
+                'label'=> 'label.genre',
             ))
-            ->add('clientNomUsage', TextType::class,[
-                'required' => false
-            ])
             ->add('clientDateNaissance', DateType::class, array(
                     'widget' => 'single_text',
+                    'label'  => 'label.dateN',
                     ))
             
-            ->add('clientLieuNaissance', TextType::class)
-            ->add('clientDptNaissance', NumberType::class)
-            ->add('clientPaysNaissance', CountryType::class, array('label' => 'Pays','required'=> false, 'preferred_choices' => array('FR'=>'France')))
-            
-            ->add('clientContact', ContactType::class)
-            ->add('clientAdresse', AdresseType::class)
-            /*
-            ->add('commande', CommandeClientType::class)
-            */
+            ->add('clientLieuNaissance', TextType::class, ['label' => 'label.lieuN'])
+            //->add('clientDptNaissance', NumberType::class)
+            //->add('clientPaysNaissance', CountryType::class, array('label' => 'Pays','required'=> false, 'preferred_choices' => array('FR'=>'France')))            
+            ->add('clientContact', ContactType::class, ['label' => 'label.clientContact'])
+            ->add('clientAdresse', AdresseType::class, ['label' => 'label.clientAdresse'])
+            //->add('commande', CommandeClientType::class)
         ;
     }
 

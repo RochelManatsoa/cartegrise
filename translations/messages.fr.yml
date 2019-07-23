@@ -1,0 +1,288 @@
+type_demande:
+    daf:
+        ctvo: |
+            <ol>
+                <li>une pièce d'identité en cours de validité</li>
+                <li>
+                    un justificatif de domicile de moins de 6 mois (au choix) :
+                    <ul>
+                        <li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
+                        <li>Dernier avis d'imposition ou de non imposition</li>
+                        <li>Quittance de gaz</li>
+                        <li>Quittance d'électricité</li>
+                        <li>Facture de téléphone fixe ou portable</li>
+                        <li>Facture d'un fournisseur d'accès à Internet</li>
+                        <li>Attestation d'un fournisseur d'énergie (EDF, Engie, ...)</li>
+                        <li>Attestation d'assurance habitation</li>
+                    </ul>
+                </li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750) 
+                    <a href="/../$cerfa" target="blank">
+                        <button class="btn btn-outline-success" type="button" id="button-addon2">CERFA</button>
+                    </a>
+                </li>
+                <li>la déclaration de cession (cerfa 15776), à remplir conjointement par l'ancien propriétaire ou une facture établie par le vendeur</li>
+                <li>la déclaration d'achat d'un véhicule d'occasion si l'acquéreur est un professionnel (cerfa 13751)</li>
+                <li>L'ancien certificat d'immatriculation remis par le précédent propriétaire, revêtu de la mention "vendu le ../../.... (date de cession)", suivi de sa signature, la preuve d'un contrôle technique de moins de 6 mois remis par le vendeur.</li>
+                <li>Dans le cas de copropriétaires mariés (hors régime de la séparation des bien), si le demandeur agit seul, il doit présenter un livret de famille.<br>
+                Si l'un des époux effectue la demande d'immatriculation à son nom propre, il doit fournir une attestation signée par l'autre époux lorsqu'il n'y pas concordance entre l'acquéreur et le demandeur ud titre.</li>
+                <li>le permis de conduire du titulaire du véhicule</li>
+                <li>l'attestation d'assurance du véhicule</li>  
+            </ol>
+        dup: |
+            <ol>
+                <li>une copie recto/verso de la Carte Grise </li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750) 
+                    <a href="/../$cerfa" target="blank">
+                        <button class="btn btn-outline-success" type="button" id="button-addon2">CERFA</button>
+                    </a>
+                </li>
+                <li>la déclaration originale de perte ou vol (la déclaration de vol doit être enregistrée et tamponnée par la police)</li>
+                <li>si votre véhicule a plus de 4 ans, preuve du contrôle technique en cours de validité, sauf si le véhicule est dispensé de contrôle technique </li>
+                <li>une pièce d'identité en cours de validité</li>
+                <li>l'attestation d'assurance du véhicule</li> 
+                <li>le permis de conduire du titulaire du véhicule</li>
+            </ol>
+        divn: |
+            <ol>
+                <li>l'original du certificat de conformité Européen (COC)</li>
+                <li>le certificat de vente ORIGINAL ou facture d'achat du véhicule (cerfa 15776)</li>
+                <li>une pièce d'identité en cours de validité</li>
+                <li>l'attestation d'assurance du véhicule</li> 
+                <li>le permis de conduire du titulaire du véhicule</li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750)
+                    <a href="/../$cerfa" target="blank">
+                        <button class="btn btn-outline-success" type="button" id="button-addon2">CERFA</button>
+                    </a>
+                </li>
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)</li>
+                <li>
+                    un justificatif de domicile de moins de 6 mois (au choix) :
+                    <ul>
+                        <li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
+                        <li>Dernier avis d'imposition ou de non imposition</li>
+                        <li>Quittance de gaz</li>
+                        <li>Quittance d'électricité</li>
+                        <li>Facture de téléphone fixe ou portable</li>
+                        <li>Facture d'un fournisseur d'accès à Internet</li>
+                        <li>Attestation d'un fournisseur d'énergie (EDF, Engie, ...)</li>
+                        <li>Attestation d'assurance habitation</li>
+                    </ul>
+                </li>
+            </ol>
+        dca: |
+            <ol>
+                <li>une copie recto/verso de la Carte Grise </li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750) 
+                    <a href="/../$cerfa" target="blank">
+                        <button class="btn btn-outline-success" type="button" id="button-addon2">CERFA</button>
+                    </a>
+                </li>
+                <li>une pièce d'identité en cours de validité</li>
+                <li>l'attestation d'assurance du véhicule</li> 
+                <li>le permis de conduire du titulaire du véhicule</li>
+                <li>
+                    un justificatif de domicile de moins de 6 mois (au choix) :
+                    <ul>
+                        <li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
+                        <li>Dernier avis d'imposition ou de non imposition</li>
+                        <li>Quittance de gaz</li>
+                        <li>Quittance d'électricité</li>
+                        <li>Facture de téléphone fixe ou portable</li>
+                        <li>Facture d'un fournisseur d'accès à Internet</li>
+                        <li>Attestation d'un fournisseur d'énergie (EDF, Engie, ...)</li>
+                        <li>Attestation d'assurance habitation</li>
+                    </ul>
+                </li>
+            </ol>
+
+        dc: |
+            <div>
+                Le formulaire CERFA n° 15776*01 
+                    <a href="/../$cerfa" target="blank">
+                        <button class="btn btn-outline-success" type="button" id="button-addon2">CERFA</button>
+                    </a>
+                doit être rempli par le vendeur et signé par l'acheteur.
+                Ce dernier est nécessaire au nouveau détenteur du véhicule pour l'immatriculer (carte grise) à son nom.
+            </div>
+        dcs: |
+            <ol>
+                <li>une copie recto/verso de la Carte Grise </li>
+                <li>la demande de certificat d'immatriculation (cerfa 13750) 
+                    <a href="/../$cerfa" target="blank">
+                        <button class="btn btn-outline-success" type="button" id="button-addon2">CERFA</button>
+                    </a>
+                </li>
+                <li>Extrait d'Acte de mariage / jugement de divorce / livret de famille</li>
+                <li>une copie du contrôle technique en cours de validité pour les véhicules de plus de 4 ans</li>
+                <li>une pièce d'identité en cours de validité</li>
+                <li>la procuration par Mandat</li>
+                <li>l'attestation d'assurance du véhicule</li> 
+                <li>le permis de conduire du titulaire du véhicule</li>
+                <li>
+                    un justificatif de domicile de moins de 6 mois (au choix) :
+                    <ul>
+                        <li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
+                        <li>Dernier avis d'imposition ou de non imposition</li>
+                        <li>Quittance de gaz</li>
+                        <li>Quittance d'électricité</li>
+                        <li>Facture de téléphone fixe ou portable</li>
+                        <li>Facture d'un fournisseur d'accès à Internet</li>
+                        <li>Attestation d'un fournisseur d'énergie (EDF, Engie, ...)</li>
+                        <li>Attestation d'assurance habitation</li>
+                    </ul>
+                </li>
+            </ol>
+
+label:
+    acquerreur: Acquéreur
+    dateN: Date de naissance *
+    lieuN: Lieu de naissance
+    adresseNewTitulaire: Adresse de l'Acquéreur 
+    ancienTitulaire: Ancien Titulaire
+    cotitulaire: Cotitulaire(s)
+    dateCession: Date de cession
+    ancienAdresse: Ancienne adresse
+    typevoie: Type de Voie
+    numerovoie: Numéro de la Voie
+    complement: Complément d'adresse
+    codepostal: Code Postal
+    ville: Ville
+    type: 
+        personne: Personne *
+        fichier: Type de fichier
+        demande: Type de demande
+        content:
+            carteGrise: Carte grise
+            demandImm: Demande d'immatriculation
+            mandat: Mandat
+            quitusFisc: Quitus fiscal
+            certConformite: Certificat de conformité
+            pieceIdentite: Pièce d'identitée
+            justifDomicile: Justificatifs de domicile
+            pvControleTech: Contrôle technique
+            declarAchat: Déclaration d'achat
+            permisCond: Permis de conduire
+            attestAssur: Attestation d'assurance
+    
+    oppose: Opposé(e) à la diffusion de vos données personnelle
+    status: Status de la demande
+    paiement: Paiement
+    tms: Tms 
+    progression: Progression de la demande
+
+    admin:
+        email: Adresse électronique
+        password: Mot de passe
+
+    file: Choisissez vos fichiers
+    send: Envoyer
+    save: Enregistrer
+    search: Chercher
+    motifDeRejet: Motif du rejet
+    raisonsocial: Raison sociale
+    societeCommerciale: Société commerciale
+    nomprenom: Nom et prénom(s) *
+    clientContact: Contacts
+    clientAdresse: Adresse
+    clientEmail: Adresse électronique
+    titulaire: Titulaire
+    genre: Civilité *
+    dep: Département
+    immatriculation: Immatriculation
+    contactMobile: Téléphone mobile
+    contactFixe: Téléphone fixe
+    demandeChangementTitulaire: Demander un changement de titulaire
+    motifDemande: Motif de la demande
+    nom:
+        voie: Nom de la voie
+        cotitulaire: Nom du Cotitulaire
+        titulaire: Nom de l'Acquéreur *
+        client: Nom *
+        content: Nom
+        usage: Nom usage
+    prenom:
+        titulaire: Prénom(s) de l'Acquéreur *
+        cotitulaire: Prénom(s) du Cotitulaire
+        client: Prénom(s) *
+    demande:
+        formulaireCerfaRemplis: Formulaire de cerfa rempli
+        demandeCertificatImmatriculation: Demande de certificat d'immatriculation
+        justificatifDomicile: Justificatif de domicile récent
+        copiePermisConduire: Copie du permis de conduire
+        copieAttestationAssuranceValide: Copie d'attestation d'assurance valide
+        pieceIdentiteValid: Pièce d'identité valide
+        rectoVersoCarteGrise: Photocopie recto verso de la carte grise
+        recepisseDemandeAchat: Récépissé de la demande d'achat
+        copieControleTechnique: Copie du contrôle technique
+        copieControleTechniqueEnCoursValidite: Copie du contrôle technique en cours de validité
+        procurationMandat: Mandat d'immatriculation
+        demandeCertificat: Demande de certificat => Cerfa 13750*05
+        declatationCession: Déclaration de cession => Cerfa 15776*01
+        declarationdePerteOuVol: Déclaration de perte ou vol
+        certificatImmatriculation: Certificat d'immatriculation
+        procurationParMandat: Procuration par mandat
+        demandeOriginalCertificatImmatriculation: Demande originale du certificat d'immatriculation
+        certificatVenteOriginalFactureAchat: Certificat de vente original ou Facture d'achat
+        originalCertificatConformiteEuropeen: Original du certificat de conformité européen
+
+    termsAccepted: J'ai lu et j'accepte les Conditions Générales de Vente , notre politique de confidentialité et la liste des documents à retourner. Et je renonce expressément à mon droit de rétractation afin que la prestation débute immédiatement
+    numformule: Numéro de la formule
+    vin: VIN
+    datecg: Date de la Carte Grise *
+    numeroDeLaFormulCarteGrise: Numéro de la Formule Carte Grise
+    vendeur: Vendeur
+    acheteur: Acheteur
+    dateVente: Date de la vente *
+    heureVente: Heure de la vente *
+    messages: Votre message
+    updateUser: Informations vous concernant
+    particulierOrSociete: Particulier ou Société
+    notificationType: Type de notification
+
+    divn:
+        tauxDeCo2: Taxe de CO2
+        marque: Marque
+        energie: Enérgie
+        puissanceFiscale: Puissance fiscale
+        genre: Genre
+home:
+    carSkills: CARACTÉRISTIQUES DU VÉHICULE
+    recapDemande: Récapitulatif de la demande
+    detailTaxes: DÉTAIL DES TAXES
+    continue: Continuer
+    validateComand: Je valide ma commande
+    createAcountDescription: |
+        Créez votre compte et identifiez-vous en quelques clics, pour valider et suivre votre commande
+    noAcount: "je n'ai pas encore de compte sur CG officiel"
+    createAcountButton: CREER MON COMPTE
+    login: "S'IDENTIFIER"
+    loginDescription: "j'ai déjà un compte sur CG officiel"
+    franceConnecteDescription: "Je préfère m'identifier avec France Connect"
+    condition: "Les produits ou services achetés sur cgofficiel.fr doivent être réglés en euros soit en ligne, soit par chèque. Les catres bancaires accéptées par le système sécuriséHiPay sont Carte bleue, Visa, Eurocard Mastercard."
+    validate: VALIDER
+    franceConnecte: FranceConnect
+    resum:
+        mark: Marque
+        model: Modèle
+        color: Couleur
+        nbPlace: Nombre de places
+        power: Puissance
+        powerFiscal: Puissance Fiscale (cv)
+        serialNum: Numéro de série
+        vin: VIN
+        co2: CO2
+        gender: Genre
+        ptac: PTAC
+        energi: Enérgie
+        dateCirculationStarted: Date de mise en ciruclation
+    commandeType:
+        dup: Demande de duplicata
+        divn: Demande d'immatriculation de vehicule neuf
+        ctvo: Changement de titulaire de vehicule d'occasion
+        dc: Demande de cession
+        dca: Demande de changement d'adresse
+
+
+
+

@@ -1,0 +1,64 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig
+{% extends 'base.html.twig' %}
+
+{% block page_content %}
+<div>
+        <h1>Oops! An Error Occurred</h1>
+        <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
+        
+        <p>
+            Something is broken. Please let us know what you were doing when this error occurred.
+            We will fix it as soon as possible. Sorry for any inconvenience caused.
+            <br>
+            La page demandée n'a pas pu être localisée
+            <br><a href="{{ path('Accueil') }}">retour à l'acceuil</a>.
+        </p>
+</div>
+{% endblock %} #}
+
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block page_content %}
+<div class="col-md-12 col-lg-7 d-flex error-flex">
+    <div class="error-container">
+        <h1 class="text-center">{{"Une erreur s'est produite" | upper}}.</h1>
+        <p class="desc-error">
+            {# Quelque chose est cassé. S'il vous plaît laissez-nous savoir ce que vous faisiez. Désolé pour tout inconvénient causé. #}
+            Veuillez nous excuser pour la gêne occasionnée.
+            Merci de bien vouloir contacter notre Service Client.
+             {# Vous pouvez <a href="{{ path('contact') }}">nous contacter</a> et nous pouvons vous aider! #}
+        </p>
+        <p><a href="{{ path('contact') }}"><i class="fas fa-angle-double-right"></i> {{"Service Client" | upper}}</a></p>
+        <p><a class="btn btn-primary btn-lg" href="{{ path('Accueil') }}"><i class="fas fa-angle-double-right"></i> {{"Retour à la page d'acceuil" | upper}}</a></p>
+    </div>
+</div>
+
+        <style>
+            body {
+                background-color: #fff;
+                color: #222;
+                font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                margin: 0;
+            }
+        
+            .container {
+                margin: 30px;
+                max-width: 600px;
+            }
+        
+            h1 {
+                color: #dc3545;
+                font-size: 36px;
+                font-family: lato;
+            }
+        
+            h2 {
+                font-size: 24px;
+            }
+            a {
+                text-decoration: none;
+                font-size: 24px;
+            }
+        </style>
+{% endblock %}

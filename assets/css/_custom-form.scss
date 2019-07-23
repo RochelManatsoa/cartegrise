@@ -1,0 +1,93 @@
+.custom-form {
+    select.form-control,
+    input.form-control {
+        width: -moz-calc(100% - 24px);
+        width: -ms-calc(100% - 24px);
+        width: -webkit-calc(100% - 24px);
+        width: calc(100% - 24px);
+    }
+    .form-check-input {
+        margin-left: 0;
+    }
+    fieldset {
+        fieldset {
+            padding: 0;
+        }
+    }
+    ul.tags {
+        padding-left: 0;
+    }
+}
+.form-client {
+    legend {
+        font-family: Raleway;
+        color: #1a3f78;
+    }
+    label {
+        color: #1a3f78;
+    }
+    .form-control {
+        width: -moz-calc(100% - 1.5rem);
+        width: -ms-calc(100% - 1.5rem);
+        width: -webkit-calc(100% - 1.5rem);
+        width: calc(100% - 1.5rem);
+    }
+    select.form-control {
+        height: auto !important;
+    }
+    &+.form-group {
+        text-align: center;
+    } 
+}
+.custom-flex {
+    align-items: center;    
+    display: flex;
+}
+.custom-flex button {
+    margin-left: 20px;
+}
+.titleDossier {
+    color: #22326b;
+    font-size: 36px;
+}
+.dossier-info-container {
+    .image-dossier-icon {
+        width: 100px;
+        height: 100px;
+        margin: 25px 0;
+        display: inline-block
+    }
+    .fas {
+        font-size: 100px;
+        display: block;
+        color: #22326b;
+    }
+    .desc-dossier {
+        display: block;
+        color: #22326b;
+        max-width: 80%;
+        line-height: normal;
+        margin: auto;
+    }
+}
+@media (max-width:1200px) {
+    
+}
+@media (max-width:991px) {
+    .mobile-center {
+        display: block !important;
+        margin: auto !important;
+    }
+}
+@media (max-width:767px) {
+    .custom-form {
+        h2 {
+            font-size: 26px;
+        }
+    }
+    .full-mobile {
+        flex: 0 0 83.33333% !important;
+        max-width: 83.33333% !important;
+        width: 83.333333% !important;
+    }
+}

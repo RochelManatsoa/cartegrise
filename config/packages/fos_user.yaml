@@ -3,16 +3,20 @@ fos_user:
     firewall_name: main
     user_class: App\Entity\User
     from_email:
-        address: "contact@cgofficiel.fr" 
+        address: "no-reply@cgofficiel.fr" 
         sender_name: "cgofficiel.fr" 
     service:
         mailer: fos_user.mailer.twig_swift
+        # user_manager: sonata.user.orm.user_manager
     resetting:
         email:
-            template:   '@FOSUser/Resetting/email.txt.twig'
+            template:   '@FOSUser/Resetting/resetting_email.html.twig'
     registration:
         confirmation:
             enabled: true
-            template:   '@FOSUser/Registration/email.txt.twig'
+            template:   '@FOSUser/Registration/registration_email.html.twig'
         form:
             type: App\Form\UserType
+    group:
+        group_class:   '@FOSUser/Entity/Group'
+        # group_manager: sonata.user.orm.group_manager

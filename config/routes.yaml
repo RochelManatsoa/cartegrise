@@ -4,3 +4,12 @@ fos_user:
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+france_connect:
+    resource: App\Controller\FranceConnectController
+    type:     annotation
+    prefix:   /
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin

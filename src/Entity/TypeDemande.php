@@ -5,12 +5,33 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TypeDemandeRepository")
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
  */
 class TypeDemande
 {
+    const TYPE_CTVO = 'CTVO';
+    const TYPE_DUP = 'DUP';
+    const TYPE_DIVN = 'DIVN';
+    const TYPE_DCA = 'DCA';
+    const TYPE_DC = 'DC';
+    const TYPE_DCS = 'DCS';
+    const TYPE_CHOICES = [
+        self::TYPE_CTVO,
+        self::TYPE_DUP,
+        self::TYPE_DIVN,
+        self::TYPE_DCA,
+        self::TYPE_DC,
+        self::TYPE_DCS,
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -20,11 +41,13 @@ class TypeDemande
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read"})
      */
     private $type;
 
@@ -32,11 +55,6 @@ class TypeDemande
      * @ORM\ManyToMany(targetEntity="App\Entity\Documents", mappedBy="type")
      */
     private $documents;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="nomDemande")
-     */
-    private $demandes;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Documents", mappedBy="typeDemande")
@@ -52,7 +70,6 @@ class TypeDemande
     {
         $this->documents = new ArrayCollection();
         $this->docs = new ArrayCollection();
-        $this->demandes = new ArrayCollection();
         $this->commandes = new ArrayCollection();
     }
 
@@ -113,37 +130,6 @@ class TypeDemande
         if ($this->documents->contains($document)) {
             $this->documents->removeElement($document);
             $document->removeType($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Demande[]
-     */
-    public function getDemandes(): Collection
-    {
-        return $this->demandes;
-    }
-
-    public function addDemande(Demande $demande): self
-    {
-        if (!$this->demandes->contains($demande)) {
-            $this->demandes[] = $demande;
-            $demande->setNomDemande($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDemande(Demande $demande): self
-    {
-        if ($this->demandes->contains($demande)) {
-            $this->demandes->removeElement($demande);
-            // set the owning side to null (unless already changed)
-            if ($demande->getNomDemande() === $this) {
-                $demande->setNomDemande(null);
-            }
         }
 
         return $this;

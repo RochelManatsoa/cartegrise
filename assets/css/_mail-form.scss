@@ -1,0 +1,52 @@
+.mail-rejet {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px #999;
+    margin-top: 50px;
+    padding: 30px;
+    label {
+        color: #1a3f78 !important;
+        font-family: Raleway;
+        font-size: 16px;        
+        font-weight: 700;
+    }
+    textarea {
+        background-color: #f6f6f6;
+        border: 2px solid #f6f6f6;
+        color: #1a3f78;
+        display: inline-block;
+        font-family: Raleway; 
+        font-size: 16px;               
+        font-weight: 700;
+        height: 100px;        
+        padding: 10px;
+        resize: none;
+        text-align: left;
+        text-decoration: none;
+        width: -moz-calc(100% - 20px);
+        width: -ms-calc(100% - 20px);
+        width: -webkit-calc(100% - 20px);
+        width: calc(100% - 20px);
+    }
+    #demande_non_validate_Enregistrer {
+        background-color: rgba(255,255,255,0.8);        
+        border: 2px solid #1a3f78;        
+        border-radius: 5px;        
+        box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);        
+        color: #1a3f78;        
+        display: block;
+        font-family: Raleway;
+        font-size: 15px;        
+        font-weight: 700;
+        margin: 20px auto;        
+        padding: 15px 60px;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        &:hover {
+            background-color: #1a3f78;        
+            color: #fff;
+            cursor: pointer;
+        }
+    }
+}

@@ -5,10 +5,18 @@ namespace App\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ *  @ApiResource(
+ *     attributes={"filters"={"offer.order_filter"}},
+ *     forceEager= false,
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
  */
 class User extends BaseUser
 {
@@ -16,16 +24,24 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"read"})
      */
     protected $id;
 
     /**
     * @ORM\Column(type="datetime", nullable=true)
+    * @Groups({"read"})
     */
     private $registerDate;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Client", cascade={"persist", "remove"})
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $franceConnectId;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Client",inversedBy="user", cascade={"persist", "remove"})
+     * @Groups({"read"})
      */
     private $client;
 
@@ -44,13 +60,6 @@ class User extends BaseUser
         return $this->client;
     }
 
-    public function setClient(?Client $client): self
-    {
-        $this->client = $client;
-
-        return $this;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -67,4 +76,24 @@ class User extends BaseUser
 
         return $this;
     }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getFranceConnectId(): ?string
+    {
+        return $this->franceConnectId;
+    }
+
+    public function setFranceConnectId(?string $franceConnectId): self
+    {
+        $this->franceConnectId = $franceConnectId;
+
+        return $this;
+    }
+
 }
