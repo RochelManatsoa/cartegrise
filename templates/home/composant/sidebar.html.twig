@@ -1,9 +1,22 @@
-<div class="col-4 sidebar hidden-md-down ">
+<div class="col-4 sidebar hidden-md-down new-sidebar">
 
 	<div class="col-12 row d-flex align-items-center">
-		<a class="col-6 mx-auto" href="{{ path('Accueil') }}">
+		<a class="col-6 mx-auto logo-sidebar" href="{{ path('Accueil') }}">
 			<img class="rounded mx-auto d-block img-fluid" src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="logo">
 		</a>
+	</div>
+	<div class="menu-sidebar">
+		<ul class="">
+			<li>
+				<a href="{{ path('Accueil') }}" class="menu-item">Accueil</a>
+			</li>
+			<li>
+				<a href="{{ path('CommentCaMarche') }}" class="menu-item">Comment ça marche ?</a>
+			</li>
+			<li>
+				<a href="http://blog.cgofficiel.fr" class="menu-item">actualités</a>
+			</li>
+		</ul>
 	</div>
 
 	{% if app.user %}
@@ -34,7 +47,8 @@
 		</li>
 		
 	</ul>
-	<div class="col-10 col-lg-8 col-xl-6 mx-auto mt-2">
+	{# Begin COMMENT Tolotra #}
+	{# <div class="col-10 col-lg-8 col-xl-6 mx-auto mt-2">
 		<img class="col-12 mx-auto rounded float-right mb-3" src="{{ asset('asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png')}}" alt="agrément CGofficiel carte grise certificat immatriculation">
 	</div>
 		{% if checkDemande(app.user) != 0 %}
@@ -51,10 +65,12 @@
 				</p>
 			</div>
 		</div>
-		{% endif %}
+		{% endif %} #}
+	{# End COMMENT Tolotra #}
 
 	{% else %}
 	
+
 	<div class="col-10 col-lg-8 col-xl-6 mx-auto mt-4">
 		<a class="col-12 mx-auto" href="#" class="btnLink">
 		{# <a class="col-12 mx-auto" href="{{ path('france_connect_login') }}" class="btnLink"> #}
@@ -77,7 +93,7 @@
 				<img class="col-12 mx-auto img-fluid" src="{{ asset('asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="0897010800 CGofficiel carte grise certificat immatriculation">
 			</p>
 		</div>
-	</div>
+	</div> #}
 	{% endif %}
 </div>
 <!-- _____________________________________________________________________________________SIDEBAR ORDI fin -->
