@@ -12,26 +12,25 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-final class FactureAdmin extends AbstractAdmin
+final class ValidationDossierAdmin extends AbstractAdmin
 {
-    protected $baseRoutePattern = 'facture';
-    protected $baseRouteName = 'facture';
-
+    protected $baseRoutePattern = 'dossier';
+    protected $baseRouteName = 'dossier';
     public function createQuery($context = 'list')
     {
         $query = parent::createQuery($context);
         $qb = $query->getQueryBuilder();
         $alias = $query->getRootAliases()[0];
-        $qb->leftJoin($alias.'.transaction', 'trans')
-        ->andWhere('trans.status =:status')
-        ->setParameter('status', '00');
+        // $qb->leftJoin($alias.'.transaction', 'trans')
+        $qb->andWhere($alias.'.statusDoc IS NOT NULL');
 
         return $query;
     }
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('facture', $this->getRouterIdParameter().'/facture');
+        // $collection->clearExcept(['dossier']);
+        $collection->add('dossier', $this->getRouterIdParameter().'/dossier');
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -45,6 +44,7 @@ final class FactureAdmin extends AbstractAdmin
     {
         $datagridMapper
         ->add('id')
+        ->add('reference')
         ;
     }
 
@@ -52,20 +52,19 @@ final class FactureAdmin extends AbstractAdmin
     {
         $listMapper
         ->add('id')
+        ->add('reference')
         ->add('dateDemande')
         ->add('commande.immatriculation')
         ->add('commande.status')
         ->add('transaction.transactionId')
         ->add('_action', null, [
-            'actions' => [
-                'facture' => [
-                    'template' => 'CRUD/list__action_clone.html.twig'
+            'actions' => [ 
+                'dossier' => [
+                    'template'=>'CRUD/list__demande_document.html.twig'
                 ]
             ],
             
         ])
         ;
-
-        // dd($listMapper);
     }
 }

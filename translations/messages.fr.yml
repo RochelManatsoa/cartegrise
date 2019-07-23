@@ -38,7 +38,7 @@ type_demande:
                     </a>
                 </li>
                 <li>la déclaration originale de perte ou vol (la déclaration de vol doit être enregistrée et tamponnée par la police)</li>
-                <li>une copie du contrôle technique  en cours de validité encore 1 mois minimum sauf pour les motos, cyclo, caravanes, remorques et engins agricoles </li>
+                <li>si votre véhicule a plus de 4 ans, preuve du contrôle technique en cours de validité, sauf si le véhicule est dispensé de contrôle technique </li>
                 <li>une pièce d'identité en cours de validité</li>
                 <li>l'attestation d'assurance du véhicule</li> 
                 <li>le permis de conduire du titulaire du véhicule</li>
@@ -144,6 +144,7 @@ label:
     dateCession: Date de cession
     ancienAdresse: Ancienne adresse
     typevoie: Type de Voie
+    numerovoie: Numéro de la Voie
     complement: Complément d'adresse
     codepostal: Code Postal
     ville: Ville
@@ -238,6 +239,13 @@ label:
     updateUser: Informations vous concernant
     particulierOrSociete: Particulier ou Société
     notificationType: Type de notification
+
+    divn:
+        tauxDeCo2: Taxe de CO2
+        marque: Marque
+        energie: Enérgie
+        puissanceFiscale: Puissance fiscale
+        genre: Genre
 home:
     carSkills: CARACTÉRISTIQUES DU VÉHICULE
     recapDemande: Récapitulatif de la demande
@@ -245,7 +253,7 @@ home:
     continue: Continuer
     validateComand: Je valide ma commande
     createAcountDescription: |
-        Créez votre compte et identifiez-vous en quelques <br> clics, pour valider et suivre votre commande
+        Créez votre compte et identifiez-vous en quelques clics, pour valider et suivre votre commande
     noAcount: "je n'ai pas encore de compte sur CG officiel"
     createAcountButton: CREER MON COMPTE
     login: "S'IDENTIFIER"

@@ -6,7 +6,7 @@ use App\Entity\Demande;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use App\Manager\Crm\Modele\CrmSearch;
-use App\Entity\User;
+use App\Entity\{User, Transaction};
 
 /**
  * @method Demande|null find($id, $lockMode = null, $lockVersion = null)
@@ -60,6 +60,89 @@ class DemandeRepository extends ServiceEntityRepository
         ->setParameter('user', $user)->getQuery()->getResult();
 
     }
+    public function getUserWithoutSendDocumentInDay(int $day, int $relanceLevel)
+    {
+        $qb = $this->createQueryBuilder('d')
+        ->select('u.email, c.clientNom, c.clientPrenom, c.id as idClient, c.clientGenre')
+        ->join('d.commande','com')
+        ->join('d.transaction','trans')
+        ->join('com.client','c')
+        ->join('c.user','u')
+        ->distinct()
+        ->where('trans.status =:paramSuccess')
+        ->andWhere('d.statusDoc IS NULL')
+        ->andWhere('d.dateDemande <= :now');
+        if ($day === 7){
+            $qb
+            ->andWhere('c.relanceLevel <:relanceLvl')
+            ->setParameter('relanceLvl', $relanceLevel);
+        } else {
+            $relanceLevel = $relanceLevel-1;
+            $qb
+            ->andWhere('c.relanceLevel =:relanceLvl')
+            ->setParameter('relanceLvl', $relanceLevel);
+        }
+
+        $qb
+        ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
+        ->setParameter('now', $this->relanceDate($day));
+
+        return $qb->getQuery()->getResult();
+
+    }
+
+    public function getUserWithSendDocumentButNotValidInDay(int $day, int $relanceLevel)
+    {
+        $qb = $this->createQueryBuilder('d')
+        ->select('u.email, c.clientNom, c.clientPrenom, c.id as idClient, c.clientGenre')
+        ->join('d.commande','com')
+        ->join('d.transaction','trans')
+        ->join('com.client','c')
+        ->join('c.user','u')
+        ->distinct()
+        ->where('trans.status =:paramSuccess')
+        ->andWhere('d.statusDoc =:statusDoc')
+        ->andWhere('d.dateDemande <= :now');
+        if ($day === 7){
+            $qb
+            ->andWhere('c.relanceLevel <:relanceLvl')
+            ->setParameter('relanceLvl', $relanceLevel);
+        } else {
+            $relanceLevel = $relanceLevel-1;
+            $qb
+            ->andWhere('c.relanceLevel =:relanceLvl')
+            ->setParameter('relanceLvl', $relanceLevel);
+        }
+
+        $qb
+        ->setParameter('statusDoc', Demande::DOC_NONVALID)
+        ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
+        ->setParameter('now', $this->relanceDate($day));
+
+        return $qb->getQuery()->getResult();
+
+    }
+
+    public function getDailyDemandeFacture($begin, \DateTime $now)
+    {
+        // $now->modify('- 40day');
+        $qb = $this->createQueryBuilder('d')
+        // ->select('u.email, c.clientNom, c.clientPrenom, c.id as idClient, c.clientGenre')
+        ->join('d.commande','com')
+        ->join('d.transaction','trans')
+        ->join('com.client','c')
+        ->join('c.user','u')
+        ->distinct()
+        ->where('trans.status =:paramSuccess')
+        ->andWhere('trans.amount IS NOT NULL')
+        ->andWhere('d.dateDemande <= :now');
+
+        $qb
+        ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
+        ->setParameter('now', $now);
+
+        return $qb->getQuery()->getResult();
+    }
 
 
 
@@ -103,6 +186,14 @@ class DemandeRepository extends ServiceEntityRepository
         }
 
         return $builder->getQuery()->getResult();        
+    }
+
+    private function relanceDate(int $day)
+    {
+        $date = new \DateTime();
+        $date->modify('-'.$day.'day');
+
+        return $date;
     }
 
 }

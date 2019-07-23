@@ -16,6 +16,7 @@ class AdresseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('numero', null, array('label' => 'label.numerovoie'))
             ->add('typevoie', ChoiceType::class, [
                 'choices'  => [
                     '...' => "SANS",
@@ -40,16 +41,16 @@ class AdresseType extends AbstractType
                 ],
                 'label' => 'label.typevoie',         
                 ])
-            ->add('nom', TextType::class, array('label' => 'label.nom.voie'))
-            ->add('complement',  TextType::class, array(
+            ->add('nom', null, array('label' => 'label.nom.voie'))
+            ->add('complement',  null, array(
                 'required' => false, 
                 'label'    => 'label.complement',
                 'attr' => array(
                     'placeholder' => 'Lieu dit, numéro boîte aux lettres, nom de la résidence'
                     )
                 ))
-            ->add('codepostal', TextType::class, array('label' => 'label.codepostal'))
-            ->add('ville', TextType::class, array('label' => 'label.ville'))
+            ->add('codepostal', null, array('label' => 'label.codepostal'))
+            ->add('ville', null, array('label' => 'label.ville'))
            ;
     }
 

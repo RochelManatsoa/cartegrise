@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Facture N°{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</title>
+  <title>Facture N°{{demande.transaction.id | number_format()}}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ pathToWeb ~ asset('css/style.css') }}">
@@ -36,7 +36,7 @@
       </div>
       <div class="col-5">
         <h1>FACTURE</h1>
-        <p><strong>N°{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</strong></p>
+        <p><strong>N°{{demande.transaction.facture | formatFacture }}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}{{demande.transaction.id}}</strong></p>
       </div>
     </div>
     <br>
@@ -83,7 +83,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{demande.dateDemande | date('Ymd')}}-{{demande.commande.demarche.type}}/{{demande.id}}{{demande.transaction.id}}</td>
+          <td>{{demande.transaction.facture | formatFacture }}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}{{demande.transaction.id}}</td>
           <td class="text-center">{{demande.dateDemande | date('d/m/Y')}}</td>
           <td class="text-center">{{demande.transaction.transactionId}}</td>
         </tr>
@@ -159,7 +159,7 @@
       <p class="bottom-page text-right">
         <small>
             CG Officiel - N° SIRET 83897291700010 Toulouse<br>
-            20 Impasse Camille Langlade, 31000 Toulouse 05 61 51 69 222 - www.cgofficiel.fr<br>
+            20 Impasse Camille Langlade, 31000 Toulouse 09 77 42 31 20 - www.cgofficiel.fr<br>
             IBAN FR76 3000 4003 3900 0102 24 95 637 - SWIFT CCBPFRPPMTZ
         </small>      
       </p>

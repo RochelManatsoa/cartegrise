@@ -6,12 +6,13 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use App\Manager\UserManager;
+use App\Manager\{DemandeManager, MailManager};
 
-class RelanceCommand extends Command
+class RelanceCommandPaimentDocumentNonValid extends Command
 {
-    protected static $defaultName = "app:email:relance";
-    protected $userManager;
+    protected static $defaultName = "app:email:relancePaimentDocumentNonValid";
+    protected $demandeManager;
+    protected $mailManager;
 
     protected function configure()
     {
@@ -20,15 +21,17 @@ class RelanceCommand extends Command
         ->setDescription('Creates a notification relace.')
 
         // all command is :
-        // php bin/console app:email:relance ==> tout les heures
-        // php bin/console app:email:relance --option=1 ==> tout les jours à 10h le matin
-        // php bin/console app:email:relance --option=2 ==> tout les jours à 10h le matin
+        // php bin/console app:email:relancePaimentDocumentNonValid ==> tout les heures
+        // php bin/console app:email:relancePaimentDocumentNonValid --day=7 ==> tout les jours à 10h le matin
+        // php bin/console app:email:relancePaimentDocumentNonValid --day=14 ==> tout les jours à 10h le matin
+        // php bin/console app:email:relancePaimentDocumentNonValid --day=20 ==> tout les jours à 10h le matin
+        // php bin/console app:email:relancePaimentDocumentNonValid --day=27 ==> tout les jours à 10h le matin
 
         // the full command description shown when running the command with
         // the "--help" option
         ->setHelp('This command allows you to create a email relance for user don\'t payed in application...')
         ->addOption(
-            "option",
+            "day",
             null,
             InputOption::VALUE_REQUIRED,
             'option or relance level',
@@ -37,13 +40,14 @@ class RelanceCommand extends Command
         ;
     }
 
-    public function __construct(bool $requirePassword = false, UserManager $userManager)
+    public function __construct(bool $requirePassword = false, DemandeManager $demandeManager, MailManager $mailManager)
     {
         // best practices recommend to call the parent constructor first and
         // then set your own properties. That wouldn't work in this case
         // because configure() needs the properties set in this constructor
         $this->requirePassword = $requirePassword;
-        $this->userManager = $userManager;
+        $this->demandeManager = $demandeManager;
+        $this->mailManager = $mailManager;
 
         parent::__construct();
     }
@@ -55,7 +59,7 @@ class RelanceCommand extends Command
             '============',
             '',
         ]);
-        $option = (int) $input->getOption('option');
+        $day = (int) $input->getOption('day');
 
         // the value returned by someMethod() can be an iterator (https://secure.php.net/iterator)
         // that generates and returns the messages with the 'yield' PHP keyword
@@ -63,7 +67,8 @@ class RelanceCommand extends Command
 
         // outputs a message followed by a "\n"
         // $output->writeln('Whoa!');
-        $this->userManager->sendUserForRelance($option);
+        $this->demandeManager->getUserWithSendDocumentButNotValidInDay($day, $this->mailManager);
+        // $this->userManager->sendUserForRelance($option);
         // outputs a message without adding a "\n" at the end of the line
         $output->write('You are about to ');
         $output->write('create a email relance.');
