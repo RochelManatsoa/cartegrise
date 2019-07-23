@@ -77,6 +77,10 @@ services:
         arguments: [~, App\Entity\TarifsPrestations, ~]
         tags:
             - { name: sonata.admin, manager_type: orm,group: 'TARIFS', label: 'Tarif prestation' }
+    App\Admin\FactureJournalierAdmin:
+        arguments: [~, App\Entity\DailyFacture, App\Controller\ActionAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'FACTURE', label: 'Factures Journalier clients' }
     App\Admin\UserAdmin:
         arguments: [~, App\Entity\User, ~]
         tags:

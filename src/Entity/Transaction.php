@@ -42,6 +42,11 @@ class Transaction
     private $transactionId;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $facture;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Demande")
 
      */
@@ -96,6 +101,18 @@ class Transaction
     public function setStatus(?string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getFacture(): ?int
+    {
+        return $this->facture;
+    }
+
+    public function setFacture(?int $facture): self
+    {
+        $this->facture = $facture;
 
         return $this;
     }

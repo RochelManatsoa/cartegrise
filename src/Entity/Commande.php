@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommandeRepository")
@@ -29,6 +30,10 @@ class Commande
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min=1,
+     *      max=3
+     * )
      */
     private $codePostal;
 
@@ -76,10 +81,16 @@ class Commande
      */
     private $carInfo;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $saved;
+
 
     public function __construct()
     {
         $this->client = new ArrayCollection();
+        $this->saved = false;
     }
 
     public function getStatus()
@@ -243,6 +254,18 @@ class Commande
         $client = $this->client[0];
         if (!is_null($client) && is_object($client))
             $client->setCountCommande($client->getCountCommande() + 1);
+    }
+
+    public function getSaved(): ?bool
+    {
+        return $this->saved;
+    }
+
+    public function setSaved(?bool $saved): self
+    {
+        $this->saved = $saved;
+
+        return $this;
     }
 
 }

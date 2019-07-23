@@ -38,12 +38,19 @@
                         <td>{{ client.ClientLieuNaissance }}</td>
                     </tr>
                     <tr>
-                        <th> Adresse éléctronique</th>
+                        <th> E-mail</th>
                         <td>{{ app.user.email }}</td>
                     </tr>
                     <tr>
                         <th>Téléphone mobile</th>
                         <td>{{ client.clientContact.contactTelmobile }}</td>
+                    </tr>
+                    <tr>
+                        <th>Adresse</th>
+                        <td>
+                            {{ client.clientAdresse.numero}} {{ client.clientAdresse.typevoie}} {{ client.clientAdresse.nom}}<br>
+                            {{ client.clientAdresse.codepostal}} {{ client.clientAdresse.ville}}
+                        </td>
                     </tr>
                 </table>
                 <div class="text-center">

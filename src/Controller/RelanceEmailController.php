@@ -6,7 +6,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Manager\DemandeManager;
+use App\Manager\TaxesManager;
 use App\Manager\MailManager;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
 
 /**
  * @Route("/relance")
@@ -21,6 +24,17 @@ class RelanceEmailController extends AbstractController
         $demandeManager->getUserWithoutSendDocumentInDay($day, $mailManager);
 
         return new Response('ok');
+    }
+    /**
+     * @Route("/facture/journalier", name="facture_journalier")
+     */
+    public function facture_journalier(DemandeManager $demandeManager,TaxesManager $taxesManager, MailManager $mailManager)
+    {
+        $now = new \DateTime();
+        $demandes = $demandeManager->getDailyDemandeFacture($now);
+        $file = $demandeManager->generateDailyFacture($demandes, $now);
+
+        return new BinaryFileResponse($file);
     }
     /**
      * @Route("/user_paiment_with_doc_non_valid/{day}", name="user_paiment")
