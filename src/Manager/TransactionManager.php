@@ -64,4 +64,15 @@ class TransactionManager
         return $transaction;
     }
 
+    public function generateNumFacture(Transaction $transaction)
+    {
+        $lastInserted = $this->repository->findOneBy([], ['facture' => 'desc']);
+        if (!$lastInserted instanceof Transaction) {
+            return null;
+        }
+        $numFacture = $lastInserted->getFacture();
+        $facture = $numFacture + 1;
+
+        return $facture;
+    }
 }

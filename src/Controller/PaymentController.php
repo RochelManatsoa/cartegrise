@@ -50,6 +50,7 @@ class PaymentController extends AbstractController
         $email = $this->getUser()->getEmail();
         $demandeManager->checkPayment($demande);
         $idTransaction = $transactionManager->generateIdTransaction($demande->getTransaction());
+        $facture = $transactionManager->generateNumFacture($demande->getTransaction());
         $amount *=100;
         $paramDynamical = [
             'amount' => $amount,
@@ -59,7 +60,7 @@ class PaymentController extends AbstractController
         $bin   = $parameterBag->get('payment_binary');
         $param = array_merge($param, $paramDynamical);
         $response = $paymentUtils->request($param, $bin);
-        $demande->getTransaction()->setTransactionId($response['transactionId']);
+        $demande->getTransaction()->setTransactionId($response['transactionId'])->setFacture($facture);
         $transactionManager->save($demande->getTransaction());
         
         return new Response($response['template']);
@@ -88,8 +89,12 @@ class PaymentController extends AbstractController
         // send mail
             $this->addHistoryTransaction($responses, $historyTransactionManager);
             $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
-            $file = $demandeManager->generateFacture($transaction->getDemande());
-            $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails, [$file]);
+            $files = [];
+            if ($transaction->getStatus() === 00) {
+                $file = $demandeManager->generateFacture($transaction->getDemande());
+                $files = [$file];
+            }
+            $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails, $files);
         // end send mail
 
         return new Response('ok');

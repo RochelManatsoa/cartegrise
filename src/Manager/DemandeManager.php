@@ -4,7 +4,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-17 13:14:01 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-18 15:00:47
+ * @Last Modified time: 2019-07-22 16:03:48
  */
 namespace App\Manager;
 
@@ -20,7 +20,7 @@ use App\Form\Demande\DemandeDuplicataType;
 use App\Form\Demande\DemandeChangementAdresseType;
 use App\Form\DocumentDemande\DemandeNonValidateType;
 use App\Manager\{TransactionManager, MailManager};
-use App\Repository\DemandeRepository;
+use App\Repository\{DemandeRepository, DailyFactureRepository};
 use App\Manager\ClientManager;
 use App\Manager\TaxesManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,6 +39,7 @@ class DemandeManager
     private $formFactory;
     private $twig;
     private $repository;
+    private $dailyFactureRepository;
     private $transactionManager;
     private $translator;
     private $commandeManager;
@@ -52,6 +53,7 @@ class DemandeManager
         FormFactoryInterface   $formFactory,
         Twig                   $twig,
         DemandeRepository      $repository,
+        DailyFactureRepository $dailyFactureRepository,
         TransactionManager     $transactionManager,
         TranslatorInterface    $translator,
         CommandeManager        $commandeManager,
@@ -64,6 +66,7 @@ class DemandeManager
         $this->formFactory        = $formFactory;
         $this->twig               = $twig;
         $this->repository         = $repository;
+        $this->dailyFactureRepository   = $dailyFactureRepository;
         $this->transactionManager = $transactionManager;
         $this->commandeManager    = $commandeManager;
         $this->translator         = $translator;
@@ -309,6 +312,9 @@ class DemandeManager
         if (!is_dir($folder)) mkdir($folder, 0777, true);
         // end create file 
         // get facture if not exist
+        $origin = '/Users/rapaelec/Downloads/partage/cgoff/cartegrise/public/';
+        // dd(__DIR__.'/../../'.$file);
+        // dd(!is_file(__DIR__.'/../../'.$file));
         // if (!is_file($file)) { // attente de finalité du process
             $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
             $filename = "Facture";
@@ -436,7 +442,11 @@ class DemandeManager
 
     public function getDailyDemandeFacture(\DateTime $now)
     {
-        $demandes = $this->repository->getDailyDemandeFacture($now);
+        $dailyFacture = $this->dailyFactureRepository->findOneBy([], ['id' => 'DESC']);
+        if (is_object($dailyFacture))
+            $demandes = $this->repository->getDailyDemandeFacture($dailyFacture->getDateCreate(),$now);
+        else 
+            $demandes = $this->repository->getDailyDemandeFacture(null,$now);
 
         return $demandes;
     }
