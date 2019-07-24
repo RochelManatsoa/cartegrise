@@ -89,8 +89,12 @@ class PaymentController extends AbstractController
         // send mail
             $this->addHistoryTransaction($responses, $historyTransactionManager);
             $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
-            $file = $demandeManager->generateFacture($transaction->getDemande());
-            $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails, [$file]);
+            $files = [];
+            if ($transaction->getStatus() === 00) {
+                $file = $demandeManager->generateFacture($transaction->getDemande());
+                $files = [$file];
+            }
+            $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails, $files);
         // end send mail
 
         return new Response('ok');
