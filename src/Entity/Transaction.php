@@ -52,6 +52,11 @@ class Transaction
      */
     private $demande;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateTransaction;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -113,6 +118,18 @@ class Transaction
     public function setFacture(?int $facture): self
     {
         $this->facture = $facture;
+
+        return $this;
+    }
+
+    public function getDateTransaction(): ?\DateTimeInterface
+    {
+        return $this->dateTransaction;
+    }
+
+    public function setDateTransaction(?\DateTimeInterface $dateTransaction): self
+    {
+        $this->dateTransaction = $dateTransaction;
 
         return $this;
     }
