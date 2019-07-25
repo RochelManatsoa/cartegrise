@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 12:27:51
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-25 00:06:10
+ * @Last Modified time: 2019-07-25 12:10:08
  */
 
 namespace App\Manager;
@@ -44,8 +44,9 @@ class TaxesManager
         $taxe = new Taxes();
         // $puissanceFisc = $type === "ECG" ? $value->Lot->Demarche->{$type}->Vehicule->Puissance :null;
         $puissanceFisc = $type === "ECG" ? $value->Lot->Demarche->ECG->TypeECG->{$commande->getDemarche()->getType()}->Vehicule->Puissance :null;
-        // $response = $value->Lot->Demarche->{$type}->Reponse;
-        $response = $value->Lot->Demarche->ECG->Reponse;
+        if (isset($value->Lot->Demarche->ECG))
+            $type = "ECG";
+        $response = $value->Lot->Demarche->{$type}->Reponse;
         $tmsResponse = $tmsInfoImmat->getRawData()->InfoVehicule->Reponse;
         // manage taxe with configuration
         $this->taxLogicalManager->getRealTaxes($taxe, $commande, $response, $puissanceFisc);

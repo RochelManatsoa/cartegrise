@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-25 11:42:07
+ * @Last Modified time: 2019-07-25 12:30:43
  */
 
 namespace App\Manager;
@@ -80,36 +80,36 @@ class CommandeManager
 	private function getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule)
 	{
 		$Vehicule = [
-			"Immatriculation" => $commande->getImmatriculation(), 
-			"Departement" => $commande->getCodePostal(),
-		];
-		$DateDemarche = date('Y-m-d H:i:s');
-		$typeDemarche = $commande->getDemarche()->getType();
+        	"Immatriculation" => $commande->getImmatriculation(), 
+        	"Departement" => $commande->getCodePostal(),
+        ];
+        $DateDemarche = date('Y-m-d H:i:s');
 
-		$ECG = [
-			"ID" => "", 
-			"TypeDemarche" => "ECG",
-			"TypeECG" => [
-				$typeDemarche => [
-					"Vehicule" => [
-						"Immatriculation" => $commande->getImmatriculation(), 
-						"Departement" => $commande->getCodePostal(),
-						"Puissance" => $infosVehicule->PuissFisc,
-						"Genre" =>$infosVehicule->Genre,
-						"Energie" =>$infosVehicule->Energie,
-						"DateMEC" =>$infosVehicule->DateMec,
-						"CO2" => $infosVehicule->CO2,
-					]
-				]
-			],
+        $ECG = [
+        	"ID" => "", 
+        	"TypeDemarche" => "ECGAUTO", 
+        	"DateDemarche" => $DateDemarche,
+        	"Vehicule" => $Vehicule
 		];
 
-        $Demarche = ['ECG' => $ECG];
+        $Demarche = ["ECGAUTO" => $ECG];
         $Lot = ["Demarche" => $Demarche];
         $Immat = ["Immatriculation" => $commande->getImmatriculation()];
-		$params = ["Lot" => $Lot];
+        $params = ["Lot" => $Lot];
 
 		return $params;
+	}
+
+	private function getTypeAchat($type) 
+	{
+		$responses = [
+			'DIVN' => 1,
+			'CTVO' => 2,
+			'DUP' => 3
+		];
+		if (isset($responses[$type]))
+			return $responses[$type];
+		return null;
 	}
 	private function getParamDupEnvoyer($typeDemarche, Commande $commande, $infosVehicule)
 	{
