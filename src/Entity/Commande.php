@@ -245,6 +245,10 @@ class Commande
 
         return $this;
     }
+    public function getFirstClient()
+    {
+        return $this->client[0];
+    }
 
     /**
      * @ORM\PrePersist()

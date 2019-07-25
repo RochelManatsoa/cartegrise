@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-04-24 22:58:41
+ * @Last Modified time: 2019-07-25 11:36:11
  */
 
 namespace App\Manager;
@@ -12,6 +12,7 @@ namespace App\Manager;
 use Doctrine\ORM\EntityManagerInterface;
 
 use App\Services\Tms\TmsClient;
+use App\Services\Tms\Response as ResponseTms;
 use App\Entity\Commande;
 use App\Manager\SessionManager;
 use App\Manager\StatusManager;
@@ -52,30 +53,89 @@ class CommandeManager
 		return $commande;
 	}
 
-	public function tmsEnvoyer(Commande $commande)
+	public function tmsEnvoyer(Commande $commande, ResponseTms $responseTms)
 	{
+		$infosVehicule = $responseTms->getRawData()->InfoVehicule->Reponse->Positive;
         $this->em->persist($commande);
-        $this->sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
+		$this->sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
+		$typeDemarche = $commande->getDemarche()->getType();
 
-        $Vehicule = [
-        	"Immatriculation" => $commande->getImmatriculation(), 
-        	"Departement" => $commande->getCodePostal(),
-        ];
-        $DateDemarche = date('Y-m-d H:i:s');
-
-        $ECG = [
-        	"ID" => "", 
-        	"TypeDemarche" => "ECGAUTO", 
-        	"DateDemarche" => $DateDemarche,
-        	"Vehicule" => $Vehicule
-		];
-
-        $Demarche = ["ECGAUTO" => $ECG];
-        $Lot = ["Demarche" => $Demarche];
-        $Immat = ["Immatriculation" => $commande->getImmatriculation()];
-        $params = ["Lot" => $Lot];
+		$params = $this->getParamEnvoyer($typeDemarche, $commande, $infosVehicule);
         
         return $this->tmsClient->envoyer($params);
+	}
+
+	private function getParamEnvoyer($typeDemarche, Commande $commande, $infosVehicule)
+	{
+		switch($typeDemarche) {
+			case "DUP":
+				return $this->getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule);
+				break;
+			default:
+				return $this->getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule);
+				break;
+		}
+
+	}
+	private function getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule)
+	{
+		$Vehicule = [
+			"Immatriculation" => $commande->getImmatriculation(), 
+			"Departement" => $commande->getCodePostal(),
+		];
+		$DateDemarche = date('Y-m-d H:i:s');
+		$typeDemarche = $commande->getDemarche()->getType();
+
+		$ECG = [
+			"ID" => "", 
+			"TypeDemarche" => "ECG",
+			"TypeECG" => [
+				$typeDemarche => [
+					"Vehicule" => [
+						"Immatriculation" => $commande->getImmatriculation(), 
+						"Departement" => $commande->getCodePostal(),
+						"Puissance" => $infosVehicule->PuissFisc,
+						"Genre" =>$infosVehicule->Genre,
+						"Energie" =>$infosVehicule->Energie,
+						"DateMEC" =>$infosVehicule->DateMec,
+						"CO2" => $infosVehicule->CO2,
+					]
+				]
+			],
+		];
+
+        $Demarche = ['ECG' => $ECG];
+        $Lot = ["Demarche" => $Demarche];
+        $Immat = ["Immatriculation" => $commande->getImmatriculation()];
+		$params = ["Lot" => $Lot];
+
+		return $param;
+	}
+	private function getParamDupEnvoyer($typeDemarche, Commande $commande, $infosVehicule)
+	{
+        $ECG = [
+        	"ID" => "", 
+			"TypeDemarche" => "ECG",
+			"TypeECG" => [
+				$typeDemarche => [
+					"Vehicule" => [
+						"Immatriculation" => $commande->getImmatriculation(), 
+						"Departement" => $commande->getCodePostal(),
+						"Puissance" => $infosVehicule->PuissFisc,
+						"Genre" =>$infosVehicule->Genre,
+						"Energie" =>$infosVehicule->Energie,
+						"DateMEC" =>$infosVehicule->DateMec,
+						"CO2" => $infosVehicule->CO2,
+					]
+				]
+			],
+		];
+        $Demarche = ['ECG' => $ECG];
+        $Lot = ["Demarche" => $Demarche];
+        $Immat = ["Immatriculation" => $commande->getImmatriculation()];
+		$params = ["Lot" => $Lot];
+
+		return $params;
 	}
 
 	public function tmsSauver(Commande $commande)
