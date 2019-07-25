@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 12:27:51
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-25 17:05:00
+ * @Last Modified time: 2019-07-25 17:08:14
  */
 
 namespace App\Manager;
@@ -65,9 +65,12 @@ class TaxesManager
         $dateMec = ($type === "ECG") ? ($typeDemarche === "DIVN")? \DateTime::createFromFormat('d/m/Y', $otherINfo->DateMEC) : \DateTime::createFromFormat('d/m/Y', $otherINfo->DateMec) : \DateTime::createFromFormat('Y-m-d', $otherINfo->DateMec);
         dd($otherINfo);
         $taxe->setVIN($vin)
-            ->setCO2($otherINfo->CO2)
-            ->setPuissance($otherINfo->PuissFisc)
-            ->setGenre($this->getGenreResponseTms($otherINfo->Genre))
+            ->setCO2($otherINfo->CO2);
+            if ($typeDemarche === "DIVN")
+                $taxe->setPuissance($otherINfo->Puissance);
+            else 
+                $taxe->setPuissance($otherINfo->PuissFisc);
+            $taxe->setGenre($this->getGenreResponseTms($otherINfo->Genre))
             // ->setPTAC($otherINfo->PTAC)
             ->setEnergie($otherINfo->Energie)
             ->setDateMEC($dateMec)
