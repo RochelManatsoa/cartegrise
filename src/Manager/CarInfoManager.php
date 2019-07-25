@@ -3,8 +3,8 @@
 /**
  * @Author: stephan
  * @Date:   2019-04-15 12:27:51
- * @Last Modified by:   stephan
- * @Last Modified time: 2019-04-15 12:37:11
+ * @Last Modified by: Patrick << rapaelec@gmail.com >>
+ * @Last Modified time: 2019-07-25 15:15:05
  */
 
 namespace App\Manager;
@@ -42,7 +42,7 @@ class CarInfoManager
         return $carInfo;
     }
 
-    public function generateCarInfoForDivn(Response $tmsResponse, Commande $commande)
+    public function generateCarInfoForDivn(Commande $commande)
     {
         $carInfo = $this->createCarInfo();
         $carInfo

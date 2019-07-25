@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-04-24 22:58:41
+ * @Last Modified time: 2019-07-25 15:20:03
  */
 
 namespace App\Manager;
@@ -15,6 +15,7 @@ use App\Services\Tms\TmsClient;
 use App\Entity\Commande;
 use App\Manager\SessionManager;
 use App\Manager\StatusManager;
+use App\Services\Tms\Response as ResponseTms;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class CommandeManager
@@ -52,30 +53,93 @@ class CommandeManager
 		return $commande;
 	}
 
-	public function tmsEnvoyer(Commande $commande)
+	public function tmsEnvoyer(Commande $commande, ResponseTms $responseTms)
 	{
+		$infosVehicule = $responseTms->getRawData()->InfoVehicule->Reponse->Positive;
         $this->em->persist($commande);
-        $this->sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
+		$this->sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
+		
+		$typeDemarche = $commande->getDemarche()->getType();
+		$params = $this->getParamEnvoyer($typeDemarche, $commande, $infosVehicule);
+        
+        return $this->tmsClient->envoyer($params);
+	}
 
-        $Vehicule = [
-        	"Immatriculation" => $commande->getImmatriculation(), 
-        	"Departement" => $commande->getCodePostal(),
-        ];
+	private function getParamEnvoyer($typeDemarche, Commande $commande, $infosVehicule)
+	{
+		switch($typeDemarche) {
+			case "DUP":
+				return $this->getParamDupEnvoyer($typeDemarche, $commande, $infosVehicule);
+				break;
+			default:
+				return $this->getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule);
+				break;
+		}
+	}
+
+	private function getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule)
+	{
+		$Vehicule = [
+			"Immatriculation" => $commande->getImmatriculation(),
+			"Departement" => $commande->getCodePostal(),
+		];
         $DateDemarche = date('Y-m-d H:i:s');
-
         $ECG = [
         	"ID" => "", 
         	"TypeDemarche" => "ECGAUTO", 
-        	"DateDemarche" => $DateDemarche,
-        	"Vehicule" => $Vehicule
+			"DateDemarche" => $DateDemarche,
+			"Vehicule" => $Vehicule,
 		];
-
         $Demarche = ["ECGAUTO" => $ECG];
         $Lot = ["Demarche" => $Demarche];
         $Immat = ["Immatriculation" => $commande->getImmatriculation()];
-        $params = ["Lot" => $Lot];
-        
-        return $this->tmsClient->envoyer($params);
+		$params = ["Lot" => $Lot];
+	
+		return $params;
+	}
+
+	private function getTypeAchat($type) 
+	{
+		$responses = [
+			'DIVN' => 1,
+			'CTVO' => 2,
+			'DUP' => 3
+		];
+		if (isset($responses[$type]))
+			return $responses[$type];
+		return null;
+	}
+
+	private function getParamDupEnvoyer($typeDemarche, Commande $commande, $infosVehicule)
+	{
+		// to get info for C02, ptac and Energy
+		$paramsAuto = $this->getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule);
+		$infosAutoDefault = $this->tmsClient->envoyer($paramsAuto);
+		$infosAutoDefaultResult = $infosAutoDefault->getRawData()->Lot->Demarche->ECGAUTO->Reponse->Positive;
+		// end get info for C02, ptac and Energy
+        $ECG = [
+        	"ID" => "", 
+			"TypeDemarche" => "ECG",
+			"TypeECG" => [
+				$typeDemarche => [
+					"Vehicule" => [
+						"Immatriculation" => $commande->getImmatriculation(), 
+						"Departement" => $commande->getCodePostal(),
+						"Puissance" => $infosVehicule->PuissFisc,
+						"Genre" =>$infosAutoDefaultResult->Genre,
+						"Energie" =>$infosAutoDefaultResult->Energie,
+						"DateMEC" =>$infosVehicule->DateMec,
+						"PTAC" => $infosAutoDefaultResult->PTAC,
+						"CO2" => $infosAutoDefaultResult->CO2,
+					]
+				]
+			],
+		];
+        $Demarche = ['ECG' => $ECG];
+        $Lot = ["Demarche" => $Demarche];
+        $Immat = ["Immatriculation" => $commande->getImmatriculation()];
+		$params = ["Lot" => $Lot];
+		return $params;
 	}
 
 	public function tmsSauver(Commande $commande)
