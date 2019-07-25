@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 12:27:51
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-25 16:52:15
+ * @Last Modified time: 2019-07-25 16:58:32
  */
 
 namespace App\Manager;
@@ -43,8 +43,11 @@ class TaxesManager
             throw new \Exception($value->Erreur);
         }
         $taxe = new Taxes();
+        if ($typeDemarche === "DIVN")
+            $puissanceFisc = $type === "ECG" ? $value->Lot->Demarche->{$type}->Vehicule->Puissance :null;
+        else 
         // $puissanceFisc = $type === "ECG" ? $value->Lot->Demarche->{$type}->Vehicule->Puissance :null;
-        $puissanceFisc = $type === "ECG" ? $value->Lot->Demarche->ECG->TypeECG->{$commande->getDemarche()->getType()}->Vehicule->Puissance :null;
+            $puissanceFisc = $type === "ECG" ? $value->Lot->Demarche->ECG->TypeECG->{$commande->getDemarche()->getType()}->Vehicule->Puissance :null;
         if (isset($value->Lot->Demarche->ECG))
             $type = "ECG";
         $response = $value->Lot->Demarche->{$type}->Reponse;
