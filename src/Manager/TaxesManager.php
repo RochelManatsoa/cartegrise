@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 12:27:51
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-25 17:10:54
+ * @Last Modified time: 2019-07-25 17:14:16
  */
 
 namespace App\Manager;
@@ -63,14 +63,17 @@ class TaxesManager
         $otherINfo = $type === "ECG" ? (($typeDemarche === "DIVN") ? $value->Lot->Demarche->{$type}->Vehicule: $tmsResponse->Positive) : $tmsResponse->Positive;
         $vin = $type === "ECG" ? null : $tmsResponse->Positive->VIN;
         $dateMec = ($type === "ECG") ? ($typeDemarche === "DIVN")? \DateTime::createFromFormat('d/m/Y', $otherINfo->DateMEC) : \DateTime::createFromFormat('d/m/Y', $otherINfo->DateMec) : \DateTime::createFromFormat('Y-m-d', $otherINfo->DateMec);
-        dd($otherINfo);
         $taxe->setVIN($vin)
             ->setCO2($otherINfo->CO2);
-            if ($typeDemarche === "DIVN")
-                $taxe->setPuissance($otherINfo->Puissance);
-            else 
-                $taxe->setPuissance($otherINfo->PuissFisc);
-            $taxe->setGenre($this->getGenreResponseTms($otherINfo->Genre))
+            if ($typeDemarche === "DIVN") {
+                $taxe->setPuissance($otherINfo->Puissance)
+                ->setGenre($otherINfo->Genre);
+            } else {
+                $taxe->setPuissance($otherINfo->PuissFisc)
+                ->setGenre($this->getGenreResponseTms($otherINfo->Genre));
+            }
+                
+            $taxe
             // ->setPTAC($otherINfo->PTAC)
             ->setEnergie($otherINfo->Energie)
             ->setDateMEC($dateMec)
