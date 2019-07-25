@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-25 11:40:04
+ * @Last Modified time: 2019-07-25 11:42:07
  */
 
 namespace App\Manager;
@@ -69,7 +69,7 @@ class CommandeManager
 	{
 		switch($typeDemarche) {
 			case "DUP":
-				return $this->getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule);
+				return $this->getParamDupEnvoyer($typeDemarche, $commande, $infosVehicule);
 				break;
 			default:
 				return $this->getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule);
