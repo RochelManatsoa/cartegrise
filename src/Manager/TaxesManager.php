@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 12:27:51
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-25 13:27:02
+ * @Last Modified time: 2019-07-25 13:27:43
  */
 
 namespace App\Manager;
@@ -57,7 +57,7 @@ class TaxesManager
                 $this->carInfoManager->generateCarInfoForDivn($commande);
         }
         $otherINfo = $type === "ECG" ? ($typeDemarche === "DIVN" ? $value->Lot->Demarche->{$type}->Vehicule: $tmsResponse->Positive) : $tmsResponse->Positive;
-        dd($otherINfo);
+        // dd($otherINfo);
         $vin = $type === "ECG" ? null : $tmsResponse->Positive->VIN;
         $dateMec = ($type === "ECG" && $typeDemarche === "DIVN") ? \DateTime::createFromFormat('d/m/Y', $otherINfo->DateMec) : \DateTime::createFromFormat('Y-m-d', $otherINfo->DateMec);
         $taxe->setVIN($vin)
