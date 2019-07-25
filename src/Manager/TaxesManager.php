@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 12:27:51
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-25 12:10:08
+ * @Last Modified time: 2019-07-25 13:17:10
  */
 
 namespace App\Manager;
@@ -38,6 +38,7 @@ class TaxesManager
 	public function createFromTmsResponse(Response $tmsResponse, Commande $commande, Response $tmsInfoImmat, $type = "ECGAUTO"): Taxes
 	{
         $value = $tmsResponse->getRawData();
+        $typeDemarche = $commande->getDemarche()->getType();
         if(isset($value->Erreur)){
             throw new \Exception($value->Erreur);
         }
@@ -52,7 +53,8 @@ class TaxesManager
         $this->taxLogicalManager->getRealTaxes($taxe, $commande, $response, $puissanceFisc);
         if ($type === "ECG")
         {
-            $this->carInfoManager->generateCarInfoForDivn($tmsResponse, $commande);
+            if ($typeDemarche === "DIVN")
+                $this->carInfoManager->generateCarInfoForDivn($commande);
         }
         $otherINfo = $type === "ECG" ? $value->Lot->Demarche->{$type}->Vehicule : $tmsResponse->Positive;
         // dd($otherINfo);

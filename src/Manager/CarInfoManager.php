@@ -42,7 +42,7 @@ class CarInfoManager
         return $carInfo;
     }
 
-    public function generateCarInfoForDivn(Response $tmsResponse, Commande $commande)
+    public function generateCarInfoForDivn(Commande $commande)
     {
         $carInfo = $this->createCarInfo();
         $carInfo
