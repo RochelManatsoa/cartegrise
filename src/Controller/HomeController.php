@@ -73,11 +73,11 @@ class HomeController extends AbstractController
                 'demarche' => $commande->getDemarche(),
             ]);
             $sessionManager->initSession();
-            if (!is_null($ifCommande)) {
-                $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+            // if (!is_null($ifCommande)) {
+            //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
 
-                return $this->render('home/accueil.html.twig', $param);
-            } else {
+            //     return $this->render('home/accueil.html.twig', $param);
+            // } else {
                 $tmsResponse = $commandeManager->tmsEnvoyer($commande);
                 $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
 
@@ -96,7 +96,7 @@ class HomeController extends AbstractController
 
                     return $this->render('home/accueil.html.twig', $param);
                 }
-            }
+            // }
         }
 
         $homeParams = [
