@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-25 12:30:43
+ * @Last Modified time: 2019-07-25 14:11:49
  */
 
 namespace App\Manager;
@@ -81,7 +81,7 @@ class CommandeManager
 	{
 		$Vehicule = [
         	"Immatriculation" => $commande->getImmatriculation(), 
-        	"Departement" => $commande->getCodePostal(),
+			"Departement" => $commande->getCodePostal(),
         ];
         $DateDemarche = date('Y-m-d H:i:s');
 
@@ -89,7 +89,7 @@ class CommandeManager
         	"ID" => "", 
         	"TypeDemarche" => "ECGAUTO", 
         	"DateDemarche" => $DateDemarche,
-        	"Vehicule" => $Vehicule
+			"Vehicule" => $Vehicule,
 		];
 
         $Demarche = ["ECGAUTO" => $ECG];
@@ -113,6 +113,11 @@ class CommandeManager
 	}
 	private function getParamDupEnvoyer($typeDemarche, Commande $commande, $infosVehicule)
 	{
+		// to get info for C02, ptac and Energy
+		$paramsAuto = $this->getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule);
+		$infosAutoDefault = $this->tmsClient->envoyer($paramsAuto);
+		$infosAutoDefaultResult = $infosAutoDefault->getRawData()->Lot->Demarche->ECGAUTO->Reponse->Positive;
+		// end get info for C02, ptac and Energy
         $ECG = [
         	"ID" => "", 
 			"TypeDemarche" => "ECG",
@@ -122,10 +127,11 @@ class CommandeManager
 						"Immatriculation" => $commande->getImmatriculation(), 
 						"Departement" => $commande->getCodePostal(),
 						"Puissance" => $infosVehicule->PuissFisc,
-						"Genre" =>$infosVehicule->Genre,
-						"Energie" =>$infosVehicule->Energie,
+						"Genre" =>$infosAutoDefaultResult->Genre,
+						"Energie" =>$infosAutoDefaultResult->Energie,
 						"DateMEC" =>$infosVehicule->DateMec,
-						"CO2" => $infosVehicule->CO2,
+						"PTAC" => $infosAutoDefaultResult->PTAC,
+						"CO2" => $infosAutoDefaultResult->CO2,
 					]
 				]
 			],

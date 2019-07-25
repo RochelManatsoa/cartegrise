@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 12:27:51
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-25 13:27:43
+ * @Last Modified time: 2019-07-25 15:03:13
  */
 
 namespace App\Manager;
@@ -56,8 +56,7 @@ class TaxesManager
             if ($typeDemarche === "DIVN")
                 $this->carInfoManager->generateCarInfoForDivn($commande);
         }
-        $otherINfo = $type === "ECG" ? ($typeDemarche === "DIVN" ? $value->Lot->Demarche->{$type}->Vehicule: $tmsResponse->Positive) : $tmsResponse->Positive;
-        // dd($otherINfo);
+        $otherINfo = $type === "ECG" ? (($typeDemarche === "DIVN" || $typeDemarche === "DUP") ? $value->Lot->Demarche->{$type}->Vehicule: $tmsResponse->Positive) : $tmsResponse->Positive;
         $vin = $type === "ECG" ? null : $tmsResponse->Positive->VIN;
         $dateMec = ($type === "ECG" && $typeDemarche === "DIVN") ? \DateTime::createFromFormat('d/m/Y', $otherINfo->DateMec) : \DateTime::createFromFormat('Y-m-d', $otherINfo->DateMec);
         $taxe->setVIN($vin)
@@ -70,6 +69,11 @@ class TaxesManager
         ;
 
         return $taxe;
+    }
+    
+    public function moreInfoTaxes(Taxe $taxe, $value, $typeDemarche)
+    {
+        
     }
 
     public function getGenreResponseTms(string $index){
