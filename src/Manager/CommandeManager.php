@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-25 11:36:11
+ * @Last Modified time: 2019-07-25 11:40:04
  */
 
 namespace App\Manager;
@@ -109,7 +109,7 @@ class CommandeManager
         $Immat = ["Immatriculation" => $commande->getImmatriculation()];
 		$params = ["Lot" => $Lot];
 
-		return $param;
+		return $params;
 	}
 	private function getParamDupEnvoyer($typeDemarche, Commande $commande, $infosVehicule)
 	{
