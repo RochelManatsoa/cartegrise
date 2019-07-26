@@ -73,18 +73,22 @@ class HomeController extends AbstractController
                 'demarche' => $commande->getDemarche(),
             ]);
             $sessionManager->initSession();
-            if (!is_null($ifCommande)) {
-                $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+            // if (!is_null($ifCommande)) {
+            //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
 
-                return $this->render('home/accueil.html.twig', $param);
-            } else {
-                $tmsResponse = $commandeManager->tmsEnvoyer($commande);
+            //     return $this->render('home/accueil.html.twig', $param);
+            // } else {
+  
                 $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
+                if (!$tmsInfoImmat->isSuccessfull()) {
+                    throw new \Exception('Veuillez Réessayer plus tard');
+                }
+                $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
 
                 if (!$tmsResponse->isSuccessfull()) {
                     return new Response($tmsResponse->getErrorMessage());
                 } else {
-                    $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande);
+                    $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande, $tmsInfoImmat);
                     $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
                     $commande->setTaxes($taxe);
                     $commande->setCarInfo($carInfo);
@@ -96,7 +100,7 @@ class HomeController extends AbstractController
 
                     return $this->render('home/accueil.html.twig', $param);
                 }
-            }
+            // }
         }
 
         $homeParams = [

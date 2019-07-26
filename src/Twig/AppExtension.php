@@ -158,6 +158,8 @@ class AppExtension extends AbstractExtension
         $value = $this->displayValue($value, $default);
         if (isset(Taxes::ENERGY_VALUES[$value])) {
             return Taxes::ENERGY_VALUES[$value];
+        } elseif (!is_null($value) && $value != "") {
+            return $value;
         }
 
         return $default? $default : "--";
