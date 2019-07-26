@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 12:27:51
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-25 15:03:13
+ * @Last Modified time: 2019-07-26 13:00:48
  */
 
 namespace App\Manager;
@@ -35,7 +35,7 @@ class TaxesManager
 		return $taxes;
     }
 
-	public function createFromTmsResponse(Response $tmsResponse, Commande $commande, Response $tmsInfoImmat, $type = "ECGAUTO"): Taxes
+	public function createFromTmsResponse(Response $tmsResponse, Commande $commande, $tmsInfoImmat, $type = "ECGAUTO"): Taxes
 	{
         $value = $tmsResponse->getRawData();
         $typeDemarche = $commande->getDemarche()->getType();
@@ -44,36 +44,70 @@ class TaxesManager
         }
         $taxe = new Taxes();
         // $puissanceFisc = $type === "ECG" ? $value->Lot->Demarche->{$type}->Vehicule->Puissance :null;
-        $puissanceFisc = $type === "ECG" ? $value->Lot->Demarche->ECG->TypeECG->{$commande->getDemarche()->getType()}->Vehicule->Puissance :null;
+        $puissanceFisc = null;
         if (isset($value->Lot->Demarche->ECG))
             $type = "ECG";
         $response = $value->Lot->Demarche->{$type}->Reponse;
-        $tmsResponse = $tmsInfoImmat->getRawData()->InfoVehicule->Reponse;
+        if (is_object($tmsInfoImmat))
+            $tmsResponse = $tmsInfoImmat->getRawData()->InfoVehicule->Reponse;
         // manage taxe with configuration
-        $this->taxLogicalManager->getRealTaxes($taxe, $commande, $response, $puissanceFisc);
         if ($type === "ECG")
         {
-            if ($typeDemarche === "DIVN")
+            if ($typeDemarche === "DIVN") {
                 $this->carInfoManager->generateCarInfoForDivn($commande);
+                $puissanceFisc = $value->Lot->Demarche->{$type}->TypeECG->VN->Vehicule->Puissance;
+                $otherINfo = $value->Lot->Demarche->{$type}->TypeECG->VN->Vehicule;
+            } elseif ($typeDemarche === "DUP") {
+                $puissanceFisc = $value->Lot->Demarche->ECG->TypeECG->{$commande->getDemarche()->getType()}->Vehicule->Puissance;
+                $otherINfo = $tmsResponse->Positive;
+            } else {
+                $otherINfo = $tmsResponse->Positive;
+            }
+                
+        } else {
+            $otherINfo = $tmsResponse->Positive;
         }
-        $otherINfo = $type === "ECG" ? (($typeDemarche === "DIVN" || $typeDemarche === "DUP") ? $value->Lot->Demarche->{$type}->Vehicule: $tmsResponse->Positive) : $tmsResponse->Positive;
-        $vin = $type === "ECG" ? null : $tmsResponse->Positive->VIN;
-        $dateMec = ($type === "ECG" && $typeDemarche === "DIVN") ? \DateTime::createFromFormat('d/m/Y', $otherINfo->DateMec) : \DateTime::createFromFormat('Y-m-d', $otherINfo->DateMec);
-        $taxe->setVIN($vin)
-            ->setCO2($otherINfo->CO2)
-            ->setPuissance($otherINfo->PuissFisc)
-            ->setGenre($this->getGenreResponseTms($otherINfo->Genre))
-            // ->setPTAC($otherINfo->PTAC)
-            ->setEnergie($otherINfo->Energie)
-            ->setDateMEC($dateMec)
-        ;
+        $this->taxLogicalManager->getRealTaxes($taxe, $commande, $response, $puissanceFisc);
+        
+        $this->moreInfoTaxes($taxe, $otherINfo, $tmsResponse, $typeDemarche);
 
         return $taxe;
     }
     
-    public function moreInfoTaxes(Taxe $taxe, $value, $typeDemarche)
+    public function moreInfoTaxes(Taxes $taxe, $otherINfo, $tmsResponse, $typeDemarche)
     {
+        if ($typeDemarche === "DIVN") {
+            $dateMec = \DateTime::createFromFormat('d/m/Y', $otherINfo->DateMEC);
+            $puissanceFisc = $otherINfo->Puissance;
+            $vin = null;
+        } elseif($typeDemarche === "DUP") {
+            $dateMec = \DateTime::createFromFormat('Y-m-d', $otherINfo->DateMec);
+            $puissanceFisc = $otherINfo->PuissFisc;
+            $vin = $otherINfo->VIN;
+        } elseif ($typeDemarche === "CTVO") {
+            $dateMec = \DateTime::createFromFormat('Y-m-d', $otherINfo->DateMec);
+            $puissanceFisc = $otherINfo->PuissFisc;
+            $vin = $tmsResponse->Positive->VIN;
+        } elseif ($typeDemarche === "DCA") {
+            $dateMec = \DateTime::createFromFormat('Y-m-d', $otherINfo->DateMec);
+            $puissanceFisc = $otherINfo->PuissFisc;
+            $vin = $tmsResponse->Positive->VIN;
+        } else {
+            $dateMec = \DateTime::createFromFormat('d/m/Y', $otherINfo->DateMec);
+            $puissanceFisc = $otherINfo->PuissFisc;
+            $vin = $tmsResponse->Positive->VIN;
+        }
+        $taxe->setVIN($vin)
+            ->setCO2($otherINfo->CO2)
+            ->setPuissance($puissanceFisc)
+            ->setGenre(is_numeric($otherINfo->Genre)? $otherINfo->Genre : $this->getGenreResponseTms($otherINfo->Genre))
+            ->setPTAC(isset($otherINfo->PTAC)?$otherINfo->PTAC:null)
+            ->setEnergie($otherINfo->Energie)
+            ->setDateMEC($dateMec)
+        ;
         
+        
+        return $taxe;
     }
 
     public function getGenreResponseTms(string $index){

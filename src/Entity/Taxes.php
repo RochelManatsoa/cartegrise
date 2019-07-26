@@ -262,7 +262,7 @@ class Taxes
         return $this->PTAC;
     }
 
-    public function setPTAC(int $PTAC): self
+    public function setPTAC(?int $PTAC): self
     {
         $this->PTAC = $PTAC;
 

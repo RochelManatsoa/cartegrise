@@ -4,7 +4,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-17 13:14:01 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-06-22 23:39:49
+ * @Last Modified time: 2019-07-25 18:39:27
  */
 namespace App\Manager;
 
@@ -32,7 +32,7 @@ class DivnInitManager
         $this->initCommande($divnInit);
         $commande = $divnInit->getCommande();
         $responseTaxes = $this->commandeManager->tmsDivnEnvoyer($commande);
-        $this->taxesManager->createFromTmsResponse($responseTaxes, $commande, "ECG");
+        $this->taxesManager->createFromTmsResponse($responseTaxes, $commande, null, "ECG");
         $this->commandeManager->save($commande);
     }
 
