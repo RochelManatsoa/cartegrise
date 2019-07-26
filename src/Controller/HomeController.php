@@ -78,6 +78,7 @@ class HomeController extends AbstractController
 
             //     return $this->render('home/accueil.html.twig', $param);
             // } else {
+  
                 $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
                 if (!$tmsInfoImmat->isSuccessfull()) {
                     throw new \Exception('Veuillez Réessayer plus tard');
