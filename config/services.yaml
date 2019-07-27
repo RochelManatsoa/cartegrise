@@ -64,11 +64,11 @@ services:
     App\Admin\CommandeAdmin:
         arguments: [~, App\Entity\Commande, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'TMS', label: Commande }
+            - { name: sonata.admin, manager_type: orm,group: 'TABLEAU DE BORD', label: Estimations }
     App\Admin\DemandeAdmin:
         arguments: [~, App\Entity\Demande, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'TMS', label: Demande }
+            - { name: sonata.admin, manager_type: orm,group: 'TABLEAU DE BORD', label: Panier }
     App\Admin\ConfigurationAdmin:
         arguments: [~, App\Entity\Configuration, ~]
         tags:
@@ -77,6 +77,10 @@ services:
         arguments: [~, App\Entity\TarifsPrestations, ~]
         tags:
             - { name: sonata.admin, manager_type: orm,group: 'TARIFS', label: 'Tarif prestation' }
+    App\Admin\FactureJournalierAdmin:
+        arguments: [~, App\Entity\DailyFacture, App\Controller\ActionAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'FACTURE', label: 'Factures Journalier clients' }
     App\Admin\UserAdmin:
         arguments: [~, App\Entity\User, ~]
         tags:
@@ -89,4 +93,9 @@ services:
         arguments: [~, App\Entity\Demande, App\Controller\ActionAdminController]
         tags:
             - { name: sonata.admin, manager_type: orm,group: 'FACTURE', label: 'Factures clients' }
+        public: true
+    App\Admin\ValidationDossierAdmin:
+        arguments: [~, App\Entity\Demande, App\Controller\ActionAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'DOCUMENTS', label: 'Valider les documents' }
         public: true

@@ -78,6 +78,32 @@ class CommandeManager
         return $this->tmsClient->envoyer($params);
 	}
 
+	public function tmsSauver(Commande $commande)
+	{
+        $this->em->persist($commande);
+        $this->sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
+
+        $Vehicule = [
+        	"Immatriculation" => $commande->getImmatriculation(), 
+        	"Departement" => $commande->getCodePostal(),
+        ];
+        $DateDemarche = date('Y-m-d H:i:s');
+
+        $ECG = [
+        	"ID" => "", 
+        	"TypeDemarche" => "ECGAUTO", 
+        	"DateDemarche" => $DateDemarche,
+        	"Vehicule" => $Vehicule
+		];
+
+        $Demarche = ["ECGAUTO" => $ECG];
+        $Lot = ["Demarche" => $Demarche];
+        $Immat = ["Immatriculation" => $commande->getImmatriculation()];
+        $params = ["Lot" => $Lot];
+        
+        return $this->tmsClient->sauver($params);
+	}
+
 	public function tmsDivnEnvoyer(Commande $commande)
 	{
         $this->em->persist($commande);
@@ -113,6 +139,42 @@ class CommandeManager
 		$params = ["Lot" => $Lot];
         
         return $this->tmsClient->envoyer($params);
+	}
+	public function tmsDivnSauver(Commande $commande)
+	{
+        $this->em->persist($commande);
+		$this->sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
+		$divnInit = $commande->getDivnInit();
+		
+
+        $Vehicule = [
+        	"TypeVehicule" => 1, 
+			"Departement" => $commande->getCodePostal(),
+			"Puissance" => $divnInit->getPuissanceFiscale(),
+			"Genre" => $divnInit->getGenre(),
+			"PTAC" => 1,
+			"Energie" => $divnInit->getEnergie(),
+			"Departement" => $divnInit->getDepartment(),
+			"TypeAchat" => 1,
+			"PremiereImmat" => 1,
+			"CO2" => $divnInit->getTauxDeCo2(),
+			"Collection" => false,
+        ];
+        $DateDemarche = date('Y-m-d H:i:s');
+
+        $ECG = [
+        	"ID" => "", 
+        	"TypeDemarche" => "ECG", 
+        	"DateDemarche" => $DateDemarche,
+        	"Vehicule" => $Vehicule
+		];
+
+        $Demarche = ["ECG" => $ECG];
+        $Lot = ["Demarche" => $Demarche];
+        $Immat = ["Immatriculation" => $commande->getImmatriculation()];
+		$params = ["Lot" => $Lot];
+        
+        return $this->tmsClient->sauver($params);
 	}
 
 	/**

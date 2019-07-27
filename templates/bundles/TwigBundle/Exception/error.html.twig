@@ -22,12 +22,15 @@
 {% block page_content %}
 <div class="col-md-12 col-lg-7 d-flex error-flex">
     <div class="error-container">
-        {# <h1 class="text-center">The server returned a "{{ status_code }} {{ status_text }}".</h1> #}
+        <h1 class="text-center">{{"Une erreur s'est produite" | upper}}.</h1>
         <p class="desc-error">
             {# Quelque chose est cassé. S'il vous plaît laissez-nous savoir ce que vous faisiez. Désolé pour tout inconvénient causé. #}
-            Oups, quelque chose est cassé! Vous pouvez <a href="{{ path('contact') }}">nous contacter</a> et nous pouvons vous aider!
+            Veuillez nous excuser pour la gêne occasionnée.
+            Merci de bien vouloir contacter notre Service Client.
+             {# Vous pouvez <a href="{{ path('contact') }}">nous contacter</a> et nous pouvons vous aider! #}
         </p>
-        <a class="btn btn-primary" href="{{ path('Accueil') }}">Retour à l'acceuil</a>
+        <p><a href="{{ path('contact') }}"><i class="fas fa-angle-double-right"></i> {{"Service Client" | upper}}</a></p>
+        <p><a class="btn btn-primary btn-lg" href="{{ path('Accueil') }}"><i class="fas fa-angle-double-right"></i> {{"Retour à la page d'acceuil" | upper}}</a></p>
     </div>
 </div>
 
@@ -46,11 +49,16 @@
         
             h1 {
                 color: #dc3545;
-                font-size: 24px;
+                font-size: 36px;
+                font-family: lato;
             }
         
             h2 {
-                font-size: 18px;
+                font-size: 24px;
+            }
+            a {
+                text-decoration: none;
+                font-size: 24px;
             }
         </style>
 {% endblock %}

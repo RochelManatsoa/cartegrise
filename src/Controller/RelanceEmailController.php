@@ -5,12 +5,47 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Manager\DemandeManager;
+use App\Manager\TaxesManager;
+use App\Manager\MailManager;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
 
 /**
  * @Route("/relance")
  */
 class RelanceEmailController extends AbstractController
 {
+    /**
+     * @Route("/user_paiment/{day}", name="user_paiment")
+     */
+    public function user_relance(int $day, DemandeManager $demandeManager, MailManager $mailManager)
+    {
+        $demandeManager->getUserWithoutSendDocumentInDay($day, $mailManager);
+
+        return new Response('ok');
+    }
+    /**
+     * @Route("/facture/journalier", name="facture_journalier")
+     */
+    public function facture_journalier(DemandeManager $demandeManager,TaxesManager $taxesManager, MailManager $mailManager)
+    {
+        $now = new \DateTime();
+        $demandes = $demandeManager->getDailyDemandeFacture($now);
+        $file = $demandeManager->generateDailyFacture($demandes, $now);
+
+        return new BinaryFileResponse($file);
+    }
+    /**
+     * @Route("/user_paiment_with_doc_non_valid/{day}", name="user_paiment")
+     */
+    public function user_relance_doc_non_valid(int $day, DemandeManager $demandeManager, MailManager $mailManager)
+    {
+        $demandeManager->getUserWithSendDocumentButNotValidInDay($day, $mailManager);
+
+        return new Response('ok');
+    }
+
     /**
      * @Route("/email/{index}", name="relance_email_1")
      */

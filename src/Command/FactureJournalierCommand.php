@@ -6,18 +6,20 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use App\Manager\UserManager;
+use App\Manager\{DemandeManager, UserManager, DailyFactureManager};
+use App\Entity\DailyFacture;
 
-class RelanceCommand extends Command
+class FactureJournalierCommand extends Command
 {
-    protected static $defaultName = "app:email:relance";
+    protected static $defaultName = "app:facture:relance";
     protected $userManager;
+    protected $dailyFactureManager;
 
     protected function configure()
     {
         $this
         // the short description shown while running "php bin/console list"
-        ->setDescription('Creates a notification relace.')
+        ->setDescription('Creates a facture daily ...')
 
         // all command is :
         // php bin/console app:email:relance ==> tout les heures
@@ -26,24 +28,25 @@ class RelanceCommand extends Command
 
         // the full command description shown when running the command with
         // the "--help" option
-        ->setHelp('This command allows you to create a email relance for user don\'t payed in application...')
-        ->addOption(
-            "option",
-            null,
-            InputOption::VALUE_REQUIRED,
-            'option or relance level',
-            0
-            )
-        ;
+        ->setHelp('This command allows you to create a email relance for user don\'t payed in application...');
+        // ->addOption(
+        //     "option",
+        //     null,
+        //     InputOption::VALUE_REQUIRED,
+        //     'option or relance level',
+        //     0
+        //     )
+        // ;
     }
 
-    public function __construct(bool $requirePassword = false, UserManager $userManager)
+    public function __construct(bool $requirePassword = false ,DailyFactureManager $dailyFactureManager, DemandeManager $demandeManager, UserManager $userManager)
     {
         // best practices recommend to call the parent constructor first and
         // then set your own properties. That wouldn't work in this case
         // because configure() needs the properties set in this constructor
-        $this->requirePassword = $requirePassword;
+        $this->demandeManager = $demandeManager;
         $this->userManager = $userManager;
+        $this->dailyFactureManager = $dailyFactureManager;
 
         parent::__construct();
     }
@@ -51,11 +54,10 @@ class RelanceCommand extends Command
     {
         // outputs multiple lines to the console (adding "\n" at the end of each line)
         $output->writeln([
-            'Email relance loadding',
+            'facture daily loadding',
             '============',
             '',
         ]);
-        $option = (int) $input->getOption('option');
 
         // the value returned by someMethod() can be an iterator (https://secure.php.net/iterator)
         // that generates and returns the messages with the 'yield' PHP keyword
@@ -63,9 +65,15 @@ class RelanceCommand extends Command
 
         // outputs a message followed by a "\n"
         // $output->writeln('Whoa!');
-        $this->userManager->sendUserForRelance($option);
+        $now = new \DateTime();
+        $demandes = $this->demandeManager->getDailyDemandeFacture($now);
+        $file = $this->demandeManager->generateDailyFacture($demandes, $now);
+        $dailyFacture = $this->dailyFactureManager->init();
+        $dailyFacture->setDateCreate($now);
+        $dailyFacture->setPath($file);
+        $this->dailyFactureManager->save($dailyFacture);
         // outputs a message without adding a "\n" at the end of the line
         $output->write('You are about to ');
-        $output->write('create a email relance.');
+        $output->write('create a facture journalier.');
     }
 }

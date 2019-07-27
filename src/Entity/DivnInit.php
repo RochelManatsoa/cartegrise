@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DivnInitRepository")
@@ -10,7 +11,25 @@ use Doctrine\ORM\Mapping as ORM;
 class DivnInit
 {
     const GENDERS = [
-        "(VP) Véhicule de tourisme" => "VP", "(CTTE) Véhicule utilitaire / société" => "CTTE", "(Deriv-VP) Véhicule utilitaire / société" => "Deriv-VP", "(MTL) Motocyclette" => "MTL", "(MTT1) Motocyclette" => "MTT1", "(MTT2) Motocyclette" => "MTT2", "(QM) Quad, Voiturette, Quadricycles à moteur" => "QM", "(CL) Cyclomoteur &lt;= 50 cm3" => "CL", "(TM) Tricycles à moteur" => "TM", "(REM) Remorque" => "REM", "(SREM) Semi-remorques" => "SREM", "(RESP) Caravane" => "RESP", "(VASP) Véhicule spécialisé" => "VASP", "(CAM) Camion &gt; 3.5t" => "CAM", "(TCP) Bus &gt; 3.5t" => "TCP", "(TRR) Tracteur routier &gt; 3.5t" => "TRR", "(TRA) Engin agricole" => "TRA", "(Quad) Engin agricole" => "Quad", "(MAGA) Engin agricole" => "MAGA",
+        "(VP) Véhicule de tourisme" => "VP", 
+        "(CTTE) Véhicule utilitaire / société" => "CTTE", 
+        "(Deriv-VP) Véhicule utilitaire / société" => "Deriv-VP", 
+        "(MTL) Motocyclette" => "MTL", 
+        "(MTT1) Motocyclette" => "MTT1", 
+        "(MTT2) Motocyclette" => "MTT2", 
+        "(QM) Quad, Voiturette, Quadricycles à moteur" => "QM", 
+        "(CL) Cyclomoteur &lt;= 50 cm3" => "CL", 
+        "(TM) Tricycles à moteur" => "TM", 
+        "(REM) Remorque" => "REM", 
+        "(SREM) Semi-remorques" => "SREM", 
+        "(RESP) Caravane" => "RESP", 
+        "(VASP) Véhicule spécialisé" => "VASP", 
+        "(CAM) Camion > 3.5t" => "CAM", 
+        "(TCP) Bus > 3.5t" => "TCP", 
+        "(TRR) Tracteur routier > 3.5t" => "TRR", 
+        "(TRA) Engin agricole" => "TRA", 
+        "(Quad) Engin agricole" => "Quad", 
+        "(MAGA) Engin agricole" => "MAGA",
         //"VASP35" =>"Camping-car > 3.5 tonnes (VASP-3.5t)</option!-->",
     ];
 
@@ -26,7 +45,11 @@ class DivnInit
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min=2,
+     *      max=3
+     * )
      */
     private $department;
 
@@ -36,7 +59,10 @@ class DivnInit
     private $genre;
 
     /**
-     * @ORM\Column(type="integer", length=255)
+     * @ORM\Column(type="integer")
+     * @Assert\LessThan(
+     *      value=90
+     * )
      */
     private $puissanceFiscale;
 

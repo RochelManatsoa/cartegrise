@@ -20,7 +20,8 @@ class Adresse
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min=1, max=4)
      */
     private $numero;
 
@@ -57,6 +58,7 @@ class Adresse
     private $lieudit;
 
     /**
+     * @Assert\Regex("/^[0-9]{5}$/")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $codepostal;
