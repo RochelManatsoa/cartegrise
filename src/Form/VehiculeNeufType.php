@@ -25,10 +25,22 @@ class VehiculeNeufType extends AbstractType
                     'class' => 'choice-type-reception'
                 ]
             ))
-            ->add('vin', null, ['label' => 'label.vehicule.vin'])
-            ->add('d1Marque', null, ['label' => 'label.vehicule.d1Marque'])
-            ->add('d2Version', null, ['label' => 'label.vehicule.d2Version'])
-            ->add('kNumRecepCe', null, ['label' => 'label.vehicule.kNumRecepCe'])
+            ->add('vin', TextType::class, [
+                'label' => 'label.vehicule.vin',
+                'required' => false,
+                ])
+            ->add('d1Marque', TextType::class, [
+                'label' => 'label.vehicule.d1Marque',
+                'required' => false,
+                ])
+            ->add('d2Version', TextType::class, [
+                'label' => 'label.vehicule.d2Version',
+                'required' => false,
+                ])
+            ->add('kNumRecepCe', TextType::class, [
+                'label' => 'label.vehicule.kNumRecepCe',
+                'required' => false,
+                ])
             ->add('dateReception', DateType::class, array(
                 'label'=>"label.vehicule.dateRecep",
                 'widget' => 'single_text',

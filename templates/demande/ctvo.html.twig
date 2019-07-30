@@ -27,7 +27,6 @@
                                 {{ form_row(form.ctvo.ancienTitulaire.type)}}
                                 {{ form_row(form.ctvo.ancienTitulaire.raisonsociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 {{ form_row(form.ctvo.ancienTitulaire.nomprenom)}}
-                                <br>
                             </div>
                             
                                 <h3 class="text-center">{{ form_label(form.ctvo.acquerreur) }}</h3>
@@ -47,6 +46,7 @@
                         <div class="col-10 col-sm-12 mx-auto">
                             <h3 class="text-center"> {{ form_label(form.ctvo.acquerreur.adresseNewTitulaire) }} </h3>
                             <hr>
+                            <div class="vehicule-neuf">
                             {% for addresseNewTitulaire in form.ctvo.acquerreur.adresseNewTitulaire %}
                                 <div class="form-group">
                                     {{ form_label(addresseNewTitulaire)}}
@@ -54,6 +54,7 @@
                                     {{ form_widget(addresseNewTitulaire, {'attr': {'class': ''}})}}
                                 </div>
                             {% endfor %}
+                            </div>
                             <h3 class="text-center">{{ form_label(form.ctvo.cotitulaire) }}</h3>
                             <hr>
                             <ul class="tags" data-prototype="{{ form_widget(form.ctvo.cotitulaire.vars.prototype)|e('html_attr') }}">
