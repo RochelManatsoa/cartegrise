@@ -31,7 +31,6 @@
     <ul>
         <li><b>Type Demande : </b> {{ demande.commande.demarche.nom }}</li>
         <li><b>Date : </b> {{ demande.commande.ceerLe | date('d-m-Y')}}</li>
-        {# {{demande.commande.id}} #}
         <li><b>Nom et prénom : </b> {{ demande.commande.firstClient.clientNom }} {{ demande.commande.firstClient.clientPrenom }}</li>
         <li><b>Département : </b> {{ demande.commande.codePostal }}</li>
         <li><b>Immatriculation : </b> {{ demande.commande.immatriculation }}</li>
