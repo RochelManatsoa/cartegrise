@@ -10,6 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Cotitulaires
 {
+    const PERSONE_PHYSIQUE  = "phy";
+    const PERSONE_MORALE    = "mor";
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

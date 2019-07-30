@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-24 01:39:17 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-06-11 18:57:42
+ * @Last Modified time: 2019-07-30 07:40:33
  */
 
  namespace App\Manager;
@@ -156,7 +156,7 @@
 	
 	public function getParamCtvo(Commande $commande, $type = "Cerfa")
     {
-        $client = $this->tokenStorage->getToken()->getUser()->getClient();
+        $client = $commande->getFirstClient();
         $adresse = $client->getClientAdresse();
         $carInfo = $commande->getCarInfo();
 		$now = new \DateTime();

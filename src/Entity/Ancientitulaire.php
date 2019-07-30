@@ -45,11 +45,6 @@ class Ancientitulaire
      */
     private $ctvo;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Cession", mappedBy="ancienTitulaire", cascade={"persist", "remove"})
-     */
-    private $cession;
-
     public function getId(): ?int
     {
         return $this->id;
