@@ -1,8 +1,8 @@
-<div class="col-4 sidebar hidden-md-down new-sidebar">
+<div class="col-12 sidebar hidden-md-down new-sidebar">
 
-	<div class="col-12 row d-flex align-items-center">
-		<a class="col-6 mx-auto logo-sidebar" href="{{ path('Accueil') }}">
-			<img class="rounded mx-auto d-block img-fluid" src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="logo">
+	<div class="d-flex align-items-center justify-content-end logo-sidebar-container">
+		<a class="logo-sidebar" href="{{ path('Accueil') }}">
+			<img class="d-block img-fluid" src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="logo">
 		</a>
 	</div>
 	<div class="menu-sidebar">
@@ -20,7 +20,7 @@
 	</div>
 
 	{% if app.user %}
-	<div class="espace-client-user col-10 col-lg-8 col-xl-6 mx-auto mt-4 mb-4 ">
+	<div class="espace-client-user col-11 mx-auto mt-4">
 		<h5>
 		Bonjour {% if app.user.client is defined and app.user.client is not null %}{{ app.user.client.clientPrenom | displayValue}} {{ app.user.client.clientNom | upper}}{% endif %}
 		</h5>
@@ -29,7 +29,7 @@
 		</h5>
 	</div>
 
-	<ul class="espace-client-menu col-10 col-lg-8 col-xl-6 list-group mx-auto mb-4">
+	<ul class="espace-client-menu col-11 mx-auto mt-4">
 		<li class="list-group-item d-flex justify-content-between align-items-center active">
 			<a href="#">Information Client</a>
 		</li>
