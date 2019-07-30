@@ -72,7 +72,7 @@ class ActionAdminController extends Controller
             } elseif ($request->request->get('valid_doc_real') === "on") {
                 $tmsResponse = $commandeManager->tmsSauver($demande->getCommande());
                 if ($tmsResponse->isSuccessfull()) {
-                    $demande->setStatusDoc(Demande::DOC_RECEIVE_VALID);
+                    // $demande->setStatusDoc(Demande::DOC_RECEIVE_VALID);
                     $demande->getCommande()->setSaved(true);
                     $demandeManager->saveDemande($demande);
                     $this->addFlash('success', 'La demande '.$demande->getCommande()->getId().' a bien été enregister sur TMS');

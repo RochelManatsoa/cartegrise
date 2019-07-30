@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-26 15:35:24
+ * @Last Modified time: 2019-07-30 10:57:15
  */
 
 namespace App\Manager;
@@ -15,7 +15,7 @@ use App\Services\Tms\TmsClient;
 use App\Services\Tms\Response as ResponseTms;
 use App\Entity\Commande;
 use App\Manager\SessionManager;
-use App\Manager\StatusManager;
+use App\Manager\{StatusManager, TMSSauverManager};
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -29,7 +29,8 @@ class CommandeManager
 		StatusManager $statusManager,
 		TokenStorageInterface $tokenStorage,
 		DocumentTmsManager $documentTmsManager,
-		SerializerInterface $serializer
+		SerializerInterface $serializer,
+		TMSSauverManager $tmsSaveManager
 	)
 	{
 		$this->tmsClient = $tmsClient;
@@ -39,6 +40,7 @@ class CommandeManager
 		$this->tokenStorage = $tokenStorage;
 		$this->documentTmsManager = $documentTmsManager;
 		$this->serializer = $serializer;
+		$this->tmsSaveManager = $tmsSaveManager;
 	}
 
 	public function save(Commande $commande)
@@ -77,9 +79,9 @@ class CommandeManager
 			case "CTVO":
 				return $this->getParamDupEnvoyer($typeDemarche, $commande, $infosVehicule);
 				break;
-			// case "DCA":
-			// 	return $this->getParamDCAEnvoyer($typeDemarche, $commande, $infosVehicule);
-			// 	break;
+			case "DIVN":
+				return $this->getParamDivnEnvoyer($commande);
+				break;
 			default:
 				return $this->getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule);
 				break;
@@ -183,41 +185,11 @@ class CommandeManager
 
 		return $params;
 	}
-	
 
-	public function tmsSauver(Commande $commande)
+	public function getParamDivnEnvoyer(Commande $commande)
 	{
-        $this->em->persist($commande);
-        $this->sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
-
-        $Vehicule = [
-        	"Immatriculation" => $commande->getImmatriculation(), 
-        	"Departement" => $commande->getCodePostal(),
-        ];
-        $DateDemarche = date('Y-m-d H:i:s');
-
-        $ECG = [
-        	"ID" => "", 
-        	"TypeDemarche" => "ECGAUTO", 
-        	"DateDemarche" => $DateDemarche,
-        	"Vehicule" => $Vehicule
-		];
-
-        $Demarche = ["ECGAUTO" => $ECG];
-        $Lot = ["Demarche" => $Demarche];
-        $Immat = ["Immatriculation" => $commande->getImmatriculation()];
-        $params = ["Lot" => $Lot];
-        
-        return $this->tmsClient->sauver($params);
-	}
-
-	public function tmsDivnEnvoyer(Commande $commande)
-	{
-        $this->em->persist($commande);
-		$this->sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
 		$divnInit = $commande->getDivnInit();
-		
-
+		// $taxes = $commande->getTaxes();
         $Vehicule = [
         	"TypeVehicule" => 2, 
 			"Departement" => $commande->getCodePostal(),
@@ -247,6 +219,41 @@ class CommandeManager
         $Lot = ["Demarche" => $Demarche];
         $Immat = ["Immatriculation" => $commande->getImmatriculation()];
 		$params = ["Lot" => $Lot];
+
+		return $params;
+	}
+	
+
+	public function tmsSauver(Commande $commande)
+	{
+        $this->em->persist($commande);
+		$this->sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
+		$responseSave = $this->tmsSaveManager->saveByCommande($commande);
+		$response = $responseSave->getRawData();
+		$typeDemarche = $commande->getDemarche()->getType();
+		// dd($response);
+		// save information of response TMS in commande
+		$commande->setTmsId($response->Lot->Demarche->{$typeDemarche}->ID);
+		$commande->setTmsSaveResponse(\json_encode($response));
+		$this->save($commande);
+		// end save information of response TMS in commande
+		// open information in tms with id
+		// $params = [
+		// 	"IDDemarche" => $commande->getTmsId(),
+		// 	"TypeDemarche" => $typeDemarche,
+		// ];
+		// // dd($params);
+		// dd($this->tmsClient->ouvrir($params));
+		// end open information in tms
+		
+		return $responseSave;
+	}
+
+	public function tmsDivnEnvoyer(Commande $commande)
+	{
+        $this->em->persist($commande);
+		$this->sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
+        $params = $this->getParamEnvoyer('DIVN', $commande, null);
         
         return $this->tmsClient->envoyer($params);
 	}
