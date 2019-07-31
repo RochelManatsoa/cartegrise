@@ -35,7 +35,7 @@ class DemandeChangementAdresse
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $copieRectoVersoCarteGrise;
+    private $rectoVersoCarteGrise;
 
     /**
     * @ORM\Column(type="string", nullable=true)
@@ -248,15 +248,16 @@ class DemandeChangementAdresse
         return $this;
     }
 
-    public function getCopieRectoVersoCarteGrise(): ?string
+    public function getRectoVersoCarteGrise(): ?string
     {
-        return $this->copieRectoVersoCarteGrise;
+        return $this->rectoVersoCarteGrise;
     }
 
-    public function setCopieRectoVersoCarteGrise(?string $copieRectoVersoCarteGrise): self
+    public function setRectoVersoCarteGrise(?string $rectoVersoCarteGrise): self
     {
-        $this->copieRectoVersoCarteGrise = $copieRectoVersoCarteGrise;
+        $this->rectoVersoCarteGrise = $rectoVersoCarteGrise;
 
         return $this;
     }
+
 }
