@@ -35,6 +35,9 @@
         <li><b>Département : </b> {{ demande.commande.codePostal }}</li>
         <li><b>Immatriculation : </b> {{ demande.commande.immatriculation }}</li>
     </ul>
+    {# start information #}
+        {% include "CRUD/tmsInfos.html.twig" %}
+    {# end information  #}
 </div>
 <div id="daf-list-wrapper">
     <h2>La liste des documents attendu sont: </h2>

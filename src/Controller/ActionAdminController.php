@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Manager\DocumentAFournirManager;
-use App\Manager\{DemandeManager, CommandeManager};
+use App\Manager\{DemandeManager, CommandeManager, TMSSauverManager};
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Demande;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -50,7 +50,14 @@ class ActionAdminController extends Controller
     /**
      * @param $id
      */
-    public function dossierAction($id, DocumentAFournirManager $documentAFournirManager, DemandeManager $demandeManager, CommandeManager $commandeManager, Request $request)
+    public function dossierAction(
+        $id,
+        DocumentAFournirManager $documentAFournirManager,
+        DemandeManager $demandeManager,
+        CommandeManager $commandeManager,
+        Request $request,
+        TMSSauverManager $tmsSauverManager
+    )
     {
         $demande = $this->admin->getSubject();
 
@@ -85,11 +92,14 @@ class ActionAdminController extends Controller
             }
         }
 
+        $paramTmsInfos = $tmsSauverManager->getParamsForCommande($demande->getCommande());
+
         return $this->renderWithExtraParams('CRUD/view_document_detail.html.twig', [
             'demande'   => $demande,
             'form'      => is_null($fileForm) ? null :$fileForm->createView(),
             'daf'       => $daf,
             'files'     => $files,
+            'tmsInfos'  => $paramTmsInfos["Lot"]["Demarche"],
             ]);
         
 
