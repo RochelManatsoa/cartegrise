@@ -34,7 +34,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $rectoVersoCarteGrise;
+    private $justificatifDomicile;
 
     /**
     * @ORM\Column(type="string", nullable=true)
@@ -113,17 +113,6 @@ class DemandeDuplicata
         return $this->id;
     }
 
-    public function getRectoVersoCarteGrise(): ?string
-    {
-        return $this->rectoVersoCarteGrise;
-    }
-
-    public function setRectoVersoCarteGrise(?string $rectoVersoCarteGrise): self
-    {
-        $this->rectoVersoCarteGrise = $rectoVersoCarteGrise;
-
-        return $this;
-    }
 
     public function getCertificatImmatriculation(): ?string
     {
@@ -211,6 +200,18 @@ class DemandeDuplicata
         if ($newFile !== $demandeDuplicata->getFile()) {
             $demandeDuplicata->setFile($newFile);
         }
+
+        return $this;
+    }
+
+    public function getJustificatifDomicile(): ?string
+    {
+        return $this->justificatifDomicile;
+    }
+
+    public function setJustificatifDomicile(?string $justificatifDomicile): self
+    {
+        $this->justificatifDomicile = $justificatifDomicile;
 
         return $this;
     }
