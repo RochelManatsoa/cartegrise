@@ -519,7 +519,7 @@ class Demande
      */
     public function prepersist()
     {
-        $client = $this->commande->getclient()[0];
+        $client = $this->commande->getclient();
         $client->setCountDemande($client->getCountDemande() + 1);
     }
 
