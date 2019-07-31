@@ -24,13 +24,13 @@ class DemandeCtvoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('rectoVersoCarteGrise', FileType::class, [
-            'label' => 'label.demande.rectoVersoCarteGrise',
+        ->add('pieceIdentite', FileType::class, [
+            'label' => 'label.demande.pieceIdentiteValid',
             "required" => false,
             "data_class" => null,
         ])
-        ->add('declatationCession', FileType::class, [
-            'label' => 'label.demande.declatationCession',
+        ->add('justificatifDomicile', FileType::class, [
+            'label' => 'label.demande.justificatifDomicile',
             "required" => false,
             "data_class" => null,
         ])
@@ -39,13 +39,13 @@ class DemandeCtvoType extends AbstractType
             "required" => false,
             "data_class" => null,
         ])
-        ->add('procurationMandat', FileType::class, [
-            'label' => 'label.demande.procurationMandat',
+        ->add('declatationCession', FileType::class, [
+            'label' => 'label.demande.declatationCession',
             "required" => false,
             "data_class" => null,
         ])
-        ->add('pieceIdentite', FileType::class, [
-            'label' => 'label.demande.pieceIdentiteValid',
+        ->add('procurationMandat', FileType::class, [
+            'label' => 'label.demande.procurationMandat',
             "required" => false,
             "data_class" => null,
         ])
@@ -59,18 +59,18 @@ class DemandeCtvoType extends AbstractType
             "required" => false,
             "data_class" => null,
         ])
-        ->add('copieAttestationAssurance', FileType::class, [
-            'label' => 'label.demande.copieAttestationAssuranceValide',
-            "required" => false,
-            "data_class" => null,
-        ])
         ->add('copiePermisConduireTitulaire', FileType::class, [
             'label' => 'label.demande.copiePermisConduire',
             "required" => false,
             "data_class" => null,
         ])
-        ->add('justificatifDomicile', FileType::class, [
-            'label' => 'label.demande.justificatifDomicile',
+        ->add('copieAttestationAssurance', FileType::class, [
+            'label' => 'label.demande.copieAttestationAssuranceValide',
+            "required" => false,
+            "data_class" => null,
+        ])
+        ->add('rectoVersoCarteGrise', FileType::class, [
+            'label' => 'label.demande.rectoVersoCarteGrise',
             "required" => false,
             "data_class" => null,
         ])

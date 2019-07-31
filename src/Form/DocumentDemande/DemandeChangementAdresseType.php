@@ -24,8 +24,8 @@ class DemandeChangementAdresseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('rectoVersoCarteGrise', FileType::class, [
-            'label' => 'label.demande.rectoVersoCarteGrise',
+        ->add('copieRectoVersoCarteGrise', FileType::class, [
+            'label' => 'label.demande.copieRectoVersoCarteGrise',
             "required" => false,
             "data_class" => null,
         ])

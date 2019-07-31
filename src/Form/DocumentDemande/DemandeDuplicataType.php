@@ -24,8 +24,8 @@ class DemandeDuplicataType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('rectoVersoCarteGrise', FileType::class, [
-            'label' => 'label.demande.rectoVersoCarteGrise',
+        ->add('justificatifDomicile', FileType::class, [
+            'label' => 'label.demande.justificatifDomicile',
             "required" => false,
             "data_class" => null,
         ])
