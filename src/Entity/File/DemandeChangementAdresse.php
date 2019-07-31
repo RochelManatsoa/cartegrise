@@ -104,6 +104,18 @@ class DemandeChangementAdresse
         return $this->id;
     }
 
+    public function getRectoVersoCarteGrise(): ?string
+    {
+        return $this->rectoVersoCarteGrise;
+    }
+
+    public function setRectoVersoCarteGrise(?string $rectoVersoCarteGrise): self
+    {
+        $this->rectoVersoCarteGrise = $rectoVersoCarteGrise;
+
+        return $this;
+    }
+
     public function getCertificatImmatriculation(): ?string
     {
         return $this->certificatImmatriculation;
@@ -247,17 +259,4 @@ class DemandeChangementAdresse
 
         return $this;
     }
-
-    public function getRectoVersoCarteGrise(): ?string
-    {
-        return $this->rectoVersoCarteGrise;
-    }
-
-    public function setRectoVersoCarteGrise(?string $rectoVersoCarteGrise): self
-    {
-        $this->rectoVersoCarteGrise = $rectoVersoCarteGrise;
-
-        return $this;
-    }
-
 }
