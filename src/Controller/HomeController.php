@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit};
+use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit, Departement};
 use App\Form\{DemandeType, CommandeType, ContactUsType};
-use App\Repository\{CommandeRepository, TaxesRepository, TarifsPrestationsRepository, DemandeRepository, TypeDemandeRepository};
+use App\Repository\{CommandeRepository, TaxesRepository, TarifsPrestationsRepository, DemandeRepository, TypeDemandeRepository, DepartementRepository};
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +24,7 @@ class HomeController extends AbstractController
     public function accueil(
         Request $request,
         TypeDemandeRepository $demarche,
+        DepartementRepository $departement,
         ObjectManager $manager,
         TaxesRepository $taxesRepository,
         TarifsPrestationsRepository $prestation,
@@ -37,6 +38,7 @@ class HomeController extends AbstractController
         )
     {   
         
+        $dep = $departement->findAll();
         $type = $demarche->findAll();
         foreach($type as $typeId) {
             $commande = $commandeManager->createCommande();
@@ -106,6 +108,7 @@ class HomeController extends AbstractController
         $homeParams = [
             'demarches' => $type,
             'tab' => $tabForm,
+            'dep' => $dep,
             'database' => false,
         ];
 
