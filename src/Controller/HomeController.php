@@ -39,6 +39,12 @@ class HomeController extends AbstractController
     {   
         
         $dep = $departement->findAll();
+        $array = [];
+        $par = [];
+        foreach($dep as $d){
+            $array = [ ''.$d->getCode().' - '.$d->getName().'' =>''.$d->getCode().''];
+            $par = array_merge($par, $array);
+        }
         $type = $demarche->findAll();
         foreach($type as $typeId) {
             $commande = $commandeManager->createCommande();
@@ -46,11 +52,11 @@ class HomeController extends AbstractController
             if ($typeId->getType() === "DIVN")
             {
                 $divnInit = new DivnInit();
-                $formDivn = $this->createForm(DivnInitType::class, $divnInit);
+                $formDivn = $this->createForm(DivnInitType::class, $divnInit, ['departement'=>$par]);
                 $num = $typeId->getId();
                 $tabForm[$num] = $formDivn->createView();
             } else {
-                $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType]);
+                $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType, 'departement'=>$par]);
                 $num = $typeId->getId();
                 $tabForm[$num] = $form->createView();
             }

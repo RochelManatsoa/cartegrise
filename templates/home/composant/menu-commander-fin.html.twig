@@ -113,14 +113,11 @@
 											}
 												)}}
 											
-										<div style="display:none;">
-											{{ form_row(tab[(demarche.id)].codePostal)}}
-										</div>
-										<select class="form-control" id="commande_codepostal">
-											{% for departement in dep %}
-												<option value="{{departement.code}} ">{{departement.codeDep}}</option>
-											{% endfor %}
-										</select>
+										{{ form_row(tab[(demarche.id)].codePostal, {
+											'attr':{'maxlength':'3','minlength':'2', 'class':'col-6 mx-auto text-center form-control--dep'},
+											'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
+										}
+										)}}
 										<!-- <div class="col-12 mx-auto search-box bg-dark"> <div class="row col-12 mx-auto input-group "> <label for="Immatriculation" class="col-12 search-box--titre">Demarche</label> </div> </div> <div class="col-12 mx-auto search-box bg-dark"> <div
 										class="row col-12 mx-auto input-group "> <label for="Immatriculation" class="col-12 search-box--titre">Numero d'Immatriculation</label> </div> </div> <div class="col-12 mx-auto search-box mt-5"> <div class="row col-12 mx-auto input-group "> <label
 										for="Departement" class="col-12 search-box--titre">Departement d'immatriculation</label> </div> </div> -->
