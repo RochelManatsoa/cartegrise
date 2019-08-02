@@ -22,14 +22,17 @@ class CommandeType extends AbstractType
             ->add('demarche', EntityType::class, array(
                'class' => TypeDemande::class,
                'choice_label' => 'nom',
-               'data'=>$options['defaultType'],
+               'data'=>$options['defaultType']
             ));
             $builder
             ->add('codePostal', ChoiceType::class, [
                 'label' => 'label.dep',
                 'choices' => $options['departement']
                 ])
-            ->add('immatriculation', null, ['label' => 'label.immatriculation']);
+            ->add('immatriculation', null, [
+                'label' => 'label.immatriculation',
+                'required' => true,
+                ]);
         ;
     }
 
