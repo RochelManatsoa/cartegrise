@@ -1,35 +1,17 @@
-{# templates/bundles/TwigBundle/Exception/error404.html.twig
-{% extends 'base.html.twig' %}
-
-{% block page_content %}
-<div>
-        <h1>Oops! An Error Occurred</h1>
-        <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
-        
-        <p>
-            Something is broken. Please let us know what you were doing when this error occurred.
-            We will fix it as soon as possible. Sorry for any inconvenience caused.
-            <br>
-            La page demandée n'a pas pu être localisée
-            <br><a href="{{ path('Accueil') }}">retour à l'accueil</a>.
-        </p>
-</div>
-{% endblock %} #}
-
 {# templates/bundles/TwigBundle/Exception/error404.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block page_content %}
 <div class="col-md-12 col-lg-7 d-flex error-flex">
     <div class="error-container">
-        <h1 class="text-center">{{"Une erreur s'est produite" | upper}}.</h1>
+        <h1 class="text-center">{{"Accès refusé" | upper}}</h1>
         <p class="desc-error">
             {# Quelque chose est cassé. S'il vous plaît laissez-nous savoir ce que vous faisiez. Désolé pour tout inconvénient causé. #}
-            Nous ne trouvons pas la plaque d'immatriculation que vous avez rentré, merci de vérifier les informations que vous avez rentré, ou contactez notre service client.
+            Vous ne possédez pas l’autorisation d’appeler spécifiquement cette URL, veillez vous identifier ou contactez notre service client.
              {# Vous pouvez <a href="{{ path('contact') }}">nous contacter</a> et nous pouvons vous aider! #}
         </p>
         <p><a href="{{ path('contact') }}"><i class="fas fa-angle-double-right"></i> {{"Service Client" | upper}}</a></p>
-        <p><a class="btn btn-primary btn-lg" href="{{ path('Accueil') }}"><i class="fas fa-angle-double-right"></i> {{"Retour à la page d'accueil" | upper}}</a></p>
+        <p><a class="btn btn-primary btn-lg" href="{{ path('fos_user_security_login') }}"><i class="fas fa-angle-double-right"></i> {{"S'identifier" | upper}}</a></p>
     </div>
 </div>
 

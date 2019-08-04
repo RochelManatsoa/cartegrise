@@ -12,6 +12,7 @@
         "kleegroup/franceconnect-bundle": "^0.7.0",
         "knplabs/knp-snappy": "^1.1",
         "knplabs/knp-snappy-bundle": "^1.6",
+        "league/csv": "^9.3",
         "sensio/framework-extra-bundle": "^5.2",
         "sonata-project/admin-bundle": "^3.49",
         "sonata-project/user-bundle": "^4.3",

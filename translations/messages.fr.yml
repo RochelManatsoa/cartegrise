@@ -212,6 +212,7 @@ label:
     send: Envoyer
     save: Enregistrer
     search: Chercher
+    paid: Procéder au paiement
     motifDeRejet: Motif du rejet
     raisonsocial: Raison sociale
     societeCommerciale: Société commerciale
