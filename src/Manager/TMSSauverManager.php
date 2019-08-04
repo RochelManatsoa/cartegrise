@@ -57,10 +57,47 @@ class TMSSauverManager
             case "CTVO":
                 return $this->getParamsForCTVO($commande);
                 break;
+            case "DUP":
+                return $this->getParamsForDUP($commande);
+                break;
             default :
                 die('manaona');
                 break;
         }
+    }
+    public function getParamsForDUP(Commande $commande)
+    {
+        $client = $commande->getClient();
+        $adresse = $client->getClientAdresse();
+        $carInfo = $commande->getCarInfo();
+		$now = new \DateTime();
+        $dup = $commande->getDemande()->getDuplicata();
+        // dd($dup);
+
+        $params = ["Lot" => [
+			"Demarche" => [
+				$commande->getDemarche()->getType() => [
+                    'ID' => $commande->getTmsId()? $commande->getTmsId() :'',
+					'TypeDemarche' => $commande->getDemarche()->getType(),
+					"DateDemarche" => $now->format('Y-m-d H:i:s'),
+                    "MotifDuplicata" => $dup->getMotifDemande(),
+                    "CTVOouDC" => $dup->getDemandeChangementTitulaire(),
+                    "Titulaire" => [
+                        "NomPrenom" => $dup->getTitulaire()->getNomprenom(),
+                        "RaisonSocial" => $dup->getTitulaire()->getType(),
+                        "DroitOpposition" => false,
+                    ],
+					"Vehicule" => [
+						"VIN" => $carInfo->getVin(),
+						"Immatriculation" => $commande->getImmatriculation(),
+					],
+				],
+			],
+        ]];
+        // dd($params);
+
+        
+        return $params;
     }
     public function getParamsForCTVO(Commande $commande)
     {
@@ -168,10 +205,7 @@ class TMSSauverManager
         $acquerreur = $commande->getDemande()->getDivn()->getAcquerreur();
         $adresse = $commande->getDemande()->getDivn()->getAcquerreur()->getAdresseNewTitulaire();
         $cotitulaires = $commande->getDemande()->getDivn()->getCotitulaire();
-        dd(count($cotitulaire));
-        dd($acquerreur->getRaisonSociale());
-        echo 'eto';die;
-        dd($commande->getDemande());
+
         $cotitulaire = [];
         foreach ($cotitulaires as $cotitulaire) {
             $cotitulaire[]=[
