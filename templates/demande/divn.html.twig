@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'demande/demande_custom_theme.html.twig'%}
+
 {% block title %}{% endblock %}
 
 {% block body_id %}{% endblock %}
@@ -30,6 +32,53 @@
                                     </div>
                                 {% endif %}
                             {% endfor %}
+                            <h3 class="text-center"> {{ form_label(form.divn.vehicule) }} </h3>
+                            <hr>
+                            <div class="form-info">                    
+                                <div class="form-vehicule">            
+                                    {{ form_row(form.divn.vehicule.type)}}
+                                    {{ form_row(form.divn.vehicule.kNumRecepCe)}}
+                                    {{ form_row(form.divn.vehicule.dateReception)}}
+                                    {{ form_row(form.divn.vehicule.d21Cenit)}}
+                                    {{ form_row(form.divn.vehicule.derivVp)}}
+                                    {{ form_row(form.divn.vehicule.d3Denomination, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.f2MmaxTechAdm, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.f2MmaxAdmServ, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.f3MmaxAdmEns, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.gMmaxAvecAttelage, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.g1PoidsVide, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.jCategorieCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.j1Genre, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.j2CarrosserieCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.j3Carrosserie, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.p1Cyl, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.p2PuissKw, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.p3Energie, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.p6PuissFiscale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.qRapportPuissMasse, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.s1NbPlaceAssise, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.s2NbPlaceDebout, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.u1NiveauSonore, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.u2NbTours, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.v7Co2, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.vehicule.v9ClasseEnvCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                </div>
+                                {{ form_row(form.divn.vehicule.vin)}}
+                                {{ form_row(form.divn.vehicule.d1Marque)}}
+                                {{ form_row(form.divn.vehicule.d2Version)}}
+                                {{ form_row(form.divn.vehicule.z1Mention1)}}
+                                {{ form_row(form.divn.vehicule.z1Value)}}
+                                {{ form_row(form.divn.vehicule.nbMentions)}}
+                            </div>
+                            {# {% for vehicule in form.divn.vehicule %}
+                                {% if loop.index < 31 %}
+                                    <div class="form-group">
+                                        {{ form_label(vehicule)}}
+                                        {{ form_errors(vehicule)}}
+                                        {{ form_widget(vehicule, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    </div>
+                                {% endif %}
+                            {% endfor %} #}
                         </div>
                     </div>
                     <div class="col-3 col-md-5 mx-auto form-row full-mobile">
@@ -75,6 +124,11 @@
 {% endblock %}
 {% block javascripts %} 
 {{ parent() }}
+<script type="application/javascript">
+    $('.choice-type-reception').on('change', function(e) {
+        $(e.target).parent().siblings().toggle();
+    })
+</script>
 <script type="application/javascript">
     var $collectionHolder;
 
