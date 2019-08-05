@@ -85,6 +85,11 @@ class NewTitulaire
     private $societeCommerciale;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $droitOpposition;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $siren;
@@ -335,6 +340,18 @@ class NewTitulaire
     public function setPrenomTitulaire(string $prenomTitulaire): self
     {
         $this->prenomTitulaire = $prenomTitulaire;
+
+        return $this;
+    }
+
+    public function getDroitOpposition(): ?bool
+    {
+        return $this->droitOpposition;
+    }
+
+    public function setDroitOpposition(?bool $droitOpposition): self
+    {
+        $this->droitOpposition = $droitOpposition;
 
         return $this;
     }

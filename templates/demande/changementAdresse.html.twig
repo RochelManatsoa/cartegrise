@@ -2,6 +2,8 @@
 
 {% block title %}{% endblock %}
 
+{% form_theme form 'demande/demande_custom_theme.html.twig'%}
+
 {% block body_id %}{% endblock %}
 
 {% block class %}body-ccm{% endblock %}
@@ -21,7 +23,19 @@
                     <div class="col-10 col-sm-12 mx-auto">
                         <h3 class="text-center">{{ form_label(form.changementAdresse.nouveauxTitulaire) }}</h3>
                             <hr>
-                            {% for newTitulaire in form.changementAdresse.nouveauxTitulaire %}
+                            <div class="titulaire">
+                                {{ form_row(form.changementAdresse.nouveauxTitulaire.type)}}
+                                {{ form_row(form.changementAdresse.nouveauxTitulaire.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.changementAdresse.nouveauxTitulaire.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.changementAdresse.nouveauxTitulaire.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.changementAdresse.nouveauxTitulaire.nomPrenomTitulaire)}}
+                                {{ form_row(form.changementAdresse.nouveauxTitulaire.prenomTitulaire)}}
+                                {{ form_row(form.changementAdresse.nouveauxTitulaire.genre)}}
+                                {{ form_row(form.changementAdresse.nouveauxTitulaire.dateN)}}
+                                {{ form_row(form.changementAdresse.nouveauxTitulaire.lieuN)}}
+                                {{ form_row(form.changementAdresse.nouveauxTitulaire.droitOpposition)}}
+                            </div>
+                            {# {% for newTitulaire in form.changementAdresse.nouveauxTitulaire %}
                                 {% if loop.index < 8 %}
                                 <div class="form-group">
                                     {{ form_label(newTitulaire)}}
@@ -29,10 +43,10 @@
                                     {{ form_widget(newTitulaire, {'attr': {'class': ''}})}}
                                 </div>
                                 {% endif %}
-                            {% endfor %}
+                            {% endfor %} #}
                             <br>
                             
-                        <h3 class="text-center">{{ form_label(form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire) }}</h3>
+                        <h3 class="text-center">Ancienne adresse {# {{ form_label(form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire) }} #}</h3>
                             <hr>
                             {% for address in form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire %}
                                 {% if loop.index < 9 %}
@@ -48,18 +62,9 @@
                 </div>
                 <div class="col-3 col-md-5 mx-auto form-row full-mobile">
                     <div class="col-10 col-sm-12 mx-auto">
-                        {% for address in form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire %}
-                            {% if loop.index >= 8 %}
-                                <div class="form-group">
-                                    {{ form_label(address)}}
-                                    {{ form_errors(address)}}
-                                    {{ form_widget(address, {'attr': {'class': ''}})}}
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                        <h3 class="text-center"> {{ form_label(form.changementAdresse.ancienAdresse) }} </h3>
+                        <h3 class="text-center"> {{ form_label(form.changementAdresse.nouvelAdresse) }} </h3>
                             <hr>
-                        {% for adresse in form.changementAdresse.ancienAdresse %}
+                        {% for adresse in form.changementAdresse.nouvelAdresse %}
                                 <div class="form-group">
                                     {{ form_label(adresse)}}
                                     {{ form_errors(adresse)}}
@@ -83,4 +88,12 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block javascripts %} 
+{{ parent() }}
+<script type="application/javascript">
+    $('.choice-type-personne').on('change', function(e) {
+        $(e.target).parent('.form-group').siblings().toggle();
+    })
+</script>
 {% endblock %}
