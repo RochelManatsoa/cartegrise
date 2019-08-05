@@ -67,12 +67,12 @@
 															{{ 'home.login'|trans}}
 														</a>
 													</div>
-													<div class="custom-container-flex">
+													{# <div class="custom-container-flex">
 														<p class="text-center">{{ 'home.franceConnecteDescription'|trans}}</p>
 														<a class="link-connexion no-border" href="{{ path('france_connect_login') }}" class="btnLink">
 															<img class="img-fluid col-12 rounded mx-auto d-block tooltiped" style="max-width: 100%;height:auto;" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
 														</a>
-													</div>											
+													</div>											 #}
 												</div>													
 										</div>
 										<div class="modal-footer">
@@ -117,7 +117,7 @@
 						{% if app.user %}
 							<a class="col-12 btn btn-success" href="{{path('Accueil')}}{{ commande.demarche.type | lower}}/?commande={{ commande.id }}">{{ 'home.validate'|trans }}</a>
 						{% else %}
-							<a class="col-12 btn btn-primary mb-3" href="{{ path('france_connect_login') }}">{{ 'home.franceConnecte'|trans }}</a>
+							{# <a class="col-12 btn btn-primary mb-3" href="{{ path('france_connect_login') }}">{{ 'home.franceConnecte'|trans }}</a> #}
 							<a class="col-12 btn btn-success" href="{{ path('fos_user_registration_register',{'commande':commande.id}) }}">{{ 'home.validate'|trans }}</a>
 						{% endif %}
 					</div>
