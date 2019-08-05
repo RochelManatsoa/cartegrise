@@ -172,10 +172,12 @@ label:
     dateN: Date de naissance *
     lieuN: Lieu de naissance
     adresseNewTitulaire: Adresse de l'Acquéreur 
+    ancienAdresseTitulaire: Adresse du Titulaire 
     ancienTitulaire: Ancien Titulaire
     cotitulaire: Cotitulaire(s)
     dateCession: Date de cession
     ancienAdresse: Ancienne adresse
+    nouvelAdresse: Nouvelle adresse
     typevoie: Type de Voie
     numerovoie: Numéro de la Voie
     complement: Complément d'adresse
