@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Form\NewtitulaireType;
+use App\Form\VehiculeNeufType;
 use App\Form\CotitulairesType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
@@ -16,6 +17,7 @@ class DivnType extends AbstractType
     {
         $builder
             ->add('acquerreur', NewtitulaireType::class, array('label'=>'label.acquerreur'))
+            ->add('vehicule', VehiculeNeufType::class, array('label'=>'label.vehicule.info'))
             ->add('cotitulaire', CollectionType::class, [
                 'label' => 'label.cotitulaire',
                 'entry_type' => CotitulairesType::class,
