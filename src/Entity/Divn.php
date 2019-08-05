@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\File\DemandeImmatriculationVehiculeNeuf;
 use App\Entity\File\DemandeIvn;
+use App\Entity\Vehicule\VehiculeNeuf;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -39,6 +40,11 @@ class Divn
      * @ORM\OneToOne(targetEntity="App\Entity\File\DemandeIvn", inversedBy="divn", cascade={"persist", "remove"})
      */
     private $file;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Vehicule\VehiculeNeuf", inversedBy="divn", cascade={"persist", "remove"})
+     */
+    private $vehicule;
 
     public function __construct()
     {
@@ -114,6 +120,18 @@ class Divn
     public function setFile(?DemandeIvn $file): self
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    public function getVehicule(): ?VehiculeNeuf
+    {
+        return $this->vehicule;
+    }
+
+    public function setVehicule(?VehiculeNeuf $vehicule): self
+    {
+        $this->vehicule = $vehicule;
 
         return $this;
     }
