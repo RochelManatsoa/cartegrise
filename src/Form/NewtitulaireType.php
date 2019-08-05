@@ -15,6 +15,16 @@ class NewtitulaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('type', ChoiceType::class, array(
+                'label' => 'label.type.personne',
+                'choices' => array(
+                    'Personne Physique' => "phy",
+                    'Société' => "mor",
+                ),
+                'attr' => array(
+                    'class' => 'choice-type-personne'
+                )
+                ))
             ->add('nomPrenomTitulaire', TextType::class, array(
                 'label'=>'label.nom.titulaire'
                 ))
@@ -33,10 +43,10 @@ class NewtitulaireType extends AbstractType
                 'widget' => 'single_text',
                 ))
             ->add('lieuN', TextType::class, array('label'=> 'label.lieuN'))
-            // ->add('type')
             ->add('raisonSociale')
             ->add('societeCommerciale', null, array('label'=> 'label.societeCommerciale'))
-            // ->add('siren')
+            ->add('siren')
+            ->add('droitOpposition', null, array('label'=> 'label.droitOpposition'))
             ->add('adresseNewTitulaire', AdresseType::class, array('label'=>'label.adresseNewTitulaire'))
             // ->add('demande')
         ;
