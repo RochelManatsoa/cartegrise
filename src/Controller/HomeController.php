@@ -66,10 +66,6 @@ class HomeController extends AbstractController
         $formDivn->handleRequest($request);
 
         if ($formDivn->isSubmitted() && $formDivn->isValid()) {
-<<<<<<< HEAD
-            // throw new \Exception("Le site est actuellement en maintenance !");
-=======
->>>>>>> e16525578339b37669d1dee266904d9cd58f0b63
             $divnInit = $formDivn->getData();
             $divnInitManager->manageSubmit($divnInit);
             $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
@@ -79,10 +75,6 @@ class HomeController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-<<<<<<< HEAD
-            // throw new \Exception("Le site est actuellement en maintenance !");
-=======
->>>>>>> e16525578339b37669d1dee266904d9cd58f0b63
             $ifCommande = $commandeRepository->findOneBy([
                 'immatriculation' => $commande->getImmatriculation(),
                 'codePostal' => $commande->getCodePostal(),

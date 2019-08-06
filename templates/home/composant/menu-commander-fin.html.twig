@@ -118,6 +118,12 @@
 											'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
 										}
 										)}}
+										{% if demarche.type == 'DCA' %}
+											{{ form_row(tab[(demarche.id)].fourthChange
+											)}}
+										{% else %}
+											<div class="hidden" style="display: none;">{{ form_row(tab[(demarche.id)].fourthChange)}}</div>
+										{% endif %}
 										<!-- <div class="col-12 mx-auto search-box bg-dark"> <div class="row col-12 mx-auto input-group "> <label for="Immatriculation" class="col-12 search-box--titre">Demarche</label> </div> </div> <div class="col-12 mx-auto search-box bg-dark"> <div
 										class="row col-12 mx-auto input-group "> <label for="Immatriculation" class="col-12 search-box--titre">Numero d'Immatriculation</label> </div> </div> <div class="col-12 mx-auto search-box mt-5"> <div class="row col-12 mx-auto input-group "> <label
 										for="Departement" class="col-12 search-box--titre">Departement d'immatriculation</label> </div> </div> -->

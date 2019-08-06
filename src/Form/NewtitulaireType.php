@@ -26,10 +26,10 @@ class NewtitulaireType extends AbstractType
                 )
                 ))
             ->add('nomPrenomTitulaire', TextType::class, array(
-                'label'=>'label.nom.titulaire'
+                'label'=>$options['label'] === "label.dca.titulaire" ? 'label.nom.dcaNomPrenom' : 'label.nom.titulaire',
                 ))
             ->add('prenomTitulaire', TextType::class, array(
-                'label'=>'label.prenom.titulaire'
+                'label'=>'label.prenom.client'
                 ))
             ->add('genre', ChoiceType::class, array(
                 'label' => 'label.genre',
@@ -47,7 +47,14 @@ class NewtitulaireType extends AbstractType
             ->add('societeCommerciale', null, array('label'=> 'label.societeCommerciale'))
             ->add('siren')
             ->add('droitOpposition', null, array('label'=> 'label.droitOpposition'))
-            ->add('adresseNewTitulaire', AdresseType::class, array('label'=>'label.adresseNewTitulaire'))
+            ->add('adresseNewTitulaire', AdresseType::class, [
+                    'label'=> $options['label'] === "label.dca.titulaire" ? 'label.nouvelAdresse' : 'label.adresseNewTitulaire',
+                ]);
+            if ($options['label'] === "label.dca.titulaire")
+                $builder->add('birthName', TextType::class, array(
+                    'label'=>'label.nom.dcaBirthName',
+                    'required' => false,
+                    ))
             // ->add('demande')
         ;
     }
