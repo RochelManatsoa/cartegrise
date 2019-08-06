@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Form\DivnInitType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class CommandeType extends AbstractType
 {
@@ -32,6 +33,10 @@ class CommandeType extends AbstractType
             ->add('immatriculation', null, [
                 'label' => 'label.immatriculation',
                 'required' => true,
+                ])
+            ->add('fourthChange', CheckboxType::class, [
+                'label' => 'label.fourthChange',
+                'required' => false,
                 ]);
         ;
     }

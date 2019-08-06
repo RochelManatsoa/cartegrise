@@ -57,10 +57,103 @@ class TMSSauverManager
             case "CTVO":
                 return $this->getParamsForCTVO($commande);
                 break;
+            case "DUP":
+                return $this->getParamsForDUP($commande);
+                break;
+            case "DCA":
+                return $this->getParamsForDCA($commande);
+                break;
             default :
                 die('manaona');
                 break;
         }
+    }
+    public function getParamsForDCA(Commande $commande)
+    {
+        $client = $commande->getClient();
+        $adresse = $client->getClientAdresse();
+        $carInfo = $commande->getCarInfo();
+		$now = new \DateTime();
+        $dca = $commande->getDemande()->getChangementAdresse();
+        if ( "phy" === $dca->getNouveauxTitulaire()->getType() ) {
+            $physique = [
+                "NomPrenom" => $dca->getNouveauxTitulaire()->getNomPrenomTitulaire(),
+                "NomNaissance" => $dca->getNouveauxTitulaire()->getBirthName(),
+                "Prenom" => $dca->getNouveauxTitulaire()->getPrenomTitulaire(),
+                "Sexe" => $dca->getNouveauxTitulaire()->getGenre(),
+                "DateNaissance" => $dca->getNouveauxTitulaire()->getDateN()->format('dm-Y'),
+                "LieuNaissance" => $dca->getNouveauxTitulaire()->getLieuN(),
+                "DroitOpposition" => $dca->getNouveauxTitulaire()->getDroitOpposition(),
+            ];
+        } elseif ( "mor" === $dca->getNouveauxTitulaire()->getType()) {
+            $moral = [
+                "RaisonSociale" => $dca->getNouveauxTitulaire()->getRaisonSociale(),
+                "SocieteCommerciale" => $dca->getNouveauxTitulaire()->getSocieteCommerciale(),
+            ];
+        }
+
+        $params = ["Lot" => [
+			"Demarche" => [
+				$commande->getDemarche()->getType() => [
+                    'ID' => $commande->getTmsId()? $commande->getTmsId() :'',
+					'TypeDemarche' => $commande->getDemarche()->getType(),
+					"DateDemarche" => $now->format('Y-m-d H:i:s'),
+                    "Titulaire" => "phy" === $dca->getNouveauxTitulaire()->getType() ? $physique : $moral,
+                    "AncienneAdresse" => [
+                        "TypeVoie" => $dca->getAncienAdresse()->getTypevoie(),
+                        "NomVoie" => $dca->getAncienAdresse()->getNom(),
+                        "CodePostal" => $dca->getAncienAdresse()->getCodepostal(),
+                        "Ville" => $dca->getAncienAdresse()->getVille(),
+                    ],
+                    "NouvelleAdresse" => [
+                        "TypeVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getTypevoie(),
+                        "NomVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getNom(),
+                        "CodePostal" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getCodepostal(),
+                        "Ville" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getVille(),
+                    ],
+					"Vehicule" => [
+						"VIN" => $carInfo->getVin(),
+						"Immatriculation" => $commande->getImmatriculation(),
+					],
+				],
+			],
+        ]];
+        
+        return $params;
+    }
+    public function getParamsForDUP(Commande $commande)
+    {
+        $client = $commande->getClient();
+        $adresse = $client->getClientAdresse();
+        $carInfo = $commande->getCarInfo();
+		$now = new \DateTime();
+        $dup = $commande->getDemande()->getDuplicata();
+        // dd($dup);
+
+        $params = ["Lot" => [
+			"Demarche" => [
+				$commande->getDemarche()->getType() => [
+                    'ID' => $commande->getTmsId()? $commande->getTmsId() :'',
+					'TypeDemarche' => $commande->getDemarche()->getType(),
+					"DateDemarche" => $now->format('Y-m-d H:i:s'),
+                    "MotifDuplicata" => $dup->getMotifDemande(),
+                    "CTVOouDC" => $dup->getDemandeChangementTitulaire(),
+                    "Titulaire" => [
+                        "NomPrenom" => $dup->getTitulaire()->getNomprenom(),
+                        "RaisonSocial" => $dup->getTitulaire()->getType(),
+                        "DroitOpposition" => false,
+                    ],
+					"Vehicule" => [
+						"VIN" => $carInfo->getVin(),
+						"Immatriculation" => $commande->getImmatriculation(),
+					],
+				],
+			],
+        ]];
+        // dd($params);
+
+        
+        return $params;
     }
     public function getParamsForCTVO(Commande $commande)
     {
@@ -168,10 +261,7 @@ class TMSSauverManager
         $acquerreur = $commande->getDemande()->getDivn()->getAcquerreur();
         $adresse = $commande->getDemande()->getDivn()->getAcquerreur()->getAdresseNewTitulaire();
         $cotitulaires = $commande->getDemande()->getDivn()->getCotitulaire();
-        dd(count($cotitulaire));
-        dd($acquerreur->getRaisonSociale());
-        echo 'eto';die;
-        dd($commande->getDemande());
+
         $cotitulaire = [];
         foreach ($cotitulaires as $cotitulaire) {
             $cotitulaire[]=[
