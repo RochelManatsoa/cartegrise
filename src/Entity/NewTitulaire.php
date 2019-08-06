@@ -31,7 +31,7 @@ class NewTitulaire
     private $nomPrenomTitulaire;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotNull(message="Champs requis")
      */
     private $birthName;
