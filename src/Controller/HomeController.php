@@ -65,7 +65,7 @@ class HomeController extends AbstractController
         $form->handleRequest($request);
         $formDivn->handleRequest($request);
 
-        if ($formDivn->isSubmitted()) {
+        if ($formDivn->isSubmitted() && $formDivn->isValid()) {
             $divnInit = $formDivn->getData();
             $divnInitManager->manageSubmit($divnInit);
             $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);

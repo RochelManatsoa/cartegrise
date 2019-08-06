@@ -18,7 +18,7 @@ class CaracteristiqueTechVehiculeNeuf
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Divn", inversedBy="caracteristiqueTechniquePart")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Divn", inversedBy="caractTech")
      */
     private $divn;
 

@@ -15,7 +15,6 @@ class CaracteristiqueTechVehiculeNeufType extends AbstractType
             ->add('code')
             ->add('valeur1')
             ->add('valeur2')
-            ->add('vehicule')
         ;
     }
 

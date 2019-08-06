@@ -118,14 +118,7 @@
                                 </div>
                                     {{ form_row(form.divn.carrosier.justificatifs)}}
                             <h3 class="text-center">{{ form_label(form.divn.caracteristiqueTechniquePart) }}</h3>
-                            <hr> 
-                            {% for carrosier in form.divn.caracteristiqueTechniquePart %}
-                                <div class="form-group">
-                                    {{ form_label(carrosier)}}
-                                    {{ form_errors(carrosier)}}
-                                    {{ form_widget(carrosier, {'attr': {'class': ''}})}}
-                                </div>
-                            {% endfor %} 
+                            <hr>  
                             </div>
                     </div>
                     </div>

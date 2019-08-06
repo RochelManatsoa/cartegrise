@@ -21,7 +21,7 @@ class CarrosierVehiculeNeuf
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Vehicule\VehiculeNeuf", mappedBy="carrosier", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Divn", mappedBy="corrosier", cascade={"persist", "remove"})
      * @ORM\JoinColumn()
      */
     private $divn;
@@ -121,18 +121,6 @@ class CarrosierVehiculeNeuf
         return $this;
     }
 
-    public function getDivn(): ?VehiculeNeuf
-    {
-        return $this->divn;
-    }
-
-    public function setDivn(?VehiculeNeuf $divn): self
-    {
-        $this->divn = $divn;
-
-        return $this;
-    }
-
     public function getJustificatifs(): ?bool
     {
         return $this->justificatifs;
@@ -141,6 +129,18 @@ class CarrosierVehiculeNeuf
     public function setJustificatifs(?bool $justificatifs): self
     {
         $this->justificatifs = $justificatifs;
+
+        return $this;
+    }
+
+    public function getDivn(): ?Divn
+    {
+        return $this->divn;
+    }
+
+    public function setDivn(?Divn $divn): self
+    {
+        $this->divn = $divn;
 
         return $this;
     }

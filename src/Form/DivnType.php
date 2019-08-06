@@ -9,8 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Form\NewtitulaireType;
 use App\Form\VehiculeNeufType;
 use App\Form\CotitulairesType;
-use App\Form\CarrosierVehiculeNeufType;
-use App\Form\CaracteristiqueTechVehiculeNeufType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class DivnType extends AbstractType

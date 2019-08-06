@@ -24,6 +24,17 @@ class Divn
     private $id;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Vehicule\CarrosierVehiculeNeuf", inversedBy="divn", cascade={"persist", "remove"})
+     */
+    private $carrosier;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Vehicule\CaracteristiqueTechVehiculeNeuf", mappedBy="divn", cascade={"persist"})
+     */
+    private $caractTech;
+
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Demande", inversedBy="divn", cascade={"persist", "remove"})
      */
     private $demande;
@@ -47,22 +58,13 @@ class Divn
      * @ORM\OneToOne(targetEntity="App\Entity\Vehicule\VehiculeNeuf", inversedBy="divn", cascade={"persist", "remove"})
      */
     private $vehicule;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Vehicule\CaracteristiqueTechVehiculeNeuf", mappedBy="divn", cascade={"persist"})
-     */
-    private $caracteristiqueTechniquePart;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Vehicule\CarrosierVehiculeNeuf", inversedBy="divn", cascade={"persist", "remove"})
-     */
-    private $carrosier;
     
 
     public function __construct()
     {
         $this->cotitulaire = new ArrayCollection();
         $this->caracteristiqueTechniquePart = new ArrayCollection();
+        $this->caractTech = new ArrayCollection();
     }
 
 
@@ -150,37 +152,6 @@ class Divn
         return $this;
     }
 
-    /**
-     * @return Collection|CaracteristiqueTechVehiculeNeuf[]
-     */
-    public function getCaracteristiqueTechniquePart(): Collection
-    {
-        return $this->caracteristiqueTechniquePart;
-    }
-
-    public function addCaracteristiqueTechniquePart(CaracteristiqueTechVehiculeNeuf $caracteristiqueTechniquePart): self
-    {
-        if (!$this->caracteristiqueTechniquePart->contains($caracteristiqueTechniquePart)) {
-            $this->caracteristiqueTechniquePart[] = $caracteristiqueTechniquePart;
-            $caracteristiqueTechniquePart->setDivn($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCaracteristiqueTechniquePart(CaracteristiqueTechVehiculeNeuf $caracteristiqueTechniquePart): self
-    {
-        if ($this->caracteristiqueTechniquePart->contains($caracteristiqueTechniquePart)) {
-            $this->caracteristiqueTechniquePart->removeElement($caracteristiqueTechniquePart);
-            // set the owning side to null (unless already changed)
-            if ($caracteristiqueTechniquePart->getDivn() === $this) {
-                $caracteristiqueTechniquePart->setDivn(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getCarrosier(): ?CarrosierVehiculeNeuf
     {
         return $this->carrosier;
@@ -189,6 +160,37 @@ class Divn
     public function setCarrosier(?CarrosierVehiculeNeuf $carrosier): self
     {
         $this->carrosier = $carrosier;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CaracteristiqueTechVehiculeNeuf[]
+     */
+    public function getCaractTech(): Collection
+    {
+        return $this->caractTech;
+    }
+
+    public function addCaractTech(CaracteristiqueTechVehiculeNeuf $caractTech): self
+    {
+        if (!$this->caractTech->contains($caractTech)) {
+            $this->caractTech[] = $caractTech;
+            $caractTech->setDivn($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaractTech(CaracteristiqueTechVehiculeNeuf $caractTech): self
+    {
+        if ($this->caractTech->contains($caractTech)) {
+            $this->caractTech->removeElement($caractTech);
+            // set the owning side to null (unless already changed)
+            if ($caractTech->getDivn() === $this) {
+                $caractTech->setDivn(null);
+            }
+        }
 
         return $this;
     }
