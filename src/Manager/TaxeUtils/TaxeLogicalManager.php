@@ -56,6 +56,16 @@ class TaxeLogicalManager
     {
         // get type of comande
         $type = $commande->getDemarche()->getType();
+        // check if DCA
+        if("DCA" === $type){
+            if ($commande->getFourthChange())
+                $taxe
+                    ->setTaxeRedevanceSIV($response->Positive->TaxeRedevanceSIV)
+                    ->setTaxeTotale($response->Positive->TaxeRedevanceSIV);
+            $commande->setTaxes($taxe);
+        return;
+        }
+        // end check if DCA
         // to know if the the configuration have taxe or not
         $withoutTaxes = $this->getConfiguration(Configuration::TAXE_REGIONAL_WITHOUT_TAXES);
         //to check if command is with taxes regional or not
