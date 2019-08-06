@@ -25,26 +25,22 @@ class NewTitulaire
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull(message="Champs requis")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nomPrenomTitulaire;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull(message="Champs requis")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $genre;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Assert\NotNull(message="Champs requis")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateN;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull(message="Champs requis")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lieuN;
 
@@ -100,7 +96,7 @@ class NewTitulaire
     private $vehicules;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $prenomTitulaire;
 

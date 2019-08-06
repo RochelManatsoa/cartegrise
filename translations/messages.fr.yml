@@ -205,6 +205,12 @@ label:
     paiement: Paiement
     tms: Tms 
     progression: Progression de la demande
+    caracteristiqueTechniquePart: Caractéristiques techniques particulières
+    carrossier: Carrossier qualifié ayant modifié le véhicule
+    agrement: Numéro d'Agrément du carrossier
+    nomCarrossier: Nom du carrossier
+    prenomCarrossier: Prénom du carrossier
+    justificatifs: Pièces justificatives attestant de la modification
 
     admin:
         email: Adresse électronique

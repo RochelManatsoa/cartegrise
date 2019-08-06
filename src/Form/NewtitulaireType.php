@@ -15,21 +15,24 @@ class NewtitulaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', ChoiceType::class, array(
+            ->add('type', ChoiceType::class, [
                 'label' => 'label.type.personne',
-                'choices' => array(
+                'choices' => [
                     'Personne Physique' => "phy",
                     'Société' => "mor",
-                ),
-                'attr' => array(
+                ],
+                'required' => false,
+                'attr' => [
                     'class' => 'choice-type-personne'
-                )
-                ))
+                ]
+            ])
             ->add('nomPrenomTitulaire', TextType::class, array(
-                'label'=>'label.nom.titulaire'
+                'label'=>'label.nom.titulaire',
+                'required' => false
                 ))
             ->add('prenomTitulaire', TextType::class, array(
-                'label'=>'label.prenom.titulaire'
+                'label'=>'label.prenom.titulaire',
+                'required' => false
                 ))
             ->add('genre', ChoiceType::class, array(
                 'label' => 'label.genre',
@@ -37,16 +40,28 @@ class NewtitulaireType extends AbstractType
                     'Féminin' => "F",
                     'Masculin' => "M",
                 ),
+                'required' => false
             ))
             ->add('dateN', DateType::class, array(
                 'label'=>"label.dateN",
                 'widget' => 'single_text',
+                'required' => false
                 ))
-            ->add('lieuN', TextType::class, array('label'=> 'label.lieuN'))
-            ->add('raisonSociale')
-            ->add('societeCommerciale', null, array('label'=> 'label.societeCommerciale'))
+            ->add('lieuN', TextType::class, [
+                'label'=> 'label.lieuN',
+                'required' => false
+                ])
+            // ->add('type')
+            ->add('raisonSociale', TextType::class, array(
+                'label'=>'label.raisonsocial',
+                'required' => false
+                ))
+            ->add('societeCommerciale', null, [
+                'label'=> 'label.societeCommerciale',
+                'required' => false
+            ])
             ->add('siren')
-            ->add('droitOpposition', null, array('label'=> 'label.droitOpposition'))
+            ->add('droitOpposition')
             ->add('adresseNewTitulaire', AdresseType::class, array('label'=>'label.adresseNewTitulaire'))
             // ->add('demande')
         ;

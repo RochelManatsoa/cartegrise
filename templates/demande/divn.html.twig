@@ -23,18 +23,26 @@
                         <div class="col-10 col-sm-12 mx-auto">
                             <h3 class="text-center"> {{ form_label(form.divn.acquerreur) }} </h3>
                             <hr>
-                            {% for acquerreur in form.divn.acquerreur %}
-                                {% if loop.index < 8 %}
-                                    <div class="form-group">
-                                        {{ form_label(acquerreur)}}
-                                        {{ form_errors(acquerreur)}}
-                                        {{ form_widget(acquerreur, {'attr': {'class': ''}})}}
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
+                            <div class="titulaire">
+                                {{ form_row(form.divn.acquerreur.type)}}
+                                {{ form_row(form.divn.acquerreur.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.divn.acquerreur.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.divn.acquerreur.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.divn.acquerreur.nomPrenomTitulaire)}}
+                                {{ form_row(form.divn.acquerreur.prenomTitulaire)}}
+                                {{ form_row(form.divn.acquerreur.genre)}}
+                                {{ form_row(form.divn.acquerreur.dateN)}}
+                                {{ form_row(form.divn.acquerreur.lieuN)}}
+                                {{ form_row(form.divn.acquerreur.droitOpposition)}}
+                            </div>
                             <h3 class="text-center"> {{ form_label(form.divn.vehicule) }} </h3>
                             <hr>
-                            <div class="form-info">                    
+                            <div class="form-info">
+                                {{ form_row(form.divn.vehicule.vin)}}
+                                {{ form_row(form.divn.vehicule.d1Marque)}}
+                                {{ form_row(form.divn.vehicule.d2Version)}}
+                                {{ form_row(form.divn.vehicule.z1Mention1)}}
+                                {{ form_row(form.divn.vehicule.z1Value)}}                    
                                 <div class="form-vehicule">            
                                     {{ form_row(form.divn.vehicule.type)}}
                                     {{ form_row(form.divn.vehicule.kNumRecepCe)}}
@@ -63,12 +71,6 @@
                                     {{ form_row(form.divn.vehicule.v7Co2, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                     {{ form_row(form.divn.vehicule.v9ClasseEnvCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 </div>
-                                {{ form_row(form.divn.vehicule.vin)}}
-                                {{ form_row(form.divn.vehicule.d1Marque)}}
-                                {{ form_row(form.divn.vehicule.d2Version)}}
-                                {{ form_row(form.divn.vehicule.z1Mention1)}}
-                                {{ form_row(form.divn.vehicule.z1Value)}}
-                                {{ form_row(form.divn.vehicule.nbMentions)}}
                             </div>
                             {# {% for vehicule in form.divn.vehicule %}
                                 {% if loop.index < 31 %}
@@ -104,8 +106,28 @@
                                     </li>
                                     {% endif %}
                                 {% endfor %}
-                            </ul>
-                        </div>
+                            </ul> 
+                            <h3 class="text-center"> {{ form_label(form.divn.carrosier) }} </h3>
+                            <hr>
+                            <div class="col-10 col-sm-12 mx-auto">
+                                <div class="carrossier">
+                                    {{ form_row(form.divn.carrosier.typeCarrossier)}}
+                                    {{ form_row(form.divn.carrosier.raisonSocialCarrossier, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.carrosier.nomCarrosssier)}}
+                                    {{ form_row(form.divn.carrosier.prenomCarrossier)}}
+                                </div>
+                                    {{ form_row(form.divn.carrosier.justificatifs)}}
+                            <h3 class="text-center">{{ form_label(form.divn.caracteristiqueTechniquePart) }}</h3>
+                            <hr> 
+                            {% for carrosier in form.divn.caracteristiqueTechniquePart %}
+                                <div class="form-group">
+                                    {{ form_label(carrosier)}}
+                                    {{ form_errors(carrosier)}}
+                                    {{ form_widget(carrosier, {'attr': {'class': ''}})}}
+                                </div>
+                            {% endfor %} 
+                            </div>
+                    </div>
                     </div>
                     <div class="col-12 text-center">
                         <div style="display:none">
@@ -127,6 +149,16 @@
 <script type="application/javascript">
     $('.choice-type-reception').on('change', function(e) {
         $(e.target).parent().siblings().toggle();
+    })
+</script>
+<script type="application/javascript">
+    $('.choice-type-personne').on('change', function(e) {
+        $(e.target).parent('.form-group').siblings().toggle();
+    })
+</script>
+<script type="application/javascript">
+    $('.choice-type-carrossier').on('change', function(e) {
+        $(e.target).parent('.form-group').siblings().toggle();
     })
 </script>
 <script type="application/javascript">

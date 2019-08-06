@@ -2,7 +2,9 @@
 namespace App\Entity\Vehicule;
 
 use App\Entity\Divn;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Vehicule\VehiculeNeufRepository")
@@ -17,7 +19,7 @@ class VehiculeNeuf
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Divn", mappedBy="vehicule", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Divn", inversedBy="vehicule", cascade={"persist", "remove"})
      */
     private $divn;
 
@@ -180,6 +182,11 @@ class VehiculeNeuf
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nbMentions;
+
+    public function __construct()
+    {
+        $this->caracteristiqueTechniquePart = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
