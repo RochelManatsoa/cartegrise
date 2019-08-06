@@ -32,6 +32,12 @@ class NewTitulaire
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $birthName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Champs requis")
+     */
     private $genre;
 
     /**
@@ -348,6 +354,18 @@ class NewTitulaire
     public function setDroitOpposition(?bool $droitOpposition): self
     {
         $this->droitOpposition = $droitOpposition;
+
+        return $this;
+    }
+
+    public function getBirthName(): ?string
+    {
+        return $this->birthName;
+    }
+
+    public function setBirthName(string $birthName): self
+    {
+        $this->birthName = $birthName;
 
         return $this;
     }
