@@ -18,13 +18,12 @@ class NewtitulaireType extends AbstractType
             ->add('type', ChoiceType::class, array(
                 'label' => 'label.type.personne',
                 'choices' => array(
-                    'Personne Physique' => "phy",
+                    'Physique' => "phy",
                     'Société' => "mor",
                 ),
                 'attr' => array(
                     'class' => 'choice-type-personne'
-                ),
-                'required' => false
+                )
                 ))
             ->add('nomPrenomTitulaire', TextType::class, array(
                 'label'=>$options['label'] === "label.dca.titulaire" ? 'label.nom.dcaNomPrenom' : 'label.nom.titulaire',

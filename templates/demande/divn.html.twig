@@ -116,14 +116,30 @@
                                     {{ form_row(form.divn.carrosier.nomCarrosssier)}}
                                     {{ form_row(form.divn.carrosier.prenomCarrossier)}}
                                 </div>
+                                    {{ form_row(form.divn.carrosier.agrement)}}
                                     {{ form_row(form.divn.carrosier.justificatifs)}}
                             <h3 class="text-center">{{ form_label(form.divn.caracteristiqueTechniquePart) }}</h3>
-                            <hr>  
+                            <hr> 
+                            <div id="caract" data-prototype="{{ form_widget(form.divn.caracteristiqueTechniquePart.vars.prototype)|e('html_attr') }}">
+                                {% for row in form.divn.cotitulaire %}
+                                    {% if loop.index < 3 %}
+                                    <div class="panel panel-warning">
+                                        <div class="panel-heading">
+                                        </div>
+                                        <div class="panel-body">
+                                            {{ form_label(row.vars.prototype)|e  }}
+                                            {{ form_errors(row.vars.prototype)|e  }}
+                                            {{ form_widget(row.vars.prototype, {'attr': {'class': ''}})|e  }}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div> 
                             </div>
                     </div>
                     </div>
                     <div class="col-12 text-center">
-                        <div style="display:none">
+                        <div style="display:none;">
                             {{form_rest(form)}}
                         </div>
                     </div>
@@ -153,6 +169,45 @@
     $('.choice-type-carrossier').on('change', function(e) {
         $(e.target).parent('.form-group').siblings().toggle();
     })
+</script>
+<script type="application/javascript">
+    var $collection;
+    var $addNewItems = $('<center><button type="button" class="btn btn-outline-info">Ajouter caractéristique</button></center>');
+    var $newLink = $('<p></p>').append($addNewItems);
+    jQuery(document).ready(function(){
+        $collection = $('#caract');
+        $collection.append($addNewItems);
+        $collection.data('index',$collection.find('.panel').length);
+        $collection.find('.panel').each(function() {
+            addRemoveButton($(this));
+        });
+        $addNewItems.click(function(){
+            addNewForm($collection, $addNewItems);
+        });
+    });
+
+    function addNewForm($collection, $addNewItems){
+        var protoType = $collection.data('prototype');
+        var index = $collection.data('index');
+        var newForm = protoType;
+        newForm = newForm.replace(/__name__/g, index);
+        $collection.data('index', index + 1);
+        var $panel = $('<div class="panel panel-warning"><div class="panel-heading"></div></div>');
+        var $panelBody = $('<div class="panel-body"></div>').append(newForm);
+        $panel.append($panelBody);
+        addRemoveButton($panel);
+        $addNewItems.before($panel);
+    }
+
+    function addRemoveButton($panel) {
+        var $removeButton = $('<center><button type="button" class="btn btn-outline-danger btn-md">Effacer caractéristique</button></center><br>');
+        var $panelFooter = $('<div class="panel-footer"></div>').append($removeButton);
+        $panel.append($panelFooter);
+
+        $removeButton.click(function(e){
+            $panel.remove();
+        });
+    }
 </script>
 <script type="application/javascript">
     var $collectionHolder;
@@ -218,5 +273,6 @@
         });
     }
 </script>
+
     
 {% endblock %}

@@ -182,6 +182,16 @@ label:
     complement: Complément d'adresse
     codepostal: Code Postal
     ville: Ville
+    droitOpposition: Je m'oppose à la diffusion de mes données personnelles
+    caracteristiqueTechniquePart: Caractéristiques techniques particulières
+    carrossier: Carrossier qualifié ayant modifié le véhicule
+    nomCarrossier: Nom du carrossier
+    agrement: Numéro d'Agrément du carrossier
+    prenomCarrossier: Prénom du carrossier
+    justificatifs: Pièces justificatives attestant de la modification
+    code: Code relatif à une mention
+    valeur1: Valeur de la mention
+    valeur2: Valeur de la mention (uniquement en cas d’intervalle de valeur)
     type: 
         personne: Personne *
         fichier: Type de fichier
