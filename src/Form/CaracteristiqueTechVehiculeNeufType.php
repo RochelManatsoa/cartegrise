@@ -19,7 +19,7 @@ class CaracteristiqueTechVehiculeNeufType extends AbstractType
                 'choices' => CaracteristiqueTechVehiculeNeuf::CODE,
             ])
             ->add('valeur1', TextType::class, ['label'=>'label.valeur1'])
-            ->add('valeur2', TextType::class, ['label'=>'label.valeur2'])
+            ->add('valeur2', TextType::class, ['label'=>'label.valeur2', 'required'=>false])
         ;
     }
 

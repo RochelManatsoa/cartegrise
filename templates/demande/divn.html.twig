@@ -35,7 +35,7 @@
                                 {{ form_row(form.divn.acquerreur.lieuN)}}
                                 {{ form_row(form.divn.acquerreur.droitOpposition)}}
                             </div>
-                            <h3 class="text-center"> {{ form_label(form.divn.vehicule) }} </h3>
+                            {# <h3 class="text-center"> {{ form_label(form.divn.vehicule) }} </h3>
                             <hr>
                             <div class="form-info">
                                 {{ form_row(form.divn.vehicule.vin)}}
@@ -71,16 +71,7 @@
                                     {{ form_row(form.divn.vehicule.v7Co2, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                     {{ form_row(form.divn.vehicule.v9ClasseEnvCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 </div>
-                            </div>
-                            {# {% for vehicule in form.divn.vehicule %}
-                                {% if loop.index < 31 %}
-                                    <div class="form-group">
-                                        {{ form_label(vehicule)}}
-                                        {{ form_errors(vehicule)}}
-                                        {{ form_widget(vehicule, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    </div>
-                                {% endif %}
-                            {% endfor %} #}
+                            </div> #}
                         </div>
                     </div>
                     <div class="col-3 col-md-5 mx-auto form-row full-mobile">
@@ -107,7 +98,7 @@
                                     {% endif %}
                                 {% endfor %}
                             </ul> 
-                            <h3 class="text-center"> {{ form_label(form.divn.carrosier) }} </h3>
+                            {# <h3 class="text-center"> {{ form_label(form.divn.carrosier) }} </h3>
                             <hr>
                             <div class="col-10 col-sm-12 mx-auto">
                                 <div class="carrossier">
@@ -134,7 +125,7 @@
                                     </div>
                                     {% endif %}
                                 {% endfor %}
-                            </div> 
+                            </div>  #}
                             </div>
                     </div>
                     </div>
