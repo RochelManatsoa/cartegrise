@@ -54,6 +54,11 @@ class Commande
     private $ceerLe;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $fourthChange;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="commandes")
      */
     private $client;
@@ -299,6 +304,18 @@ class Commande
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getFourthChange(): ?bool
+    {
+        return $this->fourthChange;
+    }
+
+    public function setFourthChange(?bool $fourthChange): self
+    {
+        $this->fourthChange = $fourthChange;
 
         return $this;
     }

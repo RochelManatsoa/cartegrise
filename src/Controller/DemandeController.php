@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\DocumentDemande\DemandeDuplicataType;
+use App\Form\PaiementType;
 use App\Entity\File\DemandeDuplicata;
 use App\Entity\File\Files;
 
@@ -64,13 +65,19 @@ class DemandeController extends AbstractController
     /**
      * @Route("/{demande}/recap", name="demande_recap")
      */
-    public function recap(Demande $demande)
+    public function recap(Demande $demande, Request $request)
     {
+        $formCGV = $this->createForm(PaiementType::class, null);
+        $formCGV->handleRequest($request);
+        if($formCGV->isSubmitted() && $formCGV->isValid()){
 
+            return $this->redirectToRoute('payment_demande', ['demande' => $demande->getId()]);
+        }
         return $this->render(
             'demande/resum.html.twig',
             [
                 'demande' => $demande,
+                'formCGV'    => $formCGV->createView(),
             ]
         );
     }

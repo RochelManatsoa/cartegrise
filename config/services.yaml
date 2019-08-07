@@ -82,7 +82,7 @@ services:
     App\Admin\FactureJournalierAdmin:
         arguments: [~, App\Entity\DailyFacture, App\Controller\ActionAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'FACTURE', label: 'Factures Journalier clients' }
+            - { name: sonata.admin, manager_type: orm,group: 'FACTURE', label: 'Récapitulatif journalier' }
     App\Admin\UserAdmin:
         arguments: [~, App\Entity\User, ~]
         tags:
