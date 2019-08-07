@@ -63,6 +63,7 @@ type_demande:
                 <li>une pièce d'identité en cours de validité</li>
                 <li>l'attestation d'assurance du véhicule</li> 
                 <li>le permis de conduire du titulaire du véhicule</li>
+                <li>l'original de la CARTE GRISE si motif demande "Détérioration"</li>
             </ol>
         divn: |
             <ol>

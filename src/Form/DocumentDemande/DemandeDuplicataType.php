@@ -58,9 +58,15 @@ class DemandeDuplicataType extends AbstractType
             'label' => 'label.demande.copiePermisConduire',
             "required" => false,
             "data_class" => null,
-        ])
-        ->add('save', SubmitType::class, ['label' => 'label.save'])
+        ]);
+        if ($options['deterioration'] === 'DET')
+            $builder->add('carteGriseOriginale', FileType::class, [
+                'label' => 'label.demande.rectoVersoCarteGrise',
+                "required" => false,
+                "data_class" => null,
+            ])
         ;
+        $builder->add('save', SubmitType::class, ['label' => 'label.save']);
     }
 
 
@@ -69,5 +75,7 @@ class DemandeDuplicataType extends AbstractType
         $resolver->setDefaults([
             'data_class' => DemandeDuplicata::class,
         ]);
+
+        $resolver->setRequired(array('deterioration'));
     }
 }

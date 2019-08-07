@@ -6,6 +6,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Entity\Demande;
+use App\Entity\Duplicata;
 use App\Manager\Model\ParamDocumentAFournir;
 use App\Entity\File\{DemandeDuplicata, DemandeIvn, DemandeCtvo, DemandeCession, DemandeChangementAdresse};
 use App\Form\DocumentDemande\{DemandeDuplicataType, DemandeCtvoType, DemandeIvnType, DemandeCessionType, DemandeChangementAdresseType};
@@ -49,21 +50,25 @@ class DocumentAFournirManager
 
     public function getType(Demande $demande)
     {
+        $index = [];
+        $files = $this->getDaf($demande);
         switch($demande->getCommande()->getDemarche()->getType()) {
             case "DUP":
-                return DemandeDuplicataType::class;
+                $index = $demande->getDuplicata()->getMotifDemande() === 'DET' ? ['deterioration' => 'DET'] : ['deterioration' => null];
+                
+                return array(DemandeDuplicataType::class, $files, $index);
                 break;
             case "CTVO":
-                return DemandeCtvoType::class;
+                return array(DemandeCtvoType::class, $files, $index);
                 break;
             case "DIVN":
-                return DemandeIvnType::class;
+                return array(DemandeIvnType::class, $files, $index);
                 break;
             case "DC":
-                return DemandeCessionType::class;
+                return array(DemandeCessionType::class, $files, $index);
                 break;
             case "DCA":
-                return DemandeChangementAdresseType::class;
+                return array(DemandeChangementAdresseType::class, $files, $index);
                 break;
             default:
                 return null;

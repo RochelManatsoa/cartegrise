@@ -96,6 +96,16 @@ class DemandeDuplicata
     * )
     */
     private $permisDeConduireDuTitulaire;
+    /**
+    * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
+    * @Assert\File(
+    *     maxSize = "1024k",
+    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypesMessage = "Please upload a valid PDF"
+    * )
+    */
+    private $carteGriseOriginale;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Duplicata", mappedBy="file")
@@ -212,6 +222,18 @@ class DemandeDuplicata
     public function setJustificatifDomicile(?string $justificatifDomicile): self
     {
         $this->justificatifDomicile = $justificatifDomicile;
+
+        return $this;
+    }
+
+    public function getCarteGriseOriginale(): ?string
+    {
+        return $this->carteGriseOriginale;
+    }
+
+    public function setCarteGriseOriginale(?string $carteGriseOriginale): self
+    {
+        $this->carteGriseOriginale = $carteGriseOriginale;
 
         return $this;
     }
