@@ -50,7 +50,7 @@ class DivnInit
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
-     *      min=2,
+     *      min=1,
      *      max=3
      * )
      */
