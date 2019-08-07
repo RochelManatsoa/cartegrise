@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit};
+use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit, Departement};
 use App\Form\{DemandeType, CommandeType, ContactUsType};
-use App\Repository\{CommandeRepository, TaxesRepository, TarifsPrestationsRepository, DemandeRepository, TypeDemandeRepository};
+use App\Repository\{CommandeRepository, TaxesRepository, TarifsPrestationsRepository, DemandeRepository, TypeDemandeRepository, DepartementRepository};
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +24,7 @@ class HomeController extends AbstractController
     public function accueil(
         Request $request,
         TypeDemandeRepository $demarche,
+        DepartementRepository $departement,
         ObjectManager $manager,
         TaxesRepository $taxesRepository,
         TarifsPrestationsRepository $prestation,
@@ -37,6 +38,13 @@ class HomeController extends AbstractController
         )
     {   
         
+        $dep = $departement->findAll();
+        $array = [];
+        $par = [];
+        foreach($dep as $d){
+            $array = [ ''.$d->getCode().' - '.$d->getName().'' =>''.$d->getCode().''];
+            $par = array_merge($par, $array);
+        }
         $type = $demarche->findAll();
         foreach($type as $typeId) {
             $commande = $commandeManager->createCommande();
@@ -44,11 +52,11 @@ class HomeController extends AbstractController
             if ($typeId->getType() === "DIVN")
             {
                 $divnInit = new DivnInit();
-                $formDivn = $this->createForm(DivnInitType::class, $divnInit);
+                $formDivn = $this->createForm(DivnInitType::class, $divnInit, ['departement'=>$par]);
                 $num = $typeId->getId();
                 $tabForm[$num] = $formDivn->createView();
             } else {
-                $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType]);
+                $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType, 'departement'=>$par]);
                 $num = $typeId->getId();
                 $tabForm[$num] = $form->createView();
             }
@@ -58,7 +66,6 @@ class HomeController extends AbstractController
         $formDivn->handleRequest($request);
 
         if ($formDivn->isSubmitted() && $formDivn->isValid()) {
-            throw new \Exception("Le site est actuellement en maintenance !");
             $divnInit = $formDivn->getData();
             $divnInitManager->manageSubmit($divnInit);
             $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
@@ -68,7 +75,6 @@ class HomeController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            throw new \Exception("Le site est actuellement en maintenance !");
             $ifCommande = $commandeRepository->findOneBy([
                 'immatriculation' => $commande->getImmatriculation(),
                 'codePostal' => $commande->getCodePostal(),
@@ -108,6 +114,7 @@ class HomeController extends AbstractController
         $homeParams = [
             'demarches' => $type,
             'tab' => $tabForm,
+            'dep' => $dep,
             'database' => false,
         ];
 

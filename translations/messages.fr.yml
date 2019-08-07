@@ -168,14 +168,17 @@ type_demande:
             </ol>
 
 label:
+    fourthChange: 4ème changement d'adresse ? S'il s'agit de votre 4ème changement d'adresse une taxe de 2,76€ vous sera facturé pour l'acheminement de la nouvelle carte grise à votre domicile
     acquerreur: Acquéreur
     dateN: Date de naissance *
     lieuN: Lieu de naissance
     adresseNewTitulaire: Adresse de l'Acquéreur 
+    ancienAdresseTitulaire: Adresse du Titulaire 
     ancienTitulaire: Ancien Titulaire
     cotitulaire: Cotitulaire(s)
     dateCession: Date de cession
     ancienAdresse: Ancienne adresse
+    nouvelAdresse: Nouvelle adresse
     typevoie: Type de Voie
     numerovoie: Numéro de la Voie
     complement: Complément d'adresse
@@ -212,6 +215,7 @@ label:
     send: Envoyer
     save: Enregistrer
     search: Chercher
+    paid: Procéder au paiement
     motifDeRejet: Motif du rejet
     raisonsocial: Raison sociale
     societeCommerciale: Société commerciale
@@ -220,6 +224,8 @@ label:
     clientAdresse: Adresse
     clientEmail: Adresse électronique
     titulaire: Titulaire
+    dca:
+        titulaire: Titulaire
     genre: Civilité *
     dep: Département
     immatriculation: Immatriculation
@@ -231,8 +237,10 @@ label:
         voie: Nom de la voie
         cotitulaire: Nom du Cotitulaire
         titulaire: Nom de l'Acquéreur *
+        dcaNomPrenom: Nom et prénom séparés par un espace *
         client: Nom *
         content: Nom
+        dcaBirthName: Nom du titulaire *
         usage: Nom usage
     prenom:
         titulaire: Prénom(s) de l'Acquéreur *
@@ -260,7 +268,7 @@ label:
         certificatVenteOriginalFactureAchat: Certificat de vente original ou Facture d'achat
         originalCertificatConformiteEuropeen: Original du certificat de conformité européen
 
-    termsAccepted: J'ai lu et j'accepte les Conditions Générales de Vente , notre politique de confidentialité et la liste des documents à retourner. Et je renonce expressément à mon droit de rétractation afin que la prestation débute immédiatement
+    termsAccepted: J'ai lu et j'accepte les Conditions Générales de Vente. La politique de confidentialité et la liste des documents à retourner. Et je renonce expressément à mon droit de rétractation afin que la prestation débute immédiatement
     numformule: Numéro de la formule
     vin: VIN
     datecg: Date de la Carte Grise *
@@ -280,6 +288,41 @@ label:
         energie: Enérgie
         puissanceFiscale: Puissance fiscale
         genre: Genre
+
+    vehicule:
+        info: Informations du véhicule
+        typeRecep: Type de réception
+        vin: VIN du véhicule *
+        d1Marque: Marque du véhicule *
+        d2Version: Type - Variant - Version *
+        kNumRecepCe: Numéro de réception par type *
+        dateRecep: Date de réception du véhicule
+        d21Cenit: Code National d’Identification du Type
+        derivVp: Avec une carrosserie DERIV VP
+        d3Denomination: Dénomination commerciale
+        f2MmaxTechAdm: Masse en charge maximale techniquement admissible
+        f2MmaxAdmServ: Masse en charge maximale admissible en service (en kg) PTAC
+        f3MmaxAdmEns: Masse en charge maximale admissible de l'ensemble en service (en kg)
+        gMmaxAvecAttelage: Masse du véhicule en service avec carrosserie et dispositif d'attelage
+        g1PoidsVide: Poids à vide national
+        jCategorieCe: Catégorie du véhicule (CE)
+        j1Genre: Genre national
+        j2CarrosserieCe: Carrosserie (CE)
+        j3Carrosserie: Carrosserie (désignation nationale)
+        p1Cyl: Cylindrée (en cm3)
+        p2PuissKw: Puissance nette maximale (en kW)
+        p3Energie: Type de carburant ou source d'énergie
+        p6PuissFiscale: Puissance administrative nationale
+        qRapportPuissMasse: Rapport puissance/masse en (uniquement pour les motocycles) kW/kg
+        s1NbPlaceAssise: Nombre de places assises y compris celle du conducteur
+        s2NbPlaceDebout: Nombre de places debout
+        u1NiveauSonore: Niveau sonore à l'arrêt en dB(A)
+        u2NbTours: Vitesse du moteur (en min-1)
+        v7Co2: CO2 (en gr/Km)
+        v9ClasseEnvCe: Classe environnementale de réception CE
+        z1Mention1: Mention spécifique
+        z1Value: Date limite de validité de la mention Z1
+        nbMentions: Nombre de caractéristiques techniques particulières
 home:
     carSkills: CARACTÉRISTIQUES DU VÉHICULE
     recapDemande: Récapitulatif de la demande
@@ -288,10 +331,10 @@ home:
     validateComand: Je valide ma commande
     createAcountDescription: |
         Créez votre compte et identifiez-vous en quelques clics, pour valider et suivre votre commande
-    noAcount: "je n'ai pas encore de compte sur CG officiel"
+    noAcount: "Je n'ai pas encore de compte sur CG officiel"
     createAcountButton: CREER MON COMPTE
     login: "S'IDENTIFIER"
-    loginDescription: "j'ai déjà un compte sur CG officiel"
+    loginDescription: "J'ai déjà un compte sur CG officiel"
     franceConnecteDescription: "Je préfère m'identifier avec France Connect"
     condition: "Les produits ou services achetés sur cgofficiel.fr doivent être réglés en euros soit en ligne, soit par chèque. Les catres bancaires accéptées par le système sécuriséHiPay sont Carte bleue, Visa, Eurocard Mastercard."
     validate: VALIDER

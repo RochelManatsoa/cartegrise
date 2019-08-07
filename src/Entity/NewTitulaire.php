@@ -31,6 +31,11 @@ class NewTitulaire
     private $nomPrenomTitulaire;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $birthName;
+
+    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotNull(message="Champs requis")
      */
@@ -83,6 +88,11 @@ class NewTitulaire
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $societeCommerciale;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $droitOpposition;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -335,6 +345,30 @@ class NewTitulaire
     public function setPrenomTitulaire(string $prenomTitulaire): self
     {
         $this->prenomTitulaire = $prenomTitulaire;
+
+        return $this;
+    }
+
+    public function getDroitOpposition(): ?bool
+    {
+        return $this->droitOpposition;
+    }
+
+    public function setDroitOpposition(?bool $droitOpposition): self
+    {
+        $this->droitOpposition = $droitOpposition;
+
+        return $this;
+    }
+
+    public function getBirthName(): ?string
+    {
+        return $this->birthName;
+    }
+
+    public function setBirthName(string $birthName): self
+    {
+        $this->birthName = $birthName;
 
         return $this;
     }
