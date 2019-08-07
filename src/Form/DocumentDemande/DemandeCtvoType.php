@@ -48,9 +48,9 @@ class DemandeCtvoType extends AbstractType
             'label' => 'label.demande.procurationMandat',
             "required" => false,
             "data_class" => null,
-        ])
-        ->add('copieControleTechnique', FileType::class, [
-            'label' => 'label.demande.copieControleTechnique',
+        ])        
+        ->add('rectoVersoCarteGrise', FileType::class, [
+            'label' => 'label.demande.rectoVersoCarteGrise',
             "required" => false,
             "data_class" => null,
         ])
@@ -66,11 +66,6 @@ class DemandeCtvoType extends AbstractType
         ])
         ->add('copieAttestationAssurance', FileType::class, [
             'label' => 'label.demande.copieAttestationAssuranceValide',
-            "required" => false,
-            "data_class" => null,
-        ])
-        ->add('rectoVersoCarteGrise', FileType::class, [
-            'label' => 'label.demande.rectoVersoCarteGrise',
             "required" => false,
             "data_class" => null,
         ])
