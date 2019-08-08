@@ -31,6 +31,12 @@ class Duplicata
      */
     private $motifDemande;
 
+    // for motif perte
+    /**
+     * @ORM\Column(type= "datetime", nullable=true)
+     */
+    private $datePerte;
+
     /**
      * Demande effectuée dans le cadre d'un changement de titulaire ou de cession
      * @ORM\Column(type="boolean", nullable=true)
@@ -108,6 +114,18 @@ class Duplicata
     public function setFile(?DemandeDuplicata $file): self
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    public function getDatePerte(): ?\DateTimeInterface
+    {
+        return $this->datePerte;
+    }
+
+    public function setDatePerte(?\DateTimeInterface $datePerte): self
+    {
+        $this->datePerte = $datePerte;
 
         return $this;
     }

@@ -28,8 +28,9 @@
                                 {{ form_row(form.duplicata.titulaire.nomprenom)}}
                             </div>
 
-                            <div class="">
+                            <div class="motifDemande">
                                 {{ form_row(form.duplicata.motifDemande)}}
+                                {{ form_row(form.duplicata.datePerte, {'attr': {'data-row-style': 'display:none !important;'} })}}
                             </div>
 
                             <div class="">
@@ -56,5 +57,15 @@
 $('.choice-type-ancientitulaire').on('change', function(e) {
     $(e.target).parent().siblings().toggle();
 })
+</script>
+<script type="application/javascript">
+    $('.choice-type-motifDemande').on('change', function (e) {
+        var Value = $(".motifDemande").find(":selected").text();
+         if(Value === "Perte"){
+            $(e.target).parent().siblings().show();
+         }else{
+            $(e.target).parent().siblings().hide();
+         }
+       });
 </script>
 {% endblock %}

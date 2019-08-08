@@ -137,6 +137,7 @@ class TMSSauverManager
 					'TypeDemarche' => $commande->getDemarche()->getType(),
 					"DateDemarche" => $now->format('Y-m-d H:i:s'),
                     "MotifDuplicata" => $dup->getMotifDemande(),
+                    "DatePerte" => $dup->getDatePerte()->format('Y-m-d H:i:s'),
                     "CTVOouDC" => $dup->getDemandeChangementTitulaire(),
                     "Titulaire" => [
                         "NomPrenom" => $dup->getTitulaire()->getNomprenom(),
