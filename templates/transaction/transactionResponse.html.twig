@@ -45,11 +45,19 @@
     <br>
     {% if transaction is not null and transaction.demande is not null %}
         <div>
+            {% if transaction.demande.divn is defined and transaction.demande.divn is not null %}
+            <a href="{{path('demande_divn_new', {divn: transaction.demande.divn.id })}}" >
+                <button class="btn btn-primary">
+                    Finaliser ma commande
+                </button>
+            </a>
+            {% else %}
             <a href="{{path('demande_dossiers_a_fournir', {id: transaction.demande.id })}}" >
                 <button class="btn btn-primary">
                     Finaliser ma commande
                 </button>
             </a>
+            {% endif %}
         </div>
     {% else %}
         <div>

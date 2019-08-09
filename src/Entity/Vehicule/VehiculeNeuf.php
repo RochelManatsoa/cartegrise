@@ -47,6 +47,11 @@ class VehiculeNeuf
     private $kNumRecepCe;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $pickUp;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateReception;
@@ -584,6 +589,18 @@ class VehiculeNeuf
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getPickUp(): ?bool
+    {
+        return $this->pickUp;
+    }
+
+    public function setPickUp(?bool $pickUp): self
+    {
+        $this->pickUp = $pickUp;
 
         return $this;
     }

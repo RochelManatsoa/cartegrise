@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Demande;
 use App\Entity\Commande;
+use App\Entity\Divn;
 use App\Manager\{DemandeManager, DocumentAFournirManager};
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,6 +14,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\DocumentDemande\DemandeDuplicataType;
 use App\Form\PaiementType;
+use App\Form\InfoVehiculeNeufType;
+use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\File\DemandeDuplicata;
 use App\Entity\File\Files;
 
@@ -129,5 +132,36 @@ class DemandeController extends AbstractController
         }
 
         return $this->redirectToRoute('demande_list');
+    }
+        
+    /**
+     * @Route("/new/{divn}/divn", name="demande_divn_new")
+     */
+    public function divnInfoVehicule(
+        Divn        $divn,
+        Request         $request,
+        ObjectManager   $manager
+    )
+    {
+        $form = $this->createForm(InfoVehiculeNeufType::class, $divn);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $divn = $form->getData();
+            if (!$divn instanceof Divn)
+                return;
+            $manager->persist($divn);
+            $manager->flush();
+            // redirect after save
+            return $this->redirectToRoute(
+                'demande_dossiers_a_fournir', 
+                [
+                    'id' => $divn->getDemande()->getId()
+                ]
+            );
+        }
+        return $this->render('demande/vehiculeNeuf.html.twig', [
+            'form' => $form->createView(),
+            'commande' => $divn->getDemande()->getCommande()
+        ]);
     }
 }

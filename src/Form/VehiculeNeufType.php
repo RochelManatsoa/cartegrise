@@ -37,6 +37,13 @@ class VehiculeNeufType extends AbstractType
                 'label' => 'label.vehicule.d2Version',
                 'required' => false,
                 ])
+            ->add('pickUp', ChoiceType::class, [
+                'label' => 'label.divn.pickUp',
+                'choices' => array(
+                    'Non' => false,
+                    'Oui' => true,
+                    )
+                ])
             ->add('kNumRecepCe', TextType::class, [
                 'label' => 'label.vehicule.kNumRecepCe',
                 'required' => false,

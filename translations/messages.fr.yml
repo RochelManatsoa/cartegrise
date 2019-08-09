@@ -288,9 +288,20 @@ label:
         energie: Enérgie
         puissanceFiscale: Puissance fiscale
         genre: Genre
+        code: Code relatif à une mention
+        valeur1: Valeur de la mention
+        valeur2: Valeur de la mention (en cas d'intervalle)
+        caracteristiqueTechniquePart: Caractéristiques techniques particulières
+        carrossier: Carrossier ayant éventuellement modifié le véhicule
+        agrement: Numéro d'Agrément du carrossier
+        nomCarrossier: Nom du carrossier
+        prenomCarrossier: Prénom du carrossier
+        raisonsocial: Raison Sociale du carrossier
+        justificatifs: Pièces justificatives attestant la modification
+        pickUp: S'agit il d'un véhicule de type Pick-Up?
 
     vehicule:
-        info: Informations du véhicule
+        info: Caractéristiques techniques du véhicule
         typeRecep: Type de réception
         vin: VIN du véhicule *
         d1Marque: Marque du véhicule *

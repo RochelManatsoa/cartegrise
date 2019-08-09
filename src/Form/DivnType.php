@@ -17,7 +17,7 @@ class DivnType extends AbstractType
     {
         $builder
             ->add('acquerreur', NewtitulaireType::class, array('label'=>'label.acquerreur'))
-            ->add('vehicule', VehiculeNeufType::class, array('label'=>'label.vehicule.info'))
+            //->add('vehicule', VehiculeNeufType::class, array('label'=>'label.vehicule.info'))
             ->add('cotitulaire', CollectionType::class, [
                 'label' => 'label.cotitulaire',
                 'entry_type' => CotitulairesType::class,
