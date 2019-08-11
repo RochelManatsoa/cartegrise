@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit, Departement};
+use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit};
 use App\Form\{DemandeType, CommandeType, ContactUsType};
-use App\Repository\{CommandeRepository, TaxesRepository, TarifsPrestationsRepository, DemandeRepository, TypeDemandeRepository, DepartementRepository};
+use App\Repository\{CommandeRepository, TaxesRepository, TarifsPrestationsRepository, DemandeRepository, TypeDemandeRepository};
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +24,6 @@ class HomeController extends AbstractController
     public function accueil(
         Request $request,
         TypeDemandeRepository $demarche,
-        DepartementRepository $departement,
         ObjectManager $manager,
         TaxesRepository $taxesRepository,
         TarifsPrestationsRepository $prestation,
@@ -38,13 +37,6 @@ class HomeController extends AbstractController
         )
     {   
         
-        $dep = $departement->findAll();
-        $array = [];
-        $par = [];
-        foreach($dep as $d){
-            $array = [ ''.$d->getCode().' - '.$d->getName().'' =>''.$d->getCode().''];
-            $par = array_merge($par, $array);
-        }
         $type = $demarche->findAll();
         foreach($type as $typeId) {
             $commande = $commandeManager->createCommande();
@@ -52,11 +44,11 @@ class HomeController extends AbstractController
             if ($typeId->getType() === "DIVN")
             {
                 $divnInit = new DivnInit();
-                $formDivn = $this->createForm(DivnInitType::class, $divnInit, ['departement'=>$par]);
+                $formDivn = $this->createForm(DivnInitType::class, $divnInit, ['departement'=>$commande->DEPARTMENTS]);
                 $num = $typeId->getId();
                 $tabForm[$num] = $formDivn->createView();
             } else {
-                $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType, 'departement'=>$par]);
+                $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType, 'departement'=>$commande->DEPARTMENTS]);
                 $num = $typeId->getId();
                 $tabForm[$num] = $form->createView();
             }
@@ -114,7 +106,6 @@ class HomeController extends AbstractController
         $homeParams = [
             'demarches' => $type,
             'tab' => $tabForm,
-            'dep' => $dep,
             'database' => false,
         ];
 
