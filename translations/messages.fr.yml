@@ -124,7 +124,6 @@ type_demande:
                     </ul>
                 </li>
             </ol>
-
         dc: |
             <div>
                 Le formulaire CERFA n° 15776*01 
@@ -166,7 +165,6 @@ type_demande:
                     </ul>
                 </li>
             </ol>
-
 label:
     fourthChange: 4ème changement d'adresse ? S'il s'agit de votre 4ème changement d'adresse une taxe de 2,76€ vous sera facturé pour l'acheminement de la nouvelle carte grise à votre domicile
     acquerreur: Acquéreur
@@ -184,6 +182,16 @@ label:
     complement: Complément d'adresse
     codepostal: Code Postal
     ville: Ville
+    droitOpposition: Je m'oppose à la diffusion de mes données personnelles
+    caracteristiqueTechniquePart: Caractéristiques techniques particulières
+    carrossier: Carrossier qualifié ayant modifié le véhicule
+    nomCarrossier: Nom du carrossier
+    agrement: Numéro d'Agrément du carrossier
+    prenomCarrossier: Prénom du carrossier
+    justificatifs: Pièces justificatives attestant de la modification
+    code: Code relatif à une mention
+    valeur1: Valeur de la mention
+    valeur2: Valeur de la mention (uniquement en cas d’intervalle de valeur)
     type: 
         personne: Personne *
         fichier: Type de fichier
@@ -359,7 +367,3 @@ home:
         ctvo: Changement de titulaire de vehicule d'occasion
         dc: Demande de cession
         dca: Demande de changement d'adresse
-
-
-
-
