@@ -63,6 +63,11 @@ type_demande:
                 <li>une pièce d'identité en cours de validité</li>
                 <li>l'attestation d'assurance du véhicule</li> 
                 <li>le permis de conduire du titulaire du véhicule</li>
+                <li>la déclaration de perte ou de vol (cerfa 13753*01)
+                    <a href="/../download/cgofficiel_cerfa-13753-01.pdf" target="blank">
+                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                    </a>
+                </li>
             </ol>
         divn: |
             <ol>
@@ -265,6 +270,7 @@ label:
         copieRectoVersoCarteGrise: Copie recto verso de la CARTE GRISE
         recepisseDemandeAchat: Récépissé de la demande d'achat
         copieControleTechnique: Copie du contrôle technique
+        cerfaDeclarationdePerteOuVol: Cerfa de déclaration de perte ou vol >> Cerfa 13753*01
         copieControleTechniqueEnCoursValidite: Copie du contrôle technique en cours de validité
         procurationMandat: Mandat d'immatriculation >> Cerfa 13751*01
         demandeCertificat: Demande de certificat >> Cerfa 13750*05

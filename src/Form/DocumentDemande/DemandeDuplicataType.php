@@ -59,6 +59,11 @@ class DemandeDuplicataType extends AbstractType
             "required" => false,
             "data_class" => null,
         ])
+        ->add('cerfaDeclarationPerteVol', FileType::class, [
+            'label' => 'label.demande.cerfaDeclarationdePerteOuVol',
+            "required" => false,
+            "data_class" => null,
+        ])
         ->add('save', SubmitType::class, ['label' => 'label.save'])
         ;
     }
