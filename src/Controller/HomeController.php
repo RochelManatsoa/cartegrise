@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit, Departement};
+use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit};
 use App\Form\{DemandeType, CommandeType, ContactUsType};
 use App\Repository\{CommandeRepository, TaxesRepository, TarifsPrestationsRepository, DemandeRepository, TypeDemandeRepository};
 use Doctrine\Common\Persistence\ObjectManager;
