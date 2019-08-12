@@ -82,7 +82,7 @@
 						"VIN" => $carInfo->getVin(),
 						"Immatriculation" => $commande->getImmatriculation(),
 						"Marque" => $carInfo->getMarque(),
-						"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
 					],
 				],
 			],
@@ -147,7 +147,7 @@
 						"Immatriculation" => $commande->getImmatriculation(),
 						"D1_Marque" => $carInfo->getMarque(),
 						"D2_Version" => $carInfo->getModel(),
-						"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
 					],
 				],
 			],
@@ -216,7 +216,7 @@
 						"Immatriculation" => $commande->getImmatriculation(),
 						"D1_Marque" => $carInfo->getMarque(),
 						"D2_Version" => $carInfo->getModel(),
-						"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
 					],
 				],
 			],
@@ -270,7 +270,7 @@
 						"Marque" => $carInfo->getMarque(),
 						"Couleur" => 'Noir',
 						"D2_Version" => $carInfo->getModel(),
-						"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
 					],
 				],
 			],
@@ -324,7 +324,7 @@
 						"Marque" => $carInfo->getMarque(),
 						"Couleur" => 'Noir',
 						"D2_Version" => $carInfo->getModel(),
-						"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
 					],
 				],
 			],
@@ -390,7 +390,7 @@
 					"Vehicule" => [
 						"VIN" => $carInfo->getVin(),
 						"Immatriculation" => $commande->getImmatriculation(),
-						"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
 					],
 				],
 			],

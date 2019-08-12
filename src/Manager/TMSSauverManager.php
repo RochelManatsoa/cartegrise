@@ -113,7 +113,8 @@ class TMSSauverManager
                     ],
 					"Vehicule" => [
 						"VIN" => $carInfo->getVin(),
-						"Immatriculation" => $commande->getImmatriculation(),
+                        "Immatriculation" => $commande->getImmatriculation(),
+                        "NumFormule" => $dca->getNumeroFormule(),
 					],
 				],
 			],
@@ -146,7 +147,8 @@ class TMSSauverManager
                     ],
 					"Vehicule" => [
 						"VIN" => $carInfo->getVin(),
-						"Immatriculation" => $commande->getImmatriculation(),
+                        "Immatriculation" => $commande->getImmatriculation(),
+                        "NumFormule" => $dup->getNumeroFormule(),
 					],
 				],
 			],
@@ -230,7 +232,7 @@ class TMSSauverManager
 						"Immatriculation" => $commande->getImmatriculation(),
 						"D1_Marque" => $carInfo->getMarque(),
 						"D2_Version" => $carInfo->getModel(),
-						"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
 					],
 				],
 			],

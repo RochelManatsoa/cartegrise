@@ -32,6 +32,14 @@ class Duplicata
     private $motifDemande;
 
     /**
+     * numeroFormule variable
+     * @ORM\Column(nullable=true)
+     * @var string
+     */
+    private $numeroFormule;
+
+
+    /**
      * @ORM\Column(type= "datetime", nullable=true)
      */
     private $datePerte;
@@ -124,6 +132,18 @@ class Duplicata
     public function setDatePerte(?\DateTimeInterface $datePerte): self
     {
         $this->datePerte = $datePerte;
+        return $this;
+    }
+
+    public function getNumeroFormule(): ?string
+    {
+        return $this->numeroFormule;
+    }
+
+    public function setNumeroFormule(?string $numeroFormule): self
+    {
+        $this->numeroFormule = $numeroFormule;
+
         return $this;
     }
 }
