@@ -10,6 +10,26 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class CaracteristiqueTechVehiculeNeuf
 {
+    const CODE = [
+        'TE Exclusif' => "TEEX",
+        'TE Possible' => "TEPO",
+        'Essieux posés en charge' => "EPEC",
+        'Places modulables' => "PLMO",
+        'Véhicule école' => "VECO",
+        'Places médicales' => "PLME",
+        'Transport handicapé' => "THAN",
+        'Gazogène' => "GAZO",
+        'Gaz compr.' => "GAZC",
+        'Ralentisseur' => "RALE",
+        'Autre G1 possible' => "AG1P",
+        'Autre F3 possible' => "AF3P",
+        'Autre J1 possible' => "AJ1P",
+        'Autre J2 possible' => "AJ2P",
+        'PL convoi 6 km/h maxi' => "PLCO",
+        'Equip. accumulat.' => "EQAC",
+        'Autre J3 possible' => "AJ3P",
+        'V max (remorque)' => "VMAX",
+    ];
     /**
      * @ORM\Id
      * @ORM\GeneratedValue()
@@ -18,7 +38,7 @@ class CaracteristiqueTechVehiculeNeuf
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Divn", inversedBy="caracteristiqueTechniquePart")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Divn", inversedBy="caractTech")
      */
     private $divn;
 

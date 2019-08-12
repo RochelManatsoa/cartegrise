@@ -8,7 +8,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use App\Form\{CarrosierVehiculeNeufType, CaracteristiqueTechVehiculeNeufType};
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -29,24 +28,24 @@ class VehiculeNeufType extends AbstractType
             ))
             ->add('vin', TextType::class, [
                 'label' => 'label.vehicule.vin',
-                'required' => false,
+                'required' => true,
                 ])
             ->add('d1Marque', TextType::class, [
                 'label' => 'label.vehicule.d1Marque',
-                'required' => false,
+                'required' => true,
                 ])
             ->add('d2Version', TextType::class, [
                 'label' => 'label.vehicule.d2Version',
-                'required' => false,
+                'required' => true,
                 ])
             ->add('kNumRecepCe', TextType::class, [
                 'label' => 'label.vehicule.kNumRecepCe',
-                'required' => false,
+                'required' => true,
                 ])
             ->add('dateReception', DateType::class, array(
                 'label'=>"label.vehicule.dateRecep",
                 'widget' => 'single_text',
-                'required' => false,
+                'required' => true,
                 ))
             ->add('d21Cenit', null, ['label' => 'label.vehicule.d21Cenit'])
             ->add('derivVp', ChoiceType::class, [

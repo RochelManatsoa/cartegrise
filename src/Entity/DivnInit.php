@@ -49,10 +49,13 @@ class DivnInit
 
     /**
      * @ORM\Column(type="string", length=255)
+<<<<<<< HEAD
      * @Assert\Length(
-     *      min=2,
+     *      min=1,
      *      max=3
      * )
+=======
+>>>>>>> 47db0a92dae87bd6180e4c4f1ce02d5ca14a18cd
      */
     private $department;
 
@@ -63,9 +66,6 @@ class DivnInit
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\LessThan(
-     *      value=90
-     * )
      */
     private $puissanceFiscale;
 

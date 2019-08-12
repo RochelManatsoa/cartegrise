@@ -565,24 +565,6 @@ class VehiculeNeuf
         return $this;
     }
 
-    public function getDivn(): ?Divn
-    {
-        return $this->divn;
-    }
-
-    public function setDivn(?Divn $divn): self
-    {
-        $this->divn = $divn;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newFile = $divn === null ? null : $this;
-        if ($newFile !== $divn->getFile()) {
-            $divn->setFile($newFile);
-        }
-
-        return $this;
-    }
-
     public function getType(): ?string
     {
         return $this->type;
@@ -591,6 +573,18 @@ class VehiculeNeuf
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getDivn(): ?Divn
+    {
+        return $this->divn;
+    }
+
+    public function setDivn(?Divn $divn): self
+    {
+        $this->divn = $divn;
 
         return $this;
     }
