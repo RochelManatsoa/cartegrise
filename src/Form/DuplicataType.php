@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Form\AncientitulaireType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class DuplicataType extends AbstractType
@@ -29,6 +30,7 @@ class DuplicataType extends AbstractType
                 'required' => false,
                 ))
             ->add('demandeChangementTitulaire', null, ['label' => 'label.demandeChangementTitulaire'])
+            ->add('numeroFormule', null, ['label' => 'label.numeroFormule', 'required' => true])
             ->add('titulaire', AncientitulaireType::class, ['label' => 'label.titulaire']) 
         ;
     }
