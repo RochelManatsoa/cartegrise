@@ -26,8 +26,8 @@ type_demande:
                         <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>la déclaration d'achat d'un véhicule d'occasion si l'acquéreur est un professionnel (cerfa 13751*01) 
-                    <a href="/../download/cgofficiel_cerfa-13751-01.pdf" target="blank">
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)   
+                    <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
                         <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
@@ -58,13 +58,17 @@ type_demande:
                         <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>la déclaration originale de perte ou vol (la déclaration de vol doit être enregistrée et tamponnée par la police)</li>
+                <li>la déclaration originale de perte ou vol (la déclaration de vol doit être enregistrée et tamponnée par la police)
+                    <a href="/../download/cgofficiel_cerfa-13753-01.pdf" target="blank">
+                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                    </a>
+                </li>
                 <li>si votre véhicule a plus de 4 ans, preuve du contrôle technique en cours de validité, sauf si le véhicule est dispensé de contrôle technique </li>
                 <li>une pièce d'identité en cours de validité</li>
                 <li>l'attestation d'assurance du véhicule</li> 
                 <li>le permis de conduire du titulaire du véhicule</li>
-                <li>la déclaration de perte ou de vol (cerfa 13753*01)
-                    <a href="/../download/cgofficiel_cerfa-13753-01.pdf" target="blank">
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)   
+                    <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
                         <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
@@ -128,6 +132,11 @@ type_demande:
                         <li>Attestation d'assurance habitation</li>
                     </ul>
                 </li>
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)   
+                    <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
+                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                    </a>
+                </li>
             </ol>
         dc: |
             <div>
@@ -149,7 +158,7 @@ type_demande:
                 <li>Extrait d'Acte de mariage / jugement de divorce / livret de famille</li>
                 <li>une copie du contrôle technique en cours de validité pour les véhicules de plus de 4 ans</li>
                 <li>une pièce d'identité en cours de validité</li>
-                <li>la procuration par Mandat   
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)   
                     <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
                         <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
@@ -272,7 +281,7 @@ label:
         copieControleTechnique: Copie du contrôle technique
         cerfaDeclarationdePerteOuVol: Cerfa de déclaration de perte ou vol >> Cerfa 13753*01
         copieControleTechniqueEnCoursValidite: Copie du contrôle technique en cours de validité
-        procurationMandat: Mandat d'immatriculation >> Cerfa 13751*01
+        procurationMandat: Mandat d'immatriculation >> Cerfa 13757*03
         demandeCertificat: Demande de certificat >> Cerfa 13750*05
         declatationCession: Déclaration de cession >> Cerfa 15776*01
         declarationdePerteOuVol: Déclaration de perte ou vol
