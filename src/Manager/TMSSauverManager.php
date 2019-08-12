@@ -137,6 +137,7 @@ class TMSSauverManager
 					'TypeDemarche' => $commande->getDemarche()->getType(),
 					"DateDemarche" => $now->format('Y-m-d H:i:s'),
                     "MotifDuplicata" => $dup->getMotifDemande(),
+                    "DatePerte" => $dup->getDatePerte()->format('Y-m-d H:i:s'),
                     "CTVOouDC" => $dup->getDemandeChangementTitulaire(),
                     "Titulaire" => [
                         "NomPrenom" => $dup->getTitulaire()->getNomprenom(),
@@ -150,7 +151,8 @@ class TMSSauverManager
 				],
 			],
         ]];
-        // dd($params);
+        if (!is_null($dup->getDatePerte()))
+            $params["Lot"]["Demarche"][$commande->getDemarche()->getType()]["DatePerte"] = $dup->getDatePerte()->format('Y-m-d H:i:s');
 
         
         return $params;
@@ -263,7 +265,7 @@ class TMSSauverManager
         $cotitulaires = $commande->getDemande()->getDivn()->getCotitulaire();
 
         $cotitulaire = [];
-        foreach ($cotitulaires as $cotitulaire) {
+        foreach ($cotitulaire as $cotitulaires) {
             $cotitulaire[]=[
                 "Nom" => $cotitulaire->getNomCotitulaires(),
                 "Prenom" => $cotitulaire->getPrenomCotitulaire(),

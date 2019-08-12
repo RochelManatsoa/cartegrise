@@ -6,6 +6,7 @@ use App\Entity\Demande;
 use App\Entity\Commande;
 use App\Entity\Divn;
 use App\Manager\{DemandeManager, DocumentAFournirManager};
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Form\DocumentDemande\DemandeDuplicataType;
 use App\Form\PaiementType;
 use App\Form\InfoVehiculeNeufType;
-use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\File\DemandeDuplicata;
 use App\Entity\File\Files;
 

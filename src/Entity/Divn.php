@@ -47,6 +47,7 @@ class Divn
      * @ORM\OneToOne(targetEntity="App\Entity\Vehicule\VehiculeNeuf", inversedBy="divn", cascade={"persist", "remove"})
      */
     private $vehicule;
+    
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Vehicule\Carrossier", mappedBy="divn", cascade={"persist"})
