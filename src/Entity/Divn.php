@@ -194,4 +194,14 @@ class Divn
 
         return $this;
     }
+
+    public function countCotitulaire()
+    {
+        return count($this->cotitulaire);
+    }
+
+    public function countCaractTech()
+    {
+        return count($this->caractTech);
+    }
 }
