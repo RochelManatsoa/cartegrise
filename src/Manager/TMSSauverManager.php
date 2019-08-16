@@ -44,6 +44,7 @@ class TMSSauverManager
     public function saveByCommande(Commande $commande)
     {
         $params = $this->getParamsForCommande($commande);
+        //dd($this->serializer->serialize($params, 'xml'));
         
         return $this->tmsClient->sauver($params);
     }
@@ -77,29 +78,16 @@ class TMSSauverManager
 		$now = new \DateTime();
         $dca = $commande->getDemande()->getChangementAdresse();
         if ( "phy" === $dca->getNouveauxTitulaire()->getType() ) {
-            $physique = [
-                "NomPrenom" => $dca->getNouveauxTitulaire()->getNomPrenomTitulaire(),
-                "NomNaissance" => $dca->getNouveauxTitulaire()->getBirthName(),
-                "Prenom" => $dca->getNouveauxTitulaire()->getPrenomTitulaire(),
-                "Sexe" => $dca->getNouveauxTitulaire()->getGenre(),
-                "DateNaissance" => $dca->getNouveauxTitulaire()->getDateN()->format('dm-Y'),
-                "LieuNaissance" => $dca->getNouveauxTitulaire()->getLieuN(),
-                "DroitOpposition" => $dca->getNouveauxTitulaire()->getDroitOpposition(),
-            ];
-        } elseif ( "mor" === $dca->getNouveauxTitulaire()->getType()) {
-            $moral = [
-                "RaisonSociale" => $dca->getNouveauxTitulaire()->getRaisonSociale(),
-                "SocieteCommerciale" => $dca->getNouveauxTitulaire()->getSocieteCommerciale(),
-            ];
-        }
-
-        $params = ["Lot" => [
-			"Demarche" => [
-				$commande->getDemarche()->getType() => [
-                    'ID' => $commande->getTmsId()? $commande->getTmsId() :'',
-					'TypeDemarche' => $commande->getDemarche()->getType(),
-					"DateDemarche" => $now->format('Y-m-d H:i:s'),
-                    "Titulaire" => "phy" === $dca->getNouveauxTitulaire()->getType() ? $physique : $moral,
+            $titulaire = [
+                    "PersonnePhysique" => [
+                        "NomPrenom" => $dca->getNouveauxTitulaire()->getNomPrenomTitulaire(),
+                        "NomNaissance" => $dca->getNouveauxTitulaire()->getBirthName(),
+                        "Prenom" => $dca->getNouveauxTitulaire()->getPrenomTitulaire(),
+                        "Sexe" => $dca->getNouveauxTitulaire()->getGenre(),
+                        "DateNaissance" => $dca->getNouveauxTitulaire()->getDateN()->format('dm-Y'),
+                        "LieuNaissance" => $dca->getNouveauxTitulaire()->getLieuN(),
+                        "DroitOpposition" => $dca->getNouveauxTitulaire()->getDroitOpposition()
+                    ],
                     "AncienneAdresse" => [
                         "TypeVoie" => $dca->getAncienAdresse()->getTypevoie(),
                         "NomVoie" => $dca->getAncienAdresse()->getNom(),
@@ -112,6 +100,37 @@ class TMSSauverManager
                         "CodePostal" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getCodepostal(),
                         "Ville" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getVille(),
                     ],
+                ];
+        } elseif ( "mor" === $dca->getNouveauxTitulaire()->getType()) {
+            $titulaire = [
+                "PersonneMorale" =>
+                    [
+                    "RaisonSociale" => $dca->getNouveauxTitulaire()->getRaisonSociale(),
+                    "SocieteCommerciale" => $dca->getNouveauxTitulaire()->getSocieteCommerciale(),
+                    "SIREN" => $dca->getNouveauxTitulaire()->getSiren()
+                    ],
+                "AncienneAdresse" => [
+                    "TypeVoie" => $dca->getAncienAdresse()->getTypevoie(),
+                    "NomVoie" => $dca->getAncienAdresse()->getNom(),
+                    "CodePostal" => $dca->getAncienAdresse()->getCodepostal(),
+                    "Ville" => $dca->getAncienAdresse()->getVille(),
+                ],
+                "NouvelleAdresse" => [
+                    "TypeVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getTypevoie(),
+                    "NomVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getNom(),
+                    "CodePostal" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getCodepostal(),
+                    "Ville" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getVille(),
+                ],
+            ];
+        }
+
+        $params = ["Lot" => [
+			"Demarche" => [
+				$commande->getDemarche()->getType() => [
+                    'ID' => $commande->getTmsId()? $commande->getTmsId() :'',
+					'TypeDemarche' => $commande->getDemarche()->getType(),
+					"DateDemarche" => $now->format('Y-m-d H:i:s'),
+                    "Titulaire" => $titulaire,
 					"Vehicule" => [
 						"VIN" => $carInfo->getVin(),
                         "Immatriculation" => $commande->getImmatriculation(),
@@ -120,7 +139,6 @@ class TMSSauverManager
 				],
 			],
         ]];
-        
         return $params;
     }
     public function getParamsForDUP(Commande $commande)
@@ -275,6 +293,11 @@ class TMSSauverManager
                 $commande->getDemande()->getdivn()->getAcquerreur()->getType()
             ) {
                 $acquerreur =[
+                        "PersoneMorale" => [
+                            "RaisonSociale" => $titulaire->getRaisonSociale(),
+                            "SocieteCommerciale" => $titulaire->getSocieteCommerciale(),
+                            "Siren" => $titulaire->getSocieteCommerciale() ? $titulaire->getSiren() : null,
+                        ],
 						"Adresse" => [
 							"TypeVoie" => $adresse->getTypevoie(),
 							"NomVoie" => $adresse->getNom(),
@@ -282,14 +305,16 @@ class TMSSauverManager
 							"Ville" => $adresse->getVille(),
 							"Pays" => $adresse->getPays(),
                         ],
-                        "PersoneMorale" => [
-                            "RaisonSociale" => $titulaire->getRaisonSociale(),
-                            "SocieteCommerciale" => $titulaire->getSocieteCommerciale(),
-                            "Siren" => $titulaire->getSocieteCommerciale() ? $titulaire->getSiren() : null,
-                        ]
 					] ;
             } else {
                 $acquerreur =[
+                    "PersonePhysique" => [
+                        "Nom" => $titulaire->getNomPrenomTitulaire(),
+                        "Prenom" => $titulaire->getPrenomTitulaire(),
+                        "Sexe" => $titulaire->getGenre(),
+                        "DateNaissance" => $titulaire->getDateN()->format('Y-m-d'),
+                        "LieuNaissance" => $titulaire->getLieuN()
+                    ],
 						"Adresse" => [
 							"TypeVoie" => $adresse->getTypevoie(),
 							"NomVoie" => $adresse->getNom(),
@@ -297,13 +322,6 @@ class TMSSauverManager
 							"Ville" => $adresse->getVille(),
                             "Pays" => $adresse->getPays()
                         ],
-                        "PersonePhysique" => [
-                            "Nom" => $titulaire->getNomPrenomTitulaire(),
-                            "Prenom" => $titulaire->getPrenomTitulaire(),
-                            "Sexe" => $titulaire->getGenre(),
-                            "DateNaissance" => $titulaire->getDateN()->format('Y-m-d'),
-                            "LieuNaissance" => $titulaire->getLieuN()
-                        ]
                     ];
             }
 
@@ -338,7 +356,7 @@ class TMSSauverManager
                 $carrosier = [
                     "Agrement" => $carros->getAgrement(),
                     "Nom" => $carros->getNomCarrosssier(),
-                    "Prenom" => $carros->getPrenomCarrosssier(),
+                    "Prenom" => $carros->getPrenomCarrossier(),
                     "Justificatifs" => $carros->getJustificatifs()
                 ];
             }else{
@@ -357,7 +375,6 @@ class TMSSauverManager
                         "ID" => "",
                         "TypeDemarche" => $commande->getDemarche()->getType(),
                         "DateDemarche" => $now->format('Y-m-d h:i'),
-                        "NbCotitulaires" => $divn->countCotitulaire(),
                         "Acquereur" => $acquerreur,
                         "Vehicule" => $vehicule,
                         // "CaracteristiquesTechniquesParticulieres" => $cacart,
