@@ -2,13 +2,17 @@
 namespace App\Entity\Vehicule;
 
 use App\Entity\Divn;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Vehicule\VehiculeNeufRepository")
  */
 class VehiculeNeuf
 {
+    const TYPE_RECEP_COMMUNAUTAIRE = 0;
+    const TYPE_RECEP_NATIONALE   = 1;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue()
@@ -17,7 +21,7 @@ class VehiculeNeuf
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Divn", mappedBy="vehicule", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Divn", inversedBy="vehicule", cascade={"persist", "remove"})
      */
     private $divn;
 
@@ -180,6 +184,11 @@ class VehiculeNeuf
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nbMentions;
+
+    public function __construct()
+    {
+        $this->caracteristiqueTechniquePart = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -558,24 +567,6 @@ class VehiculeNeuf
         return $this;
     }
 
-    public function getDivn(): ?Divn
-    {
-        return $this->divn;
-    }
-
-    public function setDivn(?Divn $divn): self
-    {
-        $this->divn = $divn;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newFile = $divn === null ? null : $this;
-        if ($newFile !== $divn->getFile()) {
-            $divn->setFile($newFile);
-        }
-
-        return $this;
-    }
-
     public function getType(): ?string
     {
         return $this->type;
@@ -584,6 +575,18 @@ class VehiculeNeuf
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getDivn(): ?Divn
+    {
+        return $this->divn;
+    }
+
+    public function setDivn(?Divn $divn): self
+    {
+        $this->divn = $divn;
 
         return $this;
     }

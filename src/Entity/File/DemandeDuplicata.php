@@ -95,7 +95,27 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
+    private $cerfaDeclarationPerteVol;
+    /**
+    * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
+    * @Assert\File(
+    *     maxSize = "1024k",
+    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypesMessage = "Please upload a valid PDF"
+    * )
+    */
     private $permisDeConduireDuTitulaire;
+    /**
+    * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
+    * @Assert\File(
+    *     maxSize = "1024k",
+    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypesMessage = "Please upload a valid PDF"
+    * )
+    */
+    private $procurationMandat;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Duplicata", mappedBy="file")
@@ -212,6 +232,30 @@ class DemandeDuplicata
     public function setJustificatifDomicile(?string $justificatifDomicile): self
     {
         $this->justificatifDomicile = $justificatifDomicile;
+
+        return $this;
+    }
+
+    public function getCerfaDeclarationPerteVol(): ?string
+    {
+        return $this->cerfaDeclarationPerteVol;
+    }
+
+    public function setCerfaDeclarationPerteVol(?string $cerfaDeclarationPerteVol): self
+    {
+        $this->cerfaDeclarationPerteVol = $cerfaDeclarationPerteVol;
+
+        return $this;
+    }
+
+    public function getProcurationMandat(): ?string
+    {
+        return $this->procurationMandat;
+    }
+
+    public function setProcurationMandat(?string $procurationMandat): self
+    {
+        $this->procurationMandat = $procurationMandat;
 
         return $this;
     }

@@ -63,9 +63,6 @@ class DivnInit
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\LessThan(
-     *      value=90
-     * )
      */
     private $puissanceFiscale;
 

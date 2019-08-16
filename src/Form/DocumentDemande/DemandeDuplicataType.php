@@ -59,6 +59,11 @@ class DemandeDuplicataType extends AbstractType
             "required" => false,
             "data_class" => null,
         ])
+        ->add('procurationMandat', FileType::class, [
+            'label' => 'label.demande.procurationMandat',
+            "required" => false,
+            "data_class" => null,
+        ])
         ->add('save', SubmitType::class, ['label' => 'label.save'])
         ;
     }

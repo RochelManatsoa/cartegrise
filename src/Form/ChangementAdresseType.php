@@ -17,6 +17,7 @@ class ChangementAdresseType extends AbstractType
                 'label'=>'label.dca.titulaire',
             ])
             ->add('ancienAdresse', AdresseType::class, array('label'=>'label.ancienAdresse'))
+            ->add('numeroFormule', null, array('label'=>'label.numeroFormule', 'required' => true))
         ;
     }
 

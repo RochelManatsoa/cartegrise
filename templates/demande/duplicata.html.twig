@@ -21,6 +21,9 @@
                     </div>
                     <div class="col-5 mx-auto form-row full-mobile">
                         <div class="col-12">
+                            {{ form_row(form.duplicata.numeroFormule)}}
+                        </div>
+                        <div class="col-12">
                             <h3 class="test-center">{{ form_label(form.duplicata.titulaire)}}</h3>
                             <div class="form-titulaire">
                                 {{ form_row(form.duplicata.titulaire.type)}}
@@ -28,8 +31,9 @@
                                 {{ form_row(form.duplicata.titulaire.nomprenom)}}
                             </div>
 
-                            <div class="">
+                            <div class="motifDemande">
                                 {{ form_row(form.duplicata.motifDemande)}}
+                                {{ form_row(form.duplicata.datePerte)}}
                             </div>
 
                             <div class="">
@@ -56,5 +60,15 @@
 $('.choice-type-ancientitulaire').on('change', function(e) {
     $(e.target).parent().siblings().toggle();
 })
+</script>
+<script type="application/javascript">
+    $('#demande_duplicata_duplicata_motifDemande').on('change', function (e) {
+        var Value = $(".motifDemande").find(":selected").text();
+        if (Value === "Perte") {
+            $(e.target).parent().siblings().show();
+        } else {
+            $(e.target).parent().siblings().hide();
+        }
+    });
 </script>
 {% endblock %}

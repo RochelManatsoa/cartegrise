@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Entity\{NewTitulaire, AncienTitulaire, Cotitulaires};
+use App\Entity\Vehicule\{VehiculeNeuf, CarrosierVehiculeNeuf, CaracteristiqueTechVehiculeNeuf};
 
 class TMSSauverManager
 {
@@ -43,6 +44,7 @@ class TMSSauverManager
     public function saveByCommande(Commande $commande)
     {
         $params = $this->getParamsForCommande($commande);
+        //dd($this->serializer->serialize($params, 'xml'));
         
         return $this->tmsClient->sauver($params);
     }
@@ -76,29 +78,16 @@ class TMSSauverManager
 		$now = new \DateTime();
         $dca = $commande->getDemande()->getChangementAdresse();
         if ( "phy" === $dca->getNouveauxTitulaire()->getType() ) {
-            $physique = [
-                "NomPrenom" => $dca->getNouveauxTitulaire()->getNomPrenomTitulaire(),
-                "NomNaissance" => $dca->getNouveauxTitulaire()->getBirthName(),
-                "Prenom" => $dca->getNouveauxTitulaire()->getPrenomTitulaire(),
-                "Sexe" => $dca->getNouveauxTitulaire()->getGenre(),
-                "DateNaissance" => $dca->getNouveauxTitulaire()->getDateN()->format('dm-Y'),
-                "LieuNaissance" => $dca->getNouveauxTitulaire()->getLieuN(),
-                "DroitOpposition" => $dca->getNouveauxTitulaire()->getDroitOpposition(),
-            ];
-        } elseif ( "mor" === $dca->getNouveauxTitulaire()->getType()) {
-            $moral = [
-                "RaisonSociale" => $dca->getNouveauxTitulaire()->getRaisonSociale(),
-                "SocieteCommerciale" => $dca->getNouveauxTitulaire()->getSocieteCommerciale(),
-            ];
-        }
-
-        $params = ["Lot" => [
-			"Demarche" => [
-				$commande->getDemarche()->getType() => [
-                    'ID' => $commande->getTmsId()? $commande->getTmsId() :'',
-					'TypeDemarche' => $commande->getDemarche()->getType(),
-					"DateDemarche" => $now->format('Y-m-d H:i:s'),
-                    "Titulaire" => "phy" === $dca->getNouveauxTitulaire()->getType() ? $physique : $moral,
+            $titulaire = [
+                    "PersonnePhysique" => [
+                        "NomPrenom" => $dca->getNouveauxTitulaire()->getNomPrenomTitulaire(),
+                        "NomNaissance" => $dca->getNouveauxTitulaire()->getBirthName(),
+                        "Prenom" => $dca->getNouveauxTitulaire()->getPrenomTitulaire(),
+                        "Sexe" => $dca->getNouveauxTitulaire()->getGenre(),
+                        "DateNaissance" => $dca->getNouveauxTitulaire()->getDateN()->format('dm-Y'),
+                        "LieuNaissance" => $dca->getNouveauxTitulaire()->getLieuN(),
+                        "DroitOpposition" => $dca->getNouveauxTitulaire()->getDroitOpposition()
+                    ],
                     "AncienneAdresse" => [
                         "TypeVoie" => $dca->getAncienAdresse()->getTypevoie(),
                         "NomVoie" => $dca->getAncienAdresse()->getNom(),
@@ -111,14 +100,45 @@ class TMSSauverManager
                         "CodePostal" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getCodepostal(),
                         "Ville" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getVille(),
                     ],
+                ];
+        } elseif ( "mor" === $dca->getNouveauxTitulaire()->getType()) {
+            $titulaire = [
+                "PersonneMorale" =>
+                    [
+                    "RaisonSociale" => $dca->getNouveauxTitulaire()->getRaisonSociale(),
+                    "SocieteCommerciale" => $dca->getNouveauxTitulaire()->getSocieteCommerciale(),
+                    "SIREN" => $dca->getNouveauxTitulaire()->getSiren()
+                    ],
+                "AncienneAdresse" => [
+                    "TypeVoie" => $dca->getAncienAdresse()->getTypevoie(),
+                    "NomVoie" => $dca->getAncienAdresse()->getNom(),
+                    "CodePostal" => $dca->getAncienAdresse()->getCodepostal(),
+                    "Ville" => $dca->getAncienAdresse()->getVille(),
+                ],
+                "NouvelleAdresse" => [
+                    "TypeVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getTypevoie(),
+                    "NomVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getNom(),
+                    "CodePostal" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getCodepostal(),
+                    "Ville" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getVille(),
+                ],
+            ];
+        }
+
+        $params = ["Lot" => [
+			"Demarche" => [
+				$commande->getDemarche()->getType() => [
+                    'ID' => $commande->getTmsId()? $commande->getTmsId() :'',
+					'TypeDemarche' => $commande->getDemarche()->getType(),
+					"DateDemarche" => $now->format('Y-m-d H:i:s'),
+                    "Titulaire" => $titulaire,
 					"Vehicule" => [
 						"VIN" => $carInfo->getVin(),
-						"Immatriculation" => $commande->getImmatriculation(),
+                        "Immatriculation" => $commande->getImmatriculation(),
+                        "NumFormule" => $dca->getNumeroFormule(),
 					],
 				],
 			],
         ]];
-        
         return $params;
     }
     public function getParamsForDUP(Commande $commande)
@@ -137,6 +157,7 @@ class TMSSauverManager
 					'TypeDemarche' => $commande->getDemarche()->getType(),
 					"DateDemarche" => $now->format('Y-m-d H:i:s'),
                     "MotifDuplicata" => $dup->getMotifDemande(),
+                    "DatePerte" => $dup->getDatePerte()->format('Y-m-d H:i:s'),
                     "CTVOouDC" => $dup->getDemandeChangementTitulaire(),
                     "Titulaire" => [
                         "NomPrenom" => $dup->getTitulaire()->getNomprenom(),
@@ -145,12 +166,14 @@ class TMSSauverManager
                     ],
 					"Vehicule" => [
 						"VIN" => $carInfo->getVin(),
-						"Immatriculation" => $commande->getImmatriculation(),
+                        "Immatriculation" => $commande->getImmatriculation(),
+                        "NumFormule" => $dup->getNumeroFormule(),
 					],
 				],
 			],
         ]];
-        // dd($params);
+        if (!is_null($dup->getDatePerte()))
+            $params["Lot"]["Demarche"][$commande->getDemarche()->getType()]["DatePerte"] = $dup->getDatePerte()->format('Y-m-d H:i:s');
 
         
         return $params;
@@ -228,7 +251,7 @@ class TMSSauverManager
 						"Immatriculation" => $commande->getImmatriculation(),
 						"D1_Marque" => $carInfo->getMarque(),
 						"D2_Version" => $carInfo->getModel(),
-						"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
 					],
 				],
 			],
@@ -257,43 +280,143 @@ class TMSSauverManager
 
     public function getParamsForDIVN(Commande $commande)
     {
-        $demande = $commande->getDemande();
-        $acquerreur = $commande->getDemande()->getDivn()->getAcquerreur();
-        $adresse = $commande->getDemande()->getDivn()->getAcquerreur()->getAdresseNewTitulaire();
-        $cotitulaires = $commande->getDemande()->getDivn()->getCotitulaire();
+        $divn = $commande->getDemande()->getDivn();
+        $titulaire = $divn->getAcquerreur();
+        $adresse = $divn->getAcquerreur()->getAdresseNewTitulaire();
+        $car = $divn->getVehicule();
+        $carros = $divn->getCarrosier();
+		$now = new \DateTime();        
 
-        $cotitulaire = [];
-        foreach ($cotitulaires as $cotitulaire) {
-            $cotitulaire[]=[
-                "Nom" => $cotitulaire->getNomCotitulaires(),
-                "Prenom" => $cotitulaire->getPrenomCotitulaire(),
-                "Sexe" => $cotitulaire->getSexeCotitulaire(),
-                "RaisonSociale" => $cotitulaire->getRaisonSocialCotitulaire(),
-            ];
-        }
+        // check if persone moral or not: 
+            if (
+                NewTitulaire::TYPE_PERS_MORALE == 
+                $commande->getDemande()->getdivn()->getAcquerreur()->getType()
+            ) {
+                $acquerreur =[
+                        "PersoneMorale" => [
+                            "RaisonSociale" => $titulaire->getRaisonSociale(),
+                            "SocieteCommerciale" => $titulaire->getSocieteCommerciale(),
+                            "Siren" => $titulaire->getSocieteCommerciale() ? $titulaire->getSiren() : null,
+                        ],
+						"Adresse" => [
+							"TypeVoie" => $adresse->getTypevoie(),
+							"NomVoie" => $adresse->getNom(),
+							"CodePostal" => $adresse->getCodepostal(),
+							"Ville" => $adresse->getVille(),
+							"Pays" => $adresse->getPays(),
+                        ],
+					] ;
+            } else {
+                $acquerreur =[
+                    "PersonePhysique" => [
+                        "Nom" => $titulaire->getNomPrenomTitulaire(),
+                        "Prenom" => $titulaire->getPrenomTitulaire(),
+                        "Sexe" => $titulaire->getGenre(),
+                        "DateNaissance" => $titulaire->getDateN()->format('Y-m-d'),
+                        "LieuNaissance" => $titulaire->getLieuN()
+                    ],
+						"Adresse" => [
+							"TypeVoie" => $adresse->getTypevoie(),
+							"NomVoie" => $adresse->getNom(),
+							"CodePostal" => $adresse->getCodepostal(),
+							"Ville" => $adresse->getVille(),
+                            "Pays" => $adresse->getPays()
+                        ],
+                    ];
+            }
+
+            if(VehiculeNeuf::TYPE_RECEP_COMMUNAUTAIRE == $car->getType()){
+                $vehicule = [
+                    "VIN" => $car->getVin(),
+                    "D1_Marque" => $car->getD1Marque(),
+                    "D2_Version" => $car->getD2Version(),
+                    "DateReception" => $car->getDateReception()->format('Y-m-d'),
+                    "D21_CNIT" => $car->getD21Cenit(),
+                    "DerivVP" => $car->getDerivVp(),
+                    "NbMentions" => $divn->countCaractTech()
+                ];
+            }else{
+                $vehicule = [
+                    "VIN" => $car->getVin(),
+                    "D1_Marque" => $car->getD1Marque(),
+                    "D2_Version" => $car->getD2Version(),
+                    "D3_Denomination" => $car->getD3Denomination(),
+                    "F1_MMaxTechAdm" => $car->getF2MmaxTechAdm(),
+                    "G_MMaxAvecAttelage" => $car->getGMmaxAvecAttelage(),
+                    "G1_PoidsVide" => $car->getG1PoidsVide(),
+                    "J_CategorieCE" => $car->getJCategorieCe(),
+                    "J1_Genre" => $car->getJ1Genre(),
+                    "J3_Carrosserie" => $car->getJ3Carrosserie(),
+                    "P6_PuissFiscale" => $car->getP6PuissFiscale(),
+                    "NbMentions" => $divn->countCaractTech()
+                ];
+            }
+
+            if(CarrosierVehiculeNeuf::PERSONE_PHYSIQUE == $carros->getTypeCarrossier()){
+                $carrosier = [
+                    "Agrement" => $carros->getAgrement(),
+                    "Nom" => $carros->getNomCarrosssier(),
+                    "Prenom" => $carros->getPrenomCarrossier(),
+                    "Justificatifs" => $carros->getJustificatifs()
+                ];
+            }else{
+                $carrosier = [
+                    "Agrement" => $carros->getAgrement(),
+                    "RaisonSociale" => $carros->getRaisonSocialCarrossier(),
+                    "Justificatifs" => $carros->getJustificatifs()
+                ];
+            }       
+            
         
         $params = [
-            'DIVN' => [
-                "ID" => "",
-                "TypeDemarche" => "DIVN",
-                "RaisonSociale" => $acquerreur->getRaisonSociale(),
-                "SocieteCommerciale" => $acquerreur->getSocieteCommerciale(),
-                "Nom" => $acquerreur->getNomPrenomTitulaire(),
-                "Prenom" => $acquerreur->getPrenomTitulaire(),
-                "Sexe" => "M" == $acquerreur->getGenre()? "M" : "F",
-                "DateNaissance" => $acquerreur->getDateN()->format('dm-Y'),
-                "LieuNaissance" => $acquerreur->getLieuN(),
-                "TypeVoie" => $adresse->getTypevoie(),
-                "NomVoie" => $adresse->getNom(),
-                "CodePostal" => $adresse->getCodepostal(),
-                "Ville" => $adresse->getVille(),
-                "NbCotitulaires" => count($cotitulaire),
-                "Vehicule" => [
-                    
+            "Lot" => [
+                "Demarche" => [
+                    'DIVN' => [
+                        "ID" => "",
+                        "TypeDemarche" => $commande->getDemarche()->getType(),
+                        "DateDemarche" => $now->format('Y-m-d h:i'),
+                        "Acquereur" => $acquerreur,
+                        "Vehicule" => $vehicule,
+                        // "CaracteristiquesTechniquesParticulieres" => $cacart,
+                        "Carrossier" => $carrosier
+                    ]
                 ]
             ]
-        ];
-        if (count($cotitulaire) > 0 )
-            $params['DIVN']['co-titulaires'] = $cotitulaire;
+        ];        
+                
+        if ($divn->countCotitulaire() > 0) {
+            $cotitulaireParams = [];
+            foreach ($divn->getCotitulaire() as $cotitulaire) {
+                if ($cotitulaire->getTypeCotitulaire() === Ancientitulaire::PERSONE_PHYSIQUE){
+                    $cotitulaireParams[]= [
+                        "Nom" => $cotitulaire->getNomCotitulaires(),
+                        "Prenom" => $cotitulaire->getPrenomCotitulaire(),
+                        "Sexe" => $cotitulaire->getSexeCotitulaire(),
+                    ];
+                } else {
+                    $cotitulaireParams[]= [
+                        "RaisonSociale" => $cotitulaire->setRaisonSocialCotitulaire()
+                    ];
+                }
+            }
+
+            $params["Lot"]["Demarche"]["DIVN"]["co-titulaire"] = $cotitulaireParams;
+        }
+
+        if ($divn->countCaractTech() > 0) {
+            $caractTechParams = [];
+            foreach ($divn->getCaractTech() as $caractTech) {
+                $caractTechParams[]= [
+                    "Code" => $caractTech->getCode(),
+                    "Valeur1" => $caractTech->getValeur1(),
+                    "Valeur2" => $caractTech->getValeur(),
+                ];
+            }
+            
+            // Mentions = Caractéristique technique particulière
+            $params["Lot"]["Demarche"]["DIVN"]["Mentions"] = $caractTechParams;
+        }
+
+        return $params;
     }
 }

@@ -23,18 +23,26 @@
                         <div class="col-10 col-sm-12 mx-auto">
                             <h3 class="text-center"> {{ form_label(form.divn.acquerreur) }} </h3>
                             <hr>
-                            {% for acquerreur in form.divn.acquerreur %}
-                                {% if loop.index < 8 %}
-                                    <div class="form-group">
-                                        {{ form_label(acquerreur)}}
-                                        {{ form_errors(acquerreur)}}
-                                        {{ form_widget(acquerreur, {'attr': {'class': ''}})}}
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
-                            <h3 class="text-center"> {{ form_label(form.divn.vehicule) }} </h3>
+                            <div class="titulaire">
+                                {{ form_row(form.divn.acquerreur.type)}}
+                                {{ form_row(form.divn.acquerreur.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.divn.acquerreur.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.divn.acquerreur.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.divn.acquerreur.nomPrenomTitulaire)}}
+                                {{ form_row(form.divn.acquerreur.prenomTitulaire)}}
+                                {{ form_row(form.divn.acquerreur.genre)}}
+                                {{ form_row(form.divn.acquerreur.dateN)}}
+                                {{ form_row(form.divn.acquerreur.lieuN)}}
+                                {{ form_row(form.divn.acquerreur.droitOpposition)}}
+                            </div>
+                            {# <h3 class="text-center"> {{ form_label(form.divn.vehicule) }} </h3>
                             <hr>
-                            <div class="form-info">                    
+                            <div class="form-info">
+                                {{ form_row(form.divn.vehicule.vin)}}
+                                {{ form_row(form.divn.vehicule.d1Marque)}}
+                                {{ form_row(form.divn.vehicule.d2Version)}}
+                                {{ form_row(form.divn.vehicule.z1Mention1)}}
+                                {{ form_row(form.divn.vehicule.z1Value)}}                    
                                 <div class="form-vehicule">            
                                     {{ form_row(form.divn.vehicule.type)}}
                                     {{ form_row(form.divn.vehicule.kNumRecepCe)}}
@@ -63,22 +71,7 @@
                                     {{ form_row(form.divn.vehicule.v7Co2, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                     {{ form_row(form.divn.vehicule.v9ClasseEnvCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 </div>
-                                {{ form_row(form.divn.vehicule.vin)}}
-                                {{ form_row(form.divn.vehicule.d1Marque)}}
-                                {{ form_row(form.divn.vehicule.d2Version)}}
-                                {{ form_row(form.divn.vehicule.z1Mention1)}}
-                                {{ form_row(form.divn.vehicule.z1Value)}}
-                                {{ form_row(form.divn.vehicule.nbMentions)}}
-                            </div>
-                            {# {% for vehicule in form.divn.vehicule %}
-                                {% if loop.index < 31 %}
-                                    <div class="form-group">
-                                        {{ form_label(vehicule)}}
-                                        {{ form_errors(vehicule)}}
-                                        {{ form_widget(vehicule, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    </div>
-                                {% endif %}
-                            {% endfor %} #}
+                            </div> #}
                         </div>
                     </div>
                     <div class="col-3 col-md-5 mx-auto form-row full-mobile">
@@ -104,11 +97,40 @@
                                     </li>
                                     {% endif %}
                                 {% endfor %}
-                            </ul>
-                        </div>
+                            </ul> 
+                            {# <h3 class="text-center"> {{ form_label(form.divn.carrosier) }} </h3>
+                            <hr>
+                            <div class="col-10 col-sm-12 mx-auto">
+                                <div class="carrossier">
+                                    {{ form_row(form.divn.carrosier.typeCarrossier)}}
+                                    {{ form_row(form.divn.carrosier.raisonSocialCarrossier, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.carrosier.nomCarrosssier)}}
+                                    {{ form_row(form.divn.carrosier.prenomCarrossier)}}
+                                </div>
+                                    {{ form_row(form.divn.carrosier.agrement)}}
+                                    {{ form_row(form.divn.carrosier.justificatifs)}}
+                            <h3 class="text-center">{{ form_label(form.divn.caracteristiqueTechniquePart) }}</h3>
+                            <hr> 
+                            <div id="caract" data-prototype="{{ form_widget(form.divn.caracteristiqueTechniquePart.vars.prototype)|e('html_attr') }}">
+                                {% for row in form.divn.cotitulaire %}
+                                    {% if loop.index < 3 %}
+                                    <div class="panel panel-warning">
+                                        <div class="panel-heading">
+                                        </div>
+                                        <div class="panel-body">
+                                            {{ form_label(row.vars.prototype)|e  }}
+                                            {{ form_errors(row.vars.prototype)|e  }}
+                                            {{ form_widget(row.vars.prototype, {'attr': {'class': ''}})|e  }}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>  #}
+                            </div>
+                    </div>
                     </div>
                     <div class="col-12 text-center">
-                        <div style="display:none">
+                        <div style="display:none;">
                             {{form_rest(form)}}
                         </div>
                     </div>
@@ -128,6 +150,55 @@
     $('.choice-type-reception').on('change', function(e) {
         $(e.target).parent().siblings().toggle();
     })
+</script>
+<script type="application/javascript">
+    $('.choice-type-personne').on('change', function(e) {
+        $(e.target).parent('.form-group').siblings().toggle();
+    })
+</script>
+<script type="application/javascript">
+    $('.choice-type-carrossier').on('change', function(e) {
+        $(e.target).parent('.form-group').siblings().toggle();
+    })
+</script>
+<script type="application/javascript">
+    var $collection;
+    var $addNewItems = $('<center><button type="button" class="btn btn-outline-info">Ajouter caractéristique</button></center>');
+    var $newLink = $('<p></p>').append($addNewItems);
+    jQuery(document).ready(function(){
+        $collection = $('#caract');
+        $collection.append($addNewItems);
+        $collection.data('index',$collection.find('.panel').length);
+        $collection.find('.panel').each(function() {
+            addRemoveButton($(this));
+        });
+        $addNewItems.click(function(){
+            addNewForm($collection, $addNewItems);
+        });
+    });
+
+    function addNewForm($collection, $addNewItems){
+        var protoType = $collection.data('prototype');
+        var index = $collection.data('index');
+        var newForm = protoType;
+        newForm = newForm.replace(/__name__/g, index);
+        $collection.data('index', index + 1);
+        var $panel = $('<div class="panel panel-warning"><div class="panel-heading"></div></div>');
+        var $panelBody = $('<div class="panel-body"></div>').append(newForm);
+        $panel.append($panelBody);
+        addRemoveButton($panel);
+        $addNewItems.before($panel);
+    }
+
+    function addRemoveButton($panel) {
+        var $removeButton = $('<center><button type="button" class="btn btn-outline-danger btn-md">Effacer caractéristique</button></center><br>');
+        var $panelFooter = $('<div class="panel-footer"></div>').append($removeButton);
+        $panel.append($panelFooter);
+
+        $removeButton.click(function(e){
+            $panel.remove();
+        });
+    }
 </script>
 <script type="application/javascript">
     var $collectionHolder;
@@ -193,5 +264,6 @@
         });
     }
 </script>
+
     
 {% endblock %}

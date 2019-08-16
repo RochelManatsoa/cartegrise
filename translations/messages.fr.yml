@@ -26,8 +26,8 @@ type_demande:
                         <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>la déclaration d'achat d'un véhicule d'occasion si l'acquéreur est un professionnel (cerfa 13751*01) 
-                    <a href="/../download/cgofficiel_cerfa-13751-01.pdf" target="blank">
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)   
+                    <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
                         <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
@@ -58,11 +58,20 @@ type_demande:
                         <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>la déclaration originale de perte ou vol (la déclaration de vol doit être enregistrée et tamponnée par la police)</li>
+                <li>la déclaration originale de perte ou vol (la déclaration de vol doit être enregistrée et tamponnée par la police)
+                    <a href="/../download/cgofficiel_cerfa-13753-01.pdf" target="blank">
+                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                    </a>
+                </li>
                 <li>si votre véhicule a plus de 4 ans, preuve du contrôle technique en cours de validité, sauf si le véhicule est dispensé de contrôle technique </li>
                 <li>une pièce d'identité en cours de validité</li>
                 <li>l'attestation d'assurance du véhicule</li> 
                 <li>le permis de conduire du titulaire du véhicule</li>
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)   
+                    <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
+                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                    </a>
+                </li>
             </ol>
         divn: |
             <ol>
@@ -123,8 +132,12 @@ type_demande:
                         <li>Attestation d'assurance habitation</li>
                     </ul>
                 </li>
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)   
+                    <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
+                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                    </a>
+                </li>
             </ol>
-
         dc: |
             <div>
                 Le formulaire CERFA n° 15776*01 
@@ -145,7 +158,7 @@ type_demande:
                 <li>Extrait d'Acte de mariage / jugement de divorce / livret de famille</li>
                 <li>une copie du contrôle technique en cours de validité pour les véhicules de plus de 4 ans</li>
                 <li>une pièce d'identité en cours de validité</li>
-                <li>la procuration par Mandat   
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)   
                     <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
                         <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
@@ -166,8 +179,8 @@ type_demande:
                     </ul>
                 </li>
             </ol>
-
 label:
+    numeroFormule: Numéro de formule présent sur la carte grise
     fourthChange: 4ème changement d'adresse ? S'il s'agit de votre 4ème changement d'adresse une taxe de 2,76€ vous sera facturé pour l'acheminement de la nouvelle carte grise à votre domicile
     acquerreur: Acquéreur
     dateN: Date de naissance *
@@ -184,6 +197,16 @@ label:
     complement: Complément d'adresse
     codepostal: Code Postal
     ville: Ville
+    droitOpposition: Je m'oppose à la diffusion de mes données personnelles
+    caracteristiqueTechniquePart: Caractéristiques techniques particulières
+    carrossier: Carrossier qualifié ayant modifié le véhicule
+    nomCarrossier: Nom du carrossier
+    agrement: Numéro d'Agrément du carrossier
+    prenomCarrossier: Prénom du carrossier
+    justificatifs: Pièces justificatives attestant de la modification
+    code: Code relatif à une mention
+    valeur1: Valeur de la mention
+    valeur2: Valeur de la mention (uniquement en cas d’intervalle de valeur)
     type: 
         personne: Personne *
         fichier: Type de fichier
@@ -257,8 +280,9 @@ label:
         copieRectoVersoCarteGrise: Copie recto verso de la CARTE GRISE
         recepisseDemandeAchat: Récépissé de la demande d'achat
         copieControleTechnique: Copie du contrôle technique
+        cerfaDeclarationdePerteOuVol: Cerfa de déclaration de perte ou vol >> Cerfa 13753*01
         copieControleTechniqueEnCoursValidite: Copie du contrôle technique en cours de validité
-        procurationMandat: Mandat d'immatriculation >> Cerfa 13751*01
+        procurationMandat: Mandat d'immatriculation >> Cerfa 13757*03
         demandeCertificat: Demande de certificat >> Cerfa 13750*05
         declatationCession: Déclaration de cession >> Cerfa 15776*01
         declarationdePerteOuVol: Déclaration de perte ou vol
@@ -281,6 +305,9 @@ label:
     updateUser: Informations vous concernant
     particulierOrSociete: Particulier ou Société
     notificationType: Type de notification
+
+    dup:
+        datePerte: Date de la perte
 
     divn:
         tauxDeCo2: Taxe de CO2
@@ -359,7 +386,3 @@ home:
         ctvo: Changement de titulaire de vehicule d'occasion
         dc: Demande de cession
         dca: Demande de changement d'adresse
-
-
-
-
