@@ -56,7 +56,7 @@
             {% else %}
              Monsieur 
             {% endif %}
-            {{ demande.commande.clientFacture.clientPrenom }} 
+            {{ demande.commande.clientFacture.clientPrenom | capitalize }} 
             {{ demande.commande.clientFacture.clientNom | upper}}
           </strong>
           <br>

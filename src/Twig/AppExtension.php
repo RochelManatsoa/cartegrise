@@ -58,12 +58,19 @@ class AppExtension extends AbstractExtension
             new TwigFunction('fraisTraitementWhithTvaTotal', [$this, 'fraisTraitementWhithTvaTotal']),
             new TwigFunction('statusOfCommande', [$this, 'statusOfCommande']),
             new TwigFunction('checkFile', [$this, 'checkFile']),
+            new TwigFunction('taxeTotal', [$this, 'taxeTotal']),
             new TwigFunction('tvaCommande', [$this, 'tvaCommande']),
             new TwigFunction('without20tva', [$this, 'without20tva']),
             new TwigFunction('finalTotalOfDaily', [$this, 'finalTotalOfDaily']),
             new TwigFunction('without20tvaTotal', [$this, 'without20tvaTotal']),
             new TwigFunction('getTaxesTotal', [$this, 'getTaxesTotal']),
             new TwigFunction('totalOfDemandesDaily', [$this, 'totalOfDemandesDaily']),
+            new TwigFunction('totalOfDemandesDailyWithoutTvaAndMajoration', [$this, 'totalOfDemandesDailyWithoutTvaAndMajoration']),
+            new TwigFunction('totalOfTvaDailyWithoutMajoration', [$this, 'totalOfTvaDailyWithoutMajoration']),
+            new TwigFunction('totalOfDemandesDailyWithoutMajoration', [$this, 'totalOfDemandesDailyWithoutMajoration']),
+            new TwigFunction('totalOfMajorationDaily', [$this, 'totalOfMajorationDaily']),
+            new TwigFunction('totalTvaOfMajorationDaily', [$this, 'totalTvaOfMajorationDaily']),
+            new TwigFunction('totalWithoutTvaOfMajorationDaily', [$this, 'totalWithoutTvaOfMajorationDaily']),
             new TwigFunction('just20tvaTotal', [$this, 'just20tvaTotal']),
             new TwigFunction('tvaTreatmentOfCommandeTotal', [$this, 'tvaTreatmentOfCommandeTotal']),
             new TwigFunction('fraisdossierWithoutTva', [$this, 'fraisdossierWithoutTva']),
@@ -219,6 +226,24 @@ class AppExtension extends AbstractExtension
 
         return $result;
     }
+    public function fraisDailyWithoutTvaTotal(array $demandes)
+    {
+        $result = 0;
+        foreach ($demandes as $demande) {
+            $result += $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommandeDaily($demande->getCommande());
+        }
+
+        return $result;
+    }
+    public function fraisDailyTvaTotal(array $demandes)
+    {
+        $result = 0;
+        foreach ($demandes as $demande) {
+            $result += $this->fraisTreatmentManager->tvaOfFraisTreatmentDaily($demande->getCommande());
+        }
+
+        return $result;
+    }
     public function fraisTotal(Commande $commande)
     {
 
@@ -312,7 +337,7 @@ class AppExtension extends AbstractExtension
         {
             return 0;
         }
-        return round((round(($value/1.2), 2) * 0.2 * $length), 2);
+        return round((round(($value*0.2), 2) * $length), 2);
     }
     public function totalOfDemandesDaily(array $demandes, array $majorations)
     {
@@ -320,11 +345,54 @@ class AppExtension extends AbstractExtension
         $results = 0;
         foreach($majorations as $key=>$majoration)
         {
-            $majorationResult += $key;
+            $majorationResult += $key*count($majoration);
         }
         $results = $this->fraisTraitementWhithTvaTotal($demandes);
 
         return $majorationResult+$results;
+    }
+    public function totalOfDemandesDailyWithoutMajoration(array $demandes)
+    {
+        $results = 0;
+        $results = $this->fraisTraitementWhithTvaTotal($demandes);
+
+        return $results;
+    }
+    public function totalOfTvaDailyWithoutMajoration(array $demandes)
+    {
+        $results = 0;
+        $results = $this->fraisDailyTvaTotal($demandes);
+
+        return $results;
+    }
+    public function totalOfDemandesDailyWithoutTvaAndMajoration(array $demandes)
+    {
+        $results = 0;
+        $results = $this->fraisDailyWithoutTvaTotal($demandes);
+
+        return $results;
+    }
+    public function totalOfMajorationDaily(array $majorations)
+    {
+        $majorationResult = 0;
+        foreach($majorations as $key=>$majoration)
+        {
+            $majorationResult += $key*count($majoration);
+        }
+        return round($majorationResult, 2);
+    }
+    public function totalTvaOfMajorationDaily(array $majorations)
+    {
+        $majorationResult = $this->totalOfMajorationDaily($majorations)*0.2;
+        
+        return $majorationResult;
+    }
+    public function totalWithoutTvaOfMajorationDaily(array $majorations)
+    {
+        $majoration = $this->totalOfMajorationDaily($majorations);
+        $majorationTva = $this->totalTvaOfMajorationDaily($majorations);
+        
+        return $majoration - $majorationTva;
     }
     public function finalTotalOfDaily(array $demandes, array $majorations)
     {
