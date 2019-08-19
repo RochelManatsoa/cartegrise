@@ -15,11 +15,23 @@ class NewtitulaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('type', ChoiceType::class, array(
+                'label' => 'label.type.personne',
+                'choices' => array(
+                    'Physique' => "phy",
+                    'Société' => "mor",
+                ),
+                'attr' => array(
+                    'class' => 'choice-type-personne'
+                )
+                ))
             ->add('nomPrenomTitulaire', TextType::class, array(
-                'label'=>'label.nom.titulaire'
+                'label'=>$options['label'] === "label.dca.titulaire" ? 'label.nom.dcaNomPrenom' : 'label.nom.titulaire',
+                'required' => false
                 ))
             ->add('prenomTitulaire', TextType::class, array(
-                'label'=>'label.prenom.titulaire'
+                'label'=>'label.prenom.client',
+                'required' => false
                 ))
             ->add('genre', ChoiceType::class, array(
                 'label' => 'label.genre',
@@ -30,18 +42,28 @@ class NewtitulaireType extends AbstractType
             ))
             ->add('dateN', DateType::class, array(
                 'label'=>"label.dateN",
+                'required' => false,
                 'widget' => 'single_text',
                 ))
-            ->add('lieuN', TextType::class, array('label'=> 'label.lieuN'))
-            // ->add('type')
+            ->add('lieuN', TextType::class, array(
+                'label'=> 'label.lieuN',
+                'required' => false,
+                ))
             ->add('raisonSociale')
             ->add('societeCommerciale', null, array('label'=> 'label.societeCommerciale'))
-            // ->add('siren')
-            ->add('adresseNewTitulaire', AdresseType::class, array('label'=>'label.adresseNewTitulaire'))
+            ->add('siren')
+            ->add('droitOpposition', null, array('label'=> 'label.droitOpposition'))
+            ->add('adresseNewTitulaire', AdresseType::class, [
+                    'label'=> $options['label'] === "label.dca.titulaire" ? 'label.nouvelAdresse' : 'label.adresseNewTitulaire',
+                ]);
+            if ($options['label'] === "label.dca.titulaire")
+                $builder->add('birthName', TextType::class, array(
+                    'label'=>'label.nom.dcaBirthName',
+                    'required' => false,
+                    ))
             // ->add('demande')
         ;
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

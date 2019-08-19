@@ -14,12 +14,8 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
 
     {
-        $builder->add('client', ClientType::class, ['label'=>'label.updateUser'])
-                ->add('termsAccepted', CheckboxType::class, [
-                    'mapped' => false,
-                    'label' => 'label.termsAccepted',
-                    'constraints' => new IsTrue(),
-                ])
+        $builder
+            ->add('client', ClientType::class, ['label'=>'label.updateUser'])
         ;
     }
 

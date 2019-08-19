@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-24 01:39:17 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-06-11 18:57:42
+ * @Last Modified time: 2019-07-30 07:40:33
  */
 
  namespace App\Manager;
@@ -82,7 +82,7 @@
 						"VIN" => $carInfo->getVin(),
 						"Immatriculation" => $commande->getImmatriculation(),
 						"Marque" => $carInfo->getMarque(),
-						"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
 					],
 				],
 			],
@@ -147,7 +147,7 @@
 						"Immatriculation" => $commande->getImmatriculation(),
 						"D1_Marque" => $carInfo->getMarque(),
 						"D2_Version" => $carInfo->getModel(),
-						"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
 					],
 				],
 			],
@@ -156,7 +156,7 @@
 	
 	public function getParamCtvo(Commande $commande, $type = "Cerfa")
     {
-        $client = $this->tokenStorage->getToken()->getUser()->getClient();
+        $client = $commande->getFirstClient();
         $adresse = $client->getClientAdresse();
         $carInfo = $commande->getCarInfo();
 		$now = new \DateTime();
@@ -216,7 +216,7 @@
 						"Immatriculation" => $commande->getImmatriculation(),
 						"D1_Marque" => $carInfo->getMarque(),
 						"D2_Version" => $carInfo->getModel(),
-						"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
 					],
 				],
 			],
@@ -270,7 +270,7 @@
 						"Marque" => $carInfo->getMarque(),
 						"Couleur" => 'Noir',
 						"D2_Version" => $carInfo->getModel(),
-						"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
 					],
 				],
 			],
@@ -324,7 +324,7 @@
 						"Marque" => $carInfo->getMarque(),
 						"Couleur" => 'Noir',
 						"D2_Version" => $carInfo->getModel(),
-						"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
 					],
 				],
 			],
@@ -390,7 +390,7 @@
 					"Vehicule" => [
 						"VIN" => $carInfo->getVin(),
 						"Immatriculation" => $commande->getImmatriculation(),
-						"CIPresent" => true, // à voir si la carte grise n'est pas en sa possesion
+						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
 					],
 				],
 			],

@@ -1,0 +1,45 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block page_content %}
+<div class="col-md-12 col-lg-7 d-flex error-flex">
+    <div class="error-container">
+        <h1 class="text-center">{{"Accès refusé" | upper}}</h1>
+        <p class="desc-error">
+            {# Quelque chose est cassé. S'il vous plaît laissez-nous savoir ce que vous faisiez. Désolé pour tout inconvénient causé. #}
+            Vous ne possédez pas l’autorisation d’appeler spécifiquement cette URL, veillez vous identifier ou contactez notre service client.
+             {# Vous pouvez <a href="{{ path('contact') }}">nous contacter</a> et nous pouvons vous aider! #}
+        </p>
+        <p><a href="{{ path('contact') }}"><i class="fas fa-angle-double-right"></i> {{"Service Client" | upper}}</a></p>
+        <p><a class="btn btn-primary btn-lg" href="{{ path('fos_user_security_login') }}"><i class="fas fa-angle-double-right"></i> {{"S'identifier" | upper}}</a></p>
+    </div>
+</div>
+
+        <style>
+            body {
+                background-color: #fff;
+                color: #222;
+                font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                margin: 0;
+            }
+        
+            .container {
+                margin: 30px;
+                max-width: 600px;
+            }
+        
+            h1 {
+                color: #dc3545;
+                font-size: 36px;
+                font-family: lato;
+            }
+        
+            h2 {
+                font-size: 24px;
+            }
+            a {
+                text-decoration: none;
+                font-size: 24px;
+            }
+        </style>
+{% endblock %}

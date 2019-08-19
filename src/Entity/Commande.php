@@ -54,7 +54,12 @@ class Commande
     private $ceerLe;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Client", inversedBy="commandes")
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $fourthChange;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="commandes")
      */
     private $client;
 
@@ -86,10 +91,18 @@ class Commande
      */
     private $saved;
 
+    /**
+     * @ORM\Column(nullable=true)
+     */
+    private $tmsId;
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $tmsSaveResponse;
+
 
     public function __construct()
     {
-        $this->client = new ArrayCollection();
         $this->saved = false;
     }
 
@@ -158,21 +171,7 @@ class Commande
 
     public function getClientFacture()
     {
-        return $this->client[0];
-    }
-
-    public function getClient()
-    {
-        return $this->client;
-    }
-
-    public function addClient(Client $client): self
-    {
-        if (!$this->client->contains($client)) {
-            $this->client[] = $client;
-        }
-
-        return $this;
+        return $this->getFirstClient();
     }
 
     public function removeClient(Client $client): self
@@ -246,12 +245,17 @@ class Commande
         return $this;
     }
 
+    public function getFirstClient()
+    {
+        return $this->client;
+    }
+
     /**
      * @ORM\PrePersist()
      */
     public function prepersist()
     {
-        $client = $this->client[0];
+        $client = $this->getFirstClient();
         if (!is_null($client) && is_object($client))
             $client->setCountCommande($client->getCountCommande() + 1);
     }
@@ -264,6 +268,54 @@ class Commande
     public function setSaved(?bool $saved): self
     {
         $this->saved = $saved;
+
+        return $this;
+    }
+
+    public function getTmsId(): ?string
+    {
+        return $this->tmsId;
+    }
+
+    public function setTmsId(?string $tmsId): self
+    {
+        $this->tmsId = $tmsId;
+
+        return $this;
+    }
+
+    public function getTmsSaveResponse(): ?string
+    {
+        return $this->tmsSaveResponse;
+    }
+
+    public function setTmsSaveResponse(?string $tmsSaveResponse): self
+    {
+        $this->tmsSaveResponse = $tmsSaveResponse;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getFourthChange(): ?bool
+    {
+        return $this->fourthChange;
+    }
+
+    public function setFourthChange(?bool $fourthChange): self
+    {
+        $this->fourthChange = $fourthChange;
 
         return $this;
     }

@@ -25,10 +25,14 @@ class NewTitulaire
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull(message="Champs requis")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nomPrenomTitulaire;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $birthName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -37,14 +41,12 @@ class NewTitulaire
     private $genre;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Assert\NotNull(message="Champs requis")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateN;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull(message="Champs requis")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lieuN;
 
@@ -85,6 +87,11 @@ class NewTitulaire
     private $societeCommerciale;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $droitOpposition;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $siren;
@@ -95,7 +102,7 @@ class NewTitulaire
     private $vehicules;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $prenomTitulaire;
 
@@ -335,6 +342,30 @@ class NewTitulaire
     public function setPrenomTitulaire(string $prenomTitulaire): self
     {
         $this->prenomTitulaire = $prenomTitulaire;
+
+        return $this;
+    }
+
+    public function getDroitOpposition(): ?bool
+    {
+        return $this->droitOpposition;
+    }
+
+    public function setDroitOpposition(?bool $droitOpposition): self
+    {
+        $this->droitOpposition = $droitOpposition;
+
+        return $this;
+    }
+
+    public function getBirthName(): ?string
+    {
+        return $this->birthName;
+    }
+
+    public function setBirthName(string $birthName): self
+    {
+        $this->birthName = $birthName;
 
         return $this;
     }
