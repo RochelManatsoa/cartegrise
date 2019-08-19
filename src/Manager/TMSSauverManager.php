@@ -12,7 +12,7 @@ use App\Manager\StatusManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use App\Entity\{NewTitulaire, AncienTitulaire, Cotitulaires};
+use App\Entity\{NewTitulaire, AncienTitulaire, Cotitulaires, Ctvo};
 use App\Entity\Vehicule\{VehiculeNeuf, CarrosierVehiculeNeuf, CaracteristiqueTechVehiculeNeuf};
 
 class TMSSauverManager
@@ -44,7 +44,7 @@ class TMSSauverManager
     public function saveByCommande(Commande $commande)
     {
         $params = $this->getParamsForCommande($commande);
-        //dd($this->serializer->serialize($params, 'xml'));
+        //dd($params);
         
         return $this->tmsClient->sauver($params);
     }
@@ -185,41 +185,60 @@ class TMSSauverManager
         $carInfo = $commande->getCarInfo();
 		$now = new \DateTime();
 		$ctvo = $commande->getDemande()->getCtvo();
+        $cotitulaireParams ["Cotitulaire"]= [];
 
         // check if persone moral or not: 
-            if (
-                NewTitulaire::TYPE_PERS_MORALE == 
-                $commande->getDemande()->getCtvo()->getAcquerreur()->getType()
-            ) {
+            if (NewTitulaire::TYPE_PERS_MORALE == $ctvo->getAcquerreur()->getType()) {
                 $acquerreur =[
-						"Adresse" => [
-							"TypeVoie" => $adresse->getTypevoie(),
-							"NomVoie" => $adresse->getNom(),
-							"CodePostal" => $adresse->getCodepostal(),
-							"Ville" => $adresse->getVille(),
-							"Pays" => $adresse->getPays(),
-                        ],
-                        "PersoneMorale" => [
-                            'RaisonSociale' => '',
-                            "SocieteCommerciale" =>true,
-                        ]
-					] ;
+                    "PersoneMorale" => [
+                        "RaisonSociale" => $ctvo->getAcquerreur()->getSocieteCommerciale(),
+                        "SocieteCommerciale" => true,
+                        "SIREN" => $ctvo->getAcquerreur()->getSiren() !== null ? $ctvo->getAcquerreur()->getSiren() : null,
+                    ],
+                    "Adresse" => [
+                        "Numero" => $adresse->getNumero(),
+                        "ExtensionIndice" => $adresse->getExtension(),
+                        "TypeVoie" => $adresse->getTypevoie(),
+                        "NomVoie" => $adresse->getNom(),
+                        "LieuDit" => $adresse->getLieudit(),
+                        "Complement" => $adresse->getComplement(),
+                        "BoitePostale" => $adresse->getBoitepostale(),
+                        "CodePostal" => $adresse->getCodepostal(),
+                        "Ville" => $adresse->getVille(),
+                        "Pays" => $adresse->getPays() !== null ? $adresse->getPays() : "France",
+                    ],
+                    "DroitOpposition" => $ctvo->getAcquerreur()->getDroitOpposition(),
+                    "AdresseMail" => '',
+                    "Telephone" => '',
+                ] ;
             } else {
                 $acquerreur =[
-						"Adresse" => [
-							"TypeVoie" => $adresse->getTypevoie(),
-							"NomVoie" => $adresse->getNom(),
-							"CodePostal" => $adresse->getCodepostal(),
-							"Ville" => $adresse->getVille(),
-                            "Pays" => $adresse->getPays(),
-                            "Sexe" => "M",
-                        ],
-                        "PersoneMorale" => [
-                            'RaisonSociale' => '',
-                            "SocieteCommerciale" =>true,
-                            "Sexe" => "M"
-                        ]
-                    ];
+                    "PersonnePhysique" => [
+                        "Nom" => $ctvo->getAcquerreur()->getNomPrenomTitulaire(),
+                        "Prenom" =>$ctvo->getAcquerreur()->getPrenomTitulaire(),
+                        "Sexe" => $ctvo->getAcquerreur()->getGenre(),
+                        "NomUsage" => $ctvo->getAcquerreur()->getGenre(),
+                        "DateNaissance" => $ctvo->getAcquerreur()->getDateN()->format('Y-m-d'),
+                        "LieuNaissance" => $ctvo->getAcquerreur()->getLieuN(),
+                        "DepNaissance" => $ctvo->getAcquerreur()->getDepartementN(),
+                        "PaysNaissance" => $ctvo->getAcquerreur()->getPaysN(),
+                    ],
+                    "Adresse" => [
+                        "Numero" => $adresse->getNumero(),
+                        "ExtensionIndice" => $adresse->getExtension(),
+                        "TypeVoie" => $adresse->getTypevoie(),
+                        "NomVoie" => $adresse->getNom(),
+                        "LieuDit" => $adresse->getLieudit(),
+                        "Complement" => $adresse->getComplement(),
+                        "BoitePostale" => $adresse->getBoitepostale(),
+                        "CodePostal" => $adresse->getCodepostal(),
+                        "Ville" => $adresse->getVille(),
+                        "Pays" => $adresse->getPays() !== null ? $adresse->getPays() : "France",
+                    ],
+                    "DroitOpposition" => $ctvo->getAcquerreur()->getDroitOpposition(),
+                    "AdresseMail" => '',
+                    "Telephone" => '',
+                ];
             }
 
         if ($ctvo->getAncienTitulaire()->getType() == AncienTitulaire::PERSONE_PHYSIQUE)
@@ -233,47 +252,63 @@ class TMSSauverManager
                     ];
         }
 
+        if ($ctvo->countCotitulaire() > 0) {
+            foreach ($ctvo->getCotitulaire() as $cotitulaire) {
+                if ($cotitulaire->getTypeCotitulaire() === Ancientitulaire::PERSONE_PHYSIQUE){
+                    $cotitulaireParams ["Cotitulaire"][]= [
+                        "PremierCotitulaire" => false,
+                        "PersonnePhysique" => [
+                            "Nom" => $cotitulaire->getNomCotitulaires(),
+                            "Prenom" => $cotitulaire->getPrenomCotitulaire(),
+                            "Sexe" => $cotitulaire->getSexeCotitulaire(),
+                        ],
+                    ];
+                } else {
+                    $cotitulaireParams ["Cotitulaire"][]= [
+                        "PremierCotitulaire" => false,
+                        "PersonneMorale" => [
+                            "RaisonSociale" => $cotitulaire->setRaisonSocialCotitulaire()
+                        ],
+                    ];
+                }
+            }
+            $cotitulaireParams["Cotitulaire"][0]["PremierCotitulaire"] = true;
+        }
 
-
-
+        if ($ctvo->getCiPresent() !== Ctvo::CI_OK){
+            $vehicule = [
+                "VIN" => $carInfo->getVin(),
+                "Immatriculation" => $commande->getImmatriculation(),
+                "D1_Marque" => $carInfo->getMarque(),
+                "D2_Version" => $carInfo->getModel(),
+                "CIPresent" => true,
+                "NumFormule" => $ctvo->getNumeroFormule(),
+            ];
+        }else{
+            $vehicule = [
+                "VIN" => $carInfo->getVin(),
+                "Immatriculation" => $commande->getImmatriculation(),
+                "D1_Marque" => $carInfo->getMarque(),
+                "D2_Version" => $carInfo->getModel(),
+                "CIPresent" => false,
+            ];
+        }
 
         $params = ["Lot" => [
 			"Demarche" => [
 				$commande->getDemarche()->getType() => [
                     'ID' => '',
-					'TypeDemarche' => $commande->getDemarche()->getType(),
+					"TypeDemarche" => $commande->getDemarche()->getType(),
 					"DateDemarche" => $now->format('Y-m-d H:i:s'),
-					"NbCotitulaires" => $ctvo->countCotitulaire(),
 					"Titulaire" => $titulaire,
 					"Acquereur" => $acquerreur,
-					"Vehicule" => [
-						"VIN" => $carInfo->getVin(),
-						"Immatriculation" => $commande->getImmatriculation(),
-						"D1_Marque" => $carInfo->getMarque(),
-						"D2_Version" => $carInfo->getModel(),
-						"CIPresent" => false, // à voir si la carte grise n'est pas en sa possesion
-					],
+                    "NbCotitulaires" => $ctvo->countCotitulaire(),
+                    "Cotitulaires" => $cotitulaireParams,
+					"Vehicule" => $vehicule,
 				],
 			],
         ]];
 
-        if ($ctvo->countCotitulaire() > 0) {
-            $cotitulaireParams = [];
-            foreach ($ctvo->getCotitulaire() as $cotitulaire) {
-                if ($cotitulaire->getTypeCotitulaire() === Ancientitulaire::PERSONE_PHYSIQUE){
-                    $cotitulaireParams[]= [
-                        "Nom" => $cotitulaire->getNomCotitulaires(),
-                        "Prenom" => $cotitulaire->getPrenomCotitulaire(),
-                        "Sexe" => $cotitulaire->getSexeCotitulaire(),
-                    ];
-                } else {
-                    $cotitulaireParams[]= [
-                        "RaisonSociale" => $cotitulaire->setRaisonSocialCotitulaire()
-                    ];
-                }
-            }
-            $params["Lot"]["Demarche"]["CTVO"]["co-titulaire"] = $cotitulaireParams;
-        }
 
         return $params;
     }
@@ -308,7 +343,7 @@ class TMSSauverManager
 					] ;
             } else {
                 $acquerreur =[
-                    "PersonePhysique" => [
+                    "PersonnePhysique" => [
                         "Nom" => $titulaire->getNomPrenomTitulaire(),
                         "Prenom" => $titulaire->getPrenomTitulaire(),
                         "Sexe" => $titulaire->getGenre(),

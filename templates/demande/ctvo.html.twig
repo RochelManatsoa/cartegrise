@@ -28,7 +28,11 @@
                                 {{ form_row(form.ctvo.ancienTitulaire.raisonsociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 {{ form_row(form.ctvo.ancienTitulaire.nomprenom)}}
                             </div>
-                            
+                            <div class="ciPresent">                                
+                                {{ form_row(form.ctvo.ciPresent)}}
+                                {{ form_row(form.ctvo.numeroFormule, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                            </div>
+
                                 <h3 class="text-center">{{ form_label(form.ctvo.acquerreur) }}</h3>
                                 <hr>
                                 <div class="titulaire">
@@ -41,6 +45,8 @@
                                     {{ form_row(form.ctvo.acquerreur.genre)}}
                                     {{ form_row(form.ctvo.acquerreur.dateN)}}
                                     {{ form_row(form.ctvo.acquerreur.lieuN)}}
+                                    {{ form_row(form.ctvo.acquerreur.departementN)}}
+                                    {{ form_row(form.ctvo.acquerreur.paysN)}}
                                     {{ form_row(form.ctvo.acquerreur.droitOpposition)}}
                                 </div>
                         </div>
@@ -90,6 +96,11 @@
 {% endblock %}
 {% block javascripts %} 
 {{ parent() }}
+<script type="application/javascript">
+    $('.choice-type-ciPresent').on('change', function(e) {
+        $(e.target).parent('.form-group').siblings().toggle();
+    })
+</script>
 <script type="application/javascript">
     $('.choice-type-ancientitulaire').on('change', function(e) {
         $(e.target).parent('.form-group').siblings().toggle();

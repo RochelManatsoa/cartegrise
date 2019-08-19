@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\NewTitulaire;
+use App\Entity\Commande;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -60,6 +61,17 @@ class NewtitulaireType extends AbstractType
                 $builder->add('birthName', TextType::class, array(
                     'label'=>'label.nom.dcaBirthName',
                     'required' => false,
+                ));
+            if ($options['label'] === "label.ctvo.titulaire")
+                $builder
+                    ->add('departementN', ChoiceType::class, [
+                        'label' => 'label.ctvo.departementN',
+                        'choices' => (new Commande())->DEPARTMENTS,
+                    ])
+                    ->add('paysN', TextType::class, array(
+                        'label'=>'label.ctvo.paysN',
+                        'required' => false,
+                        'attr' => ['value' => "France"]
                     ))
             // ->add('demande')
         ;
