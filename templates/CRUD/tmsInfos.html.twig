@@ -23,7 +23,21 @@
                                             {{key2}} => 
                                             {% if tms is iterable %}
                                                 {% for key3,tm in tms %}
-                                                    <br>{{key3}} => {{tm}} <br>
+                                                    <br>{{key3}} => 
+                                                    {% if tm is iterable %}
+                                                        {% for key4, t in tm %}
+                                                            <br>{{key4}} => 
+                                                            {% if t is iterable %}
+                                                                {% for key5, tn in t %}
+                                                                    {{key5}} => {{ tn }}
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                {{t}}
+                                                            {% endif %}
+                                                    {% endfor %}
+                                                    {% else %}
+                                                        {{tm}} <br>
+                                                    {% endif %}
                                                 {% endfor %}
                                                 <hr>
                                             {% else %}
