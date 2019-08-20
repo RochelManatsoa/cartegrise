@@ -317,7 +317,7 @@ label:
         datePerte: Date de la perte
 
     divn:
-        tauxDeCo2: Taxe de CO2
+        tauxDeCo2: Taux de CO2
         marque: Marque
         energie: Enérgie
         puissanceFiscale: Puissance fiscale
