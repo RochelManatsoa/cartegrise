@@ -19,8 +19,8 @@ class VehiculeNeufType extends AbstractType
             ->add('type', ChoiceType::class, array(
                 'label' => 'label.vehicule.typeRecep',
                 'choices' => array(
-                    'Communautaire' => "com",
-                    'Nationale' => "nat",
+                    'Communautaire' => VehiculeNeuf::TYPE_RECEP_COMMUNAUTAIRE,
+                    'Nationale' => VehiculeNeuf::TYPE_RECEP_NATIONALE,
                 ),
                 'attr' => [
                     'class' => 'choice-type-reception'

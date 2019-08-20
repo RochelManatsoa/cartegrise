@@ -11,6 +11,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class VehiculeNeuf
 {
+    const TYPE_RECEP_COMMUNAUTAIRE = 0;
+    const TYPE_RECEP_NATIONALE   = 1;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue()
