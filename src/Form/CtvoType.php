@@ -27,7 +27,7 @@ class CtvoType extends AbstractType
                     'class' => 'choice-type-ciPresent'
                 ]
             ))            
-            ->add('numeroFormule', null, ['label' => 'label.numeroFormule', 'required' => true])
+            ->add('numeroFormule', null, ['label' => 'label.numeroFormule', 'required' => false])
             // ->add('dateCi', DateType::class, array(
             //     'label'=>"label.ctvo.DateCI",
             //     'widget' => 'single_text',
