@@ -306,6 +306,13 @@ label:
     particulierOrSociete: Particulier ou Société
     notificationType: Type de notification
 
+    ctvo:
+        ciPresent: La carte grise du véhicule est-elle en votre possession?
+        DateCI: Date de la carte grise (JJ/MM/AAAA)
+        titulaire: Acquéreur
+        departementN: Département de naissance
+        paysN: Pays de naissance
+
     dup:
         datePerte: Date de la perte
 

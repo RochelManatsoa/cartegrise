@@ -50,6 +50,16 @@ class NewTitulaire
      */
     private $lieuN;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $departementN;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $paysN;
+
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Adresse", mappedBy="titulaire", cascade={"persist", "remove"})
@@ -366,6 +376,30 @@ class NewTitulaire
     public function setBirthName(string $birthName): self
     {
         $this->birthName = $birthName;
+
+        return $this;
+    }
+
+    public function getDepartementN(): ?string
+    {
+        return $this->departementN;
+    }
+
+    public function setDepartementN(?string $departementN): self
+    {
+        $this->departementN = $departementN;
+
+        return $this;
+    }
+
+    public function getPaysN(): ?string
+    {
+        return $this->paysN;
+    }
+
+    public function setPaysN(?string $paysN): self
+    {
+        $this->paysN = $paysN;
 
         return $this;
     }
