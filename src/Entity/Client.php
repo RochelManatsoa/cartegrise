@@ -305,7 +305,7 @@ class Client
     {
         if ($this->commandes->contains($commande)) {
             $this->commandes->removeElement($commande);
-            $commande->removeClient($this);
+            $commande->setClient(null);
         }
 
         return $this;

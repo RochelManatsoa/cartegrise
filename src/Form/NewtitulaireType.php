@@ -66,7 +66,7 @@ class NewtitulaireType extends AbstractType
                 $builder
                     ->add('departementN', ChoiceType::class, [
                         'label' => 'label.ctvo.departementN',
-                        'choices' => (new Commande())->DEPARTMENTS,
+                        'choices' => array_merge(["Aucun" => null], (new Commande())->DEPARTMENTS),
                     ])
                     ->add('paysN', TextType::class, array(
                         'label'=>'label.ctvo.paysN',
