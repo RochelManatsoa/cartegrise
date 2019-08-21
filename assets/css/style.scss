@@ -78,7 +78,7 @@
 
 body{
 	// background-color: #eeeeee !important;
-	background: url("/../../asset/img/fond-CGofficiel-carte-grise-certificat-immatriculation.png") !important;
+	background: ("/../../asset/img/fond-CGofficiel-carte-grise-certificat-immatriculation.png") !important;
 	background-color: #f9f9f9 !important;
 	background-position: top right !important;
 	background-size: 100% !important;
@@ -108,24 +108,24 @@ $bleu-hover: rgb(63, 87, 149);
 $rouge: rgb(175, 68, 68);
 @font-face {
 	font-family: textr;
-	src: url("/../../asset/fonts/SourceSansPro-Regular.ttf");
+	src: ("/../../asset/fonts/SourceSansPro-Regular.ttf");
 }
 @font-face {
 	font-family: menu;
-	src: url("/../../asset/fonts/calibril.ttf");
+	src: ("/../../asset/fonts/calibril.ttf");
 }
 @font-face {
 	font-family: menub;
-	src: url("/../../asset/fonts/calibrib.ttf");
+	src: ("/../../asset/fonts/calibrib.ttf");
 }
 @font-face {
 	font-family: Raleway;
-	src: url("/../../asset/fonts/Raleway-Regular.ttf");
+	src: ("/../../asset/fonts/Raleway-Regular.ttf");
 }
 
 @font-face {
 	font-family: font-awesome;
-	src: url("/../../asset/fonts/fontawesome-webfont.woff");
+	src: ("/../../asset/fonts/fontawesome-webfont.woff");
 }
 .error {
 	color: #f0064c
@@ -265,60 +265,49 @@ ul {
 	list-style: none;
 }
 .new-header {
-    height: 150px;
+    height: 140px;
     background: #002a6b;
     width: 100%;
 	color: #fff;
 	.title-header {
-		margin-left: 33.33%;
 		h1 {
 			text-transform: uppercase;
 			font-family: raleway;
 			font-weight: 500;
-			font-size: 40px;
-			line-height: 46px;
+			font-size: 20px;
+			line-height: 26px;
+			margin: 0;
 		}
 	}
 }
 .new-sidebar {
-	margin-top:-100px;
-	.logo-sidebar {
-		position: relative;
-		max-width: 225px !important;
-		img {
-			background: #fff;
-			border-radius: 8px;
-			border: 8px solid #002a6b;
-		}
-		&:before {
-			content: '';
-			display: block;
-			position: fixed;
-			width: 225px;
-			height: 100%;
-			background: #002a6b;
-			bottom: 0;
-			margin-left: 8px;
-			top: 0;
-			z-index: -1;
+	.logo-sidebar-container {
+		background: #002a6b;
+		height: 140px;
+		overflow: hidden;
+		.logo-sidebar {
+			img {
+				background: #fff;
+				height: 140px;
+			}
 		}
 	}
 	.menu-sidebar {
 		ul {
-			width: calc(50% + 130px);
 			text-align: right;
 			padding: 0;
 			li {
-				background: #ccc;
+				background: #002a6b;
 				margin: 20px 0;
 				.menu-item {
-					color: #000;
+					color: #fff;
+					display: block;					
 					font-family: raleway;
-					font-size: 20px;
+					font-size: 14px;
 					font-weight: 700;
+					padding: 5px 10px;					
 					text-decoration: none;
-					padding: 5px 10px;
-					display: block;
+					text-transform: uppercase;
 				}
 			}
 		}
@@ -330,9 +319,10 @@ ul {
 		padding-left: 15px !important;
 	}
 	.espace-client-user {
-		color: #fff;
+		color: #333;
 		a {
-			color: #fff;
+			color: #333;
+			text-align: center;
 		}
 	}
 }
@@ -340,8 +330,8 @@ ul {
     margin: 20px !important;
 	flex: 0 0 calc(33.33% - 50px) !important;
 	height: 150px;
-	background: #7296ce;
-	box-shadow: 10px 10px 0px #002a6b;
+	background: #002a6b;
+	box-shadow: 10px 10px 0px #7296ce;
 	cursor: pointer;
 	&:hover {
 		opacity: 0.8;
@@ -358,14 +348,54 @@ ul {
 			font-weight: 300;
 		}
 		h2 {
-			font-size: 16px;
+			font-size: 14px;
 			margin-top: 15px;
 			text-transform: uppercase;
-			line-height: 20px;
+			line-height: 18px;
 			font-family: raleway;
 		}
 	}
 }
 .accueil-texte {
     margin-left: 33.33% !important;	
+}
+.link-rignt {
+	.login-access-container {
+		background: #002a6b;
+		height: 140px;
+		.login-access {
+			&:before {
+				background: url("/../../asset/img/login.png") center no-repeat;
+				background-size: contain;				
+				content: "";
+				display: block;
+				height: 48px;
+				margin: auto;				
+				width: 48px;
+			}
+			button {
+				background: none;
+				border: none;
+				cursor: pointer;
+				text-transform: uppercase;
+			}	
+		}
+	}
+	.txt-other-link {
+		display: block;
+		font-size: 14px;
+		text-transform: uppercase;
+		&.bold {
+			font-weight: bold;
+		}
+	}
+}
+.txt-immatriculation {
+	display: block;
+	font-family: raleway;	
+	font-size: 20px;
+    line-height: 26px;
+	text-align: center;
+	text-transform: uppercase;	
+	width: 100%;
 }
