@@ -37,6 +37,13 @@ class ChangementAdresse
      */
     private $demande;
 
+    /**
+     * numeroFormule variable
+     * @ORM\Column(nullable=true)
+     * @var string
+     */
+    private $numeroFormule;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -116,6 +123,18 @@ class ChangementAdresse
     public function setFile(?DemandeChangementAdresse $file): self
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    public function getNumeroFormule(): ?string
+    {
+        return $this->numeroFormule;
+    }
+
+    public function setNumeroFormule(?string $numeroFormule): self
+    {
+        $this->numeroFormule = $numeroFormule;
 
         return $this;
     }

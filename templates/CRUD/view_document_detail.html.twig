@@ -31,10 +31,13 @@
     <ul>
         <li><b>Type Demande : </b> {{ demande.commande.demarche.nom }}</li>
         <li><b>Date : </b> {{ demande.commande.ceerLe | date('d-m-Y')}}</li>
-        <li><b>Nom et prénom : </b> {{ demande.commande.client[0].clientNom }} {{ demande.commande.client[0].clientPrenom }}</li>
+        <li><b>Nom et prénom : </b> {{ demande.commande.firstClient.clientNom }} {{ demande.commande.firstClient.clientPrenom }}</li>
         <li><b>Département : </b> {{ demande.commande.codePostal }}</li>
         <li><b>Immatriculation : </b> {{ demande.commande.immatriculation }}</li>
     </ul>
+    {# start information #}
+        {% include "CRUD/tmsInfos.html.twig" %}
+    {# end information  #}
 </div>
 <div id="daf-list-wrapper">
     <h2>La liste des documents attendu sont: </h2>

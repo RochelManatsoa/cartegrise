@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:06:48
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-21 22:12:18
+ * @Last Modified time: 2019-07-30 08:37:31
  */
 
 namespace App\Services\Tms;
@@ -32,6 +32,21 @@ class TmsClient
         $params['Identification'] = $identification;
 
         return new Response($client->Envoyer($params));
+	}
+
+	public function ouvrir($params)
+	{
+        $client = new \SoapClient($this->endpoint);
+
+        $identification = [
+        	"CodeTMS" => $this->codeTMS,
+        	"Login" => $this->login,
+        	"Password" => $this->password,
+        ];
+
+        $params['Identification'] = $identification;
+
+        return new Response($client->Ouvrir($params));
 	}
 
 	public function sauver($params)
