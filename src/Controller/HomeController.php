@@ -44,11 +44,11 @@ class HomeController extends AbstractController
             if ($typeId->getType() === "DIVN")
             {
                 $divnInit = new DivnInit();
-                $formDivn = $this->createForm(DivnInitType::class, $divnInit);
+                $formDivn = $this->createForm(DivnInitType::class, $divnInit, ['departement'=>$commande->DEPARTMENTS]);
                 $num = $typeId->getId();
                 $tabForm[$num] = $formDivn->createView();
             } else {
-                $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType]);
+                $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType, 'departement'=>$commande->DEPARTMENTS]);
                 $num = $typeId->getId();
                 $tabForm[$num] = $form->createView();
             }
@@ -73,18 +73,22 @@ class HomeController extends AbstractController
                 'demarche' => $commande->getDemarche(),
             ]);
             $sessionManager->initSession();
-            if (!is_null($ifCommande)) {
-                $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+            // if (!is_null($ifCommande)) {
+            //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
 
-                return $this->render('home/accueil.html.twig', $param);
-            } else {
-                $tmsResponse = $commandeManager->tmsEnvoyer($commande);
+            //     return $this->render('home/accueil.html.twig', $param);
+            // } else {
+  
                 $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
+                if (!$tmsInfoImmat->isSuccessfull()) {
+                    throw new \Exception('Veuillez Réessayer plus tard');
+                }
+                $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
 
                 if (!$tmsResponse->isSuccessfull()) {
                     return new Response($tmsResponse->getErrorMessage());
                 } else {
-                    $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande);
+                    $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande, $tmsInfoImmat);
                     $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
                     $commande->setTaxes($taxe);
                     $commande->setCarInfo($carInfo);
@@ -96,7 +100,7 @@ class HomeController extends AbstractController
 
                     return $this->render('home/accueil.html.twig', $param);
                 }
-            }
+            // }
         }
 
         $homeParams = [

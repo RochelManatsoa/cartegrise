@@ -1,0 +1,235 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'demande/demande_custom_theme.html.twig'%}
+
+{% block title %}{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-ccm{% endblock %}
+
+{% block page_content %}
+<div class="col-sm-10 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center mobile-center">
+	<div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
+        <div class="col-12 commander-firstview custom-form">
+            <h2 class="col-md-10 mx-auto full-mobile text-center">{{ commande.demarche.nom|upper }}</h2>
+            <div class="row">
+                <hr>
+                {{ form_start(form, {'attr': {'class': 'row'}}) }}
+                    <div class="col-4 col-md-10 mx-auto full-mobile">
+                        {% include "demande/caracteristicVehicle.html.twig" %}
+                        <hr>
+                    </div>
+                    <div class="col-3 col-md-5 mx-auto form-row full-mobile">
+                        <div class="col-10 col-sm-12 mx-auto">
+                            <h3 class="text-center"> {{ form_label(form.vehicule) }} </h3>
+                            <hr>
+                            <div class="form-info">
+                                {{ form_row(form.vehicule.vin)}}
+                                {{ form_row(form.vehicule.d1Marque)}}
+                                {{ form_row(form.vehicule.d2Version)}}
+                                {{ form_row(form.vehicule.z1Mention1)}}
+                                {{ form_row(form.vehicule.z1Value)}}   
+                            </div>
+                            <h3 class="text-center"> {{ form_label(form.carrosier) }} </h3>
+                            <hr>
+                            <div class="col-10 col-sm-12 mx-auto">
+                                <div class="carrossier">
+                                    {{ form_row(form.carrosier.typeCarrossier)}}
+                                    {{ form_row(form.carrosier.raisonSocialCarrossier, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.carrosier.nomCarrosssier)}}
+                                    {{ form_row(form.carrosier.prenomCarrossier)}}
+                                </div>
+                                    {{ form_row(form.carrosier.agrement)}}
+                                    {{ form_row(form.carrosier.justificatifs)}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3 col-md-5 mx-auto form-row full-mobile">
+                        <div class="col-10 col-sm-12 mx-auto">                 
+                            <div class="form-vehicule">            
+                                {{ form_row(form.vehicule.type)}}
+                                {{ form_row(form.vehicule.kNumRecepCe)}}
+                                {{ form_row(form.vehicule.dateReception)}}
+                                {{ form_row(form.vehicule.d21Cenit)}}
+                                {{ form_row(form.vehicule.derivVp)}}
+                                {{ form_row(form.vehicule.d3Denomination, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.f2MmaxTechAdm, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.f2MmaxAdmServ, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.f3MmaxAdmEns, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.gMmaxAvecAttelage, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.g1PoidsVide, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.jCategorieCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.j1Genre, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.j2CarrosserieCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.j3Carrosserie, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.p1Cyl, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.p2PuissKw, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.p3Energie, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.p6PuissFiscale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.qRapportPuissMasse, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.s1NbPlaceAssise, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.s2NbPlaceDebout, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.u1NiveauSonore, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.u2NbTours, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.v7Co2, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.vehicule.v9ClasseEnvCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                            </div>
+                            <h3 class="text-center">{{ form_label(form.caractTech) }}</h3>
+                            <hr> 
+                            <div id="caract" data-prototype="{{ form_widget(form.caractTech.vars.prototype)|e('html_attr') }}">
+                                {% for row in form.caractTech %}
+                                    {% if loop.index < 3 %}
+                                    <div class="panel panel-warning">
+                                        <div class="panel-heading">
+                                        </div>
+                                        <div class="panel-body">
+                                            {{ form_label(row.vars.prototype)|e  }}
+                                            {{ form_errors(row.vars.prototype)|e  }}
+                                            {{ form_widget(row.vars.prototype, {'attr': {'class': ''}})|e  }}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div> 
+                            </div>
+                    </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <div style="display:none;">
+                            {{form_rest(form)}}
+                        </div>
+                    </div>
+                    <div class="col-12 text-center mb-5">
+                        <br>
+                        <input type="submit" class="btn btn-md btn-success" value="Valider">
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+	</div>
+</div>
+{% endblock %}
+{% block javascripts %} 
+{{ parent() }}
+<script type="application/javascript">
+    $('.choice-type-reception').on('change', function(e) {
+        $(e.target).parent().siblings().toggle();
+    })
+</script>
+<script type="application/javascript">
+    $('.choice-type-personne').on('change', function(e) {
+        $(e.target).parent('.form-group').siblings().toggle();
+    })
+</script>
+<script type="application/javascript">
+    $('.choice-type-carrossier').on('change', function(e) {
+        $(e.target).parent('.form-group').siblings().toggle();
+    })
+</script>
+<script type="application/javascript">
+    var $collection;
+    var $addNewItems = $('<center><button type="button" class="btn btn-outline-info">Ajouter caractéristique</button></center>');
+    var $newLink = $('<p></p>').append($addNewItems);
+    jQuery(document).ready(function(){
+        $collection = $('#caract');
+        $collection.append($addNewItems);
+        $collection.data('index',$collection.find('.panel').length);
+        $collection.find('.panel').each(function() {
+            addRemoveButton($(this));
+        });
+        $addNewItems.click(function(){
+            addNewForm($collection, $addNewItems);
+        });
+    });
+
+    function addNewForm($collection, $addNewItems){
+        var protoType = $collection.data('prototype');
+        var index = $collection.data('index');
+        var newForm = protoType;
+        newForm = newForm.replace(/__name__/g, index);
+        $collection.data('index', index + 1);
+        var $panel = $('<div class="panel panel-warning"><div class="panel-heading"></div></div>');
+        var $panelBody = $('<div class="panel-body"></div>').append(newForm);
+        $panel.append($panelBody);
+        addRemoveButton($panel);
+        $addNewItems.before($panel);
+    }
+
+    function addRemoveButton($panel) {
+        var $removeButton = $('<center><button type="button" class="btn btn-outline-danger btn-md">Effacer caractéristique</button></center><br>');
+        var $panelFooter = $('<div class="panel-footer"></div>').append($removeButton);
+        $panel.append($panelFooter);
+
+        $removeButton.click(function(e){
+            $panel.remove();
+        });
+    }
+</script>
+<script type="application/javascript">
+    var $collectionHolder;
+
+    // setup an "add a tag" link
+    var $addTagButton = $('<center><button type="button" class="add_tag_link btn btn-outline-primary btn-md">Ajouter cotitulaire</button></center>');
+    var $newLinkLi = $('<p></p>').append($addTagButton);
+
+    jQuery(document).ready(function() {
+        // Get the ul that holds the collection of tags
+        $collectionHolder = $('ul.tags');
+        // add a delete link to all of the existing tag form li elements
+        $collectionHolder.find('li').each(function() {
+            addTagFormDeleteLink($(this));
+        });
+
+        // add the "add a tag" anchor and li to the tags ul
+        $collectionHolder.append($newLinkLi);
+
+        // count the current form inputs we have (e.g. 2), use that as the new
+        // index when inserting a new item (e.g. 2)
+        $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+        $addTagButton.on('click', function(e) {
+            // add a new tag form (see next code block)
+            addTagForm($collectionHolder, $newLinkLi);
+        });
+    });
+
+    function addTagForm($collectionHolder, $newLinkLi) {
+        // Get the data-prototype explained earlier
+        var prototype = $collectionHolder.data('prototype');
+    
+        // get the new index
+        var index = $collectionHolder.data('index');
+    
+        var newForm = prototype;
+        // You need this only if you didn't set 'label' => false in your tags field in TaskType
+        // Replace '__name__label__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        // newForm = newForm.replace(/__name__label__/g, index);
+    
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        newForm = newForm.replace(/__name__/g, index);
+    
+        // increase the index with one for the next item
+        $collectionHolder.data('index', index + 1);
+    
+        // Display the form in the page in an li, before the "Add a tag" link li
+        var $newFormLi = $('<p></p>').append(newForm);
+        addTagFormDeleteLink($newFormLi);
+        $newLinkLi.before($newFormLi);
+    }
+
+    function addTagFormDeleteLink($tagFormLi) {
+        var $removeFormButton = $('<center><button type="button" class="btn btn-outline-danger btn-md">Supprimer ce cotitulaire</button></center>');
+        $tagFormLi.append($removeFormButton);
+    
+        $removeFormButton.on('click', function(e) {
+            // remove the li for the tag form
+            $tagFormLi.remove();
+        });
+    }
+</script>
+
+    
+{% endblock %}

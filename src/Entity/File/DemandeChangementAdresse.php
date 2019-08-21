@@ -87,6 +87,16 @@ class DemandeChangementAdresse
     * )
     */
     private $justificatifDomicile;
+    /**
+    * @ORM\Column(type="string", nullable=true)
+    * @Groups({"file"})
+    * @Assert\File(
+    *     maxSize = "1024k",
+    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypesMessage = "Please upload a valid PDF"
+    * )
+    */
+    private $procurationMandat;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", mappedBy="file")
@@ -256,6 +266,18 @@ class DemandeChangementAdresse
         if ($newFile !== $changementAdresse->getFile()) {
             $changementAdresse->setFile($newFile);
         }
+
+        return $this;
+    }
+
+    public function getProcurationMandat(): ?string
+    {
+        return $this->procurationMandat;
+    }
+
+    public function setProcurationMandat(?string $procurationMandat): self
+    {
+        $this->procurationMandat = $procurationMandat;
 
         return $this;
     }

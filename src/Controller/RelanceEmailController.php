@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Manager\DemandeManager;
 use App\Manager\TaxesManager;
 use App\Manager\MailManager;
+use App\Entity\DailyFacture;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 
@@ -26,13 +27,15 @@ class RelanceEmailController extends AbstractController
         return new Response('ok');
     }
     /**
-     * @Route("/facture/journalier", name="facture_journalier")
+     * @Route("/facture/journalier/{dailyFacture}", name="facture_journalier")
      */
-    public function facture_journalier(DemandeManager $demandeManager,TaxesManager $taxesManager, MailManager $mailManager)
+    public function facture_journalier(DailyFacture $dailyFacture, DemandeManager $demandeManager,TaxesManager $taxesManager, MailManager $mailManager)
     {
-        $now = new \DateTime();
-        $demandes = $demandeManager->getDailyDemandeFacture($now);
-        $file = $demandeManager->generateDailyFacture($demandes, $now);
+        $date = $dailyFacture->getDateCreate()->format('Y-m-d');
+        $start = new \DateTime($date.' 00:00:00');
+        $end = new \DateTime($date.' 23:59:59');
+        $demandes = $demandeManager->getDailyDemandeFactureLimitate($start, $end);
+        $file = $demandeManager->generateDailyFacture($demandes, $start);
 
         return new BinaryFileResponse($file);
     }

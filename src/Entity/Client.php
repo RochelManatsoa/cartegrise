@@ -69,7 +69,7 @@ class Client
     private $clientAdresse;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Commande", mappedBy="client")
+     * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="client")
      */
     private $commandes;
 
@@ -114,7 +114,6 @@ class Client
     public function __construct()
     {
         $this->fichiers = new ArrayCollection();
-        $this->commande = new ArrayCollection();
         $this->commandes = new ArrayCollection();
         $this->countDemande = 0;
         $this->countCommande = 0;
@@ -296,7 +295,7 @@ class Client
     {
         if (!$this->commandes->contains($commande)) {
             $this->commandes[] = $commande;
-            $commande->addClient($this);
+            $commande->setClient($this);
         }
 
         return $this;
@@ -306,7 +305,7 @@ class Client
     {
         if ($this->commandes->contains($commande)) {
             $this->commandes->removeElement($commande);
-            $commande->removeClient($this);
+            $commande->setClient(null);
         }
 
         return $this;
