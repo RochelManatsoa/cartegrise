@@ -151,6 +151,9 @@
             "config/packages/knp_snappy.yaml"
         ]
     },
+    "league/csv": {
+        "version": "9.3.0"
+    },
     "mashape/unirest-php": {
         "version": "v3.0.4"
     },

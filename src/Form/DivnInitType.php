@@ -18,7 +18,8 @@ class DivnInitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add("department", null, [
+        ->add("department", ChoiceType::class, [
+            "choices" => $options['departement'],
             'attr' => [
                 'class' => 'row',
             ],
@@ -65,5 +66,6 @@ class DivnInitType extends AbstractType
                     'data_class' => DivnInit::class
                 ]
             );
+            $resolver->setRequired(array('departement'));
     }
 }
