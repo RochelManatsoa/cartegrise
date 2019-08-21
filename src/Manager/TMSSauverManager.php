@@ -221,7 +221,7 @@ class TMSSauverManager
                         "DateNaissance" => $ctvo->getAcquerreur()->getDateN()->format('Y-m-d'),
                         "LieuNaissance" => $ctvo->getAcquerreur()->getLieuN(),
                         "DepNaissance" => $ctvo->getAcquerreur()->getDepartementN(),
-                        "PaysNaissance" => $ctvo->getAcquerreur()->getPaysN(),
+                        "PaysNaissance" => $ctvo->getAcquerreur()->getPaysN()!== null ? $adresse->getPays() : "France",
                     ],
                     "Adresse" => [
                         "Numero" => $adresse->getNumero(),
@@ -267,7 +267,7 @@ class TMSSauverManager
                     $cotitulaireParams ["Cotitulaire"][]= [
                         "PremierCotitulaire" => false,
                         "PersonneMorale" => [
-                            "RaisonSociale" => $cotitulaire->setRaisonSocialCotitulaire()
+                            "RaisonSociale" => $cotitulaire->getRaisonSocialCotitulaire()
                         ],
                     ];
                 }
@@ -320,44 +320,68 @@ class TMSSauverManager
         $adresse = $divn->getAcquerreur()->getAdresseNewTitulaire();
         $car = $divn->getVehicule();
         $carros = $divn->getCarrosier();
-		$now = new \DateTime();        
+        $now = new \DateTime();  
+        $cotitulaireParams ["Cotitulaire"] = [];
+        $caractTechParams ["Mention"] = [];
 
         // check if persone moral or not: 
-            if (
-                NewTitulaire::TYPE_PERS_MORALE == 
-                $commande->getDemande()->getdivn()->getAcquerreur()->getType()
-            ) {
+            if (NewTitulaire::TYPE_PERS_MORALE == $titulaire->getType()) {
                 $acquerreur =[
                         "PersoneMorale" => [
-                            "RaisonSociale" => $titulaire->getRaisonSociale(),
-                            "SocieteCommerciale" => $titulaire->getSocieteCommerciale(),
-                            "Siren" => $titulaire->getSocieteCommerciale() ? $titulaire->getSiren() : null,
+                            "RaisonSociale" => $titulaire->getSocieteCommerciale(),
+                            "SocieteCommerciale" => true,
+                            "SIREN" => $titulaire->getSiren() !== null ? $ctvo->getAcquerreur()->getSiren() : null,
                         ],
 						"Adresse" => [
-							"TypeVoie" => $adresse->getTypevoie(),
-							"NomVoie" => $adresse->getNom(),
-							"CodePostal" => $adresse->getCodepostal(),
-							"Ville" => $adresse->getVille(),
-							"Pays" => $adresse->getPays(),
+                            "Numero" => $adresse->getNumero(),
+                            "ExtensionIndice" => $adresse->getExtension(),
+                            "TypeVoie" => $adresse->getTypevoie(),
+                            "NomVoie" => $adresse->getNom(),
+                            "LieuDit" => $adresse->getLieudit(),
+                            "Complement" => $adresse->getComplement(),
+                            "BoitePostale" => $adresse->getBoitepostale(),
+                            "CodePostal" => $adresse->getCodepostal(),
+                            "Ville" => $adresse->getVille(),
+                            "Pays" => $adresse->getPays() !== null ? $adresse->getPays() : "France",
                         ],
+                        "DroitOpposition" => $titulaire->getDroitOpposition(),
 					] ;
             } else {
                 $acquerreur =[
                     "PersonnePhysique" => [
                         "Nom" => $titulaire->getNomPrenomTitulaire(),
-                        "Prenom" => $titulaire->getPrenomTitulaire(),
+                        "Prenom" =>$titulaire->getPrenomTitulaire(),
                         "Sexe" => $titulaire->getGenre(),
+                        "NomUsage" => null,
                         "DateNaissance" => $titulaire->getDateN()->format('Y-m-d'),
-                        "LieuNaissance" => $titulaire->getLieuN()
+                        "LieuNaissance" => $titulaire->getLieuN(),
+                        "DepNaissance" => $titulaire->getDepartementN(),
+                        "PaysNaissance" => $titulaire->getPaysN()!== null ? $adresse->getPays() : "France",
                     ],
-						"Adresse" => [
-							"TypeVoie" => $adresse->getTypevoie(),
-							"NomVoie" => $adresse->getNom(),
-							"CodePostal" => $adresse->getCodepostal(),
-							"Ville" => $adresse->getVille(),
-                            "Pays" => $adresse->getPays()
-                        ],
+                    "Adresse" => [
+                        "Numero" => $adresse->getNumero(),
+                        "ExtensionIndice" => $adresse->getExtension(),
+                        "TypeVoie" => $adresse->getTypevoie(),
+                        "NomVoie" => $adresse->getNom(),
+                        "LieuDit" => $adresse->getLieudit(),
+                        "Complement" => $adresse->getComplement(),
+                        "BoitePostale" => $adresse->getBoitepostale(),
+                        "CodePostal" => $adresse->getCodepostal(),
+                        "Ville" => $adresse->getVille(),
+                        "Pays" => $adresse->getPays() !== null ? $adresse->getPays() : "France",
+                    ],
+                    "DroitOpposition" => $titulaire->getDroitOpposition(),
                     ];
+            }
+
+            if ($divn->countCaractTech() > 0) {
+                foreach ($divn->getCaractTech() as $caractTech) {
+                    $caractTechParams ["Mention"][]= [
+                        "Code" => $caractTech->getCode(),
+                        "Valeur1" => $caractTech->getValeur1(),
+                        "Valeur2" => $caractTech->getValeur2(),
+                    ];
+                }
             }
 
             if(VehiculeNeuf::TYPE_RECEP_COMMUNAUTAIRE == $car->getType()){
@@ -365,26 +389,80 @@ class TMSSauverManager
                     "VIN" => $car->getVin(),
                     "D1_Marque" => $car->getD1Marque(),
                     "D2_Version" => $car->getD2Version(),
-                    "DateReception" => $car->getDateReception()->format('Y-m-d'),
-                    "D21_CNIT" => $car->getD21Cenit(),
-                    "DerivVP" => $car->getDerivVp(),
-                    "NbMentions" => $divn->countCaractTech()
+                    "Communautaire" => [
+                        "K_NumRecepCE" => $car->getKNumRecepCe(),
+                        "DateReception" => $car->getDateReception()->format('Y-m-d'),
+                        "D21_CNIT" => $car->getD21Cenit(),
+                        "DerivVP" => $car->getDerivVp(),
+                    ],
+                    "F1_MMaxTechAdm" => $car->getF2MmaxTechAdm(),
+                    "F2_MMaxAdmServ" => $car->getF2MmaxAdmServ(),
+                    "G_MMaxAvecAttelage" => $car->getGMmaxAvecAttelage(),
+                    "G1_PoidsVide" => $car->getG1PoidsVide(),
+                    "J1_Genre" => $car->getJ1Genre(),
+                    "J3_Carrosserie" => $car->getJ3Carrosserie(),
+                    "S1_NbPlaceAssise" => $car->getS1NbPlaceAssise(),
+                    "Z1_Mention1" => $car->getZ1Mention1(),
+                    "Z1_Value" => $car->getZ1Value()->format('d-m-Y'),
+                    "NbMentions" => $divn->countCaractTech(),
+                    "Mentions" => $caractTechParams,
                 ];
             }else{
                 $vehicule = [
                     "VIN" => $car->getVin(),
                     "D1_Marque" => $car->getD1Marque(),
                     "D2_Version" => $car->getD2Version(),
-                    "D3_Denomination" => $car->getD3Denomination(),
+                    "Nationale" => [
+                        "D3_Denomination" => $car->getD3Denomination(),
+                        "F3_MMaxAdmEns" => $car->getF3MmaxAdmEns(),
+                        "J_CategorieCE" => $car->getJCategorieCe(),
+                        "J2_CarrosserieCE" => $car->getJ2CarrosserieCe(),
+                        "P1_Cyl" => $car->getP1Cyl(),
+                        "P2_PuissKW" => $car->getP2PuissKw(),
+                        "P3_Energie" => $car->getP3Energie(),
+                        "P6_PuissFiscale" => $car->getP6PuissFiscale(),
+                        "Q_RapportPuissMasse" => $car->getQRapportPuissMasse(),
+                        "S2_NbPlaceDebout" => $car->getS2NbPlaceDebout(),
+                        "U1_NiveauSonore" => $car->getU1NiveauSonore(),
+                        "U2_NbTours" => $car->getU2NbTours(),
+                        "V7_Co2" => $car->getV7Co2(),
+                        "V9_ClasseEnvCE" => $car->getV9ClasseEnvCe(),
+                    ],
                     "F1_MMaxTechAdm" => $car->getF2MmaxTechAdm(),
+                    "F2_MMaxAdmServ" => $car->getF2MmaxAdmServ(),
                     "G_MMaxAvecAttelage" => $car->getGMmaxAvecAttelage(),
                     "G1_PoidsVide" => $car->getG1PoidsVide(),
-                    "J_CategorieCE" => $car->getJCategorieCe(),
                     "J1_Genre" => $car->getJ1Genre(),
                     "J3_Carrosserie" => $car->getJ3Carrosserie(),
-                    "P6_PuissFiscale" => $car->getP6PuissFiscale(),
-                    "NbMentions" => $divn->countCaractTech()
+                    "S1_NbPlaceAssise" => $car->getS1NbPlaceAssise(),
+                    "Z1_Mention1" => $car->getZ1Mention1(),
+                    "Z1_Value" => $car->getZ1Value()->format('d-m-Y'),
+                    "NbMentions" => $divn->countCaractTech(),
+                    "Mentions" => $caractTechParams,
                 ];
+            }
+
+            if ($divn->countCotitulaire() > 0) {
+                foreach ($divn->getCotitulaire() as $cotitulaire) {
+                    if ($cotitulaire->getTypeCotitulaire() === Ancientitulaire::PERSONE_PHYSIQUE){
+                        $cotitulaireParams ["Cotitulaire"][]= [
+                            "PremierCotitulaire" => false,
+                            "PersonnePhysique" => [
+                                "Nom" => $cotitulaire->getNomCotitulaires(),
+                                "Prenom" => $cotitulaire->getPrenomCotitulaire(),
+                                "Sexe" => $cotitulaire->getSexeCotitulaire(),
+                            ],
+                        ];
+                    } else {
+                        $cotitulaireParams ["Cotitulaire"][]= [
+                            "PremierCotitulaire" => false,
+                            "PersonneMorale" => [
+                                "RaisonSociale" => $cotitulaire->getRaisonSocialCotitulaire()
+                            ],
+                        ];
+                    }
+                }
+                $cotitulaireParams["Cotitulaire"][0]["PremierCotitulaire"] = true;
             }
 
             if(CarrosierVehiculeNeuf::PERSONE_PHYSIQUE == $carros->getTypeCarrossier()){
@@ -406,51 +484,19 @@ class TMSSauverManager
         $params = [
             "Lot" => [
                 "Demarche" => [
-                    'DIVN' => [
+                    $commande->getDemarche()->getType() => [
                         "ID" => "",
                         "TypeDemarche" => $commande->getDemarche()->getType(),
                         "DateDemarche" => $now->format('Y-m-d h:i'),
                         "Acquereur" => $acquerreur,
+                        "NbCotitulaires" => $divn->countCotitulaire(),
+                        "Cotitulaires" => $cotitulaireParams,
                         "Vehicule" => $vehicule,
-                        // "CaracteristiquesTechniquesParticulieres" => $cacart,
-                        "Carrossier" => $carrosier
+                        "Carrossier" => $carros === null ? $carrosier : null,
                     ]
                 ]
             ]
-        ];        
-                
-        if ($divn->countCotitulaire() > 0) {
-            $cotitulaireParams = [];
-            foreach ($divn->getCotitulaire() as $cotitulaire) {
-                if ($cotitulaire->getTypeCotitulaire() === Ancientitulaire::PERSONE_PHYSIQUE){
-                    $cotitulaireParams[]= [
-                        "Nom" => $cotitulaire->getNomCotitulaires(),
-                        "Prenom" => $cotitulaire->getPrenomCotitulaire(),
-                        "Sexe" => $cotitulaire->getSexeCotitulaire(),
-                    ];
-                } else {
-                    $cotitulaireParams[]= [
-                        "RaisonSociale" => $cotitulaire->setRaisonSocialCotitulaire()
-                    ];
-                }
-            }
-
-            $params["Lot"]["Demarche"]["DIVN"]["co-titulaire"] = $cotitulaireParams;
-        }
-
-        if ($divn->countCaractTech() > 0) {
-            $caractTechParams = [];
-            foreach ($divn->getCaractTech() as $caractTech) {
-                $caractTechParams[]= [
-                    "Code" => $caractTech->getCode(),
-                    "Valeur1" => $caractTech->getValeur1(),
-                    "Valeur2" => $caractTech->getValeur(),
-                ];
-            }
-            
-            // Mentions = Caractéristique technique particulière
-            $params["Lot"]["Demarche"]["DIVN"]["Mentions"] = $caractTechParams;
-        }
+        ]; 
 
         return $params;
     }

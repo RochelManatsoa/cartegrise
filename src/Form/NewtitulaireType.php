@@ -62,7 +62,7 @@ class NewtitulaireType extends AbstractType
                     'label'=>'label.nom.dcaBirthName',
                     'required' => false,
                 ));
-            if ($options['label'] === "label.ctvo.titulaire")
+            if ($options['label'] === "label.ctvo.titulaire" || $options['label'] === "label.divn.acquerreur")
                 $builder
                     ->add('departementN', ChoiceType::class, [
                         'label' => 'label.ctvo.departementN',

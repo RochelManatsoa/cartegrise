@@ -16,7 +16,7 @@ class DivnType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('acquerreur', NewtitulaireType::class, array('label'=>'label.acquerreur'))
+            ->add('acquerreur', NewtitulaireType::class, array('label'=>'label.divn.acquerreur'))
             // ->add('vehicule', VehiculeNeufType::class, array('label'=>'label.vehicule.info'))
             ->add('cotitulaire', CollectionType::class, [
                 'label' => 'label.cotitulaire',
