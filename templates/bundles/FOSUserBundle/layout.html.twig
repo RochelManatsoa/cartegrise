@@ -11,12 +11,45 @@
 
 <body id="{% block body_id %}{% endblock %}" class="{% block class %}{% endblock %}">
 <div id="up" class="row">
-    {{ include('home/composant/menu.html.twig') }}
-    {{ include('home/composant/sidebar.html.twig') }}
-
-    {% block fos_user_content %}{% endblock %}
+    <div class="col-2">
+        {{ include('home/composant/sidebar.html.twig') }}
+    </div>
+    <div class="col-7">
+        {{ include('home/composant/menu.html.twig') }}
+        {% block fos_user_content %}{% endblock %}
+        {% block pagetext_content %}{% endblock %}
+    </div>
+    <div class="col-3 link-rignt">
+        <div class="row">
+            <div class="col-12 mx-auto login-access-container d-flex justify-content-center align-items-center">
+                <a class="login-access" href="/login">
+                    <button type="button" class="btn btn-primary text-center login-btn">
+                        Créer un compte/<br>
+                        Se connecter
+                    </button>
+                </a>
+            </div>
+            <div class="col-11">
+                <span class="txt-other-link text-center mt-4">Ou utilisez :</span>
+                <div class="mt-4">
+                    <a class="col-12 mx-auto" href="{{ path('france_connect_login') }}" class="btnLink">
+                        <img class="col-12 tooltipped rounded mx-auto d-block" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
+                    </a>
+                </div>
+                <span class="txt-other-link text-center mt-4 bold">Bienvenue sur le service d'immatriculation de véhicule en ligne rapide, sécurisé et agrée:</span>
+                <div class="mt-4">
+                    <img class="img-fluid" src="{{ asset('asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png')}}" alt="agrément CGofficiel carte grise certificat immatriculation">
+                </div>
+                <div class="mt-4">
+                    <p class="col-12 mx-auto ">
+                        <img class="col-12 mx-auto img-fluid" src="{{ asset('asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="0897010800 CGofficiel carte grise certificat immatriculation">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-{% block pagetext_content %}{% endblock %}
+
 
 {{ include('home/composant/footer.html.twig') }}
 {{ include('home/layout/footer.html.twig') }}
