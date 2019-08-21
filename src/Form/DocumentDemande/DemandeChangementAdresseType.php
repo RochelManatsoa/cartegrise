@@ -25,7 +25,7 @@ class DemandeChangementAdresseType extends AbstractType
     {
         $builder
         ->add('rectoVersoCarteGrise', FileType::class, [
-            'label' => 'label.demande.rectoVersoCarteGrise',
+            'label' => 'label.demande.copieRectoVersoCarteGrise',
             "required" => false,
             "data_class" => null,
         ])
@@ -51,6 +51,11 @@ class DemandeChangementAdresseType extends AbstractType
         ])
         ->add('justificatifDomicile', FileType::class, [
             'label' => 'label.demande.justificatifDomicile',
+            "required" => false,
+            "data_class" => null,
+        ])
+        ->add('procurationMandat', FileType::class, [
+            'label' => 'label.demande.procurationMandat',
             "required" => false,
             "data_class" => null,
         ])

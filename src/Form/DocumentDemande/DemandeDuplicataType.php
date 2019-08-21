@@ -24,8 +24,8 @@ class DemandeDuplicataType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('rectoVersoCarteGrise', FileType::class, [
-            'label' => 'label.demande.rectoVersoCarteGrise',
+        ->add('justificatifDomicile', FileType::class, [
+            'label' => 'label.demande.justificatifDomicile',
             "required" => false,
             "data_class" => null,
         ])
@@ -56,6 +56,11 @@ class DemandeDuplicataType extends AbstractType
         ])
         ->add('permisDeConduireDuTitulaire', FileType::class, [
             'label' => 'label.demande.copiePermisConduire',
+            "required" => false,
+            "data_class" => null,
+        ])
+        ->add('procurationMandat', FileType::class, [
+            'label' => 'label.demande.procurationMandat',
             "required" => false,
             "data_class" => null,
         ])

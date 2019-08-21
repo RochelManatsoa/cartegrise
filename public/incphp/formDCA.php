@@ -56,7 +56,7 @@ else{
         <div class="form-group">
             <select id="personne2" name="personne2"  class="form-control" onchange="acquereur()">
                 <option value="phy">Personne Physique</option>
-                <option value="mor">Personne Morale</option>
+                <option value="mor">Société</option>
             </select><br>
 
             <div id="acquereur">

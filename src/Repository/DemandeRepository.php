@@ -134,12 +134,36 @@ class DemandeRepository extends ServiceEntityRepository
         ->join('c.user','u')
         ->distinct()
         ->where('trans.status =:paramSuccess')
-        ->andWhere('trans.amount IS NOT NULL')
+        // ->andWhere('trans.amount IS NOT NULL')
         ->andWhere('d.dateDemande <= :now');
 
         $qb
         ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
         ->setParameter('now', $now);
+        // dd($qb->getQuery()->getResult());
+
+        return $qb->getQuery()->getResult();
+    }
+    public function getDailyDemandeFactureLimitate(\DateTime $start, \DateTime $end)
+    {
+        // $now->modify('- 40day');
+        $qb = $this->createQueryBuilder('d')
+        // ->select('u.email, c.clientNom, c.clientPrenom, c.id as idClient, c.clientGenre')
+        ->join('d.commande','com')
+        ->join('d.transaction','trans')
+        ->join('com.client','c')
+        ->join('c.user','u')
+        ->distinct()
+        ->where('trans.status =:paramSuccess')
+        // ->andWhere('trans.amount IS NOT NULL')
+        ->andWhere('d.dateDemande <= :end')
+        ->andWhere('d.dateDemande > :start');
+
+        $qb
+        ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
+        ->setParameter('start', $start)
+        ->setParameter('end', $end);
+        // dd($qb->getQuery()->getResult());
 
         return $qb->getQuery()->getResult();
     }

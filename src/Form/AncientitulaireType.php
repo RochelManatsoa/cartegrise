@@ -18,7 +18,7 @@ class AncientitulaireType extends AbstractType
                 'label' => 'label.type.personne',
                 'choices' => array(
                     'Personne Physique' => "phy",
-                    'Personne Morale' => "mor",
+                    'Société' => "mor",
                 ),
                 'attr' => [
                     'class' => 'choice-type-ancientitulaire'

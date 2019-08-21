@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use App\Entity\File\DemandeImmatriculationVehiculeNeuf;
 use App\Entity\File\DemandeIvn;
+use App\Entity\Vehicule\CaracteristiqueTechVehiculeNeuf;
+use App\Entity\Vehicule\CarrosierVehiculeNeuf;
+use App\Entity\Vehicule\VehiculeNeuf;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,6 +22,17 @@ class Divn
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Vehicule\CarrosierVehiculeNeuf", inversedBy="divn", cascade={"persist", "remove"})
+     */
+    private $carrosier;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Vehicule\CaracteristiqueTechVehiculeNeuf", mappedBy="divn", cascade={"persist"})
+     */
+    private $caractTech;
+
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Demande", inversedBy="divn", cascade={"persist", "remove"})
@@ -40,9 +54,17 @@ class Divn
      */
     private $file;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Vehicule\VehiculeNeuf", inversedBy="divn", cascade={"persist", "remove"})
+     */
+    private $vehicule;
+    
+
     public function __construct()
     {
         $this->cotitulaire = new ArrayCollection();
+        $this->caracteristiqueTechniquePart = new ArrayCollection();
+        $this->caractTech = new ArrayCollection();
     }
 
 
@@ -116,5 +138,70 @@ class Divn
         $this->file = $file;
 
         return $this;
+    }
+
+    public function getVehicule(): ?VehiculeNeuf
+    {
+        return $this->vehicule;
+    }
+
+    public function setVehicule(?VehiculeNeuf $vehicule): self
+    {
+        $this->vehicule = $vehicule;
+
+        return $this;
+    }
+
+    public function getCarrosier(): ?CarrosierVehiculeNeuf
+    {
+        return $this->carrosier;
+    }
+
+    public function setCarrosier(?CarrosierVehiculeNeuf $carrosier): self
+    {
+        $this->carrosier = $carrosier;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CaracteristiqueTechVehiculeNeuf[]
+     */
+    public function getCaractTech(): Collection
+    {
+        return $this->caractTech;
+    }
+
+    public function addCaractTech(CaracteristiqueTechVehiculeNeuf $caractTech): self
+    {
+        if (!$this->caractTech->contains($caractTech)) {
+            $this->caractTech[] = $caractTech;
+            $caractTech->setDivn($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaractTech(CaracteristiqueTechVehiculeNeuf $caractTech): self
+    {
+        if ($this->caractTech->contains($caractTech)) {
+            $this->caractTech->removeElement($caractTech);
+            // set the owning side to null (unless already changed)
+            if ($caractTech->getDivn() === $this) {
+                $caractTech->setDivn(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function countCotitulaire()
+    {
+        return count($this->cotitulaire);
+    }
+
+    public function countCaractTech()
+    {
+        return count($this->caractTech);
     }
 }

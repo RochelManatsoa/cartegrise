@@ -451,6 +451,13 @@ class DemandeManager
         return $demandes;
     }
 
+    public function getDailyDemandeFactureLimitate(\DateTime $start, \DateTime $end)
+    {
+        $demandes = $this->repository->getDailyDemandeFactureLimitate($start,$end);
+
+        return $demandes;
+    }
+
     public function sendUserForRelance($level = 0)
     {
         $users = $this->repository->findUserForRelance($level);

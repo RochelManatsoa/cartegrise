@@ -24,92 +24,124 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<!-- Modal body -->
-						{% if demarche.type != 'DIVN' %}
-							<div class="modal-body">
-								<div id="{{demarche.type}}" class="row commander">
-									<div class="row search col-12">
-										<div class="col-12 search-titre mt-5">
-											<h2>Calculez le prix de votre
-												<br>certificat d'immatriculation</h2>
-										</div>
-										<div class="col-12 search-titre">
-											<p class="col-8 mx-auto text-center text-uppercase">
-												Saisissez votre plaque d'immatriculation ainsi que votre département afin de pouvoir calculer une estimation du prix de votre carte grise.
-											</p>
-										</div>
-
-										<div id="{{demarche.type}}" class="col-8 col-md-6 col-xl-4 mx-auto">
-
-											{{ form_start(tab[(demarche.id)])}}
-											<div style="display:none;">
-												{{ form_row(tab[(demarche.id)].demarche)}}
-											</div>
-
-											{{ form_row(tab[(demarche.id)].immatriculation, {
-												'attr':{
-													'onkeyup':'this.value = this.value.toUpperCase()',
-													'class': 'col-12 form-control-plaque ',
-													'onblur': 'this.value = valueTreatement(this.value)',
-													'maxlength': '9',
-													'minlength': '5',
-													'placeholder': 'BB-321-BB'
-												},
-												'label_attr': {
-													'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
-												}
-													)}}
-
-											{{ form_row(tab[(demarche.id)].codePostal, {
-												'attr':{'maxlength':'3','minlength':'2', 'class':'col-6 mx-auto text-center form-control--dep'},
-												'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
-											}
-											)}}
-											<!-- <div class="col-12 mx-auto search-box bg-dark"> <div class="row col-12 mx-auto input-group "> <label for="Immatriculation" class="col-12 search-box--titre">Demarche</label> </div> </div> <div class="col-12 mx-auto search-box bg-dark"> <div
-											class="row col-12 mx-auto input-group "> <label for="Immatriculation" class="col-12 search-box--titre">Numero d'Immatriculation</label> </div> </div> <div class="col-12 mx-auto search-box mt-5"> <div class="row col-12 mx-auto input-group "> <label
-											for="Departement" class="col-12 search-box--titre">Departement d'immatriculation</label> </div> </div> -->
-											<div class="col-12 col-md-6 mx-auto text-center search-box">
-												<button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>
-											</div>
-											{{ form_end(tab[(demarche.id)])}}
-
-											<div id="resultecg"></div>
-
-										</div>
+						{% if demarche.type == 'DIVN' %}
+						<div class="modal-body">
+							<div class="popup-center-container search">
+								<div class="col-12 search-titre mt-5">
+									<h2>Calculez le prix de votre
+										<br>certificat d'immatriculation</h2>
+								</div>
+								<div class="col-12 search-titre">
+									<p class="col-8 mx-auto text-center text-uppercase">
+										Saisissez votre département et les informations du véhicule afin de pouvoir calculer une estimation du prix de votre carte grise.
+									</p>
+								</div>
+								{% set formDivn = tab[(demarche.id)] %}
+								{{ form_start(formDivn)}}
+									{{ form_row(formDivn.department, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
+											'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
+									{{ form_row(formDivn.genre, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
+											'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
+									{{ form_row(formDivn.puissanceFiscale, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
+											'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
+									{{ form_row(formDivn.energie, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
+											'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
+									{{ form_row(formDivn.tauxDeCo2, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
+											'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
+									{{ form_row(formDivn.Marque, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
+											'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
+									<div class="col-12 col-md-6 mx-auto text-center search-box">
+										<button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>
+									</div>
+								{{ form_end(formDivn)}}
+							</div>
+						</div>
+						{% elseif demarche.type == 'DC' %}
+						<div class="modal-body">
+							<div class="popup-center-container search">
+								<div class="col-12 search-titre mt-5">
+									<h2>Téléchargez le formulaire
+										<br>CERFA n° 15776*01</h2>
+								</div>
+								<div class="col-12 search-titre">
+									<p class="col-8 mx-auto text-center text-uppercase">
+										Le formulaire CERFA n° 15776*01 doit être rempli par le vendeur et signé par l'acheteur. Ce dernier est nécessaire au nouveau détenteur du véhicule pour l'immatriculer (carte grise) à son nom.
+									</p>
+								</div>
+								<div class="text-center"> 
+									<a href="/../download/cgofficiel_CERFA-15776*01.pdf" target="blank">
+										<button class="btn btn-outline-danger btn-lg text-center" type="button" id="button-addon2"><i class="fas fa-file-pdf"></i></button>
+									</a>
+									<p>CERTIFICAT DE CESSION D’UN VÉHICULE D’OCCASION</p>
+									<p>(à remplir par l’ancien propriétaire et le nouveau proprietaire)</p>
+									<div class="col-12 col-md-6 mx-auto text-center search-box">
+										<a href="/../download/cgofficiel_CERFA-15776*01.pdf" target="blank">
+											<button type="submit" class="btn btn-primary btn-sm mx-auto">{{ "Télécharger" | upper}}</button>
+										</a>
 									</div>
 								</div>
 							</div>
+						</div>
 						{% else %}
-							<div class="modal-body">
-								<div class="popup-center-container search">
+						<div class="modal-body">
+							<div id="{{demarche.type}}" class="row commander">
+								<div class="row search col-12">
 									<div class="col-12 search-titre mt-5">
 										<h2>Calculez le prix de votre
 											<br>certificat d'immatriculation</h2>
 									</div>
 									<div class="col-12 search-titre">
 										<p class="col-8 mx-auto text-center text-uppercase">
-											Saisissez votre département et les informations du véhicule afin de pouvoir calculer une estimation du prix de votre carte grise.
+											Saisissez votre plaque d'immatriculation ainsi que votre département afin de pouvoir calculer une estimation du prix de votre carte grise.
 										</p>
 									</div>
-									{% set formDivn = tab[(demarche.id)] %}
-									{{ form_start(formDivn)}}
-										{{ form_row(formDivn.department, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
-												'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
-										{{ form_row(formDivn.genre, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
-												'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
-										{{ form_row(formDivn.puissanceFiscale, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
-												'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
-										{{ form_row(formDivn.energie, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
-												'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
-										{{ form_row(formDivn.tauxDeCo2, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
-												'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
-										{{ form_row(formDivn.Marque, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
-												'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
+
+									<div id="{{demarche.type}}" class="col-8 col-md-6 col-xl-4 mx-auto">
+
+										{{ form_start(tab[(demarche.id)])}}
+										<div style="display:none;">
+											{{ form_row(tab[(demarche.id)].demarche)}}
+										</div>
+
+										{{ form_row(tab[(demarche.id)].immatriculation, {
+											'attr':{
+												'onkeyup':'this.value = this.value.toUpperCase()',
+												'class': 'col-12 form-control-plaque ',
+												'onblur': 'this.value = valueTreatement(this.value)',
+												'maxlength': '9',
+												'minlength': '5',
+												'placeholder': 'BB-321-BB'
+											},
+											'label_attr': {
+												'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
+											}
+												)}}
+											
+										{{ form_row(tab[(demarche.id)].codePostal, {
+											'attr':{'maxlength':'3','minlength':'2', 'class':'col-6 mx-auto text-center form-control--dep'},
+											'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
+										}
+										)}}
+										{% if demarche.type == 'DCA' %}
+											{{ form_row(tab[(demarche.id)].fourthChange
+											)}}
+										{% else %}
+											<div class="hidden" style="display: none;">{{ form_row(tab[(demarche.id)].fourthChange)}}</div>
+										{% endif %}
+										<!-- <div class="col-12 mx-auto search-box bg-dark"> <div class="row col-12 mx-auto input-group "> <label for="Immatriculation" class="col-12 search-box--titre">Demarche</label> </div> </div> <div class="col-12 mx-auto search-box bg-dark"> <div
+										class="row col-12 mx-auto input-group "> <label for="Immatriculation" class="col-12 search-box--titre">Numero d'Immatriculation</label> </div> </div> <div class="col-12 mx-auto search-box mt-5"> <div class="row col-12 mx-auto input-group "> <label
+										for="Departement" class="col-12 search-box--titre">Departement d'immatriculation</label> </div> </div> -->
 										<div class="col-12 col-md-6 mx-auto text-center search-box">
 											<button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>
 										</div>
-									{{ form_end(formDivn)}}
+										{{ form_end(tab[(demarche.id)])}}
+
+										<div id="resultecg"></div>
+
+									</div>
 								</div>
 							</div>
+						</div>
 						{% endif %}
 						<!-- Modal footer -->
 						<div class="modal-footer">
