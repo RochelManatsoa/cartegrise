@@ -125,10 +125,14 @@ class DemandeController extends AbstractController
      * @route("/{id}/annuler", name="demande_annuler", methods={"DELETE"})
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
-    public function annuler(Request $request, Demande $demande, DemandeManager $demandeManager)
+    public function annuler(Request $request, Demande $demande, DemandeManager $demandeManager, EntityManagerInterface $em)
     {
         if ($this->isCsrfTokenValid('demande'.$demande->getId(), $request->request->get('_token'))) {
-            $demandeManager->removeDemande($demande);
+            // $demandeManager->removeDemande($demande);
+            $client = $this->getUser()->getClient();
+            $client->removeCommande($demande->getCommande());
+            $em->flush();
+            $this->addFlash('success', "Demande annulée avec succès !");
         }
 
         return $this->redirectToRoute('demande_list');
