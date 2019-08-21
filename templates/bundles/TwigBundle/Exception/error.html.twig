@@ -11,7 +11,7 @@
             We will fix it as soon as possible. Sorry for any inconvenience caused.
             <br>
             La page demandée n'a pas pu être localisée
-            <br><a href="{{ path('Accueil') }}">retour à l'acceuil</a>.
+            <br><a href="{{ path('Accueil') }}">retour à l'accueil</a>.
         </p>
 </div>
 {% endblock %} #}
@@ -25,12 +25,11 @@
         <h1 class="text-center">{{"Une erreur s'est produite" | upper}}.</h1>
         <p class="desc-error">
             {# Quelque chose est cassé. S'il vous plaît laissez-nous savoir ce que vous faisiez. Désolé pour tout inconvénient causé. #}
-            Veuillez nous excuser pour la gêne occasionnée.
-            Merci de bien vouloir contacter notre Service Client.
+            Nous ne trouvons pas la plaque d'immatriculation que vous avez rentré, merci de vérifier les informations que vous avez rentré, ou contactez notre service client.
              {# Vous pouvez <a href="{{ path('contact') }}">nous contacter</a> et nous pouvons vous aider! #}
         </p>
         <p><a href="{{ path('contact') }}"><i class="fas fa-angle-double-right"></i> {{"Service Client" | upper}}</a></p>
-        <p><a class="btn btn-primary btn-lg" href="{{ path('Accueil') }}"><i class="fas fa-angle-double-right"></i> {{"Retour à la page d'acceuil" | upper}}</a></p>
+        <p><a class="btn btn-primary btn-lg" href="{{ path('Accueil') }}"><i class="fas fa-angle-double-right"></i> {{"Retour à la page d'accueil" | upper}}</a></p>
     </div>
 </div>
 

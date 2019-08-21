@@ -87,12 +87,12 @@ class Taxes
     private $Genre;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $PTAC;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $Energie;
 
@@ -262,19 +262,19 @@ class Taxes
         return $this->PTAC;
     }
 
-    public function setPTAC(int $PTAC): self
+    public function setPTAC(?int $PTAC): self
     {
         $this->PTAC = $PTAC;
 
         return $this;
     }
 
-    public function getEnergie(): ?int
+    public function getEnergie(): ?string
     {
         return $this->Energie;
     }
 
-    public function setEnergie(int $Energie): self
+    public function setEnergie(string $Energie): self
     {
         $this->Energie = $Energie;
 

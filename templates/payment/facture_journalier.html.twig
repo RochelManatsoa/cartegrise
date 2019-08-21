@@ -58,7 +58,7 @@
 		<table class="table table-bordered table-sm">
       <thead class="table-active">
         <tr>
-          <th>Produit</th>
+          <th>Préstation</th>
           <th class="text-center">Prix Unitaire HT (€)</th>
           <th class="text-center">Quantité</th>
           <th class="text-center">Total HT (€)</th>
@@ -80,25 +80,26 @@
           </tr>
         {% endfor %} 
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><strong>Majorations</strong></td>
-            <td class="text-center"><strong></strong></td>
+            <td class="text-center">TOTAL</td>
+            <td class="text-center"></td>
             <td class="text-center"><strong>{{demandes | length}}</strong></td>
+            <td class="text-center"><strong>{{ totalOfDemandesDailyWithoutMajoration(demandes) }} </strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{ totalOfTvaDailyWithoutMajoration(demandes) }} </strong></td>
+            <td class="text-center"><strong>{{ totalOfDemandesDailyWithoutMajoration(demandes) }} </strong></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr class="table-active">
+            <td ><strong>Majorations</strong></td>
+            <td class="text-center"><strong></strong></td>
+            <td class="text-center"></td>
             <td class="text-center"><strong></strong></td>
             <td class="text-center"></td>
             <td class="text-center"><strong></strong></td>
@@ -106,18 +107,29 @@
           </tr>
           {% for key,taxes in majorations %}
           <tr>
-            <td><strong></strong></td>
+            <td>
+              {% for dem in taxes %}
+              <strong>
+              {{ dem.commande.demarche.type }}
+              </strong>
+              {% endfor %}
+            </td>
             <td clospan="2" class="text-center">{{ without20tva(key) }}</td>
             <td class="text-center"><strong>{{ taxes | length }}</strong></td>
             <td class="text-center">{{ without20tvaTotal(key, taxes|length) }}</td>
             <td class="text-center"><strong>20 %</strong></td>
             <td class="text-center"><strong>{{ just20tvaTotal(key, taxes|length) }}</strong></td>
-            <td class="text-center"><strong>{{ key }}</strong></td>
+            <td class="text-center"><strong>{{ key * taxes | length}}</strong></td>
           </tr>
           {% endfor %}
           <tr>
-            <td colspan="6" class="text-center"><strong>Total TTC</strong></td>
-            <td class="text-center"><strong>{{ totalOfDemandesDaily(demandes, majorations) }} </strong></td>
+            <td class="text-center">TOTAL</td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{demandes | length}}</strong></td>
+            <td class="text-center"><strong>{{ totalWithoutTvaOfMajorationDaily(majorations) }} </strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{ totalTvaOfMajorationDaily(majorations) }} </strong></td>
+            <td class="text-center"><strong>{{ totalOfMajorationDaily(majorations) }} </strong></td>
           </tr>
           <tr>
             <td></td>
@@ -127,22 +139,14 @@
             <td></td>
             <td></td>
           </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><strong>Produit</strong></td>
+          <tr class="table-active">
+            <td><strong>Taxes</strong></td>
             <td class="text-center"></td>
             <td class="text-center"></td>
             <td class="text-center"></td>
             <td class="text-center"></td>
             <td class="text-center"></td>
-            <td class="text-center">Taxes</td>
+            <td class="text-center"></td>
           </tr>
           {% for key,result in results %}
           <tr>
@@ -156,15 +160,12 @@
           </tr>
           {% endfor %}
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td colspan="6" class="text-center"><strong>Total Taxes</strong></td>
+            <td class="text-center">TOTAL</td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{demandes | length}}</strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
             <td class="text-center"><strong>{{ getTaxesTotal(demandes) }}</strong></td>
           </tr>
       </tbody>

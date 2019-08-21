@@ -70,17 +70,7 @@ class Cession
         return $this;
     }
 
-    public function getAncienTitulaire(): ?Ancientitulaire
-    {
-        return $this->ancienTitulaire;
-    }
 
-    public function setAncienTitulaire(?Ancientitulaire $ancienTitulaire): self
-    {
-        $this->ancienTitulaire = $ancienTitulaire;
-
-        return $this;
-    }
 
     public function getDateCession(): ?\DateTimeInterface
     {
