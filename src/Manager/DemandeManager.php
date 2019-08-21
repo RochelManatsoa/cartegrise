@@ -230,9 +230,15 @@ class DemandeManager
             $this->em->remove($duplicata);
         }
         if ($ctvo = $demande->getCtvo()) {
+            $ctvo->setDemande(null);
+            $demande->setCtvo(null);
+            $this->em->flush();
             $this->em->remove($ctvo);
         }
         if ($changementAdresse = $demande->getChangementAdresse()) {
+            $changementAdresse->setDemande(null);
+            $demande->setChangementAdresse(null);
+            $this->em->flush();
             $this->em->remove($changementAdresse);
         }
 
