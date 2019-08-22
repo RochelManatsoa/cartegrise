@@ -99,3 +99,8 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm,group: 'DOCUMENTS', label: 'Valider les documents' }
         public: true
+    App\Admin\StatisticAdmin:
+        arguments: [~, App\Entity\Commande, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'STATS', label: 'Stat de Commandes' }
+        public: true
