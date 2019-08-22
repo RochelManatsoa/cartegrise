@@ -177,6 +177,18 @@ class TMSSauverManager
         $dup = $commande->getDemande()->getDuplicata();
         // dd($dup);
 
+        if ( "phy" === $dup->getTitulaire()->getType() ){
+            $titulaire = [
+                "NomPrenom" => $dup->getTitulaire()->getNomprenom(),
+                "DroitOpposition" => false,
+            ];
+        }else{
+            $titulaire = [
+                "RaisonSocial" => $dup->getTitulaire()->getRaisonsociale(),
+                "DroitOpposition" => false,
+            ];
+        }
+
         $params = ["Lot" => [
 			"Demarche" => [
 				$commande->getDemarche()->getType() => [
@@ -184,13 +196,8 @@ class TMSSauverManager
 					'TypeDemarche' => $commande->getDemarche()->getType(),
 					"DateDemarche" => $now->format('Y-m-d H:i:s'),
                     "MotifDuplicata" => $dup->getMotifDemande(),
-                    "DatePerte" => $dup->getDatePerte()->format('Y-m-d H:i:s'),
-                    "CTVOouDC" => $dup->getDemandeChangementTitulaire(),
-                    "Titulaire" => [
-                        "NomPrenom" => $dup->getTitulaire()->getNomprenom(),
-                        "RaisonSocial" => $dup->getTitulaire()->getType(),
-                        "DroitOpposition" => false,
-                    ],
+                    "CTVOouDC" => false,
+                    "Titulaire" => $titulaire,
 					"Vehicule" => [
 						"VIN" => $carInfo->getVin(),
                         "Immatriculation" => $commande->getImmatriculation(),
