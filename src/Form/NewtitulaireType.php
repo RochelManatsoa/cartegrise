@@ -58,10 +58,20 @@ class NewtitulaireType extends AbstractType
                     'label'=> $options['label'] === "label.dca.titulaire" ? 'label.nouvelAdresse' : 'label.adresseNewTitulaire',
                 ]);
             if ($options['label'] === "label.dca.titulaire")
-                $builder->add('birthName', TextType::class, array(
-                    'label'=>'label.nom.dcaBirthName',
-                    'required' => false,
-                ));
+                $builder
+                    ->add('birthName', TextType::class, array(
+                        'label'=>'label.nom.dcaBirthName',
+                        'required' => false,
+                    ))
+                    ->add('departementN', ChoiceType::class, [
+                        'label' => 'label.ctvo.departementN',
+                        'choices' => array_merge(["Aucun" => null], (new Commande())->DEPARTMENTS),
+                    ])
+                    ->add('paysN', TextType::class, array(
+                        'label'=>'label.ctvo.paysN',
+                        'required' => false,
+                        'attr' => ['value' => "France"]
+                    ));
             if ($options['label'] === "label.ctvo.titulaire")
                 $builder
                     ->add('departementN', ChoiceType::class, [
