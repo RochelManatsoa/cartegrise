@@ -192,11 +192,12 @@ label:
     dateCession: Date de cession
     ancienAdresse: Ancienne adresse
     nouvelAdresse: Nouvelle adresse
-    typevoie: Type de Voie
-    numerovoie: Numéro de la Voie
+    typevoie: Type de Voie *
+    numerovoie: Numéro de la Voie *
+    extension: Extension au numéro de rue
     complement: Complément d'adresse
-    codepostal: Code Postal
-    ville: Ville
+    codepostal: Code Postal *
+    ville: Ville *
     droitOpposition: Je m'oppose à la diffusion de mes données personnelles
     caracteristiqueTechniquePart: Caractéristiques techniques particulières
     carrossier: Carrossier qualifié ayant modifié le véhicule
@@ -257,7 +258,7 @@ label:
     demandeChangementTitulaire: Demander un changement de titulaire
     motifDemande: Motif de la demande
     nom:
-        voie: Nom de la voie
+        voie: Nom de la voie *
         cotitulaire: Nom du Cotitulaire
         titulaire: Nom de l'Acquéreur *
         dcaNomPrenom: Nom et prénom séparés par un espace *
