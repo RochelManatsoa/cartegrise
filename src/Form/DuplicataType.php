@@ -30,7 +30,13 @@ class DuplicataType extends AbstractType
                 'required' => false,
                 ))
             ->add('demandeChangementTitulaire', null, ['label' => 'label.demandeChangementTitulaire'])
-            ->add('numeroFormule', null, ['label' => 'label.numeroFormule', 'required' => true])
+            ->add('numeroFormule', null, [
+                    'label' => 'label.numeroFormule',
+                    'required' => false,
+                    'label_attr' => [
+                        'style' => 'display:inline',
+                    ],
+                ])
             ->add('titulaire', AncientitulaireType::class, ['label' => 'label.titulaire']) 
         ;
     }
