@@ -29,7 +29,7 @@ class DuplicataType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
                 ))
-            ->add('demandeChangementTitulaire', null, ['label' => 'label.demandeChangementTitulaire'])
+            //->add('demandeChangementTitulaire', null, ['label' => 'label.demandeChangementTitulaire'])
             ->add('numeroFormule', null, [
                     'label' => 'label.numeroFormule',
                     'required' => false,
