@@ -97,7 +97,7 @@
 										{{ form_start(tab[(demarche.id)])}}
 										<div style="display:none;">
 											{{ form_row(tab[(demarche.id)].demarche)}}
-										</div>
+										
 
 										{{ form_row(tab[(demarche.id)].immatriculation, {
 											'attr':{
@@ -106,13 +106,13 @@
 												'onblur': 'this.value = valueTreatement(this.value)',
 												'maxlength': '9',
 												'minlength': '5',
-												'placeholder': 'BB-321-BB',
-												'value': 'BL-726-DJ'
+												'value': immatStatic,
 											},
 											'label_attr': {
 												'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
 											}
-												)}}
+										)}}
+										</div>
 											
 										{{ form_row(tab[(demarche.id)].codePostal, {
 											'attr':{'maxlength':'3','minlength':'2', 'class':'col-6 mx-auto text-center form-control--dep'},

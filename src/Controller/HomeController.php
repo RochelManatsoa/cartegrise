@@ -289,6 +289,7 @@ class HomeController extends AbstractController
             'demarches' => $type,
             'tab' => $tabForm,
             'database' => false,
+            'immatStatic' => 'BL-726-DJ'
         ];
 
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
