@@ -2,6 +2,11 @@
 	<div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
 		<h1 class="col-12 col-sm-12 home-secondview--titre">Commandez votre certificat d'immatriculation</h1>
 
+		{% if immatStatic is not defined %}
+			{% set immatStatic = '' %}
+		{% endif %}
+		
+
 		{% for demarche in demarches %}
 			<div class="col-12 col-sm-6 col-lg-6">
 				<button type="button" data-toggle="modal" data-target="#{{demarche.type}}" class="row col-10 mx-auto menu-commander  d-flex align-items-center justify-content-center my-flex-container">
