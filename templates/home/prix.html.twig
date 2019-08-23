@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-accueil{% endblock %}
+
+{% block page_content %}
+<div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
+    <div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
+        <h1 class="col-12 col-sm-12 home-secondview--titre">Quel est le coût d'une Carte Grise?</h1>
+        {{form_start(form)}}
+        {{form_widget(form)}}
+        {{form_end(form)}}
+    </div>
+</div>
+{% endblock %}
+
+{% block pagetext_content %}
+	{{ include('home/composant/texte/accueil-texte.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('javascripts/home.js') }}"></script>
+{% endblock %}
