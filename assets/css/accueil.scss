@@ -329,7 +329,7 @@ font-weight: bold;
 		color: #002a6a;
     font-weight: bold;
     margin-bottom: 0vh !important;
-    font-size: 40px;
+    font-size: 18px;
     font-family: textr;
     margin-bottom: 4vh !important;
     text-transform: uppercase;
@@ -367,21 +367,22 @@ font-weight: bold;
     font-family: textr;
     line-height: 25px;
   }
-  p{
-    margin-left: 8vw;
-    font-family: textr;
-    line-height: 25px;
-  }
 }
 .home-texte{
   h2{
-      color: #002a6a;
-      font-weight: bold;
-          margin-bottom: 0vh !important;
-          font-size: 40px;
-          font-family: textr;
-          margin-bottom: 4vh !important;
-					text-transform: uppercase;
+    color: #7296ce;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: textr;
+    text-transform: uppercase;
+  }
+  p {
+    text-align: justify;
+    color: #000;
+  }
+  .link-hp-texte {
+    color: #7296ce;
+    text-decoration: underline;
   }
   .home-texte1{
     margin-top: 5vh;

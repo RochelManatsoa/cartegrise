@@ -270,13 +270,22 @@ ul {
     width: 100%;
 	color: #fff;
 	.title-header {
+		padding-left: 8.333333%;
+		font-size: 12px;
+		span {
+			display: block;
+		}
 		h1 {
-			text-transform: uppercase;
 			font-family: raleway;
 			font-weight: 500;
-			font-size: 20px;
+			font-size: 24px;
 			line-height: 26px;
 			margin: 0;
+			background: #1f3864;
+			padding: 10px 30px;
+			display: inline-block;
+			margin-top: 10px;
+			border: 1px solid #2d4f8a;
 		}
 	}
 }
@@ -404,6 +413,7 @@ ul {
 	max-width: 250px !important;
 }
 .custom-pad-20 {
+	max-width: 400px !important;
     padding: 0px 20px !important;
 }
 // icon hp 
@@ -438,4 +448,18 @@ ul {
 	.critairLink {
 		text-decoration: none;
 	}
+}
+.bloc-txt-sidebar {
+    border: 1px solid #7296ce;
+	padding: 10px 15px;
+	a {
+		color: #7296ce;
+		font-weight: 700;
+		text-decoration: none !important;
+	}
+}
+.dual-hp-right {
+    margin-left: 50px;
+	max-width: 40%;
+	margin-bottom: 40px;
 }
