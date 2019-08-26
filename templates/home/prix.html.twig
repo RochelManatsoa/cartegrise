@@ -10,14 +10,25 @@
 <div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
     <div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
         <h1 class="col-12 col-sm-12 home-secondview--titre">Quel est le coût d'une Carte Grise?</h1>
-        <div class="col-4">
-            Prix de la Carte Grise dans la region de :  <span class="departement_selectione"></span><br>
-            Tarif cheval fiscal <span class="departement_tarif"></span><br>
-            Tarif exoneration <span class="departement_exoneration"></span>
-        </div>
-        <div class="col-12">
+        
+        <div class="col-12 text-center">
             <h4>Prix de votre carte grise par département</h4>
-            <div id="francemap" style="min-width: 550px; height: 600px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249);"></div>
+            <p>Cliquez sur la carte pour sélectionner votre département.</p>
+            <div id="francemap" style="min-width: 550px; height: 600px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249); box-shadow:0px 1px 8px gray;"></div>        
+            <h4 class="mt-5">Prix de la Carte Grise dans <span class="departement_selectione"> votre département</span></h4>
+            <center>
+                <table class="col-6 text-center">
+                    <tr class="text-center">
+                        <td>Tarif cheval fiscal</td>
+                        <td>Tarif exoneration</td>
+                    </tr>
+                    <tr class="text-center">
+                        <td class="departement_tarif"> -- €</td>
+                        <td class="departement_exoneration"> -- %</td>
+                    </tr>
+                </table>
+            </center>
+            <a class="col-4 btn btn-success mt-3" href="{{path('Accueil')}}">PASSER MA COMMANDE </a>
         </div>
         </div>
         </div>

@@ -14,7 +14,7 @@ $(document).ready(function () {
             console.log(element);
             console.log(region);
             console.log(value);
-            $('.departement_selectione').text(code + " - " + region);
+            $('.departement_selectione').text(value + " - " + region);
             $('.departement_tarif').text(taxeArray['' + value+''] + " €");
             $('.departement_exoneration').text(exonerationArray[value] + " %");
             $('.departement_selectione_nom').text(region);

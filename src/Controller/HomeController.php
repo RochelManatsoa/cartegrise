@@ -200,105 +200,10 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/simulator", name="Accueil_simlator")
+     * @Route("/prix-carte-grise", name="prixCarteGrise")
      */
-    public function accueilSimulator(
-        Request $request,
-        TypeDemandeRepository $demarche,
-        ObjectManager $manager,
-        TaxesRepository $taxesRepository,
-        TarifsPrestationsRepository $prestation,
-        CommandeRepository $commandeRepository,
-        SessionManager $sessionManager,
-        TmsClient $tmsClient,
-        CommandeManager $commandeManager,
-        CarInfoManager $carInfoManager,
-        TaxesManager $taxesManager,
-        DivnInitManager $divnInitManager
-        )
+    public function accueilSimulator()
     {   
-        
-        $type = $demarche->findAll();
-        foreach($type as $typeId) {
-            $commande = $commandeManager->createCommande();
-            $defaultType = $demarche->find($typeId->getId());
-            if ($typeId->getType() === "DIVN")
-            {
-                $divnInit = new DivnInit();
-                $formDivn = $this->createForm(DivnInitType::class, $divnInit, ['departement'=>$commande->DEPARTMENTS]);
-                $num = $typeId->getId();
-                $tabForm[$num] = $formDivn->createView();
-            } else {
-                $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType, 'departement'=>$commande->DEPARTMENTS]);
-                $num = $typeId->getId();
-                $tabForm[$num] = $form->createView();
-            }
-        }
-
-        $form->handleRequest($request);
-        $formDivn->handleRequest($request);
-
-        if ($formDivn->isSubmitted() && $formDivn->isValid()) {
-            $divnInit = $formDivn->getData();
-            $divnInitManager->manageSubmit($divnInit);
-            $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
-
-            return $this->render('home/simulator.html.twig', $param);
-        }
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // dd($commande);
-            $ifCommande = $commandeRepository->findOneBy([
-                'immatriculation' => $commande->getImmatriculation(),
-                'codePostal' => $commande->getCodePostal(),
-                'demarche' => $commande->getDemarche(),
-            ]);
-            $sessionManager->initSession();
-            // if (!is_null($ifCommande)) {
-            //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
-
-            //     return $this->render('home/accueil.html.twig', $param);
-            // } else {
-  
-                $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
-                if (!$tmsInfoImmat->isSuccessfull()) {
-                    throw new \Exception('Veuillez Réessayer plus tard');
-                }
-                $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
-
-                if (!$tmsResponse->isSuccessfull()) {
-                    return new Response($tmsResponse->getErrorMessage());
-                } else {
-                    $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande, $tmsInfoImmat);
-                    $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
-                    $commande->setTaxes($taxe);
-                    $commande->setCarInfo($carInfo);
-                    $manager->persist($commande);
-                    $manager->persist($taxe);
-                    
-                    $manager->flush();
-                    $param = $this->getParamHome($commande, $sessionManager, $tabForm);
-
-                    return $this->render('home/simulator.html.twig', $param);
-                }
-            // }
-        }
-
-        $homeParams = [
-            'demarches' => $type,
-            'tab' => $tabForm,
-            'database' => false,
-            'immatStatic' => 'BL-726-DJ'
-        ];
-
-        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $client = $this->getUser()->getClient();
-
-            $homeParams['genre'] = $client->getClientGenre();
-            $homeParams['client'] = $client;
-        }
-
-        return $this->render('home/prix.html.twig', $homeParams);
+        return $this->render('home/prix.html.twig');
     }
 }
