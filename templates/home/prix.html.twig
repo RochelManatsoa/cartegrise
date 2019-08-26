@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-accueil{% endblock %}
+
+{% block page_content %}
+<div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
+    <div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
+        <h1 class="col-12 col-sm-12 home-secondview--titre">Quel est le coût d'une Carte Grise?</h1>
+        
+        <div class="col-12 text-center">
+            <h4>Prix de votre carte grise par département</h4>
+            <p>Cliquez sur la carte pour sélectionner votre département.</p>
+            <div id="francemap" style="min-width: 550px; height: 600px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249); box-shadow:0px 1px 8px gray;"></div>        
+            <h4 class="mt-5">Prix de la Carte Grise dans <span class="departement_selectione"> votre département</span></h4>
+            <center>
+                <table class="col-6 text-center">
+                    <tr class="text-center">
+                        <td>Tarif cheval fiscal</td>
+                        <td>Tarif exoneration</td>
+                    </tr>
+                    <tr class="text-center">
+                        <td class="departement_tarif"> -- €</td>
+                        <td class="departement_exoneration"> -- %</td>
+                    </tr>
+                </table>
+            </center>
+            <a class="col-4 btn btn-success mt-3" href="{{path('Accueil')}}">PASSER MA COMMANDE </a>
+        </div>
+        </div>
+        </div>
+{% endblock %}
+
+{% block pagetext_content %}
+	{{ include('home/composant/texte/accueil-texte.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('javascripts/card/dist/jquery.vmap.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('javascripts/card/dist/maps/jquery.vmap.france.js') }}" charset="utf-8"></script>
+    <script src="{{ asset('javascripts/card/value.js') }}"></script>
+    <script>
+        jQuery(document).ready(function () {
+            jQuery('#vmap').vectorMap({
+                map: 'france_fr',
+                enableZoom: false,
+                showTooltip: true
+            });
+        });
+
+    </script>
+    <script src="{{ asset('javascripts/home.js') }}"></script>
+{% endblock %}

@@ -19,11 +19,20 @@ class CotitulairesType extends AbstractType
                 'choices' => array(
                     'Personne Physique' => "phy",
                     'Société' => "mor",
-                    )
+                    ),
+                'attr' => array(
+                    'class' => 'choice-type-cotitulaire'
+                )
                 ))
-            ->add('nomCotitulaires', TextType::class, ['label'=>'label.nom.cotitulaire'])
-            ->add('prenomCotitulaire', TextType::class, ['label'=>'label.prenom.cotitulaire'])
-            ->add('raisonSocialCotitulaire', TextType::class, ['label'=>'label.raisonsocial'])
+            ->add('nomCotitulaires', TextType::class, ['label'=>'label.nom.cotitulaire', 'required' => false])
+            ->add('prenomCotitulaire', TextType::class, ['label'=>'label.prenom.cotitulaire', 'required' => false])
+            ->add('raisonSocialCotitulaire', TextType::class, [
+                'label'=>'label.raisonsocial',
+                'required' => false,
+                'attr' => array(
+                    'data-row-style' => 'display:none !important;'
+                )
+                ])
             ->add('sexeCotitulaire', ChoiceType::class, array(
                 'choices' => array(
                     'Homme' => "M",
