@@ -16,6 +16,9 @@
 			<li>
 				<a href="http://blog.cgofficiel.fr" class="menu-item">actualités</a>
 			</li>
+			<li>
+				<a href="#" class="menu-item">Prix carte grise</a>
+			</li>
 		</ul>
 	</div>
 
@@ -77,17 +80,22 @@
 		</a>
 	</div> #}
 
-	<div class="col-10 col-lg-8 col-xl-6 mx-auto mb-4 ">
+	<div class="col-10 col-lg-10 mx-auto mb-4 ">
 		<a class="col-12 mx-auto" href="/login">
 			<button type="button" class="col-12 btn btn-outline-primary btn-lg text-center mt-3 mb-3 ">Espace client
 			</button>
 		</a>
 	</div>
-	<div class="col-10 col-lg-8 col-xl-6 mx-auto mt-2">
+	<div class="col-10 col-lg-10 mx-auto mb-4 ">
+		<a class="col-12 mx-auto" href="{{ path('france_connect_login') }}" class="btnLink">
+			<img class="col-12 tooltipped rounded mx-auto d-block max-250" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
+		</a>
+	</div>
+	<div class="col-10 col-lg-10 mx-auto mt-2">
 		<img class="col-12 mx-auto rounded float-right mb-3" src="{{ asset('asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png')}}" alt="agrément CGofficiel carte grise certificat immatriculation">
 	</div>
-	<div class="col-10 col-lg-8 col-xl-6 mx-auto row head-text d-flex flex-row align-items-end my-flex-container mb-5">
-		<div class="col-12 service-telephonique--flex---text----flex ">
+	<div class="col-10 col-lg-10 mx-auto row head-text d-flex flex-row align-items-end my-flex-container mb-5">
+		<div class="col-12 service-telephonique">
 			<p class="col-12 mx-auto ">
 				<img class="col-12 mx-auto img-fluid" src="{{ asset('asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="0897010800 CGofficiel carte grise certificat immatriculation">
 			</p>

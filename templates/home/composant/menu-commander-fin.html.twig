@@ -1,5 +1,5 @@
 <div class="col-12 d-flex flex-row justify-content-center my-flex-container flex-wrap align-content-start">
-	<div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5 justify-content-center align-content-start">
+	<div class="row d-flex my-flex-container pt-5 pb-5 justify-content-center align-content-start">
 		<h2 class="txt-immatriculation">
 			Votre carte grise<br>ou certificat d'immatriculation<br>en quelques clics
 		</h2>
@@ -7,11 +7,9 @@
 			<img class="img-fluid" src='{{ asset("asset/img/down.png")}}' alt='image down'>
 		</div>
 		{% for demarche in demarches %}
-			<div class="col-12 col-sm-4 col-lg-4 demande-element">
+			<div class="col-12 col-sm-4 col-lg-4 demande-element" id="{{demarche.type}}demande">
 				<button type="button" data-toggle="modal" data-target="#{{demarche.type}}" class="demande-btn">
-					<span class="demande-icon">
-						<i class="fas fa-3x fa-clone"></i>
-					</span>
+					<span class="demande-icon"></span>
 					<div class="demande-info">
 						<h2 class="col-10 mx-auto">{{ demarche.nom }}</h2>
 						<div class="col-10 mx-auto menu-box--description hidden-xl-down">
@@ -91,7 +89,7 @@
 											<br>certificat d'immatriculation</h2>
 									</div>
 									<div class="col-12 search-titre">
-										<p class="col-8 mx-auto text-center text-uppercase">
+										<p class="col-7 mx-auto text-center text-uppercase">
 											Saisissez votre plaque d'immatriculation ainsi que votre département afin de pouvoir calculer une estimation du prix de votre carte grise.
 										</p>
 									</div>
@@ -152,6 +150,8 @@
 			</div>
 		{% endfor %}
 	</div>
-
+	<div class="critair">
+		<a class="critairLink" href="#"><img class="img-fluid" src='{{ asset("asset/img/critair.png")}}' alt='image down'></a>
+	</div>
 	<div id="resultecg"></div>
 </div>

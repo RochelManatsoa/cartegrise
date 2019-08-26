@@ -330,7 +330,7 @@ ul {
     margin: 20px !important;
 	flex: 0 0 calc(33.33% - 50px) !important;
 	height: 150px;
-	background: #002a6b;
+	background: #153475;
 	box-shadow: 10px 10px 0px #7296ce;
 	cursor: pointer;
 	&:hover {
@@ -342,6 +342,7 @@ ul {
 		padding: 15px 10px;
 		width: calc(100% - 20px);
 		cursor: pointer;
+		outline: none;
 		.fas,
 		h2 {
 			color: #fff;
@@ -398,4 +399,43 @@ ul {
 	text-align: center;
 	text-transform: uppercase;	
 	width: 100%;
+}
+.max-250 {
+	max-width: 250px !important;
+}
+.custom-pad-20 {
+    padding: 0px 20px !important;
+}
+// icon hp 
+.demande-icon {
+	display: inline-block;
+    height: 40px;
+    width: 40px;
+}
+#CTVOdemande .demande-icon {
+	background: url("/../../asset/img/icon-1.png") center no-repeat;
+	background-size: contain;
+}
+#DUPdemande .demande-icon {
+	background: url("/../../asset/img/icon-2.png") center no-repeat;
+	background-size: contain;
+}
+#DCAdemande .demande-icon {
+	background: url("/../../asset/img/icon-3.png") center no-repeat;
+	background-size: contain;
+}
+#DIVNdemande .demande-icon {
+	background: url("/../../asset/img/icon-4.png") center no-repeat;
+	background-size: contain;
+}
+#DCdemande .demande-icon {
+	background: url("/../../asset/img/icon-5.png") center no-repeat;
+	background-size: contain;
+}
+.critair:hover {
+	opacity: 0.8;
+	cursor: pointer;
+	.critairLink {
+		text-decoration: none;
+	}
 }
