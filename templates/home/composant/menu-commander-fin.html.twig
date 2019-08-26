@@ -1,6 +1,7 @@
 <div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
 	<div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
 		<h1 class="col-12 col-sm-12 home-secondview--titre">Commandez votre certificat d'immatriculation</h1>
+	
 
 		{% for demarche in demarches %}
 			<div class="col-12 col-sm-6 col-lg-6">
@@ -95,10 +96,11 @@
 									<div id="{{demarche.type}}" class="col-8 col-md-6 col-xl-4 mx-auto">
 
 										{{ form_start(tab[(demarche.id)])}}
-										<div style="display:none;">
-											{{ form_row(tab[(demarche.id)].demarche)}}
-										</div>
-
+									<div style="display:none;">
+										{{ form_row(tab[(demarche.id)].demarche)}}	
+									</div>		
+								{% if immatStatic is defined %}						
+									<div style="display:none;">
 										{{ form_row(tab[(demarche.id)].immatriculation, {
 											'attr':{
 												'onkeyup':'this.value = this.value.toUpperCase()',
@@ -106,12 +108,30 @@
 												'onblur': 'this.value = valueTreatement(this.value)',
 												'maxlength': '9',
 												'minlength': '5',
-												'placeholder': 'BB-321-BB'
+												'value': immatStatic,
 											},
 											'label_attr': {
 												'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
 											}
-												)}}
+										)}}
+									</div>
+								{% else %}
+									<div>
+										{{ form_row(tab[(demarche.id)].immatriculation, {
+											'attr':{
+												'onkeyup':'this.value = this.value.toUpperCase()',
+												'class': 'col-12 form-control-plaque ',
+												'onblur': 'this.value = valueTreatement(this.value)',
+												'maxlength': '9',
+												'minlength': '5',
+												'placeholder': 'BB-321-BB',
+											},
+											'label_attr': {
+												'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
+											}
+										)}}
+									</div>
+								{% endif %}
 											
 										{{ form_row(tab[(demarche.id)].codePostal, {
 											'attr':{'maxlength':'3','minlength':'2', 'class':'col-6 mx-auto text-center form-control--dep'},
