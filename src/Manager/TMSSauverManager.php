@@ -356,7 +356,7 @@ class TMSSauverManager
                         "DateNaissance" => $titulaire->getDateN()->format('Y-m-d'),
                         "LieuNaissance" => $titulaire->getLieuN(),
                         "DepNaissance" => $titulaire->getDepartementN(),
-                        "PaysNaissance" => $titulaire->getPaysN()!== null ? $adresse->getPays() : "France",
+                        "PaysNaissance" => $titulaire->getPaysN()!== null ? $titulaire->getPaysN() : "France",
                     ],
                     "Adresse" => [
                         "Numero" => $adresse->getNumero(),
