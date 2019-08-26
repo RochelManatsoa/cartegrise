@@ -1,13 +1,26 @@
-<div class="col-4 sidebar hidden-md-down ">
+<div class="col-12 sidebar hidden-md-down new-sidebar">
 
-	<div class="col-12 row d-flex align-items-center">
-		<a class="col-6 mx-auto" href="{{ path('Accueil') }}">
-			<img class="rounded mx-auto d-block img-fluid" src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="logo">
+	<div class="d-flex align-items-center justify-content-end logo-sidebar-container">
+		<a class="logo-sidebar" href="{{ path('Accueil') }}">
+			<img class="d-block img-fluid" src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="logo">
 		</a>
+	</div>
+	<div class="menu-sidebar">
+		<ul class="">
+			<li>
+				<a href="{{ path('Accueil') }}" class="menu-item">Accueil</a>
+			</li>
+			<li>
+				<a href="{{ path('CommentCaMarche') }}" class="menu-item">Comment ça marche ?</a>
+			</li>
+			<li>
+				<a href="http://blog.cgofficiel.fr" class="menu-item">actualités</a>
+			</li>
+		</ul>
 	</div>
 
 	{% if app.user %}
-	<div class="espace-client-user col-10 col-lg-8 col-xl-6 mx-auto mt-4 mb-4 ">
+	<div class="espace-client-user col-11 mx-auto mt-4">
 		<h5>
 		Bonjour {% if app.user.client is defined and app.user.client is not null %}{{ app.user.client.clientPrenom | displayValue}} {{ app.user.client.clientNom | upper}}{% endif %}
 		</h5>
@@ -16,9 +29,9 @@
 		</h5>
 	</div>
 
-	<ul class="espace-client-menu col-10 col-lg-8 col-xl-6 list-group mx-auto mb-4">
+	<ul class="espace-client-menu col-11 mx-auto mt-4">
 		<li class="list-group-item d-flex justify-content-between align-items-center active">
-			<a href="#">Informations Client</a>
+			<a href="#">Information Client</a>
 		</li>
 		<li class="list-group-item d-flex justify-content-between align-items-center">
 			<a href="{{ path('compte') }}">Mon Profil</a>
@@ -34,7 +47,8 @@
 		</li>
 		
 	</ul>
-	<div class="col-10 col-lg-8 col-xl-6 mx-auto mt-2">
+	{# Begin COMMENT Tolotra #}
+	{# <div class="col-10 col-lg-8 col-xl-6 mx-auto mt-2">
 		<img class="col-12 mx-auto rounded float-right mb-3" src="{{ asset('asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png')}}" alt="agrément CGofficiel carte grise certificat immatriculation">
 	</div>
 		{% if checkDemande(app.user) != 0 %}
@@ -51,16 +65,17 @@
 				</p>
 			</div>
 		</div>
-		{% endif %}
+		{% endif %} #}
+	{# End COMMENT Tolotra #}
 
 	{% else %}
 	
-	<div class="col-10 col-lg-8 col-xl-6 mx-auto mt-4">
-		<a class="col-12 mx-auto" href="#" class="btnLink">
-			{# <a class="col-12 mx-auto" href="{{ path('france_connect_login') }}" class="btnLink"> #}
-			{# <img class="col-12 tooltipped rounded mx-auto d-block" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/> #}
+
+	{# <div class="col-10 col-lg-8 col-xl-6 mx-auto mt-4">
+		<a class="col-12 mx-auto" href="{{ path('france_connect_login') }}" class="btnLink">
+			<img class="col-12 tooltipped rounded mx-auto d-block" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
 		</a>
-	</div>
+	</div> #}
 
 	<div class="col-10 col-lg-8 col-xl-6 mx-auto mb-4 ">
 		<a class="col-12 mx-auto" href="/login">
@@ -78,6 +93,8 @@
 			</p>
 		</div>
 	</div>
+	
+
 	{% endif %}
 </div>
 <!-- _____________________________________________________________________________________SIDEBAR ORDI fin -->
@@ -103,7 +120,7 @@
 
 	<ul class="espace-client-menu col-10 col-lg-8 col-xl-6 list-group mx-auto mb-4">
 		<li class="list-group-item d-flex justify-content-between align-items-center active">
-			<a href="#">Informations Client</a>
+			<a href="#">Information Client</a>
 		</li>
 		<li class="list-group-item d-flex justify-content-between align-items-center">
 			<a href="{{ path('compte') }}">Mon Profil</a>
