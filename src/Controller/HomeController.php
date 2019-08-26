@@ -299,6 +299,6 @@ class HomeController extends AbstractController
             $homeParams['client'] = $client;
         }
 
-        return $this->render('home/simulator.html.twig', $homeParams);
+        return $this->render('home/prix.html.twig', $homeParams);
     }
 }
