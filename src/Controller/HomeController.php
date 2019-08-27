@@ -198,4 +198,12 @@ class HomeController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/prix-carte-grise", name="prixCarteGrise")
+     */
+    public function accueilSimulator()
+    {   
+        return $this->render('home/prix.html.twig');
+    }
 }
