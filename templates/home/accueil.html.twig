@@ -95,7 +95,7 @@
 				<div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
 					<div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
 						<img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}"
-							class="rounded mx-auto d-block img-fluid mb-3" alt="">
+							class="rounded mx-auto d-block img-fluid mb-3" style="max-width:75%" alt="{{carInfo.marque}}">
 						<h2 class="col-12">
 							{{ 'home.recapDemande'|trans}}
 							{{commande.demarche.type | lower}}</h2>
