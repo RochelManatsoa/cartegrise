@@ -11,9 +11,7 @@ $(document).ready(function () {
         showTooltip: true,
         onRegionClick: function (element, code, region) {
             let value = code.replace('fr-', '');
-            console.log(element);
-            console.log(region);
-            console.log(value);
+            value = value.toUpperCase();
             $('.departement_selectione').text(value + " - " + region);
             $('.departement_tarif').text(taxeArray['' + value+''] + " €");
             $('.departement_exoneration').text(exonerationArray[value] + " %");
