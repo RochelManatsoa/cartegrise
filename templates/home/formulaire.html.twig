@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-accueil{% endblock %}
+
+{% block page_content %}
+<div class="col-md-11 col-lg-11 d-flex flex-row justify-content-center my-flex-container align-items-center mx-auto">
+    <div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
+        <h1 class="col-12 col-sm-12 home-secondview--titre">Calculez le prix de votre
+                <br>certificat d'immatriculation</h1>
+    </div>
+</div>
+{{ form_start(form)}}
+<div class="demarche">
+{{ form_row(form.demarche, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
+        'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
+{{ form_row(form.immatriculation, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
+        'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
+</div>
+{{ form_row(form.codePostal, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
+        'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
+<div class="col-12 col-md-6 mx-auto text-center search-box">
+    <button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>
+</div>
+{{ form_end(form)}}
+{% endblock %}
+
+{% block pagetext_content %}
+	{{ include('home/composant/texte/accueil-texte.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('javascripts/home.js') }}"></script>
+    <script type="application/javascript">
+        $('#formulaire_demarche').on('change', function (e) {
+            var Value = $(".demarche").find(":selected").val();
+            if (Value !== "8") {
+                $(e.target).parent().siblings().show();
+            } else {
+                $(e.target).parent().siblings().hide();
+            }
+        });
+    </script>
+{% endblock %}
