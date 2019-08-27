@@ -200,7 +200,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/prix-carte-grise", name="prixCarteGrise")
+     * @Route("/prix-carte-grise", name="prix_carte_grise")
      */
     public function accueilSimulator()
     {   
