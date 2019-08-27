@@ -23,7 +23,8 @@
 	</div>
 
 	{% if app.user %}
-	<div class="espace-client-user col-11 mx-auto mt-4">
+	{# uncomment rochel #}
+	{# <div class="espace-client-user col-11 mx-auto mt-4">
 		<h5>
 		Bonjour {% if app.user.client is defined and app.user.client is not null %}{{ app.user.client.clientPrenom | displayValue}} {{ app.user.client.clientNom | upper}}{% endif %}
 		</h5>
@@ -49,7 +50,9 @@
 			<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
 		</li>
 		
-	</ul>
+	</ul> #}
+	{# enduncomment rochel #}
+
 	{# Begin COMMENT Tolotra #}
 	{# <div class="col-10 col-lg-8 col-xl-6 mx-auto mt-2">
 		<img class="col-12 mx-auto rounded float-right mb-3" src="{{ asset('asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png')}}" alt="agrément CGofficiel carte grise certificat immatriculation">
@@ -80,7 +83,8 @@
 		</a>
 	</div> #}
 
-	<div class="col-10 col-lg-10 mx-auto mb-4 ">
+	{# uncomment rochel #}
+	{# <div class="col-10 col-lg-10 mx-auto mb-4 ">
 		<a class="col-12 mx-auto" href="/login">
 			<button type="button" class="col-12 btn btn-outline-primary btn-lg text-center mt-3 mb-3 ">Espace client
 			</button>
@@ -100,10 +104,22 @@
 				<img class="col-12 mx-auto img-fluid" src="{{ asset('asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="0897010800 CGofficiel carte grise certificat immatriculation">
 			</p>
 		</div>
-	</div>
+	</div> #}
 	
-
+	{# enduncomment rochel #}
 	{% endif %}
+	{# added rochel #}
+	<div class="col-10 col-lg-10 mx-auto mt-2">
+			<img class="col-12 mx-auto rounded float-right mb-3" src="{{ asset('asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png')}}" alt="agrément CGofficiel carte grise certificat immatriculation">
+		</div>
+		<div class="col-10 col-lg-10 mx-auto row head-text d-flex flex-row align-items-end my-flex-container mb-5">
+			<div class="col-12 service-telephonique">
+				<p class="col-12 mx-auto ">
+					<img class="col-12 mx-auto img-fluid" src="{{ asset('asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="0897010800 CGofficiel carte grise certificat immatriculation">
+				</p>
+			</div>
+		</div>
+	{# endadded rochel #}
 </div>
 <!-- _____________________________________________________________________________________SIDEBAR ORDI fin -->
 
