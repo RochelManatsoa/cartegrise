@@ -77,49 +77,75 @@ class TMSSauverManager
         $carInfo = $commande->getCarInfo();
 		$now = new \DateTime();
         $dca = $commande->getDemande()->getChangementAdresse();
+
         if ( "phy" === $dca->getNouveauxTitulaire()->getType() ) {
             $titulaire = [
-                    "PersonnePhysique" => [
-                        "NomPrenom" => $dca->getNouveauxTitulaire()->getNomPrenomTitulaire(),
-                        "NomNaissance" => $dca->getNouveauxTitulaire()->getBirthName(),
-                        "Prenom" => $dca->getNouveauxTitulaire()->getPrenomTitulaire(),
-                        "Sexe" => $dca->getNouveauxTitulaire()->getGenre(),
-                        "DateNaissance" => $dca->getNouveauxTitulaire()->getDateN()->format('dm-Y'),
-                        "LieuNaissance" => $dca->getNouveauxTitulaire()->getLieuN(),
-                        "DroitOpposition" => $dca->getNouveauxTitulaire()->getDroitOpposition()
-                    ],
-                    "AncienneAdresse" => [
-                        "TypeVoie" => $dca->getAncienAdresse()->getTypevoie(),
-                        "NomVoie" => $dca->getAncienAdresse()->getNom(),
-                        "CodePostal" => $dca->getAncienAdresse()->getCodepostal(),
-                        "Ville" => $dca->getAncienAdresse()->getVille(),
-                    ],
-                    "NouvelleAdresse" => [
-                        "TypeVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getTypevoie(),
-                        "NomVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getNom(),
-                        "CodePostal" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getCodepostal(),
-                        "Ville" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getVille(),
-                    ],
-                ];
+                "PersonnePhysique" => [
+                    "NomPrenom" => $dca->getNouveauxTitulaire()->getNomPrenomTitulaire(),
+                    "NomNaissance" => $dca->getNouveauxTitulaire()->getBirthName(),
+                    "Prenom" => $dca->getNouveauxTitulaire()->getPrenomTitulaire(),
+                    "Sexe" => $dca->getNouveauxTitulaire()->getGenre(),
+                    "DateNaissance" => $dca->getNouveauxTitulaire()->getDateN()->format('Y-m-d'),
+                    "LieuNaissance" => $dca->getNouveauxTitulaire()->getLieuN(),
+                    "DepNaissance" => $dca->getNouveauxTitulaire()->getDepartementN(),
+                    "PaysNaissance" => $dca->getNouveauxTitulaire()->getPaysN(),
+                    "DroitOpposition" => $dca->getNouveauxTitulaire()->getDroitOpposition()
+                ],
+                "AncienneAdresse" => [
+                    "Numero" => $dca->getAncienAdresse()->getNumero(),
+                    "ExtensionIndice" => $dca->getAncienAdresse()->getExtension(),
+                    "TypeVoie" => $dca->getAncienAdresse()->getTypevoie(),
+                    "NomVoie" => $dca->getAncienAdresse()->getNom(),
+                    "LieuDit" => $dca->getAncienAdresse()->getLieudit(),
+                    "EtageEscAppt" => $dca->getAncienAdresse()->getAdprecision(),
+                    "Complement" => $dca->getAncienAdresse()->getComplement(),
+                    "CodePostal" => $dca->getAncienAdresse()->getCodepostal(),
+                    "Ville" => $dca->getAncienAdresse()->getVille(),
+                    "Pays" => $dca->getAncienAdresse()->getPays() === null ? "France" : $dca->getAncienAdresse()->getPays(),
+                ],
+                "NouvelleAdresse" => [
+                    "Numero" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getNumero(),
+                    "ExtensionIndice" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getExtension(),
+                    "TypeVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getTypevoie(),
+                    "NomVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getNom(),
+                    "LieuDit" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getLieudit(),
+                    "EtageEscAppt" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getAdprecision(),
+                    "Complement" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getComplement(),
+                    "CodePostal" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getCodepostal(),
+                    "Ville" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getVille(),
+                    "Pays" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getPays() === null ? "France" : $dca->getAncienAdresse()->getPays(),                        
+                ],
+            ];
         } elseif ( "mor" === $dca->getNouveauxTitulaire()->getType()) {
             $titulaire = [
-                "PersonneMorale" =>
-                    [
+                "PersonneMorale" =>[
                     "RaisonSociale" => $dca->getNouveauxTitulaire()->getRaisonSociale(),
                     "SocieteCommerciale" => $dca->getNouveauxTitulaire()->getSocieteCommerciale(),
                     "SIREN" => $dca->getNouveauxTitulaire()->getSiren()
-                    ],
+                ],
                 "AncienneAdresse" => [
+                    "Numero" => $dca->getAncienAdresse()->getNumero(),
+                    "ExtensionIndice" => $dca->getAncienAdresse()->getExtension(),
                     "TypeVoie" => $dca->getAncienAdresse()->getTypevoie(),
                     "NomVoie" => $dca->getAncienAdresse()->getNom(),
+                    "LieuDit" => $dca->getAncienAdresse()->getLieudit(),
+                    "EtageEscAppt" => $dca->getAncienAdresse()->getAdprecision(),
+                    "Complement" => $dca->getAncienAdresse()->getComplement(),
                     "CodePostal" => $dca->getAncienAdresse()->getCodepostal(),
                     "Ville" => $dca->getAncienAdresse()->getVille(),
+                    "Pays" => $dca->getAncienAdresse()->getPays() === null ? "France" : $dca->getAncienAdresse()->getPays(),
                 ],
                 "NouvelleAdresse" => [
+                    "Numero" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getNumero(),
+                    "ExtensionIndice" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getExtension(),
                     "TypeVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getTypevoie(),
                     "NomVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getNom(),
+                    "LieuDit" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getLieudit(),
+                    "EtageEscAppt" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getAdprecision(),
+                    "Complement" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getComplement(),
                     "CodePostal" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getCodepostal(),
                     "Ville" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getVille(),
+                    "Pays" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getPays() === null ? "France" : $dca->getAncienAdresse()->getPays(),                        
                 ],
             ];
         }
@@ -134,6 +160,7 @@ class TMSSauverManager
 					"Vehicule" => [
 						"VIN" => $carInfo->getVin(),
                         "Immatriculation" => $commande->getImmatriculation(),
+						"Marque" => $carInfo->getMarque(),
                         "NumFormule" => $dca->getNumeroFormule(),
 					],
 				],
@@ -150,6 +177,18 @@ class TMSSauverManager
         $dup = $commande->getDemande()->getDuplicata();
         // dd($dup);
 
+        if ( "phy" === $dup->getTitulaire()->getType() ){
+            $titulaire = [
+                "NomPrenom" => $dup->getTitulaire()->getNomprenom(),
+                "DroitOpposition" => false,
+            ];
+        }else{
+            $titulaire = [
+                "RaisonSocial" => $dup->getTitulaire()->getRaisonsociale(),
+                "DroitOpposition" => false,
+            ];
+        }
+
         $params = ["Lot" => [
 			"Demarche" => [
 				$commande->getDemarche()->getType() => [
@@ -157,13 +196,8 @@ class TMSSauverManager
 					'TypeDemarche' => $commande->getDemarche()->getType(),
 					"DateDemarche" => $now->format('Y-m-d H:i:s'),
                     "MotifDuplicata" => $dup->getMotifDemande(),
-                    "DatePerte" => $dup->getDatePerte()->format('Y-m-d H:i:s'),
-                    "CTVOouDC" => $dup->getDemandeChangementTitulaire(),
-                    "Titulaire" => [
-                        "NomPrenom" => $dup->getTitulaire()->getNomprenom(),
-                        "RaisonSocial" => $dup->getTitulaire()->getType(),
-                        "DroitOpposition" => false,
-                    ],
+                    "CTVOouDC" => false,
+                    "Titulaire" => $titulaire,
 					"Vehicule" => [
 						"VIN" => $carInfo->getVin(),
                         "Immatriculation" => $commande->getImmatriculation(),
