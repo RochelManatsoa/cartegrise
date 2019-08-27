@@ -11,19 +11,20 @@
 		{% if commande is defined %}
 			{% if taxe is defined %}
 				{% if recap is defined %}
-					<div class="col-md-12 row col-lg-8">
+					<div class="col-md-12 row col-lg-12">
 						<div class="row col-md-12 col-lg-6 resultat-estimation mx-auto pt-5 pb-5">
-							<img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}" class="rounded mx-auto d-block img-fluid mb-3" alt="">
+							<img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}" class="rounded mx-auto d-block img-fluid mb-3" style="max-width:75%" alt="{{commande.carInfo.marque}}">
 							<div class="col-10 mx-auto">
 								<h2 class="col-12 text-center">{{ 'home.carSkills'|trans}}</h2>
 								{{ include('commande/_resum_caracteristics_car.html.twig') }}
 								<hr>
-								<h2 class="col-12">{{ 'home.recapDemande'|trans}}</h2>
-								{{ include('commande/_resum_recap_demande.html.twig') }}
 							</div>
 						</div>
 						<div class="row col-md-12 col-lg-6 resultat-estimation mx-auto d-flex flex-row-reverse my-flex-container pt-5 pb-5">
 							<div class="col-10 mx-auto">
+								<h2 class="col-12">{{ 'home.recapDemande'|trans}}</h2>
+								{{ include('commande/_resum_recap_demande.html.twig') }}
+								<hr>
 
 								<h2 class="col-12">{{ 'home.detailTaxes'|trans}}</h2>
 								{{ include('commande/_resum_taxe_car.html.twig') }}
@@ -95,7 +96,7 @@
 				<div class="col-md-12 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center">
 					<div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
 						<img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}"
-							class="rounded mx-auto d-block img-fluid mb-3" alt="">
+							class="rounded mx-auto d-block img-fluid mb-3" style="max-width:75%" alt="{{carInfo.marque}}">
 						<h2 class="col-12">
 							{{ 'home.recapDemande'|trans}}
 							{{commande.demarche.type | lower}}</h2>
