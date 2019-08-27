@@ -290,6 +290,8 @@ ul {
 	}
 }
 .new-sidebar {
+	background: #f9f9f9;
+	position: fixed !important;
 	.logo-sidebar-container {
 		background: #002a6b;
 		height: 140px;
@@ -302,12 +304,13 @@ ul {
 		}
 	}
 	.menu-sidebar {
+		width: 100%;
 		ul {
 			text-align: right;
 			padding: 0;
 			li {
 				background: #002a6b;
-				margin: 20px 0;
+				margin: 15px 0;
 				.menu-item {
 					color: #fff;
 					display: block;					
@@ -442,11 +445,18 @@ ul {
 	background: url("/../../asset/img/icon-5.png") center no-repeat;
 	background-size: contain;
 }
-.critair:hover {
+.critair{
+	&:hover {
 	opacity: 0.8;
 	cursor: pointer;
+	}
 	.critairLink {
 		text-decoration: none;
+	}
+	img {
+		display: block;
+		margin: auto;
+		max-width: 95%;
 	}
 }
 .bloc-txt-sidebar {
@@ -462,4 +472,12 @@ ul {
     margin-left: 50px;
 	max-width: 40%;
 	margin-bottom: 40px;
+}
+.img-down-hp {
+	height: 35px;
+	object-fit: contain;
+	width: 35px;
+}
+.center-container-hp {
+	min-height: calc(100vh - 140px);
 }
