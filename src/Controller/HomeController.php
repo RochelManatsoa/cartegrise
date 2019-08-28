@@ -38,8 +38,8 @@ class HomeController extends AbstractController
     {   
         
         $type = $demarche->findAll();
+        $commande = $commandeManager->createCommande();
         foreach($type as $typeId) {
-            $commande = $commandeManager->createCommande();
             $defaultType = $demarche->find($typeId->getId());
             if ($typeId->getType() === "DIVN")
             {
@@ -53,9 +53,11 @@ class HomeController extends AbstractController
                 $tabForm[$num] = $form->createView();
             }
         }
+        $formulaire = $this->createForm(FormulaireType::class, $commande , ['departement'=>$commande->DEPARTMENTS]);
 
         $form->handleRequest($request);
         $formDivn->handleRequest($request);
+        $formulaire->handleRequest($request);
 
         if ($formDivn->isSubmitted() && $formDivn->isValid()) {
             $divnInit = $formDivn->getData();
@@ -66,12 +68,16 @@ class HomeController extends AbstractController
         }
 
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() || $formulaire->isSubmitted() && $formulaire->isValid()) {
             $ifCommande = $commandeRepository->findOneBy([
                 'immatriculation' => $commande->getImmatriculation(),
                 'codePostal' => $commande->getCodePostal(),
                 'demarche' => $commande->getDemarche(),
             ]);
+            if($commande->getDemarche()->getType() === 'DIVN'){
+
+                return $this->redirectToRoute('Accueil');
+            }
             $sessionManager->initSession();
             // if (!is_null($ifCommande)) {
             //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
@@ -106,6 +112,7 @@ class HomeController extends AbstractController
         $homeParams = [
             'demarches' => $type,
             'tab' => $tabForm,
+            'formulaire' => $formulaire->createView(),
             'database' => false,
         ];
 
