@@ -168,6 +168,17 @@
 			$('#myInput').trigger('focus')
 		});
 	</script>
+    <script type="application/javascript">
+        $('#formulaire_demarche').on('change', function (e) {
+            var Value = $(".demarche").find(":selected").val();
+            if (Value !== "8") {
+                $(e.target).parent().siblings().show();
+            } else {
+                $(e.target).parent().siblings().hide();
+				document.getElementById("calcul").innerHTML = 'Pour éstimer le prix pour cette démarche, cliquer sur l\'icône <br><img src="/asset/img/divn.png" class="img-fluid" alt="85"/><br> de la page d\'accueil';
+            }
+        });
+    </script>
 {% endblock %}
 </body>
 </html>
