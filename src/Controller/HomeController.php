@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit};
-use App\Form\{DemandeType, CommandeType, ContactUsType};
+use App\Form\{DemandeType, CommandeType, ContactUsType, FormulaireType};
 use App\Repository\{CommandeRepository, TaxesRepository, TarifsPrestationsRepository, DemandeRepository, TypeDemandeRepository};
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -205,5 +205,84 @@ class HomeController extends AbstractController
     public function accueilSimulator()
     {   
         return $this->render('home/prix.html.twig');
+    }
+
+
+    /**
+     * @Route("/formulaire", name="formulaire")
+     */
+    public function formulaire(
+        Request $request,
+        ObjectManager $manager,
+        TaxesRepository $taxesRepository,
+        TarifsPrestationsRepository $prestation,
+        CommandeRepository $commandeRepository,
+        SessionManager $sessionManager,
+        TmsClient $tmsClient,
+        CommandeManager $commandeManager,
+        CarInfoManager $carInfoManager,
+        TaxesManager $taxesManager,
+        DivnInitManager $divnInitManager
+        )
+    {   
+        $commande = $commandeManager->createCommande();
+        $form = $this->createForm(FormulaireType::class, $commande , ['departement'=>$commande->DEPARTMENTS]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ifCommande = $commandeRepository->findOneBy([
+                'immatriculation' => $commande->getImmatriculation(),
+                'codePostal' => $commande->getCodePostal(),
+                'demarche' => $commande->getDemarche(),
+            ]);
+            if($commande->getDemarche()->getType() === 'DIVN'){
+
+                return $this->redirectToRoute('Accueil');
+            }
+            $sessionManager->initSession();
+            // if (!is_null($ifCommande)) {
+            //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+
+            //     return $this->render('home/accueil.html.twig', $param);
+            // } else {
+  
+                $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
+                if (!$tmsInfoImmat->isSuccessfull()) {
+                    throw new \Exception('Veuillez Réessayer plus tard');
+                }
+                $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
+
+                if (!$tmsResponse->isSuccessfull()) {
+                    return new Response($tmsResponse->getErrorMessage());
+                } else {
+                    $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande, $tmsInfoImmat);
+                    $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
+                    $commande->setTaxes($taxe);
+                    $commande->setCarInfo($carInfo);
+                    $manager->persist($commande);
+                    $manager->persist($taxe);
+                    
+                    $manager->flush();
+                    $param = $this->getParamHome($commande, $sessionManager, $form);
+
+                    return $this->render('home/accueil.html.twig', $param);
+                }
+            // }
+        }
+
+        $homeParams = [
+            'form' => $form->createView(),
+            'database' => false,
+        ];
+
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $client = $this->getUser()->getClient();
+
+            $homeParams['genre'] = $client->getClientGenre();
+            $homeParams['client'] = $client;
+        }
+
+        return $this->render('home/formulaire.html.twig', $homeParams);
     }
 }
