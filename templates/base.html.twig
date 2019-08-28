@@ -172,7 +172,8 @@
         $('#formulaire_demarche').on('change', function (e) {
             var Value = $(".demarche").find(":selected").val();
             if (Value !== "8") {
-                $(e.target).parent().siblings().show();
+				$(e.target).parent().siblings().show();
+				document.getElementById("calcul").innerHTML = '<button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>';
             } else {
                 $(e.target).parent().siblings().hide();
 				document.getElementById("calcul").innerHTML = 'Pour éstimer le prix pour cette démarche, cliquer sur l\'icône <br><img src="/asset/img/divn.png" class="img-fluid" alt="85"/><br> de la page d\'accueil';
