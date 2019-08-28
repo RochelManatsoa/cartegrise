@@ -318,6 +318,7 @@ label:
         datePerte: Date de la perte
 
     divn:
+        acquerreur: Acquéreur
         tauxDeCo2: Taux de CO2
         marque: Marque
         energie: Enérgie
