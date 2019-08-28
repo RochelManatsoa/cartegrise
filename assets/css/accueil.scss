@@ -116,15 +116,17 @@ white-space: nowrap;
 /*padding-left: 10px    /* OUT pas nécessaire ou mettre même valeur que conteneur */
 }
 }
-#cadre{
-  padding-left: 10px !important;
-  padding-right: 10px !important;
+#cadre,
+#cadre2,
+#cadre4{
+  padding-left: 20px !important;
+  padding-right: 20px !important;
   margin-top: 5vh;
 }
 
 #cadre3{
-  padding-left: 10px !important;
-  padding-right: 10px !important;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
 }
 .skill-titre{
   font-weight: bold;

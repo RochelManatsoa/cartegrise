@@ -157,12 +157,12 @@
 	<div id="resultecg"></div>
 </div> #}
 <div class="col-12 d-flex flex-row justify-content-center my-flex-container flex-wrap align-content-start">
-	<div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5 justify-content-center align-content-start">
+	<div class="row center-container-hp d-flex my-flex-container pt-3 pb-3 justify-content-center align-content-center">
 		<h2 class="txt-immatriculation">
-			Votre carte grise<br>ou certificat d'immatriculation<br>en quelques clics
+			démarche en quelques clics
 		</h2>
 		<div class="col-12 text-center mt-4 mb-4">
-			<img class="img-fluid" src='{{ asset("asset/img/down.png")}}' alt='image down'>
+			<img class="img-fluid img-down-hp" src='{{ asset("asset/img/down.png")}}' alt='image down'>
 		</div>
 		{% for demarche in demarches %}
 			<div class="col-12 col-sm-4 col-lg-4 demande-element" id="{{demarche.type}}demande">
@@ -326,9 +326,9 @@
 				</div>
 			</div>
 		{% endfor %}
-	</div>
-	<div class="critair">
-		<a class="critairLink" href="#"><img class="img-fluid" src='{{ asset("asset/img/critair.png")}}' alt='image down'></a>
+		<div class="critair">
+			<a class="critairLink" href="#"><img class="img-fluid" src='{{ asset("asset/img/critair.png")}}' alt='image down'></a>
+		</div>
 	</div>
 	<div id="resultecg"></div>
 </div>
