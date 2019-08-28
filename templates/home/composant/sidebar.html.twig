@@ -23,75 +23,6 @@
 			</ul>
 		</div>
 
-		{% if app.user %}
-		<div class="espace-client-user col-11 mx-auto mt-4">
-			<h5>
-			Bonjour {% if app.user.client is defined and app.user.client is not null %}{{ app.user.client.clientPrenom | displayValue}} {{ app.user.client.clientNom | upper}}{% endif %}
-			</h5>
-			<h5 class="custom-compte d-flex">
-				<a href="{{ path('compte') }}">Mon compte</a> | <a href="{{ path('logout') }}">Déconnexion</a>
-			</h5>
-		</div>
-
-		<ul class="espace-client-menu col-11 mx-auto mt-4">
-			<li class="list-group-item d-flex justify-content-between align-items-center active">
-				<a href="#">Information Client</a>
-			</li>
-			<li class="list-group-item d-flex justify-content-between align-items-center">
-				<a href="{{ path('compte') }}">Mon Profil</a>
-			</li>
-			<li class="list-group-item d-flex justify-content-between align-items-center">
-				<a href="{{ path('commande_list') }}">Demandes en cours</a>
-				<span class="badge badge-primary badge-pill">{{ countCommandeUnchecked(app.user) }}</span>
-			</li>
-			</li>
-				<li class="list-group-item d-flex justify-content-between align-items-center">
-				<a href="{{ path('demande_list')}}">Commandes effectuées</a>
-				<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
-			</li>
-			
-		</ul>
-		{# Begin COMMENT Tolotra #}
-		{# <div class="col-10 col-lg-8 col-xl-6 mx-auto mt-2">
-			<img class="col-12 mx-auto rounded float-right mb-3" src="{{ asset('asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png')}}" alt="agrément CGofficiel carte grise certificat immatriculation">
-		</div>
-			{% if checkDemande(app.user) != 0 %}
-			<div class="col-10 col-lg-8 col-xl-6 mx-auto row head-text d-flex flex-row align-items-end my-flex-container mb-5">
-				<div class="col-12 service-telephonique--flex---text----flex ">
-					<img class="col-12 mx-auto img-fluid" src="{{ asset('asset/img/0977423130-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="0977423130 CGofficiel carte grise certificat immatriculation">
-				</div>
-			</div>
-			{% else %}
-			<div class="col-10 col-lg-8 col-xl-6 mx-auto row head-text d-flex flex-row align-items-end my-flex-container mb-5">
-				<div class="col-12 service-telephonique--flex---text----flex ">
-					<p class="col-12 mx-auto ">
-						<img class="col-12 mx-auto img-fluid" src="{{ asset('asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="0897010800 CGofficiel carte grise certificat immatriculation">
-					</p>
-				</div>
-			</div>
-			{% endif %} #}
-		{# End COMMENT Tolotra #}
-
-		{% else %}
-		
-
-		{# <div class="col-10 col-lg-8 col-xl-6 mx-auto mt-4">
-			<a class="col-12 mx-auto" href="{{ path('france_connect_login') }}" class="btnLink">
-				<img class="col-12 tooltipped rounded mx-auto d-block" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
-			</a>
-		</div> #}
-
-		<div class="col-10 col-lg-10 mx-auto mb-4 ">
-			<a class="col-12 mx-auto" href="/login">
-				<button type="button" class="col-12 btn btn-outline-primary btn-lg text-center mt-3 mb-3 ">Espace client
-				</button>
-			</a>
-		</div>
-		<div class="col-10 col-lg-10 mx-auto mb-4 ">
-			<a class="col-12 mx-auto" href="{{ path('france_connect_login') }}" class="btnLink">
-				<img class="col-12 tooltipped rounded mx-auto d-block max-250" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
-			</a>
-		</div>
 		<div class="col-10 col-lg-10 mx-auto mt-2">
 			<img class="col-12 mx-auto rounded float-right mb-3" src="{{ asset('asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png')}}" alt="agrément CGofficiel carte grise certificat immatriculation">
 		</div>
@@ -102,9 +33,8 @@
 				</p>
 			</div>
 		</div>
-		
 
-		{% endif %}
+		
 	</div>
 	<!-- _____________________________________________________________________________________SIDEBAR ORDI fin -->
 
