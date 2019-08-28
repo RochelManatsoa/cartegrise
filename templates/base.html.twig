@@ -37,7 +37,7 @@
 	</noscript>
 	<!-- End Google Tag Manager (noscript) -->
 	<div id="up" class="row">
-		<div class="col-2">
+		<div class="col-2" >
 			{{ include('home/composant/sidebar.html.twig') }}
 		</div>
 		<div class="col-7">
@@ -48,20 +48,60 @@
 		<div class="col-3 link-rignt">
 			<div class="row">
 				<div class="col-12 mx-auto login-access-container d-flex justify-content-center align-items-center">
+					{% if app.user %}
+					<a class="login-access" href="/logout">
+						<button type="button" class="btn btn-primary text-center login-btn">
+							Se déconnecter
+						</button>
+					</a>
+					{% else %}
 					<a class="login-access" href="/login">
 						<button type="button" class="btn btn-primary text-center login-btn">
-							Créer un compte/<br>
 							Se connecter
 						</button>
 					</a>
+					{% endif %}
 				</div>
 				<div class="col-11 custom-pad-20">
+					{% if app.user %}
+					<div class="txt-other-link text-center mt-4 bold">
+						<h5 class="txt-other-link text-center mt-4">
+						Bonjour {% if app.user.client is defined and app.user.client is not null %}{{ app.user.client.clientPrenom | displayValue}} {{ app.user.client.clientNom | upper}}{% endif %}
+						</h5>
+						<h5 class="txt-other-link text-center mt-4">
+							<a href="{{ path('compte') }}">Mon compte</a> 
+						</h5>
+						<h5 class="txt-other-link text-center mt-4">
+							<a href="{{ path('logout') }}">Déconnexion</a>
+						</h5>
+					</div>
+				
+					<ul class="espace-client-menu col-11 mx-auto mt-4">
+						<li class="list-group-item d-flex justify-content-between align-items-center active">
+							<a href="#">Information Client</a>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">
+							<a href="{{ path('compte') }}">Mon Profil</a>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">
+							<a href="{{ path('commande_list') }}">Demandes en cours</a>
+							<span class="badge badge-primary badge-pill">{{ countCommandeUnchecked(app.user) }}</span>
+						</li>
+						</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+							<a href="{{ path('demande_list')}}">Commandes effectuées</a>
+							<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
+						</li>
+						
+					</ul>
+					{% else %}
 					<span class="txt-other-link text-center mt-4">Ou utilisez :</span>
 					<div class="mt-4">
 						<a class="col-12 mx-auto" href="{{ path('france_connect_login') }}" class="btnLink">
 							<img class="col-12 tooltipped rounded mx-auto d-block max-250" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
 						</a>
 					</div>
+					{% endif %}
 					<span class="txt-other-link text-center mt-4 bold">Bienvenue sur le service d'immatriculation de véhicule en ligne rapide, sécurisé et agrée:</span>
 					{# <div class="mt-4">
 						<img class="img-fluid" src="{{ asset('asset/img/critair-sidebar.png')}}" alt="crit'air">
