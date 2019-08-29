@@ -393,6 +393,23 @@ ul {
 				text-transform: uppercase;
 			}	
 		}
+		.logout-access {
+			&:before {
+				background: url("/../../asset/img/logout.png") center no-repeat;
+				background-size: contain;				
+				content: "";
+				display: block;
+				height: 48px;
+				margin: auto;				
+				width: 48px;
+			}
+			button {
+				background: none;
+				border: none;
+				cursor: pointer;
+				text-transform: uppercase;
+			}	
+		}
 	}
 	.txt-other-link {
 		display: block;
