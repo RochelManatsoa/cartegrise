@@ -348,6 +348,13 @@ ul {
 	&:hover {
 		opacity: 0.8;
 	}
+	.span-h2{
+		color: #fff;
+		font-size: 12px;
+		margin-top: 15px;
+		line-height: 16px;
+		font-family: raleway;
+	}
 	.demande-btn {
 		border: none;
 		background: none;
@@ -442,11 +449,12 @@ ul {
     height: 40px;
     width: 40px;
 }
-#CTVOdemande .demande-icon {
+
+#DUPdemande .demande-icon {
 	background: url("/../../asset/img/icon-1.png") center no-repeat;
 	background-size: contain;
 }
-#DUPdemande .demande-icon {
+#CTVOdemande .demande-icon {
 	background: url("/../../asset/img/icon-2.png") center no-repeat;
 	background-size: contain;
 }
@@ -461,6 +469,26 @@ ul {
 #DCdemande .demande-icon {
 	background: url("/../../asset/img/icon-5.png") center no-repeat;
 	background-size: contain;
+}
+#DUPdemande h2:before{
+	content: "J'ai perdu ou on m'a volé ma carte grise";
+	text-align: center;
+}
+#CTVOdemande h2:before{
+	content: "J'achète un véhicule d'occasion";
+	text-align: center;
+}
+#DCAdemande h2:before{
+	content: "J'ai changé d'addresse";
+	text-align: center;
+}
+#DIVNdemande h2:before{
+	content: "J'achète un véhicule neuf";
+	text-align: center;
+}
+#DCdemande h2:before{
+	content: "Je vends mon véhicule";
+	text-align: center;
 }
 .critair{
 	&:hover {
