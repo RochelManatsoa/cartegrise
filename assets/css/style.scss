@@ -416,8 +416,8 @@ ul {
 	max-width: 250px !important;
 }
 .custom-pad-20 {
+	margin: auto !important;
 	max-width: 400px !important;
-    padding: 0px 20px !important;
 }
 // icon hp 
 .demande-icon {
@@ -481,3 +481,115 @@ ul {
 .center-container-hp {
 	min-height: calc(100vh - 140px);
 }
+.logo-header-mobile,
+.icon-mobile-menu {
+	display: none;
+}
+/* Début responsive V2 */
+@media (max-width:1280px){
+	.demande-element {
+		flex: 0 0 calc(50% - 50px) !important;
+	}
+	.new-sidebar {
+		.menu-sidebar {
+			ul {
+				li {
+					.menu-item {
+						font-size: 10px;
+						font-weight: 500;
+					}
+				}
+			}
+		}
+	}
+}
+@media (max-width:990px) {
+	.new-header {
+		.logo-header-mobile {
+			display: block;
+			text-align: center;
+			img {
+				background: #fff;
+				max-width: 110px;
+			}
+		}
+		.title-header {
+			padding-left: 25px;
+			padding-right: 25px;
+			.desc-top {
+				display: none !important;
+			}
+		}
+	}
+}
+@media (max-width:767px) {
+	body .new-header {
+		-webkit-box-pack: space-around!important;
+		-webkit-justify-content: space-around!important;
+		-ms-flex-pack: space-around!important;
+		justify-content: space-around!important;
+		height: 80px;
+		position: fixed;
+		z-index: 1000;
+		padding: 0 10px;
+    	width: calc(100% - 20px);
+		& + div {
+			margin-top: 80px;
+		}
+		.title-header h1 {
+			margin-top: 0;
+		}
+		.logo-header-mobile {
+			img {
+				max-width: 70px;
+			}
+		}
+		.icon-mobile-menu {
+			display: block;
+			span {
+				display: block;
+				width: 30px;
+				height: 5px;
+				background: #fff;
+				margin: 5px 0;
+				border-radius: 5px;
+			}
+		}
+	}
+	#sidebar-container.show {
+		display: block !important;
+		position: fixed;
+		z-index: 1001;
+		left: 0;
+		.col-2 {
+			width: 100% !important;
+			flex: 0 0 100% !important;
+			max-width: 170px;
+		}
+	}
+	.dual-hp-container {
+		-moz-flex-wrap: wrap;
+		-ms-flex-wrap: wrap;
+		-webkit-flex-wrap: wrap;
+		flex-wrap: wrap;
+		& > div {
+			width: 100%;
+			max-width: 100%;
+			margin: 15px 0;
+		}
+	}
+}
+@media (max-width:480px) {
+	body {
+		.new-header {
+			.title-header h1 {
+				font-size: 14px;
+				line-height: 16px;
+			}
+		}
+	}
+	.demande-element {
+		flex: 0 0 calc(100% - 50px) !important;
+	}
+}
+/* Fin responsive V2 */
