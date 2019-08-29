@@ -45,7 +45,7 @@ function valueTreatement(value) {
 
 $('#formulaire_demarche').on('change', function (e) {
     var Value = $(".demarche").find(":selected").val();
-    if (Value !== "8") {
+    if (Value !== "3") {
         $(e.target).parent().siblings().show();
         document.getElementById("calcul").innerHTML = '<button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>';
     } else {
