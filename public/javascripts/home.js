@@ -22,3 +22,9 @@ $(document).ready(function () {
         }
     });
 });
+
+$(document).ready(function () {
+    $('.icon-mobile-menu').click(function(){
+        $('#sidebar-container').toggleClass('show');
+    });
+});

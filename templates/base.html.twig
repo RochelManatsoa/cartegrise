@@ -37,15 +37,15 @@
 	</noscript>
 	<!-- End Google Tag Manager (noscript) -->
 	<div id="up" class="row">
-		<div class="col-2" >
+		<div id="sidebar-container" class="col-2 hidden-md-down" >
 			{{ include('home/composant/sidebar.html.twig') }}
 		</div>
-		<div class="col-7">
+		<div class="col-12 col-lg-7 col-md-8 col-sm-12">
 			{{ include('home/composant/menu.html.twig') }}
 			{% block page_content %}{% endblock %}
 			{% block pagetext_content %}{% endblock %}
 		</div>
-		<div class="col-3 link-rignt">
+		<div class="col-3 col-lg-3 col-md-4 link-rignt hidden-sm-down">
 			<div class="row">
 				<div class="col-12 mx-auto login-access-container d-flex justify-content-center align-items-center">
 					{% if app.user %}
