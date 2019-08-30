@@ -60,7 +60,7 @@ class PaymentController extends AbstractController
         $bin   = $parameterBag->get('payment_binary');
         $param = array_merge($param, $paramDynamical);
         $response = $paymentUtils->request($param, $bin);
-        $demande->getTransaction()->setTransactionId($response['transactionId'])->setFacture($facture);
+        $demande->getTransaction()->setTransactionId($response['transactionId']);
         $transactionManager->save($demande->getTransaction());
         
         return new Response($response['template']);
@@ -115,6 +115,9 @@ class PaymentController extends AbstractController
         // dd($response);
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
         $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
+        $facture = $transactionManager->generateNumFacture($transaction);
+        $transaction->setFacture($facture);
+        $transactionManager->save($transaction);
 
         return $this->render(
                 'transaction/transactionResponse.html.twig',
