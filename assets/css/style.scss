@@ -348,6 +348,13 @@ ul {
 	&:hover {
 		opacity: 0.8;
 	}
+	.span-h2{
+		color: #fff;
+		font-size: 12px;
+		margin-top: 15px;
+		line-height: 16px;
+		font-family: raleway;
+	}
 	.demande-btn {
 		border: none;
 		background: none;
@@ -442,11 +449,12 @@ ul {
     height: 40px;
     width: 40px;
 }
-#CTVOdemande .demande-icon {
+
+#DUPdemande .demande-icon {
 	background: url("/../../asset/img/icon-1.png") center no-repeat;
 	background-size: contain;
 }
-#DUPdemande .demande-icon {
+#CTVOdemande .demande-icon {
 	background: url("/../../asset/img/icon-2.png") center no-repeat;
 	background-size: contain;
 }
@@ -461,6 +469,26 @@ ul {
 #DCdemande .demande-icon {
 	background: url("/../../asset/img/icon-5.png") center no-repeat;
 	background-size: contain;
+}
+#DUPdemande h2:before{
+	content: "J'ai perdu ou on m'a volé ma carte grise";
+	text-align: center;
+}
+#CTVOdemande h2:before{
+	content: "J'achète un véhicule d'occasion";
+	text-align: center;
+}
+#DCAdemande h2:before{
+	content: "J'ai changé d'addresse";
+	text-align: center;
+}
+#DIVNdemande h2:before{
+	content: "J'achète un véhicule neuf";
+	text-align: center;
+}
+#DCdemande h2:before{
+	content: "Je vends mon véhicule";
+	text-align: center;
 }
 .critair{
 	&:hover {
@@ -610,3 +638,50 @@ ul {
 	}
 }
 /* Fin responsive V2 */
+/* Début CERFA */
+.downloadCERFA {
+    min-width: 200px;
+	margin-right: 20px;
+	.downloadCERFA-element {
+		position: relative;
+		border-radius: 5px;
+		background: #7296ce;
+		padding: 5px;
+		margin-bottom: 15px;
+		span {
+			display: block;
+			text-align: center;
+			color: #fff;
+			font-weight: 700;
+			font-size: 18px;
+			margin-bottom: 10px;
+		}
+		.download-link {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			background: #767575;
+			padding: 8px 15px;
+			border: 1px solid #7296ce;
+			z-index: 999;
+			color: #fff;
+			border-radius: 10px;
+			display: none;
+			text-decoration: none;
+		}
+		.img-fluid {
+			display: block;
+		}
+		&:hover {
+			.download-link {
+				display: block;
+				text-decoration: none;
+			}
+		}
+	}
+}
+.block {
+	display: block;
+} 
+/* Fin CERFA */

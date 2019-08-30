@@ -53,3 +53,16 @@ $('#formulaire_demarche').on('change', function (e) {
         document.getElementById("calcul").innerHTML = 'Pour éstimer le prix pour cette démarche, cliquer sur l\'icône <br><img src="/asset/img/divn.png" class="img-fluid" alt="85"/><br> de la page d\'accueil';
     }
 });
+
+function h2over(x){  
+    var a = x.id;  
+    var c = x.title;  
+    var b = a.concat("h2");
+    document.getElementById(b).innerHTML =   c;
+}
+function h2out(x){  
+    var a = x.id;  
+    var c = x.title;  
+    var b = a.concat("h2");
+    document.getElementById(b).innerHTML =   "";
+}
