@@ -9,7 +9,7 @@
 {% block class %}body-ccm{% endblock %}
 
 {% block page_content %}
-<div class="col-sm-10 col-lg-8 d-flex flex-row justify-content-center my-flex-container align-items-center mobile-center">
+<div class="col-sm-10 col-lg-12 d-flex flex-row justify-content-center my-flex-container align-items-center mobile-center">
 	<div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
         <div class="col-12 commander-firstview custom-form">
             <h2 class="col-md-10 mx-auto full-mobile text-center">{{ commande.demarche.nom|upper }}</h2>
@@ -28,6 +28,13 @@
                                 {{ form_row(form.vehicule.vin)}}
                                 {{ form_row(form.vehicule.d1Marque)}}
                                 {{ form_row(form.vehicule.d2Version)}}
+                                {{ form_row(form.vehicule.f2MmaxTechAdm)}}
+                                {{ form_row(form.vehicule.f2MmaxAdmServ)}}
+                                {{ form_row(form.vehicule.gMmaxAvecAttelage)}}
+                                {{ form_row(form.vehicule.g1PoidsVide)}}
+                                {{ form_row(form.vehicule.j1Genre)}}
+                                {{ form_row(form.vehicule.j3Carrosserie)}}
+                                {{ form_row(form.vehicule.s1NbPlaceAssise)}}
                                 {{ form_row(form.vehicule.z1Mention1)}}
                                 {{ form_row(form.vehicule.z1Value)}}   
                             </div>
@@ -54,21 +61,14 @@
                                 {{ form_row(form.vehicule.d21Cenit)}}
                                 {{ form_row(form.vehicule.derivVp)}}
                                 {{ form_row(form.vehicule.d3Denomination, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                {{ form_row(form.vehicule.f2MmaxTechAdm, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                {{ form_row(form.vehicule.f2MmaxAdmServ, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 {{ form_row(form.vehicule.f3MmaxAdmEns, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                {{ form_row(form.vehicule.gMmaxAvecAttelage, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                {{ form_row(form.vehicule.g1PoidsVide, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 {{ form_row(form.vehicule.jCategorieCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                {{ form_row(form.vehicule.j1Genre, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 {{ form_row(form.vehicule.j2CarrosserieCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                {{ form_row(form.vehicule.j3Carrosserie, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 {{ form_row(form.vehicule.p1Cyl, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 {{ form_row(form.vehicule.p2PuissKw, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 {{ form_row(form.vehicule.p3Energie, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 {{ form_row(form.vehicule.p6PuissFiscale, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 {{ form_row(form.vehicule.qRapportPuissMasse, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                {{ form_row(form.vehicule.s1NbPlaceAssise, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 {{ form_row(form.vehicule.s2NbPlaceDebout, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 {{ form_row(form.vehicule.u1NiveauSonore, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                 {{ form_row(form.vehicule.u2NbTours, {'attr': {'data-row-style': 'display:none !important;'} })}}

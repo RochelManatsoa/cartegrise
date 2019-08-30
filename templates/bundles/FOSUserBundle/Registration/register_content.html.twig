@@ -87,7 +87,7 @@
 	}
 </style>
 
-{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register col-md-12 col-lg-8 row '}, 'label_attr': labelAttrs} )}}
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register col-md-12 col-lg-10 mx-auto row '}, 'label_attr': labelAttrs} )}}
 
 	<div class="row justify-content-center with-mp">
 
@@ -164,6 +164,10 @@
 					{{ form_row(form.client.clientAdresse.typevoie, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
 				</div>
 			</div>
+		</div>
+
+		<div class="{{ wrapperClassName }}">
+			{{ form_row(form.client.clientAdresse.extension, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
 		</div>
 
 		<div class="{{ wrapperClassName }}">

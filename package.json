@@ -1,14 +1,15 @@
 {
     "devDependencies": {
-        "@babel/preset-react": "^7.0.0",
-        "@symfony/webpack-encore": "^0.24.0",
+        "@babel/preset-react": "7.0.0",
+        "@symfony/webpack-encore": "^0.27.0",
         "babel-preset-react": "^6.24.1",
+        "gulp": "^4.0.2",
         "node-sass": "^4.11.0",
         "prop-types": "^15.7.2",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
         "sass-loader": "^7.0.1",
-        "webpack-notifier": "^1.6.0"
+        "webpack-notifier": "^1.8.0"
     },
     "license": "UNLICENSED",
     "private": true,
@@ -20,7 +21,6 @@
     },
     "dependencies": {
         "@babel/plugin-proposal-class-properties": "^7.4.4",
-        "gulp": "^4.0.1",
         "gulp-notify": "^3.2.0",
         "gulp-sass": "^4.0.2"
     }
