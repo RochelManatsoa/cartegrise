@@ -20,6 +20,15 @@
 				<li>
 					<a href="{{ path('prix_carte_grise') }}" class="menu-item">Prix carte grise</a>
 				</li>
+				{% if app.user %}
+				<li>
+					<a href="{{ path('logout') }}" class="menu-item">Se déconnecter</a>
+				</li>
+                {% else %}
+                <li>
+					<a href="{{ path('fos_user_security_login') }}" class="menu-item">Se connecter</a>
+				</li>
+                {% endif %}
 			</ul>
 		</div>
 
