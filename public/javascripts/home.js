@@ -55,14 +55,19 @@ $('#formulaire_demarche').on('change', function (e) {
 });
 
 function h2over(x){  
+    var p = {
+        CTVOdemande :"J'achète un véhicule d'occasion",
+        DUPdemande :"J'ai perdu ou on m'a volé ma carte grise",
+        DIVNdemande :"J'achète un véhicule neuf",
+        DCAdemande :"J'ai changé d'addresse",
+        DCdemande :"Je vends mon véhicule"
+      };
     var a = x.id;  
-    var c = x.title;  
     var b = a.concat("h2");
-    document.getElementById(b).innerHTML =   c;
+    document.getElementById(b).innerHTML =   p[a];
 }
 function h2out(x){  
     var a = x.id;  
-    var c = x.title;  
     var b = a.concat("h2");
     document.getElementById(b).innerHTML =   "";
 }

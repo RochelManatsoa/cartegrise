@@ -470,26 +470,6 @@ ul {
 	background: url("/../../asset/img/icon-5.png") center no-repeat;
 	background-size: contain;
 }
-#DUPdemande h2:before{
-	content: "J'ai perdu ou on m'a volé ma carte grise";
-	text-align: center;
-}
-#CTVOdemande h2:before{
-	content: "J'achète un véhicule d'occasion";
-	text-align: center;
-}
-#DCAdemande h2:before{
-	content: "J'ai changé d'addresse";
-	text-align: center;
-}
-#DIVNdemande h2:before{
-	content: "J'achète un véhicule neuf";
-	text-align: center;
-}
-#DCdemande h2:before{
-	content: "Je vends mon véhicule";
-	text-align: center;
-}
 .critair{
 	&:hover {
 	opacity: 0.8;
