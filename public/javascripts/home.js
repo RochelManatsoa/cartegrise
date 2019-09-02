@@ -12,16 +12,32 @@ $(document).ready(function () {
         onRegionClick: function (element, code, region) {
             let value = code.replace('fr-', '');
             value = value.toUpperCase();
+            var dep = slugify(region);
             $('.departement_selectione').text(value + " - " + region);
             $('.departement_tarif').text(taxeArray['' + value+''] + " €");
             $('.departement_exoneration').text(exonerationArray[value] + " %");
             $('.departement_selectione_nom').text(region);
             $('#fr_departement').val(code);
             $('#fr_departement_first').val(code);
-            $('.lien_pref').attr('href', '/prefecture/' + code);
+            $('.lien_pref').attr('href', 'http://www.' + dep +'.gouv.fr');
         }
     });
 });
+
+function slugify(string) {
+    const a = 'àáäâãåăæąçćčđďèéěėëêęğǵḧìíïîįłḿǹńňñòóöôœøṕŕřßşśšșťțùúüûǘůűūųẃẍÿýźžż·/_,:;'
+    const b = 'aaaaaaaaacccddeeeeeeegghiiiiilmnnnnooooooprrsssssttuuuuuuuuuwxyyzzz------'
+    const p = new RegExp(a.split('').join('|'), 'g')
+  
+    return string.toString().toLowerCase()
+      .replace(/\s+/g, '-') // Replace spaces with -
+      .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+      .replace(/&/g, '-and-') // Replace & with 'and'
+      .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+      .replace(/\-\-+/g, '-') // Replace multiple - with single -
+      .replace(/^-+/, '') // Trim - from start of text
+      .replace(/-+$/, '') // Trim - from end of text
+}
 
 $(document).ready(function () {
     $('.icon-mobile-menu').click(function(){
