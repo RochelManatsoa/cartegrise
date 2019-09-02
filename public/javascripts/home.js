@@ -50,7 +50,7 @@ $('#formulaire_demarche').on('change', function (e) {
         document.getElementById("calcul").innerHTML = '<button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>';
     } else {
         $(e.target).parent().siblings().hide();
-        document.getElementById("calcul").innerHTML = 'Pour éstimer le prix pour cette démarche, cliquer sur l\'icône <br><img src="/asset/img/divn.png" class="img-fluid" alt="85"/><br> de la page d\'accueil';
+        document.getElementById("calcul").innerHTML = 'Pour éstimer le prix pour cette démarche, cliquer sur l\'icône <br><a href="/#up"><img src="/asset/img/divn.png" class="img-fluid" alt="DIVN"/></a><br> de la page d\'accueil';
     }
 });
 
