@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://www.cgofficiel.fr/</loc>
+  <lastmod>2019-09-03T12:38:39+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://www.cgofficiel.fr/CommentCaMarche</loc>
+  <lastmod>2019-09-03T12:38:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.cgofficiel.fr/prix-carte-grise</loc>
+  <lastmod>2019-09-03T12:38:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.cgofficiel.fr/login</loc>
+  <lastmod>2019-09-03T12:38:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.cgofficiel.fr/faq</loc>
+  <lastmod>2019-09-03T12:38:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.cgofficiel.fr/download/cgofficiel_cerfa-13751-01.pdf</loc>
+  <lastmod>2019-07-23T16:28:04+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.cgofficiel.fr/download/cgofficiel_cerfa_13757-03.pdf</loc>
+  <lastmod>2019-07-23T16:28:04+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.cgofficiel.fr/download/cgofficiel_cerfa-15776-01.pdf</loc>
+  <lastmod>2019-07-23T16:28:04+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.cgofficiel.fr/france-connect/in_progress</loc>
+  <lastmod>2019-09-03T12:38:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.cgofficiel.fr/contact</loc>
+  <lastmod>2019-09-03T12:38:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.cgofficiel.fr/CGV</loc>
+  <lastmod>2019-09-03T12:38:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.cgofficiel.fr/retractation</loc>
+  <lastmod>2019-09-03T12:38:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.cgofficiel.fr/formulaire</loc>
+  <lastmod>2019-09-03T12:38:39+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.cgofficiel.fr/resetting/request</loc>
+  <lastmod>2019-09-03T12:38:39+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.cgofficiel.fr/download/retractation.pdf</loc>
+  <lastmod>2019-07-30T08:13:46+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>
