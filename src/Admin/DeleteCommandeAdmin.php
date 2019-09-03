@@ -17,6 +17,16 @@ final class DeleteCommandeAdmin extends AbstractAdmin
     protected $baseRoutePattern = 'manage';
     protected $baseRouteName = 'manage';
 
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+        $qb = $query->getQueryBuilder();
+        $alias = $query->getRootAliases()[0];
+        $qb->where($alias.'.client IS NOT NULL');
+
+        return $query;
+    }
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
