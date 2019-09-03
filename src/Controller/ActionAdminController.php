@@ -45,10 +45,7 @@ class ActionAdminController extends Controller
         $commandes = $client->getCommandes();
         foreach ($commandes as $commande)
         {
-            $commande->setPrevClient($client->getId());
-            $commande->setDeletorUser($this->getUser()->getId());
-            $commande->setClient(null);
-            $commandeManager->persist($commande);
+            $commandeManager->remove($commande);
         }
         $commandeManager->flush();
 

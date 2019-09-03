@@ -83,7 +83,7 @@ class DivnInit
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\commande", inversedBy="divnInit", cascade={"all"})
-     * @ORM\JoinColumn()
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $commande;
 

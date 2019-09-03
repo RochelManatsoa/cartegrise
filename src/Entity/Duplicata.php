@@ -51,7 +51,8 @@ class Duplicata
     private $demandeChangementTitulaire;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Demande", inversedBy="duplicata", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Demande", inversedBy="duplicata", cascade={"all"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $demande;
 
