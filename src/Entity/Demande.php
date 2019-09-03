@@ -87,31 +87,31 @@ class Demande
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", mappedBy="demande", cascade={"persist", "remove"})
-     * @ORM\JoinColumn()
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $ctvo;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Duplicata", mappedBy="demande", cascade={"all"})
-     * @ORM\JoinColumn()
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $duplicata;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Divn", mappedBy="demande", cascade={"persist", "remove"})
-     * @ORM\JoinColumn()
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $divn;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Cession", mappedBy="demande", cascade={"persist", "remove"})
-     * @ORM\JoinColumn()
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $cession;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", mappedBy="demande", cascade={"persist", "remove"})
-     * @ORM\JoinColumn()
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $changementAdresse;
 
