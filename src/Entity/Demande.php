@@ -41,7 +41,7 @@ class Demande
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Commande", inversedBy="demande")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $commande;
 
@@ -92,7 +92,7 @@ class Demande
     private $ctvo;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Duplicata", mappedBy="demande", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Duplicata", mappedBy="demande", cascade={"all"})
      * @ORM\JoinColumn()
      */
     private $duplicata;
@@ -356,7 +356,7 @@ class Demande
         return $this->commande;
     }
 
-    public function setCommande(Commande $commande): self
+    public function setCommande(?Commande $commande): self
     {
         $this->commande = $commande;
 

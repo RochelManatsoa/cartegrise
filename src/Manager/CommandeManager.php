@@ -57,6 +57,12 @@ class CommandeManager
 		$this->em->flush();
 	}
 
+	public function remove(Commande $commande)
+	{
+		// save in database
+		$this->em->remove($commande);
+	}
+
 	public function persist(Commande $commande)
 	{
 		// hydrage sql
