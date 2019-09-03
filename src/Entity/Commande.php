@@ -80,14 +80,14 @@ class Commande
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Demande", mappedBy="commande", cascade={"all"})
-     * @ORM\JoinColumn()
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"read"})
      */
     private $demande;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\DivnInit", mappedBy="commande", cascade={"all"})
-     * @ORM\JoinColumn()
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $divnInit;
 
