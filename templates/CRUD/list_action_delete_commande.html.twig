@@ -1,4 +1,4 @@
-<a class="btn btn-sm btn-default view_link" target="_blank" href="{{ admin.generateObjectUrl('deleteCommande', object) }}" title="suppression Commande">
+<a class="btn btn-sm btn-default view_link" onclick='if(!confirm("êtes vous sur ?")){return false}' href="{{ admin.generateObjectUrl('deleteCommande', object) }}" title="suppression Commande">
 <i class="fa fa-trash" aria-hidden="true"></i>
 supprimer les commandes
 </a>
