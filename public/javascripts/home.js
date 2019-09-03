@@ -13,6 +13,19 @@ $(document).ready(function () {
             let value = code.replace('fr-', '');
             value = value.toUpperCase();
             var dep = slugify(region);
+            var depart = dep;
+            var valueDep = value;
+            if(dep == "cote-dor"){
+                depart = "cote-d-or";
+            }else if(dep == "meurthe-et-moselle"){
+                depart = "meurhe-et-moselle";
+            }else if(dep == "haut-rhin"){
+                valueDep = 67;
+            }else if(dep == "cotes-darmor"){
+                depart = "cotes-d-armor";
+            }else if(dep == "la-reunion" || dep == "guyane" || dep == "guadeloupe" || dep == "martinique"){
+                depart = 'departement-'+dep;
+            }
             $('.departement_selectione').text(value + " - " + region);
             $('.departement_tarif').text(taxeArray['' + value+''] + " €");
             $('.departement_exoneration').text(exonerationArray[value] + " %");
@@ -21,7 +34,16 @@ $(document).ready(function () {
             $('#fr_departement_first').val(code);
             $('.lien_pref').attr('href', 'http://www.' + dep +'.gouv.fr');
             $('.target_blank').attr('target', '_blank');
-            $('.src_img').attr('src', 'https://www.regions-et-departements.fr/images/logos-departements/'+ value +'-logo-' + dep +'.png');
+            $('.src_img').attr('src', 'https://www.regions-et-departements.fr/images/logos-departements/'+ valueDep +'-logo-' + depart +'.png');
+        },
+        onRegionOver: function(element, label, region){
+            //alert(element.type);
+            //console.log(label);
+            label.html('<div class="map-tooltip"><h1 class="header">'+ region +'</h1><p class="description">Some Description</p></div>');
+        },
+        onRegionOut: function(event, code, region)
+        {
+            event.preventDefault();
         }
     });
 });
@@ -77,7 +99,7 @@ function h2over(x){
         CTVOdemande :"J'achète un véhicule d'occasion",
         DUPdemande :"J'ai perdu ou on m'a volé ma carte grise",
         DIVNdemande :"J'achète un véhicule neuf",
-        DCAdemande :"J'ai changé d'addresse",
+        DCAdemande :"J'ai changé d'adresse",
         DCdemande :"Je vends mon véhicule"
       };
     var a = x.id;  
