@@ -291,6 +291,11 @@ class Client
         return $this->commandes;
     }
 
+    public function getTotalCommandes()
+    {
+        return $this->getCommandes()->count();
+    }
+
     public function addCommande(Commande $commande): self
     {
         if (!$this->commandes->contains($commande)) {

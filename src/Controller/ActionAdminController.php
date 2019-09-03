@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Manager\DocumentAFournirManager;
 use App\Manager\{DemandeManager, CommandeManager, TMSSauverManager};
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Demande;
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ActionAdminController extends Controller
@@ -29,6 +29,31 @@ class ActionAdminController extends Controller
 
         // if you have a filtered list and want to keep your filters after the redirect
         // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+
+    /**
+     * @param $id
+     */
+    public function deleteCommandeAction($id, CommandeManager $commandeManager)
+    {
+        $object = $this->admin->getSubject();
+        if (!$object instanceof User) {
+            throw new NotFoundHttpException(sprintf('unable to find the User with id: %s', $id));
+        }
+        $user = $object;
+        $client = $user->getClient();
+        $commandes = $client->getCommandes();
+        foreach ($commandes as $commande)
+        {
+            $commande->setPrevClient($client->getId());
+            $commande->setDeletorUser($this->getUser()->getId());
+            $commande->setClient(null);
+            $commandeManager->persist($commande);
+        }
+        $commandeManager->flush();
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
     }
 
     /**
