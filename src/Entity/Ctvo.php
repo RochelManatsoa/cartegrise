@@ -39,6 +39,7 @@ class Ctvo
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Cotitulaires", mappedBy="ctvo", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $cotitulaire;
 
