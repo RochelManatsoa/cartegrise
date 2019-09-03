@@ -60,6 +60,7 @@ class Cotitulaires
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Ctvo", inversedBy="cotitulaire")
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $ctvo;
 
