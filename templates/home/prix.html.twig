@@ -31,7 +31,13 @@
                         <td class="departement_exoneration"> -- %</td>
                     </tr>
                 </table>
-                <a class="btn btn-outline-success mt-3 lien_pref"  target="_blank" href="" >En savoir plus sur cette préfécture </a>
+                <a href="#" class="lien_pref target_blank" target="_self">
+                    <img src="{{ asset('asset/img/logo.png')}}" style="height:50px;" class="img-thumbnail src_img" alt="...">
+                </a>
+                <br>
+                <a class="btn btn-outline-success mt-3 lien_pref target_blank"  target="_self" href="#" >
+                    En savoir plus sur cette préfécture 
+                </a>
             </center>
             <a class="col-4 btn btn-success mt-3" href="{{path('Accueil')}}">PASSER MA COMMANDE </a>
         </div>

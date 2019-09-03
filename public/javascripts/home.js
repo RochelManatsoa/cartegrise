@@ -20,6 +20,8 @@ $(document).ready(function () {
             $('#fr_departement').val(code);
             $('#fr_departement_first').val(code);
             $('.lien_pref').attr('href', 'http://www.' + dep +'.gouv.fr');
+            $('.target_blank').attr('target', '_blank');
+            $('.src_img').attr('src', 'https://www.regions-et-departements.fr/images/logos-departements/'+ value +'-logo-' + dep +'.png');
         }
     });
 });
