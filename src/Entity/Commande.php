@@ -43,6 +43,16 @@ class Commande
     private $immatriculation;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $prevClient;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $deletorUser;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TypeDemande", inversedBy="commandes")
      * @Groups("read")
      */
@@ -316,6 +326,30 @@ class Commande
     public function setFourthChange(?bool $fourthChange): self
     {
         $this->fourthChange = $fourthChange;
+
+        return $this;
+    }
+
+    public function getPrevClient(): ?int
+    {
+        return $this->prevClient;
+    }
+
+    public function setPrevClient(?int $prevClient): self
+    {
+        $this->prevClient = $prevClient;
+
+        return $this;
+    }
+
+    public function getDeletorUser(): ?int
+    {
+        return $this->deletorUser;
+    }
+
+    public function setDeletorUser(?int $deletorUser): self
+    {
+        $this->deletorUser = $deletorUser;
 
         return $this;
     }

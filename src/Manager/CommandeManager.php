@@ -46,9 +46,21 @@ class CommandeManager
 	public function save(Commande $commande)
 	{
 		// hydrage sql
-		$this->em->persist($commande);
+		$this->persist($commande);
+		// save in database
+		$this->flush();
+	}
+
+	public function flush()
+	{
 		// save in database
 		$this->em->flush();
+	}
+
+	public function persist(Commande $commande)
+	{
+		// hydrage sql
+		$this->em->persist($commande);
 	}
 
 	public function createCommande()
