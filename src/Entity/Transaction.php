@@ -48,7 +48,7 @@ class Transaction
 
     /**
      * @ORM\ManyToOne(targetEntity="Demande")
-
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $demande;
 

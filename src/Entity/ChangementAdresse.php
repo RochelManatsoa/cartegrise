@@ -33,8 +33,8 @@ class ChangementAdresse
 
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Demande", inversedBy="changementAdresse", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
+     * @ORM\OneToOne(targetEntity="App\Entity\Demande", inversedBy="changementAdresse", cascade={"all"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $demande;
 
