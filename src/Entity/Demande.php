@@ -117,6 +117,7 @@ class Demande
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Transaction", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"read"})
      */
     private $transaction;
