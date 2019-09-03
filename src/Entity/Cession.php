@@ -20,6 +20,7 @@ class Cession
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Demande", inversedBy="cession", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $demande;
 

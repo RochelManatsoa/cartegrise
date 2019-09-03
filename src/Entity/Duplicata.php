@@ -52,6 +52,7 @@ class Duplicata
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Demande", inversedBy="duplicata", cascade={"all"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $demande;
 

@@ -23,6 +23,7 @@ class Ctvo
     private $id;
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Demande", inversedBy="ctvo", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $demande;
 
