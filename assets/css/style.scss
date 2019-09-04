@@ -665,3 +665,9 @@ ul {
 	display: block;
 } 
 /* Fin CERFA */
+body.body-accueil {
+	background: url("/../../asset/img/bg-main.png") center no-repeat;
+	background-size: 400px !important;
+    background-attachment: fixed;
+	background-position: bottom 0 left 20% !important;
+}
