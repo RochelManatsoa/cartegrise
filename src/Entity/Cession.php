@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Entity\File\DemandeCession;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CessionRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Cession
 {
@@ -53,6 +55,13 @@ class Cession
      * @ORM\OneToOne(targetEntity="App\Entity\File\DemandeCession", inversedBy="cession", cascade={"persist", "remove"})
      */
     private $file;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function getId(): ?int
     {
@@ -141,6 +150,18 @@ class Cession
     public function setAcheteur(?UserInfos $acheteur): self
     {
         $this->acheteur = $acheteur;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

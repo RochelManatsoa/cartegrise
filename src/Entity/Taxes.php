@@ -5,9 +5,11 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TaxesRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Taxes
 {
@@ -105,6 +107,13 @@ class Taxes
      * @ORM\OneToOne(targetEntity="App\Entity\Commande", inversedBy="taxes", cascade={"persist", "remove"})
      */
     private $commande;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
 
     public function __construct()
@@ -313,6 +322,18 @@ class Taxes
     public function setVIN(?string $VIN): self
     {
         $this->VIN = $VIN;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

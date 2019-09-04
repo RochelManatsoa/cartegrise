@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TarifsPrestationsRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class TarifsPrestations
 {
@@ -40,6 +42,13 @@ class TarifsPrestations
      * @ORM\OneToOne(targetEntity="App\Entity\TypeDemande", cascade={"persist", "remove"})
      */
     private $commande;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function getId(): ?int
     {
@@ -102,6 +111,18 @@ class TarifsPrestations
     public function setCommande(?TypeDemande $commande): self
     {
         $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

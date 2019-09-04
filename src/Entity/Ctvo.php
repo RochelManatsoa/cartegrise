@@ -6,9 +6,11 @@ use App\Entity\File\DemandeCtvo;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Ctvo
 {
@@ -64,6 +66,13 @@ class Ctvo
      * @ORM\Column(type= "datetime", nullable=true)
      */
     private $dateCi;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function __construct()
     {
@@ -188,6 +197,18 @@ class Ctvo
     public function setDateCi(?\DateTimeInterface $dateCi): self
     {
         $this->dateCi = $dateCi;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FichierRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Fichier
 {
@@ -61,6 +63,14 @@ class Fichier
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $valideLe;
+
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function __toString()
     {
@@ -176,6 +186,18 @@ class Fichier
     public function setValideLe(\DateTimeInterface $valideLe): self
     {
         $this->valideLe = $valideLe;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

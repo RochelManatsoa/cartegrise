@@ -8,9 +8,11 @@
 namespace App\Entity\File;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\File\FilesRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Files
 {
@@ -30,6 +32,13 @@ class Files
      * @ORM\JoinColumn()
      */
     private $demandeDuplicata;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function getId(): ?int
     {
@@ -56,6 +65,18 @@ class Files
     public function setDemandeDuplicata(?DemandeDuplicata $demandeDuplicata): self
     {
         $this->demandeDuplicata = $demandeDuplicata;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }
