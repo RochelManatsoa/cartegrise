@@ -5,9 +5,11 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DocumentsRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Documents
 {
@@ -120,6 +122,14 @@ class Documents
      * @ORM\Column(type="string", length=255)
      */
     private $code;
+
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
 
     public function __construct()
@@ -407,6 +417,18 @@ class Documents
                 $fichier->setType(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

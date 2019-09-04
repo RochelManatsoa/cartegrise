@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\HistoryTransactionRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class HistoryTransaction
 {
@@ -41,6 +43,13 @@ class HistoryTransaction
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $demande;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function getId(): ?int
     {
@@ -103,6 +112,18 @@ class HistoryTransaction
     public function setStatusMessage(string $statusMessage): self
     {
         $this->statusMessage = $statusMessage;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

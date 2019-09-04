@@ -6,9 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NewTitulaireRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class NewTitulaire
 {
@@ -110,6 +112,13 @@ class NewTitulaire
      * @ORM\OneToMany(targetEntity="App\Entity\Vehicule", mappedBy="Titulaire")
      */
     private $vehicules;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -400,6 +409,18 @@ class NewTitulaire
     public function setPaysN(?string $paysN): self
     {
         $this->paysN = $paysN;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

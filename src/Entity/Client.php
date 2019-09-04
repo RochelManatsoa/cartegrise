@@ -8,9 +8,11 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  *  @ApiResource(
  *     forceEager= false,
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=false},
@@ -108,6 +110,13 @@ class Client
      * @Groups({"read"})
      */
     private $user;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
 
 
@@ -394,6 +403,18 @@ class Client
     public function setRelanceLevel(?int $relanceLevel): self
     {
         $this->relanceLevel = $relanceLevel;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

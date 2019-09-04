@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Entity\File\DemandeChangementAdresse;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ChangementAdresseRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class ChangementAdresse
 {
@@ -44,6 +46,13 @@ class ChangementAdresse
      * @var string
      */
     private $numeroFormule;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function getId(): ?int
     {
@@ -136,6 +145,18 @@ class ChangementAdresse
     public function setNumeroFormule(?string $numeroFormule): self
     {
         $this->numeroFormule = $numeroFormule;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

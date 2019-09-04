@@ -12,9 +12,11 @@ use App\Entity\Duplicata;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
                 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\File\DemandeCtvoRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class DemandeCtvo
 {
@@ -134,6 +136,13 @@ class DemandeCtvo
      * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", mappedBy="file")
      */
     private $ctvo;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     // don't touch
     public function getParent() : Ctvo
@@ -305,6 +314,18 @@ class DemandeCtvo
     public function setRecepisseDemandeAchat(?string $recepisseDemandeAchat): self
     {
         $this->recepisseDemandeAchat = $recepisseDemandeAchat;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Entity\File\DemandeDuplicata;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DuplicataRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Duplicata
 {
@@ -60,6 +62,13 @@ class Duplicata
      * @ORM\OneToOne(targetEntity="App\Entity\File\DemandeDuplicata", inversedBy="demandeDuplicata", cascade={"persist", "remove"})
      */
     private $file;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function getId(): ?int
     {
@@ -144,6 +153,18 @@ class Duplicata
     public function setNumeroFormule(?string $numeroFormule): self
     {
         $this->numeroFormule = $numeroFormule;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }
