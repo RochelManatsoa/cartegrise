@@ -137,4 +137,15 @@
 {% block javascripts %}
 	{{ parent() }}
 	<script src="{{ asset('javascripts/home.js') }}"></script>
+	<script type="text/javascript">
+        cookiesChecker.init();
+        // or customize it a bit:
+        //cookiesChecker.init({
+        //    cookieKey:'custom-cookie-name',
+        //    cookieValue:'custom-cookie-value',
+        //    cookieDays:361,
+        //    containerId:'cookie-custom-alert-container',
+        //    htmlTemplate:'<div>SOME COOKIE INFO <a href="javascript:cookiesChecker.accept();">OK</a></div>'
+        //});
+    </script>
 {% endblock %}
