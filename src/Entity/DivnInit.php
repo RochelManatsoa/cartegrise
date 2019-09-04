@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @ORM\Entity(repositoryClass="App\Repository\DivnInitRepository")
  */
 class DivnInit
@@ -86,6 +88,13 @@ class DivnInit
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $commande;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
 
     public function getId(): ?int
@@ -173,6 +182,18 @@ class DivnInit
     public function setCommande(?commande $commande): self
     {
         $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

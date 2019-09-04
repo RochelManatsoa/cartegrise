@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CarInfoRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class CarInfo
 {
@@ -71,6 +73,13 @@ class CarInfo
      * @ORM\Column(type="text", nullable=true)
      */
     private $data;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function getId(): ?int
     {
@@ -205,6 +214,18 @@ class CarInfo
     public function setHorsePowerFiscal(?string $horsePowerFiscal): self
     {
         $this->horsePowerFiscal = $horsePowerFiscal;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

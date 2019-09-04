@@ -6,9 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdresseRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Adresse
 {
@@ -92,6 +94,13 @@ class Adresse
      * @ORM\ManyToOne(targetEntity="App\Entity\Vehicule", inversedBy="adresse")
      */
     private $vehicules;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function __construct()
     {
@@ -274,6 +283,18 @@ class Adresse
     public function setVehicules(?Vehicule $vehicules): self
     {
         $this->vehicules = $vehicules;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

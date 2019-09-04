@@ -10,9 +10,11 @@ use App\Entity\Vehicule\VehiculeNeuf;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DivnRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Divn
 {
@@ -59,6 +61,13 @@ class Divn
      * @ORM\OneToOne(targetEntity="App\Entity\Vehicule\VehiculeNeuf", inversedBy="divn", cascade={"persist", "remove"})
      */
     private $vehicule;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
     
 
     public function __construct()
@@ -204,5 +213,17 @@ class Divn
     public function countCaractTech()
     {
         return count($this->caractTech);
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
     }
 }

@@ -5,9 +5,11 @@ use App\Entity\Divn;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Vehicule\VehiculeNeufRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class VehiculeNeuf
 {
@@ -184,6 +186,14 @@ class VehiculeNeuf
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nbMentions;
+
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function __construct()
     {
@@ -587,6 +597,18 @@ class VehiculeNeuf
     public function setDivn(?Divn $divn): self
     {
         $this->divn = $divn;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

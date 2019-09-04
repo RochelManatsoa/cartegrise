@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AncientitulaireRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Ancientitulaire
 {
@@ -44,6 +46,13 @@ class Ancientitulaire
      * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", mappedBy="ancienTitulaire", cascade={"persist", "remove"})
      */
     private $ctvo;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function getId(): ?int
     {
@@ -100,6 +109,18 @@ class Ancientitulaire
         if ($newAncienTitulaire !== $ctvo->getAncienTitulaire()) {
             $ctvo->setAncienTitulaire($newAncienTitulaire);
         }
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }
