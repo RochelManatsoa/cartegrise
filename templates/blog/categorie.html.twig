@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ categorie.nom }}{% endblock %}
+{% block meta %}
+	<base href="{{ path('show_cat',{ slug : categorie.slug })}}"/>
+	<meta
+		name="keywords"
+		content=" " />
+        <meta name="
+		x-ua-compatible" content="
+		ie="edge,chrome=1" />
+        <meta name=""
+		description" content="
+		{{ categorie.description }}
+		" />
+        <meta property="
+		og:title" content="
+		{{ categorie.nom | lower }}
+		">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="{{ path('show_cat',{ slug : categorie.slug })}}">
+	<meta property="og:description" content="{{ categorie.description }}">
+	<meta property="og:video" content="">
+	<meta property="og:locale" content="fr_FR">
+	<meta name="twitter:card" content="summary_large_image"/>
+	<meta name="twitter:url" content="{{ path('show_cat',{ slug : categorie.slug })}}"/>
+	<meta name="twitter:title" content="{{ categorie.nom | lower }}"/>
+	<meta property="twitter:description" content="{{ categorie.description }}"/>
+{% endblock %}
+
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-accueil{% endblock %}
+
+{% block page_content %}
+<div class="col-8 mx-auto main-blog">
+	<div class="row blog">
+		<h1 class="col-12 titre-show-cat text-center">{{ categorie.nom }}</h1>
+		{% for article in articles %}
+			<div class="col-12 col-md-4 mx-auto">
+				<div class="col-10 mx-auto blog-post">
+					<a href="{{ path('blog_show', {'slug': article.slug}) }}" class="">
+						<figure class="blog-post--image">
+							<img src="{{ asset('uploads/' ~ article.image.url) }}" alt="{{ article.titre }}" class="img-fluid p-2">
+						</figure>
+					</a>
+					<div class="blog-post--description">
+						<a href="{{ path('blog_show', {'slug': article.slug}) }}" class="">
+							<h2 class="blog-titre-article mt-3">{{ article.titre }}</h2>
+						</a>
+						<p>
+							<p class="blog-post--description---date">Crée le
+								{{ article.date | date('d M Y') }}</p>
+						</p>
+						<p>
+							{% for categorie in article.categories %}
+								<a href="{{ path('show_cat', {'slug':categorie.slug}) }}">
+									<span class="badge badge-pill badge-dark">{{ categorie.nom | capitalize}}</span>
+								</a>
+								{% if not loop.last %}{% endif %}
+							{% endfor %}
+						</p>
+						<p>{{ article.description | truncate(70, true) | raw }}</p>
+					</div>
+					<div class="blog-post--tools d-flex flex-row justify-content-center my-flex-container align-items-center">
+						<a href="{{ path('blog_show', {'slug': article.slug}) }}" class="mx-auto btn btn-outline-dark m-2 mx-auto">Continuer la lecture</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+		<div class="col-12 pagination pagination-css  d-flex align-items-center flex-row justify-content-center my-flex-container">
+			{{ knp_pagination_render(articles) }}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block pagetext_content %}
+	
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

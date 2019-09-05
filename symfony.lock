@@ -136,11 +136,17 @@
     "kleegroup/franceconnect-bundle": {
         "version": "0.7"
     },
+    "knplabs/knp-components": {
+        "version": "v2.2.0"
+    },
     "knplabs/knp-menu": {
         "version": "2.3.0"
     },
     "knplabs/knp-menu-bundle": {
         "version": "v2.2.1"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v4.0.0"
     },
     "knplabs/knp-snappy": {
         "version": "v1.1.0"
