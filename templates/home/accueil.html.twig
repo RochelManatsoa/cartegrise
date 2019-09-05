@@ -88,6 +88,25 @@
 				{% endif %}
 			{% endif %}
 		{% else %}
+		{% if app.user %}
+		<div class="hidden-lg-up hidden-md-up">
+			<ul class="espace-client-menu col-10 col-lg-10 col-xl-11 list-group mx-auto mb-4">
+				<li class="list-group-item d-flex justify-content-between align-items-center active">
+					<a href="{{ path('compte') }}">Mon Profil</a>
+				</li>
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+					<a href="{{ path('commande_list') }}">Demandes en cours</a>
+					<span class="badge badge-primary badge-pill">{{ countCommandeUnchecked(app.user) }}</span>
+				</li>
+				</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center">
+					<a href="{{ path('demande_list')}}">Commandes effectuées</a>
+					<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
+				</li>
+				
+			</ul>
+		</div>
+		{% endif %}
 			{{ include('home/composant/menu-commander-fin.html.twig') }}
 		{% endif %}
 	{% else %}
@@ -125,6 +144,25 @@
 				</div>
 			{% endif %}
 		{% else %}
+		{% if app.user %}
+		<div class="hidden-lg-up hidden-md-up">
+			<ul class="espace-client-menu col-10 col-lg-10 col-xl-11 list-group mx-auto mb-4">
+				<li class="list-group-item d-flex justify-content-between align-items-center active">
+					<a href="{{ path('compte') }}">Mon Profil</a>
+				</li>
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+					<a href="{{ path('commande_list') }}">Demandes en cours</a>
+					<span class="badge badge-primary badge-pill">{{ countCommandeUnchecked(app.user) }}</span>
+				</li>
+				</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center">
+					<a href="{{ path('demande_list')}}">Commandes effectuées</a>
+					<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
+				</li>
+				
+			</ul>
+		</div>
+		{% endif %}
 			{{ include('home/composant/menu-commander-fin.html.twig') }}
 		{% endif %}
 	{% endif %}
@@ -136,16 +174,4 @@
 
 {% block javascripts %}
 	{{ parent() }}
-	<script src="{{ asset('javascripts/home.js') }}"></script>
-	<script type="text/javascript">
-        cookiesChecker.init();
-        // or customize it a bit:
-        //cookiesChecker.init({
-        //    cookieKey:'custom-cookie-name',
-        //    cookieValue:'custom-cookie-value',
-        //    cookieDays:361,
-        //    containerId:'cookie-custom-alert-container',
-        //    htmlTemplate:'<div>SOME COOKIE INFO <a href="javascript:cookiesChecker.accept();">OK</a></div>'
-        //});
-    </script>
 {% endblock %}
