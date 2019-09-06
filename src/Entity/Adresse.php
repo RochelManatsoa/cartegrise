@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdresseRepository")
@@ -18,12 +19,14 @@ class Adresse
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"info_user"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(min=1, max=4)
+     * @Groups({"info_user"})
      */
     private $numero;
 
@@ -40,43 +43,51 @@ class Adresse
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotNull( message="Ce champs est requis")
+     * @Groups({"info_user"})
      */
     private $typevoie;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotNull( message="Ce champs est requis")
+     * @Groups({"info_user"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"info_user"})
      */
     private $complement;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"info_user"})
      */
     private $lieudit;
 
     /**
      * @Assert\Regex("/^[0-9]{5}$/")
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"info_user"})
      */
     private $codepostal;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"info_user"})
      */
     private $ville;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"info_user"})
      */
     private $boitepostale;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"info_user"})
      */
     private $pays;
 
