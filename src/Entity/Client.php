@@ -25,21 +25,25 @@ class Client
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"info_user"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"info_user"})
      */
     private $clientNom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"info_user"})
      */
     private $clientPrenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"info_user"})
      */
     private $clientGenre;
 
@@ -50,6 +54,7 @@ class Client
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"info_user"})
      */
     private $clientDateNaissance;
 
@@ -67,6 +72,7 @@ class Client
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Adresse", mappedBy="client", cascade={"persist", "remove"})
      * @ORM\JoinColumn()
+     * @Groups({"info_user"})
      */
     private $clientAdresse;
 
