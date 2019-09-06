@@ -19,7 +19,6 @@ use App\Controller\API\UserApi;
  *     denormalizationContext={"groups"={"write"}},
  *     itemOperations={
  *     "get",
- *     "post",
  *     "put",
  *     "get_user"={
  *         "method"="GET",
