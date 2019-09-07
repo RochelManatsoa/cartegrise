@@ -25,14 +25,14 @@
 {% block class %}body-accueil{% endblock %}
 
 {% block page_content %}
-<div class="col-md-11 col-lg-11 d-flex flex-row justify-content-center my-flex-container align-items-center mx-auto">
+<div class="col-md-11 home-texte col-lg-11 d-flex flex-row justify-content-center my-flex-container align-items-center mx-auto">
     <div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
-        <h2 class="col-12 col-sm-12 home-secondview--titre">Quel est le coût d'une Carte Grise?</h2>
+        <h2 class="col-12 col-sm-12 home-prix--titre">Quel est le coût d'une Carte Grise?</h2>
         
-        <div class="col-12 text-center">
+        <div class="col-12 ">
             <h3>Prix de votre carte grise par département</h3>
             <p>Cliquez sur la carte pour sélectionner votre département.</p>
-            <div class="map-container d-flex mx-auto">
+            <div class="map-container d-flex mx-auto text-center">
                 <div id="francemap" style="margin:auto; min-width: 550px; height: 600px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249);"></div>
                 <div class="info-map">
                 </div>
@@ -55,9 +55,11 @@
                 <br>
                 <a class="btn btn-outline-success mt-3 lien_pref target_blank"  target="_self" href="#" >
                     En savoir plus sur cette préfécture 
+                </a><br>
+                <a class="btn btn-success mt-3 " href="{{path('Accueil')}}">
+                    PASSER MA COMMANDE 
                 </a>
             </center>
-            <a class="btn btn-success mt-3" href="{{path('Accueil')}}">PASSER MA COMMANDE </a>
         </div>
     </div>
 </div>
