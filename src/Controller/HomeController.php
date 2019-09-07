@@ -154,7 +154,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/CommentCaMarche", name="CommentCaMarche")
+     * @Route("/comment-ca-marche", name="CommentCaMarche")
      */
     public function CommentCaMarche()
     {
@@ -162,7 +162,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/faq", name="faq")
+     * @Route("/foire-aux-questions", name="faq")
      */
     public function faq()
     {
@@ -170,7 +170,7 @@ class HomeController extends AbstractController
     }
 
 	/**
-	 * @Route("/CGV", name="cgv")
+	 * @Route("/conditions-generale-de-vente", name="cgv")
 	 */
 	public function cgv()
 	{

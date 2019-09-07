@@ -1,5 +1,23 @@
 {% extends 'base.html.twig' %}
 
+{% block seo %}
+<base href="{{path('prix_carte_grise')}}"/>
+<meta name="keywords" content="Estimez le coût de votre carte grise selon votre département. Découvrez le tarif de la taxe régionale en vigueur dans votre département pour votre certificat d’immatriculation."/> 
+<meta name="x-ua-compatible" content="IE=edge,chrome=1"/> 
+<meta name="description" content="Estimez le coût de votre carte grise selon votre département. Découvrez le tarif de la taxe régionale en vigueur dans votre département pour votre certificat d’immatriculation."/> 
+<meta property="og:title" content="CGofficiel.fr | Prix de la carte grise "> 
+<meta property="og:type" content="page"> 
+<meta property="og:url" content="{{path('prix_carte_grise')}}"> 
+<meta property="og:image" content=""> 
+<meta property="og:description" content="Estimez le coût de votre carte grise selon votre département. Découvrez le tarif de la taxe régionale en vigueur dans votre département pour votre certificat d’immatriculation.">
+<meta property="og:video" content=""> 
+<meta property="og:locale" content="fr_FR"> 
+<meta name="twitter:card" content="summary_large_image"/> 
+<meta name="twitter:url" content="{{path('prix_carte_grise')}}"/> 
+<meta name="twitter:title" content="CGofficiel.fr | Prix de la carte grise "/> 
+<meta property="twitter:description" content="Estimez le coût de votre carte grise selon votre département. Découvrez le tarif de la taxe régionale en vigueur dans votre département pour votre certificat d’immatriculation."/>
+{% endblock %}
+
 {% block title %}{% endblock %}
 
 {% block body_id %}{% endblock %}
@@ -9,17 +27,17 @@
 {% block page_content %}
 <div class="col-md-11 col-lg-11 d-flex flex-row justify-content-center my-flex-container align-items-center mx-auto">
     <div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
-        <h1 class="col-12 col-sm-12 home-secondview--titre">Quel est le coût d'une Carte Grise?</h1>
+        <h2 class="col-12 col-sm-12 home-secondview--titre">Quel est le coût d'une Carte Grise?</h2>
         
         <div class="col-12 text-center">
-            <h4>Prix de votre carte grise par département</h4>
+            <h3>Prix de votre carte grise par département</h3>
             <p>Cliquez sur la carte pour sélectionner votre département.</p>
             <div class="map-container d-flex mx-auto">
                 <div id="francemap" style="margin:auto; min-width: 550px; height: 600px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249);"></div>
                 <div class="info-map">
                 </div>
             </div>
-            <h4 class="mt-5">Prix de la Carte Grise dans <span class="departement_selectione"> votre département</span></h4>
+            <h3 class="mt-5">Prix de la Carte Grise dans <span class="departement_selectione"> votre département</span></h3>
             <center>
                 <table class="col-6 text-center">
                     <tr class="text-center">
@@ -39,7 +57,7 @@
                     En savoir plus sur cette préfécture 
                 </a>
             </center>
-            <a class="col-4 btn btn-success mt-3" href="{{path('Accueil')}}">PASSER MA COMMANDE </a>
+            <a class="btn btn-success mt-3" href="{{path('Accueil')}}">PASSER MA COMMANDE </a>
         </div>
     </div>
 </div>
