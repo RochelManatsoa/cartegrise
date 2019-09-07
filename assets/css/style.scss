@@ -159,6 +159,10 @@ $rouge: rgb(175, 68, 68);
 
 @import 'accordion.scss';
 @import 'espacepersonnel.scss';
+/*________________________________________________________________Blog :*/
+@import 'card.scss';
+@import 'blog.scss';
+/*________________________________________________________________Blog :*/
 /*________________________________________________________________Arrow :*/
 @import 'arrowup.scss';
 @import 'arrowdown.scss';
@@ -419,6 +423,7 @@ ul {
 		}
 	}
 	.txt-other-link {
+		font-family: textr;
 		display: block;
 		font-size: 14px;
 		text-transform: uppercase;

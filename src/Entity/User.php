@@ -7,6 +7,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Controller\API\UserApi;
 
 /**
  * @ORM\Entity
@@ -15,7 +16,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     attributes={"filters"={"offer.order_filter"}},
  *     forceEager= false,
  *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     denormalizationContext={"groups"={"write"}},
+ *     itemOperations={
+ *     "get",
+ *     "put",
+ *     "get_user"={
+ *         "method"="GET",
+ *         "path"="/users/{id}/user",
+ *         "controller"=UserApi::class,
+ *         "normalization_context"={"groups"={"info_user"}},
+ *         "read"= false
+ *     }
+ *     }
  * )
  */
 class User extends BaseUser
@@ -24,9 +36,21 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"read"})
+     * @Groups({"read", "info_user"})
      */
     protected $id;
+
+    /**
+     * @Groups({"read", "info_user"})
+     */
+    protected $username;
+
+    /**
+     * @var string The email of the user.
+     *
+     * @Groups({"read", "info_user"})
+     */
+    protected $email;
 
     /**
     * @ORM\Column(type="datetime", nullable=true)
@@ -41,7 +65,7 @@ class User extends BaseUser
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Client",inversedBy="user", cascade={"persist", "remove"})
-     * @Groups({"read"})
+     * @Groups({"read", "info_user"})
      */
     private $client;
 

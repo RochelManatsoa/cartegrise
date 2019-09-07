@@ -108,3 +108,9 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm,group: 'STATS', label: 'Stat de Commandes' }
         public: true
+    App\EventListener\AuthenticationSuccessListener:
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
+    App\EventListener\JWTAuthenticatedListener:
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_authenticated, method: onJWTAuthenticated }

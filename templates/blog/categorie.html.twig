@@ -1,21 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ categorie.nom }}{% endblock %}
-{% block meta %}
+{% block seo %}
 	<base href="{{ path('show_cat',{ slug : categorie.slug })}}"/>
-	<meta
-		name="keywords"
-		content=" " />
-        <meta name="
-		x-ua-compatible" content="
-		ie="edge,chrome=1" />
-        <meta name=""
-		description" content="
-		{{ categorie.description }}
-		" />
-        <meta property="
-		og:title" content="
-		{{ categorie.nom | lower }}
-		">
+	<meta name="keywords" content="{{ categorie.description }}" />
+    <meta name="x-ua-compatible" content="IE=edge,chrome=1"/>
+	<meta name="description" content="blog cgofficiel.fr"/>
+	<meta property="og:title" content="{{ categorie.nom | lower }}">
 	<meta property="og:type" content="article">
 	<meta property="og:url" content="{{ path('show_cat',{ slug : categorie.slug })}}">
 	<meta property="og:description" content="{{ categorie.description }}">
@@ -33,11 +23,18 @@
 {% block class %}body-accueil{% endblock %}
 
 {% block page_content %}
-<div class="col-8 mx-auto main-blog">
+<div class="col-11 mx-auto main-blog">
 	<div class="row blog">
-		<h1 class="col-12 titre-show-cat text-center">{{ categorie.nom }}</h1>
+		<div class="row col-sm-12 blog-card mt-5">
+            <div class="col-12 blog-card--titre">
+                <h2 class="col-12 text-center text-uppercase">
+					{{ categorie.nom }}</h2>
+                <h3 class="col-12 text-center">
+						Catégorie
+                </h3>
+            </div>
 		{% for article in articles %}
-			<div class="col-12 col-md-4 mx-auto">
+			<div class="col-12 col-sm-12 col-md-6 col-lg-6 mx-auto">
 				<div class="col-10 mx-auto blog-post">
 					<a href="{{ path('blog_show', {'slug': article.slug}) }}" class="">
 						<figure class="blog-post--image">
@@ -46,7 +43,7 @@
 					</a>
 					<div class="blog-post--description">
 						<a href="{{ path('blog_show', {'slug': article.slug}) }}" class="">
-							<h2 class="blog-titre-article mt-3">{{ article.titre }}</h2>
+							<h3 class="blog-titre-article mt-3">{{ article.titre }}</h3>
 						</a>
 						<p>
 							<p class="blog-post--description---date">Crée le
@@ -68,6 +65,7 @@
 				</div>
 			</div>
 		{% endfor %}
+		</div>
 		<div class="col-12 pagination pagination-css  d-flex align-items-center flex-row justify-content-center my-flex-container">
 			{{ knp_pagination_render(articles) }}
 		</div>

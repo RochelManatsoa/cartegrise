@@ -33,7 +33,7 @@ class BlogController extends Controller
         // @var $paginator \Knp\Component\Pager\Paginator 
         $paginator = $this->get('knp_paginator');
         $articles = $paginator->paginate(
-            $repo, $request->query->getInt('page', 1), 6
+            $repo, $request->query->getInt('page', 1), 4
             );
         $params = $blogManager->getCatAndFaq();
         $params = array_merge(['articles'=>$articles], $params);
@@ -90,7 +90,7 @@ class BlogController extends Controller
         /* @var $paginator \Knp\Component\Pager\Paginator */
         $paginator = $this->get('knp_paginator');
         $articles = $paginator->paginate(
-            $repo, $request->query->getInt('page', 1), 6
+            $repo, $request->query->getInt('page', 1), 4
         );
         $params = $blogManager->getCatAndFaq();
         $params = array_merge(['articles'=>$articles], $params);

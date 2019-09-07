@@ -21,10 +21,10 @@
 
 {% block body_id %}{% endblock %}
 
-{% block class %}body-accueil{% endblock %}
+{% block class %}body-blog{% endblock %}
 
 {% block page_content %}
-<div class="col-8 mx-auto main-blog">
+<div class="col-11 mx-auto main-blog">
 	<div class="row blog">
 		<!-- <a href="{{ path('blog')}}">
 			<img class="rounded mx-auto d-block img-fluid" src="/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png" alt="logo">
@@ -106,7 +106,7 @@
 		à " {{article.titre}} "
 	</h5>
 
-	<section class="commentaire col-10 col-md-10 mx-auto ">
+	<section class="commentaire col-10 col-md-10 mx-auto mb-5">
 		{% for comment in article.commentaires %}
 			{% if comment.publication %}
 			<div class="alert alert-success" role="alert">
