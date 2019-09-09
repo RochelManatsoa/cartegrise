@@ -163,50 +163,51 @@
 	<h3>Pièces à fournir</h3>
 	<div class="dossier d-flex justify-content-center flex-wrap">
 		<a data-toggle="modal" data-target="#dossier-1" class="dossier-element d-flex align-items-center justify-content-center">
-			<img src="{{ asset('asset/img/dossier/dossier-1.jpg') }}">
+			<img src="{{ asset('asset/img/dossier/dossier-1.jpg') }}" alt="img-thumbnail-mandat">
 			<span class="numero-dossier">1</span>
-			<span class="txt-dossier">Permis de conduire</span>
+			<span class="txt-dossier">Procuration par mandat</span>
 		</a>
 		<a data-toggle="modal" data-target="#dossier-2" class="dossier-element d-flex align-items-center justify-content-center">
-			<img src="{{ asset('asset/img/dossier/dossier-2.jpg') }}">
+			<img src="{{ asset('asset/img/dossier/dossier-2.jpg') }}" alt="img-thumbnail-carte-grise">
 			<span class="numero-dossier">2</span>
-			<span class="txt-dossier">Permis de conduire</span>
+			<span class="txt-dossier">Carte grise</span>
 		</a>
 		<a data-toggle="modal" data-target="#dossier-3" class="dossier-element d-flex align-items-center justify-content-center">
-			<img src="{{ asset('asset/img/dossier/dossier-3.jpg') }}">
+			<img src="{{ asset('asset/img/dossier/dossier-3.jpg') }}" alt="img-thumbnail-justificatif">
 			<span class="numero-dossier">3</span>
-			<span class="txt-dossier">Permis de conduire</span>
+			<span class="txt-dossier">Justificatif de domicile</span>
 		</a>
 		<a data-toggle="modal" data-target="#dossier-4" class="dossier-element d-flex align-items-center justify-content-center">
-			<img src="{{ asset('asset/img/dossier/dossier-4.jpg') }}">
+			<img src="{{ asset('asset/img/dossier/dossier-4.jpg') }}" alt="img-thumbnail-permis">
 			<span class="numero-dossier">4</span>
 			<span class="txt-dossier">Permis de conduire</span>
 		</a>
 		<a data-toggle="modal" data-target="#dossier-5" class="dossier-element d-flex align-items-center justify-content-center">
-			<img src="{{ asset('asset/img/dossier/dossier-5.jpg') }}">
+			<img src="{{ asset('asset/img/dossier/dossier-5.jpg') }}" alt="img-thumbnail-piece-identite">
 			<span class="numero-dossier">5</span>
-			<span class="txt-dossier">Permis de conduire</span>
+			<span class="txt-dossier">Pièce d'identité valide</span>
 		</a>
 		<a data-toggle="modal" data-target="#dossier-6" class="dossier-element d-flex align-items-center justify-content-center">
-			<img src="{{ asset('asset/img/dossier/dossier-6.jpg') }}">
+			<img src="{{ asset('asset/img/dossier/dossier-6.jpg') }}" alt="img-thumbnail-controle-technique">
 			<span class="numero-dossier">6</span>
-			<span class="txt-dossier">Permis de conduire</span>
+			<span class="txt-dossier">Copie du contrôle technique</span>
 		</a>
 		<a data-toggle="modal" data-target="#dossier-7" class="dossier-element d-flex align-items-center justify-content-center">
-			<img src="{{ asset('asset/img/dossier/dossier-7.jpg') }}">
+			<img src="{{ asset('asset/img/dossier/dossier-7.jpg') }}" alt="img-thumbnail-demande">
 			<span class="numero-dossier">7</span>
-			<span class="txt-dossier">Permis de conduire</span>
+			<span class="txt-dossier">Demande ORIGINALE</span>
 		</a>
 	</div>
 	<div class="modal" id="dossier-1">
 		<div class="modal-dialog">
 			<div class="modal-content text-center padd-10">
-				<span class="title-dossier">Permis de conduire</span>
+				<span class="title-dossier">Procuration par mandat</span>
 				<div class="desc-dossier">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p class="text-center mx-auto col-lg-8 col-sm-10">Le mendat original dûrement complété autorise CGOfficiel à réaliser la démarche administrative en votre nom. Le numéro VIN à renseigner sur le mandat correspondant à la case "E" de votre carte grise</p>
+					<img src="{{ asset('asset/img/dossier/dossier-1.jpg') }}" class="img-thumbnail" alt="img-document-1">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+					<button type="button" class="btn btn-danger mt-3" data-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>
@@ -214,12 +215,16 @@
 	<div class="modal" id="dossier-2">
 		<div class="modal-dialog">
 			<div class="modal-content text-center padd-10">
-				<span class="title-dossier">Permis de conduire</span>
+				<span class="title-dossier">Cértificat d'Immatriculation / Carte grise</span>
 				<div class="desc-dossier">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p class="text-center mx-auto col-lg-8 col-sm-10">
+						Copie recto/verso du certificat d'immatriculation (carte grise) barré, daté et signé par le vendeur.
+						L'article 4 du décret n° 2017-1278 du 9 août 2017 modifie l'article R. 322-5 du code de la route et instaure que le nouveau propriétaire d'un véhicule doit pouvoir justifier sur demande de l'ancien certificat d'immatriculation barré, daté et signé. Vous conservez donc l'original.
+					</p>
+					<img src="{{ asset('asset/img/dossier/dossier-2.jpg') }}" class="img-thumbnail" alt="img-document-2">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+					<button type="button" class="btn btn-danger mt-3" data-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>
@@ -227,12 +232,24 @@
 	<div class="modal" id="dossier-3">
 		<div class="modal-dialog">
 			<div class="modal-content text-center padd-10">
-				<span class="title-dossier">Permis de conduire</span>
+				<span class="title-dossier">Justificatif de domicile moins de 6 mois (au choix)</span>
 				<div class="desc-dossier">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p>
+						<ul>
+							<li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
+							<li>Dernier avis d'imposition ou de non imposition</li>
+							<li>Quittance de gaz</li>
+							<li>Quittance d'électricité</li>
+							<li>Facture de téléphone fixe ou portable</li>
+							<li>Facture d'un fournisseur d'accès à Internet</li>
+							<li>Attestation d'un fournisseur d'énergie (EDF, Engie, ...)</li>
+							<li>Attestation d'assurance habitation</li>
+						</ul>
+					</p>
+					<img src="{{ asset('asset/img/dossier/dossier-3.jpg') }}" class="img-thumbnail" alt="img-document-3">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+					<button type="button" class="btn btn-danger mt-3" data-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>
@@ -242,10 +259,13 @@
 			<div class="modal-content text-center padd-10">
 				<span class="title-dossier">Permis de conduire</span>
 				<div class="desc-dossier">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p class="text-center mx-auto col-lg-8 col-sm-10">
+						Preuve que le titulaire dispose du droit de conduire le véhicule. Copie du permis de conduire en cours de validité ou document provisoire établissant les droits à conduire (décret n°2017-1278 du 9 août 2017).
+					</p>
+					<img src="{{ asset('asset/img/dossier/dossier-4.jpg') }}" class="img-thumbnail" alt="img-document-4">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+					<button type="button" class="btn btn-danger mt-3" data-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>
@@ -253,12 +273,17 @@
 	<div class="modal" id="dossier-5">
 		<div class="modal-dialog">
 			<div class="modal-content text-center padd-10">
-				<span class="title-dossier">Permis de conduire</span>
+				<span class="title-dossier">Copie pièce d'identité valide</span>
 				<div class="desc-dossier">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p class="text-center mx-auto col-lg-8 col-sm-10">						
+						Copie recto/verso d'une carte d'identité (ou passeport) en cours de validité, ou d'un titre de séjour (dans ce cas, même adresse que la carte grise).
+						Pour un nom marital qui n'apparaît pas sur la pièce d'identité, fournir en plus une copie du livret de famille mis à jour.
+						Pour un passeport établi hors UE, si l'adresse du passeport est en France, fournir en plus une copie de la carte de séjour ou du permis de conduire français, si l'adresse du passeport est hors de France, fournir une copie du visa.
+					</p>
+					<img src="{{ asset('asset/img/dossier/dossier-5.jpg') }}" class="img-thumbnail" alt="img-document-5">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+					<button type="button" class="btn btn-danger mt-3" data-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>
@@ -266,12 +291,16 @@
 	<div class="modal" id="dossier-6">
 		<div class="modal-dialog">
 			<div class="modal-content text-center padd-10">
-				<span class="title-dossier">Permis de conduire</span>
+				<span class="title-dossier">Copie du contrôle technique de moins de 6 mois pour les véhicules de plus de 4 ans</span>
 				<div class="desc-dossier">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p class="text-center mx-auto col-lg-8 col-sm-10">
+						Copie du Contrôle technique ou la vignette collée au dos de la carte grise qui prouve qu'il a été effectué il y a moins de 6 mois (ou moins de 2 mois en cas de contre-visite). Les motos, cyclo, caravanes, remorques et engins agricoles ne sont pas concernés.
+						Important: c'est la date de saisie du dossier qui est prise en compte et non la date de commande !
+					</p>
+					<img src="{{ asset('asset/img/dossier/dossier-6.jpg') }}" class="img-thumbnail" alt="img-document-6">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+					<button type="button" class="btn btn-danger mt-3" data-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>
@@ -279,12 +308,15 @@
 	<div class="modal" id="dossier-7">
 		<div class="modal-dialog">
 			<div class="modal-content text-center padd-10">
-				<span class="title-dossier">Permis de conduire</span>
+				<span class="title-dossier">Demande ORIGINALE de certificat d'immatriculation</span>
 				<div class="desc-dossier">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p class="text-center mx-auto col-lg-8 col-sm-10">
+						A signer par le demandeur. Il doit y avoir concordance de nom avec le certificat de cession. S'il existe un cotitulaire, son nom et sa signature doivent apparaître. Si l'acquéreur est une société, le formulaire devra aussi être tamponné.
+					</p>
+					<img src="{{ asset('asset/img/dossier/dossier-7.jpg') }}" class="img-thumbnail" alt="img-document-7">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+					<button type="button" class="btn btn-danger mt-3" data-dismiss="modal">Fermer</button>
 				</div>
 			</div>
 		</div>
