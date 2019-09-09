@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block seo %}
+    <base href="{{path('blog')}}"/>
+    <meta name="keywords" content="{% for categorie in cat %}{{ categorie.nom | capitalize}}{% if not loop.last %} ,{% endif %}{% endfor %},{% for categorie in cat %}{{ categorie.slug }}{% if not loop.last %} ,{% endif %}{% endfor %}"/>
+    <meta name="x-ua-compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="La plateforme du conducteur français. Immatriculation de véhicules, sécurité routière, pollution et actualités du réseau routier français"/>
+    <meta property="og:title" content="Le blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{path('blog')}}">
+    <meta property="og:image" content="">
+    <meta property="og:description" content="La plateforme du conducteur français. Immatriculation de véhicules, sécurité routière, pollution et actualités du réseau routier français">
+    <meta property="og:video" content="">
+    <meta property="og:locale" content="fr_FR">
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:url" content="{{path('blog')}}"/>
+    <meta name="twitter:title" content="Le blog"/>
+    <meta property="twitter:description" content="La plateforme du conducteur français. Immatriculation de véhicules, sécurité routière, pollution et actualités du réseau routier français"/>
+{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-ccm{% endblock %}
+
+{% block page_content %}
+<div class="col-11 mx-auto main-blog">
+    <div class="row blog">
+        <div class="row col-sm-12 blog-card mt-5">
+            <div class="col-12 blog-card--titre">
+                <h2 class="col-12 text-center text-uppercase">
+                    La plateforme du conducteur français</h2>
+                <h3 class="col-12 text-center">
+                    Immatriculation de véhicules, sécurité routière, pollution et actualités du réseau routier français
+                </h3>
+            </div>
+            {% for article in articles %}
+                <div class="col-6 col-sm-12 col-md-6 col-lg-6 mx-auto">
+                    <div class="col-10 mx-auto blog-post">
+                        <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="">
+                            <figure class="blog-post--image">
+                                <img src="{{ asset('uploads/' ~ article.image.url) }}" alt="{{ article.titre }}" class="img-fluid p-2">
+                            </figure>
+                        </a>
+                        <div class="blog-post--description">
+                            <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="">
+                                <h3 class="blog-titre-article mt-3">{{ article.titre }}</h3>
+                            </a>
+                            <p>
+                                <p class="blog-post--description---date">Crée le
+                                    {{ article.date | date('d M Y') }}</p>
+                            </p>
+                            <p>
+                                {% for categorie in article.categories %}
+                                    <a href="{{ path('show_cat', {'slug':categorie.slug}) }}">
+                                        <span class="badge badge-pill badge-dark">{{ categorie.nom | capitalize}}</span>
+                                    </a>
+                                    {% if not loop.last %}{% endif %}
+                                {% endfor %}
+                            </p>
+                            <p>{{ article.description | truncate(70, true) | raw }}</p>
+                        </div>
+                        <div class="blog-post--tools d-flex flex-row justify-content-center my-flex-container align-items-center">
+                            <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="mx-auto btn btn-outline-dark m-2 mx-auto">Continuer la lecture</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="col-12 pagination pagination-css  d-flex align-items-center flex-row justify-content-center my-flex-container">
+                {{ knp_pagination_render(articles) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %} 
+{{ parent() }}
+{% endblock %}
