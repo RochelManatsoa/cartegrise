@@ -77,6 +77,9 @@ class AppExtension extends AbstractExtension
             new TwigFunction('fraisdossierWithoutTvaDailyFacture', [$this, 'fraisdossierWithoutTvaDailyFacture']),
             new TwigFunction('fraisdossierWithoutTvaTotal', [$this, 'fraisdossierWithoutTvaTotal']),
             new TwigFunction('getTarifPresentation', [$this, 'getTarifPresentation']),
+            new TwigFunction('totalPrestationMajorationWithoutTaxeDaily', [$this, 'totalPrestationMajorationWithoutTaxeDaily']),
+            new TwigFunction('totalPrestationMajorationTaxeDaily', [$this, 'totalPrestationMajorationTaxeDaily']),
+            new TwigFunction('totalPrestationMajorationTTC', [$this, 'totalPrestationMajorationTTC']),
         ];
     }
 
@@ -398,6 +401,27 @@ class AppExtension extends AbstractExtension
     {
         $fraistreatment = $this->totalOfDemandesDaily($demandes, $majorations);
         $totalTaxes = $this->getTaxesTotal($demandes);
+
+        return $fraistreatment + $totalTaxes;
+    }
+    public function totalPrestationMajorationWithoutTaxeDaily(array $demandes, array $majorations)
+    {
+        $fraistreatment = $this->totalWithoutTvaOfMajorationDaily($majorations);
+        $totalTaxes = $this->totalOfDemandesDailyWithoutTvaAndMajoration($demandes);
+
+        return $fraistreatment + $totalTaxes;
+    }
+    public function totalPrestationMajorationTaxeDaily(array $demandes, array $majorations)
+    {
+        $majorationTva = $this->totalTvaOfMajorationDaily($majorations);
+        $totalTaxes = $this->totalOfTvaDailyWithoutMajoration($demandes);
+
+        return $majorationTva + $totalTaxes;
+    }
+    public function totalPrestationMajorationTTC(array $demandes, array $majorations)
+    {
+        $fraistreatment = $this->totalOfMajorationDaily($majorations);
+        $totalTaxes = $this->totalOfDemandesDailyWithoutMajoration($demandes);
 
         return $fraistreatment + $totalTaxes;
     }

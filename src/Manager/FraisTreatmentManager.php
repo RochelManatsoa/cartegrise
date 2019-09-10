@@ -74,13 +74,13 @@
      {
         $tva = $this->tvaTreatmentOfCommande($commande)/100;
         $ttc = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
-        return $this->fraisTotalTreatmentOfCommande($commande) * ($tva/$ttc);
+        return round(($this->fraisTotalTreatmentOfCommande($commande) * ($tva/$ttc)),2 , PHP_ROUND_HALF_DOWN);
      }
      public function tvaOfFraisTreatmentDaily(Commande $commande)
      {
         $tva = $this->tvaTreatmentOfCommande($commande)/100;
         $ttc = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
-        return $this->fraisTotalTreatmentOfCommandeWithoutMajoration($commande) * ($tva/$ttc);
+        return round(($this->fraisTotalTreatmentOfCommandeWithoutMajoration($commande) * ($tva/$ttc)),2 ,PHP_ROUND_HALF_DOWN);
      }
 
      public function fraisTreatmentWithoutTaxesOfCommande(Commande $commande)

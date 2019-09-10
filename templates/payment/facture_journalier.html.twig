@@ -75,8 +75,7 @@
             <td class="text-center">{{ result | length }}</td>
             <td class="text-center">{{ (fraisdossierWithoutTvaTotal(result))|number_format(2, '.', ',') }}</td>
             <td class="text-center">{{ tvaCommande(result[0].commande) }}</td>
-            <td class="text-center">{{ (fraisTraitementWhithTvaTotal(result))|number_format(2, '.', ',') - (fraisdossierWithoutTvaTotal(result))|number_format(2, '.', ',') }}</td>
-            {# <td class="text-center">{{ (tvaTraitementDailyTotal(result))|number_format(2, '.', ',') }}</td> #}
+            <td class="text-center">{{ (tvaTraitementDailyTotal(result))|number_format(2, '.', ',') }}</td>
             <td class="text-center">{{ (fraisTraitementWhithTvaTotal(result))|number_format(2, '.', ',') }}</td>
           </tr>
         {% endfor %} 
@@ -154,10 +153,10 @@
             <td class="text-center">TOTAL</td>
             <td class="text-center"></td>
             <td class="text-center"></td>
-            <td class="text-center"><strong>{{ (totalWithoutTvaOfMajorationDaily(majorations))|number_format(2, '.', ',') + (totalOfDemandesDailyWithoutTvaAndMajoration(demandes))|number_format(2, '.', ',')}}</strong></td>
+            <td class="text-center"><strong>{{ (totalPrestationMajorationWithoutTaxeDaily(demandes, majorations))|number_format(2, '.', ',')}}</strong></td>
             <td class="text-center"></td>
-            <td class="text-center"><strong>{{ (totalTvaOfMajorationDaily(majorations))|number_format(2, '.', ',') + (totalOfTvaDailyWithoutMajoration(demandes))|number_format(2, '.', ',') }} </strong></td>
-            <td class="text-center"><strong>{{ (totalOfMajorationDaily(majorations))|number_format(2, '.', ',') + (totalOfDemandesDailyWithoutMajoration(demandes))|number_format(2, '.', ',') }} </strong></td>
+            <td class="text-center"><strong>{{ (totalPrestationMajorationTaxeDaily(demandes, majorations))|number_format(2, '.', ',')}} </strong></td>
+            <td class="text-center"><strong>{{ (totalPrestationMajorationTTC(demandes, majorations))|number_format(2, '.', ',')}} </strong></td>
           </tr>
           <tr>
             <td></td>
