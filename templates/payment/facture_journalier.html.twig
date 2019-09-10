@@ -58,7 +58,7 @@
 		<table class="table table-bordered table-sm">
       <thead class="table-active">
         <tr>
-          <th>Préstation</th>
+          <th>Prestations</th>
           <th class="text-center">Prix Unitaire HT (€)</th>
           <th class="text-center">Quantité</th>
           <th class="text-center">Total HT (€)</th>
@@ -75,7 +75,8 @@
             <td class="text-center">{{ result | length }}</td>
             <td class="text-center">{{ (fraisdossierWithoutTvaTotal(result))|number_format(2, '.', ',') }}</td>
             <td class="text-center">{{ tvaCommande(result[0].commande) }}</td>
-            <td class="text-center">{{ (tvaTraitementDailyTotal(result))|number_format(2, '.', ',') }}</td>
+            <td class="text-center">{{ (fraisTraitementWhithTvaTotal(result))|number_format(2, '.', ',') - (fraisdossierWithoutTvaTotal(result))|number_format(2, '.', ',') }}</td>
+            {# <td class="text-center">{{ (tvaTraitementDailyTotal(result))|number_format(2, '.', ',') }}</td> #}
             <td class="text-center">{{ (fraisTraitementWhithTvaTotal(result))|number_format(2, '.', ',') }}</td>
           </tr>
         {% endfor %} 
@@ -138,6 +139,34 @@
             <td></td>
             <td></td>
             <td></td>
+            <td></td>
+          </tr>
+          <tr class="table-active">
+            <td><strong>Prestations & Majorations</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="text-center">TOTAL</td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{ (totalWithoutTvaOfMajorationDaily(majorations))|number_format(2, '.', ',') + (totalOfDemandesDailyWithoutTvaAndMajoration(demandes))|number_format(2, '.', ',')}}</strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{ (totalTvaOfMajorationDaily(majorations))|number_format(2, '.', ',') + (totalOfTvaDailyWithoutMajoration(demandes))|number_format(2, '.', ',') }} </strong></td>
+            <td class="text-center"><strong>{{ (totalOfMajorationDaily(majorations))|number_format(2, '.', ',') + (totalOfDemandesDailyWithoutMajoration(demandes))|number_format(2, '.', ',') }} </strong></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
           <tr class="table-active">
             <td><strong>Taxes</strong></td>
@@ -176,7 +205,7 @@
         <div class="col-5">
             <table class="table table-md text-right table-active">
               <tr class="table-active">
-                <td><strong>Total :</strong></td>
+                <td><strong>TOTAL :</strong></td>
                 <td class="text-right"><strong>{{ (finalTotalOfDaily(demandes, majorations)|number_format(2, '.', ',')) }}</strong></td>
               </tr>
             </table>
