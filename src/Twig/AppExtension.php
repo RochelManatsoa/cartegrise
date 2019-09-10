@@ -321,7 +321,7 @@ class AppExtension extends AbstractExtension
         {
             return 0;
         }
-        return round(($value/1.2), 2);
+        return $value/1.2;
     }
     public function without20tvaTotal(int $value, int $length)
     {
@@ -329,7 +329,7 @@ class AppExtension extends AbstractExtension
         {
             return 0;
         }
-        return round(($value/1.2), 2) * $length;
+        return $value/1.2 * $length;
     }
     public function just20tvaTotal(int $value, int $length)
     {
@@ -337,7 +337,7 @@ class AppExtension extends AbstractExtension
         {
             return 0;
         }
-        return round((round(($value*0.2), 2) * $length), 2);
+        return $value*(0.2/1.2) * $length;
     }
     public function totalOfDemandesDaily(array $demandes, array $majorations)
     {
@@ -379,11 +379,11 @@ class AppExtension extends AbstractExtension
         {
             $majorationResult += $key*count($majoration);
         }
-        return round($majorationResult, 2);
+        return $majorationResult;
     }
     public function totalTvaOfMajorationDaily(array $majorations)
     {
-        $majorationResult = $this->totalOfMajorationDaily($majorations)*0.2;
+        $majorationResult = $this->totalOfMajorationDaily($majorations)*(0.2/1.2);
         
         return $majorationResult;
     }
@@ -399,7 +399,7 @@ class AppExtension extends AbstractExtension
         $fraistreatment = $this->totalOfDemandesDaily($demandes, $majorations);
         $totalTaxes = $this->getTaxesTotal($demandes);
 
-        return round(($fraistreatment + $totalTaxes), 2);
+        return $fraistreatment + $totalTaxes;
     }
     public function getTaxesTotal(array $demandes)
     {
