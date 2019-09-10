@@ -117,7 +117,7 @@ var cookiesChecker = function () {
         cookieValue: "Y",
         cookieDays: 365,
         containerId: "cookie-alert-container",
-        htmlTemplate: '<div role="alert" class="cookie-alert-message fixed-bottom text-center alert alert-primary"><div class="container mx-auto">En poursuivant votre navigation sur ce site, vous acceptez l\'utilisation de cookies ou technologie similaire pour disposer des services et d\'offres  adaptés à vos centres d\'interêt ainsi que pour la sécurisation des transactions de notre site. <button class="cookie-alert-message-accept-button btn btn-outline-primary" onClick="javascript:cookiesChecker.accept();">OK</button></div></div>'
+        htmlTemplate: '<div role="alert" class="cookie-alert-message fixed-bottom text-center alert alert-primary"><div class="container mx-auto">En poursuivant votre navigation sur ce site, vous acceptez l\'utilisation de cookies ou technologie similaire pour disposer des services et d\'offres  adaptés à vos centres d\'interêt ainsi que pour la sécurisation des transactions de notre site. <button class="cookie-alert-message-accept-button btn btn-outline-primary" onClick="javascript:cookiesChecker.accept();">J\'accepte</button></div></div>'
     };
 
     var setCookie = function (key, value, expires) {
