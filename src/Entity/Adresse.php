@@ -8,10 +8,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdresseRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
+ *  @ApiResource(
+ *     forceEager= false,
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write", "register"}}
+ * )
  */
 class Adresse
 {
@@ -26,73 +32,76 @@ class Adresse
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(min=1, max=4)
-     * @Groups({"info_user"})
+     * @Groups({"info_user", "register"})
      */
     private $numero;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"register"})
      */
     private $extension;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"register"})
      */
     private $adprecision;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotNull( message="Ce champs est requis")
-     * @Groups({"info_user"})
+     * @Groups({"info_user", "register"})
      */
     private $typevoie;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotNull( message="Ce champs est requis")
-     * @Groups({"info_user"})
+     * @Groups({"info_user", "register"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"info_user"})
+     * @Groups({"info_user", "register"})
      */
     private $complement;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"info_user"})
+     * @Groups({"info_user", "register"})
      */
     private $lieudit;
 
     /**
      * @Assert\Regex("/^[0-9]{5}$/")
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"info_user"})
+     * @Groups({"info_user", "register"})
      */
     private $codepostal;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"info_user"})
+     * @Groups({"info_user", "register"})
      */
     private $ville;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"info_user"})
+     * @Groups({"info_user", "register"})
      */
     private $boitepostale;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"info_user"})
+     * @Groups({"info_user", "register"})
      */
     private $pays;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Client", inversedBy="clientAdresse")
+     * @ORM\OneToOne(targetEntity="App\Entity\Client", mappedBy="clientAdresse")
+     * @ORM\JoinColumn()
      */
     private $client;
 

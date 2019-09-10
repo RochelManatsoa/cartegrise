@@ -13,10 +13,8 @@ use App\Controller\API\UserApi;
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  *  @ApiResource(
- *     attributes={"filters"={"offer.order_filter"}},
- *     forceEager= false,
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
+ *     normalizationContext={"groups"={"register", "read"}},
+ *     denormalizationContext={"groups"={"register"}},
  *     itemOperations={
  *     "get",
  *     "put",
@@ -41,31 +39,39 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @Groups({"read", "info_user"})
+     * @Groups({"read", "info_user", "write", "register"})
      */
     protected $username;
 
     /**
      * @var string The email of the user.
      *
-     * @Groups({"read", "info_user"})
+     * @Groups({"read", "info_user", "write", "register"})
      */
     protected $email;
 
     /**
+     * @var string The email of the user.
+     *
+     * @Groups({"read", "info_user", "write", "register"})
+     */
+    protected $password;
+
+    /**
     * @ORM\Column(type="datetime", nullable=true)
-    * @Groups({"read"})
+    * @Groups({"read", "write", "register"})
     */
     private $registerDate;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+    * @Groups({"write", "register"})
      */
     private $franceConnectId;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Client",inversedBy="user", cascade={"persist", "remove"})
-     * @Groups({"read", "info_user"})
+     * @Groups({"read", "info_user", "write", "register"})
      */
     private $client;
 
