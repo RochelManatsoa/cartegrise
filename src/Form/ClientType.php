@@ -32,7 +32,6 @@ class ClientType extends AbstractType
             ->add('clientDateNaissance', DateType::class, array(
                     'widget' => 'single_text',
                     'html5' => false,
-                    'input'  => 'string',
                     'label'  => 'label.dateN',
                     'format' => 'dd-MM-yyyy',
                     'attr' => ['class' => 'js-datepicker', 'placeholder' => 'dd/mm/yyyy'],
