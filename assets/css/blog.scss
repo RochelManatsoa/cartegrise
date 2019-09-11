@@ -161,9 +161,10 @@ border-radius: 5px;
 padding: 10px !important;
 }
 .show-article-blockquote{
+  border-left: none !important;
 	p span span{
 		font-family: Raleway !important;
-		font-weight: 600;
+		// font-weight: 600;
 	}
 	ul li h3 span{
 		font-family: Raleway !important;
@@ -171,8 +172,7 @@ padding: 10px !important;
 	}
 	ul li span span span span{
 		font-family: Raleway !important;
-		list-style: none !important;
-		font-weight: bold;
+		// font-weight: bold;
 		color: #424242;
 	}
 	h2 span span strong span{
@@ -183,7 +183,7 @@ padding: 10px !important;
 		font-size: 22px;
 	}
 	li{
-		list-style: none !important;
+		list-style: disc !important;
 	}
 
 }
