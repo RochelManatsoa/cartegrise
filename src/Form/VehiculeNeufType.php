@@ -45,6 +45,7 @@ class VehiculeNeufType extends AbstractType
             ->add('dateReception', DateType::class, array(
                 'label'=>"label.vehicule.dateRecep",
                 'widget' => 'single_text',
+                'attr' => ['class' => 'js-datepicker'],
                 'required' => true,
                 ))
             ->add('d21Cenit', null, ['label' => 'label.vehicule.d21Cenit'])

@@ -45,6 +45,7 @@ class NewtitulaireType extends AbstractType
                 'label'=>"label.dateN",
                 'required' => false,
                 'widget' => 'single_text',
+                'attr' => ['class' => 'js-datepicker'],
                 ))
             ->add('lieuN', TextType::class, array(
                 'label'=> 'label.lieuN',
