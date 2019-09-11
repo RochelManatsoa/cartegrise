@@ -36,7 +36,9 @@
 	<title>{% block title %}CGOfficiel{% endblock %}</title>
 	<link rel="icon" href="{{ asset('asset/favicon/favicon.ico') }}">
 	<link href="/fontawesome/css/all.css" rel="stylesheet">
-	{% block stylesheets %}{% endblock %}
+	{% block stylesheets %}
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	{% endblock %}
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
@@ -162,13 +164,13 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.js"
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	{# <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"></script> #}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
 		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
 		crossorigin="anonymous"></script>  
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="{{ asset('javascript/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('javascript/ckeditor/adapters/jquery.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('asset/libs/js/bootstrap.min.js') }}" type="text/javascript"></script>
@@ -183,7 +185,7 @@
         //    containerId:'cookie-custom-alert-container',
         //    htmlTemplate:'<div>SOME COOKIE INFO <a href="javascript:cookiesChecker.accept();">OK</a></div>'
         //});
-    </script>
+	</script>
 	<script type="text/javascript">
 		$(function () {
 			$('textarea.ckeditor').ckeditor();

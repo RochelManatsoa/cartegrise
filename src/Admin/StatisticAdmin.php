@@ -23,7 +23,6 @@ final class StatisticAdmin extends AbstractAdmin
             'label' => 'créer le:',
             'widget' => 'single_text',
             'disabled' => true,
-            'attr' => ['class' => 'js-datepicker'],
         ])
         ->add('demarche.nom', TextType::class,[
             'disabled' => true,
