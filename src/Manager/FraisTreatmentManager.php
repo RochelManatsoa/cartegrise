@@ -62,37 +62,37 @@
      public function fraisTotalTreatmentOfCommandeWithTva(Commande $commande)
      {
 
-        return round(($this->fraisTotalTreatmentOfCommande($commande)), 2);
+        return $this->fraisTotalTreatmentOfCommande($commande);
      }
      public function fraisTotalTreatmentOfCommandeWithTvaDaily(Commande $commande)
      {
 
-        return round(($this->fraisTotalTreatmentOfCommandeWithoutMajoration($commande)), 2);
+        return $this->fraisTotalTreatmentOfCommandeWithoutMajoration($commande);
      }
 
      public function tvaOfFraisTreatment(Commande $commande)
      {
         $tva = $this->tvaTreatmentOfCommande($commande)/100;
         $ttc = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
-        return round(($this->fraisTotalTreatmentOfCommande($commande) * ($tva/$ttc)), 2);
+        return round(($this->fraisTotalTreatmentOfCommande($commande) * ($tva/$ttc)),2 , PHP_ROUND_HALF_DOWN);
      }
      public function tvaOfFraisTreatmentDaily(Commande $commande)
      {
         $tva = $this->tvaTreatmentOfCommande($commande)/100;
         $ttc = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
-        return round(($this->fraisTotalTreatmentOfCommandeWithoutMajoration($commande) * ($tva/$ttc)), 2);
+        return round(($this->fraisTotalTreatmentOfCommandeWithoutMajoration($commande) * ($tva/$ttc)),2 ,PHP_ROUND_HALF_DOWN);
      }
 
      public function fraisTreatmentWithoutTaxesOfCommande(Commande $commande)
      {
         $tva = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
-        return round(($this->fraisTotalTreatmentOfCommande($commande) / $tva), 2);
+        return $this->fraisTotalTreatmentOfCommande($commande) / $tva;
      }
 
      public function fraisTreatmentWithoutTaxesOfCommandeDaily(Commande $commande)
      {
         $tva = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
-        return round(($this->fraisTotalTreatmentOfCommandeWithoutMajoration($commande) / $tva), 2);
+        return $this->fraisTotalTreatmentOfCommandeWithoutMajoration($commande) / $tva;
      }
 
      public function total(Commande $commande)
