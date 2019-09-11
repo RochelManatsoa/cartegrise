@@ -157,8 +157,23 @@
             "config/packages/knp_snappy.yaml"
         ]
     },
+    "lcobucci/jwt": {
+        "version": "3.3.1"
+    },
     "league/csv": {
         "version": "9.3.0"
+    },
+    "lexik/jwt-authentication-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "5b2157bcd5778166a5696e42f552ad36529a07a6"
+        },
+        "files": [
+            "config/packages/lexik_jwt_authentication.yaml"
+        ]
     },
     "mashape/unirest-php": {
         "version": "v3.0.4"
