@@ -120,7 +120,7 @@
         <tr>
           <td><strong>Frais de dossier</strong></td>
           <td class="text-center"><strong>{{(fraisdossierWithoutTva(demande.commande))|number_format(2, '.', ',') }} €</strong></td>
-          <td class="text-center">{{ (tvaCommande(demande.commande))|number_format(2, '.', ',')  }}</td>
+          <td class="text-center">{{ tvaCommande(demande.commande)) }}</td>
           <td class="text-center"><strong>{{(tvaTraitement(demande.commande))|number_format(2, '.', ',') }} €</strong></td>
           <td class="text-center"><strong>{{(fraisTraitementWhithTva(demande.commande))|number_format(2, '.', ',') }} €</strong></td>
         </tr>
@@ -136,11 +136,11 @@
         <table class="table table-md text-right table-active">
             <tr>
               <td><strong>Total HT : </strong></td>
-              <td class="text-right"><strong>{{fraisTotalHT(demande.commande)}} €</strong></td>
+              <td class="text-right"><strong>{{(fraisTotalHT(demande.commande)|number_format(2, '.', ','))}} €</strong></td>
             </tr>
             <tr>
               <td><strong>Base HT pour TVA :</strong></td>
-              <td class="text-right"><strong>{{fraisdossierWithoutTva(demande.commande)}} €</strong></td>
+              <td class="text-right"><strong>{{(fraisdossierWithoutTva(demande.commande)|number_format(2, '.', ','))}} €</strong></td>
             </tr>
           <tr>
             <td><strong>TVA {{ tvaCommande(demande.commande) }} :</strong></td>
