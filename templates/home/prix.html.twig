@@ -33,7 +33,17 @@
             <h3>Prix de votre carte grise par département</h3>
             <p>Cliquez sur la carte pour sélectionner votre département.</p>
             <div class="map-container d-flex mx-auto text-center">
-                <div id="francemap" style="margin:auto; min-width: 550px; height: 600px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249);"></div>
+                {% if is_mobile_view() %}
+                    <div id="francemap" style="margin:auto;  min-width: 250px; height: 300px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249);"></div>
+                {% elseif is_tablet_view() %}
+                    <div id="francemap"
+                        style="margin:auto;  min-width: 350px; height: 400px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249);">
+                    </div>
+                {% elseif is_full_view() %}
+                    <div id="francemap"
+                        style="margin:auto;  min-width: 550px; height: 600px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249);">
+                    </div>
+                {% endif %}
                 <div class="info-map">
                 </div>
             </div>
