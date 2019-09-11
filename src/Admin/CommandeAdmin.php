@@ -17,10 +17,7 @@ final class CommandeAdmin extends AbstractAdmin
         ->add('ceerLe', DateType::class,[
             'label' => 'créer le:',
             'widget' => 'single_text',
-            'html5' => false,
-            'format' => 'dd-MM-yyyy',
             'disabled' => true,
-            'attr' => ['class' => 'js-datepicker', 'placeholder' => 'dd/mm/yyyy'],
         ])
         ->add('demarche.nom', TextType::class,[
             'disabled' => true,
