@@ -34,6 +34,7 @@ class ClientType extends AbstractType
                     'html5' => false,
                     'input'  => 'string',
                     'label'  => 'label.dateN',
+                    'format' => 'dd-MM-yyyy',
                     'attr' => ['class' => 'js-datepicker', 'placeholder' => 'dd/mm/yyyy'],
                     ))
             

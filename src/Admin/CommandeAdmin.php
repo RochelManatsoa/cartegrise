@@ -18,6 +18,7 @@ final class CommandeAdmin extends AbstractAdmin
             'label' => 'créer le:',
             'widget' => 'single_text',
             'html5' => false,
+            'format' => 'dd-MM-yyyy',
             'disabled' => true,
             'attr' => ['class' => 'js-datepicker', 'placeholder' => 'dd/mm/yyyy'],
         ])

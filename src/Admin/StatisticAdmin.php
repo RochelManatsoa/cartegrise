@@ -21,6 +21,7 @@ final class StatisticAdmin extends AbstractAdmin
         $formMapper
         ->add('ceerLe', DateType::class,[
             'label' => 'créer le:',
+            'format' => 'dd-MM-yyyy',
             'widget' => 'single_text',
             'html5' => false,
             'disabled' => true,
