@@ -1,26 +1,20 @@
 easy_admin:
-    design:
-        menu:
-            - { label: 'Préstation' }
-            - {entity: 'TarifsPrestations', label: 'Nos tarifs', icon: 'tag' }
-            - { label: 'Gestion des demandes' }
-            - {entity: 'TypeDemande', label: 'Type de demande', icon: 'tag' }
-            - { label: 'Gestion des fichiers' }
-            - {entity: 'TypeFichier', label: 'Type de fichier', icon: 'tag' }
-            - {entity: 'Fichier', label: 'Fichier', icon: 'tag' }
-            - {entity: 'Documents', label: 'Documents nécessaires', icon: 'tag' }
+    site_name: 'Blog CGOfficiel.'
     entities:
-        TarifsPrestations:
-            class: App\Entity\TarifsPrestations
-        TypeDemande:
-            class: App\Entity\TypeDemande
-            list:
-                fields: ['id', 'nom', 'type']
+        Article:
+            class: App\Entity\Blog\Article
             form:
-                fields: ['nom', 'type'] 
-        TypeFichier:
-            class: App\Entity\TypeFichier
-        Fichier:
-            class: App\Entity\Fichier
-        Documents:
-            class: App\Entity\Documents
+                fields:
+                    - { property: 'titre' }
+                    - { property: 'slug' }
+                    - { property: 'auteur' }
+                    - { property: 'contenu', type: 'fos_ckeditor' }
+                    - { property: 'description' }
+                    - { property: 'categories' }
+                    - { property: 'date' }
+                    - { property: 'dateEdition' }
+                    - { property: 'publication' }
+                    - { property: 'image' }
+
+        Categorie:
+            class: App\Entity\Blog\Categorie
