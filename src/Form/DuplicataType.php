@@ -27,8 +27,9 @@ class DuplicataType extends AbstractType
             ->add('datePerte', DateType::class, array(
                 'label'=>"label.dup.datePerte",
                 'widget' => 'single_text',
+                'html5' => false,
                 'required' => false,
-                'attr' => ['class' => 'js-datepicker'],
+                'attr' => ['class' => 'js-datepicker', 'placeholder' => 'dd/mm/yyyy'],
                 ))
             //->add('demandeChangementTitulaire', null, ['label' => 'label.demandeChangementTitulaire'])
             ->add('numeroFormule', null, [

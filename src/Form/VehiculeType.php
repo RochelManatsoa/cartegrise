@@ -21,8 +21,9 @@ class VehiculeType extends AbstractType
             ->add('numformule', TextType::class, array('label' => 'label.numformule'))
             ->add('datecg', DateType::class, array(
                 'label'=> 'label.datecg',
+                'html5' => false,
                 'widget' => 'single_text',
-                'attr' => ['class' => 'js-datepicker'],
+                'attr' => ['class' => 'js-datepicker', 'placeholder' => 'dd/mm/yyyy'],
                 ))
             ->add('vehiculeAncientitulaire')
             ->add('vehiculeCartegrise')
