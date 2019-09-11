@@ -86,13 +86,13 @@
      public function fraisTreatmentWithoutTaxesOfCommande(Commande $commande)
      {
         $tva = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
-        return $this->fraisTotalTreatmentOfCommande($commande) / $tva;
+        return round(($this->fraisTotalTreatmentOfCommande($commande) / $tva),2 , PHP_ROUND_HALF_DOWN);
      }
 
      public function fraisTreatmentWithoutTaxesOfCommandeDaily(Commande $commande)
      {
         $tva = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
-        return $this->fraisTotalTreatmentOfCommandeWithoutMajoration($commande) / $tva;
+        return round(($this->fraisTotalTreatmentOfCommandeWithoutMajoration($commande) / $tva),2 , PHP_ROUND_HALF_DOWN);
      }
 
      public function total(Commande $commande)
