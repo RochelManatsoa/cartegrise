@@ -72,7 +72,7 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/easyadmin/, role: ROLE_ADMIN }
         - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/api/, role: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/, role: IS_AUTHENTICATED_FULLY }
 
 # security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers

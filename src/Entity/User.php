@@ -13,8 +13,9 @@ use App\Controller\API\UserApi;
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  *  @ApiResource(
- *     normalizationContext={"groups"={"register", "read"}},
+ *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"register"}},
+ *     forceEager= false,
  *     itemOperations={
  *     "get",
  *     "put",
@@ -53,7 +54,7 @@ class User extends BaseUser
     /**
      * @var string The email of the user.
      *
-     * @Groups({"read", "info_user", "write", "register"})
+     * @Groups({"register"})
      */
     protected $password;
 

@@ -100,7 +100,7 @@ class Adresse
     private $pays;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Client", mappedBy="clientAdresse")
+     * @ORM\OneToOne(targetEntity="App\Entity\Client", inversedBy="clientAdresse")
      * @ORM\JoinColumn()
      */
     private $client;

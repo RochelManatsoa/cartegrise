@@ -72,7 +72,7 @@ class Client
     private $fichiers;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Adresse", inversedBy="client", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Adresse", mappedBy="client", cascade={"persist", "remove"})
      * @ORM\JoinColumn()
      * @Groups({"info_user", "register"})
      */
