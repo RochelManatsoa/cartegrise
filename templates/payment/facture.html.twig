@@ -120,7 +120,7 @@
         <tr>
           <td><strong>Frais de dossier</strong></td>
           <td class="text-center"><strong>{{(fraisdossierWithoutTva(demande.commande))|number_format(2, '.', ',') }} €</strong></td>
-          <td class="text-center">{{ tvaCommande(demande.commande)) }}</td>
+          <td class="text-center">{{ tvaCommande(demande.commande) }}</td>
           <td class="text-center"><strong>{{(tvaTraitement(demande.commande))|number_format(2, '.', ',') }} €</strong></td>
           <td class="text-center"><strong>{{(fraisTraitementWhithTva(demande.commande))|number_format(2, '.', ',') }} €</strong></td>
         </tr>
