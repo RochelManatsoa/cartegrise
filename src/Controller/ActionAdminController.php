@@ -10,6 +10,7 @@ use App\Manager\DocumentAFournirManager;
 use App\Manager\{DemandeManager, CommandeManager, TMSSauverManager};
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
+use App\Entity\Demande;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ActionAdminController extends Controller

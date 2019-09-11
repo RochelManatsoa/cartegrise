@@ -7,15 +7,26 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Controller\API\UserApi;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  *  @ApiResource(
- *     attributes={"filters"={"offer.order_filter"}},
- *     forceEager= false,
  *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     denormalizationContext={"groups"={"register"}},
+ *     forceEager= false,
+ *     itemOperations={
+ *     "get",
+ *     "put",
+ *     "get_user"={
+ *         "method"="GET",
+ *         "path"="/users/{id}/user",
+ *         "controller"=UserApi::class,
+ *         "normalization_context"={"groups"={"info_user"}},
+ *         "read"= false
+ *     }
+ *     }
  * )
  */
 class User extends BaseUser
@@ -24,24 +35,44 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"read"})
+     * @Groups({"read", "info_user"})
      */
     protected $id;
 
     /**
+     * @Groups({"read", "info_user", "write", "register"})
+     */
+    protected $username;
+
+    /**
+     * @var string The email of the user.
+     *
+     * @Groups({"read", "info_user", "write", "register"})
+     */
+    protected $email;
+
+    /**
+     * @var string The email of the user.
+     *
+     * @Groups({"register"})
+     */
+    protected $password;
+
+    /**
     * @ORM\Column(type="datetime", nullable=true)
-    * @Groups({"read"})
+    * @Groups({"read", "write", "register"})
     */
     private $registerDate;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+    * @Groups({"write", "register"})
      */
     private $franceConnectId;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Client",inversedBy="user", cascade={"persist", "remove"})
-     * @Groups({"read"})
+     * @Groups({"read", "info_user", "write", "register"})
      */
     private $client;
 

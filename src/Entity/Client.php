@@ -15,8 +15,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  *  @ApiResource(
  *     forceEager= false,
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=false},
- *     denormalizationContext={"groups"={"write"}}
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write", "register"}}
  * )
  */
 class Client
@@ -25,36 +25,43 @@ class Client
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"info_user"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"info_user", "register"})
      */
     private $clientNom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"info_user", "register"})
      */
     private $clientPrenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"info_user", "register"})
      */
     private $clientGenre;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"register"})
      */
     private $clientNomUsage;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"info_user", "register"})
      */
     private $clientDateNaissance;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Contact", cascade={"persist", "remove"})
+     * @Groups({"register"})
      */
     private $clientContact;
 
@@ -67,6 +74,7 @@ class Client
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Adresse", mappedBy="client", cascade={"persist", "remove"})
      * @ORM\JoinColumn()
+     * @Groups({"info_user", "register"})
      */
     private $clientAdresse;
 
@@ -77,16 +85,19 @@ class Client
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"write"})
      */
     private $clientLieuNaissance;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"write"})
      */
     private $clientDptNaissance;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"register"})
      */
     private $clientPaysNaissance;
 

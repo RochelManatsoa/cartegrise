@@ -1,6 +1,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% set inputAttrs = {class: 'registrer-form'} %}
+{% set inputAttrsDate = {class: 'registrer-form js-datepicker'} %}
 {% set labelAttrs = {class: 'register-form--label'} %}
 {% set wrapperClassName = 'col-11 col-sm-10' %}
 {% set smallWrapperClassName = 'col-12 col-sm-6' %}
@@ -112,7 +113,7 @@
 		<div class="{{ wrapperClassName }}">
 			<div class="row">
 				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientDateNaissance, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+					{{ form_row(form.client.clientDateNaissance, {'attr': inputAttrsDate, 'label_attr': labelAttrs} )}}
 				</div>
 				<div class="{{ smallWrapperClassName }}">
 					{{ form_row(form.client.clientLieuNaissance, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
