@@ -174,11 +174,14 @@ padding: 10px !important;
 		font-family: Raleway !important;
 		// font-weight: bold;
 		color: #424242;
-	}
+  }
+  h2 {
+    text-align: left !important;
+  }
 	h2 span span strong span{
 		font-family: textr !important;
     color: #002a6b !important;
-    text-transform: uppercase;
+    text-transform: inherit;
     font-weight: bold;
 		font-size: 22px;
 	}
