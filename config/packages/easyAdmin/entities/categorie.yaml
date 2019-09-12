@@ -1,0 +1,12 @@
+easy_admin:
+    entities:
+        Categorie:
+            class: App\Entity\Blog\Categorie
+            list: 
+                fields:
+                    - id
+                    - nom
+                    - article
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-outline-primary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-outline-danger'}

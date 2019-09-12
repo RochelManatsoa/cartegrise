@@ -6,6 +6,8 @@
 parameters:
     locale: 'fr'
     upload_directory: '%kernel.project_dir%/public/allfiles'
+    upload_blog_directory: '%kernel.project_dir%/public/uploads'
+    app.path.article_images: /uploads
     payment_params:
         merchant_id: '014295303911111'    # CODE DE TEST
         #merchant_id: '083897291700010'    # IN PROD

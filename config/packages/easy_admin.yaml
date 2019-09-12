@@ -1,20 +1,2 @@
-easy_admin:
-    site_name: 'Blog CGOfficiel.'
-    entities:
-        Article:
-            class: App\Entity\Blog\Article
-            form:
-                fields:
-                    - { property: 'titre' }
-                    - { property: 'slug' }
-                    - { property: 'auteur' }
-                    - { property: 'contenu', type: 'fos_ckeditor' }
-                    - { property: 'description' }
-                    - { property: 'categories' }
-                    - { property: 'date' }
-                    - { property: 'dateEdition' }
-                    - { property: 'publication' }
-                    - { property: 'image' }
-
-        Categorie:
-            class: App\Entity\Blog\Categorie
+imports:
+    - {resource: easyAdmin/}

@@ -1,0 +1,8 @@
+easy_admin:
+    design:
+        menu:
+            - label: 'Blog'
+              icon: 'newspaper-o'
+              children:
+                  - {entity: 'Article', icon: 'inbox', label: 'Articles'}
+                  - {entity: 'Categorie', icon: 'tags', label: 'Catégories'}
