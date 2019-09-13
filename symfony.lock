@@ -16,8 +16,14 @@
             "src/Entity/.gitignore"
         ]
     },
+    "aws/aws-sdk-php": {
+        "version": "3.112.0"
+    },
     "behat/transliterator": {
         "version": "v1.2.0"
+    },
+    "ckfinder/ckfinder-symfony-bundle": {
+        "version": "3.5.1"
     },
     "cocur/slugify": {
         "version": "v3.2"
@@ -139,6 +145,15 @@
     "gedmo/doctrine-extensions": {
         "version": "v2.4.37"
     },
+    "guzzlehttp/guzzle": {
+        "version": "6.3.3"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.6.1"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -181,8 +196,23 @@
     "league/csv": {
         "version": "9.3.0"
     },
+    "league/flysystem": {
+        "version": "1.0.55"
+    },
+    "league/flysystem-aws-s3-v3": {
+        "version": "1.0.23"
+    },
+    "league/flysystem-cached-adapter": {
+        "version": "1.0.9"
+    },
     "mashape/unirest-php": {
         "version": "v3.0.4"
+    },
+    "monolog/monolog": {
+        "version": "1.25.1"
+    },
+    "mtdowling/jmespath.php": {
+        "version": "2.4.0"
     },
     "namshi/jose": {
         "version": "7.2.3"
@@ -220,11 +250,17 @@
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
     },
+    "pimple/pimple": {
+        "version": "v3.2.3"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
     "psr/container": {
         "version": "1.0.0"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
     },
     "psr/link": {
         "version": "1.0.0"
@@ -234,6 +270,9 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",

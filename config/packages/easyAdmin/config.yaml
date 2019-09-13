@@ -6,4 +6,6 @@ easy_admin:
                 - 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'
             js:
                 - 'https://code.jquery.com/ui/1.12.1/jquery-ui.js'
-                - '/javascripts/admin/js/datepicker.js'
+                # - '/javascripts/admin/js/datepicker.js'
+                - '/bundles/cksourceckfinder/ckfinder/ckfinder.js'
+                - '/js/setup-ckfinder.js'
