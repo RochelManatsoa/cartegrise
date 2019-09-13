@@ -33,6 +33,7 @@ final class UserAdmin extends AbstractAdmin
         ->add('id')
         ->add('email')
         ->add('client.clientNom')
+        ->add('client.clientPrenom')
         ->add('roles')
         ;
     }
@@ -46,6 +47,7 @@ final class UserAdmin extends AbstractAdmin
             'label' => 'télephone'
         ])
         ->add('client.clientNom')
+        ->add('client.clientPrenom')
         ->add('roles')
         ;
     }

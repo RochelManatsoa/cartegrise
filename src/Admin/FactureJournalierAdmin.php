@@ -26,7 +26,6 @@ final class FactureJournalierAdmin extends AbstractAdmin
     {
         $datagridMapper
         ->add('id')
-        ->add('dateCreate')
         ;
     }
 
