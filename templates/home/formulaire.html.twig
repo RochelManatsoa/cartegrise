@@ -1,5 +1,21 @@
 {% extends 'base.html.twig' %}
-
+{% block seo %}
+<base href="{{path('formulaire')}}"/>
+<meta name="keywords" content="Calculez le prix de votre certificat d'immatriculation. Estimez le prix de votre carte grise. Effectuez votre demande de certificat d'immatriculation en ligne"/> 
+<meta name="x-ua-compatible" content="IE=edge,chrome=1"/> 
+<meta name="description" content="Calculez le prix de votre certificat d'immatriculation. Estimez le prix de votre carte grise. Effectuez votre demande de certificat d'immatriculation en ligne"/> 
+<meta property="og:title" content="CGofficiel.fr | Calculer le prix de carte grise "> 
+<meta property="og:type" content="page"> 
+<meta property="og:url" content="{{path('formulaire')}}"> 
+<meta property="og:image" content=""> 
+<meta property="og:description" content="Calculez le prix de votre certificat d'immatriculation. Estimez le prix de votre carte grise. Effectuez votre demande de certificat d'immatriculation en ligne">
+<meta property="og:video" content=""> 
+<meta property="og:locale" content="fr_FR"> 
+<meta name="twitter:card" content="summary_large_image"/> 
+<meta name="twitter:url" content="{{path('formulaire')}}"/> 
+<meta name="twitter:title" content="CGofficiel.fr | Calculer le prix de carte grise "/> 
+<meta property="twitter:description" content="Calculez le prix de votre certificat d'immatriculation. Estimez le prix de votre carte grise. Effectuez votre demande de certificat d'immatriculation en ligne"/>
+{% endblock %}
 {% block title %}{% endblock %}
 
 {% block body_id %}{% endblock %}
@@ -9,8 +25,8 @@
 {% block page_content %}
 <div class="col-md-11 col-lg-11 d-flex flex-row justify-content-center my-flex-container align-items-center mx-auto">
     <div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
-        <h1 class="col-12 col-sm-12 home-secondview--titre">Calculez le prix de votre
-                <br>certificat d'immatriculation</h1>
+        <h2 class="col-12 col-sm-12 home-secondview--titre">Calculez le prix de votre
+                <br>certificat d'immatriculation</h2>
     </div>
 </div>
 {{ form_start(form)}}
@@ -22,7 +38,7 @@
 {{ form_row(form.codePostal, {'attr':{'class':'col-6 mx-auto text-center form-control--dep'},
         'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
 </div>	
-<div class="col-12 col-md-6 mx-auto text-center search-box " id="calcul">
+<div class="col-12 col-md-6 mx-auto text-center search-box mb-5" id="calcul">
     <button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>
 </div>
 {{ form_end(form)}}
@@ -30,9 +46,4 @@
 
 {% block pagetext_content %}
 	{{ include('home/composant/texte/accueil-texte.html.twig') }}
-{% endblock %}
-
-{% block javascripts %}
-	{{ parent() }}
-	<script src="{{ asset('javascripts/home.js') }}"></script>
 {% endblock %}

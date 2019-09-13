@@ -158,6 +158,25 @@
 </div> #}
 <div class="col-12 d-flex flex-row justify-content-center my-flex-container flex-wrap align-content-start">
 	<div class="row center-container-hp d-flex my-flex-container pt-3 pb-3 justify-content-center align-content-center">
+		{% if app.user %}
+		<div class="hidden-lg-up hidden-md-up">
+			<ul class="espace-client-menu col-12 col-lg-12 col-xl-12 list-group mx-auto mb-4 mt-5">
+				<li class="list-group-item d-flex justify-content-between align-items-center active">
+					<a href="{{ path('compte') }}">Mon Profil</a>
+				</li>
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+					<a href="{{ path('commande_list') }}">Demandes en cours</a>
+					<span class="badge badge-primary badge-pill">{{ countCommandeUnchecked(app.user) }}</span>
+				</li>
+				</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center">
+					<a href="{{ path('demande_list')}}">Commandes effectuées</a>
+					<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
+				</li>
+				
+			</ul>
+		</div>
+		{% endif %}
 		<h2 class="txt-immatriculation">
 			démarche en quelques clics
 		</h2>

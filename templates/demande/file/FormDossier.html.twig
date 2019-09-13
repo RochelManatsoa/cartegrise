@@ -14,7 +14,7 @@
                 </div>
                 <div>{{ form_errors(col) }}</div>
                 <div class="custom-flex">
-                    {{ form_widget(col) }}
+                    {{ form_widget(col, { 'attr': {'accept': 'application/pdf'} }) }}
                     <button onclick="$('#form-dossier').submit();" type="button" class="btn btn-outline-primary">
                         <i class="fas fa-save" title="Download"></i>
                     </span></button>

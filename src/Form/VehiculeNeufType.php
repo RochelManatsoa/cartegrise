@@ -44,7 +44,10 @@ class VehiculeNeufType extends AbstractType
                 ])
             ->add('dateReception', DateType::class, array(
                 'label'=>"label.vehicule.dateRecep",
+                'format' => 'dd/MM/yyyy',
                 'widget' => 'single_text',
+                'html5' => false,
+                'attr' => ['class' => 'js-datepicker', 'placeholder' => 'dd/mm/yyyy'],
                 'required' => true,
                 ))
             ->add('d21Cenit', null, ['label' => 'label.vehicule.d21Cenit'])
@@ -85,7 +88,10 @@ class VehiculeNeufType extends AbstractType
                 ])
             ->add('z1Value', DateType::class, array(
                 'label'=>"label.vehicule.z1Value",
+                'attr' => ['class' => 'js-datepicker', 'placeholder' => 'dd/mm/yyyy'],
+                'format' => 'dd/MM/yyyy',
                 'widget' => 'single_text',
+                'html5' => false,
                 ))
             //->add('nbMentions', null, ['label' => 'label.vehicule.nbMentions'])
             //->add('divn')

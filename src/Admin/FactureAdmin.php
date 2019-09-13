@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\CoreBundle\Form\Type\DateRangePickerType;
 
 final class FactureAdmin extends AbstractAdmin
 {
@@ -44,6 +45,10 @@ final class FactureAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+        ->add('commande.immatriculation')
+        ->add('commande.ceerLe', 'doctrine_orm_date_range',[
+            'field_type'=> DateRangePickerType::class,
+        ])
         ->add('id')
         ;
     }
@@ -65,7 +70,5 @@ final class FactureAdmin extends AbstractAdmin
             
         ])
         ;
-
-        // dd($listMapper);
     }
 }

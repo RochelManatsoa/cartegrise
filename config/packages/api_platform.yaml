@@ -1,4 +1,9 @@
 api_platform:
+    swagger:
+        api_keys:
+            apiKey:
+                name: Authorization
+                type: header
     collection:
         pagination:
             enabled: false
