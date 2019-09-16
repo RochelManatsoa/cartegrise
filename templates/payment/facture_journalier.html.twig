@@ -58,12 +58,12 @@
 		<table class="table table-bordered table-sm">
       <thead class="table-active">
         <tr>
-          <th>Préstation</th>
+          <th>Prestations</th>
           <th class="text-center">Prix Unitaire HT (€)</th>
           <th class="text-center">Quantité</th>
           <th class="text-center">Total HT (€)</th>
-          <th class="text-center">Taux TVA (€)</th>
-          <th class="text-center">TVA</th>
+          <th class="text-center">Taux TVA </th>
+          <th class="text-center">TVA (€)</th>
           <th class="text-center">Prix TTC (€)</th>
         </tr>
       </thead>
@@ -71,22 +71,22 @@
         {% for key,result in results %}
           <tr>
             <td>{{ key }}</td>
-            <td class="text-center"><strong>{{ fraisdossierWithoutTvaDailyFacture(result[0].commande) }}</strong></td>
+            <td class="text-center">{{ (fraisdossierWithoutTvaDailyFacture(result[0].commande))|number_format(2, '.', ',') }}</td>
             <td class="text-center">{{ result | length }}</td>
-            <td class="text-center"><strong>{{ fraisdossierWithoutTvaTotal(result) }}</strong></td>
+            <td class="text-center">{{ (fraisdossierWithoutTvaTotal(result))|number_format(2, '.', ',') }}</td>
             <td class="text-center">{{ tvaCommande(result[0].commande) }}</td>
-            <td class="text-center"><strong>{{ tvaTraitementDailyTotal(result) }}</strong></td>
-            <td class="text-center"><strong>{{ fraisTraitementWhithTvaTotal(result) }}</strong></td>
+            <td class="text-center">{{ (tvaTraitementDailyTotal(result))|number_format(2, '.', ',') }}</td>
+            <td class="text-center">{{ (fraisTraitementWhithTvaTotal(result))|number_format(2, '.', ',') }}</td>
           </tr>
         {% endfor %} 
           <tr>
             <td class="text-center">TOTAL</td>
             <td class="text-center"></td>
             <td class="text-center"><strong>{{demandes | length}}</strong></td>
-            <td class="text-center"><strong>{{ totalOfDemandesDailyWithoutMajoration(demandes) }} </strong></td>
+            <td class="text-center"><strong>{{ (totalOfDemandesDailyWithoutTvaAndMajoration(demandes))|number_format(2, '.', ',') }} </strong></td>
             <td class="text-center"></td>
-            <td class="text-center"><strong>{{ totalOfTvaDailyWithoutMajoration(demandes) }} </strong></td>
-            <td class="text-center"><strong>{{ totalOfDemandesDailyWithoutMajoration(demandes) }} </strong></td>
+            <td class="text-center"><strong>{{ (totalOfTvaDailyWithoutMajoration(demandes))|number_format(2, '.', ',') }} </strong></td>
+            <td class="text-center"><strong>{{ (totalOfDemandesDailyWithoutMajoration(demandes))|number_format(2, '.', ',') }} </strong></td>
           </tr>
           <tr>
             <td></td>
@@ -114,24 +114,52 @@
               </strong>
               {% endfor %}
             </td>
-            <td clospan="2" class="text-center">{{ without20tva(key) }}</td>
-            <td class="text-center"><strong>{{ taxes | length }}</strong></td>
-            <td class="text-center">{{ without20tvaTotal(key, taxes|length) }}</td>
-            <td class="text-center"><strong>20 %</strong></td>
-            <td class="text-center"><strong>{{ just20tvaTotal(key, taxes|length) }}</strong></td>
-            <td class="text-center"><strong>{{ key * taxes | length}}</strong></td>
+            <td clospan="2" class="text-center">{{ (without20tva(key))|number_format(2, '.', ',') }}</td>
+            <td class="text-center">{{ taxes | length }}</td>
+            <td class="text-center">{{ (without20tvaTotal(key, taxes|length))|number_format(2, '.', ',') }}</td>
+            <td class="text-center">20 %</td>
+            <td class="text-center">{{ (just20tvaTotal(key, taxes|length))|number_format(2, '.', ',') }}</td>
+            <td class="text-center">{{ (key * taxes | length)|number_format(2, '.', ',')}}</td>
           </tr>
           {% endfor %}
           <tr>
             <td class="text-center">TOTAL</td>
             <td class="text-center"></td>
             <td class="text-center"><strong>{{demandes | length}}</strong></td>
-            <td class="text-center"><strong>{{ totalWithoutTvaOfMajorationDaily(majorations) }} </strong></td>
+            <td class="text-center"><strong>{{ (totalWithoutTvaOfMajorationDaily(majorations))|number_format(2, '.', ',') }} </strong></td>
             <td class="text-center"></td>
-            <td class="text-center"><strong>{{ totalTvaOfMajorationDaily(majorations) }} </strong></td>
-            <td class="text-center"><strong>{{ totalOfMajorationDaily(majorations) }} </strong></td>
+            <td class="text-center"><strong>{{ (totalTvaOfMajorationDaily(majorations))|number_format(2, '.', ',') }} </strong></td>
+            <td class="text-center"><strong>{{ (totalOfMajorationDaily(majorations))|number_format(2, '.', ',') }} </strong></td>
           </tr>
           <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr class="table-active">
+            <td><strong>Prestations & Majorations</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="text-center">TOTAL</td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{ (totalPrestationMajorationWithoutTaxeDaily(demandes, majorations))|number_format(2, '.', ',')}}</strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{ (totalPrestationMajorationTaxeDaily(demandes, majorations))|number_format(2, '.', ',')}} </strong></td>
+            <td class="text-center"><strong>{{ (totalPrestationMajorationTTC(demandes, majorations))|number_format(2, '.', ',')}} </strong></td>
+          </tr>
+          <tr>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -151,12 +179,12 @@
           {% for key,result in results %}
           <tr>
             <td>{{ key }}</td>
-            <td clospan="2" class="text-center"><strong></strong></td>
+            <td clospan="2" class="text-center"></td>
             <td clospan="2" class="text-center">{{ result | length }}</td>
-            <td clospan="2" class="text-center"><strong></strong></td>
+            <td clospan="2" class="text-center"></td>
             <td class="text-center"></td>
-            <td class="text-center"><strong></strong></td>
-            <td class="text-center"><strong>{{ getTaxesTotal(result) }}</strong></td>
+            <td class="text-center"></td>
+            <td class="text-center">{{ (getTaxesTotal(result))|number_format(2, '.', ',') }}</td>
           </tr>
           {% endfor %}
           <tr>
@@ -166,7 +194,7 @@
             <td class="text-center"></td>
             <td class="text-center"></td>
             <td class="text-center"></td>
-            <td class="text-center"><strong>{{ getTaxesTotal(demandes) }}</strong></td>
+            <td class="text-center"><strong>{{ (getTaxesTotal(demandes))|number_format(2, '.', ',') }}</strong></td>
           </tr>
       </tbody>
     </table>
@@ -176,8 +204,8 @@
         <div class="col-5">
             <table class="table table-md text-right table-active">
               <tr class="table-active">
-                <td><strong>Total :</strong></td>
-                <td class="text-right"><strong>{{ finalTotalOfDaily(demandes, majorations) }}</strong></td>
+                <td><strong>TOTAL :</strong></td>
+                <td class="text-right"><strong>{{ (finalTotalOfDaily(demandes, majorations)|number_format(2, '.', ',')) }}</strong></td>
               </tr>
             </table>
 

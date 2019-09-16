@@ -4,6 +4,8 @@
 
 {% block title %}{% endblock %}
 
+{% block stylesheets %} {{ parent()}} {% endblock %}
+
 {% block body_id %}{% endblock %}
 
 {% block class %}body-ccm{% endblock %}
@@ -11,7 +13,7 @@
 {% block page_content %}
 <div class="col-sm-10 col-lg-12 d-flex flex-row justify-content-center my-flex-container align-items-center mobile-center">
 	<div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
-        <div class="col-12 commander-firstview custom-form">
+        <div class="col-12 commander-firstview mt-4 custom-form">
             <h2 class="col-md-10 mx-auto full-mobile text-center">{{ commande.demarche.nom|upper }}</h2>
             <div class="row">
                 <hr>
@@ -230,6 +232,11 @@
         });
     }
 </script>
-
-    
+<script type="text/javascript">
+    $('.js-datepicker').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true
+    });
+</script>    
 {% endblock %}

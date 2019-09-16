@@ -23,3 +23,6 @@ easy_admin_bundle:
     resource: '@EasyAdminBundle/Controller/EasyAdminController.php'
     prefix: /admin_blog
     type: annotation
+authentication_token:
+    path: /authentication_token
+    methods: ['POST']
