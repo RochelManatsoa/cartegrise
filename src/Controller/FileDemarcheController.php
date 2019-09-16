@@ -44,7 +44,8 @@ class FileDemarcheController extends AbstractController
         $demande->setStatusDoc(Demande::DOC_VALID);
         $demandeManager->saveDemande($demande);
 
-        return new Response('success');
+        // return new Response('success');
+        return $this->redirect($this->generateUrl('demande_email_send', ["demande" => $demande, "checker" => $demande->getChecker()]));
     }
 
     /**
@@ -59,7 +60,7 @@ class FileDemarcheController extends AbstractController
             $demande->setStatusDoc(Demande::DOC_NONVALID);
             $demandeManager->saveDemande($demande);
 
-            return $this->redirect($this->generateUrl("notification_success"));
+            return $this->redirect($this->generateUrl('demande_email_send', ["demande" => $demande, "checker" => $demande->getChecker()]));
         }
 
         return $this->render(
