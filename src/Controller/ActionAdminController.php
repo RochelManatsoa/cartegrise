@@ -163,7 +163,7 @@ class ActionAdminController extends Controller
             'daf'       => $daf,
             'pathCerfa' => $pathCerfa,
             'form'      => is_null($fileForm) ? null :$fileForm->createView(),
-            'client'    => $this->getUser()->getClient(),
+            'client'    => $demande->getCommande()->getClient(),
             "files"     => $files,
         ]);
         
