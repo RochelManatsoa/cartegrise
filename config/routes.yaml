@@ -23,6 +23,9 @@ easy_admin_bundle:
     resource: '@EasyAdminBundle/Controller/EasyAdminController.php'
     prefix: /admin_blog
     type: annotation
+ckfinder_connector:
+    resource: "@CKSourceCKFinderBundle/Resources/config/routing.yml"
+    prefix:   /
 authentication_token:
     path: /authentication_token
     methods: ['POST']
