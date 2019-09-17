@@ -184,7 +184,6 @@
     "league/csv": {
         "version": "9.3.0"
     },
-<<<<<<< HEAD
     "league/flysystem": {
         "version": "1.0.55"
     },
@@ -194,8 +193,6 @@
     "league/flysystem-cached-adapter": {
         "version": "1.0.9"
     },
-=======
->>>>>>> 7b97ae8fec250702b17d357a38a14f40eb79b0cc
     "lexik/jwt-authentication-bundle": {
         "version": "2.5",
         "recipe": {
@@ -214,15 +211,12 @@
     "mobiledetect/mobiledetectlib": {
         "version": "2.8.33"
     },
-<<<<<<< HEAD
     "monolog/monolog": {
         "version": "1.25.1"
     },
     "mtdowling/jmespath.php": {
         "version": "2.4.0"
     },
-=======
->>>>>>> 7b97ae8fec250702b17d357a38a14f40eb79b0cc
     "namshi/jose": {
         "version": "7.2.3"
     },
