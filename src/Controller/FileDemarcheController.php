@@ -25,14 +25,18 @@ class FileDemarcheController extends AbstractController
     public function validateFile(
         Demande $demande,
         DocumentAFournirManager $documentManager,
-        MailManager $mailManager
+        MailManager $mailManager,
+        Request $request
     )
     {
         $infos = $documentManager->getFilesList($demande);
         $response = $mailManager->sendMailDocumentAFournir($demande, $infos);
+        $referer = $request->headers->get('referer');
+
+        return $this->redirect($referer);
 
         
-        return $this->redirect($this->generateUrl('demande_dossiers_a_fournir', ["id" => $demande->getId()]));
+        // return $this->redirect($this->generateUrl('demande_dossiers_a_fournir', ["id" => $demande->getId()]));
     }
 
     /**
