@@ -5,12 +5,12 @@ use App\Entity\Commande;
 
 trait CommandeStatusTrait
 {
-    private $FIRST_STEP="Attente de demande";
-    private $SECOND_STEP="Attente de paiement";
-    private $THIRD_STEP="Attente de document(s)";
-    private $FIRST_STEP_STYLE="danger";
-    private $SECOND_STEP_STYLE="warning";
-    private $THIRD_STEP_STYLE="info";
+    public $FIRST_STEP="Attente de demande";
+    public $SECOND_STEP="Attente de paiement";
+    public $THIRD_STEP="Attente de document(s)";
+    public $FIRST_STEP_STYLE="danger";
+    public $SECOND_STEP_STYLE="warning";
+    public $THIRD_STEP_STYLE="info";
     public $DEPARTMENTS = [
         "01 - Ain" => "01",
         "02 - Aisne" => "02",
@@ -143,5 +143,10 @@ trait CommandeStatusTrait
                 "style" => $this->FIRST_STEP_STYLE,
             ];
         }
+    }
+
+    public function getStatusNonPayed()
+    {
+        return $this->SECOND_STEP;
     }
 }
