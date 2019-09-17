@@ -55,6 +55,7 @@ final class UploadDossierAdmin extends AbstractAdmin
         $datagridMapper
         ->add('id')
         ->add('reference')
+        ->add('commande.immatriculation')
         ;
     }
 
