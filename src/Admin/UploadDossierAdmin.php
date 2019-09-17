@@ -11,22 +11,28 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use App\Entity\Commande;
 use App\Entity\Demande;
+use App\Manager\StatusManager;
 
-final class ValidationDossierAdmin extends AbstractAdmin
+final class UploadDossierAdmin extends AbstractAdmin
 {
-    protected $baseRoutePattern = 'dossier';
-    protected $baseRouteName = 'dossier';
+    protected $baseRoutePattern = 'upload_dossier';
+    protected $baseRouteName = 'upload_dossier';
     public function createQuery($context = 'list')
     {
         $query = parent::createQuery($context);
         $qb = $query->getQueryBuilder();
+        $statusManager = new StatusManager();
         $alias = $query->getRootAliases()[0];
         // $qb->leftJoin($alias.'.transaction', 'trans')
         $qb
-        ->andWhere($alias.'.statusDoc IS NOT NULL')
-        ->andWhere($alias.'.statusDoc !=:statusDoc')
-        ->setParameter('statusDoc', Demande::DOC_NONVALID);
+        ->leftJoin($alias.'.transaction', 'trans')
+        ->andWhere($alias.'.statusDoc IS NULL OR '.$alias.'.statusDoc =:statusDoc')
+        ->andWhere('trans.status =:status')
+        ->setParameter('status', "00")
+        ->setParameter('statusDoc', Demande::DOC_NONVALID)
+        ;
 
         return $query;
     }
@@ -34,7 +40,7 @@ final class ValidationDossierAdmin extends AbstractAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         // $collection->clearExcept(['dossier']);
-        $collection->add('dossier', $this->getRouterIdParameter().'/dossier');
+        $collection->add('uploadDossier', $this->getRouterIdParameter().'/upload_dossier');
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -63,8 +69,8 @@ final class ValidationDossierAdmin extends AbstractAdmin
         ->add('transaction.transactionId')
         ->add('_action', null, [
             'actions' => [ 
-                'dossier' => [
-                    'template'=>'CRUD/list__demande_document.html.twig'
+                'upload' => [
+                    'template'=>'CRUD/list__demande_document_upload.html.twig'
                 ]
             ],
             

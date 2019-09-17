@@ -40,13 +40,14 @@ class MailManager
     public function sendMailDocumentAFournir(Demande $demande, ParamDocumentAFournir $infos)
     {
         $daf = $this->demandeManager->getDossiersAFournir($demande);
+        $owner = $demande->getCommande()->getClient()->getUser();
         $now = (new \DateTime())->getTimestamp();
         $encoder = hash('sha256', $now);
         $demande->setChecker($encoder)->setStatusDoc(Demande::DOC_PENDING);
         $this->demandeManager->saveDemande($demande);
         $emailDests = $this->notificationManager->getAllEmailOf(NotificationEmail::FILE_NOTIF);
         if (\is_iterable($emailDests) && 0 < count($emailDests)){
-            $message = (new \Swift_Message($infos->getName() . ' ' . $this->tokenStorage->getToken()->getUser()->getEmail()))
+            $message = (new \Swift_Message($infos->getName() . ' ' . $owner->getEmail()))
             // ->setFrom($this->tokenStorage->getToken()->getUser()->getEmail());
             ->setFrom('no-reply@cgofficiel.fr');
             foreach ($emailDests as $key => $emailDest) {
@@ -64,7 +65,7 @@ class MailManager
                     [
                         'demande' => $demande,
                         'daf'     => $daf,
-                        'client'  => $this->tokenStorage->getToken()->getUser()->getClient(),
+                        'client'  => $owner->getClient(),
                     ]
                 ),
                 'text/html'
