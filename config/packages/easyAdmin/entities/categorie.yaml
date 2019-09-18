@@ -2,11 +2,16 @@ easy_admin:
     entities:
         Categorie:
             class: App\Entity\Blog\Categorie
+            form:
+                fields:
+                    - { property: 'nom', css_class: '' }
+                    - { property: 'slug', css_class: '' }
+                    - { property: 'description', css_class: '' }
             list: 
                 fields:
                     - id
                     - nom
-                    - article
+                    - articles
                 actions:
                     - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-outline-primary'}
                     - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-outline-danger'}

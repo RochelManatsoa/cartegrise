@@ -68,10 +68,6 @@ class Article
      */
     private $dateEdition;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Blog\Categorie", mappedBy="article")
-     */
-    private $categories;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -125,6 +121,11 @@ class Article
      * @ORM\OneToMany(targetEntity="App\Entity\Blog\Commentaire", mappedBy="article")
      */
     private $commentaires;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Blog\Categorie", inversedBy="articles")
+     */
+    private $categories;
 
     public function __toString() {
         return $this->titre;
@@ -237,34 +238,7 @@ class Article
         return $this;
     }
 
-    /**
-     * @return Collection|Categorie[]
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Categorie $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
-            $category->addArticle($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Categorie $category): self
-    {
-        if ($this->categories->contains($category)) {
-            $this->categories->removeElement($category);
-            $category->removeArticle($this);
-        }
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection|Commentaire[]
      */
@@ -304,6 +278,32 @@ class Article
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Categorie[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Categorie $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Categorie $category): self
+    {
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+        }
 
         return $this;
     }
