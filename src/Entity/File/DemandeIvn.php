@@ -30,7 +30,7 @@ class DemandeIvn
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
-    *     maxSize = "1024k",
+    *     maxSize = "5120k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
@@ -41,7 +41,7 @@ class DemandeIvn
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
-    *     maxSize = "1024k",
+    *     maxSize = "5120k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
@@ -51,7 +51,7 @@ class DemandeIvn
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
-    *     maxSize = "1024k",
+    *     maxSize = "5120k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
@@ -61,7 +61,7 @@ class DemandeIvn
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
-    *     maxSize = "1024k",
+    *     maxSize = "5120k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
@@ -71,7 +71,7 @@ class DemandeIvn
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
-    *     maxSize = "1024k",
+    *     maxSize = "5120k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
@@ -81,7 +81,7 @@ class DemandeIvn
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
-    *     maxSize = "1024k",
+    *     maxSize = "5120k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
@@ -91,7 +91,7 @@ class DemandeIvn
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
-    *     maxSize = "1024k",
+    *     maxSize = "5120k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
@@ -101,7 +101,7 @@ class DemandeIvn
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
-    *     maxSize = "1024k",
+    *     maxSize = "5120k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
