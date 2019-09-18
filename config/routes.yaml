@@ -13,14 +13,10 @@ _sonata_admin:
     resource: .
     type: sonata_admin
     prefix: /admin
-<<<<<<< HEAD
-
 blog:
     resource: App\Controller\Blog\BlogController
     type: annotation
     prefix: /blog
-=======
 authentication_token:
     path: /authentication_token
     methods: ['POST']
->>>>>>> c772e7e0c767d2d118e72f37d611c113f4ee5019
