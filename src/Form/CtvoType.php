@@ -30,6 +30,7 @@ class CtvoType extends AbstractType
             ->add('numeroFormule', null, ['label' => 'label.numeroFormule', 'required' => false])
             // ->add('dateCi', DateType::class, array(
             //     'label'=>"label.ctvo.DateCI",
+            //    'format' => 'dd-MM-yyyy',
             //     'widget' => 'single_text',
             //     'required' => false,
             //     ))

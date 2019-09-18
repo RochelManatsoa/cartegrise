@@ -27,16 +27,39 @@ security:
             guard:
                 authenticators:
                     - App\Security\Admin\AdminLoginAuthenticator
+        api:
+            pattern: ^/api/
+            stateless: true
+            anonymous: true
+            provider: fos_userbundle
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+        api_main:
+            pattern: /authentication_token
+            stateless: true
+            anonymous: true
+            provider: fos_userbundle
+            json_login:
+                check_path: /authentication_token
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
         main:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
+                login_path: fos_user_security_login 
+                check_path: fos_user_security_check
                 csrf_token_generator: security.csrf.token_manager
                 success_handler: app.authentication_success_handler
                 # if you are using Symfony < 2.8, use the following config instead:
                 # csrf_provider: form.csrf_provider
                 default_target_path: compte
-
             logout:       true
             anonymous:    true
 
@@ -49,6 +72,7 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/easyadmin/, role: ROLE_ADMIN }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        # - { path: ^/api/, role: IS_AUTHENTICATED_FULLY }
 
 # security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers

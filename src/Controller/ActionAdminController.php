@@ -10,6 +10,7 @@ use App\Manager\DocumentAFournirManager;
 use App\Manager\{DemandeManager, CommandeManager, TMSSauverManager};
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
+use App\Entity\Demande;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ActionAdminController extends Controller
@@ -123,6 +124,48 @@ class ActionAdminController extends Controller
             'files'     => $files,
             'tmsInfos'  => $paramTmsInfos["Lot"]["Demarche"],
             ]);
+        
+
+        // return new RedirectResponse($this->generateUrl('payment_facture', ['demande'=> $object->getId()]));
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+    /**
+     * @param $id
+     */
+    public function uploadDossierAction(
+        $id,
+        DemandeManager $demandeManager, 
+        DocumentAFournirManager $documentAFournirManager,
+        Request $request
+    )
+    {
+        $demande = $this->admin->getSubject();
+
+        $pathCerfa = $demandeManager->generateCerfa($demande);
+        $daf = $demandeManager->getDossiersAFournir($demande, $pathCerfa);
+        $files = $documentAFournirManager->getDaf($demande);
+        $fileType = $documentAFournirManager->getType($demande);
+        $path = $demande->getUploadPath();
+        $fileForm = null;
+        if (!null == $fileType) {
+            $fileForm = $this->createForm($fileType, $files);
+            $fileForm->handleRequest($request);
+
+            if ($fileForm->isSubmitted() && $fileForm->isValid()) {
+                $documentAFournirManager->handleForm($fileForm, $path)->save($fileForm);
+            }
+        }
+
+        return $this->render('CRUD/dossiers_a_fournir.html.twig', [
+            'demande'   => $demande,
+            'daf'       => $daf,
+            'pathCerfa' => $pathCerfa,
+            'form'      => is_null($fileForm) ? null :$fileForm->createView(),
+            'client'    => $demande->getCommande()->getClient(),
+            "files"     => $files,
+        ]);
         
 
         // return new RedirectResponse($this->generateUrl('payment_facture', ['demande'=> $object->getId()]));

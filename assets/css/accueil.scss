@@ -78,7 +78,13 @@
 		font-weight: bold;
 	}
 }
-
+.home-prix--titre{
+	color: #002a6b;
+	font-family: raleway;
+	text-transform: uppercase;
+	margin-bottom: 5vh;
+	font-weight: bold;
+}
 .home-secondview--titre{
 	text-align: center;
 	color: #002a6b;
@@ -307,7 +313,9 @@ font-weight: bold;
     }
   }
 }
-
+.home-texte{
+  font-family: "Orkney";
+}
 .accueil-texte{
 	strong{
 		color: #002a6a;
@@ -574,7 +582,10 @@ font-size: 18px;
 /*Début ajustement*/
 .custom-container-flex {
   display: flex;
-  width: 100%;
+  width: -moz-calc(100% - 30px);
+  width: -ms-calc(100% - 30px);
+  width: -webkit-calc(100% - 30px);
+  width: calc(100% - 30px);
   align-items: center;
   justify-content: space-between;
   border: 1px solid #0275d8;

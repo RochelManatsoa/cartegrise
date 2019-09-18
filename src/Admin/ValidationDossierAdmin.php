@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use App\Entity\Demande;
 
 final class ValidationDossierAdmin extends AbstractAdmin
 {
@@ -22,7 +23,10 @@ final class ValidationDossierAdmin extends AbstractAdmin
         $qb = $query->getQueryBuilder();
         $alias = $query->getRootAliases()[0];
         // $qb->leftJoin($alias.'.transaction', 'trans')
-        $qb->andWhere($alias.'.statusDoc IS NOT NULL');
+        $qb
+        ->andWhere($alias.'.statusDoc IS NOT NULL')
+        ->andWhere($alias.'.statusDoc !=:statusDoc')
+        ->setParameter('statusDoc', Demande::DOC_NONVALID);
 
         return $query;
     }

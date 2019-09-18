@@ -1,53 +1,3 @@
-$(document).ready(function () {
-    $('#francemap').vectorMap({
-        map: 'france_fr',
-        hoverOpacity: 0.7,
-        hoverColor: false,
-        backgroundColor: "#f9f9f9",
-        colors: couleurs,
-        borderColor: "#121212",
-        selectedColor: "#325da7",
-        enableZoom: false,
-        showTooltip: true,
-        onRegionClick: function (element, code, region) {
-            let value = code.replace('fr-', '');
-            value = value.toUpperCase();
-            var dep = slugify(region);
-            var depart = dep;
-            var valueDep = value;
-            if(dep == "cote-dor"){
-                depart = "cote-d-or";
-            }else if(dep == "meurthe-et-moselle"){
-                depart = "meurhe-et-moselle";
-            }else if(dep == "haut-rhin"){
-                valueDep = 67;
-            }else if(dep == "cotes-darmor"){
-                depart = "cotes-d-armor";
-            }else if(dep == "la-reunion" || dep == "guyane" || dep == "guadeloupe" || dep == "martinique"){
-                depart = 'departement-'+dep;
-            }
-            $('.departement_selectione').text(value + " - " + region);
-            $('.departement_tarif').text(taxeArray['' + value+''] + " €");
-            $('.departement_exoneration').text(exonerationArray[value] + " %");
-            $('.departement_selectione_nom').text(region);
-            $('#fr_departement').val(code);
-            $('#fr_departement_first').val(code);
-            $('.lien_pref').attr('href', 'http://www.' + dep +'.gouv.fr');
-            $('.target_blank').attr('target', '_blank');
-            $('.src_img').attr('src', 'https://www.regions-et-departements.fr/images/logos-departements/'+ valueDep +'-logo-' + depart +'.png');
-        },
-        onRegionOver: function(element, label, region){
-            //alert(element.type);
-            //console.log(label);
-            label.html('<div class="map-tooltip"><h1 class="header">'+ region +'</h1><p class="description">Some Description</p></div>');
-        },
-        onRegionOut: function(event, code, region)
-        {
-            event.preventDefault();
-        }
-    });
-});
-
 function slugify(string) {
     const a = 'àáäâãåăæąçćčđďèéěėëêęğǵḧìíïîįłḿǹńňñòóöôœøṕŕřßşśšșťțùúüûǘůűūųẃẍÿýźžż·/_,:;'
     const b = 'aaaaaaaaacccddeeeeeeegghiiiiilmnnnnooooooprrsssssttuuuuuuuuuwxyyzzz------'
@@ -66,7 +16,17 @@ function slugify(string) {
 $(document).ready(function () {
     $('.icon-mobile-menu').click(function(){
         $('#sidebar-container').toggleClass('show');
+        $('.new-header').toggleClass('show');
     });
+    var $paramPopup = $('#sidebar-container');
+    $(document).mouseup(function (e) {
+        if (!$paramPopup.is(e.target) && $paramPopup.has(e.target).length === 0){
+            if($('#sidebar-container').is(':visible')){
+                $('#sidebar-container').removeClass('show');
+                $('.new-header').removeClass('show');
+            }
+        }
+    });  
 });
 
 function valueTreatement(value) {
@@ -117,7 +77,7 @@ var cookiesChecker = function () {
         cookieValue: "Y",
         cookieDays: 365,
         containerId: "cookie-alert-container",
-        htmlTemplate: '<div role="alert" class="cookie-alert-message fixed-bottom text-center alert alert-primary"><div class="container mx-auto">En poursuivant votre navigation sur ce site, vous acceptez l\'utilisation de cookies ou technologie similaire pour disposer des services et d\'offres  adaptés à vos centres d\'interêt ainsi que pour la sécurisation des transactions de notre site. <button class="cookie-alert-message-accept-button btn btn-outline-primary" onClick="javascript:cookiesChecker.accept();">OK</button></div></div>'
+        htmlTemplate: '<div role="alert" class="cookie-alert-message fixed-bottom text-center alert alert-primary"><div class="container mx-auto">En poursuivant votre navigation sur ce site, vous acceptez l\'utilisation de cookies ou technologie similaire pour disposer des services et d\'offres  adaptés à vos centres d\'interêt ainsi que pour la sécurisation des transactions de notre site. <button class="cookie-alert-message-accept-button btn btn-outline-primary" onClick="javascript:cookiesChecker.accept();">J\'accepte</button></div></div>'
     };
 
     var setCookie = function (key, value, expires) {
