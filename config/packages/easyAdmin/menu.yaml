@@ -6,3 +6,4 @@ easy_admin:
               children:
                   - {entity: 'Article', icon: 'inbox', label: 'Articles'}
                   - {entity: 'Categorie', icon: 'tags', label: 'Catégories'}
+                  - {entity: 'Commentaire', icon: 'warning', label: 'Commentaires'}

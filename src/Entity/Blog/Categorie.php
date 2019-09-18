@@ -9,6 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Blog\CategorieRepository")
+ * @ORM\Table(name="blog_category")
  */
 class Categorie
 {
