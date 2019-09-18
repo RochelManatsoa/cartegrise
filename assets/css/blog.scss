@@ -1,7 +1,7 @@
 .blog-card{
 	.blog-card--titre{
 		h2{
-			font-family: textr;
+			font-family: "Orkney";
 			color: black;
 			font-weight: bold;
 			font-size: 45px;
@@ -9,7 +9,7 @@
 		}
 		h3{
 			font-size: 25px;
-			font-family: textr;
+			font-family: "Orkney";
 			color: #002a6b;
 			font-weight: bold;
 			margin-bottom: 10vh;
@@ -18,7 +18,7 @@
 }
 .blog {
 	.titre-show-cat{
-		font-family: Textr;
+		font-family: "Orkney";
 		color: #002a6b;
 		height: 5vh;
 		font-size: 70px;
@@ -29,7 +29,7 @@ background-color: $bleu !important;
 border-color: $bleu !important;
 margin-bottom: 20px;
   }
-  font-family: textr !important;
+  font-family: "Orkney" !important;
   .article-suggestion-card{
     background-color: rgb(242, 242, 242);
     border-radius: 2px;
@@ -39,14 +39,14 @@ small{
   width: 80% !important;
   margin-right: auto;
   margin-left: auto;
-  font-family: textr;
+  font-family: "Orkney";
   font-weight: bold;
   font-size: 25px;
 }
   }
   .article-suggestion-card-box{
     color: $bleu;
-    font-family: textr;
+    font-family: "Orkney";
     font-weight: bold;
     padding-left: 0px !important;
     padding-right: 0px !important;
@@ -58,7 +58,7 @@ small{
     max-width: 200% !important;
   }
   .show-article-titre{
-    font-family: textr;
+    font-family: "Orkney";
     color: $bleu;
     text-transform: uppercase;
     font-weight: bold;
@@ -121,7 +121,7 @@ small{
     h2 {}
 
     button {
-      font-family: textr;
+      font-family: "Orkney";
       font-weight: bold;
     }
   }
@@ -129,14 +129,14 @@ small{
   .sidebar {
 
     h4 {
-      font-family: textr;
+      font-family: "Orkney";
       text-transform: uppercase;
     }
 
     ul {
       li {
         a {
-          font-family: textr;
+          font-family: "Orkney";
           text-transform: uppercase;
           font-weight: bold;
         }
@@ -163,15 +163,15 @@ padding: 10px !important;
 .show-article-blockquote{
   border-left: none !important;
 	p span span{
-		font-family: Raleway !important;
+		font-family: "Orkney" !important;
 		// font-weight: 600;
 	}
 	ul li h3 span{
-		font-family: Raleway !important;
+		font-family: "Orkney" !important;
 		list-style: none !important;
 	}
 	ul li span span span span{
-		font-family: Raleway !important;
+		font-family: "Orkney" !important;
 		// font-weight: bold;
 		color: #424242;
   }
@@ -179,7 +179,7 @@ padding: 10px !important;
     text-align: left !important;
   }
 	h2 span span strong span{
-		font-family: textr !important;
+		font-family: "Orkney" !important;
     color: #002a6b !important;
     text-transform: inherit;
     font-weight: bold;
@@ -191,13 +191,13 @@ padding: 10px !important;
 
 }
 .show-article-commentaire{
-	font-family: textr;
+	font-family: "Orkney";
     color: #002a6b;
     text-transform: uppercase;
     font-weight: bold;
 }
 .commentaire h3{
-	font-family: textr;
+	font-family: "Orkney";
 		color: #002a6b;
 		text-transform: uppercase;
 		font-weight: bold;

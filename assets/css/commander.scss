@@ -32,7 +32,7 @@
 	.menu-commander--button---text {
 		margin-top: 1vh;
 		padding-bottom: 1vh;
-		font-family: textr;
+		font-family: "Orkney";
 		font-size: 18px;
 		font-weight: bold !important;
 		text-transform: uppercase;
@@ -49,13 +49,13 @@
 		h3 {
 			font-size: 14px;
 			text-align: left;
-			//font-family: Raleway;
+			font-family: "Orkney";
 			text-transform: uppercase;
 			font-weight: 600;
 		}
 
 		.menu-box--description {
-			font-family: Raleway;
+			font-family: "Orkney";
 			font-weight: lighter;
 			font-weight: 500;
 			text-transform: none;
@@ -67,7 +67,7 @@
 		text-align: center justify !important;
 		opacity: 0;
 		transition: font-size 0.2s ease, opacity 3s ease;
-		font-family: Raleway;
+		font-family: "Orkney";
 		text-transform: none;
 	}
 	@media screen and (min-width: 0px) and (max-width: 991px) {
@@ -75,7 +75,7 @@
 			font-size: 14px;
 			text-align: center justify !important;
 			opacity: 1;
-			font-family: Raleway;
+			font-family: "Orkney";
 		}
 	}
 }
@@ -107,7 +107,7 @@ background: rgba(255, 255, 255, 0.95) !important;
 	.search-titre p{
 		text-transform: uppercase;
 		font-weight: bold;
-		font-family: Raleway;
+		font-family: "Orkney";
 	}
 }
 
@@ -116,7 +116,7 @@ background: rgba(255, 255, 255, 0.95) !important;
 }
 .commander-box--section---titre{
 	h3{
-		font-family: textr;
+		font-family: "Orkney";
 		font-size: 30px;
 		color: #1a3f78;
 font-weight: bold;
@@ -125,7 +125,7 @@ text-align: left;
 	}
 }
 .commander-box--section---description{
-	font-family: Raleway;
+	font-family: "Orkney";
 color: #1a3f78;
 font-weight: bold;
 text-align: left;

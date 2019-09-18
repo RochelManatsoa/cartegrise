@@ -7,26 +7,26 @@
 	h2{
 		text-align: left;
 		text-transform: uppercase;
-		font-family: textr;
+		font-family: "Orkney";
 		color: $bleu;
 		font-weight: bold;
 	}
 
 	th{
 		text-align: left;
-		font-family: textr;
+		font-family: "Orkney";
 		color: $bleu;
 		font-weight: bold;
 	}
 
 	td{
 		text-align: left;
-		font-family: textr;
+		font-family: "Orkney";
 		color: black;
 		font-weight: bold;
 	}
 	.btn-success{
-		font-family: textr;
+		font-family: "Orkney";
 		font-weight: bold;
 		text-transform: uppercase;
 		color:white !important;
@@ -38,7 +38,7 @@
 		}
 	}
 	.btn-primary{
-		font-family: textr;
+		font-family: "Orkney";
 		font-weight: bold;
 		text-transform: uppercase;
 		color:white !important;
@@ -53,14 +53,14 @@
 		padding: 0.60rem !important;
 	}
 	.resultat-estimation-p{
-		font-family: textr;
+		font-family: "Orkney";
 		color: $bleu;
 		font-weight: bold;
 	}
 }
 .fos_user_registration_register {
 	h2{
-		font-family: textr;
+		font-family: "Orkney";
 		color: $bleu;
 		font-weight: bold;
 		text-transform: uppercase;
@@ -73,7 +73,7 @@
 	}
 	.register-form--label{
 		color: #1a3f78;
-		font-family: textr;
+		font-family: "Orkney";
 		text-transform: uppercase;
 		font-weight: bold;
 	}
@@ -82,7 +82,7 @@
 .home-secondview--titre{
 	text-align: center;
 	color: #002a6b;
-	font-family: raleway;
+	font-family: "Orkney";
 	text-transform: uppercase;
 	margin-bottom: 5vh;
 	font-weight: bold;
@@ -98,7 +98,7 @@ text-align: center;
 animation: head-message 25s infinite linear;
 width: inherit !important;
 color: $bleu;
-font-family: textr;
+font-family: "Orkney";
 }
 @keyframes head-message {
 0% {
@@ -161,23 +161,23 @@ white-space: nowrap;
   font-size: 35px;
   color: #002a6a;
   margin: 0.3em 0 !important;
-  font-family: textr;
+  font-family: "Orkney";
 }
 
 
 
 .search {
   input{
-    font-family: raleway;
+    font-family: "Orkney";
   }
   select{
-    font-family: raleway;
+    font-family: "Orkney";
   }
   .search-box{
     height: 16vh;
     .btn{
 			font-size: xx-large;
-      font-family: raleway;
+      font-family: "Orkney";
 			font-weight: 500;
     }
   }
@@ -191,7 +191,7 @@ white-space: nowrap;
     text-align: center;
 		color: #1a3f78;
 		    font-weight: bold;
-    font-family: raleway;
+    font-family: "Orkney";
     margin-bottom: 4vh;
     text-transform: uppercase;
   }
@@ -256,7 +256,7 @@ white-space: nowrap;
     text-align: center;
     color: #1a3f78;
     font-size: 16px;
-    font-family: raleway;
+    font-family: "Orkney";
 text-transform: uppercase;
 font-weight: bold;
     p{
@@ -320,7 +320,7 @@ font-weight: bold;
     font-weight: bold;
     margin-bottom: 0vh !important;
     font-size: 18px;
-    font-family: textr;
+    font-family: "Orkney";
     margin-bottom: 4vh !important;
     text-transform: uppercase;
     @media (max-width:480px) {
@@ -332,7 +332,7 @@ font-weight: bold;
     margin-right: 15vw;
     font-size: 20px;
     margin-bottom: 2vh;
-    font-family: textr;
+    font-family: "Orkney";
     line-height: 25px;
   }
   h4{
@@ -340,21 +340,21 @@ font-weight: bold;
     margin-right: 15vw;
         font-size: 20px;
         margin-bottom: 2vh;
-        font-family: textr;
+        font-family: "Orkney";
         line-height: 25px;
   }
   h5{
     margin-left: 5vw;
     margin-right: 15vw;
     text-align: justify;
-    font-family: textr;
+    font-family: "Orkney";
     line-height: 25px;
 
   }
   h6{
     font-size: 18px;
     text-align: justify;
-    font-family: textr;
+    font-family: "Orkney";
     line-height: 25px;
   }
 }
@@ -363,14 +363,14 @@ font-weight: bold;
     color: #7296ce;
     font-weight: bold;
     font-size: 18px;
-    font-family: textr;
+    font-family: "Orkney";
     text-transform: uppercase;
   }
   h4{
     color: #7296ce;
     font-weight: bold;
     font-size: 18px;
-    font-family: textr;
+    font-family: "Orkney";
   }
   p {
     text-align: justify;
@@ -383,18 +383,18 @@ font-weight: bold;
   .home-texte1{
     margin-top: 5vh;
     margin-bottom: 10vh;
-    font-family: textr;
+    font-family: "Orkney";
     line-height: 23px;
   }
 }
 .home-texte2 {
   margin-bottom: 2vh;
-  font-family: textr;
+  font-family: "Orkney";
   h3{
       color: #002a6a;
       font-weight: bold;
           margin-bottom: 2vh !important;
-          font-family: textr;
+          font-family: "Orkney";
           margin-bottom: 4vh !important;
           font-size: 18px;
   }
@@ -420,13 +420,13 @@ font-weight: bold;
 .home-texte3{
   margin-bottom: 10vh;
   margin-top: 10vh;
-  font-family: textr;
+  font-family: "Orkney";
   h3{
 		color: #002a6a;
 		font-weight: bold;
 				margin-bottom: 0vh !important;
 				font-size: 40px;
-				font-family: textr;
+				font-family: "Orkney";
 				margin-bottom: 4vh !important;
 				text-transform: uppercase;
   }
@@ -463,11 +463,11 @@ font-weight: bold;
     }
 }
 .home-texte4{
-font-family: textr;
+font-family: "Orkney";
 font-size: 18px;
 }
 .home-texte5{
-font-family: textr;
+font-family: "Orkney";
 font-size: 18px;
 }
 

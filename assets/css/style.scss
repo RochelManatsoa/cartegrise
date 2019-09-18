@@ -89,7 +89,7 @@ body{
 	min-height: 100vh;
 }
 .comment-ca-marche-texte{
-	font-family: Raleway;
+	font-family: "Orkney";
 	color: #1a3f78;
 	font-weight: bold;
 	text-align: left;
@@ -107,10 +107,6 @@ $bleu: #002a6b;
 $bleu-hover: rgb(63, 87, 149);
 $rouge: rgb(175, 68, 68);
 @font-face {
-	font-family: textr;
-	src: ("/../../asset/fonts/SourceSansPro-Regular.ttf");
-}
-@font-face {
 	font-family: menu;
 	src: ("/../../asset/fonts/calibril.ttf");
 }
@@ -118,15 +114,40 @@ $rouge: rgb(175, 68, 68);
 	font-family: menub;
 	src: ("/../../asset/fonts/calibrib.ttf");
 }
-@font-face {
-	font-family: Raleway;
-	src: ("/../../asset/fonts/Raleway-Regular.ttf");
-}
 
 @font-face {
 	font-family: font-awesome;
 	src: ("/../../asset/fonts/fontawesome-webfont.woff");
 }
+
+@font-face {
+	font-family: "Orkney";
+	src: url("/../../asset/fonts/Orkney/Orkney-Light.woff2") format("woff2"),
+		   url("/../../asset/fonts/Orkney/Orkney-Light.woff") format("woff");
+	font-weight: 300;
+}
+
+@font-face {
+	font-family: "Orkney";
+	src: url("/../../asset/fonts/Orkney/Orkney-Regular.woff2") format("woff2"),
+		   url("/../../asset/fonts/Orkney/Orkney-Regular.woff") format("woff");
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: "Orkney";
+	src: url("/../../asset/fonts/Orkney/Orkney-Medium.woff2") format("woff2"),
+		   url("/../../asset/fonts/Orkney/Orkney-Medium.woff") format("woff");
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: "Orkney";
+	src: url("/../../asset/fonts/Orkney/Orkney-Bold.woff2") format("woff2"),
+		   url("/../../asset/fonts/Orkney/Orkney-Bold.woff") format("woff");
+	font-weight: 600;
+}
+
 .error {
 	color: #f0064c
 }
@@ -281,7 +302,7 @@ ul {
 			display: block;
 		}
 		h1 {
-			font-family: raleway;
+			font-family: "Orkney";
 			font-weight: 500;
 			font-size: 24px;
 			line-height: 26px;
@@ -319,7 +340,7 @@ ul {
 				.menu-item {
 					color: #fff;
 					display: block;					
-					font-family: raleway;
+					font-family: "Orkney";
 					font-size: 14px;
 					font-weight: 700;
 					padding: 5px 10px;					
@@ -358,7 +379,7 @@ ul {
 		font-size: 12px;
 		margin-top: 15px;
 		line-height: 16px;
-		font-family: raleway;
+		font-family: "Orkney";
 	}
 	.demande-btn {
 		border: none;
@@ -377,7 +398,7 @@ ul {
 			margin-top: 15px;
 			text-transform: uppercase;
 			line-height: 18px;
-			font-family: raleway;
+			font-family: "Orkney";
 		}
 	}
 }
@@ -434,7 +455,7 @@ ul {
 }
 .txt-immatriculation {
 	display: block;
-	font-family: raleway;	
+	font-family: "Orkney";	
 	font-size: 20px;
     line-height: 26px;
 	text-align: center;
@@ -679,13 +700,13 @@ body.body-accueil {
 /*Blog*/
 .blog {
 	.show-article-titre {
-		font-family: textr;
+		font-family: "Orkney";
 		color: #002a6b;
 		text-transform: uppercase;
 		font-weight: bold;
 	}
 	blockquote h2 span span strong span {
-		font-family: textr !important;
+		font-family: "Orkney" !important;
 		color: #002a6b !important;
 		text-transform: uppercase;
 		font-weight: bold;
@@ -712,7 +733,7 @@ body.body-accueil {
 		border-radius: 2px;
 		.article-suggestion-card-box {
 			color: #002a6b;
-			font-family: textr;
+			font-family: "Orkney";
 			font-weight: bold;
 			padding-left: 0px !important;
 			padding-right: 0px !important;
@@ -748,3 +769,7 @@ body.body-accueil {
 	}
 }
 /*Fin Blog*/
+body {
+	font-family: "Orkney" !important;
+	font-weight: 400 !important;
+}
