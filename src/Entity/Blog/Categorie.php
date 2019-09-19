@@ -9,6 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Blog\CategorieRepository")
+ * @ORM\Table(name="blog_category")
  */
 class Categorie
 {
@@ -36,9 +37,10 @@ class Categorie
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Blog\Article", inversedBy="categories")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Blog\Article", mappedBy="categories")
      */
-    private $article;
+    private $articles;
+
 
     public function __toString() {
         return $this->nom;
@@ -47,6 +49,7 @@ class Categorie
     public function __construct()
     {
         $this->article = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,15 +97,16 @@ class Categorie
     /**
      * @return Collection|Article[]
      */
-    public function getArticle(): Collection
+    public function getArticles(): Collection
     {
-        return $this->article;
+        return $this->articles;
     }
 
     public function addArticle(Article $article): self
     {
-        if (!$this->article->contains($article)) {
-            $this->article[] = $article;
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->addCategory($this);
         }
 
         return $this;
@@ -110,8 +114,9 @@ class Categorie
 
     public function removeArticle(Article $article): self
     {
-        if ($this->article->contains($article)) {
-            $this->article->removeElement($article);
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
+            $article->removeCategory($this);
         }
 
         return $this;

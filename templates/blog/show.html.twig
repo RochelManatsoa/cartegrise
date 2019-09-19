@@ -10,7 +10,7 @@
     <meta property="og:title" content="{{ article.titre }}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="{{ path( 'blog_show', {slug : article.slug}) }}">
-    <meta property="og:image" content="https://www.cgofficiel.fr{{ asset('uploads/' ~ article.image.url) }}">
+    <meta property="og:image" content="https://www.cgofficiel.fr{{ asset('uploads/' ~ article.image) }}">
     <meta property="og:description" content="{{ article.description }}">
     <meta property="og:author" content="{{ article.auteur }}">
     <meta property="og:video" content="">
@@ -53,7 +53,7 @@
 					<cite title="Source Title">{{ article.date | date('H:i') }}</cite>
 					
 				</footer>
-				<img src="{{ asset('uploads/' ~ article.image.url) }}" alt="{{ article.titre }}" class="rounded mx-auto d-block img-fluid p-4">
+				<img src="{{ asset('uploads/' ~ article.image) }}" alt="{{ article.titre }}" class="rounded mx-auto d-block img-fluid p-4">
 				<p>{{ article.contenu | raw }}</p>
 				<div class="row">
 					<div class="col-6 text-left">
@@ -90,12 +90,12 @@
 			<div class="row col-10 col-md-10 mx-auto show-article-suggestion d-flex flex-row justify-content-between my-flex-container mt-5">
 				<h3 class="col-12 show-article-suggestion-titre">Vous aimeriez aussi lire:</h3>
 				{% for posts in post %}
-					<div class="row col-5 article-suggestion-card mt-2 mb-2">
+					<div class="row col-sm-10 col-lg-5 article-suggestion-card mt-2 mb-2">
 						<a class="row article-suggestion-card-box" href="{{ path('blog_show', {'slug':posts.slug}) }}">
 							<div class="col-4 article-suggestion-card-box-img">
-								<img class="img-rounded img-fluid" src="{{ asset('uploads/'~ posts.image.url) }}" alt="{{ posts.titre }}">
+								<img class="img-rounded img-fluid" src="{{ asset('uploads/'~ posts.image) }}" alt="{{ posts.titre }}">
 							</div>
-							<div class="col-8 article-suggestion-card-box-titre d-flex flex-row justify-content-center my-flex-container align-items-center">
+							<div class="col-6 article-suggestion-card-box-titre d-flex flex-row justify-content-center my-flex-container align-items-center">
 								<h5 class="mx-auto ml-lg-4">{{ posts.titre | raw}}</h5>
 							</div>
 						</a>

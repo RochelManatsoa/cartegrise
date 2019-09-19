@@ -6,7 +6,9 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.2",
-        "easycorp/easyadmin-bundle": "^2.0",
+        "ckfinder/ckfinder-symfony-bundle": "^3.5",
+        "easycorp/easyadmin-bundle": "^2.3",
+        "friendsofsymfony/ckeditor-bundle": "^2.1",
         "friendsofsymfony/user-bundle": "^2.1",
         "jms/payment-core-bundle": "^1.4",
         "kleegroup/franceconnect-bundle": "^0.7.0",
@@ -17,6 +19,7 @@
         "lexik/jwt-authentication-bundle": "^2.6",
         "sensio/framework-extra-bundle": "^5.2",
         "sonata-project/admin-bundle": "^3.49",
+        "sonata-project/doctrine-orm-admin-bundle": "^3.10",
         "sonata-project/user-bundle": "^4.3",
         "stof/doctrine-extensions-bundle": "^1.3",
         "suncat/mobile-detect-bundle": "^1.1",
@@ -32,11 +35,11 @@
         "symfony/profiler-pack": "^1.0",
         "symfony/serializer": "4.2.4",
         "symfony/swiftmailer-bundle": "^3.2",
-        "symfony/twig-bundle": "*",
         "symfony/validator": "*",
         "symfony/webpack-encore-bundle": "^1.2",
         "symfony/yaml": "*",
-        "twig/extensions": "^1.5"
+        "twig/extensions": "^1.5",
+        "vich/uploader-bundle": "^1.10"
     },
     "require-dev": {
         "symfony/maker-bundle": "^1.9",

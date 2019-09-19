@@ -1,0 +1,58 @@
+easy_admin:
+    entities:
+        Article:
+            class: App\Entity\Blog\Article
+            # form:
+            #     fields:
+            #        - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
+            #        - { property: 'titre', label: 'Titre '}
+            #        - { property: 'slug', label: 'Slug '}
+            #        - { property: 'contenu', type: 'fos_ckeditor' }
+            #        - { property: 'description'}
+            #        - { property: 'categories'}
+            #        - { property: 'date'}
+            #        - { property: 'image', type: 'image', base_path: '%app.path.article_images%' }
+            #        - { property: 'auteur'}
+            #        - { property: 'publication'}
+            # list: 
+            #     fields: ['id', 'publication', 'titre', { property: 'image', template: 'vich_uploader_image.html.twig' }, 'categories', 'date']
+            #     actions:
+            #         - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-outline-primary'}
+            #         - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-outline-danger'}
+            list:
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-outline-primary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-outline-danger'}
+                fields:
+                    - id
+                    - publication
+                    - titre
+                    - { property: 'categories', css_class: text-right }
+                    - { property: 'image', type: 'image', base_path: '%app.path.article_images%' }
+                    - { property: 'date', format: 'j / M / Y' }
+                    - auteur
+            show:
+                fields:
+                    - id
+                    - { property: 'titre', css_class: 'large' }
+                    - description
+                    - { property: 'publication', label: 'Published' }
+                    - date
+                    - auteur
+                    - { property: 'image', type: 'image', base_path: '%app.path.article_images%' }
+                    - categories
+            form:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
+                    - { property: 'titre', css_class: 'large' }
+                    - { property: 'slug', css_class: 'large' }
+                    - { property: 'contenu', type: 'fos_ckeditor' }
+                    - { property: 'description' }
+                    - { property: 'categories'}
+                    - { type: 'group', css_class: 'col-sm-4', label: 'Product Details', icon: 'cube' }
+                    - { property: 'auteur'}
+                    - { type: 'section', label: 'Advanced Settings', icon: 'warning', help: 'Reserved for administrators use' }
+                    - { property: 'publication', label: 'Published' }
+                    - { property: 'date' }
+                    - { type: 'group', css_class: 'col-sm-4', label: 'Attachments', icon: 'paperclip' }
+                    - { property: 'imageFile', type: 'vich_image', type_options: { required: true } }

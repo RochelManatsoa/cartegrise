@@ -72,7 +72,7 @@ class BlogController extends Controller
             $this->addFlash('success', 'Votre commentaire à bien été enregistré.');
             $params = array_merge(['slug'=>$article->getSlug()], $params);
 
-            return $this->redirectToRoute('blog_show', $params);
+            return $this->redirectToRoute('blog_show', ['slug'=>$article->getSlug()]);
         }
         
         return $this->render('blog/show.html.twig', $params);
@@ -99,30 +99,5 @@ class BlogController extends Controller
         
         return $this->render('blog/categorie.html.twig', $params);
     }
-
-    /**
-     * Creates a new ActionItem entity.
-     *
-     * @Route("blog/search/{titre}", name="ajax_search")
-     * @Method("GET")
-     */
-    public function searchAction(Request $request, FaqRepository $question)
-    {
-        $requestString = $request->get('q');
-        $entities =  $question->findFaqByString($requestString);
-        if(!$entities) {
-            $result['entities']['error'] = "Aucun résultat trouver";
-        } else {
-            $result['entities'] = $this->getRealEntities($entities);
-        }
-        return new \Symfony\Component\HttpFoundation\Response(json_encode($result));
-    }
-
-    public function getRealEntities($entities)
-    {
-        foreach ($entities as $entity){
-            $realEntities[$entity->getId()] = $entity->getTitre();
-        }
-        return $realEntities;
-    }                 
+                
 }

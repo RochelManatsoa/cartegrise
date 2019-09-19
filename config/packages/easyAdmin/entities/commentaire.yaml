@@ -1,0 +1,14 @@
+easy_admin:
+    entities:
+        Commentaire:
+            class: App\Entity\Blog\Commentaire
+            list: 
+                fields:
+                    - id
+                    - contenu
+                    - article
+                    - auteur
+                    - publication
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-outline-primary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-outline-danger'}
