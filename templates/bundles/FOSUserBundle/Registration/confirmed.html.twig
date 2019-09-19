@@ -1,5 +1,9 @@
 {% extends "@FOSUser/layout.html.twig" %}
-
+{% block seo %}
+	<head>
+		<meta http-equiv="Refresh" content="5; url={{ path('commande_list') }}">
+	</head>
+{% endblock %}
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
@@ -9,10 +13,6 @@
 		{% if targetUrl %}
 		<p class="desc-error"><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
 		{% endif %}
-        <p><a href="{{ path('commande_list') }}"><i class="fas fa-angle-double-right"></i> {{"Vos demandes en cours" | upper}}</a>
-			  <span class="badge badge-primary badge-pill">{{ countCommandeUnchecked(app.user) }}</span></p>
-        <p><a class="btn btn-primary btn-lg" href="{{ path('Accueil') }}"><i class="fas fa-angle-double-right"></i> {{"Retour à la page d'accueil" | upper}}</a></p>
-    
 	</div>
 </div>
 <style>
