@@ -36,13 +36,13 @@ $(document).ready(function () {
             $('.target_blank').attr('target', '_blank');
             $('.src_img').attr('src', 'https://www.regions-et-departements.fr/images/logos-departements/' + valueDep + '-logo-' + depart + '.png');
         },
-        onRegionOver: function (element, label, region) {
-            //alert(element.type);
-            //console.log(label);
-            label.html('<div class="map-tooltip"><h1 class="header">' + region + '</h1><p class="description">Some Description</p></div>');
-        },
-        onRegionOut: function (event, code, region) {
-            event.preventDefault();
-        }
+        // onRegionOver: function (element, label, region) {
+        //     //alert(element.type);
+        //     //console.log(label);
+        //     label.html('<div class="map-tooltip"><h1 class="header">' + region + '</h1><p class="description">Some Description</p></div>');
+        // },
+        // onRegionOut: function (event, code, region) {
+        //     event.preventDefault();
+        // }
     });
 });
