@@ -14,8 +14,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class NewTitulaire
 {
-    const TYPE_PERS_PHYSIQUE = 0;
-    const TYPE_PERS_MORALE   = 1;
+    const TYPE_PERS_PHYSIQUE = 'phy';
+    const TYPE_PERS_MORALE   = 'mor';
     const GENRE_M   = "M";
     const GENRE_F   = "F";
     

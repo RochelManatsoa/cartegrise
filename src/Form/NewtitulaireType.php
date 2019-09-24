@@ -19,8 +19,8 @@ class NewtitulaireType extends AbstractType
             ->add('type', ChoiceType::class, array(
                 'label' => 'label.type.personne',
                 'choices' => array(
-                    'Physique' => "phy",
-                    'Société' => "mor",
+                    'Physique' => NewTitulaire::TYPE_PERS_PHYSIQUE,
+                    'Société' => NewTitulaire::TYPE_PERS_MORALE,
                 ),
                 'attr' => array(
                     'class' => 'choice-type-personne'
