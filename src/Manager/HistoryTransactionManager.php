@@ -69,7 +69,7 @@ class HistoryTransactionManager
         if ($transaction instanceof Transaction) {
             $historyTransaction->setDemande($transaction->getDemande());            
             $transaction->setStatus($responses["response_code"]);
-            if($responses["response_code"] === 00 ){ 
+            if($responses["response_code"] == "00" ){ 
                 $facture = $this->transactionManager->generateNumFacture($transaction);
                 $transaction->setFacture($facture);      
             }
