@@ -61,53 +61,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="dual-hp-right">
-		<div class="bloc-txt-sidebar mt-4 text-center">
-			{% if formulaire is defined %}
-				{{ form_start(formulaire)}}
-				<div class="demarche">
-				{{ form_row(formulaire.demarche, {
-					'attr':{
-						'class': 'col-12 form-control-plaque '
-					},
-					'label_attr': {
-						'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
-					})
-				}}
-				{{ form_row(formulaire.immatriculation, {
-					'attr':{
-						'onkeyup':'this.value = this.value.toUpperCase()',
-						'class': 'col-12 form-control-plaque ',
-						'onblur': 'this.value = valueTreatement(this.value)',
-						'maxlength': '9',
-						'minlength': '5',
-						'placeholder': 'BB-321-BB'
-					},
-					'label_attr': {
-						'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
-					}
-						)}}
-				{{ form_row(formulaire.codePostal, {
-					'attr':{'maxlength':'3','minlength':'2', 'class':'col-12 mx-auto text-center form-control--dep'},
-					'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
-				}
-				)}}
-				</div>	
-				<div class="col-12 col-md-6 mx-auto text-center search-box" id="calcul">
-					<button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>
-				</div>
-				{{ form_end(formulaire)}}
-			{% else %}
-			<a href="{{ path('formulaire')}}">Formulaire</a>
-			{% endif %}
-		</div>
-		<div class="bloc-txt-sidebar mt-4">
-			<p>Le certificat qualité de l’air est un autocollant rond qui s’achète auprès de <a href="http://www.certificat-air.gouv.fr" target="_blank">www.certificat-air.gouv.fr</a>. Il est délivré en fonction des émissions de CO2, émissions polluantes des véhicules. Il se présente sous forme d’autocollant rond à coller sur le parebrise. Il classe les véhicules et permet la circulation dans certaines villes lors de pics de pollution et est obligatoire dans certaines zones. Son coût est environ de 3,62 euros et est envoyé par voie postale. Certaines collectivités offrent des avantages aux véhicules affichant cet autocollant.</p>
-		</div>
-		<div class="bloc-txt-sidebar mt-4 text-center">
-			<a href="{{ path('faq')}}">FAQ</a>
-		</div>
-	</div>
 </div>
 <div class="col-11  mx-auto home-texte d-flex">
 	<div class="downloadCERFA hidden-md-down">
