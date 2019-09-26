@@ -67,8 +67,12 @@ class HistoryTransactionManager
         ->setStatusMessage($this->statusTreatment->getMessageStatus($responses["response_code"]));
         $transaction = $this->transactionRepository->findOneBy(["transactionId" => $responses["transaction_id"]]);
         if ($transaction instanceof Transaction) {
-            $historyTransaction->setDemande($transaction->getDemande());
+            $historyTransaction->setDemande($transaction->getDemande());            
             $transaction->setStatus($responses["response_code"]);
+            if($responses["response_code"] == "00" ){ 
+                $facture = $this->transactionManager->generateNumFacture($transaction);
+                $transaction->setFacture($facture);      
+            }
             $this->transactionManager->save($transaction);
         }   
         $this->save($historyTransaction);

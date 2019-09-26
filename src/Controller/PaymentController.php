@@ -50,7 +50,6 @@ class PaymentController extends AbstractController
         $email = $this->getUser()->getEmail();
         $demandeManager->checkPayment($demande);
         $idTransaction = $transactionManager->generateIdTransaction($demande->getTransaction());
-        $facture = $transactionManager->generateNumFacture($demande->getTransaction());
         $amount *=100;
         $paramDynamical = [
             'amount' => $amount,
@@ -115,9 +114,6 @@ class PaymentController extends AbstractController
         // dd($response);
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
         $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
-        $facture = $transactionManager->generateNumFacture($transaction);
-        $transaction->setFacture($facture);
-        $transactionManager->save($transaction);
 
         return $this->render(
                 'transaction/transactionResponse.html.twig',
