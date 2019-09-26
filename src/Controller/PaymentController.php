@@ -90,9 +90,6 @@ class PaymentController extends AbstractController
             $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
             $files = [];
             if ($transaction->getStatus() === 00) {
-                $facture = $transactionManager->generateNumFacture($transaction);
-                $transaction->setFacture($facture);
-                $transactionManager->save($transaction);
                 $file = $demandeManager->generateFacture($transaction->getDemande());
                 $files = [$file];
             }
