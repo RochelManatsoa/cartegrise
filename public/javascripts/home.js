@@ -48,10 +48,18 @@ $('#formulaire_demarche').on('change', function (e) {
     if (Value !== "3") {
         $(e.target).parent().siblings().show();
         document.getElementById("calcul").innerHTML = '<button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>';
+        $(this).parents("form").next("div#formVN").hide();
+        $(this).parents("form").show();
     } else {
         $(e.target).parent().siblings().hide();
-        document.getElementById("calcul").innerHTML = 'Pour éstimer le prix pour cette démarche, cliquer sur l\'icône <br><a href="/#up"><img src="/asset/img/divn.png" class="img-fluid" alt="DIVN"/></a><br> de la page d\'accueil';
+        $(this).parents("form").next("div#formVN").show();
+        $(this).parents("form").hide();
     }
+});
+
+$('#backButton').on('click', function () {
+    $('#formulaire_demarche').val(1);
+    $('#formulaire_demarche').change();
 });
 
 function h2over(x){  
