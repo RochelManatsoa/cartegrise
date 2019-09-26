@@ -29,19 +29,19 @@ class ClientType extends AbstractType
                 ),
                 'label'=> 'label.genre',
             ))
-            ->add('clientDateNaissance', DateType::class, array(
-                    'widget' => 'single_text',
-                    'html5' => false,
-                    'label'  => 'label.dateN',
-                    'format' => 'dd/MM/yyyy',
-                    'attr' => ['class' => 'js-datepicker', 'placeholder' => 'dd/mm/yyyy'],
-                    ))
+            // ->add('clientDateNaissance', DateType::class, array(
+            //         'widget' => 'single_text',
+            //         'html5' => false,
+            //         'label'  => 'label.dateN',
+            //         'format' => 'dd/MM/yyyy',
+            //         'attr' => ['class' => 'js-datepicker', 'placeholder' => 'dd/mm/yyyy'],
+            //         ))
             
-            ->add('clientLieuNaissance', TextType::class, ['label' => 'label.lieuN'])
+            //->add('clientLieuNaissance', TextType::class, ['label' => 'label.lieuN'])
             //->add('clientDptNaissance', NumberType::class)
             //->add('clientPaysNaissance', CountryType::class, array('label' => 'Pays','required'=> false, 'preferred_choices' => array('FR'=>'France')))            
-            ->add('clientContact', ContactType::class, ['label' => 'label.clientContact'])
-            ->add('clientAdresse', AdresseType::class, ['label' => 'label.clientAdresse'])
+            // ->add('clientContact', ContactType::class, ['label' => 'label.clientContact'])
+            // ->add('clientAdresse', AdresseType::class, ['label' => 'label.clientAdresse'])
             //->add('commande', CommandeClientType::class)
         ;
     }
