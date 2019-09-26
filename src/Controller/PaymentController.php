@@ -85,6 +85,10 @@ class PaymentController extends AbstractController
         $response = $request->request->get('DATA');
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
         $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
+        $facture = $transactionManager->generateNumFacture($transaction);
+        $transaction->setFacture($facture);
+        $transactionManager->save($transaction);
+        dd($transaction);
         // send mail
             $this->addHistoryTransaction($responses, $historyTransactionManager);
             $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
@@ -92,9 +96,6 @@ class PaymentController extends AbstractController
             if ($transaction->getStatus() === 00) {
                 $file = $demandeManager->generateFacture($transaction->getDemande());
                 $files = [$file];
-                $facture = $transactionManager->generateNumFacture($transaction);
-                $transaction->setFacture($facture);
-                $transactionManager->save($transaction);
             }
             $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails, $files);
         // end send mail
