@@ -110,6 +110,16 @@
 		</div>
 
 		<div class="{{ wrapperClassName }}">
+			<div class="row">
+				<div class="{{ smallWrapperClassName }}">
+					{{ form_row(form.client.clientContact.contact_telmobile, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+				</div>
+				<div class="{{ smallWrapperClassName }}">
+					{{ form_row(form.client.clientContact.contact_telfixe, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+				</div>
+			</div>
+		</div>
+		<div class="{{ wrapperClassName }}">
 			{{ form_row(form.email, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
 		</div>
 

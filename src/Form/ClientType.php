@@ -40,7 +40,7 @@ class ClientType extends AbstractType
             //->add('clientLieuNaissance', TextType::class, ['label' => 'label.lieuN'])
             //->add('clientDptNaissance', NumberType::class)
             //->add('clientPaysNaissance', CountryType::class, array('label' => 'Pays','required'=> false, 'preferred_choices' => array('FR'=>'France')))            
-            // ->add('clientContact', ContactType::class, ['label' => 'label.clientContact'])
+            ->add('clientContact', ContactType::class, ['label' => 'label.clientContact'])
             // ->add('clientAdresse', AdresseType::class, ['label' => 'label.clientAdresse'])
             //->add('commande', CommandeClientType::class)
         ;
