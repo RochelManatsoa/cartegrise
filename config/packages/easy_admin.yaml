@@ -1,26 +1,2 @@
-easy_admin:
-    design:
-        menu:
-            - { label: 'Préstation' }
-            - {entity: 'TarifsPrestations', label: 'Nos tarifs', icon: 'tag' }
-            - { label: 'Gestion des demandes' }
-            - {entity: 'TypeDemande', label: 'Type de demande', icon: 'tag' }
-            - { label: 'Gestion des fichiers' }
-            - {entity: 'TypeFichier', label: 'Type de fichier', icon: 'tag' }
-            - {entity: 'Fichier', label: 'Fichier', icon: 'tag' }
-            - {entity: 'Documents', label: 'Documents nécessaires', icon: 'tag' }
-    entities:
-        TarifsPrestations:
-            class: App\Entity\TarifsPrestations
-        TypeDemande:
-            class: App\Entity\TypeDemande
-            list:
-                fields: ['id', 'nom', 'type']
-            form:
-                fields: ['nom', 'type'] 
-        TypeFichier:
-            class: App\Entity\TypeFichier
-        Fichier:
-            class: App\Entity\Fichier
-        Documents:
-            class: App\Entity\Documents
+imports:
+    - {resource: easyAdmin/}

@@ -359,6 +359,12 @@ label:
         z1Mention1: Mention spécifique
         z1Value: Date limite de validité de la mention Z1
         nbMentions: Nombre de caractéristiques techniques particulières
+
+    blog:
+        comment: Commentaire *
+        auteurComment: Votre prénom *
+        email: Votre adresse de messagerie *
+        website: Site Web
 home:
     carSkills: CARACTÉRISTIQUES DU VÉHICULE
     recapDemande: Récapitulatif de la demande
