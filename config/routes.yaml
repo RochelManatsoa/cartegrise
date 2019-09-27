@@ -17,11 +17,11 @@ _sonata_admin:
 blog:
     resource: App\Controller\Blog\BlogController
     type: annotation
-    prefix: /blog
+    prefix: /actualites
 
 easy_admin_bundle:
     resource: '@EasyAdminBundle/Controller/EasyAdminController.php'
-    prefix: /admin_blog
+    prefix: /admin_actualites
     type: annotation
 ckfinder_connector:
     resource: "@CKSourceCKFinderBundle/Resources/config/routing.yml"

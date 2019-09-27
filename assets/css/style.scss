@@ -1,8 +1,12 @@
-@import 'footer.scss';
-
 $bleu: #002a6b;
 $bleu-hover: rgb(63, 87, 149);
 $rouge: rgb(175, 68, 68);
+
+@import 'footer.scss';
+@import 'blog.scss';
+@import 'card.scss';
+
+
 @font-face {
 	font-family: textr;
 	src: ("/../../asset/fonts/SourceSansPro-Regular.ttf");
