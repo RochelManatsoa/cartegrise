@@ -465,8 +465,10 @@ body.body-accueil {
 	z-index: 999;
 	top: 0;
 	.title-header {
-		padding-left: 8.333333%;
 		font-size: 12px;
+		@media (max-width:1280px) {
+			font-size: 11px;
+		}
 		span {
 			display: block;
 		}
@@ -517,6 +519,41 @@ body.body-accueil {
 			top: -10px;
 			right: -10px;
 		}
+	}
+}
+.hp-full-height {
+	min-height: calc(100vh - 100px);
+}
+.demande-hp {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 500px;
+	.form-group {
+		label {
+			color: #7296ce;
+			font-weight: 700;
+		}
+		.form-control {
+			box-shadow: 5px 5px 10px #ddd;
+			border: 1px solid #7296ce;
+		}
+	}
+	.back-btn {
+		background: transparent url("/../../asset/img/icon-back.png") center no-repeat !important;
+		background-size: contain !important;
+		width: 32px;
+		height: 32px;
+		font-size: 0;
+		border: none;
+		&:hover {
+			opacity: 0.8;
+			cursor: pointer;
+		}
+	}
+	.calc-btn {
+		background: #153475 !important;
+		padding: 10px 20px;
+		border-radius: 20px;
 	}
 }
 /* Début responsive V2 */
@@ -639,146 +676,5 @@ body.body-accueil {
 		flex: 0 0 calc(100% - 50px) !important;
 	}
 }
-/* Fin CERFA */
-body.body-accueil {
-	background: url("/../../asset/img/bg-main.png") center no-repeat;
-	background-size: 400px !important;
-    background-attachment: fixed;
-	background-position: bottom 0 left 20% !important;
-}
-/*Blog*/
-.blog {
-	.show-article-titre {
-		font-family: textr;
-		color: #002a6b;
-		text-transform: uppercase;
-		font-weight: bold;
-	}
-	blockquote h2 span span strong span {
-		font-family: textr !important;
-		color: #002a6b !important;
-		text-transform: uppercase;
-		font-weight: bold;
-		font-size: 22px;
-	}
-	div {
-		.text-left,
-		.text-right {
-			a {
-				color: #002a6b !important;
-			}
-		}
-	}
-	a {
-		text-decoration: none !important;
-		color: #002a6b !important;
-		&:hover {
-			text-decoration: none !important;
-			color: #3f5795 !important;
-		}
-	}
-	.article-suggestion-card {
-		background-color: #f2f2f2;
-		border-radius: 2px;
-		.article-suggestion-card-box {
-			color: #002a6b;
-			font-family: textr;
-			font-weight: bold;
-			padding-left: 0px !important;
-			padding-right: 0px !important;
-		}
-		.article-suggestion-card-box-img {
-			overflow: hidden;
-			img {
-				max-width: 200% !important;
-			}
-		}
-	}
-	.pagination-css {
-		height: 200px;
-		.pagination span {
-			border: 1px solid #002a6b !important;
-			padding: 15px !important;
-			margin: 10px !important;
-			border-radius: 2px;
-			background-color: #002a6b !important;
-			color: white !important;
-			font-weight: bold;
-			transition: all 1s ease;
-			a {
-				color: white !important;
-				font-weight: bold;
-				text-decoration: none;
-			}
-			&.current,
-			&:hover {
-				background-color: #3f5795 !important;
-			}
-		}
-	}
-}
-/*Fin Blog*/
-/*Piece à fournir*/
-.dossier-element {
-    position: relative;
-    width: calc(25% - 10px);
-    height: 80px;
-    text-decoration: none;
-	padding: 10px 5px;
-	cursor: pointer;
-	&:hover {
-		opacity: 0.8;
-	}
-	@media (max-width:991px) {
-		width: calc(33.33% - 10px);
-	}
-	@media (max-width:767px) {
-		width: calc(50% - 10px);
-	}
-}
-.dossier-element img {
-	width: calc(100% - 20px);
-	height: calc(100% - 20px);
-	object-fit: cover;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%,-50%);
-	z-index: -1;
-	border:2px solid #7296ce;
-	border-radius: 5px;  
-}
-.numero-dossier {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background: #e41f25;
-    text-align: center;
-    line-height: 20px;
-	color: #fff;
-    border-radius: 50%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 10px;
-}
-.txt-dossier {
-	display: block;
-    color: #fff;
-    font-weight: 700;
-    text-align: center;
-    background: #7296ce;
-    padding: 2px 15px;
-    border-radius: 20px;
-    font-size: 10px;
-}
-.title-dossier {
-	text-transform: uppercase;
-	font-size: 20px;
-	color: #7296ce;
-	font-weight: 700;
-	display: block;
-	text-align: center;
-	margin-bottom: 20px;
-}
 /* Fin responsive V2 */
+
