@@ -465,8 +465,10 @@ body.body-accueil {
 	z-index: 999;
 	top: 0;
 	.title-header {
-		padding-left: 8.333333%;
 		font-size: 12px;
+		@media (max-width:1280px) {
+			font-size: 11px;
+		}
 		span {
 			display: block;
 		}
@@ -517,6 +519,38 @@ body.body-accueil {
 			top: -10px;
 			right: -10px;
 		}
+	}
+}
+.demande-hp {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 500px;
+	.form-group {
+		label {
+			color: #7296ce;
+			font-weight: 700;
+		}
+		.form-control {
+			box-shadow: 5px 5px 10px #ddd;
+			border: 1px solid #7296ce;
+		}
+	}
+	.back-btn {
+		background: transparent url("/../../asset/img/icon-back.png") center no-repeat !important;
+		background-size: contain !important;
+		width: 32px;
+		height: 32px;
+		font-size: 0;
+		border: none;
+		&:hover {
+			opacity: 0.8;
+			cursor: pointer;
+		}
+	}
+	.calc-btn {
+		background: #153475 !important;
+		padding: 10px 20px;
+		border-radius: 20px;
 	}
 }
 /* Début responsive V2 */
