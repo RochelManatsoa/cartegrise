@@ -140,6 +140,12 @@
 				{% endfor %}
 			</div>
 		</div>
+		<div class="{{ wrapperClassName }}">
+			{{ form_row(form.client.cgv, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+		</div>
+		<div class="{{ wrapperClassName }}">
+			{{ form_row(form.client.retractation, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+		</div>
 		
 		<div class="{{ wrapperClassName }}">
 			<div class="col-12">
