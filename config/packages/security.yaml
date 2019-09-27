@@ -6,6 +6,7 @@ security:
         ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN]
         ROLE_SUPER_ADMIN: ROLE_ADMIN
         ROLE_CRM: ROLE_CRM
+        ROLE_ADMIN_BLOG: ROLE_ADMIN_BLOG
 
     providers:
         fos_userbundle:
@@ -70,7 +71,7 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/easyadmin/, role: ROLE_ADMIN }
+        - { path: ^/admin_blog/, role: ROLE_ADMIN_BLOG }
         - { path: ^/admin/, role: ROLE_ADMIN }
         # - { path: ^/api/, role: IS_AUTHENTICATED_FULLY }
 
