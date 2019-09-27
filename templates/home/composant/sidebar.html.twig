@@ -1,45 +1,5 @@
-<div class="col-2 sidebar new-sidebar">
-
-	<div class="d-flex align-items-center justify-content-center logo-sidebar-container">
-		<a class="logo-sidebar" href="{{ path('Accueil') }}">
-			<img class="d-block img-fluid" src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="logo">
-		</a>
-	</div>
+<div class="col-12 sidebar">
 	<div class="center-container-hp d-flex align-content-center flex-wrap">
-		<div class="menu-sidebar">
-			<ul class="">
-				<li>
-					<a href="{{ path('Accueil') }}" class="menu-item">Accueil</a>
-				</li>
-				<li>
-					<a href="{{ path('CommentCaMarche') }}" class="menu-item">Comment ça marche ?</a>
-				</li>
-				<li>
-					<a href="{{path('blog')}}" class="menu-item">actualités</a>
-				</li>
-				<li>
-					<a href="{{ path('prix_carte_grise') }}" class="menu-item">Prix carte grise</a>
-				</li>
-				{% if app.user %}
-				<li>
-					<a href="{{ path('logout') }}" class="menu-item">Se déconnecter</a>
-				</li>
-				<li class="menu-notif">
-					<a href="{{ path('commande_list') }}" class="menu-item">Demandes en cours</a>
-					<span class="badge badge-primary badge-pill">{{ countCommandeUnchecked(app.user) }}</span>
-				</li>
-				<li class="menu-notif">
-					<a href="{{ path('demande_list')}}" class="menu-item">Commandes effectuées</a>
-					<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
-				</li>
-                {% else %}
-                <li>
-					<a href="{{ path('fos_user_security_login') }}" class="menu-item">Se connecter</a>
-				</li>
-                {% endif %}
-			</ul>
-		</div>
-
 		<div class="col-10 col-lg-10 mx-auto mt-2">
 			<img class="col-12 mx-auto rounded float-right mb-3" src="{{ asset('asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png')}}" alt="agrément CGofficiel carte grise certificat immatriculation">
 		</div>
