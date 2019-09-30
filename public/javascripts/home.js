@@ -14,6 +14,7 @@ function slugify(string) {
 }
 
 $(document).ready(function () {
+    $('#voir_plus_button').on('click', function () { $('.voir_plus_content').toggle() });
     $('.icon-mobile-menu').click(function(){
         $('#sidebar-container').toggleClass('show');
         $('.new-header').toggleClass('show');

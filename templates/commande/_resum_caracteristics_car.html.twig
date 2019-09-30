@@ -7,6 +7,13 @@
             <th>{{ 'home.resum.model'|trans }}</th>
             <td>{{ commande.carInfo.model | displayValue }}</td>
         </tr>
+    </table>
+    <button class="btn btn-info"  id="voir_plus_button">
+        voir plus +
+    </button>
+
+    <div class="voir_plus_content" style="display: none;">
+        <table class="table table-striped">
         <tr>
             <th>{{ 'home.resum.color'|trans }}</th>
             <td>{{ commande.carInfo.color | displayValue }}</td>
@@ -51,4 +58,5 @@
             <th>{{ 'home.resum.dateCirculationStarted'|trans }}</th>
             <td>{{ taxe.DateMEC | date('Y-m-d') }}</td>
         </tr>
-    </table>
+        </table>
+    </div>
