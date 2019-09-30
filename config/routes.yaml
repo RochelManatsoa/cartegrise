@@ -29,3 +29,9 @@ ckfinder_connector:
 authentication_token:
     path: /authentication_token
     methods: ['POST']
+fos_user_registration_confirmed:
+    path: /register/confirmed
+    defaults:
+        _controller: App\Controller\HomeController::redirectAction
+        route: redirection_route
+        permanent: true
