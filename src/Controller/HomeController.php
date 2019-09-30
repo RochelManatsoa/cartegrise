@@ -292,4 +292,13 @@ class HomeController extends AbstractController
 
         return $this->render('home/formulaire.html.twig', $homeParams);
     }
+
+    /**
+     * @Route("/register/confirm",name="redirection_route")
+     */
+
+    public function redirectAction()
+    {
+        return $this->redirectToRoute('commande_list');
+    }
 }
