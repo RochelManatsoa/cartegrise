@@ -208,6 +208,8 @@ label:
     code: Code relatif à une mention
     valeur1: Valeur de la mention
     valeur2: Valeur de la mention (uniquement en cas d’intervalle de valeur)
+    cgv: J'ai pris connaissance des Conditions Générales de Vente
+    retractation: Je renonce à mon droit de retractation
     type: 
         personne: Personne *
         fichier: Type de fichier

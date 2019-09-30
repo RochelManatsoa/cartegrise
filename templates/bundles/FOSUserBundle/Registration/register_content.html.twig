@@ -92,7 +92,6 @@
 
 	<div class="row justify-content-center with-mp">
 
-		<div class="{{ wrapperClassName }}"><h2>Identité du demandeur de la carte grise</h2></div>
 
 		<div class="{{ wrapperClassName }}">
 			{{ form_row(form.client.clientGenre, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
@@ -113,17 +112,6 @@
 		<div class="{{ wrapperClassName }}">
 			<div class="row">
 				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientDateNaissance, {'attr': inputAttrsDate, 'label_attr': labelAttrs} )}}
-				</div>
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientLieuNaissance, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-				</div>
-			</div>
-		</div>
-
-		<div class="{{ wrapperClassName }}">
-			<div class="row">
-				<div class="{{ smallWrapperClassName }}">
 					{{ form_row(form.client.clientContact.contact_telmobile, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
 				</div>
 				<div class="{{ smallWrapperClassName }}">
@@ -131,7 +119,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="{{ wrapperClassName }}">
 			{{ form_row(form.email, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
 		</div>
@@ -153,41 +140,11 @@
 				{% endfor %}
 			</div>
 		</div>
-
-		<div class="{{ wrapperClassName }}"><h2>Merci de renseigner votre adresse</h2></div>
-		
 		<div class="{{ wrapperClassName }}">
-			<div class="row">
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientAdresse.numero, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-				</div>
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientAdresse.typevoie, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-				</div>
-			</div>
+			{{ form_row(form.client.cgv, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
 		</div>
-
 		<div class="{{ wrapperClassName }}">
-			{{ form_row(form.client.clientAdresse.extension, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-		</div>
-
-		<div class="{{ wrapperClassName }}">
-			{{ form_row(form.client.clientAdresse.nom, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-		</div>
-
-		<div class="{{ wrapperClassName }}">
-			{{ form_row(form.client.clientAdresse.complement, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-		</div>
-
-		<div class="{{ wrapperClassName }}">
-			<div class="row">
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientAdresse.codepostal, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-				</div>
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientAdresse.ville, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-				</div>
-			</div>
+			{{ form_row(form.client.retractation, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
 		</div>
 		
 		<div class="{{ wrapperClassName }}">

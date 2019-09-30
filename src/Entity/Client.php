@@ -54,7 +54,7 @@ class Client
     private $clientNomUsage;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      * @Groups({"info_user", "register"})
      */
     private $clientDateNaissance;
@@ -84,7 +84,7 @@ class Client
     private $commandes;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"write"})
      */
     private $clientLieuNaissance;
