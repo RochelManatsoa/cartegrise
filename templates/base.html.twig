@@ -77,16 +77,6 @@
 						<li>
 							<a href="{{ path('prix_carte_grise') }}" class="menu-item">Prix carte grise</a>
 						</li>
-						{% if app.user %}
-						<li class="menu-notif">
-							<a href="{{ path('commande_list') }}" class="menu-item">Demandes en cours</a>
-							<span class="badge badge-primary badge-pill">{{ countCommandeUnchecked(app.user) }}</span>
-						</li>
-						<li class="menu-notif">
-							<a href="{{ path('demande_list')}}" class="menu-item">Commandes effectuées</a>
-							<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
-						</li>
-						{% endif %}
 					</ul>
 					<div class="icon-mobile-menu">
 						<span></span>
@@ -100,11 +90,28 @@
 				</div>
 				<div class="col-3 mx-auto login-access-container d-flex justify-content-center align-items-center">
 					{% if app.user %}
-					<a class="logout-access" href="/logout">
-						<button type="button" class="btn btn-primary text-center login-btn">
-							Se déconnecter
-						</button>
-					</a>
+					<div class="bloc-connected d-flex justify-content-end align-items-center">
+						<span class="user-info">Bonjour {% if app.user.client is defined and app.user.client is not null %}{{ app.user.client.clientPrenom | displayValue}} {{ app.user.client.clientNom | upper}}{% endif %}</span>
+						<img class="toggle-menu-connected" src="{{ asset('asset/img/user.png')}}">
+						<ul class="menu-connected">
+							<li>
+								<a class="menu-item" href="{{ path('compte') }}">Mon Profil</a>
+							</li>
+							<li class="menu-notif">
+								<a href="{{ path('commande_list') }}" class="menu-item">Demandes en cours</a>
+								<span class="badge badge-primary badge-pill">{{ countCommandeUnchecked(app.user) }}</span>
+							</li>
+							<li class="menu-notif">
+								<a href="{{ path('demande_list')}}" class="menu-item">Commandes effectuées</a>
+								<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
+							</li>
+							<li>
+								<a class="menu-item" href="/logout">
+									Se déconnecter
+								</a>
+							</li>
+						</ul>
+					</div>
 					{% else %}
 					<a class="login-access" href="/login">
 						<button type="button" class="btn btn-primary text-center login-btn">
@@ -129,7 +136,7 @@
 			<div class="row">
 				<div class="col-11 custom-pad-20">
 					{% if app.user %}
-					<div class="txt-other-link text-center mt-4 bold">
+					{# <div class="txt-other-link text-center mt-4 bold">
 						<h5 class="txt-other-link text-center mt-4">
 						Bonjour {% if app.user.client is defined and app.user.client is not null %}{{ app.user.client.clientPrenom | displayValue}} {{ app.user.client.clientNom | upper}}{% endif %}
 						</h5>
@@ -139,9 +146,9 @@
 						<h5 class="txt-other-link text-center mt-4">
 							<a href="{{ path('logout') }}">Déconnexion</a>
 						</h5>
-					</div>
+					</div> #}
 				
-					<ul class="espace-client-menu col-11 mx-auto mt-4">
+					{# <ul class="espace-client-menu col-11 mx-auto mt-4">
 						<li class="list-group-item d-flex justify-content-between align-items-center active">
 							<a href="#">Information Client</a>
 						</li>
@@ -158,7 +165,7 @@
 							<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
 						</li>
 						
-					</ul>
+					</ul> #}
 					{% endif %}
 					<span class="txt-other-link text-center mt-4 bold">Bienvenue sur le service d'immatriculation de véhicule en ligne rapide, sécurisé et agrée:</span>
 					{# <div class="mt-4">

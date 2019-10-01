@@ -525,6 +525,48 @@ body.body-accueil {
 		}
 	}
 }
+.bloc-connected {
+	position: relative;
+	width: 100%;
+	padding-right: 20px;
+	img {
+		margin-left: 10px;
+	}
+	.user-info {
+		padding-left: 5px;
+		display: block;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 200px;
+	}
+	.menu-connected {
+		display: none;
+		position: absolute;
+		top: 100%;
+		background: #fff;
+		width: 100%;
+		transition: all 0.5s;
+		max-width: 300px;
+		border: 1px solid #153475;
+		.menu-item {
+			display: inline-block;
+			color: #153475;
+			padding: 10px 5px;
+			font-weight: 700;
+		}
+		.menu-notif {
+			.badge-primary {
+				background: #c9302c;
+			}
+		}
+	}
+	&.show {
+		.menu-connected {
+			display: block;
+		}
+	}
+}
 .hp-full-height {
 	min-height: calc(100vh - 100px);
 }

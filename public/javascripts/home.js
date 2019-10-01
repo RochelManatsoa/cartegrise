@@ -27,7 +27,19 @@ $(document).ready(function () {
                 $('.new-header').removeClass('show');
             }
         }
-    });  
+    });
+    $('.toggle-menu-connected').click(function(){
+        $('.bloc-connected').toggleClass('show');
+    });
+    var $menuConnected = $('.toggle-menu-connected');
+    $(document).mouseup(function (e) {
+        if (!$menuConnected.is(e.target) && $menuConnected.has(e.target).length === 0){
+            if($('.toggle-menu-connected').is(':visible')){
+                $('.toggle-menu-connected').removeClass('show');
+                $('.bloc-connected').removeClass('show');
+            }
+        }
+    });
 });
 
 function valueTreatement(value) {
