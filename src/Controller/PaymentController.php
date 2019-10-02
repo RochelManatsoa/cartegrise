@@ -47,7 +47,6 @@ class PaymentController extends AbstractController
         FraisTreatmentManager $fraisTreatmentManager
     )
     {
-        
         $amount = $fraisTreatmentManager->fraisTotalOfCommande($commande);
         $email = $this->getUser()->getEmail();
         $commandeManager->checkPayment($commande);
@@ -62,10 +61,8 @@ class PaymentController extends AbstractController
         $bin   = $parameterBag->get('payment_binary');
         $param = array_merge($param, $paramDynamical);
         $response = $paymentUtils->request($param, $bin);
-        dump($response);die;
         $commande->getTransaction()->setTransactionId($response['transactionId']);
         $transactionManager->save($commande->getTransaction());
-        dump($commande->getTransaction());die;
         
         return new Response($response['template']);
     }
