@@ -5,13 +5,14 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Utils\{PaymentUtils, PaymentResponseTreatment, StatusTreatment};
+use App\Entity\Commande;
 use App\Entity\Demande;
 use App\Entity\NotificationEmail;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Manager\SessionManager;
-use App\Manager\DemandeManager;
+use App\Manager\{DemandeManager, CommandeManager};
 use App\Manager\FraisTreatmentManager;
 use App\Manager\TransactionManager;
 use App\Manager\HistoryTransactionManager;
@@ -35,22 +36,23 @@ class PaymentController extends AbstractController
     }
 
     /**
-     * @Route("/payment/request/{demande}", name="payment_request")
+     * @Route("/payment/request/{commande}", name="payment_request")
      */
     public function request(
-        Demande $demande, 
+        Commande $commande, 
         PaymentUtils $paymentUtils, 
         ParameterBagInterface $parameterBag, 
-        DemandeManager $demandeManager, 
+        CommandeManager $commandeManager, 
         TransactionManager $transactionManager,
         FraisTreatmentManager $fraisTreatmentManager
     )
     {
-        $amount = $fraisTreatmentManager->fraisTotalOfCommande($demande->getCommande());
+        
+        $amount = $fraisTreatmentManager->fraisTotalOfCommande($commande);
         $email = $this->getUser()->getEmail();
-        $demandeManager->checkPayment($demande);
-        $idTransaction = $transactionManager->generateIdTransaction($demande->getTransaction());
-        $facture = $transactionManager->generateNumFacture($demande->getTransaction());
+        $commandeManager->checkPayment($commande);
+        $idTransaction = $transactionManager->generateIdTransaction($commande->getTransaction());
+        $facture = $transactionManager->generateNumFacture($commande->getTransaction());
         $amount *=100;
         $paramDynamical = [
             'amount' => $amount,
@@ -60,8 +62,10 @@ class PaymentController extends AbstractController
         $bin   = $parameterBag->get('payment_binary');
         $param = array_merge($param, $paramDynamical);
         $response = $paymentUtils->request($param, $bin);
-        $demande->getTransaction()->setTransactionId($response['transactionId']);
-        $transactionManager->save($demande->getTransaction());
+        dump($response);die;
+        $commande->getTransaction()->setTransactionId($response['transactionId']);
+        $transactionManager->save($commande->getTransaction());
+        dump($commande->getTransaction());die;
         
         return new Response($response['template']);
     }

@@ -55,6 +55,12 @@ class Transaction
     private $demande;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Commande")
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
+     */
+    private $commande;
+
+    /**
      * @var \DateTime $deletedAt
      *
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
@@ -134,6 +140,18 @@ class Transaction
     public function setDeletedAt(?\DateTimeInterface $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): self
+    {
+        $this->commande = $commande;
 
         return $this;
     }
