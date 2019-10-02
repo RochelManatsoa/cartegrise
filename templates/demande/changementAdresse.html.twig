@@ -22,56 +22,73 @@
 {% endblock %}
 
 {% block page_content %}
+    <h2 class="col-md-10 mx-auto full-mobile">{{ commande.demarche.nom|upper }}</h2>
     <div class="">
+        <div class="col-4 col-md-10 mx-auto full-mobile">
+            {% include "demande/caracteristicVehicle.html.twig" %}
+        </div>
         <form id="example-advanced-form" action="#">
-            <h3>Account</h3>
+        {{ form_start(form, {'attr': {'class': 'row'}}) }}
+            <h3>{{ form_label(form.changementAdresse.nouveauxTitulaire) }}</h3>
             <fieldset>
-                <legend>Account Information</legend>
-        
-                <label for="userName-2">User name *</label>
-                <input id="userName-2" name="userName" type="text" class="required">
-                <label for="password-2">Password *</label>
-                <input id="password-2" name="password" type="text" class="required">
-                <label for="confirm-2">Confirm Password *</label>
-                <input id="confirm-2" name="confirm" type="text" class="required">
-                <p>(*) Mandatory</p>
+                {{ form_row(form.changementAdresse.nouveauxTitulaire.type)}}
+                {{ form_row(form.changementAdresse.nouveauxTitulaire.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                {{ form_row(form.changementAdresse.nouveauxTitulaire.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                {{ form_row(form.changementAdresse.nouveauxTitulaire.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                {{ form_row(form.changementAdresse.nouveauxTitulaire.nomPrenomTitulaire)}}
+                {{ form_row(form.changementAdresse.nouveauxTitulaire.birthName)}}
+                {{ form_row(form.changementAdresse.nouveauxTitulaire.prenomTitulaire)}}
+                {{ form_row(form.changementAdresse.nouveauxTitulaire.genre)}}
+                {{ form_row(form.changementAdresse.nouveauxTitulaire.dateN)}}
+                {{ form_row(form.changementAdresse.nouveauxTitulaire.lieuN)}}
+                {{ form_row(form.changementAdresse.nouveauxTitulaire.departementN)}}
+                {{ form_row(form.changementAdresse.nouveauxTitulaire.paysN)}}
+                {{ form_row(form.changementAdresse.nouveauxTitulaire.droitOpposition)}}
             </fieldset>
         
-            <h3>Profile</h3>
+            <h3>{{ form_label(form.changementAdresse.ancienAdresse) }}</h3>
             <fieldset>
-                <legend>Profile Information</legend>
-        
-                <label for="name-2">First name *</label>
-                <input id="name-2" name="name" type="text" class="required">
-                <label for="surname-2">Last name *</label>
-                <input id="surname-2" name="surname" type="text" class="required">
-                <label for="email-2">Email *</label>
-                <input id="email-2" name="email" type="text" class="required email">
-                <label for="address-2">Address</label>
-                <input id="address-2" name="address" type="text">
-                <label for="age-2">Age (The warning step will show up if age is less than 18) *</label>
-                <input id="age-2" name="age" type="text" class="required number">
-                <p>(*) Mandatory</p>
+                {% for adresse in form.changementAdresse.ancienAdresse %}
+                <div class="form-group">
+                    {{ form_label(adresse)}}
+                    {{ form_errors(adresse)}}
+                    {{ form_widget(adresse, {'attr': {'class': ''}})}}
+                </div>
+                {% endfor %}
             </fieldset>
         
-            <h3>Warning</h3>
+            <h3>{{ form_label(form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire) }}</h3>
             <fieldset>
-                <legend>You are to young</legend>
-        
-                <p>Please go away ;-)</p>
+                {% for address in form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire %}
+                {% if loop.index < 9 %}
+                <div class="form-group">
+                    {{ form_label(address)}}
+                    {{ form_errors(address)}}
+                    {{ form_widget(address, {'attr': {'class': ''}})}}
+                </div>
+                {% endif %}
+            {% endfor %}
+            <div class="col-12 text-center">
+                <div style="display:none">
+                    {{form_rest(form)}}
+                </div>
+            </div>
             </fieldset>
-        
-            <h3>Finish</h3>
+            
+            <h3>{{ form_label(form.changementAdresse.numeroFormule)}}</h3>
             <fieldset>
-                <legend>Terms and Conditions</legend>
-        
-                <input id="acceptTerms-2" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms-2">I
-                    agree with the Terms and Conditions.</label>
+                <!--<span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
+                    template='{% include "demande/tooltips/templateCessionNumFormulCarteGrise.html.twig" %}'
+                    title="{% include 'demande/tooltips/cessionNumFormulCarteGrise.html.twig' %}">
+                </span>-->
+                {{ form_errors(form.changementAdresse.numeroFormule)}}
+                {{ form_widget(form.changementAdresse.numeroFormule)}}    
             </fieldset>
+        {{ form_end(form) }}
         </form>
     </div>
-
-<div class="col-sm-10 col-lg-12 d-flex flex-row justify-content-center my-flex-container align-items-center mobile-center">
+    
+<!--<div class="col-sm-10 col-lg-12 d-flex flex-row justify-content-center my-flex-container align-items-center mobile-center">
     <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
         <div class="col-12 commander-firstview mt-4 custom-form">
             <h2 class="col-md-10 mx-auto full-mobile">{{ commande.demarche.nom|upper }}</h2>
@@ -158,17 +175,17 @@
                     <br>
                     <input type="submit" class="btn btn-lg btn-success" value="Valider">
                 </div>
-                {{ form_end(form) }}
+            {{ form_end(form) }}
             </div>
         </div>
     </div>
-</div>
+</div>-->
 {% endblock %}
 {% block javascripts %} 
 {{ parent() }}
 <script src="{{asset('Utils/jquerySteps/js/jquery.steps.js')}}"></script>
 <script src="{{asset('Utils/jquerySteps/js/jqueryValidate.js')}}"></script>
-<script src="{{asset('Utils/jquerySteps/js/index.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/changementAddress.js')}}"></script>
 <script type="application/javascript">
     $('.choice-type-ancientitulaire').on('change', function(e) {
         $(e.target).parent().siblings().toggle();
