@@ -119,6 +119,13 @@ class Commande
      */
     private $deletedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Transaction", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
+     * @Groups({"read"})
+     */
+    private $transaction;
+
 
     public function __construct()
     {
@@ -371,6 +378,18 @@ class Commande
     public function setDeletedAt(?\DateTimeInterface $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getTransaction(): ?Transaction
+    {
+        return $this->transaction;
+    }
+
+    public function setTransaction(?Transaction $transaction): self
+    {
+        $this->transaction = $transaction;
 
         return $this;
     }

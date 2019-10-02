@@ -299,6 +299,11 @@ class HomeController extends AbstractController
 
     public function redirectAction()
     {
+        $user = $this->getUser();
+        if(1 === count($user->getClient()->getCommandes())){
+            return $this->redirectToRoute('new_demande', ['commande' => $user->getClient()->getCommandes()[0]->getId()]);
+        }
+
         return $this->redirectToRoute('commande_list');
     }
 }

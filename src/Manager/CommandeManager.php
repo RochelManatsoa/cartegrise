@@ -15,7 +15,7 @@ use App\Services\Tms\TmsClient;
 use App\Services\Tms\Response as ResponseTms;
 use App\Entity\Commande;
 use App\Manager\SessionManager;
-use App\Manager\{StatusManager, TMSSauverManager};
+use App\Manager\{StatusManager, TMSSauverManager, TransactionManager};
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -30,7 +30,8 @@ class CommandeManager
 		TokenStorageInterface $tokenStorage,
 		DocumentTmsManager $documentTmsManager,
 		SerializerInterface $serializer,
-		TMSSauverManager $tmsSaveManager
+		TMSSauverManager $tmsSaveManager, 
+		TransactionManager $transactionManager
 	)
 	{
 		$this->tmsClient = $tmsClient;
@@ -41,6 +42,7 @@ class CommandeManager
 		$this->documentTmsManager = $documentTmsManager;
 		$this->serializer = $serializer;
 		$this->tmsSaveManager = $tmsSaveManager;
+		$this->transactionManager = $transactionManager;
 	}
 
 	public function save(Commande $commande)
@@ -344,4 +346,14 @@ class CommandeManager
 	{
 		return $this->statusManager->getStatusOfCommande($commande);
 	}
+
+	public function checkPayment(Commande $commande)
+    {
+        // if (!$demande->getTransaction() instanceof Transaction) {
+            $transaction = $this->transactionManager->init();
+            $commande->setTransaction($transaction);
+            $transaction->setCommande($commande);
+            $this->save($commande);
+        // } 
+    }
 }
