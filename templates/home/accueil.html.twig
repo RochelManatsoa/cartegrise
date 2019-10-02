@@ -31,7 +31,8 @@
 								<br>
 
 								{% if app.user %}
-									<a class="col-12 btn btn-success" href="{{path('new_demande', {'commande': recap.id })}}">{{ 'home.continue'|trans}}</a>
+									{# <a class="col-12 btn btn-success" href="{{path('new_demande', {'commande': recap.id })}}">{{ 'home.continue'|trans}}</a> #}
+									<a class="col-12 btn btn-success" href="{{path('payment_request', {'commande': recap.id })}}">{{ 'home.continue'|trans}}</a>
 								{% else %}
 								<!-- Button trigger modal -->
 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
