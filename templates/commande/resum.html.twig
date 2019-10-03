@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block page_content %}
+{% set taxe = commande.taxes %}
+{% if commande is defined %}
+<div class="col-md-12 row col-lg-10 mx-auto">
+    <hr>
+    <h2 class="col-12 text-center">RESUME DE LA COMMANDE</h2>
+    <div class="row col-md-12 col-lg-6 resultat-estimation mx-auto pt-5 pb-5">
+        <img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}"
+            class="rounded mx-auto d-block img-fluid mb-3" alt="">
+        <div class="col-10 mx-auto">
+            <h2 class="col-12">CARACTÉRISTIQUES DU VÉHICULE</h2>
+            {{ include('commande/_resum_caracteristics_car.html.twig') }}
+        </div>
+    </div>
+    <div class="row col-md-12 col-lg-6 resultat-estimation mx-auto d-flex flex-row-reverse my-flex-container pt-5 pb-5">
+        <div class="col-10 mx-auto">
+            <h2 class="col-12">Récapitulatif de la demande</h2>
+            {{ include('commande/_resum_recap_demande.html.twig') }}
+            <hr>
+            <h2 class="col-12">DÉTAIL DES TAXES</h2>
+            {{ include('commande/_resum_taxe_car.html.twig') }}
+            <br>
+            {% if commande.transaction is not null and commande.transaction.status == "00" %}
+            <div class="text-center">
+                <a href="{{path('payment_facture', {'demande': commande.id })}}" target="_blank">
+                    <button type="button" class="btn btn-info ">Facture</button>
+                </a>
+            </div>
+            {% else %}
+            {{ form_start(formCGV)}}
+            <div>
+                {{ form_row(formCGV.termsAccepted)}} <br>
+                {{ form_row(formCGV.enregistrer)}} <br>
+                {# <a href="{{path('payment_demande', {'demande': demande.id })}}">
+                                <button class="btn btn-success"> 
+                                    Procéder au paiement
+                                </button>
+                            </a> #}
+            </div>
+            {{ form_end(formCGV)}}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
