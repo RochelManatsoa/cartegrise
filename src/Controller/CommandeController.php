@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\PaiementType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 use App\Entity\Commande;
@@ -40,5 +41,25 @@ class CommandeController extends AbstractController
         }
 
         return $this->redirectToRoute('commande_list');
+    }
+
+    /**
+     * @Route("/{commande}/recap", name="commande_recap")
+     */
+    public function recap(Commande $commande, Request $request)
+    {
+        $formCGV = $this->createForm(PaiementType::class, null);
+        $formCGV->handleRequest($request);
+        if($formCGV->isSubmitted() && $formCGV->isValid()){
+
+            return $this->redirectToRoute('payment_commande', ['commande' => $commande->getId()]);
+        }
+        return $this->render(
+            'commande/resum.html.twig',
+            [
+                'commande' => $commande,
+                'formCGV'    => $formCGV->createView(),
+            ]
+        );
     }
 }

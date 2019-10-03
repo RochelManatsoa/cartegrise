@@ -4,6 +4,6 @@
 
 {% block page_content %}
     <div>
-        {{ render(controller('App\\Controller\\PaymentController::request', {'demande': demande})) }}
+        {{ render(controller('App\\Controller\\PaymentController::request', {'commande': commande})) }}
     </div>
 {% endblock %}
