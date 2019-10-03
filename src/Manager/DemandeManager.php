@@ -19,7 +19,7 @@ use App\Form\Demande\DemandeCessionType;
 use App\Form\Demande\DemandeDuplicataType;
 use App\Form\Demande\DemandeChangementAdresseType;
 use App\Form\DocumentDemande\DemandeNonValidateType;
-use App\Manager\{TransactionManager, MailManager};
+use App\Manager\{TransactionManager, MailManager, DocumentAFournirManager};
 use App\Repository\{DemandeRepository, DailyFactureRepository};
 use App\Manager\ClientManager;
 use App\Manager\TaxesManager;
@@ -55,6 +55,7 @@ class DemandeManager
         DemandeRepository      $repository,
         DailyFactureRepository $dailyFactureRepository,
         TransactionManager     $transactionManager,
+        DocumentAFournirManager     $documentAFournirManager,
         TranslatorInterface    $translator,
         CommandeManager        $commandeManager,
         TokenStorageInterface  $tokenStorage,
@@ -68,6 +69,7 @@ class DemandeManager
         $this->repository         = $repository;
         $this->dailyFactureRepository   = $dailyFactureRepository;
         $this->transactionManager = $transactionManager;
+        $this->documentAFournirManager = $documentAFournirManager;
         $this->commandeManager    = $commandeManager;
         $this->translator         = $translator;
         $this->tokenStorage       = $tokenStorage;
@@ -135,14 +137,36 @@ class DemandeManager
     public function getView(Form $form)
     {
         $demande = $form->getData();
+        //dd($demande);
+        //$pathCerfa = $this->generateCerfa($demande);
+        // $daf = $this->getDossiersAFournir($demande /*, $pathCerfa*/);
+        // $files = $this->documentAFournirManager->getDaf($demande);
+        // $fileType = $this->documentAFournirManager->getType($demande);
+        // $path = $demande->getUploadPath();
+        // $fileForm = null;
+        // if (!null == $fileType) {
+        //     $fileForm = $this->createForm($fileType, $files);
+        //     $fileForm->handleRequest($request);
+
+        //     if ($fileForm->isSubmitted() && $fileForm->isValid()) {
+        //         $documentAFournirManager->handleForm($fileForm, $path)->save($fileForm);
+        //     }
+        // }
+        $params = [
+            'demande'   => $demande,
+            //'daf'       => $daf,
+            //'pathCerfa' => $pathCerfa,
+            //'formFile'      => is_null($fileForm) ? null :$fileForm->createView(),
+            //"files"     => $files,
+            'form'     => $form->createView(),
+            'commande' => $demande->getCommande()
+        ];
         switch($demande->getCommande()->getDemarche()->getType()) {
             case "CTVO":
+            //dd($params);
                 $view = $this->twig->render(
                         "demande/ctvo.html.twig",
-                        [
-                            'form'     => $form->createView(),
-                            'commande' => $demande->getCommande(),
-                        ]
+                        $params
                 );
             break;
 

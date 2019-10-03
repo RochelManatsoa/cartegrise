@@ -198,6 +198,7 @@ label:
     complement: Complément d'adresse
     codepostal: Code Postal *
     ville: Ville *
+    heberge: Êtes-vous hébergé?
     droitOpposition: Je m'oppose à la diffusion de mes données personnelles
     caracteristiqueTechniquePart: Caractéristiques techniques particulières
     carrossier: Carrossier qualifié ayant modifié le véhicule

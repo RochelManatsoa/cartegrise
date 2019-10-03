@@ -116,6 +116,11 @@ class Adresse
     private $vehicules;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isHosted;
+
+    /**
      * @var \DateTime $deletedAt
      *
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
@@ -315,6 +320,18 @@ class Adresse
     public function setDeletedAt(?\DateTimeInterface $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getIsHosted(): ?bool
+    {
+        return $this->isHosted;
+    }
+
+    public function setIsHosted(?bool $isHosted): self
+    {
+        $this->isHosted = $isHosted;
 
         return $this;
     }
