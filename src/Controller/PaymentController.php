@@ -24,14 +24,14 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class PaymentController extends AbstractController
 {
     /**
-     * @Route("/demande/{demande}/payment", name="payment_demande")
+     * @Route("/commande/{commande}/payment", name="payment_commande")
      */
-    public function index(Demande $demande)
+    public function index(Commande $commande)
     {
         
         return $this->render(
             "payment/index.html.twig", 
-            ['demande' => $demande]
+            ['commande' => $commande]
         );
     }
 
