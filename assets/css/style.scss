@@ -1,6 +1,8 @@
 $bleu: #002a6b;
 $bleu-hover: rgb(63, 87, 149);
 $rouge: rgb(175, 68, 68);
+$white: #fff;
+$dark-blue: #1f3864;
 
 @import 'footer.scss';
 @import 'blog.scss';
@@ -35,7 +37,7 @@ $rouge: rgb(175, 68, 68);
 
 #up{
 	min-height: 100vh;
-	padding-top: 100px;
+	padding-top: 150px;
 }
 .error {
 	color: #f0064c
@@ -208,7 +210,7 @@ ul {
 }
 .login-access-container {
 	.login-access {
-		&:before {
+		&:after {
 			background: url("/../../asset/img/login.png") center no-repeat;
 			background-size: contain;				
 			content: "";
@@ -222,10 +224,11 @@ ul {
 			border: none;
 			cursor: pointer;
 			text-transform: uppercase;
+			outline: none;
 		}	
 	}
 	.logout-access {
-		&:before {
+		&:after {
 			background: url("/../../asset/img/logout.png") center no-repeat;
 			background-size: contain;				
 			content: "";
@@ -239,6 +242,7 @@ ul {
 			border: none;
 			cursor: pointer;
 			text-transform: uppercase;
+			outline: none;
 		}	
 	}
 }
@@ -500,28 +504,62 @@ body.body-accueil {
 		}
 	}
 }
-.nav-header {
-	.menu-item {
-		color: #fff;
-		display: block;					
-		font-size: 14px;
-		font-weight: 600;
-		padding: 5px 10px;					
-		text-decoration: none;
-		text-transform: uppercase;
-		border: 1px solid #fff;
-		border-radius: 5px;
-		margin-top: 10px;
-	}
-	&.menu-notif {
-		position: relative;
-		@media (min-width:768px) {
-			display: none;
-		}
-		.badge-pill {
-			position: absolute;
-			top: -10px;
-			right: -10px;
+.col-nav-header {
+	position: fixed !important;
+    z-index: 999;
+	background: #fff;
+	top:100px;
+	.nav-header {
+		padding-left: 0;
+		margin-bottom: 0;
+		li {
+			position: relative;
+			width: 25%;
+			.menu-item {
+				color: $dark-blue;
+				display: block;					
+				font-size: 16px;
+				font-weight: 600;
+				padding: 5px 10px;					
+				text-decoration: none;
+				text-transform: uppercase;
+				border: 2px solid $dark-blue;
+				&:hover {
+					color: $white;
+					background: $bleu-hover;
+					border-color: $bleu-hover;
+				}
+			}
+			&.menu-notif {
+				position: relative;
+				@media (min-width:768px) {
+					display: none;
+				}
+				.badge-pill {
+					position: absolute;
+					top: -10px;
+					right: -10px;
+				}
+			}
+			.nav-sub-menu {
+				background: $white;
+				padding-left: 0;
+				width: 100%;
+				display: none;
+				position: absolute;
+				li {
+					width: 100%;
+					.menu-item {
+						border-color: $bleu-hover;
+						border-top: none;
+					}
+				}
+			}
+			&:hover {
+				.nav-sub-menu {
+					display: block;
+				}	
+			}
 		}
 	}
 }
