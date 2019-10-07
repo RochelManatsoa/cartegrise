@@ -40,12 +40,12 @@ class DemandeController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $demande = $demandeManager->save($form);
             // redirect after save
-            return $this->redirectToRoute(
-                'demande_recap', 
-                [
-                    'demande' => $demande->getId()
-                ]
-            );
+            // return $this->redirectToRoute(
+            //     'demande_recap', 
+            //     [
+            //         'demande' => $demande->getId()  
+            //     ]
+            // );
         }
 
         return new Response($demandeManager->getView($form));
