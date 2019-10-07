@@ -77,20 +77,20 @@
 				</div>
 				<div class="col-3 mx-auto login-access-container d-flex justify-content-center align-items-center">
 					{% if app.user %}
-					<a class="logout-access" href="/logout">
+					<a class="logout-access d-flex" href="/logout">
 						<button type="button" class="btn btn-primary text-center login-btn">
 							Se déconnecter
 						</button>
 					</a>
 					{% else %}
-					<a class="login-access" href="/login">
+					<a class="login-access d-flex" href="/login">
 						<button type="button" class="btn btn-primary text-center login-btn">
 							Se connecter
 						</button>
 					</a>
-					<a href="{{ path('france_connect_login') }}">
+					{# <a href="{{ path('france_connect_login') }}">
 						<img class="col-12 tooltipped rounded mx-auto d-block max-250" src="{{ asset('asset/img/fcbouton.jpg')}}" alt="FranceConnect button">
-					</a>
+					</a> #}
 					{% endif %}
 				</div>
 			</div>
