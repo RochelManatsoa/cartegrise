@@ -31,19 +31,21 @@
         {{ form_start(form, {'attr': {'class': 'row'}}) }}
             <h3>{{ form_label(form.changementAdresse.nouveauxTitulaire) }}</h3>
             <fieldset>
-                {{ form_row(form.changementAdresse.nouveauxTitulaire.type)}}
-                {{ form_row(form.changementAdresse.nouveauxTitulaire.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                {{ form_row(form.changementAdresse.nouveauxTitulaire.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                {{ form_row(form.changementAdresse.nouveauxTitulaire.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                {{ form_row(form.changementAdresse.nouveauxTitulaire.nomPrenomTitulaire)}}
-                {{ form_row(form.changementAdresse.nouveauxTitulaire.birthName)}}
-                {{ form_row(form.changementAdresse.nouveauxTitulaire.prenomTitulaire)}}
-                {{ form_row(form.changementAdresse.nouveauxTitulaire.genre)}}
-                {{ form_row(form.changementAdresse.nouveauxTitulaire.dateN)}}
-                {{ form_row(form.changementAdresse.nouveauxTitulaire.lieuN)}}
-                {{ form_row(form.changementAdresse.nouveauxTitulaire.departementN)}}
-                {{ form_row(form.changementAdresse.nouveauxTitulaire.paysN)}}
-                {{ form_row(form.changementAdresse.nouveauxTitulaire.droitOpposition)}}
+                <div class="titulaire">
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.type)}}
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.nomPrenomTitulaire)}}
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.birthName)}}
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.prenomTitulaire)}}
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.genre)}}
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.dateN)}}
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.lieuN)}}
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.departementN)}}
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.paysN)}}
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.droitOpposition)}}
+                </div>
             </fieldset>
         
             <h3>{{ form_label(form.changementAdresse.ancienAdresse) }}</h3>
@@ -77,10 +79,10 @@
             
             <h3>{{ form_label(form.changementAdresse.numeroFormule)}}</h3>
             <fieldset>
-                <!--<span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
+                <span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
                     template='{% include "demande/tooltips/templateCessionNumFormulCarteGrise.html.twig" %}'
                     title="{% include 'demande/tooltips/cessionNumFormulCarteGrise.html.twig' %}">
-                </span>-->
+                </span>
                 {{ form_errors(form.changementAdresse.numeroFormule)}}
                 {{ form_widget(form.changementAdresse.numeroFormule)}}    
             </fieldset>
