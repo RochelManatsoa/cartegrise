@@ -27,15 +27,15 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     /* 
                     tsy mety aminy pory mintsy le name misy crochet io
                     */
-                   
+
                     $("#example-advanced-form").validate({
                         rules: {
-                            'demande_ctvo[ctvo][acquerreur][prenomTitulaire]': {
+                            'demande_ctvo[ctvo][ancienTitulaire][nomprenom]': {
                                 required: true
                             }
                         },
                         messages: {
-                            'demande_ctvo[ctvo][acquerreur][prenomTitulaire]': {
+                            'demande_ctvo[ctvo][ancienTitulaire][nomprenom]': {
                                 required: 'Ce champs est requis'
                             }
                         }
@@ -45,12 +45,12 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                 }else{
                     $("#example-advanced-form").validate({
                         rules: {
-                            'demande_ctvo[ctvo][acquerreur][prenomTitulaire]': {
+                            'demande_ctvo[ctvo][ancienTitulaire][raisonsociale]': {
                                 required: true
                             }
                         },
                         messages: {
-                            'demande_ctvo[ctvo][acquerreur][prenomTitulaire]': {
+                            'demande_ctvo[ctvo][ancienTitulaire][raisonsociale]': {
                                 required: 'Ce champs est requis'
                             }
                         }
