@@ -1,4 +1,3 @@
-
 function initFormStep(form, title, bodyTag, transitionEffect)
 {
     var form = form.show();
@@ -12,6 +11,15 @@ function initFormStep(form, title, bodyTag, transitionEffect)
         transitionEffect: transitionEffect,
         onStepChanging: function (event, currentIndex, newIndex) {
             // Allways allow previous action even if the current form is not valid!
+            if (currentIndex === 0 && newIndex === 1) {
+                //code
+                if ($('#demande_changement_adresse_changementAdresse_nouveauxTitulaire_nomPrenomTitulaire').val() == "rakoto") {
+                    //code
+                    return false
+                } else {
+                    return true;
+                }
+            }
             if (currentIndex > newIndex) {
                 return true;
             }
