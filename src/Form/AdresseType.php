@@ -61,6 +61,7 @@ class AdresseType extends AbstractType
                 ))
             ->add('codepostal', null, array('label' => 'label.codepostal'))
             ->add('ville', null, array('label' => 'label.ville'))
+            ->add('isHosted', null, array('label' => 'label.heberge'))
            ;
     }
 
