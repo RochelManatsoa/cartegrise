@@ -5,60 +5,66 @@ function initFormStep(form, title, bodyTag, transitionEffect)
     bodyTag = bodyTag || "fieldset";
     transitionEffect = transitionEffect || "slideLeft";
 
-    form.steps({
+    form
+      .steps({
         headerTag: title,
         bodyTag: bodyTag,
         transitionEffect: transitionEffect,
-        onStepChanging: function (event, currentIndex, newIndex) {
-            // Allways allow previous action even if the current form is not valid!
-            if (currentIndex === 0 && newIndex === 1) {
-                //code
-                if ($('#demande_changement_adresse_changementAdresse_nouveauxTitulaire_nomPrenomTitulaire').val() == "rakoto") {
-                    //code
-                    return false
-                } else {
-                    return true;
-                }
-            }
-            if (currentIndex > newIndex) {
-                return true;
-            }
-            // Forbid next action on "Warning" step if the user is to young
-            if (newIndex === 3 && Number($("#age-2").val()) < 18) {
-                return false;
-            }
-            // Needed in some cases if the user went back (clean up)
-            if (currentIndex < newIndex) {
-                // To remove error styles
-                form.find(".body:eq(" + newIndex + ") label.error").remove();
-                form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
-            }
-            form.validate().settings.ignore = ":disabled,:hidden";
-            return form.valid();
+        onStepChanging: function(event, currentIndex, newIndex) {
+          // Allways allow previous action even if the current form is not valid!
+          if (currentIndex === 0 && newIndex === 1) {
+            //code
+            
+          }
+          if (currentIndex > newIndex) {
+            return true;
+          }
+          // Forbid next action on "Warning" step if the user is to young
+          if (newIndex === 3 && Number($("#age-2").val()) < 18) {
+            return false;
+          }
+          // Needed in some cases if the user went back (clean up)
+          if (currentIndex < newIndex) {
+            // To remove error styles
+            form.find(".body:eq(" + newIndex + ") label.error").remove();
+            form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+          }
+          form.validate().settings.ignore = ":disabled,:hidden";
+          return form.valid();
         },
-        onStepChanged: function (event, currentIndex, priorIndex) {
-            // Used to skip the "Warning" step if the user is old enough.
-            if (currentIndex === 3 && Number($("#age-2").val()) >= 18) {
-                form.steps("next");
-            }
-            // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
-            if (currentIndex === 2 && priorIndex === 3) {
-                form.steps("previous");
-            }
+        onStepChanged: function(event, currentIndex, priorIndex) {
+          // Used to skip the "Warning" step if the user is old enough.
+          if (currentIndex === 3 && Number($("#age-2").val()) >= 18) {
+            form.steps("next");
+          }
+          // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+          if (currentIndex === 2 && priorIndex === 3) {
+            form.steps("previous");
+          }
         },
-        onFinishing: function (event, currentIndex) {
-            form.validate().settings.ignore = ":disabled";
-            return form.valid();
+        onFinishing: function(event, currentIndex) {
+          form.validate().settings.ignore = ":disabled";
+          return form.valid();
         },
-        onFinished: function (event, currentIndex) {
-            alert("Submitted!");
+        onFinished: function(event, currentIndex) {
+          alert("Submitted!");
         }
-    }).validate({
-        errorPlacement: function errorPlacement(error, element) { element.before(error); },
+      })
+      .validate({
+        errorPlacement: function errorPlacement(error, element) {
+          element.before(error);
+        },
         rules: {
-            confirm: {
-                equalTo: "#password-2"
-            }
+          "demande_changement_adresse[changementAdresse][nouveauxTitulaire][nomPrenomTitulaire]": {
+            required: true,
+            minlength: 4
+          }
+        },
+        messages: {
+          "demande_changement_adresse[changementAdresse][nouveauxTitulaire][nomPrenomTitulaire]": {
+            required: "le Nom et prénom séparés par un espace ne doit pas être vide",
+            minlength: "kely loatra",
+          }  
         }
-    });
+      });
 }
