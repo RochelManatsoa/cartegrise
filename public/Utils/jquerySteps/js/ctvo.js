@@ -110,3 +110,11 @@ function showElement(element){
         console.log(element);
     });
 }
+
+function datePickerFunction(element){
+    element.datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true
+    });
+}
