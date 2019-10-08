@@ -18,8 +18,50 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             loading: "Chargement ..."
         },
         onStepChanging: function (event, currentIndex, newIndex) {
+            console.log(currentIndex, newIndex);
+            if(currentIndex == 0 && newIndex == 1){
+                if($('#demande_ctvo_ctvo_ancienTitulaire_type').val() == 'phy'){
+                    // var nomprenom = $('[name="demande_ctvo[ctvo][acquerreur][prenomTitulaire]"]');
+                    // console.log(nomprenom);
+
+                    /* 
+                    tsy mety aminy pory mintsy le name misy crochet io
+                    */
+
+                    $("#example-advanced-form").validate({
+                        rules: {
+                            'demande_ctvo[ctvo][ancienTitulaire][nomprenom]': {
+                                required: true
+                            }
+                        },
+                        messages: {
+                            'demande_ctvo[ctvo][ancienTitulaire][nomprenom]': {
+                                required: 'Ce champs est requis'
+                            }
+                        }
+                    });
+
+                    return false;
+                }else{
+                    $("#example-advanced-form").validate({
+                        rules: {
+                            'demande_ctvo[ctvo][ancienTitulaire][raisonsociale]': {
+                                required: true
+                            }
+                        },
+                        messages: {
+                            'demande_ctvo[ctvo][ancienTitulaire][raisonsociale]': {
+                                required: 'Ce champs est requis'
+                            }
+                        }
+                    });
+
+                    return false;
+                };
+            }
             // Allways allow previous action even if the current form is not valid!
             if (currentIndex > newIndex) {
+
                 return true;
             }
             // Forbid next action on "Warning" step if the user is to young
@@ -59,5 +101,20 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                 equalTo: "#password-2"
             }
         }
+    });
+};
+
+function showElement(element){
+    element.on('change', function(e) {
+        $(e.target).parent('.form-group').siblings().toggle();
+        console.log(element);
+    });
+}
+
+function datePickerFunction(element){
+    element.datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true
     });
 }

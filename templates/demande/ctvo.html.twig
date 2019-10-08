@@ -151,24 +151,6 @@
 {% endblock %}
 {% block javascripts %} 
 {{ parent() }}
-<script src="{{asset('Utils/jquerySteps/js/jquery.steps.js')}}"></script>
-<script src="{{asset('Utils/jquerySteps/js/jqueryValidate.js')}}"></script>
-<script src="{{asset('Utils/jquerySteps/js/ctvo.js')}}"></script>
-<script type="application/javascript">
-    $('.choice-type-ciPresent').on('change', function(e) {
-        $(e.target).parent('.form-group').siblings().toggle();
-    })
-</script>
-<script type="application/javascript">
-    $('.choice-type-ancientitulaire').on('change', function(e) {
-        $(e.target).parent('.form-group').siblings().toggle();
-    })
-</script>
-<script type="application/javascript">
-    $('.choice-type-personne').on('change', function(e) {
-        $(e.target).parent('.form-group').siblings().toggle();
-    })
-</script>
 <script type="application/javascript">
     $('.choice-type-cotitulaire').on('change', function(e) {
         $(e.target).parent('.form-group').siblings().toggle();
@@ -256,6 +238,30 @@
         }
     );
 
+    $(document).ready(
+        function(){
+            datePickerFunction(
+                $('.js-datepicker')
+            );
+        }
+    );
+    $(document).ready(
+        function(){
+            showElement(
+                $('.choice-type-ciPresent')
+            );
+            showElement(
+                $('.choice-type-ancientitulaire')
+            );
+            showElement(
+                $('.choice-type-personne')
+            );
+        }
+    );
+
 </script>
+<script src="{{asset('Utils/jquerySteps/js/jquery.steps.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/jqueryValidate.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/ctvo.js')}}"></script>
     
 {% endblock %}
