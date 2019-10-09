@@ -153,7 +153,6 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                     required: true,
                 },
 
-                /**PARTIE 04 NUMERO DE FORMULE PRESENT SUR LA CARTE */
             },
             messages: {
                 /**PARTIE 01 TITULAIRE */
@@ -256,8 +255,6 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][isHosted]": {
                     required: "",
                 },
-
-                /**PARTIE 04 NUMERO DE FORMULE PRESENT SUR LA CARTE*/
 
             }
         });
