@@ -187,7 +187,6 @@
 .wizard>.content>.body label.error {
     color: #8a1f11;
     display: block;
-    width: 100%
 }
 
 .wizard>.actions {

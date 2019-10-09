@@ -257,7 +257,7 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                     required: "",
                 },
 
-                /**PARTIE 04 NUMERO DE FORMULE PRESENT SUR LA CARTE */
+                /**PARTIE 04 NUMERO DE FORMULE PRESENT SUR LA CARTE*/
 
             }
         });
