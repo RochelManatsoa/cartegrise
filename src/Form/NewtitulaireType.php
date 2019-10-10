@@ -32,6 +32,7 @@ class NewtitulaireType extends AbstractType
                 ))
             ->add('prenomTitulaire', TextType::class, array(
                 'label'=>'label.prenom.client',
+                'required' => false
                 ))
             ->add('genre', ChoiceType::class, array(
                 'label' => 'label.genre',
