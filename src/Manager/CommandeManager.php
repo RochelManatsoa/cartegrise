@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-30 10:57:15
+ * @Last Modified time: 2019-10-09 18:34:18
  */
 
 namespace App\Manager;
