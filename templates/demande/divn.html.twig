@@ -27,8 +27,8 @@
                     </div>
                     {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
                         <h3>Etape</h3>
-                        <section>
-                            <fieldset style="position: relative;width: 100%;">
+                        <section style="position: relative;width: 100%;">
+                            <fieldset>
                                 <legend>{{ form_label(form.divn.acquerreur) }}</legend>
                                 <div class="titulaire">
                                     {{ form_row(form.divn.acquerreur.type)}}
@@ -72,7 +72,7 @@
                         </section>
 
                         <h3>Etape</h3>
-                        <section>
+                        <section style="position: relative;width: 100%;">
                             <fieldset>
                                 <legend>{{ form_label(form.divn.vehicule) }}</legend>
                                     <div class="form-info">
@@ -80,29 +80,29 @@
                                         {{ form_row(form.divn.vehicule.d1Marque)}}
                                         {{ form_row(form.divn.vehicule.d2Version)}}
                                         {{ form_row(form.divn.vehicule.z1Mention1)}}
-                                        {{ form_row(form.divn.vehicule.z1Value)}}                    
+                                        {{ form_row(form.divn.vehicule.z1Value)}}    
+                                        {{ form_row(form.divn.vehicule.g1PoidsVide)}}
+                                        {{ form_row(form.divn.vehicule.f2MmaxTechAdm)}}
+                                        {{ form_row(form.divn.vehicule.gMmaxAvecAttelage)}}
+                                        {{ form_row(form.divn.vehicule.f2MmaxAdmServ)}} 
+                                        {{ form_row(form.divn.vehicule.derivVp)}}
+                                        {{ form_row(form.divn.vehicule.j3Carrosserie)}}
+                                        {{ form_row(form.divn.vehicule.s1NbPlaceAssise)}}
+                                        {{ form_row(form.divn.vehicule.j1Genre)}}
                                         <div class="form-vehicule">            
                                             {{ form_row(form.divn.vehicule.type)}}
                                             {{ form_row(form.divn.vehicule.kNumRecepCe)}}
                                             {{ form_row(form.divn.vehicule.dateReception)}}
                                             {{ form_row(form.divn.vehicule.d21Cenit)}}
-                                            {{ form_row(form.divn.vehicule.derivVp)}}
                                             {{ form_row(form.divn.vehicule.d3Denomination, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                            {{ form_row(form.divn.vehicule.f2MmaxTechAdm, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                            {{ form_row(form.divn.vehicule.f2MmaxAdmServ, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                             {{ form_row(form.divn.vehicule.f3MmaxAdmEns, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                            {{ form_row(form.divn.vehicule.gMmaxAvecAttelage, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                            {{ form_row(form.divn.vehicule.g1PoidsVide, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                             {{ form_row(form.divn.vehicule.jCategorieCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                            {{ form_row(form.divn.vehicule.j1Genre, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                             {{ form_row(form.divn.vehicule.j2CarrosserieCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                            {{ form_row(form.divn.vehicule.j3Carrosserie, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                             {{ form_row(form.divn.vehicule.p1Cyl, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                             {{ form_row(form.divn.vehicule.p2PuissKw, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                             {{ form_row(form.divn.vehicule.p3Energie, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                             {{ form_row(form.divn.vehicule.p6PuissFiscale, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                             {{ form_row(form.divn.vehicule.qRapportPuissMasse, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                            {{ form_row(form.divn.vehicule.s1NbPlaceAssise, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                             {{ form_row(form.divn.vehicule.s2NbPlaceDebout, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                             {{ form_row(form.divn.vehicule.u1NiveauSonore, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                             {{ form_row(form.divn.vehicule.u2NbTours, {'attr': {'data-row-style': 'display:none !important;'} })}}
@@ -142,13 +142,13 @@
                             </fieldset> 
                         </section>
                         <h3>Etape</h3>
-                        <section>
+                        <section style="position: relative;width: 100%;">
                                 <fieldset>
                                     <legend></legend>
                                 </fieldset>
                         </section>
                         <h3>Etape</h3>
-                        <section>
+                        <section style="position: relative;width: 100%;">
                                 <fieldset>
                                     <legend></legend>
                                 </fieldset>
