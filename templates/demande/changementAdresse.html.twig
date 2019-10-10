@@ -27,11 +27,11 @@
         <div class="col-4 col-md-10 mx-auto full-mobile">
             {% include "demande/caracteristicVehicle.html.twig" %}
         </div>
-        <form id="example-advanced-form" action="#">
-        {{ form_start(form, {'attr': {'class': ''}}) }}
+        <div>
+        {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
             <h3>{{ form_label(form.changementAdresse.nouveauxTitulaire) }}</h3>
             <fieldset style="position: relative;width: 100%;">
-                <div class="">
+                <div class="titulaire">
                     {{ form_row(form.changementAdresse.nouveauxTitulaire.type)}}
                     {{ form_row(form.changementAdresse.nouveauxTitulaire.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
                     {{ form_row(form.changementAdresse.nouveauxTitulaire.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
@@ -87,7 +87,7 @@
                 {{ form_widget(form.changementAdresse.numeroFormule)}}
             </fieldset>
         {{ form_end(form) }}
-        </form>
+        </div>
     </div>
 
 
@@ -106,11 +106,11 @@
         $('[data-toggle="tooltip"]').tooltip();
     })
 </script>
-<script type="application/javascript">
+<!--<script type="application/javascript">
     $('.choice-type-personne').on('change', function(e) {
         $(e.target).parent('.form-group').siblings().toggle();
     })
-</script>
+</script>-->
 <script type="text/javascript">
     $('.js-datepicker').datepicker({
         dateFormat: 'dd/mm/yy',
@@ -126,6 +126,13 @@
                 "h3",
                 "fieldset",
                 "fade"
+            );
+        }
+    );
+    $(document).ready(
+        function(){
+            showElement(
+                $('.choice-type-personne')
             );
         }
     );

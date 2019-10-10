@@ -38,7 +38,7 @@
 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
 									{{ 'home.validateComand'|trans}}
 								</button>
-								
+
 								<!-- Modal -->
 								<div class="modal fade col-8 mx-auto custom-mobile-modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 									<div class="modal-dialog modal-dialog-centered" role="document">
@@ -75,7 +75,7 @@
 															<img class="img-thumbnail col-12 rounded mx-auto d-block tooltiped" style="max-width: 100%;height:auto;" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
 														</a>
 													</div>											 #}
-												</div>													
+												</div>
 										</div>
 										<div class="modal-footer">
 										</div>
@@ -114,7 +114,7 @@
 								{{ 'home.condition'|trans }}
 							</p>
 						</div>
-						
+
 						{% if app.user %}
 							<a class="col-12 btn btn-success" href="{{path('Accueil')}}{{ commande.demarche.type | lower}}/?commande={{ commande.id }}">{{ 'home.validate'|trans }}</a>
 						{% else %}
