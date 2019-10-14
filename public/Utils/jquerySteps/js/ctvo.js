@@ -18,47 +18,11 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             loading: "Chargement ..."
         },
         onStepChanging: function (event, currentIndex, newIndex) {
-            console.log(currentIndex, newIndex);
-            if(currentIndex == 0 && newIndex == 1){
-                if($('#demande_ctvo_ctvo_ancienTitulaire_type').val() == 'phy'){
-                    // var nomprenom = $('[name="demande_ctvo[ctvo][acquerreur][prenomTitulaire]"]');
-                    // console.log(nomprenom);
-
-                    /* 
-                    tsy mety aminy pory mintsy le name misy crochet io
-                    */
-
-                    $("#example-advanced-form").validate({
-                        rules: {
-                            'demande_ctvo[ctvo][ancienTitulaire][nomprenom]': {
-                                required: true
-                            }
-                        },
-                        messages: {
-                            'demande_ctvo[ctvo][ancienTitulaire][nomprenom]': {
-                                required: 'Ce champs est requis'
-                            }
-                        }
-                    });
-
-                    return false;
-                }else{
-                    $("#example-advanced-form").validate({
-                        rules: {
-                            'demande_ctvo[ctvo][ancienTitulaire][raisonsociale]': {
-                                required: true
-                            }
-                        },
-                        messages: {
-                            'demande_ctvo[ctvo][ancienTitulaire][raisonsociale]': {
-                                required: 'Ce champs est requis'
-                            }
-                        }
-                    });
-
-                    return false;
-                };
-            }
+            
+            // second step
+            // if (currentIndex == 1 && newIndex == 2) {
+            //     return checkSecondStep();
+            // }
             // Allways allow previous action even if the current form is not valid!
             if (currentIndex > newIndex) {
 
@@ -97,8 +61,146 @@ function initFormStep(form, title, bodyTag, transitionEffect)
     }).validate({
         errorPlacement: function errorPlacement(error, element) { element.before(error); },
         rules: {
-            confirm: {
-                equalTo: "#password-2"
+            "demande_ctvo[ctvo][ancienTitulaire][nomprenom]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+
+                        if (persone == 'phy') {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
+            "demande_ctvo[ctvo][acquerreur][prenomTitulaire]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+
+                        if (persone == 'phy') {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
+            "demande_ctvo[ctvo][acquerreur][lieuN]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+
+                        if (persone == 'phy') {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
+            "demande_ctvo[ctvo][acquerreur][departementN]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+
+                        if (persone == 'phy') {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
+            "demande_ctvo[ctvo][acquerreur][paysN]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+
+                        if (persone == 'phy') {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
+            "demande_ctvo[ctvo][acquerreur][nomPrenomTitulaire]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_ctvo_ctvo_acquerreur_type').val();
+
+                        if (persone == 'phy') {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
+            "demande_ctvo[ctvo][ancienTitulaire][raisonsociale]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+
+                        if (persone == 'mor') {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
+            "demande_ctvo[ctvo][acquerreur][siren]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+
+                        if (persone == 'mor') {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
+            "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][numero]": {
+                required: true
+            },
+            "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][extension]": {
+                required: true
+            },
+            "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][typevoie]": {
+                required: true
+            },
+            "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][nom]": {
+                required: true
+            },
+            "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][complement]": {
+                required: true
+            },
+            "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][codepostal]": {
+                required: true
+            },
+            "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][ville]": {
+                required: true
             }
         }
     });

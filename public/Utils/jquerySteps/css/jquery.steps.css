@@ -143,11 +143,7 @@
     display: block;
     margin: 0.5em;
     min-height: 35em;
-<<<<<<< HEAD
-    overflow: hidden;
-=======
     overflow: auto;
->>>>>>> be888b306fc68b6c6363c4822c35f40931e4e224
     position: relative;
     width: auto;
 

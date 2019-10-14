@@ -32,7 +32,7 @@
                     </div>
                         {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
                         <h3>Etape</h3>
-                        <section>
+                        <section style="position: relative;width: 100%;">
                             <legend>{{ form_label(form.ctvo.ancienTitulaire) }}</legend>
                             <div class="ancientitulaire">
                                 {{ form_row(form.ctvo.ancienTitulaire.type)}}
@@ -46,7 +46,7 @@
                         </section>
 
                         <h3>Etape</h3>
-                        <section>
+                        <section style="position: relative;width: 100%;">
                             <legend>{{ form_label(form.ctvo.acquerreur) }}</legend>
                             <div class="titulaire">
                                 {{ form_row(form.ctvo.acquerreur.type)}}
@@ -74,7 +74,7 @@
                             </div>
                         </section>
                         <h3>Etape</h3>
-                        <section>
+                        <section style="position: relative;width: 100%;">
                             <h4><strong>Ancien Titulaire</strong></h4>
                             <p>Nom: </p>
                             <p>Numéro formule: </p>
@@ -85,7 +85,7 @@
                             <p>Date de naissance: </p>
                             <p>Lieu de naissance: </p>
                             <p>Adresse: </p>
-                        </section>
+                        </section style="position: relative;width: 100%;">
                         <h3>Etape</h3>
                         <section>
                             <h4><strong>Liste des dossiers à fournir</strong></h4>
@@ -113,37 +113,6 @@
                             {% endif %}
                         </section>
                     {{ form_end(form) }}
-                    {# <div class="col-3 col-md-5 mx-auto form-row full-mobile">
-                        <div class="col-10 col-sm-12 mx-auto">
-                                
-                        </div>
-                    </div>
-                    <div class="col-3 col-md-5 mx-auto form-row full-mobile">
-                        <div class="col-10 col-sm-12 mx-auto">
-                            <h3 class="text-center">{{ form_label(form.ctvo.cotitulaire) }}</h3>
-                            <hr>                            
-                                <ul class="tags" data-prototype="{{ form_widget(form.ctvo.cotitulaire.vars.prototype)|e('html_attr') }}">
-                                    {% for tag in form.ctvo.cotitulaire %}
-                                        {% if loop.index < 5 %}
-                                        <li>
-                                            {{ form_label(tag.vars.prototype)|e  }}
-                                            {{ form_errors(tag.vars.prototype)|e  }}
-                                            {{ form_widget(tag.vars.prototype, {'attr': {'class': ''}})|e  }}
-                                        </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                        </div>
-                    </div>
-                    <div class="col-12 text-center">
-                        <div style="display:none;">
-                            {{form_rest(form)}}
-                        </div>
-                    </div>
-                    <div class="col-12 text-center mb-5">
-                        <br>
-                        <input type="submit" class="btn btn-md btn-success" value="Valider">
-                    </div> #}
             </div>
         </div>
 	</div>
