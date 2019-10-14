@@ -7,7 +7,7 @@ $dark-blue: #1f3864;
 @import 'footer.scss';
 @import 'blog.scss';
 @import 'card.scss';
-
+@import 'login.scss';
 
 @font-face {
 	font-family: textr;
@@ -38,6 +38,8 @@ $dark-blue: #1f3864;
 #up{
 	min-height: 100vh;
 	padding-top: 150px;
+	position: relative;
+	z-index: 10;
 }
 .error {
 	color: #f0064c
@@ -244,6 +246,21 @@ ul {
 			text-transform: uppercase;
 			outline: none;
 		}	
+	}
+	.info-user {
+		width: 100%;
+		text-align: center;
+		margin-bottom: -15px;
+		a {
+			border: 1px solid $white;
+			color: $white;
+			display: inline-block;
+			padding: 5px 15px;
+			&:hover {
+				text-decoration: none;
+				opacity: 0.8;
+			}
+		}
 	}
 }
 .link-rignt {
@@ -509,6 +526,7 @@ body.body-accueil {
     z-index: 999;
 	background: #fff;
 	top:100px;
+	width: 100%;
 	.nav-header {
 		padding-left: 0;
 		margin-bottom: 0;
@@ -524,6 +542,7 @@ body.body-accueil {
 				text-decoration: none;
 				text-transform: uppercase;
 				border: 2px solid $dark-blue;
+				border-top: none;
 				&:hover {
 					color: $white;
 					background: $bleu-hover;
@@ -598,6 +617,9 @@ body.body-accueil {
 		padding: 10px 20px;
 		border-radius: 20px;
 	}
+}
+.label-content-container {
+	width: 100%;
 }
 /* Début responsive V2 */
 @media (max-width:1280px){
