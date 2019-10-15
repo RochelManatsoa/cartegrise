@@ -30,9 +30,9 @@
         <div>
         {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
             <h3>{{ form_label(form.changementAdresse.nouveauxTitulaire) }}</h3>
-            <fieldset style="position: relative;width: 100%;">
+            <fieldset style="position: relative;width: 100%; border:none;">
                 <div class="titulaire">
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.type)}}
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.type,{'attr': {style:'width:100%'} })}}
                     {{ form_row(form.changementAdresse.nouveauxTitulaire.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
                     {{ form_row(form.changementAdresse.nouveauxTitulaire.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
                     {{ form_row(form.changementAdresse.nouveauxTitulaire.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}

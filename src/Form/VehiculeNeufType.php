@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class VehiculeNeufType extends AbstractType
@@ -73,8 +74,8 @@ class VehiculeNeufType extends AbstractType
             ->add('p3Energie', null, ['label' => 'label.vehicule.p3Energie'])
             ->add('p6PuissFiscale', null, ['label' => 'label.vehicule.p6PuissFiscale'])
             ->add('qRapportPuissMasse', null, ['label' => 'label.vehicule.qRapportPuissMasse'])
-            ->add('s1NbPlaceAssise', null, ['label' => 'label.vehicule.s1NbPlaceAssise'])
-            ->add('s2NbPlaceDebout', null, ['label' => 'label.vehicule.s2NbPlaceDebout'])
+            ->add('s1NbPlaceAssise', IntegerType::class, ['label' => 'label.vehicule.s1NbPlaceAssise'])
+            ->add('s2NbPlaceDebout', IntegerType::class, ['label' => 'label.vehicule.s2NbPlaceDebout'])
             ->add('u1NiveauSonore', null, ['label' => 'label.vehicule.u1NiveauSonore'])
             ->add('u2NbTours', null, ['label' => 'label.vehicule.u2NbTours'])
             ->add('v7Co2', null, ['label' => 'label.vehicule.v7Co2'])

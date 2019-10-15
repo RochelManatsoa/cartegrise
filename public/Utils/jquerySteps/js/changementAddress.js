@@ -11,97 +11,9 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
             transitionEffect: transitionEffect,
             onStepChanging: function(event, currentIndex, newIndex) {
                 // Allways allow previous action even if the current form is not valid!
-                if (currentIndex === 0 && newIndex === 1) {
-                    if ($('#demande_changement_adresse_changementAdresse_nouveauxTitulaire_type').val() == 'phys') {
-                        $('#example-advanced-form').validate({
-                            rules: {
-                                /**PARTIE 01 TITULAIRE */
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][birthName]': {
-                                    required: true,
-                                    minlength: 3,
-                                    maxlength: 60,
-                                },
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][prenomTitulaire]': {
-                                    required: true,
-                                    minlength: 3,
-                                    maxlength: 60,
-                                },
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][dateN]': {
-                                    required: true,
-                                },
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][lieuN]': {
-                                    required: true,
-                                    minlength: 3,
-                                    maxlength: 60,
-                                },
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][paysN]': {
-                                    required: true,
-                                    minlength: 3,
-                                    maxlength: 60,
-                                },
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][droitOpposition]': {
-                                    required: true
-                                },
-                            },
-                            messages: {
-                                /**PARTIE 01 TITULAIRE */
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][birthName]': {
-                                    required: "Le nom du titulaire ne doit pas être vide!",
-                                    minlength: "Le nom du titulaire est trop court!",
-                                    maxlength: "Le nom du titulaire est trop long!",
-                                },
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][prenomTitulaire]': {
-                                    required: "Ce prénom(s) ne doit pas être vide!",
-                                    minlength: "Votre prénom(s) est trop court!",
-                                    maxlength: "Votre prénom(s) est trop long!"
-                                },
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][dateN]': {
-                                    required: "Ce champ ne doit pas être vide!",
-                                },
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][lieuN]': {
-                                    required: "Le lieu de naissance ne doit pas être vide",
-                                    minlength: "Le lieu de naissance est trop court",
-                                    maxlength: "Le lieu de naissance est trop long",
-                                },
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][paysN]': {
-                                    required: "Le pays ne doit pas être vide",
-                                    minlength: "Le pays est trop court!",
-                                    maxlength: "Le pays est trop long!"
-                                },
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][droitOpposition]': {
-                                    required: ""
-                                },
-                            }
-                        });
-                        return false;
-                    }else {
-                        $('#example-advanced-form').validate({
-                            rules: {
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][raisonSociale]': {
-                                    required: true,
-                                },
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][siren]': {
-                                    required: true,
-                                },
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][societeCommerciale]': {
-                                    required: true,
-                                },
-                            },
-                            messages: {
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][raisonSociale]': {
-                                    required: "Ce champ ne doit pas être vide!",
-                                },
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][siren]': {
-                                    required: "Ce champ ne doit pas être vide",
-                                },
-                                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][societeCommerciale]': {
-                                    required: "Ce champ ne doit pas être vide",
-                                },
-                            }
-                        });
-                        return false;
-                    };
-                }
+                console.log(currentIndex, newIndex);
+                /*if (currentIndex === 0 && newIndex === 1) { 
+                }*/
                 if (currentIndex > newIndex) {
                     return true;
                 }
@@ -141,10 +53,146 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 element.before(error);
             },
             rules: {
+                /**PARTIE 01 TITULAIRE*/
+                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][type]": {
+                    required: {
+                        depends: function () {
+                            let persone = $('#demande_changement_adresse_changementAdresse_nouveauxTitulaire_type').val();
+
+                            if (persone == 'phy') {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+
+                        }
+                    }
+                },
+                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][nomPrenomTitulaire]': {
+                    required: {
+                        depends: function () {
+                            let persone = $('#demande_changement_adresse_changementAdresse_nouveauxTitulaire_type').val();
+
+                            if (persone == 'phy') {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+
+                        }
+                    }                    
+                },
+                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][birthName]": {
+                    required: {
+                        depends: function () {
+                            let persone = $('#demande_changement_adresse_changementAdresse_nouveauxTitulaire_type').val();
+
+                            if (persone == 'phy') {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+
+                        }
+                    }
+                },
+                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][prenomTitulaire]": {
+                    required: {
+                        depends: function () {
+                            let persone = $('#demande_changement_adresse_changementAdresse_nouveauxTitulaire_type').val();
+
+                            if (persone == 'phy') {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+
+                        }
+                    }
+                },
+                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][dateN]": {
+                    required: {
+                        depends: function () {
+                            let persone = $('#demande_changement_adresse_changementAdresse_nouveauxTitulaire_type').val();
+
+                            if (persone == 'phy') {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+
+                        }
+                    }
+                },
+                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][lieuN]": {
+                    required: {
+                        depends: function () {
+                            let persone = $('#demande_changement_adresse_changementAdresse_nouveauxTitulaire_type').val();
+
+                            if (persone == 'phy') {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+
+                        }
+                    }
+                },
+                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][paysN]": {
+                    required: {
+                        depends: function () {
+                            let persone = $('#demande_changement_adresse_changementAdresse_nouveauxTitulaire_type').val();
+
+                            if (persone == 'phy') {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+
+                        }
+                    }
+                },
+                /**SOCIETE*/
+                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][raisonSociale]": {
+                    required: {
+                        depends: function () {
+                            let persone = $('#demande_changement_adresse_changementAdresse_nouveauxTitulaire_type').val();
+
+                            if (persone == 'mor') {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+
+                        }
+                    }
+                },
+                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][siren]": {
+                    required: {
+                        depends: function () {
+                            let persone = $('#demande_changement_adresse_changementAdresse_nouveauxTitulaire_type').val();
+
+                            if (persone == 'mor') {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+
+                        }
+                    }
+                },
                 /**PARTIE 02 ANCIENNE ADRESSE */
                 "demande_changement_adresse[changementAdresse][ancienAdresse][numero]": {
                     required: true,
-                    number: true,
                 },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][extension]": {
                     required: true,
@@ -152,135 +200,110 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][nom]": {
                     required: true,
-                    minlength: 3,
-                    maxlength: 60,
                 },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][complement]": {
                     required: true,
-                    minlength: 4,
-                    maxlength: 120,
                 },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][codepostal]": {
                     required: true,
-                    minlength: 3,
-                    maxlength: 15,
                 },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][ville]": {
                     required: true,
-                    minlength: 4,
-                    maxlength: 60,
                 },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][isHosted]": {
                     required: true,
                 },
-
                 /**PARTIE 03 NOUVELLE ADRESSE */
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][numero]": {
                     required: true,
-                    number: true,
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][extension]": {
                     required: true,
-                    maxlength: 3,
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][nom]": {
                     required: true,
-                    minlength: 3,
-                    maxlength: 60,
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][complement]": {
                     required: true,
-                    minlength: 3,
-                    maxlength: 120,
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][codepostal]": {
                     required: true,
-                    minlength: 3,
-                    maxlength: 15,
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][ville]": {
                     required: true,
-                    minlength: 4,
-                    maxlength: 60,
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][isHosted]": {
                     required: true,
-                },
-
+                }
             },
             messages: {
+                /**PARTIE 01 TITULAIRE*/
+                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][nomPrenomTitulaire]': {
+                    required: "Champs obligatoire"
+                },
+                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][birthName]': {
+                    required: "Champs obligatoire",
+                },
+                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][prenomTitulaire]': {
+                    required: "Champs obligatoire",
+                },
+                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][dateN]': {
+                    required: "Champs obligatoire",
+                },
+                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][lieuN]': {
+                    required: "Champs obligatoire",
+                },
+                'demande_changement_adresse[changementAdresse][nouveauxTitulaire][paysN]': {
+                    required: "Champs obligatoire",
+                },
+                /**SOCIETE*/
+                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][raisonSociale]": {
+                    required: "Champs obligatoire",
+                },
+                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][siren]": {
+                    required: "Champs obligatoire",
+                },
                 /**PARTIE 02 ANCIENNE ADRESSE */
                 "demande_changement_adresse[changementAdresse][ancienAdresse][numero]": {
-                    required: "Ce champ ne doit pas être vide!",
-                    number: "Le numéro de la voie est invalide!",
+                    required: "Champs obligatoire",
                 },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][extension]": {
-                    required: "Ce champ ne doit pas être vide!",
-                    maxlength: "L'extension que vous avez entré est trop long!"
-
+                    required: "Champs obligatoire",
                 },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][nom]": {
-                    required: "Le nom de la voie ne doit pas être vide!",
-                    minlength: "Le nom de la voie est trop court!",
-                    maxlength: "Le nom de la voie est trop long!"
+                    required: "Champs obligatoire",
                 },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][complement]": {
-                    required: "Le complément d'adresse ne doit pas être vide!",
-                    minlength: "Le complément d'adresse est trop court!",
-                    maxlength: "Le complément d'adresse est trop long!"
+                    required: "Champs obligatoire",
                 },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][codepostal]": {
-                    required: "Le code postal ne doit pas être vide!",
-                    minlength: "Votre code postal est trop court!",
-                    maxlength: "Votre code postal est trop long!"
-
+                    required: "Champs obligatoire",
                 },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][ville]": {
-                    required: "Ce champ ne doit pas être vide!",
-                    minlength: "Votre ville est trop court!",
-                    maxlength: "Votre ville est trop long!"
+                    required: "Champs obligatoire",
                 },
-                "demande_changement_adresse[changementAdresse][ancienAdresse][isHosted]": {
-                    required: "",
-                },
-
                 /**PARTIE 03 NOUVELLE ADRESSE */
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][numero]": {
-                    required: "Ce champ ne doit pas être vide!",
-                    number: "Le numéro de la voie est invalide!",
+                    required: "Champs obligatoire",
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][extension]": {
-                    required: "L'extension au numéro de rue ne doit pas être vide!",
-                    maxlength: "L'extension au numéro de rue est trop long!",
+                    required: "Champs obligatoire",
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][nom]": {
-                    required: "Le nom de la voie ne doit pas être vide!",
-                    minlength: "Le nom de la voie est trop court!",
-                    maxlength: "Le nom de la voie est trop long!",
+                    required: "Champs obligatoire",
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][complement]": {
-                    required: "Ce champ ne doit pas être vide!",
-                    minlength: "Le complément d'adresse est trop court!",
-                    maxlength: "Le complément d'adresse est trop long!",
+                    required: "Champs obligatoire",
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][codepostal]": {
-                    required: "Le code postal ne doit pas être vide!",
-                    minlength: "Votre code postal est trop court!",
-                    maxlength: "Votre code postal est trop long!",
+                    required: "Champs obligatoire",
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][ville]": {
-                    required: "Ce champ ne doit pas être vide!",
-                    minlength: "La ville est trop court!",
-                    maxlength: "La ville est trop long!",
-                },
-                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][isHosted]": {
-                    required: "",
-                },
-
+                    required: "Champs obligatoire",
+                }
             }
         });
 };
-
 function showElement(element){
     element.on('change', function(e) {
         $(e.target).parent('.form-group').siblings().toggle();
