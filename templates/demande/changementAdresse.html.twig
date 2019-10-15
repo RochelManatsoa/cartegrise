@@ -29,7 +29,7 @@
         </div>
         <div>
         {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
-            <h3>{{ form_label(form.changementAdresse.nouveauxTitulaire) }}</h3>
+            <h3>Titulaire</h3>
             <fieldset style="position: relative;width: 100%; border:none;">
                 <div class="titulaire">
                     {{ form_row(form.changementAdresse.nouveauxTitulaire.type,{'attr': {style:'width:100%'} })}}
@@ -45,11 +45,19 @@
                     {{ form_row(form.changementAdresse.nouveauxTitulaire.departementN)}}
                     {{ form_row(form.changementAdresse.nouveauxTitulaire.paysN)}}
                     {{ form_row(form.changementAdresse.nouveauxTitulaire.droitOpposition)}}
+                    {{ form_label(form.changementAdresse.numeroFormule)}}
+                        <span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
+                        template='{% include "demande/tooltips/templateCessionNumFormulCarteGrise.html.twig" %}'
+                        title="{% include 'demande/tooltips/cessionNumFormulCarteGrise.html.twig' %}">
+                    </span>
+                    {{ form_errors(form.changementAdresse.numeroFormule)}}
+                    {{ form_widget(form.changementAdresse.numeroFormule)}}
+            
                 </div>
             </fieldset>
 
-            <h3>{{ form_label(form.changementAdresse.ancienAdresse) }}</h3>
-            <fieldset style="position: relative;width: 100%;">
+            <h3>Ancienne Adresse</h3>
+            <fieldset style="position: relative;width: 100%; border:none;">
                 {% for adresse in form.changementAdresse.ancienAdresse %}
                 <div class="form-group">
                     {{ form_label(adresse)}}
@@ -59,8 +67,8 @@
                 {% endfor %}
             </fieldset>
 
-            <h3>{{ form_label(form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire) }}</h3>
-            <fieldset style="position: relative;width: 100%;">
+            <h3>Nouvelle Adresse</h3>
+            <fieldset style="position: relative;width: 100%; border:none;">
                 {% for address in form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire %}
                 {% if loop.index < 9 %}
                 <div class="form-group">
@@ -70,30 +78,23 @@
                 </div>
                 {% endif %}
             {% endfor %}
-            <div class="col-12 text-center">
+            </fieldset>
+
+            <h3>Resumé</h3>
+            <fieldset style="position: relative; width: 100%; border:none;">
+                <div id="resum"></div>
                 <div style="display:none">
                     {{form_rest(form)}}
                 </div>
-            </div>
-            </fieldset>
-
-            <h3>{{ form_label(form.changementAdresse.numeroFormule)}}</h3>
-            <fieldset style="position: relative;width: 100%;">
-                <span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
-                    template='{% include "demande/tooltips/templateCessionNumFormulCarteGrise.html.twig" %}'
-                    title="{% include 'demande/tooltips/cessionNumFormulCarteGrise.html.twig' %}">
-                </span>
-                {{ form_errors(form.changementAdresse.numeroFormule)}}
-                {{ form_widget(form.changementAdresse.numeroFormule)}}
             </fieldset>
         {{ form_end(form) }}
         </div>
     </div>
 
-
 {% endblock %}
 {% block javascripts %}
-{{ parent() }}
+<script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>
+<script src="{{ asset('Utils/js/jqueryUi.js')}}"></script>
 <script src="{{asset('Utils/jquerySteps/js/jquery.steps.js')}}"></script>
 <script src="{{asset('Utils/jquerySteps/js/jqueryValidate.js')}}"></script>
 <script src="{{asset('Utils/jquerySteps/js/changementAddress.js')}}"></script>
@@ -101,21 +102,6 @@
 <script type="application/javascript">
     $('.choice-type-ancientitulaire').on('change', function(e) {
         $(e.target).parent().siblings().toggle();
-    });
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    })
-</script>
-<!--<script type="application/javascript">
-    $('.choice-type-personne').on('change', function(e) {
-        $(e.target).parent('.form-group').siblings().toggle();
-    })
-</script>-->
-<script type="text/javascript">
-    $('.js-datepicker').datepicker({
-        dateFormat: 'dd/mm/yy',
-        changeMonth: true,
-        changeYear: true
     });
 </script>
 <script>
@@ -136,5 +122,15 @@
             );
         }
     );
+    $(document).ready(
+        function(){
+            datePickerFunction(
+                $('.js-datepicker')
+            );
+            $('[data-toggle="tooltip"]').tooltip();
+          
+        }
+    );
+
 </script>
 {% endblock %}

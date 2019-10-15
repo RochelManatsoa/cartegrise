@@ -3,23 +3,24 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
     title = title || "h3";
     bodyTag = bodyTag || "fieldset";
     transitionEffect = transitionEffect || "slideLeft";
+    isFinishing = false;
 
-    form
-        .steps({
+    form.steps({
             headerTag: title,
             bodyTag: bodyTag,
             transitionEffect: transitionEffect,
+            labels: {
+                current: "current step:",
+                pagination: "Pagination",
+                finish: "Terminer",
+                next: "Suivant",
+                previous: "Précédant",
+                loading: "Chargement ..."
+            },
             onStepChanging: function(event, currentIndex, newIndex) {
-                // Allways allow previous action even if the current form is not valid!
-                console.log(currentIndex, newIndex);
-                /*if (currentIndex === 0 && newIndex === 1) { 
-                }*/
+                //if (currentIndex === 0 && newIndex === 1) {}
                 if (currentIndex > newIndex) {
                     return true;
-                }
-                // Forbid next action on "Warning" step if the user is to young
-                if (newIndex === 3 && Number($("#age-2").val()) < 18) {
-                    return false;
                 }
                 // Needed in some cases if the user went back (clean up)
                 if (currentIndex < newIndex) {
@@ -32,12 +33,63 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
             },
             onStepChanged: function(event, currentIndex, priorIndex) {
                 // Used to skip the "Warning" step if the user is old enough.
-                if (currentIndex === 3 && Number($("#age-2").val()) >= 18) {
-                    form.steps("next");
-                }
-                // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
-                if (currentIndex === 2 && priorIndex === 3) {
-                    form.steps("previous");
+                if (currentIndex === 3) {
+                    let data = $('#example-advanced-form').serializeArray();
+                    let resum = $('#resum');
+                    let html = "";
+                    let typeNewTitulaire = "";
+                    let otherOldTitulaireArray = [
+                        "demande_changement_adresse[changementAdresse][ancienAdresse][numero]",
+                        "demande_changement_adresse[changementAdresse][ancienAdresse][extension",
+                        "demande_changement_adresse[changementAdresse][ancienAdresse][typevoie]",
+                        "demande_changement_adresse[changementAdresse][ancienAdresse][nom]",
+                        "demande_changement_adresse[changementAdresse][ancienAdresse][complement]",
+                        "demande_changement_adresse[changementAdresse][ancienAdresse][codepostal]",
+                        "demande_changement_adresse[changementAdresse][ancienAdresse][isHosted]",
+                    ];
+                    let otherNewTitulaireArray = [
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][numero]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][extension]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][typevoie]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][nom]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][complement]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][ville]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][isHosted]",
+                        "demande_changement_adresse[changementAdresse][numeroFormule]",
+                    ];
+                    let societyNewTitulaireArray = [
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][type]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][raisonSociale]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][siren]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][societeCommerciale]"
+                    ];
+                    let physicNewTitulaireArray = [
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][type]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][nomPrenomTitulaire]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][birthName]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][prenomTitulaire]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][dateN]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][lieuN]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][departementN]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][paysN]",
+                    ];
+                    data.forEach(element => {
+                        if (element.name === "demande_changement_adresse[changementAdresse][nouveauxTitulaire][type]")
+                            typeNewTitulaire = element.value;
+                        let name = element.name;
+
+                        if (typeNewTitulaire == 'mor' && 0 <= $.inArray(name, societyNewTitulaireArray)) {
+                            html = html.concat(element.name + " ==> " + element.value + "<br>");
+                        } else if (typeNewTitulaire == 'phy' && 0 <= $.inArray(name, physicNewTitulaireArray)) {
+                            html = html.concat(element.name + " ==> " + element.value + "<br>");
+                        } else if (0 <= $.inArray(name, otherOldTitulaireArray)) {
+                            html = html.concat(element.name + " ==> " + element.value + "<br>");
+                        } else if (0 <= $.inArray(name, otherNewTitulaireArray)) {
+                            html = html.concat(element.name + " ==> " + element.value + "<br>");
+                        }
+                    });
+                    resum.html(html);
+                    //console.log(data);
                 }
             },
             onFinishing: function(event, currentIndex) {
@@ -45,10 +97,9 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 return form.valid();
             },
             onFinished: function(event, currentIndex) {
-                alert("Submitted!");
+                form.submit();
             }
-        })
-        .validate({
+        }).validate({
             errorPlacement: function errorPlacement(error, element) {
                 element.before(error);
             },
@@ -188,7 +239,10 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                             }
 
                         }
-                    }
+                    },
+                    digits: true,
+                    minlength: 9,
+                    maxlength: 9,
                 },
                 /**PARTIE 02 ANCIENNE ADRESSE */
                 "demande_changement_adresse[changementAdresse][ancienAdresse][numero]": {
@@ -228,6 +282,10 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][ville]": {
                     required: true,
+                },
+                //PARTIE 04 NUMERO DE FORMULE PRESENT SUR LA CARTE GRISE
+                "demande_changement_adresse[changementAdresse][numeroFormule]": {
+                    required: true,
                 }
             },
             messages: {
@@ -256,6 +314,8 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][siren]": {
                     required: "Champs obligatoire",
+                    minlength: 'Le numéro doit être à 9 chiffres',
+                    maxlength: 'Le numéro doit être à 9 chiffres',
                 },
                 /**PARTIE 02 ANCIENNE ADRESSE */
                 "demande_changement_adresse[changementAdresse][ancienAdresse][numero]": {
@@ -294,6 +354,10 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][ville]": {
                     required: "Champs obligatoire",
+                },
+                //PARTIE 04 NUMERO DE FORMULE PRESENT SUR LA CARTE GRISE
+                "demande_changement_adresse[changementAdresse][numeroFormule]": {
+                    required: "Champs obligatoire",
                 }
             }
         });
@@ -304,3 +368,10 @@ function showElement(element){
         console.log(element);
     });
 };
+function datePickerFunction(element){
+    element.datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true
+    });
+}
