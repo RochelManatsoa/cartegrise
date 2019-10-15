@@ -5,7 +5,7 @@
 
 			<div id="formContent" class="px-3 px-lg-0">
 
-				<form class="formContent-bc col-12 row d-flex flex-row justify-content-center my-flex-container mt-5 pt-5" action="{{ path("fos_user_security_check") }}" method="post">
+				<form class="formContent-bc col-12 row d-flex flex-row justify-content-center my-flex-container" action="{{ path("fos_user_security_check") }}" method="post">
 					{% if error %}
 						<div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 					{% endif %}
@@ -22,10 +22,10 @@
 					<div class=" col-10 mx-auto fadeIn login-error mt-2">Mot de passe : </div>
 					<label class="hidden-xl-down" for="password">{{ 'security.login.password'|trans }}</label>
 					<input class="col-10 mx-auto fadeIn third" type="password" id="password" name="_password" placeholder="Mot de passe">
-
-					<label for="remember_me" class="col-6 form-check-label text-right mt-3 mb-3">{{ 'security.login.remember_me'|trans }}</label>
-					<input type="checkbox" id="remember_me" name="_remember_me" value="on" class="col-6 form-check-input text-left mt-3 mb-3" />
-
+					<div class="label-content-container d-flex justify-content-center align-items-center  mt-3 mb-3">
+						<input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+						<label for="remember_me" class="form-check-label">{{ 'security.login.remember_me'|trans }}</label>
+					</div>
 					<input type="submit" id="_submit" name="_submit" class="fadeIn fourth" value="{{ 'security.login.submit'|trans }}" />
 				</form>
 

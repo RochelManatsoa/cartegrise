@@ -28,10 +28,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
 
                 return true;
             }
-            // Forbid next action on "Warning" step if the user is to young
-            if (newIndex === 3 && Number($("#age-2").val()) < 18) {
-                return false;
-            }
+            
             // Needed in some cases if the user went back (clean up)
             if (currentIndex < newIndex) {
                 // To remove error styles
@@ -43,12 +40,73 @@ function initFormStep(form, title, bodyTag, transitionEffect)
         },
         onStepChanged: function (event, currentIndex, priorIndex) {
             // Used to skip the "Warning" step if the user is old enough.
-            if (currentIndex === 3 && Number($("#age-2").val()) >= 18) {
-                form.steps("next");
-            }
-            // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
-            if (currentIndex === 2 && priorIndex === 3) {
-                form.steps("previous");
+            if (currentIndex === 2) {
+                let data = $('#example-advanced-form').serializeArray();
+                let resum = $('#resum');
+                let html = "";
+                let typeAncienTitulaire = "";
+                let typeNewTitulaire = "";
+                let otherNewTitulaireArray = [
+                    "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][numero]",
+                    "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][extension]",
+                    "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][typevoie]",
+                    "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][nom]",
+                    "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][complement]",
+                    "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][codepostal]",
+                    "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][ville]",
+                    "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][isHosted]",
+                ];
+                let societyNouveauxTitulaireArray = [
+                    "demande_ctvo[ctvo][acquerreur][type]",
+                    "demande_ctvo[ctvo][acquerreur][raisonSociale]",
+                    "demande_ctvo[ctvo][acquerreur][siren]",
+                    "demande_ctvo[ctvo][acquerreur][societeCommerciale]",
+                ];
+                let physicNouveauxTitulaireArray = [
+                    "demande_ctvo[ctvo][acquerreur][type]",
+                    "demande_ctvo[ctvo][acquerreur][nomPrenomTitulaire]",
+                    "demande_ctvo[ctvo][acquerreur][prenomTitulaire]",
+                    "demande_ctvo[ctvo][acquerreur][genre]",
+                    "demande_ctvo[ctvo][acquerreur][dateN]",
+                    "demande_ctvo[ctvo][acquerreur][lieuN]",
+                    "demande_ctvo[ctvo][acquerreur][departementN]",
+                    "demande_ctvo[ctvo][acquerreur][paysN]",
+                    "demande_ctvo[ctvo][acquerreur][droitOpposition]",
+                ];
+                let societyAncienTitulaireArray = [
+                    "demande_ctvo[ctvo][ancienTitulaire][type]",
+                    "demande_ctvo[ctvo][ancienTitulaire][raisonsociale]",
+                    "demande_ctvo[ctvo][ciPresent]",
+                    "demande_ctvo[ctvo][numeroFormule]",
+                ];
+                let physicAncientitulaireArray = [
+                    "demande_ctvo[ctvo][ancienTitulaire][type]",
+                    "demande_ctvo[ctvo][ancienTitulaire][nomprenom]",
+                    "demande_ctvo[ctvo][ciPresent]",
+                    "demande_ctvo[ctvo][numeroFormule]",
+                ];
+                data.forEach(element => {
+                    if (element.name === "demande_ctvo[ctvo][ancienTitulaire][type]")
+                    {
+                        typeAncienTitulaire = element.value;
+                    } else if (element.name === "demande_ctvo[ctvo][acquerreur][type]"){
+                        typeNewTitulaire = element.value;
+                    }
+                    let name = element.name;
+                    
+                    if (typeAncienTitulaire === "mor" && 0 <= $.inArray(name, societyAncienTitulaireArray)) {
+                        html = html.concat(element.name + " ==> " + element.value + "<br>");
+                    } else if (typeAncienTitulaire === "phy" && 0 <= $.inArray(name, physicAncientitulaireArray)) {
+                        html = html.concat(element.name + " ==> " + element.value + "<br>");
+                    } else if (typeNewTitulaire === "mor" && 0 <= $.inArray(name, societyNouveauxTitulaireArray)) {
+                        html = html.concat(element.name + " ==> " + element.value + "<br>");
+                    } else if (typeNewTitulaire === "phy" && 0 <= $.inArray(name, physicNouveauxTitulaireArray)) {
+                        html = html.concat(element.name + " ==> " + element.value + "<br>");
+                    } else if (0 <= $.inArray(name, otherNewTitulaireArray)) {
+                        html = html.concat(element.name + " ==> " + element.value + "<br>");
+                    }   
+                });
+                resum.html(html);
             }
         },
         onFinishing: function (event, currentIndex) {
@@ -194,7 +252,10 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                         }
 
                     }
-                }
+                },
+                digits: true,
+                minlength: 9,
+                maxlength: 9,
             },
             "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][numero]": {
                 required: true
@@ -239,6 +300,8 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             },
             "demande_ctvo[ctvo][acquerreur][siren]": {
                 required: 'Champs obligatoire',
+                minlength: 'Le numéro doit être à 9 chiffres',
+                maxlength: 'Le numéro doit être à 9 chiffres'
             },
             "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][typevoie]": {
                 required: 'Champs obligatoire',
