@@ -210,9 +210,6 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 "demande_changement_adresse[changementAdresse][ancienAdresse][ville]": {
                     required: true,
                 },
-                "demande_changement_adresse[changementAdresse][ancienAdresse][isHosted]": {
-                    required: true,
-                },
                 /**PARTIE 03 NOUVELLE ADRESSE */
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][numero]": {
                     required: true,
@@ -230,9 +227,6 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                     required: true,
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][ville]": {
-                    required: true,
-                },
-                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][isHosted]": {
                     required: true,
                 }
             },
