@@ -2,13 +2,12 @@
 
 {% form_theme form 'demande/demande_custom_theme.html.twig'%}
 
-{% block title %}{% endblock %}
-
-{% block body_id %}{% endblock %}
-
 {% block class %}body-ccm{% endblock %}
 {% block stylesheets %}
     {{ parent()}}
+    <link href="{{asset('Utils/jquerySteps/css/jquery.steps.css')}}" rel="stylesheet">
+    <link href="{{asset('Utils/jquerySteps/css/main.css')}}" rel="stylesheet">
+    <link href="{{asset('Utils/jquerySteps/css/normalize.css')}}" rel="stylesheet">
     <style>
         .tooltip-inner {
             min-width: 100px;
@@ -22,49 +21,73 @@
 <div class="col-sm-10 col-lg-12 d-flex flex-row justify-content-center my-flex-container align-items-center mobile-center">
 	<div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
         <div class="col-12 commander-firstview mt-4 custom-form">
-            <h2 class="col-md-10 mx-auto full-mobile"> {{ commande.demarche.nom|upper }}</h2>
-            <div class="row">
+            <h2 class="col-md-10 mx-auto full-mobile"> {{ commande.demarche.nom }}</h2>
+            <div class="row col-12">
                 <hr>
-                {{ form_start(form, {'attr': {'class': 'row'}}) }}
-                    <div class="col-5 mx-auto full-mobile">
+                    <div class="col-4 col-md-10 mx-auto full-mobile">
                         {% include "demande/caracteristicVehicle.html.twig" %}
                     </div>
-                    <div class="col-5 mx-auto form-row full-mobile">
-                        <div class="col-12">
-                                {{ form_label(form.duplicata.numeroFormule)}}
+                    {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
+                        <h3>Etape</h3>
+                        <section style="position: relative;width: 100%;">
+                            <legend>{{ form_label(form.duplicata.titulaire)}}</legend>
+                                <div class="form-titulaire">
+                                    {{ form_row(form.duplicata.titulaire.type)}}
+                                    {{ form_row(form.duplicata.titulaire.raisonsociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.duplicata.titulaire.nomprenom)}}
+                                </div>
+
+                                <div class="motifDemande">
+                                    {{ form_row(form.duplicata.motifDemande)}}
+                                    {{ form_row(form.duplicata.datePerte)}}
+                                </div>
+                        </section>
+
+                        <h3>Etape</h3>
+                        <section style="position: relative;width: 100%;">
+                            <legend> 
+                                {{ form_label(form.duplicata.numeroFormule)}}                              
                                 <span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
                                     template='{% include "demande/tooltips/templateCessionNumFormulCarteGrise.html.twig" %}'
                                     title="{% include 'demande/tooltips/cessionNumFormulCarteGrise.html.twig' %}">
                                 </span>
-                                {{ form_errors(form.duplicata.numeroFormule)}}
-                                {{ form_widget(form.duplicata.numeroFormule)}}
-                                <br>
-                        </div>
-                        <div class="col-12">
-                            <h3 class="test-center">{{ form_label(form.duplicata.titulaire)}}</h3>
-                            <div class="form-titulaire">
-                                {{ form_row(form.duplicata.titulaire.type)}}
-                                {{ form_row(form.duplicata.titulaire.raisonsociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                {{ form_row(form.duplicata.titulaire.nomprenom)}}
+                            </legend> 
+                            {{ form_errors(form.duplicata.numeroFormule)}}
+                            {{ form_widget(form.duplicata.numeroFormule)}}
+                            <br>
+                        </section>
+                        <h3>Etape</h3>
+                        <section style="position: relative;width: 100%;">
+                            <div id="resum"></div>
+                            <div style="display:none;">
+                                {{form_rest(form)}}
                             </div>
-
-                            <div class="motifDemande">
-                                {{ form_row(form.duplicata.motifDemande)}}
-                                {{ form_row(form.duplicata.datePerte)}}
-                            </div>
-
-                            {# <div class="">
-                                {{ form_row(form.duplicata.demandeChangementTitulaire)}}
+                        </section style="position: relative;width: 100%;">
+                        {# <h3>Etape</h3>
+                        <section>
+                            <h4><strong>Liste des dossiers à fournir</strong></h4>
+                            {% if daf is defined %}
+                            <div id="daf-list-wrapper">
+                                    {{ daf|raw }}
+                                </div>
+                            {% endif %}
+                            <div class="col-12 text-center">
+                                
                             </div> #}
-
-                            {{ form_rest(form) }}
-                            <div class="col-12 text-center mb-5">
-                                <br>
-                                <input type="submit" class="btn btn-lg btn-success" value="Valider">
-                            </div>
-                        </div>
-                    </div>
-                {{ form_end(form) }}
+                            {# {% if formFile is defined %}
+                                {% if formFile is not null %}
+                                    {% include 'demande/file/FormDossier.html.twig' %}
+                                {% endif %}
+                                {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
+                                    <a href="{{ path("validate_file", {'demande': demande.id}) }}">
+                                        <button class="btn btn-info">
+                                            Valider
+                                        </button>
+                                    </a>
+                                {% endif %}
+                            {% endif %} #}
+                        {# </section> #}
+                    {{ form_end(form) }}
             </div>
         </div>
 	</div>
@@ -73,10 +96,12 @@
 
 {% block javascripts %}
 {{ parent() }}
+<script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>
+<script src="{{ asset('Utils/js/jqueryUi.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/jquery.steps.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/jqueryValidate.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/duplicata.js')}}"></script>
 <script type="application/javascript">
-    $('.choice-type-ancientitulaire').on('change', function(e) {
-        $(e.target).parent().siblings().toggle();
-    });
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     })
@@ -92,10 +117,34 @@
     });
 </script>
 <script type="text/javascript">
-    $('.js-datepicker').datepicker({
-        dateFormat: 'dd/mm/yy',
-        changeMonth: true,
-        changeYear: true
-    });
+    $(document).ready(
+        function(){
+            initFormStep(
+                $("#example-advanced-form"),
+                "h3",
+                "section",
+                "fade"
+            );
+        }
+    );
+
+    $(document).ready(
+        function(){
+            datePickerFunction(
+                $('.js-datepicker')
+            );
+        }
+    );
+    $(document).ready(
+        function(){
+            showElement(
+                $('.choice-type-ancientitulaire')
+            );
+            showElement(
+                $('.choice-type-personne')
+            );
+        }
+    );
+
 </script>
 {% endblock %}
