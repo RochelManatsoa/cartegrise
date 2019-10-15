@@ -75,13 +75,16 @@
 						<span></span>
 					</div>
 				</div>
-				<div class="col-3 mx-auto login-access-container d-flex justify-content-center align-items-center">
+				<div class="col-3 mx-auto login-access-container d-flex justify-content-center align-items-center flex-wrap">
 					{% if app.user %}
 					<a class="logout-access d-flex" href="/logout">
 						<button type="button" class="btn btn-primary text-center login-btn">
 							Se déconnecter
 						</button>
 					</a>
+					<div class="info-user">
+						<a href="#">Mes infos</a>
+					</div>
 					{% else %}
 					<a class="login-access d-flex" href="/login">
 						<button type="button" class="btn btn-primary text-center login-btn">
@@ -94,29 +97,31 @@
 					{% endif %}
 				</div>
 			</div>
-			<div class="col-7 offset-2 col-nav-header">
-				<ul class="nav-header d-flex justify-content-around">
-					<li>
-						<a href="{{ path('Accueil') }}" class="menu-item">Accueil</a>
-					</li>
-					<li>
-						<a href="{{ path('CommentCaMarche') }}" class="menu-item">Comment ça marche ?</a>
-						<ul class="nav-sub-menu">
-							<li>
-								<a href="#" class="menu-item">Documents téléchargeables</a>
-							</li>
-							<li>
-								<a href="#" class="menu-item">Pièces à fournir</a>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="{{ path('blog') }}" class="menu-item">actualités</a>
-					</li>
-					<li>
-						<a href="{{ path('prix_carte_grise') }}" class="menu-item">Prix carte grise</a>
-					</li>
-				</ul>
+			<div class="row col-nav-header">
+				<div class="col-7 offset-2">
+					<ul class="nav-header d-flex justify-content-around">
+						<li>
+							<a href="{{ path('Accueil') }}" class="menu-item">Accueil</a>
+						</li>
+						<li>
+							<a href="{{ path('CommentCaMarche') }}" class="menu-item">Comment ça marche ?</a>
+							<ul class="nav-sub-menu">
+								<li>
+									<a href="#" class="menu-item">Documents téléchargeables</a>
+								</li>
+								<li>
+									<a href="#" class="menu-item">Pièces à fournir</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="{{ path('blog') }}" class="menu-item">actualités</a>
+						</li>
+						<li>
+							<a href="{{ path('prix_carte_grise') }}" class="menu-item">Prix carte grise</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div id="sidebar-container" class="col-2 hidden-md-down" >
