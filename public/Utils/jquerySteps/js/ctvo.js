@@ -1,5 +1,6 @@
 function initFormStep(form, title, bodyTag, transitionEffect)
 {    
+    
     var form = form.show();
     title = title || "h3";
     bodyTag = bodyTag || "section";
@@ -179,6 +180,21 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     }
                 }
             },
+            "demande_ctvo[ctvo][acquerreur][dateN]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+
+                        if (persone == 'phy') {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
             "demande_ctvo[ctvo][acquerreur][departementN]": {
                 required: {
                     depends: function () {
@@ -319,7 +335,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                 required: 'Champs obligatoire',
             },
         }
-    });
+    });    
 };
 
 function showElement(element){
