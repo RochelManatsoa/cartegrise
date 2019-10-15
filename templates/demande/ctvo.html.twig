@@ -110,8 +110,13 @@
 	</div>
 </div>
 {% endblock %}
-{% block javascripts %} 
-{{ parent() }}
+{% block javascripts %}
+<script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>
+<script src="{{ asset('Utils/js/jqueryUi.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/jquery.steps.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/jqueryValidate.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/ctvo.js')}}"></script>
+
 <script type="application/javascript">
     $('.choice-type-cotitulaire').on('change', function(e) {
         $(e.target).parent('.form-group').siblings().toggle();
@@ -182,12 +187,6 @@
     }
 </script>
 <script type="text/javascript">
-    $('.js-datepicker').datepicker({
-        dateFormat: 'dd/mm/yy',
-        changeMonth: true,
-        changeYear: true
-    });
-
     $(document).ready(
         function(){
             initFormStep(
@@ -221,8 +220,6 @@
     );
 
 </script>
-<script src="{{asset('Utils/jquerySteps/js/jquery.steps.js')}}"></script>
-<script src="{{asset('Utils/jquerySteps/js/jqueryValidate.js')}}"></script>
-<script src="{{asset('Utils/jquerySteps/js/ctvo.js')}}"></script>
+
     
 {% endblock %}
