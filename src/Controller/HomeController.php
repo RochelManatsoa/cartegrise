@@ -35,8 +35,8 @@ class HomeController extends AbstractController
         TaxesManager $taxesManager,
         DivnInitManager $divnInitManager
         )
-    {   
-        
+    {
+
         $type = $demarche->findAll();
         $commande = $commandeManager->createCommande();
         foreach($type as $typeId) {
@@ -84,7 +84,7 @@ class HomeController extends AbstractController
 
             //     return $this->render('home/accueil.html.twig', $param);
             // } else {
-  
+
                 $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
                 if (!$tmsInfoImmat->isSuccessfull()) {
                     throw new \Exception('Veuillez Réessayer plus tard');
@@ -100,7 +100,7 @@ class HomeController extends AbstractController
                     $commande->setCarInfo($carInfo);
                     $manager->persist($commande);
                     $manager->persist($taxe);
-                    
+
                     $manager->flush();
                     $param = $this->getParamHome($commande, $sessionManager, $tabForm);
 
@@ -145,7 +145,7 @@ class HomeController extends AbstractController
             $manager->flush();
         } else {
             $param = array_merge(['tab' => $tabForm], $param);
-            // set and get session attributes 
+            // set and get session attributes
             $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
             // end treatment session
         }
@@ -210,10 +210,9 @@ class HomeController extends AbstractController
      * @Route("/prix-carte-grise", name="prix_carte_grise")
      */
     public function accueilSimulator()
-    {   
+    {
         return $this->render('home/prix.html.twig');
     }
-
 
     /**
      * @Route("/formulaire", name="formulaire")
@@ -231,7 +230,7 @@ class HomeController extends AbstractController
         TaxesManager $taxesManager,
         DivnInitManager $divnInitManager
         )
-    {   
+    {
         $commande = $commandeManager->createCommande();
         $form = $this->createForm(FormulaireType::class, $commande , ['departement'=>$commande->DEPARTMENTS]);
 
@@ -253,7 +252,7 @@ class HomeController extends AbstractController
 
             //     return $this->render('home/accueil.html.twig', $param);
             // } else {
-  
+
                 $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
                 if (!$tmsInfoImmat->isSuccessfull()) {
                     throw new \Exception('Veuillez Réessayer plus tard');
@@ -269,7 +268,7 @@ class HomeController extends AbstractController
                     $commande->setCarInfo($carInfo);
                     $manager->persist($commande);
                     $manager->persist($taxe);
-                    
+
                     $manager->flush();
                     $param = $this->getParamHome($commande, $sessionManager, $form);
 
