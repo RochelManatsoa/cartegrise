@@ -48,6 +48,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                 let typeTitulaire = "";
                 let motifsDemande = "";
                 let otherTitulaireArray = [
+                    "demande_duplicata[duplicata][motifDemande]",
                     "demande_duplicata[duplicata][numeroFormule]",
                 ];
                 let societyTitulaireArray = [
@@ -59,11 +60,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     "demande_duplicata[duplicata][titulaire][nomprenom]",
                 ];
                 let motifDemandePerteArray = [
-                    "demande_duplicata[duplicata][motifDemande]",
                     "demande_duplicata[duplicata][datePerte]",
-                ];
-                let otherMotifDemandeArray = [
-                    "demande_duplicata[duplicata][motifDemande]",
                 ];
                 data.forEach(element => {
                     if (element.name === "demande_duplicata[duplicata][titulaire][type]"){
@@ -72,17 +69,25 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                         motifsDemande = element.value;
                     }
                     let name = element.name;
+                    console.log(name);
+
+                    let label = {
+                        "demande_duplicata[duplicata][motifDemande]": "Motif de la demande",
+                        "demande_duplicata[duplicata][numeroFormule]": "Numéro de la formule",
+                        "demande_duplicata[duplicata][datePerte]": "Date de la perte",
+                        "demande_duplicata[duplicata][titulaire][type]": "Type titulaire",
+                        "demande_duplicata[duplicata][titulaire][raisonsociale]": "Raison Sociale",
+                        "demande_duplicata[duplicata][titulaire][nomprenom]": "Nom et prénom(s)",
+                    };
                     
-                    if (typeTitulaire === "mor" && 0 <= $.inArray(name, motifDemandePerteArray)) {
-                        html = html.concat(element.name + " ==> " + element.value + "<br>");
-                    } else if (typeTitulaire === "phy" && 0 <= $.inArray(name, otherMotifDemandeArray)) {
-                        html = html.concat(element.name + " ==> " + element.value + "<br>");
-                    } else if (motifsDemande === "PERT" && 0 <= $.inArray(name, societyTitulaireArray)) {
-                        html = html.concat(element.name + " ==> " + element.value + "<br>");
-                    } else if (motifsDemande ==! "PERT" && 0 <= $.inArray(name, physicTitulaireArray)) {
-                        html = html.concat(element.name + " ==> " + element.value + "<br>");
+                    if (typeTitulaire === "mor" && 0 <= $.inArray(name, societyTitulaireArray)) {
+                        html = html.concat(label[element.name] + " : " + element.value + "<br>");
+                    } else if (typeTitulaire === "phy" && 0 <= $.inArray(name, physicTitulaireArray)) {
+                        html = html.concat(label[element.name] + " : " + element.value + "<br>");
+                    } else if (motifsDemande === "PERT" && 0 <= $.inArray(name, motifDemandePerteArray )) {
+                        html = html.concat(label[element.name] + " : " + element.value + "<br>");
                     } else if (0 <= $.inArray(name, otherTitulaireArray)) {
-                        html = html.concat(element.name + " ==> " + element.value + "<br>");
+                        html = html.concat(label[element.name] + " : " + element.value + "<br>");
                     }   
                 });
                 resum.html(html);
@@ -181,5 +186,17 @@ function datePickerFunction(element){
         dateFormat: 'dd/mm/yy',
         changeMonth: true,
         changeYear: true
+    });
+}
+
+function showDatePerte(element){
+    element.on('change', function(e){
+        var Value = $(".motifDemande").find(":selected").text();
+        console.log(Value);
+        if (Value === "Perte") {
+            $(e.target).parent().siblings().show();
+        } else {
+            $(e.target).parent().siblings().hide();
+        }
     });
 }
