@@ -28,7 +28,6 @@
                     {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
                         <h3>Etape</h3>
                         <section style="position: relative;width: 100%;">
-                            <fieldset>
                                 <legend>{{ form_label(form.divn.acquerreur) }}</legend>
                                 <div class="titulaire">
                                     {{ form_row(form.divn.acquerreur.type)}}
@@ -44,8 +43,6 @@
                                     {{ form_row(form.divn.acquerreur.paysN)}}#}
                                     {{ form_row(form.divn.acquerreur.droitOpposition)}}
                                 </div>
-                            </fieldset> 
-                            <fieldset style="position: relative;width: 100%;">
                                 <legend>{{ form_label(form.divn.acquerreur.adresseNewTitulaire) }}</legend>
                                 {% for addresseNewTitulaire in form.divn.acquerreur.adresseNewTitulaire %}
                                     <div class="form-group">
@@ -54,8 +51,6 @@
                                         {{ form_widget(addresseNewTitulaire, {'attr': {'class': ''}})}}
                                     </div>
                                 {% endfor %} 
-                            </fieldset> 
-                            <fieldset style="position: relative;width: 100%;">
                                 <legend>{{ form_label(form.divn.cotitulaire) }}</legend>
                                 <ul class="tags" data-prototype="{{ form_widget(form.divn.cotitulaire.vars.prototype)|e('html_attr') }}">
                                     {% for tag in form.divn.cotitulaire %}
@@ -68,12 +63,10 @@
                                         {% endif %}
                                     {% endfor %}
                                 </ul> 
-                            </fieldset>  
                         </section>
 
                         <h3>Etape</h3>
                         <section style="position: relative;width: 100%;">
-                            <fieldset>
                                 <legend>{{ form_label(form.divn.vehicule) }}</legend>
                                     <div class="form-info">
                                         {{ form_row(form.divn.vehicule.vin)}}
@@ -110,8 +103,6 @@
                                             {{ form_row(form.divn.vehicule.v9ClasseEnvCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                         </div>
                                     </div>
-                            </fieldset>
-                            <fieldset style="position: relative;width: 100%;">
                                 <legend>{{ form_label(form.divn.carrosier) }}</legend>
                                 <div class="carrossier">
                                     {{ form_row(form.divn.carrosier.typeCarrossier)}}
@@ -121,8 +112,6 @@
                                 </div>
                                     {{ form_row(form.divn.carrosier.agrement)}}
                                     {{ form_row(form.divn.carrosier.justificatifs)}}
-                            </fieldset>  
-                            <fieldset style="position: relative;width: 100%;">
                                 <legend>{{ form_label(form.divn.caracteristiqueTechniquePart) }}</legend>
                                 <div id="caract" data-prototype="{{ form_widget(form.divn.caracteristiqueTechniquePart.vars.prototype)|e('html_attr') }}">
                                     {% for row in form.divn.cotitulaire %}
@@ -139,23 +128,19 @@
                                         {% endif %}
                                     {% endfor %}
                                 </div>
-                            </fieldset> 
                         </section>
+
                         <h3>Etape</h3>
                         <section style="position: relative;width: 100%;">
-                                <fieldset>
-                                    <legend></legend>
-                                </fieldset>
-                        </section>
-                        <h3>Etape</h3>
-                        <section style="position: relative;width: 100%;">
-                                <fieldset>
-                                    <legend></legend>
-                                </fieldset>
+                            <div id="resum"></div>
                             <div style="display:none;">
                                 {{form_rest(form)}}
                             </div>
                         </section>
+
+                        {# <h3>Etape</h3>
+                        <section style="position: relative;width: 100%;">
+                        </section> #}
                     {{ form_end(form) }}
                 </div>
             </div>
@@ -164,6 +149,11 @@
 {% endblock %}
 {% block javascripts %} 
 {{ parent() }}
+<script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>
+<script src="{{ asset('Utils/js/jqueryUi.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/jquery.steps.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/jqueryValidate.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/divn.js')}}"></script>
 <script type="application/javascript">
     var $collection;
     var $addNewItems = $('<center><button type="button" class="btn btn-outline-info">Ajouter caractéristique</button></center>');
@@ -268,15 +258,6 @@
     }
 </script>
 <script type="text/javascript">
-    $(document).ready(
-        function() {
-        $( "#demande_divn_divn_acquerreur_dateN" ).datepicker({
-            dateFormat: 'dd/mm/yy',
-            changeMonth: true,
-            changeYear: true
-        });
-    } 
-    );
 
     $(document).ready(
         function(){
@@ -303,9 +284,14 @@
         }
     );
 
+    $(document).ready(
+        function(){
+            datePickerFunction(
+                $('.js-datepicker')
+            );
+        }
+    );
+
 </script>
-<script src="{{asset('Utils/jquerySteps/js/jquery.steps.js')}}"></script>
-<script src="{{asset('Utils/jquerySteps/js/jqueryValidate.js')}}"></script>
-<script src="{{asset('Utils/jquerySteps/js/divn.js')}}"></script>
 </script>    
 {% endblock %}
