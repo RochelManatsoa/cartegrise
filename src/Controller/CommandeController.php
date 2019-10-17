@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\PaiementType;
+use App\Entity\Demande;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 use App\Entity\Commande;
@@ -61,5 +62,15 @@ class CommandeController extends AbstractController
                 'formCGV'    => $formCGV->createView(),
             ]
         );
+    }
+
+    /**
+     * @Route("/{commande}/paiement", name="commande_recap_paiement")
+     */
+    public function paiement(Commande $commande)
+    {
+        return $this->render('commande/paiement.html.twig', [
+            'commande' => $commande,
+        ]);
     }
 }
