@@ -22,28 +22,19 @@
     }
 }
 .demarche-container {
-    margin-bottom: 20px;
-    width: 100%;
-    .tab-demarche {
-        a {
-            width: 33.33%;
-            text-align: center;
-            color: #1f3864;
-            font-size: 18px;
-            padding: 5px;
-            border: 1px solid #1f3864;
-            &.active-tab {
-                background: #dadada;
-            }
-        }
-    }
+    position: relative;
+    margin: 20px;
+    border: solid #f7f7f9;
+    padding: 1.5rem;
+    margin-right: 0;
+    margin-left: 0;
+    border-width: .2rem;
     .content-demarche {
-        border: 1px solid #1f3864;
-        background: #999999;
+        background: #eeeeee;
         padding: 10px;
         height: 400px;
-        a {
-            color: #ffffff;
+        p {
+            color: #1f3864;
             font-size: 18px;
         }
     }
