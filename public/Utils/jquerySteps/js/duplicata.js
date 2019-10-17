@@ -50,6 +50,14 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                 let otherTitulaireArray = [
                     "demande_duplicata[duplicata][motifDemande]",
                     "demande_duplicata[duplicata][numeroFormule]",
+                    "demande_duplicata[duplicata][adresse][numero]",
+                    "demande_duplicata[duplicata][adresse][extension]",
+                    "demande_duplicata[duplicata][adresse][typevoie]",
+                    "demande_duplicata[duplicata][adresse][nom]",
+                    "demande_duplicata[duplicata][adresse][complement]",
+                    "demande_duplicata[duplicata][adresse][codepostal]",
+                    "demande_duplicata[duplicata][adresse][ville]",
+                    "demande_duplicata[duplicata][adresse][isHosted]",
                 ];
                 let societyTitulaireArray = [
                     "demande_duplicata[duplicata][titulaire][type]",
@@ -69,25 +77,47 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                         motifsDemande = element.value;
                     }
                     let name = element.name;
-                    console.log(name);
+                    let value = element.value;
 
                     let label = {
                         "demande_duplicata[duplicata][motifDemande]": "Motif de la demande",
                         "demande_duplicata[duplicata][numeroFormule]": "Numéro de la formule",
                         "demande_duplicata[duplicata][datePerte]": "Date de la perte",
-                        "demande_duplicata[duplicata][titulaire][type]": "Type titulaire",
+                        "demande_duplicata[duplicata][titulaire][type]": "Titulaire",
                         "demande_duplicata[duplicata][titulaire][raisonsociale]": "Raison Sociale",
                         "demande_duplicata[duplicata][titulaire][nomprenom]": "Nom et prénom(s)",
+                        "demande_duplicata[duplicata][adresse][numero]" : "Numéro de la rue",
+                        "demande_duplicata[duplicata][adresse][extension]" : "Extension",
+                        "demande_duplicata[duplicata][adresse][typevoie]" : "Type de la voie",
+                        "demande_duplicata[duplicata][adresse][nom]" : "Nom de la voie",
+                        "demande_duplicata[duplicata][adresse][complement]" : "Complément",
+                        "demande_duplicata[duplicata][adresse][codepostal]" : "Code postal",
+                        "demande_duplicata[duplicata][adresse][ville]" : "Ville",
+                        "demande_duplicata[duplicata][adresse][isHosted]" : "Etes-vous hébergé(e)?",
+                    };
+
+                    if(value === "1"){
+                        value = "Oui";
+                    }else if(value === "0"){
+                        value = "Non";
+                    }else if(value === ""){
+                        value = "Non renseigné";
+                    }else if(value === "mor"){
+                        value = "Société";
+                    }else if(value === "phy"){
+                        value = "Personne physique";
+                    }else{
+                        value;
                     };
                     
                     if (typeTitulaire === "mor" && 0 <= $.inArray(name, societyTitulaireArray)) {
-                        html = html.concat(label[element.name] + " : " + element.value + "<br>");
+                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                     } else if (typeTitulaire === "phy" && 0 <= $.inArray(name, physicTitulaireArray)) {
-                        html = html.concat(label[element.name] + " : " + element.value + "<br>");
+                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                     } else if (motifsDemande === "PERT" && 0 <= $.inArray(name, motifDemandePerteArray )) {
-                        html = html.concat(label[element.name] + " : " + element.value + "<br>");
+                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                     } else if (0 <= $.inArray(name, otherTitulaireArray)) {
-                        html = html.concat(label[element.name] + " : " + element.value + "<br>");
+                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                     }   
                 });
                 resum.html(html);
@@ -153,6 +183,24 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                 digits: true,
                 minlength: 11,
                 maxlength: 11,
+            },
+            "demande_duplicata[duplicata][adresse][numero]": {
+                required: true
+            },
+            "demande_duplicata[duplicata][adresse][typevoie]": {
+                required: true
+            },
+            "demande_duplicata[duplicata][adresse][nom]": {
+                required: true
+            },
+            "demande_duplicata[duplicata][adresse][codepostal]": {
+                required: true,
+                digits: true,
+                minlength: 5,
+                maxlength: 5,
+            },
+            "demande_duplicata[duplicata][adresse][ville]": {
+                required: true
             }
         },
         messages:{
@@ -169,6 +217,23 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                 required: 'Champs obligatoire',
                 minlength: 'Le numéro doit être à 11 chiffres',
                 maxlength: 'Le numéro doit être à 11 chiffres'
+            },
+            "demande_duplicata[duplicata][adresse][typevoie]": {
+                required: 'Champs obligatoire',
+            },
+            "demande_duplicata[duplicata][adresse][nom]": {
+                required: 'Champs obligatoire',
+            },
+            "demande_duplicata[duplicata][adresse][codepostal]": {
+                required: 'Champs obligatoire',
+                minlength: 'Le code postal doit être à 5 chiffres',
+                maxlength: 'Le code postal doit être à 5 chiffres'
+            },
+            "demande_duplicata[duplicata][adresse][ville]": {
+                required: 'Champs obligatoire',
+            },
+            "demande_duplicata[duplicata][adresse][numero]": {
+                required: 'Champs obligatoire',
             },
         }
     });    
