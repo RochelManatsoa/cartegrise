@@ -8,7 +8,25 @@
             <div class="col-12">
                 <div class="px-2">
                     <br>
-                    <h3>Vos demandes</h3>
+                    <h3 class="text-center title-client">ESPACE CLIENT</h3>
+                    <div class="nav-client mt-5">
+                        <ul class="d-flex align-items-center">
+                            <li><a href="#" class="nav-client-item home-item"><img src="{{ asset('asset/img/home-espace-client.png')}}" alt="home espace client"></a></li>
+                            <li><a href="#" class="nav-client-item">Historique</a></li>
+                            <li><a href="#" class="nav-client-item">Mails réçus</a></li>
+                        </ul>
+                    </div>
+                    <h3 class="title-client">Demarche:</h3>
+                    <div class="demarche-container">
+                        <div class="tab-demarche d-flex align-items-center">
+                            <a href="#" class="active-tab">Aperçu</a>
+                            <a href="#">Détails de la commande</a>
+                            <a href="#">J'envoie mes documents</a>
+                        </div>
+                        <div class="content-demarche">
+                            <a href="#">08 354: Demande de duplicata 24.09.2019 11h37</a>
+                        </div>
+                    </div>
                     <a href="{{ path('home') }}" class="">
                         <button class="btn btn-primary">
                             Nouvelle commande

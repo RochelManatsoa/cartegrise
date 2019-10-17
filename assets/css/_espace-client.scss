@@ -1,0 +1,50 @@
+.title-client {
+    color: #1f3864;
+}
+.nav-client {
+    img {
+        max-width: 40px;
+    }
+    .nav-client-item {
+        color: #1f3864;
+        border: 1px solid #1f3864;
+        padding: 5px 10px;
+        margin-right: 10px;
+        text-decoration: none;
+        font-size: 18px;
+        &:hover {
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        &.home-item {
+            border: none;
+        }
+    }
+}
+.demarche-container {
+    margin-bottom: 20px;
+    width: 100%;
+    .tab-demarche {
+        a {
+            width: 33.33%;
+            text-align: center;
+            color: #1f3864;
+            font-size: 18px;
+            padding: 5px;
+            border: 1px solid #1f3864;
+            &.active-tab {
+                background: #dadada;
+            }
+        }
+    }
+    .content-demarche {
+        border: 1px solid #1f3864;
+        background: #999999;
+        padding: 10px;
+        height: 400px;
+        a {
+            color: #ffffff;
+            font-size: 18px;
+        }
+    }
+}
