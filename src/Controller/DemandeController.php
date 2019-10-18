@@ -59,8 +59,22 @@ class DemandeController extends AbstractController
         return $this->render(
             'demande/list.html.twig',
             [
-                'demandes' => $demandeManager->getDemandeOfUser($this->getUser()),
-                'lastDemande' => $demandeManager->getLastDemandeForUser($this->getUser()),
+                'demande' => $demandeManager->getHerLastDemande(),
+                'client' => $this->getUser()->getClient(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/espace-client", name="espace_client")
+     * @Route("/espace-client/{demande}")
+     */
+    public function espaceClient(DemandeManager $demandeManager, ?Demande $demande=null)
+    {
+        return $this->render(
+            'demande/list.html.twig',
+            [
+                'demande' => $demandeManager->getHerLastDemande(),
                 'client' => $this->getUser()->getClient(),
             ]
         );
