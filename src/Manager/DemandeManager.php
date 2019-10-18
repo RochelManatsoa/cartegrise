@@ -219,6 +219,12 @@ class DemandeManager
         return $this->repository->countDemandeForUser($user)[1];
     }
 
+    public function getLastDemandeForUser(User $user)
+    {
+        // dd($this->repository->getLastDemande($user));
+        return $this->repository->getLastDemande($user);
+    }
+
     public function getDemandeOfUser(User $user)
     {
         return $this->repository->getDemandeForUser($user);

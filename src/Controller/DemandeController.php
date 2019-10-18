@@ -60,6 +60,7 @@ class DemandeController extends AbstractController
             'demande/list.html.twig',
             [
                 'demandes' => $demandeManager->getDemandeOfUser($this->getUser()),
+                'lastDemande' => $demandeManager->getLastDemandeForUser($this->getUser()),
                 'client' => $this->getUser()->getClient(),
             ]
         );
