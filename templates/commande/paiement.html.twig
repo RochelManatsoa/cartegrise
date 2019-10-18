@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block page_content %}
+<div class="col-12">
+	<div class="col-4">
+		<p>Image gauche</p>
+	</div>
+	<div class="col-12">
+		<h4 class="mb-4">CHOISISSEZ VOTRE MOYEN DE PAIEMENT</h4>
+		<ul style="list-style: none;">
+			<li class="mb-3">
+				<a href="" class="btn btn-lg btn-outline-info" style="width: 100%">
+					Paiement en plusieures fois
+				</a>
+			</li>
+			<li class="mb-3">
+				<a href="{{path('payment_commande', {'commande': commande.id })}}" class="btn btn-lg btn-outline-info" style="width: 100%">
+					CARTE BANCAIRE
+				</a>
+			</li>
+			<li class="mb-3">
+				<a href="" class="btn btn-lg btn-outline-info" style="width: 100%">
+					VIREMENT
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+{% endblock %}
