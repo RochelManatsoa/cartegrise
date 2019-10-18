@@ -134,7 +134,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     let value = element.value;
 
                     let label = {
-                        "demande_divn[divn][acquerreur][type]" : "Type du titulaire",
+                        "demande_divn[divn][acquerreur][type]" : "Titulaire",
                         "demande_divn[divn][acquerreur][raisonSociale]" : "Raison sociale",
                         "demande_divn[divn][acquerreur][siren]" : "SIREN",
                         "demande_divn[divn][acquerreur][societeCommerciale]" : "Société commerciale",

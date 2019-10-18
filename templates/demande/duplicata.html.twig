@@ -41,10 +41,6 @@
                                     {{ form_row(form.duplicata.motifDemande)}}
                                     {{ form_row(form.duplicata.datePerte)}}
                                 </div>
-                        </section>
-
-                        <h3>Etape</h3>
-                        <section style="position: relative;width: 100%;">
                             <legend> 
                                 {{ form_label(form.duplicata.numeroFormule)}}                              
                                 <span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
@@ -54,11 +50,23 @@
                             </legend> 
                             {{ form_errors(form.duplicata.numeroFormule)}}
                             {{ form_widget(form.duplicata.numeroFormule)}}
+                        </section>
+
+                        <h3>Etape</h3>
+                        <section style="position: relative;width: 100%;">
+                            <legend>{{ form_label(form.duplicata.adresse)}}</legend>
+                            {% for adresse in form.duplicata.adresse %}
+                            <div class="form-group">
+                                {{ form_label(adresse)}}
+                                {{ form_errors(adresse)}}
+                                {{ form_widget(adresse, {'attr': {'class': ''}})}}
+                            </div>
+                            {% endfor %}
                             <br>
                         </section>
                         <h3>Etape</h3>
                         <section style="position: relative;width: 100%;">
-                            <legend>Récapitulatif de la demande</legend>
+                            <legend>Récapitulatif des informations liées à la demande</legend>
                             <div id="resum"></div>
                             <div style="display:none;">
                                 {{form_rest(form)}}
