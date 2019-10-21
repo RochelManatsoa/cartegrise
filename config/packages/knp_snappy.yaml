@@ -1,12 +1,12 @@
 knp_snappy:
     pdf:
         enabled:    true
-        binary:     /usr/local/bin/wkhtmltopdf 
+        binary:     /usr/bin/wkhtmltopdf 
         options:    
             disable-javascript: true
             no-background: true
             encoding: UTF-8
     image:
         enabled:    true
-        binary:     /usr/local/bin/wkhtmltoimage
+        binary:     /usr/bin/wkhtmltoimage
         options:    []

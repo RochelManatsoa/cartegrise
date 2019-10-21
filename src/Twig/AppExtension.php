@@ -5,10 +5,7 @@ namespace App\Twig;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigFilter;
-use App\Entity\User;
-use App\Entity\Taxes;
-use App\Entity\TypeDemande;
-use App\Entity\Commande;
+use App\Entity\{Adresse, Commande, Taxes, TypeDemande, User};
 use App\Repository\TarifsPrestationsRepository;
 use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager};
 use App\Utils\StatusTreatment;
@@ -90,6 +87,7 @@ class AppExtension extends AbstractExtension
             new TwigFilter('cardNumber', [$this, 'formatCard']),
             new TwigFilter('statusMessage', [$this, 'statusMessage']),
             new TwigFilter('displayValue', [$this, 'displayValue']),
+            new TwigFilter('displayAdress', [$this, 'displayAdress']),
             new TwigFilter('displayGender', [$this, 'displayGender']),
             new TwigFilter('displayRelanceInfos', [$this, 'displayRelanceInfos']),
             new TwigFilter('displayEnergy', [$this, 'displayEnergy']),
@@ -161,6 +159,18 @@ class AppExtension extends AbstractExtension
             return $this->displayGender($value->getClientGenre()).' '.$this->displayValue($value->getClientNom()).' '.$this->displayValue($value->getClientPrenom());
 
         return $this->displayGender($value['clientGenre']).' '.$this->displayValue($value['clientNom']).' '.$this->displayValue($value['clientPrenom']);
+    }
+
+    public function displayAdress($value, $default = null)
+    {
+        $value = $this->displayValue($value, $default);
+        if (isset(Adresse::ROAD_NAME[$value])) {
+            return Adresse::ROAD_NAME[$value];
+        } elseif (!is_null($value) && $value != "") {
+            return $value;
+        }
+
+        return $default? $default : "--";
     }
 
     public function displayEnergy($value, $default = null)

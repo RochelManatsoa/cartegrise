@@ -81,6 +81,21 @@ class DemandeController extends AbstractController
     }
 
     /**
+     * @Route("/history", name="demande_history")
+     */
+    public function history(DemandeManager $demandeManager)
+    {
+        return $this->render(
+            'demande/history.html.twig',
+            [
+                'demandes' => $demandeManager->getHistoryDemandeOfUser($this->getUser()),
+                'lastDemande' => $demandeManager->getLastDemandeForUser($this->getUser()),
+                'client' => $this->getUser()->getClient(),
+            ]
+        );
+    }
+
+    /**
      * @Route("/{demande}/recap", name="demande_recap")
      */
     public function recap(Demande $demande, Request $request)

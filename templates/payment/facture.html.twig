@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Facture N°{{demande.transaction.id | number_format()}}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}</title>
+  <title>Facture N°{{demande.commande.transaction.id | number_format()}}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ pathToWeb ~ asset('css/style.css') }}">
@@ -36,7 +36,7 @@
       </div>
       <div class="col-5">
         <h1>FACTURE</h1>
-        <p><strong>N°{{demande.transaction.facture | formatFacture }}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}{{demande.transaction.id}}</strong></p>
+        <p><strong>N°{{demande.commande.transaction.facture | formatFacture }}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}{{demande.commande.transaction.id}}</strong></p>
       </div>
     </div>
     <br>
@@ -56,18 +56,17 @@
             {% else %}
              Monsieur 
             {% endif %}
-            {{ demande.commande.clientFacture.clientPrenom | capitalize }} 
-            {{ demande.commande.clientFacture.clientNom | upper}}
+            {{ titulaire }}
           </strong>
           <br>
-            {{ demande.commande.clientFacture.clientAdresse.numero }} 
-            {{ demande.commande.clientFacture.clientAdresse.typevoie }} 
-            {{ demande.commande.clientFacture.clientAdresse.nom }} 
-            {{ demande.commande.clientFacture.clientAdresse.complement }} 
-            {{ demande.commande.clientFacture.clientAdresse.extension }} 
+            {{ adresse.numero }} 
+            {{ adresse.typevoie | displayAdress}} 
+            {{ adresse.nom | upper }} 
+            {{ adresse.complement }} 
+            {{ adresse.extension }} 
           <br>
-            {{ demande.commande.clientFacture.clientAdresse.codePostal }} 
-            {{ demande.commande.clientFacture.clientAdresse.ville | upper }} 
+            {{ adresse.codePostal }} 
+            {{ adresse.ville | upper }} 
         </p>
       </div>
     </div>
@@ -84,9 +83,9 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{demande.transaction.facture | formatFacture }}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}{{demande.transaction.id}}</td>
+          <td>{{demande.commande.transaction.facture | formatFacture }}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}{{demande.commande.transaction.id}}</td>
           <td class="text-center">{{demande.dateDemande | date('d/m/Y')}}</td>
-          <td class="text-center">{{demande.transaction.transactionId}}</td>
+          <td class="text-center">{{demande.commande.transaction.transactionId}}</td>
         </tr>
       </tbody>
     </table>
