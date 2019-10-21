@@ -124,8 +124,11 @@
 				</div>
 			</div>
 		</div>
-		<div id="sidebar-container" class="col-2 hidden-md-down" >
+		<div id="sidebar-container" class="col-2 hidden-md-down d-flex align-items-center" >
 			{# {{ include('home/composant/sidebar.html.twig') }} #}
+			<a href="#">
+				<img class="" src="{{ asset('asset/img/call-cgo.png')}}">
+			</a>
 		</div>
 		<div class="col-12 col-lg-7 col-md-8 col-sm-12">
 			{% block page_content %}{% endblock %}
@@ -166,6 +169,23 @@
 						
 					</ul>
 					{% endif %}
+					<div class="menu-info-sidebar">
+						<ul>
+							<li class="info-sibebar-item">
+								<a href="#">Entrez vos informations</a>
+							</li>
+							<li class="info-sibebar-item">
+								<a href="#">Envoyez nous vos documents</a>
+							</li>
+							<li class="info-sibebar-item">
+								<a href="#">Traitement 24h *</a>
+							</li>
+							<li class="info-sibebar-item">
+								<a href="#">Attendez votre nouvelle carte grise chez vous</a>
+							</li>
+						</ul>
+						<span>(* Après réception de votre dossier)</span>
+					</div>
 					<span class="txt-other-link text-center mt-4 bold">Bienvenue sur le service d'immatriculation de véhicule en ligne rapide, sécurisé et agrée:</span>
 					{# <div class="mt-4">
 						<img class="img-fluid" src="{{ asset('asset/img/critair-sidebar.png')}}" alt="crit'air">
