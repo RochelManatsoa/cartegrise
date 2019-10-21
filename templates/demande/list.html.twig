@@ -14,7 +14,7 @@
                     <div class="nav-client mt-5">
                         <ul class="d-flex align-items-center">
                             <li><a href="#" class="nav-client-item home-item"><img src="{{ asset('asset/img/home-espace-client.png')}}" alt="home espace client"></a></li>
-                            <li><a href="#" class="nav-client-item">Historique</a></li>
+                            <li><a href="{{ path('demande_history') }}" class="nav-client-item">Historique</a></li>
                             <li><a href="#" class="nav-client-item">Mails réçus</a></li>
                         </ul>
                     </div>
@@ -33,19 +33,41 @@
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
                             <div class="content-demarche tab-pane fade show active" id="pills-apercu" role="tabpanel" aria-labelledby="pills-apercu-tab">
-                                <p>{{ lastDemande.transaction}} : {{ lastDemande.commande.demarche.nom }} {{ lastDemande.commande.ceerLe | date('d/m/Y à h:i:s')}}</p>
+                                <p>{{ lastDemande.commande.demarche.type}}-{{ lastDemande.id}}{{ lastDemande.commande.transaction.id}} : {{ lastDemande.commande.demarche.nom }} {{ lastDemande.commande.ceerLe | date('d/m/Y à h:i:s')}}</p>
                                 <p>Dossier à deposer en ligne: <span class="badge badge-{{ statusOfCommande(lastDemande.commande, "style") }}">{{ statusOfCommande(lastDemande.commande, "text") }}</span></p>
                                 <p>Dossier à envoyer par courier: A expédier / Reçu</p>
                                 <p>Paiement: En attente / Accepté / Refusé </p>
                             </div>
                             <div class="content-demarche tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                <p>{{ lastDemande.commande.demarche.nom }} {{ lastDemande.commande.ceerLe | date('d/m/Y - h:i')}}</p>
-                                <p>{{ lastDemande.commande.immatriculation | displayValue}}</p>
-                                <p>75 010</p>
-                                <br>
-                                <p>Votre commande expire le 24.10.19</p>
-                                <br>
-                                <p>Facture</p>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Type de démarche:</th>
+                                            <td>{{ lastDemande.commande.demarche.nom }} </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Date de démarche:</th>
+                                            <td>{{ lastDemande.commande.ceerLe | date('d/m/Y - h:i')}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Immatriculation:</th>
+                                            <td>{{ lastDemande.commande.immatriculation | displayValue}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Département:</th>
+                                            <td>{{ lastDemande.commande.codePostal | displayValue}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-center">
+                                    <br>
+                                    <p>Votre commande expire le 24.10.19</p>
+                                    <br>
+                                    <a href="{{path('payment_facture', {'demande': lastDemande.id })}}" target="_blank">
+                                        <button type="button" class="btn btn-info ">Facture</button>
+                                    </a>
+                                </div>
+
                             </div>
                             <div class="content-demarche tab-pane fade" id="pills-document" role="tabpanel" aria-labelledby="pills-document-tab">
                                 Finalisez votre démarche
