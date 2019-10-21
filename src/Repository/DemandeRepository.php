@@ -50,6 +50,19 @@ class DemandeRepository extends ServiceEntityRepository
     }
     */
 
+    public function getLastDemande(User $user)
+    {
+        return $this->createQueryBuilder('d')
+        ->join('d.commande','com')
+        ->join('com.client','c')
+        ->join('c.user','u')
+        ->where('u =:user')
+        ->orderBy('d.id', 'DESC')
+        ->setMaxResults(1)
+        ->setParameter('user', $user)->getQuery()->getOneOrNullResult();
+
+    }
+
     public function getDemandeForUser(User $user)
     {
         return $this->createQueryBuilder('d')

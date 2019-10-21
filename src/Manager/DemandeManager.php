@@ -503,4 +503,12 @@ class DemandeManager
         
         return 'sended';
     }
+
+    public function getHerLastDemande()
+    {
+       $user = $this->tokenStorage->getToken()->getUser();
+
+       return $this->repository->getLastDemande($user);
+    }
+
 }

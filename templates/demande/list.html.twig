@@ -10,6 +10,66 @@
             <div class="col-12">
                 <div class="px-2">
                     <br>
+                    <h3 class="text-center title-client">ESPACE CLIENT</h3>
+                    <div class="nav-client mt-5">
+                        <ul class="d-flex align-items-center">
+                            <li><a href="#" class="nav-client-item home-item"><img src="{{ asset('asset/img/home-espace-client.png')}}" alt="home espace client"></a></li>
+                            <li><a href="#" class="nav-client-item">Historique</a></li>
+                            <li><a href="#" class="nav-client-item">Mails réçus</a></li>
+                        </ul>
+                    </div>
+                    <h3 class="title-client">Demarche:</h3>
+                    <div class="demarche-container">
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-apercu-tab" data-toggle="pill" href="#pills-apercu" role="tab" aria-controls="pills-apercu" aria-selected="true">Aperçu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-document-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-document" aria-selected="false">Détails de la commande</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-document-tab" data-toggle="pill" href="#pills-document" role="tab" aria-controls="pills-document" aria-selected="false">J'envoie mes documents</a>
+                            </li>
+                        </ul>
+                        {% if demande is not null %}
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="content-demarche tab-pane fade show active" id="pills-apercu" role="tabpanel" aria-labelledby="pills-apercu-tab">
+                                <p>{{ demande.id}} : {{ demande.commande.demarche.nom }} - {{ demande.commande.ceerLe | date('d.m.Y à H\\h:i')}}</p>
+                                <p>
+                                    Dossier à deposer en ligne: 
+                                    <span class="badge badge-{{ statusOfCommande(demande.commande, "style") }}">
+                                        {{ statusOfCommande(demande.commande, "text") }}
+                                    </span>
+                                </p>
+                                <!-- <p>Dossier à envoyer par courier: A expédier / Reçu</p> -->
+                            </div>
+                            <div class="content-demarche tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                <p>{{ demande.commande.demarche.nom }} - {{ demande.commande.ceerLe | date('d.m.Y à H\\h:i')}}</p>
+                                <p>{{ demande.commande.immatriculation | displayValue}}</p>
+                                <br>
+                                <p>Votre commande expire le <span>{{ demande.commande.ceerLe |date_modify("+1 month")|date('d.m.Y à H\\h:i')}}</span></p>
+                                <br>
+                                <a href="{{path('payment_facture', {'demande':demande.id})}}" class="btn btn-primary">Facture</a>
+                            </div>
+                            <div class="content-demarche tab-pane fade" id="pills-document" role="tabpanel" aria-labelledby="pills-document-tab">
+                                <p>
+                                    Finalisez votre démarche 
+                                    {% if demande.commande.transaction is not null and demande.commande.transaction.status == "00" %}
+                                        <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
+                                            <button type="button" class="btn btn-primary btn-sm">Valider</button>
+                                        </a>                                            
+                                    {% else %}
+                                        {{ delete_form('demande_annuler', {id: demande.id}, 'demande' ~ demande.id, confirmMessage, 'Annuler', null, 'btn btn-danger btn-sm mb-1') }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        {%else%}
+                        <p>Auccune demande trouvée</p>
+                        {%endif%}
+                    </div>
+                    <br>
+
                     <h3>Commandes effectuées​</h3>
                     <hr>
                     <div class="table-responsive">
@@ -27,7 +87,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            {% for demande in demandes %}
+                            {% if demande is not null %}
                                 <tr>
                                     <td>{{ demande.id | displayValue}}</td>
                                     <td>{{ demande.commande.demarche.nom | displayValue}}</td>
@@ -53,7 +113,7 @@
                                 </tr>
                             {% else %}
                                 <tr><td colspan="8">Aucune demande trouvé</td></tr>
-                            {% endfor %}
+                            {% endif %}
                             </tbody>
                         </table>
                     </div>
