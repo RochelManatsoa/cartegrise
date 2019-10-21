@@ -70,6 +70,7 @@ class DemandeRepository extends ServiceEntityRepository
         ->join('com.client','c')
         ->join('c.user','u')
         ->where('u =:user')
+        ->orderBy('d.dateDemande', 'DESC')
         ->setParameter('user', $user)->getQuery()->getResult();
 
     }
