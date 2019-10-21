@@ -69,13 +69,25 @@ class DemandeController extends AbstractController
      * @Route("/espace-client", name="espace_client")
      * @Route("/espace-client/{demande}")
      */
-    public function espaceClient(DemandeManager $demandeManager, ?Demande $demande=null)
+    public function espaceClient(DemandeManager $demandeManager, DocumentAFournirManager $documentAFournirManager, ?Demande $demande=null)
     {
+        if (!$demande instanceof Demande) {
+            $demande = $demandeManager->getHerLastDemande();
+        }
+        $fileForm = null;
+        $fileType = $documentAFournirManager->getType($demande);
+        $files = $documentAFournirManager->getDaf($demande);
+        if (!null == $fileType) {
+            $fileForm = $this->createForm($fileType, $files);
+        }
+
         return $this->render(
             'demande/list.html.twig',
             [
-                'demande' => $demandeManager->getHerLastDemande(),
+                'demande' => $demande,
                 'client' => $this->getUser()->getClient(),
+                'form'      => is_null($fileForm) ? null :$fileForm->createView(),
+                "files"     => $files,
             ]
         );
     }

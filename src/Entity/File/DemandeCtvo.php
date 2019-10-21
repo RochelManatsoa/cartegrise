@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-29 12:14:35 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-05-27 12:37:22
+ * @Last Modified time: 2019-10-21 18:09:48
  */
 namespace App\Entity\File;
                                                                            
@@ -93,7 +93,6 @@ class DemandeCtvo
     private $copieControleTechnique;
     /**
     * @ORM\Column(type="string", nullable=true)
-    * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
     *     mimeTypes = {"application/pdf", "application/x-pdf"},

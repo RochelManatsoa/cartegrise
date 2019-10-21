@@ -51,9 +51,28 @@
                                 <br>
                                 <a href="{{path('payment_facture', {'demande':demande.id})}}" class="btn btn-primary">Facture</a>
                             </div>
-                            <div class="content-demarche tab-pane fade" id="pills-document" role="tabpanel" aria-labelledby="pills-document-tab">
+                            <div class="content-demarche tab-pane fade" id="pills-document" role="tabpanel" aria-labelledby="pills-document-tab" style="overflow: auto;">
                                 <p>
                                     Finalisez votre démarche 
+                                    {% for col in form %}
+                                        {% if col.vars.type is defined and col.vars.type == 'file' %}
+                                        <div class="group-input">
+                                            <div>
+                                                <h4>{{ form_label(col) }}
+                                                    {% if checkFile(files, col.vars.name) != "" %}
+                                                    <small>
+                                                        <a href="{{ asset(checkFile(files, col.vars.name)) }}"
+                                                            target="_blank">{{ form.vars.value.getRealFileName(col.vars.name) }}</a>
+                                                    </small>
+                                                    {% else %}
+                                                    <small class="text-danger">Aucun fichier !</small>
+                                                    {% endif %}
+                                                </h4>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        {% endif %}
+                                    {% endfor %}
                                     {% if demande.commande.transaction is not null and demande.commande.transaction.status == "00" %}
                                         <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
                                             <button type="button" class="btn btn-primary btn-sm">Valider</button>
