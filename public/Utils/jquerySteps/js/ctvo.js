@@ -283,7 +283,10 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                 required: true
             },
             "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][codepostal]": {
-                required: true
+                required: true,
+                digits: true,
+                minlength: 5,
+                maxlength: 5
             },
             "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][ville]": {
                 required: true
@@ -327,6 +330,8 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             },
             "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][codepostal]": {
                 required: 'Champs obligatoire',
+                minlength: 'Le code postal doit être à 5 chiffres',
+                maxlength: 'Le code postal doit être à 5 chiffres'
             },
             "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][ville]": {
                 required: 'Champs obligatoire',
@@ -344,7 +349,6 @@ function showElement(element){
         console.log(element);
     });
 }
-
 function datePickerFunction(element){
     element.datepicker({
         dateFormat: 'dd/mm/yy',

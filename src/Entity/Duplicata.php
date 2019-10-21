@@ -27,6 +27,11 @@ class Duplicata
      */
     private $titulaire;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Adresse", cascade={"persist", "remove"})
+     */
+    private $adresse;
+
     // for motif de la demande
     /**
      * @ORM\Column(type= "string")
@@ -165,6 +170,18 @@ class Duplicata
     public function setDeletedAt(?\DateTimeInterface $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?Adresse
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?Adresse $adresse): self
+    {
+        $this->adresse = $adresse;
 
         return $this;
     }

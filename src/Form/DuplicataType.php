@@ -40,6 +40,7 @@ class DuplicataType extends AbstractType
                         'style' => 'display:inline',
                     ],
                 ])
+            ->add('adresse', AdresseType::class, array('label'=>'label.adresse'))
             ->add('titulaire', AncientitulaireType::class, ['label' => 'label.titulaire']) 
         ;
     }

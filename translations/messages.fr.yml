@@ -16,27 +16,27 @@ type_demande:
                         <li>Attestation d'assurance habitation</li>
                     </ul>
                 </li>
-                <li>la demande de certificat d'immatriculation (cerfa 13750*05) 
+                <li>la demande de certificat d'immatriculation (cerfa 13750*05)
                     <a href="/../$cerfa" target="blank">
-                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>la déclaration de cession (cerfa 15776*01), à remplir conjointement par l'ancien propriétaire ou une facture établie par le vendeur  
+                <li>la déclaration de cession (cerfa 15776*01), à remplir conjointement par l'ancien propriétaire ou une facture établie par le vendeur
                     <a href="/../download/cgofficiel_cerfa-15776-01.pdf" target="blank">
-                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)   
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)
                     <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
-                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
                 <li>L'ancien certificat d'immatriculation remis par le précédent propriétaire, revêtu de la mention "vendu le ../../.... (date de cession)", suivi de sa signature, la preuve d'un contrôle technique de moins de 6 mois remis par le vendeur.</li>
                 <li>Dans le cas de copropriétaires mariés (hors régime de la séparation des bien), si le demandeur agit seul, il doit présenter un livret de famille.<br>
                 Si l'un des époux effectue la demande d'immatriculation à son nom propre, il doit fournir une attestation signée par l'autre époux lorsqu'il n'y pas concordance entre l'acquéreur et le demandeur ud titre.</li>
                 <li>le permis de conduire du titulaire du véhicule</li>
-                <li>l'attestation d'assurance du véhicule</li>  
-                <li>l'original de la CARTE GRISE" avec la mention « vendu le … /…/… (date de la cession) », suivie de sa signature</li>  
+                <li>l'attestation d'assurance du véhicule</li>
+                <li>l'original de la CARTE GRISE" avec la mention « vendu le … /…/… (date de la cession) », suivie de sa signature</li>
             </ol>
         dup: |
             <ol>
@@ -53,45 +53,45 @@ type_demande:
                         <li>Attestation d'assurance habitation</li>
                     </ul>
                 </li>
-                <li>la demande de certificat d'immatriculation (cerfa 13750*05) 
+                <li>la demande de certificat d'immatriculation (cerfa 13750*05)
                     <a href="/../$cerfa" target="blank">
-                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
                 <li>la déclaration originale de perte ou vol (la déclaration de vol doit être enregistrée et tamponnée par la police)
                     <a href="/../download/cgofficiel_cerfa-13753-01.pdf" target="blank">
-                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
                 <li>si votre véhicule a plus de 4 ans, preuve du contrôle technique en cours de validité, sauf si le véhicule est dispensé de contrôle technique </li>
                 <li>une pièce d'identité en cours de validité</li>
-                <li>l'attestation d'assurance du véhicule</li> 
+                <li>l'attestation d'assurance du véhicule</li>
                 <li>le permis de conduire du titulaire du véhicule</li>
-                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)   
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)
                     <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
-                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
             </ol>
         divn: |
             <ol>
                 <li>l'original du certificat de conformité Européen (COC)</li>
-                <li>le certificat de vente ORIGINAL ou facture d'achat du véhicule (cerfa 15776*01)  
+                <li>le certificat de vente ORIGINAL ou facture d'achat du véhicule (cerfa 15776*01)
                     <a href="/../download/cgofficiel_cerfa-15776-01.pdf" target="blank">
-                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
                 <li>une pièce d'identité en cours de validité</li>
-                <li>l'attestation d'assurance du véhicule</li> 
+                <li>l'attestation d'assurance du véhicule</li>
                 <li>le permis de conduire du titulaire du véhicule</li>
                 <li>la demande de certificat d'immatriculation (cerfa 13750*05)
                     <a href="/../$cerfa" target="blank">
-                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)   
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)
                     <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
-                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
                 <li>
@@ -111,13 +111,13 @@ type_demande:
         dca: |
             <ol>
                 <li>une copie recto/verso de la Carte Grise </li>
-                <li>la demande de certificat d'immatriculation (cerfa 13750*05) 
+                <li>la demande de certificat d'immatriculation (cerfa 13750*05)
                     <a href="/../$cerfa" target="blank">
-                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
                 <li>une pièce d'identité en cours de validité</li>
-                <li>l'attestation d'assurance du véhicule</li> 
+                <li>l'attestation d'assurance du véhicule</li>
                 <li>le permis de conduire du titulaire du véhicule</li>
                 <li>
                     un justificatif de domicile de moins de 6 mois (au choix) :
@@ -132,17 +132,17 @@ type_demande:
                         <li>Attestation d'assurance habitation</li>
                     </ul>
                 </li>
-                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)   
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)
                     <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
-                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
             </ol>
         dc: |
             <div>
-                Le formulaire CERFA n° 15776*01 
+                Le formulaire CERFA n° 15776*01
                     <a href="/../$cerfa" target="blank">
-                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 doit être rempli par le vendeur et signé par l'acheteur.
                 Ce dernier est nécessaire au nouveau détenteur du véhicule pour l'immatriculer (carte grise) à son nom.
@@ -150,20 +150,20 @@ type_demande:
         dcs: |
             <ol>
                 <li>une copie recto/verso de la Carte Grise </li>
-                <li>la demande de certificat d'immatriculation (cerfa 13750*05) 
+                <li>la demande de certificat d'immatriculation (cerfa 13750*05)
                     <a href="/../$cerfa" target="blank">
-                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
                 <li>Extrait d'Acte de mariage / jugement de divorce / livret de famille</li>
                 <li>une copie du contrôle technique en cours de validité pour les véhicules de plus de 4 ans</li>
                 <li>une pièce d'identité en cours de validité</li>
-                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)   
+                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)
                     <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
-                        <button class="btn btn-outline-danger btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>l'attestation d'assurance du véhicule</li> 
+                <li>l'attestation d'assurance du véhicule</li>
                 <li>le permis de conduire du titulaire du véhicule</li>
                 <li>
                     un justificatif de domicile de moins de 6 mois (au choix) :
@@ -185,12 +185,13 @@ label:
     acquerreur: Acquéreur
     dateN: Date de naissance *
     lieuN: Lieu de naissance
-    adresseNewTitulaire: Adresse de l'Acquéreur 
-    ancienAdresseTitulaire: Adresse du Titulaire 
+    adresseNewTitulaire: Adresse de l'Acquéreur
+    ancienAdresseTitulaire: Adresse du Titulaire
     ancienTitulaire: Ancien Titulaire
     cotitulaire: Cotitulaire(s)
     dateCession: Date de cession
     ancienAdresse: Ancienne adresse
+    adresse: Votre adresse
     nouvelAdresse: Nouvelle adresse
     typevoie: Type de Voie *
     numerovoie: Numéro de la Voie *
@@ -211,7 +212,7 @@ label:
     valeur2: Valeur de la mention (uniquement en cas d’intervalle de valeur)
     cgv: J'ai pris connaissance des Conditions Générales de Vente
     retractation: Je renonce à mon droit de retractation
-    type: 
+    type:
         personne: Personne *
         fichier: Type de fichier
         demande: Type de demande
@@ -227,11 +228,11 @@ label:
             declarAchat: Déclaration d'achat
             permisCond: Permis de conduire
             attestAssur: Attestation d'assurance
-    
+
     oppose: Opposé(e) à la diffusion de vos données personnelle
     status: Status de la demande
     paiement: Paiement
-    tms: Tms 
+    tms: Tms
     progression: Progression de la demande
 
     admin:
@@ -282,7 +283,6 @@ label:
         pieceIdentiteValid: Pièce d'identité valide
         rectoVersoCarteGrise: Original de la CARTE GRISE
         copieRectoVersoCarteGrise: Copie recto verso de la CARTE GRISE
-        recepisseDemandeAchat: Récépissé de la demande d'achat
         copieControleTechnique: Copie du contrôle technique
         cerfaDeclarationdePerteOuVol: Cerfa de déclaration de perte ou vol >> Cerfa 13753*01
         copieControleTechniqueEnCoursValidite: Copie du contrôle technique en cours de validité

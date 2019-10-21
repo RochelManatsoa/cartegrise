@@ -51,8 +51,9 @@
 
     public function getParamDup(Commande $commande, $type = "Cerfa")
     {
-        $client = $this->tokenStorage->getToken()->getUser()->getClient();
-        $adresse = $client->getClientAdresse();
+		$dup = $commande->getDemande()->getDuplicata();
+		$adresse = $dup->getAdresse();
+		$titulaire = $dup->getTitulaire();
 		$carInfo = $commande->getCarInfo();
 		$now = new \DateTime();
         return [
@@ -64,7 +65,7 @@
 					"DateDemarche" => $now->format('Y-m-d H:i:s'),
 					"Titulaire" => [
 						"DroitOpposition" => true,
-						"NomPrenom" => $client->getClientNomPrenom(),
+						"NomPrenom" => $titulaire->getNomPrenom(),
 					],
 					"Acquereur" => [
 						"Adresse" => [
@@ -91,8 +92,9 @@
 
     public function getParamDivn(Commande $commande, $type = "Cerfa")
     {
-        $client = $this->tokenStorage->getToken()->getUser()->getClient();
-        $adresse = $client->getClientAdresse();
+		$divn = $commande->getDemande()->getDivn();
+		$titulaire = $divn->getAcquerreur();
+        $adresse = $titulaire->getAdresseNewTitulaire();
         $carInfo = $commande->getCarInfo();
 
         // check if persone moral or not: 
@@ -139,7 +141,7 @@
 					'TypeDemarche' => $commande->getDemarche()->getType(),
 					"Titulaire" => [
 						"DroitOpposition" => true,
-                        "NomPrenom" => $client->getClientNomPrenom(),
+                        "NomPrenom" => $titulaire->getNomPrenomTitulaire().' '.$titulaire->getPrenomTitulaire(),
 					],
 					"Acquereur" => $acquerreur,
 					"Vehicule" => [
@@ -225,13 +227,13 @@
 	
 	public function getParamDca(Commande $commande, $type = "Cerfa")
     {
-        $client = $this->tokenStorage->getToken()->getUser()->getClient();
-        $adresse = $client->getClientAdresse();
         $carInfo = $commande->getCarInfo();
 		$now = new \DateTime();
 		$dca = $commande->getDemande()->getChangementAdresse();
 		$ancienAdresse = $dca->getAncienAdresse();
 		$nouvelleAdresse = $dca->getNouveauxTitulaire()->getAdresseNewTitulaire();
+		$nouveauxTitulaire = $commande->getDemande()->getChangementAdresse()->getNouveauxTitulaire();
+		$adresse = $nouveauxTitulaire->getAdresseNewTitulaire();
 
         return [
 			"Type"     => $type,
@@ -244,12 +246,12 @@
 						"PersonnePhysique" => [
 							"SocieteCommerciale" =>true,
 							"DroitOpposition" => true,
-							"NomPrenom" => $client->getClientNomPrenom(),
-							"NomNaissance" => $client->getClientNom(),
-							"Prenom" => $client->getClientPrenom(),
+							"NomPrenom" => $nouveauxTitulaire->getNomPrenomTitulaire(),
+							"NomNaissance" => $nouveauxTitulaire->getBirthName(),
+							"Prenom" => $nouveauxTitulaire->getPrenomTitulaire(),
 							"Sexe" => "M",
-							"DateNaissance" => $client->getClientDateNaissance()->format('dm-Y'),
-							"LieuNaissance" => $client->getClientLieuNaissance(),
+							"DateNaissance" => $nouveauxTitulaire->getDateN()->format('dm-Y'),
+							"LieuNaissance" => $nouveauxTitulaire->getLieuN(),
 						],
 						"AncienneAdresse" => [
 							"TypeVoie" => $ancienAdresse->getComplement(),
