@@ -31,97 +31,44 @@
                                 <a class="nav-link" id="pills-document-tab" data-toggle="pill" href="#pills-document" role="tab" aria-controls="pills-document" aria-selected="false">J'envoie mes documents</a>
                             </li>
                         </ul>
+                        {% if demande is not null %}
                         <div class="tab-content" id="pills-tabContent">
                             <div class="content-demarche tab-pane fade show active" id="pills-apercu" role="tabpanel" aria-labelledby="pills-apercu-tab">
-                                <p>{{ lastDemande.commande.demarche.type}}-{{ lastDemande.id}}{{ lastDemande.commande.transaction.id}} : {{ lastDemande.commande.demarche.nom }} {{ lastDemande.commande.ceerLe | date('d/m/Y à h:i:s')}}</p>
-                                <p>Dossier à deposer en ligne: <span class="badge badge-{{ statusOfCommande(lastDemande.commande, "style") }}">{{ statusOfCommande(lastDemande.commande, "text") }}</span></p>
-                                <p>Dossier à envoyer par courier: A expédier / Reçu</p>
-                                <p>Paiement: En attente / Accepté / Refusé </p>
+                                <p>{{ demande.id}} : {{ demande.commande.demarche.nom }} - {{ demande.commande.ceerLe | date('d.m.Y à H\\h:i')}}</p>
+                                <p>
+                                    Dossier à deposer en ligne: 
+                                    <span class="badge badge-{{ statusOfCommande(demande.commande, "style") }}">
+                                        {{ statusOfCommande(demande.commande, "text") }}
+                                    </span>
+                                </p>
+                                <!-- <p>Dossier à envoyer par courier: A expédier / Reçu</p> -->
                             </div>
                             <div class="content-demarche tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                <table class="table table-bordered">
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">Type de démarche:</th>
-                                            <td>{{ lastDemande.commande.demarche.nom }} </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Date de démarche:</th>
-                                            <td>{{ lastDemande.commande.ceerLe | date('d/m/Y - h:i')}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Immatriculation:</th>
-                                            <td>{{ lastDemande.commande.immatriculation | displayValue}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Département:</th>
-                                            <td>{{ lastDemande.commande.codePostal | displayValue}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="text-center">
-                                    <br>
-                                    <p>Votre commande expire le 24.10.19</p>
-                                    <br>
-                                    <a href="{{path('payment_facture', {'demande': lastDemande.id })}}" target="_blank">
-                                        <button type="button" class="btn btn-info ">Facture</button>
-                                    </a>
-                                </div>
-
+                                <p>{{ demande.commande.demarche.nom }} - {{ demande.commande.ceerLe | date('d.m.Y à H\\h:i')}}</p>
+                                <p>{{ demande.commande.immatriculation | displayValue}}</p>
+                                <br>
+                                <p>Votre commande expire le <span>{{ demande.commande.ceerLe |date_modify("+1 month")|date('d.m.Y à H\\h:i')}}</span></p>
+                                <br>
+                                <a  target="_blank" href="{{path('payment_facture', {'demande':demande.id})}}" class="btn btn-primary">Facture</a>
                             </div>
                             <div class="content-demarche tab-pane fade" id="pills-document" role="tabpanel" aria-labelledby="pills-document-tab">
-                                Finalisez votre démarche
+                                <p>
+                                    Finalisez votre démarche 
+                                    {% if demande.commande.transaction is not null and demande.commande.transaction.status == "00" %}
+                                        <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
+                                            <button type="button" class="btn btn-primary btn-sm">Valider</button>
+                                        </a>                                            
+                                    {% else %}
+                                        {{ delete_form('demande_annuler', {id: demande.id}, 'demande' ~ demande.id, confirmMessage, 'Annuler', null, 'btn btn-danger btn-sm mb-1') }}
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
+                        {%else%}
+                        <p>Auccune demande trouvée</p>
+                        {%endif%}
                     </div>
-                    <br>
-                    <h3>Commandes effectuées​</h3>
-                    <hr>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Commande</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Nom et prénom</th>
-                                    <th scope="col">Département</th>
-                                    <th scope="col">Immatriculation</th>
-                                    <th scope="col">Statu</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {% for demande in demandes %}
-                                <tr>
-                                    <td>{{ demande.id | displayValue}}</td>
-                                    <td>{{ demande.commande.demarche.nom | displayValue}}</td>
-                                    <td>{{ demande.commande.ceerLe | date('d-m-Y')}}</td>
-                                    <td>{{ client.clientNom | displayValue}} {{ client.clientPrenom | displayValue}}</td>
-                                    <td class="text-center">{{ demande.commande.codePostal | displayValue}}</td>
-                                    <td class="text-center">{{ demande.commande.immatriculation | displayValue}}</td>
-                                    <td>
-                                        <span class="badge badge-{{ statusOfCommande(demande.commande, "style") }}">{{ statusOfCommande(demande.commande, "text") }}</span>                                        
-                                    </td>
-                                    <td>
-                                        <a href="{{path('demande_recap', {'demande': demande.id })}}">
-                                            <button type="button" class="btn btn-primary btn-sm">Résumé</button>
-                                        </a>
-                                        {% if demande.commande.transaction is not null and demande.commande.transaction.status == "00" %}
-                                            <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
-                                                <button type="button" class="btn btn-primary btn-sm">Documents à fournir</button>
-                                            </a>                                            
-                                        {% else %}
-                                            {{ delete_form('demande_annuler', {id: demande.id}, 'demande' ~ demande.id, confirmMessage, 'Annuler', null, 'btn btn-danger btn-sm mb-1') }}
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% else %}
-                                <tr><td colspan="8">Aucune demande trouvé</td></tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                    
                 </div>
             </div>
         </div>
