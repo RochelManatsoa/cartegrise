@@ -3,12 +3,16 @@
 namespace App\Controller\Client;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\User;
 use App\Form\UpdateUserType;
+use App\Form\Registration\PasswordFormType;
 use App\Manager\UserManager;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Form\FormError;
 
 /**
  * @Route("/compte")
@@ -53,6 +57,48 @@ class AccountController extends AbstractController
 
         return $this->render(
             'client/account/update.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/update/{user}/password", name="update_password")
+     */
+    public function updatePassword(
+        Request $request, 
+        UserPasswordEncoderInterface $passwordEncoder,
+        UserManager $userManager,
+        TokenStorageInterface  $tokenStorage
+        )
+    {
+            $user = $this->getUser();
+            $form = $this->createForm(PasswordFormType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $oldPassword = $request->request->get('password_form')['password'];
+            if ($passwordEncoder->isPasswordValid($user, $oldPassword)) {
+                dd("okok");
+                $newEncodedPassword = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+                $user->setPassword($newEncodedPassword);
+            
+                $userManager->save($user);
+
+                $this->addFlash('notice', 'Votre mot de passe à bien été changé !');
+
+                return $this->redirectToRoute('compte');
+
+            } else {
+                dd("non ok");
+                $form->addError(new FormError('Ancien mot de passe incorrect'));
+            }
+        }
+
+        return $this->render(
+            'client/account/updatePassword.html.twig',
             [
                 'form' => $form->createView(),
             ]
