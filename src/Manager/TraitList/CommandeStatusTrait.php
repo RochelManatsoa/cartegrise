@@ -118,8 +118,12 @@ trait CommandeStatusTrait
     {
         if (
             null !== $commande->getDemande() &&
-            null !== $commande->getDemande()->getTransaction() &&
-            $commande->getDemande()->getTransaction()->getStatus() == "00"
+            (null !== $commande->getDemande()->getTransaction() || null !== $commande->getTransaction())
+            &&
+            (
+               ( !is_null($commande->getDemande()->getTransaction()) &&  $commande->getDemande()->getTransaction()->getStatus() == "00" )
+            || 
+                $commande->getTransaction()->getStatus())
             ) {
                 return 
                 [

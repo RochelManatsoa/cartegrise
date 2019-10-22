@@ -40,12 +40,9 @@ class DemandeController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $demande = $demandeManager->save($form);
             // redirect after save
-            // return $this->redirectToRoute(
-            //     'demande_recap', 
-            //     [
-            //         'demande' => $demande->getId()  
-            //     ]
-            // );
+            return $this->redirectToRoute(
+                'espace_client'
+            );
         }
 
         return new Response($demandeManager->getView($form));
@@ -69,13 +66,25 @@ class DemandeController extends AbstractController
      * @Route("/espace-client", name="espace_client")
      * @Route("/espace-client/{demande}")
      */
-    public function espaceClient(DemandeManager $demandeManager, ?Demande $demande=null)
+    public function espaceClient(DemandeManager $demandeManager, DocumentAFournirManager $documentAFournirManager, ?Demande $demande=null)
     {
+        if (!$demande instanceof Demande) {
+            $demande = $demandeManager->getHerLastDemande();
+        }
+        $fileForm = null;
+        $fileType = $documentAFournirManager->getType($demande);
+        $files = $documentAFournirManager->getDaf($demande);
+        if (!null == $fileType) {
+            $fileForm = $this->createForm($fileType, $files);
+        }
+
         return $this->render(
             'demande/list.html.twig',
             [
-                'demande' => $demandeManager->getHerLastDemande(),
+                'demande' => $demande,
                 'client' => $this->getUser()->getClient(),
+                'form'      => is_null($fileForm) ? null :$fileForm->createView(),
+                "files"     => $files,
             ]
         );
     }

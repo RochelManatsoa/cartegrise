@@ -43,24 +43,14 @@
         </table>
     </div>
     <br>
-    {% if transaction is not null and transaction.demande is not null %}
-        {% if transaction.demande.divn is defined and transaction.demande.divn is not null %}
+    {% if transaction is not null and transaction.commande is not null %}
         <div>
-            <a href="{{path('divn_demande', {divn: transaction.demande.divn.id })}}" >
+            <a href="{{path('new_demande', {'commande': transaction.commande.id })}}" >
                 <button class="btn btn-primary">
                     Finaliser ma commande
                 </button>
             </a>
         </div>
-        {% else %}
-        <div>
-            <a href="{{path('demande_dossiers_a_fournir', {id: transaction.demande.id })}}" >
-                <button class="btn btn-primary">
-                    Finaliser ma commande
-                </button>
-            </a>
-        </div>
-        {% endif %}
     {% else %}
         <div>
             <a href="{{path('home')}}">
