@@ -36,19 +36,14 @@
             <div>
                 {{ form_row(formCGV.termsAccepted)}} <br>
                 {{ form_row(formCGV.enregistrer)}} <br>
-                {# <a href="{{path('payment_demande', {'demande': demande.id })}}">
-                                <button class="btn btn-success"> 
-                                    Procéder au paiement
-                                </button>
-                            </a> #}
+                <a href="{{path('payment_commande', {'commande': commande.id })}}">
+                        <button class="btn btn-success"> 
+                            Procéder au paiement
+                        </button>
+                    </a>
             </div>
             {{ form_end(formCGV)}}
             {% endif %}
-            <div>
-                <a href="{{path('commande_recap_paiement')}}" class="btn btn-primary">
-                    Procéder au paiement
-                </a>
-            </div>
         </div>
     </div>
 </div>
