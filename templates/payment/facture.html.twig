@@ -59,15 +59,31 @@
             {{ demande.commande.clientFacture.clientPrenom | capitalize }} 
             {{ demande.commande.clientFacture.clientNom | upper}}
           </strong>
-          <br>
-            {{ demande.commande.clientFacture.clientAdresse.numero }} 
-            {{ demande.commande.clientFacture.clientAdresse.typevoie }} 
-            {{ demande.commande.clientFacture.clientAdresse.nom }} 
-            {{ demande.commande.clientFacture.clientAdresse.complement }} 
-            {{ demande.commande.clientFacture.clientAdresse.extension }} 
-          <br>
-            {{ demande.commande.clientFacture.clientAdresse.codePostal }} 
-            {{ demande.commande.clientFacture.clientAdresse.ville | upper }} 
+          {% if demande.commande.transaction is defined and demande.commande.transaction is not null %}
+            <br>
+            {{ findAdresseInDemande(demande, "numero") }}
+            {{ findAdresseInDemande(demande, "typevoie") }}
+            {{ findAdresseInDemande(demande, "nom") }}
+            {{ findAdresseInDemande(demande, "complement") }}
+            {{ findAdresseInDemande(demande, "extension") }}
+            <br>
+            {{ findAdresseInDemande(demande, "codePostal") }}
+            {{ findAdresseInDemande(demande, "ville") | upper }}
+
+
+
+          {% else %}
+            <br>
+            {{ demande.commande.clientFacture.clientAdresse.numero }}
+            {{ demande.commande.clientFacture.clientAdresse.typevoie }}
+            {{ demande.commande.clientFacture.clientAdresse.nom }}
+            {{ demande.commande.clientFacture.clientAdresse.complement }}
+            {{ demande.commande.clientFacture.clientAdresse.extension }}
+            <br>
+            {{ demande.commande.clientFacture.clientAdresse.codePostal }}
+            {{ demande.commande.clientFacture.clientAdresse.ville | upper }}
+          {% endif %}
+          
         </p>
       </div>
     </div>

@@ -8,9 +8,9 @@ use Twig\TwigFilter;
 use App\Entity\User;
 use App\Entity\Taxes;
 use App\Entity\TypeDemande;
-use App\Entity\Commande;
+use App\Entity\{Commande, Demande};
 use App\Repository\TarifsPrestationsRepository;
-use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager};
+use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager, DemandeManager};
 use App\Utils\StatusTreatment;
 use App\Manager\DocumentAFournirManager;
 
@@ -30,7 +30,8 @@ class AppExtension extends AbstractExtension
         TaxesManager $taxManager, 
         FraisTreatmentManager $fraisTreatmentManager,
         StatusManager $statusManager,
-        DocumentAFournirManager $documentAFournirManager
+        DocumentAFournirManager $documentAFournirManager, 
+        DemandeManager $demandeManager
     )
     {
         $this->userManager     = $userManager;
@@ -40,6 +41,7 @@ class AppExtension extends AbstractExtension
         $this->fraisTreatmentManager = $fraisTreatmentManager;
         $this->statusManager = $statusManager;
         $this->documentAFournirManager = $documentAFournirManager;
+        $this->demandeManager = $demandeManager;
     }
     public function getFunctions()
     {
@@ -80,6 +82,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('totalPrestationMajorationWithoutTaxeDaily', [$this, 'totalPrestationMajorationWithoutTaxeDaily']),
             new TwigFunction('totalPrestationMajorationTaxeDaily', [$this, 'totalPrestationMajorationTaxeDaily']),
             new TwigFunction('totalPrestationMajorationTTC', [$this, 'totalPrestationMajorationTTC']),
+            new TwigFunction('findAdresseInDemande', [$this, 'findAdresseInDemande']),
         ];
     }
 
@@ -434,5 +437,9 @@ class AppExtension extends AbstractExtension
         }
 
         return $taxesTotal;
+    }
+    public function findAdresseInDemande(Demande $demande, $labelAdresse)
+    {
+        return $this->demandeManager->findValueAdresseOfDemande($demande, $labelAdresse);
     }
 }

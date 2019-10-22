@@ -31,6 +31,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Entity\DailyFacture;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Twig_Environment as Twig;
 
 class DemandeManager
@@ -310,7 +311,7 @@ class DemandeManager
         if (!is_dir($folder)) mkdir($folder, 0777, true);
         // end create file 
         // get facture if not exist
-        if (!is_file($file)) { // attente de finalité du process
+        // if (!is_file($file)) { // attente de finalité du process
             $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
             $filename = "Facture";
             $html = $this->twig->render("payment/facture.html.twig", array(
@@ -319,7 +320,7 @@ class DemandeManager
             $output = $snappy->getOutputFromHtml($html);
             
             $filefinal = file_put_contents($file, $output);
-        }
+        // }
         
         return $file;
     }
@@ -509,6 +510,30 @@ class DemandeManager
        $user = $this->tokenStorage->getToken()->getUser();
 
        return $this->repository->getLastDemande($user);
+    }
+
+    public function findValueAdresseOfDemande(Demande $demande, $labelAdresse)
+    {
+       $type = $demande->getCommande()->getDemarche()->getType();
+       $realAdresse = $this->getDemandeAdresseOfType($demande, $type);
+       $propertyAccessor = PropertyAccess::createPropertyAccessor();
+       // get the label adresse needed
+       if ($propertyAccessor->getValue($realAdresse, $labelAdresse) != null)
+        {
+            return $propertyAccessor->getValue($realAdresse, $labelAdresse);
+        }
+
+       return "--";
+    }
+    private function getDemandeAdresseOfType(Demande $demande, $type)
+    {
+        switch($type) {
+            case "DCA":
+                return $demande->getChangementAdresse()->getAncienAdresse();
+                break;
+            default:
+                return null;
+        }
     }
 
 }
