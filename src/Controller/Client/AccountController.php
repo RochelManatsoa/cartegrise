@@ -73,27 +73,28 @@ class AccountController extends AbstractController
         TokenStorageInterface  $tokenStorage
         )
     {
-            $user = $this->getUser();
+            $user = $tokenStorage->getToken()->getUser();
             $form = $this->createForm(PasswordFormType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
             $oldPassword = $request->request->get('password_form')['password'];
-            if ($passwordEncoder->isPasswordValid($user, $oldPassword)) {
-                dd("okok");
+            if ($passwordEncoder->isPasswordValid($user, $oldPassword, $user->getSalt())) {
                 $newEncodedPassword = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                 $user->setPassword($newEncodedPassword);
             
                 $userManager->save($user);
 
-                $this->addFlash('notice', 'Votre mot de passe à bien été changé !');
+                $this->addFlash('success', 'Votre mot de passe à bien été changé !');
 
-                return $this->redirectToRoute('compte');
+                return $this->redirectToRoute('fos_user_security_login');
 
             } else {
-                dd("non ok");
-                $form->addError(new FormError('Ancien mot de passe incorrect'));
+                $user->setSalt(uniqid());
+                $this->addFlash('danger', 'Ancien mot de passe incorrect. Veillez vous reconnecter!');
+
+                return $this->redirectToRoute('fos_user_security_login');             
             }
         }
 

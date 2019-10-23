@@ -15,22 +15,22 @@ class UpdateUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
 
     {
-        $builder->add('client', ClientType::class, ['label'=>'label.updateUser'])
-                ->add('enregistrer', SubmitType::class, ['label' => 'label.save'])
+        $builder
+            ->add('client', ClientType::class, ['label'=>'label.updateUser'])
         ;
     }
 
-    public function getParent()
+    // public function getParent()
 
-    {
-        return 'App\Form\Registration\UpdateFormType';
-    }
+    // {
+    //     return 'App\Form\Registration\UpdateFormType';
+    // }
 
-    public function getBlockPrefix()
+    // public function getBlockPrefix()
 
-    {
-        return 'app_user_update';
-    }
+    // {
+    //     return 'app_user_update';
+    // }
 
     public function getName()
 

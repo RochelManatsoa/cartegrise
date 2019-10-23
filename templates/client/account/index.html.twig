@@ -28,9 +28,16 @@
                     </tr>
                 </table>
                 <div class="text-center">
+                    <a href="{{ path('update_acount', {user: app.user.id}) }}" class="">
+                        <button class="btn btn-outline-primary mt-lg-3">
+                            Modifier mes infos
+                        </button>
+                    </a>
+                </div>
+                <div class="text-center">
                     <a href="{{ path('update_password', {user: app.user.id}) }}" class="">
-                        <button class="btn btn-primary">
-                            Changer le mot de passe
+                        <button class="btn btn-outline-danger mt-lg-3">
+                            Changer de mot de passe
                         </button>
                     </a>
                 </div>

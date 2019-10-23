@@ -8,23 +8,8 @@
             {{ form_start(form) }}
                 <div class="form-client row d-flex flex-row justify-content-center">
                     <div class="col-10 col-lg-10 mx-auto">
-                        <legend class="col-form-label">Compte</legend>
-                        <div class="form-group">
-                            {{ form_label(form.email) }}
-                            {{ form_errors(form.email) }}
-                            {{ form_widget(form.email) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.username) }}
-                            {{ form_errors(form.username) }}
-                            {{ form_widget(form.username) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.plainPassword) }}
-                            {{ form_errors(form.plainPassword) }}
-                            {{ form_widget(form.plainPassword) }}
-                        </div>
                         <legend class="col-form-label">Client</legend>
+                        <hr>
                         <div class="form-group">
                             {{ form_label(form.client.clientGenre) }}
                             {{ form_errors(form.client.clientGenre) }}
@@ -40,14 +25,22 @@
                             {{ form_errors(form.client.clientPrenom) }}
                             {{ form_widget(form.client.clientPrenom) }}
                         </div>
-                    </div>
-                    <div class="col-10 col-lg-10 mx-auto">
+                        <legend class="col-form-label">Contacts</legend>
+                        <hr>
                         <div class="form-group">
-                            {{ form_label(form.client.clientContact) }}
-                            {{ form_errors(form.client.clientContact) }}
-                            {{ form_widget(form.client.clientContact) }}
+                            {{ form_label(form.client.clientContact.contact_telmobile) }}
+                            {{ form_errors(form.client.clientContact.contact_telmobile) }}
+                            {{ form_widget(form.client.clientContact.contact_telmobile) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.client.clientContact.contact_telfixe) }}
+                            {{ form_errors(form.client.clientContact.contact_telfixe) }}
+                            {{ form_widget(form.client.clientContact.contact_telfixe) }}
                         </div>
                     </div>
+                </div>
+                <div class="text-center mb-5">
+                    <input type="submit" class="btn btn-outline-success" value="Mettre à jour" />
                 </div>
             <div class="text-center">
                 {{ form_rest(form) }}
