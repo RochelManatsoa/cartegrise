@@ -313,6 +313,7 @@ class DemandeManager
         // get facture if not exist
         // if (!is_file($file)) { // attente de finalité du process
             $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
+            //$snappy = new Pdf("\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"");
             $filename = "Facture";
             $html = $this->twig->render("payment/facture.html.twig", array(
                 "demande"=> $demande,
@@ -528,8 +529,14 @@ class DemandeManager
     private function getDemandeAdresseOfType(Demande $demande, $type)
     {
         switch($type) {
+            case "CTVO":
+                return $demande->getCtvo()->getAcquerreur()->getAdresseNewTitulaire();
+                break;
             case "DCA":
                 return $demande->getChangementAdresse()->getAncienAdresse();
+                break;
+            case 'DUP':
+                return $demande->getDuplicata()->getAdresse();
                 break;
             default:
                 return null;
