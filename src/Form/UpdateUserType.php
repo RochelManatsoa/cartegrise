@@ -26,11 +26,11 @@ class UpdateUserType extends AbstractType
     //     return 'App\Form\Registration\UpdateFormType';
     // }
 
-    // public function getBlockPrefix()
+    public function getBlockPrefix()
 
-    // {
-    //     return 'app_user_update';
-    // }
+    {
+        return 'app_user_update';
+    }
 
     public function getName()
 
