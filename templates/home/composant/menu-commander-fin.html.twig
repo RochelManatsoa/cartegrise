@@ -194,9 +194,10 @@
 	<div id="resultecg"></div>
 </div> #}
 <div class="hp-full-height d-flex justify-content-center flex-wrap align-items-center align-content-center">
-	<h2>
-		Démarche en quelques clics
-	</h2>
+	<div class="txt-large-hp">
+		<span>Bienvenue sur le service d’immatriculation de véhicule en ligne, rapide, sécurisé et agréé</span>
+		<h2>Choisissez votre démarche</h2>
+	</div>
 	<div class="col-12 text-center mt-4 mb-4">
 		<img class="img-fluid img-down-hp" src='{{ asset("asset/img/down.png")}}' alt='image down'>
 	</div>
@@ -263,8 +264,5 @@
 		{% else %}
 		<a href="{{ path('formulaire')}}">Formulaire</a>
 		{% endif %}
-	</div>
-	<div class="critair">
-		<a class="critairLink" href="http://www.certificat-air.gouv.fr" target="_blank"><img class="img-fluid" src='{{ asset("asset/img/critair.png")}}' alt='image down'></a>
 	</div>
 </div>
