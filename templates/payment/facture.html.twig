@@ -69,9 +69,6 @@
             <br>
             {{ findAdresseInDemande(demande, "codePostal") }}
             {{ findAdresseInDemande(demande, "ville") | upper }}
-
-
-
           {% else %}
             <br>
             {{ demande.commande.clientFacture.clientAdresse.numero }}
@@ -82,8 +79,7 @@
             <br>
             {{ demande.commande.clientFacture.clientAdresse.codePostal }}
             {{ demande.commande.clientFacture.clientAdresse.ville | upper }}
-          {% endif %}
-          
+          {% endif %}      
         </p>
       </div>
     </div>

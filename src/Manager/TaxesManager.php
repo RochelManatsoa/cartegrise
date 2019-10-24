@@ -90,10 +90,6 @@ class TaxesManager
             $dateMec = \DateTime::createFromFormat('Y-m-d', $otherINfo->DateMec);
             $puissanceFisc = $otherINfo->PuissFisc;
             $vin = $tmsResponse->Positive->VIN;
-        } elseif ($typeDemarche === "DC") {
-            $dateMec = \DateTime::createFromFormat('Y-m-d', $otherINfo->DateMec);
-            $puissanceFisc = $otherINfo->PuissFisc;
-            $vin = $tmsResponse->Positive->VIN;
         } else {
             $dateMec = \DateTime::createFromFormat('d/m/Y', $otherINfo->DateMec);
             $puissanceFisc = $otherINfo->PuissFisc;
