@@ -11,27 +11,40 @@ $dark-blue: #1f3864;
 @import 'espace-client.scss';
 
 @font-face {
-	font-family: textr;
-	src: ("/../../asset/fonts/SourceSansPro-Regular.ttf");
-}
-@font-face {
-	font-family: menu;
-	src: ("/../../asset/fonts/calibril.ttf");
-}
-@font-face {
-	font-family: menub;
-	src: ("/../../asset/fonts/calibrib.ttf");
-}
-@font-face {
-	font-family: Raleway;
-	src: ("/../../asset/fonts/Raleway-Regular.ttf");
-}
-
-@font-face {
 	font-family: font-awesome;
 	src: ("/../../asset/fonts/fontawesome-webfont.woff");
 }
+// Font orkney
+@font-face {
+	font-family: "Orkney";
+	src: url("/../../asset/fonts/Orkney/Orkney-Light.woff2") format("woff2"),
+		   url("/../../asset/fonts/Orkney/Orkney-Light.woff") format("woff");
+	font-weight: 300;
+}
 
+@font-face {
+	font-family: "Orkney";
+	src: url("/../../asset/fonts/Orkney/Orkney-Regular.woff2") format("woff2"),
+		   url("/../../asset/fonts/Orkney/Orkney-Regular.woff") format("woff");
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: "Orkney";
+	src: url("/../../asset/fonts/Orkney/Orkney-Medium.woff2") format("woff2"),
+		   url("/../../asset/fonts/Orkney/Orkney-Medium.woff") format("woff");
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: "Orkney";
+	src: url("/../../asset/fonts/Orkney/Orkney-Bold.woff2") format("woff2"),
+		   url("/../../asset/fonts/Orkney/Orkney-Bold.woff") format("woff");
+	font-weight: 600;
+}
+body {
+	font-family: "Orkney" !important;
+}
 .font-24 {
 	font-size: 24px;
 }
@@ -185,7 +198,7 @@ ul {
 		font-size: 12px;
 		margin-top: 15px;
 		line-height: 16px;
-		font-family: raleway;
+		font-family: "Orkney";
 	}
 	.demande-btn {
 		border: none;
@@ -204,7 +217,7 @@ ul {
 			margin-top: 15px;
 			text-transform: uppercase;
 			line-height: 18px;
-			font-family: raleway;
+			font-family: "Orkney";
 		}
 	}
 }
@@ -266,7 +279,7 @@ ul {
 }
 .link-rignt {
 	.txt-other-link {
-		font-family: textr;
+		font-family: "Orkney";
 		display: block;
 		font-size: 14px;
 		text-transform: uppercase;
@@ -277,7 +290,7 @@ ul {
 }
 .txt-immatriculation {
 	display: block;
-	font-family: raleway;	
+	font-family: "Orkney";	
 	font-size: 20px;
     line-height: 26px;
 	text-align: center;
@@ -321,7 +334,13 @@ ul {
 	background: url("/../../asset/img/icon-5.png") center no-repeat;
 	background-size: contain;
 }
+.bg-blue {
+	background: #fbfcfc;
+}
 .critair{
+	margin: 30px auto;
+	max-width: 70%;
+	cursor: pointer;
 	&:hover {
 	opacity: 0.8;
 	cursor: pointer;
@@ -333,6 +352,32 @@ ul {
 		display: block;
 		margin: auto;
 		max-width: 95%;
+	}
+}
+.link-faq {
+	display: block;
+	margin: 10px 0;
+	text-align: left;
+}
+.demande-sidebar {
+	ul {
+		padding-left: 0;
+		.demande-sidebar-item {
+			display: block;
+			background: #153475;
+			padding: 10px 15px;
+			color: #fff;
+			text-decoration: none;
+			margin: 10px 0;
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+	}
+}
+.home-texte {
+	h3 {
+		font-size: 24px;
 	}
 }
 .bloc-txt-sidebar {
@@ -499,7 +544,7 @@ body.body-accueil {
 			display: block;
 		}
 		h1 {
-			font-family: raleway;
+			font-family: "Orkney";
 			font-weight: 500;
 			font-size: 24px;
 			line-height: 26px;
@@ -537,7 +582,7 @@ body.body-accueil {
 			.menu-item {
 				color: $dark-blue;
 				display: block;					
-				font-size: 16px;
+				font-size: 14px;
 				font-weight: 600;
 				padding: 5px 10px;					
 				text-decoration: none;
@@ -550,7 +595,7 @@ body.body-accueil {
 					border-color: $bleu-hover;
 				}
 				@media (max-width:1600px) {
-					font-size: 14px;
+					font-size: 12px;
 				}
 			}
 			&.menu-notif {
@@ -592,12 +637,16 @@ body.body-accueil {
 .txt-large-hp {
 	color: #153475;
 	text-align: center;
-	font-weight: 700;
+	font-weight: 500;
 	span {
-		font-size: 48px;
+		font-size: 36px;
+		line-height: 120%;
+		display: block;
+		text-align: center;
 	}
 	h2 {
-		font-size: 36px;
+		margin-top: 30px;
+		font-size: 30px;
 	}
 }
 .demande-hp {
