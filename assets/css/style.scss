@@ -549,6 +549,9 @@ body.body-accueil {
 					background: $bleu-hover;
 					border-color: $bleu-hover;
 				}
+				@media (max-width:1600px) {
+					font-size: 14px;
+				}
 			}
 			&.menu-notif {
 				position: relative;
@@ -585,6 +588,17 @@ body.body-accueil {
 }
 .hp-full-height {
 	min-height: calc(100vh - 100px);
+}
+.txt-large-hp {
+	color: #153475;
+	text-align: center;
+	font-weight: 700;
+	span {
+		font-size: 48px;
+	}
+	h2 {
+		font-size: 36px;
+	}
 }
 .demande-hp {
 	margin-left: auto;
