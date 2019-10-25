@@ -7,24 +7,14 @@
         <div class="col-12">
             {{ form_start(form) }}
                 <div class="form-client row d-flex flex-row justify-content-center">
-                    <div class="col-10 col-lg-5 mx-auto">
-                        <legend class="col-form-label">Connexion</legend>
-                        <div class="form-group">
-                            {{ form_label(form.email) }}
-                            {{ form_errors(form.email) }}
-                            {{ form_widget(form.email) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.username) }}
-                            {{ form_errors(form.username) }}
-                            {{ form_widget(form.username) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.plainPassword) }}
-                            {{ form_errors(form.plainPassword) }}
-                            {{ form_widget(form.plainPassword) }}
-                        </div>
+                    <div class="col-10 col-lg-10 mx-auto">
                         <legend class="col-form-label">Client</legend>
+                        <hr>
+                        <div class="form-group">
+                            {{ form_label(form.client.clientGenre) }}
+                            {{ form_errors(form.client.clientGenre) }}
+                            {{ form_widget(form.client.clientGenre) }}
+                        </div>
                         <div class="form-group">
                             {{ form_label(form.client.clientNom) }}
                             {{ form_errors(form.client.clientNom) }}
@@ -35,60 +25,22 @@
                             {{ form_errors(form.client.clientPrenom) }}
                             {{ form_widget(form.client.clientPrenom) }}
                         </div>
+                        <legend class="col-form-label">Contacts</legend>
+                        <hr>
                         <div class="form-group">
-                            {{ form_label(form.client.clientGenre) }}
-                            {{ form_errors(form.client.clientGenre) }}
-                            {{ form_widget(form.client.clientGenre) }}
+                            {{ form_label(form.client.clientContact.contact_telmobile) }}
+                            {{ form_errors(form.client.clientContact.contact_telmobile) }}
+                            {{ form_widget(form.client.clientContact.contact_telmobile) }}
                         </div>
                         <div class="form-group">
-                            {{ form_label(form.client.clientDateNaissance) }}
-                            {{ form_errors(form.client.clientDateNaissance) }}
-                            {{ form_widget(form.client.clientDateNaissance) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.client.clientLieuNaissance) }}
-                            {{ form_errors(form.client.clientLieuNaissance) }}
-                            {{ form_widget(form.client.clientLieuNaissance) }}
+                            {{ form_label(form.client.clientContact.contact_telfixe) }}
+                            {{ form_errors(form.client.clientContact.contact_telfixe) }}
+                            {{ form_widget(form.client.clientContact.contact_telfixe) }}
                         </div>
                     </div>
-                    <div class="col-10 col-lg-5 mx-auto">
-                        <div class="form-group">
-                            {{ form_label(form.client.clientContact) }}
-                            {{ form_errors(form.client.clientContact) }}
-                            {{ form_widget(form.client.clientContact) }}
-                        </div>
-                        <legend class="col-form-label">Adresse</legend>
-                        <div class="form-group">
-                            {{ form_label(form.client.clientAdresse.numero) }}
-                            {{ form_errors(form.client.clientAdresse.numero) }}
-                            {{ form_widget(form.client.clientAdresse.numero) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.client.clientAdresse.typevoie) }}
-                            {{ form_errors(form.client.clientAdresse.typevoie) }}
-                            {{ form_widget(form.client.clientAdresse.typevoie) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.client.clientAdresse.nom) }}
-                            {{ form_errors(form.client.clientAdresse.nom) }}
-                            {{ form_widget(form.client.clientAdresse.nom) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.client.clientAdresse.complement) }}
-                            {{ form_errors(form.client.clientAdresse.complement) }}
-                            {{ form_widget(form.client.clientAdresse.complement) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.client.clientAdresse.codepostal) }}
-                            {{ form_errors(form.client.clientAdresse.codepostal) }}
-                            {{ form_widget(form.client.clientAdresse.codepostal) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.client.clientAdresse.ville) }}
-                            {{ form_errors(form.client.clientAdresse.ville) }}
-                            {{ form_widget(form.client.clientAdresse.ville) }}
-                        </div>
-                    </div>
+                </div>
+                <div class="text-center mb-5">
+                    <input type="submit" class="btn btn-outline-success" value="Mettre à jour" />
                 </div>
             <div class="text-center">
                 {{ form_rest(form) }}

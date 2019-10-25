@@ -83,7 +83,7 @@
 						</button>
 					</a>
 					<div class="info-user">
-						<a href="#">Mes infos</a>
+						<a href=" {{ path('compte') }} ">Mes infos</a>
 					</div>
 					{% else %}
 					<a class="login-access d-flex" href="/login">
@@ -131,6 +131,28 @@
 			</a>
 		</div>
 		<div class="col-12 col-lg-7 col-md-8 col-sm-12">
+			{% block flash %}
+			    {% for flash_message in app.session.flashbag.get('success') %}
+			        <div class="container-fluid alert alert-success text-center" role="alert">
+			            {{ flash_message }}
+			        </div>
+			    {% endfor %}
+			    {% for flash_message in app.session.flashbag.get('info') %}
+			        <div class="container-fluid alert alert-info text-center" role="alert">
+			            {{ flash_message }}
+			        </div>
+			    {% endfor %}
+			    {% for flash_message in app.session.flashbag.get('warning') %}
+			        <div class="container-fluid alert alert-warning text-center" role="alert">
+			            {{ flash_message }}
+			        </div>
+			    {% endfor %}
+			    {% for flash_message in app.session.flashbag.get('danger') %}
+			        <div class="container-fluid alert alert-danger text-center" role="alert">
+			            {{ flash_message }}
+			        </div>
+			    {% endfor %}
+			{% endblock %}
 			{% block page_content %}{% endblock %}
 			{% block pagetext_content %}{% endblock %}
 		</div>
@@ -223,28 +245,6 @@
 			</div>
 		</div>
 	</div>
-	{% block flash %}
-	    {% for flash_message in app.session.flashbag.get('success') %}
-	        <div class="container-fluid alert alert-success text-center" role="alert">
-	            {{ flash_message }}
-	        </div>
-	    {% endfor %}
-	    {% for flash_message in app.session.flashbag.get('info') %}
-	        <div class="container-fluid alert alert-info text-center" role="alert">
-	            {{ flash_message }}
-	        </div>
-	    {% endfor %}
-	    {% for flash_message in app.session.flashbag.get('warning') %}
-	        <div class="container-fluid alert alert-warning text-center" role="alert">
-	            {{ flash_message }}
-	        </div>
-	    {% endfor %}
-	    {% for flash_message in app.session.flashbag.get('danger') %}
-	        <div class="container-fluid alert alert-danger text-center" role="alert">
-	            {{ flash_message }}
-	        </div>
-	    {% endfor %}
-	{% endblock %}
 
 	{{ include('home/composant/footer.html.twig') }}
 {% block javascripts %}

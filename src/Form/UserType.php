@@ -15,7 +15,7 @@ class UserType extends AbstractType
 
     {
         $builder
-            ->add('client', ClientType::class, ['label'=>'label.updateUser'])
+            ->add('client', ClientType::class, ['label'=>'label.infoUser'])
         ;
     }
 

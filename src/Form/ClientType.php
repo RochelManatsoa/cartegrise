@@ -37,24 +37,25 @@ class ClientType extends AbstractType
             //         'label'  => 'label.dateN',
             //         'format' => 'dd/MM/yyyy',
             //         'attr' => ['class' => 'js-datepicker', 'placeholder' => 'dd/mm/yyyy'],
-            //         ))
-            
-            //->add('clientLieuNaissance', TextType::class, ['label' => 'label.lieuN'])
-            //->add('clientDptNaissance', NumberType::class)
-            //->add('clientPaysNaissance', CountryType::class, array('label' => 'Pays','required'=> false, 'preferred_choices' => array('FR'=>'France')))            
-            ->add('clientContact', ContactType::class, ['label' => 'label.clientContact'])
-            // ->add('clientAdresse', AdresseType::class, ['label' => 'label.clientAdresse'])
-            ->add('cgv', CheckboxType::class, [
-                'mapped' => false,
-                'label' => 'label.cgv',
-                'constraints' => new IsTrue(),
-            ])
-            ->add('retractation', CheckboxType::class, [
-                'mapped' => false,
-                'label' => 'label.retractation',
-                'constraints' => new IsTrue(),
-            ])
-        ;
+            //         ))            
+            // ->add('clientLieuNaissance', TextType::class, ['label' => 'label.lieuN'])
+            // ->add('clientDptNaissance', NumberType::class)
+            // ->add('clientPaysNaissance', CountryType::class, array('label' => 'Pays','required'=> false, 'preferred_choices' => array('FR'=>'France')))            
+            // ->add('clientAdresse', AdresseType::class, ['label' => 'label.clientAdresse']);
+            ->add('clientContact', ContactType::class, ['label' => 'label.clientContact']);
+            if ($options['label'] === "label.infoUser")
+                $builder
+                ->add('cgv', CheckboxType::class, [
+                    'mapped' => false,
+                    'label' => 'label.cgv',
+                    'constraints' => new IsTrue(),
+                ])
+                ->add('retractation', CheckboxType::class, [
+                    'mapped' => false,
+                    'label' => 'label.retractation',
+                    'constraints' => new IsTrue(),
+                ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
