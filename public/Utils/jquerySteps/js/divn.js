@@ -452,6 +452,21 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     }
                 }
             },
+            "demande_divn[divn][vehicule][s2NbPlaceDebout]":{
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_divn_divn_vehicule_type').val();
+
+                        if (persone == "1") {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
             "demande_divn[divn][vehicule][g1PoidsVide]": {
                 required: true
             },
@@ -543,6 +558,9 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             required: "Champs obligatoire",
           },
           "demande_divn[divn][vehicule][jCategorieCe]":{
+            required: "Champs obligatoire",
+          },
+          "demande_divn[divn][vehicule][s2NbPlaceDebout]":{
             required: "Champs obligatoire",
           },
           "demande_divn[divn][vehicule][p3Energie]":{
