@@ -532,11 +532,14 @@ class DemandeManager
             case "CTVO":
                 return $demande->getCtvo()->getAcquerreur()->getAdresseNewTitulaire();
                 break;
-            case "DCA":
-                return $demande->getChangementAdresse()->getAncienAdresse();
-                break;
             case 'DUP':
                 return $demande->getDuplicata()->getAdresse();
+                break;
+            case 'DIVN':
+                return $demande->getDivn()->getAcquerreur()->getAdresseNewTitulaire();
+                break;
+            case "DCA":
+                return $demande->getChangementAdresse()->getAncienAdresse();
                 break;
             default:
                 return null;

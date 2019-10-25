@@ -239,6 +239,21 @@ function initFormStep(form, title, bodyTag, transitionEffect)
     }).validate({
         errorPlacement: function errorPlacement(error, element) { element.before(error); },
         rules: {
+            "demande_divn[divn][acquerreur][type]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_divn_divn_acquerreur_type').val();
+
+                        if (persone == 'phy') {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
             "demande_divn[divn][acquerreur][nomPrenomTitulaire]": {
                 required: {
                     depends: function () {
@@ -299,21 +314,6 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     }
                 }
             },
-            "demande_divn[divn][acquerreur][raisonSociale]": {
-                required: {
-                    depends: function () {
-                        let persone = $('#demande_divn_divn_acquerreur_type').val();
-
-                        if (persone == 'mor') {
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
-
-                    }
-                }
-            },
             "demande_divn[divn][acquerreur][siren]": {
                 required: {
                     depends: function () {
@@ -331,6 +331,21 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                 digits: true,
                 minlength: 9,
                 maxlength: 9,
+            },
+            "demande_divn[divn][vehicule][type]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_divn_divn_vehicule_type').val();
+
+                        if (persone == "0") {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
             },
             "demande_divn[divn][vehicule][kNumRecepCe]": {
                 required: {
@@ -452,6 +467,111 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     }
                 }
             },
+            "demande_divn[divn][vehicule][qRapportPuissMasse]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_divn_divn_vehicule_type').val();
+
+                        if (persone == "1") {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
+            "demande_divn[divn][vehicule][s2NbPlaceDebout]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_divn_divn_vehicule_type').val();
+
+                        if (persone == "1") {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }  
+            },
+            "demande_divn[divn][vehicule][u1NiveauSonore]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_divn_divn_vehicule_type').val();
+
+                        if (persone == "1") {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
+            "demande_divn[divn][vehicule][u2NbTours]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_divn_divn_vehicule_type').val();
+
+                        if (persone == "1") {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }  
+            },
+            "demande_divn[divn][vehicule][v7Co2]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_divn_divn_vehicule_type').val();
+
+                        if (persone == "1") {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }  
+            },
+            "demande_divn[divn][vehicule][v9ClasseEnvCe]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_divn_divn_vehicule_type').val();
+
+                        if (persone == "1") {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
+            "demande_divn[divn][vehicule][vin]": {
+                required: true
+            },
+            "demande_divn[divn][vehicule][d1Marque]": {
+                required: true
+            },
+            "demande_divn[divn][vehicule][d2Version]": {
+                required: true
+            },
+            "demande_divn[divn][vehicule][z1Mention1]": {
+                required: true
+            },
+            "demande_divn[divn][vehicule][z1Value]": {
+                required: true
+            },
             "demande_divn[divn][vehicule][g1PoidsVide]": {
                 required: true
             },
@@ -461,33 +581,34 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             "demande_divn[divn][vehicule][f2MmaxAdmServ]": {
                 required: true
             },
-            "demande_divn[divn][acquerreur][adresseNewTitulaire][codepostal]":{
+            "demande_divn[divn][acquerreur][adresseNewTitulaire][codepostal]": {
               required : true,
               digits: true,
               minlength: 5,
               maxlength: 5,
             },
-            "demande_divn[divn][acquerreur][adresseNewTitulaire][ville]":{
+            "demande_divn[divn][acquerreur][adresseNewTitulaire][ville]": {
               required : true
             },
-            "demande_divn[divn][vehicule][j1Genre]":{
+            "demande_divn[divn][vehicule][j1Genre]": {
               required : true
             }
         },
-        messages:{
-          "demande_divn[divn][acquerreur][nomPrenomTitulaire]":{
+        messages: {
+          //PARTIE 01 : PERSONNAGE
+          "demande_divn[divn][acquerreur][nomPrenomTitulaire]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][acquerreur][prenomTitulaire]":{
+          "demande_divn[divn][acquerreur][prenomTitulaire]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][acquerreur][dateN]":{
+          "demande_divn[divn][acquerreur][dateN]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][acquerreur][lieuN]":{
+          "demande_divn[divn][acquerreur][lieuN]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][acquerreur][raisonSociale]":{
+          "demande_divn[divn][acquerreur][raisonSociale]": {
             required: "Champs obligatoire",
           },
           "demande_divn[divn][acquerreur][siren]": {
@@ -495,60 +616,65 @@ function initFormStep(form, title, bodyTag, transitionEffect)
               minlength: 'Le numéro doit être à 9 chiffres',
               maxlength: 'Le numéro doit être à 9 chiffres'
           },
-          "demande_divn[divn][acquerreur][adresseNewTitulaire][codepostal]":{
+          //PARTIE 02 ACQUEREUR
+          "demande_divn[divn][acquerreur][adresseNewTitulaire][numero]": {
+            required: "Champs obligatoire",
+          },
+          "demande_divn[divn][acquerreur][adresseNewTitulaire][nom]": {
+            required: "Champs obligatoire",
+          },
+          "demande_divn[divn][acquerreur][adresseNewTitulaire][complement]": {
+            required: "Champs obligatoire",
+          },
+          "demande_divn[divn][acquerreur][adresseNewTitulaire][codepostal]": {
             required: "Champs obligatoire",
             minlength: 'Le code postale doit être à 5 chiffres',
             maxlength: 'Le code postale doit être à 5 chiffres'
           },
-          "demande_divn[divn][acquerreur][adresseNewTitulaire][ville]":{
+          "demande_divn[divn][acquerreur][adresseNewTitulaire][ville]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][acquerreur][adresseNewTitulaire][nom]":{
+          //PARTIE 03 VIN
+          "demande_divn[divn][vehicule][vin]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][acquerreur][adresseNewTitulaire][numero]":{
+          "demande_divn[divn][vehicule][d1Marque]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][vehicule][vin]":{
+          "demande_divn[divn][vehicule][d2Version]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][vehicule][d1Marque]":{
+          "demande_divn[divn][vehicule][kNumRecepCe]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][vehicule][d2Version]":{
+          "demande_divn[divn][vehicule][dateReception]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][vehicule][kNumRecepCe]":{
+          "demande_divn[divn][vehicule][g1PoidsVide]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][vehicule][dateReception]":{
+          "demande_divn[divn][vehicule][f2MmaxTechAdm]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][vehicule][g1PoidsVide]":{
+          "demande_divn[divn][vehicule][f2MmaxAdmServ]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][vehicule][f2MmaxTechAdm]":{
+          "demande_divn[divn][vehicule][d21Cenit]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][vehicule][f2MmaxAdmServ]":{
+          "demande_divn[divn][vehicule][d3Denomination]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][vehicule][d21Cenit]":{
+          "demande_divn[divn][vehicule][f3MmaxAdmEns]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][vehicule][d3Denomination]":{
+          "demande_divn[divn][vehicule][jCategorieCe]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][vehicule][f3MmaxAdmEns]":{
+          "demande_divn[divn][vehicule][p3Energie]": {
             required: "Champs obligatoire",
           },
-          "demande_divn[divn][vehicule][jCategorieCe]":{
-            required: "Champs obligatoire",
-          },
-          "demande_divn[divn][vehicule][p3Energie]":{
-            required: "Champs obligatoire",
-          },
-          "demande_divn[divn][vehicule][p6PuissFiscale]":{
+          "demande_divn[divn][vehicule][p6PuissFiscale]": {
             required: "Champs obligatoire",
           },
           "demande_divn[divn][vehicule][z1Value]": {
@@ -559,8 +685,26 @@ function initFormStep(form, title, bodyTag, transitionEffect)
           },
           "demande_divn[divn][vehicule][j1Genre]": {
             required: "Champs obligatoire"
-          }
+          },
+          //PARTIE 04 CARROSSIER
+          "demande_divn[divn][carrosier][nomCarrosssier]": {
+            required: "Champs obligatoire"
+          },
+          "demande_divn[divn][carrosier][prenomCarrossier]": {
+            required: "Champs obligatoire"
+          },
+          "demande_divn[divn][carrosier][agrement]": {
+            required: "Champs obligatoire"
+          },
+          "demande_divn[divn][carrosier][raisonSocialCarrossier]": {
+            required: "Champs obligatoire"
+          },
+          "demande_divn[divn][carrosier][agrement]": {
+            required: "Champs obligatoire"
+          },
+
         }
+
     });
 };
 
