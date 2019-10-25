@@ -307,7 +307,11 @@ label:
     heureVente: Heure de la vente *
     messages: Votre message
     updateUser: Informations vous concernant
+    infoUser: Informations vous concernant
     particulierOrSociete: Particulier ou Société
+    oldPassword: Ancien mot de passe
+    newPassword: Nouveau mot de passe
+    newPassword_confirmation: Confirmer le nouveau mot de passe
     notificationType: Type de notification
 
     ctvo:
