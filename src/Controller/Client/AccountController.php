@@ -69,11 +69,10 @@ class AccountController extends AbstractController
     public function updatePassword(
         Request $request, 
         UserPasswordEncoderInterface $passwordEncoder,
-        UserManager $userManager,
-        TokenStorageInterface  $tokenStorage
+        UserManager $userManager
         )
     {
-            $user = $tokenStorage->getToken()->getUser();
+            $user = $this->getUser();
             $form = $this->createForm(PasswordFormType::class, $user);
 
         $form->handleRequest($request);
@@ -88,13 +87,11 @@ class AccountController extends AbstractController
 
                 $this->addFlash('success', 'Votre mot de passe à bien été changé !');
 
-                return $this->redirectToRoute('fos_user_security_login');
+                return $this->redirectToRoute('compte');
 
             } else {
-                $user->setSalt(uniqid());
-                $this->addFlash('danger', 'Ancien mot de passe incorrect. Veillez vous reconnecter!');
+                $this->addFlash('danger', 'Ancien mot de passe incorrect.');
 
-                return $this->redirectToRoute('fos_user_security_login');             
             }
         }
 

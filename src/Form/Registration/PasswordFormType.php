@@ -22,17 +22,17 @@ class PasswordFormType extends AbstractType
         //         'label' => 'form.password', 
         //         'required' => false
         //         ))
-        //     ->add('plainPassword', RepeatedType::class, array(
-        //         'type' => PasswordType::class,
-        //         'options' => array(
-        //             'attr' => array(
-        //                 'autocomplete' => 'new-password',
-        //             ),
-        //         ),
-        //         'first_options' => array('label' => 'label.newPassword'),
-        //         'second_options' => array('label' => 'label.newPassword_confirmation'),
-        //         'invalid_message' => 'fos_user.password.mismatch',
-        //     ))
+            // ->add('plainPassword', RepeatedType::class, array(
+            //     'type' => PasswordType::class,
+            //     'options' => array(
+            //         'attr' => array(
+            //             'autocomplete' => 'new-password',
+            //         ),
+            //     ),
+            //     'first_options' => array('label' => 'label.newPassword'),
+            //     'second_options' => array('label' => 'label.newPassword_confirmation'),
+            //     'invalid_message' => 'fos_user.password.mismatch',
+            // ))
         // ;
         $builder
             ->add('password', PasswordType::class, array(
@@ -41,12 +41,14 @@ class PasswordFormType extends AbstractType
             ))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                'invalid_message' => 'Les deux mots de passe doivent être identiques',
                 'options' => array(
                     'attr' => array(
-                        'class' => 'password-field'
+                        'autocomplete' => 'new-password',
                     ),
                 ),
+                'first_options' => array('label' => 'label.newPassword'),
+                'second_options' => array('label' => 'label.newPassword_confirmation'),
+                'invalid_message' => 'fos_user.password.mismatch',
                 'required' => true,
             ))
         ;
