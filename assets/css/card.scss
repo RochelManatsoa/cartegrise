@@ -11,12 +11,12 @@
 .badge-dark{
   color: #fff;
     background-color: $bleu !important;
-    font-family: textr;
+    font-family: "Orkney";
 }
 .blog-titre-article{
   text-decoration: none !important;
   color: $bleu !important;
-  font-family: textr !important;
+  font-family: "Orkney" !important;
   font-weight: bold !important;
   font-size: 20px !important;
   &:hover{
@@ -61,7 +61,7 @@ h2 {
   margin-bottom: 20px;
   font-size: 24px;
   font-weight: 700;
-  font-family: textr;
+  font-family: "Orkney";
 
 }
 h3 span {
@@ -123,7 +123,7 @@ h3 span i:after {
 	margin: 2vh !important;
   .btn-outline-dark{
     border-color: $bleu !important;
-    font-family: textr;
+    font-family: "Orkney";
     &:hover{
       background-color: $bleu-hover !important;
       color: white !important;
@@ -214,7 +214,7 @@ h3 span i:after {
   padding: 0 40px 30px 40px;
 }
 .blog-post--description h2{
-  font-family: textr;
+  font-family: "Orkney";
   text-transform: uppercase;
   color: $rouge;
   font-size: 18px;

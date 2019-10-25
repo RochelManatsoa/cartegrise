@@ -2,7 +2,7 @@
 
 {% block class %}body-ccm{% endblock %}
 {% block page_content %}
-<div class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
+<div class="col-md-12 col-lg-10 mx-auto">
     <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
         <br>
         <div class="col-md-10 col-sm-12 mr-lg-5">
@@ -19,25 +19,6 @@
                         <th>Prénom(s)</th>
                         <td>{{ client.ClientPrenom}}</td>
                     </tr>
-                    <tr>
-                        <th>Civilité</th>
-                        <td>
-                            {% if client.clientGenre starts with 'F' %}
-                                Madame 
-                            {% else %}
-                                Monsieur 
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Date de naissance</th>
-                        <td>{{ client.ClientDateNaissance| date("m/d/Y")}}</td>
-                    </tr>
-                    <tr>
-                        <th>Lieu de naissance</th>
-                        <td>{{ client.ClientLieuNaissance }}</td>
-                    </tr>
-                    <tr>
                         <th> E-mail</th>
                         <td>{{ app.user.email }}</td>
                     </tr>
@@ -45,18 +26,18 @@
                         <th>Téléphone mobile</th>
                         <td>{{ client.clientContact.contactTelmobile }}</td>
                     </tr>
-                    <tr>
-                        <th>Adresse</th>
-                        <td>
-                            {{ client.clientAdresse.numero}} {{ client.clientAdresse.typevoie}} {{ client.clientAdresse.nom}}<br>
-                            {{ client.clientAdresse.codepostal}} {{ client.clientAdresse.ville}}
-                        </td>
-                    </tr>
                 </table>
                 <div class="text-center">
                     <a href="{{ path('update_acount', {user: app.user.id}) }}" class="">
-                        <button class="btn btn-primary">
-                            MODIFIER
+                        <button class="btn btn-outline-primary mt-lg-3">
+                            Modifier mes infos
+                        </button>
+                    </a>
+                </div>
+                <div class="text-center">
+                    <a href="{{ path('update_password', {user: app.user.id}) }}" class="">
+                        <button class="btn btn-outline-danger mt-lg-3">
+                            Changer de mot de passe
                         </button>
                     </a>
                 </div>
