@@ -58,9 +58,8 @@ $('#formulaire_demarche').on('change', function (e) {
     }
 });
 
-$('#backButton').on('click', function () {
-    $('#formulaire_demarche').val(1);
-    $('#formulaire_demarche').change();
+$('a[href="#up"]').click(function(){
+    $('#formulaire_demarche').val(2).change();
 });
 
 function h2over(x){  
