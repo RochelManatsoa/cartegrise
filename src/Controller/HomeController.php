@@ -305,4 +305,13 @@ class HomeController extends AbstractController
 
         return $this->redirectToRoute('commande_list');
     }
+
+    /**
+     * @Route("/documents-telechargeables", name="doc_telechargeable")
+     */
+    public function doc_telechargeableAction()
+    {
+        return $this->render('home/doc_telechargeable.html.twig');
+    }
+
 }
