@@ -73,6 +73,9 @@
                                         <hr>
                                         {% endif %}
                                     {% endfor %}
+                                    <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
+                                        <button type="button" class="btn btn-primary btn-sm">Dossier à Fournir</button>
+                                    </a>
                                     {% if demande.commande.transaction is not null and demande.commande.transaction.status == "00" %}
                                         <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
                                             <button type="button" class="btn btn-primary btn-sm">Valider</button>
