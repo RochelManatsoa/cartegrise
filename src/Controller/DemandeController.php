@@ -63,8 +63,22 @@ class DemandeController extends AbstractController
     }
 
     /**
-     * @Route("/espace-client", name="espace_client")
-     * @Route("/espace-client/{demande}")
+     * @Route("/history", name="demande_history")
+     */
+    public function history(DemandeManager $demandeManager)
+    {
+        return $this->render(
+            'demande/history.html.twig',
+            [
+                'demandes' => $demandeManager->getDemandeOfUser($this->getUser()),
+                'client' => $this->getUser()->getClient(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/espace-client/{demande}", name="espace_client")
+     * @Route("/espace-client")
      */
     public function espaceClient(DemandeManager $demandeManager, DocumentAFournirManager $documentAFournirManager, ?Demande $demande=null)
     {
