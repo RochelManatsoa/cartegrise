@@ -56,7 +56,7 @@ class DemandeController extends AbstractController
         return $this->render(
             'demande/list.html.twig',
             [
-                'demande' => $demandeManager->getHerLastDemande(),
+                'demandes' => $demandeManager->getDemandeOfUser($this->getUser()),
                 'client' => $this->getUser()->getClient(),
             ]
         );
@@ -79,7 +79,7 @@ class DemandeController extends AbstractController
         }
 
         return $this->render(
-            'demande/list.html.twig',
+            'demande/espaceClient.html.twig',
             [
                 'demande' => $demande,
                 'client' => $this->getUser()->getClient(),

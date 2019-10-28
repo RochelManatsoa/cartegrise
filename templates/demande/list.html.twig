@@ -9,86 +9,6 @@
         <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container w-100 mx-3 mx-lg-4">
             <div class="col-12">
                 <div class="px-2">
-                    <br>
-                    <h3 class="text-center title-client">ESPACE CLIENT</h3>
-                    <div class="nav-client mt-5">
-                        <ul class="d-flex align-items-center">
-                            <li><a href="#" class="nav-client-item home-item"><img src="{{ asset('asset/img/home-espace-client.png')}}" alt="home espace client"></a></li>
-                            <li><a href="#" class="nav-client-item">Historique</a></li>
-                            <li><a href="#" class="nav-client-item">Mails réçus</a></li>
-                        </ul>
-                    </div>
-                    <h3 class="title-client">Demarche:</h3>
-                    <div class="demarche-container">
-                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="pills-apercu-tab" data-toggle="pill" href="#pills-apercu" role="tab" aria-controls="pills-apercu" aria-selected="true">Aperçu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="pills-document-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-document" aria-selected="false">Détails de la commande</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="pills-document-tab" data-toggle="pill" href="#pills-document" role="tab" aria-controls="pills-document" aria-selected="false">J'envoie mes documents</a>
-                            </li>
-                        </ul>
-                        {% if demande is not null %}
-                        <div class="tab-content" id="pills-tabContent">
-                            <div class="content-demarche tab-pane fade show active" id="pills-apercu" role="tabpanel" aria-labelledby="pills-apercu-tab">
-                                <p>{{ demande.id}} : {{ demande.commande.demarche.nom }} - {{ demande.commande.ceerLe | date('d.m.Y à H\\h:i')}}</p>
-                                <p>
-                                    Dossier à deposer en ligne: 
-                                    <span class="badge badge-{{ statusOfCommande(demande.commande, "style") }}">
-                                        {{ statusOfCommande(demande.commande, "text") }}
-                                    </span>
-                                </p>
-                                <!-- <p>Dossier à envoyer par courier: A expédier / Reçu</p> -->
-                            </div>
-                            <div class="content-demarche tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                <p>{{ demande.commande.demarche.nom }} - {{ demande.commande.ceerLe | date('d.m.Y à H\\h:i')}}</p>
-                                <p>{{ demande.commande.immatriculation | displayValue}}</p>
-                                <br>
-                                <p>Votre commande expire le <span>{{ demande.commande.ceerLe |date_modify("+1 month")|date('d.m.Y à H\\h:i')}}</span></p>
-                                <br>
-                                <a href="{{path('payment_facture', {'demande':demande.id})}}" class="btn btn-primary">Facture</a>
-                            </div>
-                            <div class="content-demarche tab-pane fade" id="pills-document" role="tabpanel" aria-labelledby="pills-document-tab" style="overflow: auto;">
-                                <p>
-                                    Finalisez votre démarche 
-                                    {% for col in form %}
-                                        {% if col.vars.type is defined and col.vars.type == 'file' %}
-                                        <div class="group-input">
-                                            <div>
-                                                <h4>{{ form_label(col) }}
-                                                    {% if checkFile(files, col.vars.name) != "" %}
-                                                    <small>
-                                                        <a href="{{ asset(checkFile(files, col.vars.name)) }}"
-                                                            target="_blank">{{ form.vars.value.getRealFileName(col.vars.name) }}</a>
-                                                    </small>
-                                                    {% else %}
-                                                    <small class="text-danger">Aucun fichier !</small>
-                                                    {% endif %}
-                                                </h4>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% if demande.commande.transaction is not null and demande.commande.transaction.status == "00" %}
-                                        <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
-                                            <button type="button" class="btn btn-primary btn-sm">Valider</button>
-                                        </a>                                            
-                                    {% else %}
-                                        {{ delete_form('demande_annuler', {id: demande.id}, 'demande' ~ demande.id, confirmMessage, 'Annuler', null, 'btn btn-danger btn-sm mb-1') }}
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </div>
-                        {%else%}
-                        <p>Auccune demande trouvée</p>
-                        {%endif%}
-                    </div>
-                    <br>
-
                     <h3>Commandes effectuées​</h3>
                     <hr>
                     <div class="table-responsive">
@@ -106,7 +26,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            {% if demande is not null %}
+                            {% for demande in demandes %}
                                 <tr>
                                     <td>{{ demande.id | displayValue}}</td>
                                     <td>{{ demande.commande.demarche.nom | displayValue}}</td>
@@ -115,24 +35,27 @@
                                     <td class="text-center">{{ demande.commande.codePostal | displayValue}}</td>
                                     <td class="text-center">{{ demande.commande.immatriculation | displayValue}}</td>
                                     <td>
-                                        <span class="badge badge-{{ statusOfCommande(demande.commande, "style") }}">{{ statusOfCommande(demande.commande, "text") }}</span>                                        
+                                        <span
+                                            class="badge badge-{{ statusOfCommande(demande.commande, "style") }}">{{ statusOfCommande(demande.commande, "text") }}</span>
                                     </td>
                                     <td>
                                         <a href="{{path('demande_recap', {'demande': demande.id })}}">
                                             <button type="button" class="btn btn-primary btn-sm">Résumé</button>
                                         </a>
                                         {% if demande.commande.transaction is not null and demande.commande.transaction.status == "00" %}
-                                            <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
-                                                <button type="button" class="btn btn-primary btn-sm">Documents à fournir</button>
-                                            </a>                                            
+                                        <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
+                                            <button type="button" class="btn btn-primary btn-sm">Documents à fournir</button>
+                                        </a>
                                         {% else %}
-                                            {{ delete_form('demande_annuler', {id: demande.id}, 'demande' ~ demande.id, confirmMessage, 'Annuler', null, 'btn btn-danger btn-sm mb-1') }}
+                                        {{ delete_form('demande_annuler', {id: demande.id}, 'demande' ~ demande.id, confirmMessage, 'Annuler', null, 'btn btn-danger btn-sm mb-1') }}
                                         {% endif %}
                                     </td>
                                 </tr>
                             {% else %}
-                                <tr><td colspan="8">Aucune demande trouvé</td></tr>
-                            {% endif %}
+                                <tr>
+                                    <td colspan="8">Aucune demande trouvé</td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>

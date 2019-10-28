@@ -13,6 +13,8 @@ use App\Repository\TarifsPrestationsRepository;
 use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager};
 use App\Utils\StatusTreatment;
 use App\Manager\DocumentAFournirManager;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Symfony\Component\Validator\Constraints\File;
 
 class AppExtension extends AbstractExtension
 {
@@ -80,6 +82,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('totalPrestationMajorationWithoutTaxeDaily', [$this, 'totalPrestationMajorationWithoutTaxeDaily']),
             new TwigFunction('totalPrestationMajorationTaxeDaily', [$this, 'totalPrestationMajorationTaxeDaily']),
             new TwigFunction('totalPrestationMajorationTTC', [$this, 'totalPrestationMajorationTTC']),
+            new TwigFunction('displayAccepted', [$this, 'displayAccepted']),
         ];
     }
 
@@ -434,5 +437,55 @@ class AppExtension extends AbstractExtension
         }
 
         return $taxesTotal;
+    }
+    public function displayAccepted(object $object, string $argument): string
+    {
+        $annotations = $this->getProperty($object, $argument);
+        foreach ($annotations as $annotation) {
+            if ($annotation instanceof File) {
+                $annotationFile = $annotation;
+            }
+        }
+        
+        if (isset($annotationFile->mimeTypes) && is_array($annotationFile->mimeTypes)) {
+            $typeFile = ', ( ';
+            foreach ($annotationFile->mimeTypes as $key => $value) {
+                $typeFile .=  ($value == end($annotationFile->mimeTypes)) ? $this->getTypeOfMimeType($value).' ' : $this->getTypeOfMimeType($value) . ', ' ; 
+            }
+
+            if (isset($annotationFile->maxSize)) {
+                $typeFile.=', maxSize: '. $this->convertToReadableSize($annotationFile->maxSize) . ')';
+            } else {
+                $typeFile.=')';
+            }
+        } else {
+            return '';
+        }
+
+        return $typeFile;
+    }
+
+    private function getTypeOfMimeType($value){
+        return str_replace('application/', '', $value);
+    }
+
+    private function convertToReadableSize($size){
+        $base = log($size) / log(1024);
+        $suffix = array("", "KB", "MB", "GB", "TB");
+        $f_base = floor($base);
+
+        return round(pow(1024, $base - floor($base)), 1) . $suffix[$f_base];
+    }
+    /**
+     * @param $class
+     * @param $property
+     * @return array
+     */
+    private function getProperty($class, $property)
+    {
+        $reader = new AnnotationReader;
+        $reflector = new \ReflectionProperty($class, $property);
+
+        return $reader->getPropertyAnnotations($reflector);
     }
 }

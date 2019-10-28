@@ -1,3 +1,7 @@
+{% form_theme form with [
+    'forms/my_custom_theme.html.twig'
+] %}
+
 {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
     {{ form_start(form, {'attr':{'id':'form-dossier'}}) }}
         {% for col in form %}

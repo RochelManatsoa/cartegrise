@@ -35,7 +35,7 @@ class DemandeIvn
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $originalCertificatConformiteEuropeen;
+    protected $originalCertificatConformiteEuropeen;
 
     /**
     * @ORM\Column(type="string", nullable=true)
@@ -46,7 +46,7 @@ class DemandeIvn
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $certificatVenteOriginalFactureAchat;
+    protected $certificatVenteOriginalFactureAchat;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -56,7 +56,7 @@ class DemandeIvn
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $pieceIdentiteValid;
+    protected $pieceIdentiteValid;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -66,7 +66,7 @@ class DemandeIvn
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $copieAttestationAssuranceValide;
+    protected $copieAttestationAssuranceValide;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -76,7 +76,7 @@ class DemandeIvn
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $copiePermisConduireTitulaire;
+    protected $copiePermisConduireTitulaire;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -86,7 +86,7 @@ class DemandeIvn
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $demandeOriginalCertificatImmatriculation;
+    protected $demandeOriginalCertificatImmatriculation;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -96,7 +96,7 @@ class DemandeIvn
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $procurationParMandat;
+    protected $procurationParMandat;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -106,7 +106,7 @@ class DemandeIvn
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $justificatifDomicileRecent;
+    protected $justificatifDomicileRecent;
 
     /**
      * @var \DateTime $deletedAt
