@@ -36,11 +36,6 @@
             <div>
                 {{ form_row(formCGV.termsAccepted)}} <br>
                 {{ form_row(formCGV.enregistrer)}} <br>
-                <a href="{{path('payment_commande', {'commande': commande.id })}}">
-                        <button class="btn btn-success"> 
-                            Procéder au paiement
-                        </button>
-                    </a>
             </div>
             {{ form_end(formCGV)}}
             {% endif %}
