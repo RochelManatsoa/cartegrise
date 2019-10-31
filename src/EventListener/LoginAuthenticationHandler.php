@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-05-21 10:55:09 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-05-21 16:53:53
+ * @Last Modified time: 2019-10-31 16:21:02
  */
 namespace App\EventListener;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -63,6 +63,20 @@ class LoginAuthenticationHandler implements AuthenticationSuccessHandlerInterfac
         if ($user->hasRole("ROLE_CRM")) {
 
             return new RedirectResponse($this->routerInterface->generate('route_crm_home'));
+        } elseif(!$user->hasRole("ROLE_CRM") && !$user->hasRole("ROLE_ADMIN")) {
+            $this->userManager->checkCommandeInSession($user);
+            $commandes = $user->getClient()->getCommandes();
+            if (0 < count($commandes)){
+                // add condition when user went to recap before
+                if ( 
+                    (null !== $commandes->last()->getTransaction()) && 
+                    ($commandes->last()->getTransaction()->getStatus() != '00')
+                ) {
+
+                    return new RedirectResponse($this->routerInterface->generate('commande_recap', ["commande" => $commandes->last()->getId()]));
+                }
+            }
+
         }
         $this->userManager->checkCommandeInSession($user);
 
