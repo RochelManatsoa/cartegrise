@@ -13,7 +13,6 @@ class SendEmailListener implements base
      */
     public function beforeSendPerformed(\Swift_Events_SendEvent $evt)
     {
-        dump($evt);
     }
 
     /**
@@ -23,6 +22,8 @@ class SendEmailListener implements base
      */
     public function sendPerformed(\Swift_Events_SendEvent $evt)
     {
-        dd($evt);
+        if (\Swift_Events_SendEvent::RESULT_SUCCESS === $evt->getResult()) {
+            dump($evt->getMessage());
+        }
     }
 }
