@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-05-21 10:55:09 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-10-31 16:21:02
+ * @Last Modified time: 2019-10-31 16:22:16
  */
 namespace App\EventListener;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -69,8 +69,9 @@ class LoginAuthenticationHandler implements AuthenticationSuccessHandlerInterfac
             if (0 < count($commandes)){
                 // add condition when user went to recap before
                 if ( 
-                    (null !== $commandes->last()->getTransaction()) && 
-                    ($commandes->last()->getTransaction()->getStatus() != '00')
+                    (null === $commandes->last()->getTransaction()) ||
+                    ((null !== $commandes->last()->getTransaction()) && 
+                    ($commandes->last()->getTransaction()->getStatus() != '00'))
                 ) {
 
                     return new RedirectResponse($this->routerInterface->generate('commande_recap', ["commande" => $commandes->last()->getId()]));
