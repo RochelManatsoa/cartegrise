@@ -34,7 +34,7 @@ class EmailListener implements EventSubscriberInterface
         if (!$this->container->has('mailer') || $this->wasExceptionThrown) {
             return;
         }
-        dump($this->container);
+        
         
         $mailers = array_keys($this->container->getParameter('swiftmailer.mailers'));
         foreach ($mailers as $name) {
@@ -43,10 +43,24 @@ class EmailListener implements EventSubscriberInterface
                     $mailer = $this->container->get(sprintf('swiftmailer.mailer.%s', $name));
                     
                     $transport = $mailer->getTransport();
-                    dump($transport->isStarted());
+                    // dump($transport->isStarted());
                     if ($transport instanceof \Swift_Transport_SpoolTransport) {
                         $spool = $transport->getSpool();
                         if ($spool instanceof \Swift_MemorySpool){
+                            $messageLogger = $this->container->get('swiftmailer.mailer.default.plugin.messagelogger');
+                            if ($messageLogger instanceof \Swift_Plugins_MessageLogger) {
+                                $messages = $messageLogger->getMessages();
+                                foreach ($messages as $message) {
+                                    $body = $message->getBody();
+                                    $SwiftAdresseTo = $message->getHeaders()->get('To');
+                                    $SwiftAdresseFrom = $message->getHeaders()->get('From');
+                                    $subject = $message->getHeaders()->get('Subject')->getValue();
+                                    $froms = $this->getKeyArray($SwiftAdresseFrom->getNameAddresses());
+                                    $tos = $this->getKeyArray($SwiftAdresseTo->getNameAddresses());
+                                    dump($froms, $tos, $subject, $body); 
+                                }
+                            }
+                            
                             // dump($this->container->get(sprintf('swiftmailer.mailer.%s.transport.real', $name)));
                         }
                     }
@@ -54,6 +68,15 @@ class EmailListener implements EventSubscriberInterface
             }
         }
     }
+    private function getKeyArray(array $array)
+    {
+        $return = [];
+        foreach($array as $key=>$value) {
+            $return[]= $key;
+        }
+        return $return ;
+    }
+
     public static function getSubscribedEvents()
     {
         $listeners = [

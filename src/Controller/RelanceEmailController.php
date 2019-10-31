@@ -10,7 +10,7 @@ use App\Manager\TaxesManager;
 use App\Manager\MailManager;
 use App\Entity\DailyFacture;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use App\Modele\Swift_Mailer;
+use Swift_Mailer;
 
 
 /**

@@ -2,7 +2,7 @@
 
 namespace App\Manager;
 
-use App\Modele\Swift_Mailer;
+use Swift_Mailer;
 use Swift_Attachment;
 use App\Entity\Demande;
 use App\Manager\Model\ParamDocumentAFournir;
