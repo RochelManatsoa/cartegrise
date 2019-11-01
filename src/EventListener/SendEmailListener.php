@@ -4,6 +4,7 @@ namespace App\EventListener;
 
 use \Swift_Events_SendListener as base;
 use App\Manager\UserManager;
+use App\Entity\EmailHistory;
 
 class SendEmailListener implements base
 {
@@ -38,11 +39,11 @@ class SendEmailListener implements base
             dump($froms, $tos, $subject, $body);
             foreach($tos as $to){
                 $user = $this->userManager->getUserByEmail($to);
-                dump($user);
-                // $emailHistory = new EmailHistory();
-                // $emailHistory->setSubject($subject)->setBody($body)->setFrom($froms);
-                // $user->addEmailHistory($emailHistory);
-                // $this->userManager->save($user);
+                //dump($user);
+                $emailHistory = new EmailHistory();
+                dump($emailHistory->setSubject($subject)->setBody($body)->setFrom($froms));
+                $user->addEmailHistory($emailHistory);
+                $this->userManager->save($user);
             }
         }
     }

@@ -66,7 +66,7 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string", nullable=true)
-    * @Groups({"write", "register"})
+     * @Groups({"write", "register"})
      */
     private $franceConnectId;
 
@@ -75,6 +75,13 @@ class User extends BaseUser
      * @Groups({"read", "info_user", "write", "register"})
      */
     private $client;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\EmailHistory", inversedBy="user")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"read", "info_user", "write", "register"})
+     */
+    private $mailHistory;
 
 
     public function __construct()
@@ -123,6 +130,18 @@ class User extends BaseUser
     public function setFranceConnectId(?string $franceConnectId): self
     {
         $this->franceConnectId = $franceConnectId;
+
+        return $this;
+    }
+
+    public function getMailHistory(): ?EmailHistory
+    {
+        return $this->mailHistory;
+    }
+
+    public function setMailHistory(?EmailHistory $mailHistory): self
+    {
+        $this->mailHistory = $mailHistory;
 
         return $this;
     }
