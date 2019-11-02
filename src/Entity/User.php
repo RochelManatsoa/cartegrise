@@ -79,7 +79,6 @@ class User extends BaseUser
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\EmailHistory", inversedBy="user")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"read", "info_user", "write", "register"})
      */
     private $mailHistory;
 

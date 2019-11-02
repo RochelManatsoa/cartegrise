@@ -36,12 +36,12 @@ class SendEmailListener implements base
             $subject = $message->getHeaders()->get('Subject')->getValue();
             $froms = $this->getKeyArray($SwiftAdresseFrom->getNameAddresses());
             $tos = $this->getKeyArray($SwiftAdresseTo->getNameAddresses());
-            dump($froms, $tos, $subject, $body);
+            //dump($froms, $tos, $subject, $body);
             foreach($tos as $to){
                 $user = $this->userManager->getUserByEmail($to);
                 //dump($user);
                 $emailHistory = new EmailHistory();
-                dump($emailHistory->setSubject($subject)->setBody($body)->setFrom($froms));
+                $emailHistory->setSubject($subject)->setBody($body)->setFrom($froms);
                 $user->addEmailHistory($emailHistory);
                 $this->userManager->save($user);
             }

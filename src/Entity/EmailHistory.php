@@ -5,16 +5,9 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EmailHistoryRepository")
- *  @ApiResource(
- *     forceEager= false,
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write", "register"}}
- * )
  */
 class EmailHistory
 {
@@ -22,31 +15,26 @@ class EmailHistory
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"info_user"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string")
-     * @Groups({"info_user", "register"})
      */
     private $froms;
 
     /**
      * @ORM\Column(type="string")
-     * @Groups({"info_user", "register"})
      */
     private $subject;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"info_user", "register"})
      */
     private $body;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="mailHistory", cascade={"persist", "remove"})
-     * @Groups({"read"})
      */
     private $user;
 
