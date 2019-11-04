@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Entity\Taxes;
 use App\Entity\TypeDemande;
 use App\Entity\Commande;
+use App\Entity\EmailHistory;
 use App\Repository\TarifsPrestationsRepository;
 use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager};
 use App\Utils\StatusTreatment;
@@ -83,6 +84,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('totalPrestationMajorationTaxeDaily', [$this, 'totalPrestationMajorationTaxeDaily']),
             new TwigFunction('totalPrestationMajorationTTC', [$this, 'totalPrestationMajorationTTC']),
             new TwigFunction('displayAccepted', [$this, 'displayAccepted']),
+            new TwigFunction('decodeBody', [$this, 'decodeBody']),
         ];
     }
 
@@ -487,5 +489,11 @@ class AppExtension extends AbstractExtension
         $reflector = new \ReflectionProperty($class, $property);
 
         return $reader->getPropertyAnnotations($reflector);
+    }
+
+    public function decodeBody(EmailHistory $emailHistory){
+        $email = \base64_decode($emailHistory->getBody());
+
+        return $email;
     }
 }

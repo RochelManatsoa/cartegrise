@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% from 'shared/macro.html.twig' import delete_form %}
+
+{% set confirmMessage = "Etes-vous sûr de vouloir annuler cette demande ?" %}
+
+{% block page_content %}
+    <div class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
+        <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container w-100 mx-3 mx-lg-4">
+            <div class="col-12">
+                <div class="px-2">
+                    <br>
+                    <h3 class="text-center title-client">ESPACE CLIENT</h3>
+                    <div class="nav-client mt-5">
+                        <ul class="d-flex align-items-center">
+                            <li><a href="#" class="nav-client-item home-item"><img src="{{ asset('asset/img/home-espace-client.png')}}" alt="home espace client"></a></li>
+                            <li><a href="#" class="nav-client-item">Historique</a></li>
+                            <li><a href="{{ path('email_history') }}" class="nav-client-item">Mails réçus</a></li>
+                        </ul>
+                    </div>
+                    <h3 class="title-client">Demarche:</h3>
+                    <div class="demarche-container">
+                        <table class="table table-striped custom-table">
+                            <tr>
+                                <th>Objet</th>
+                                <th>Date</th>
+                                <th></th>
+                            </tr>
+                            {% for email in emailsHistory %}
+                            <tr>
+                                <td>{{ email.subject}}</td>
+                                <td>{{ email.createdAt | date('d/m/Y')}}</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#{{email.id}}">
+                                        Ouvrir le mail
+                                    </button>
+                                </td>
+                            </tr>
+                                <!-- Button trigger modal -->
+                                
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="{{email.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">
+                                            Objet : {{ email.subject }}<br>
+                                            Date : {{ email.createdAt | date('d M Y')}}
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ decodeBody(email) | raw }}
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>                  
+{% endblock %}
