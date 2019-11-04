@@ -83,9 +83,6 @@ class User extends BaseUser
      */
     private $emailHistories;
 
-
-
-
     public function __construct()
     {
         parent::__construct();
