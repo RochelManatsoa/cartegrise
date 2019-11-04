@@ -151,4 +151,14 @@ class UserManager
         
         return 'sended';
     }
+
+    public function getUserByEmail(string $email) :?User
+    {
+        return $this->repository->findOneBy(['email'=>$email]);
+    }
+
+    public function getRepository() :UserRepository
+    {
+        return $this->repository;
+    }
 }

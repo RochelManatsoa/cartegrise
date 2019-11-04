@@ -3,6 +3,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -66,7 +68,7 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string", nullable=true)
-    * @Groups({"write", "register"})
+     * @Groups({"write", "register"})
      */
     private $franceConnectId;
 
@@ -76,6 +78,13 @@ class User extends BaseUser
      */
     private $client;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EmailHistory", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $emailHistories;
+
+
+
 
     public function __construct()
     {
@@ -84,6 +93,8 @@ class User extends BaseUser
         if (empty($this->registerDate)) {
             $this->registerDate = new \DateTime();
         }
+        $this->mailHistorys = new ArrayCollection();
+        $this->emailHistories = new ArrayCollection();
     }
 
     public function getClient(): ?Client
@@ -126,5 +137,37 @@ class User extends BaseUser
 
         return $this;
     }
+
+    /**
+     * @return Collection|EmailHistory[]
+     */
+    public function getEmailHistories(): Collection
+    {
+        return $this->emailHistories;
+    }
+
+    public function addEmailHistory(EmailHistory $emailHistory): self
+    {
+        if (!$this->emailHistories->contains($emailHistory)) {
+            $this->emailHistories[] = $emailHistory;
+            $emailHistory->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmailHistory(EmailHistory $emailHistory): self
+    {
+        if ($this->emailHistories->contains($emailHistory)) {
+            $this->emailHistories->removeElement($emailHistory);
+            // set the owning side to null (unless already changed)
+            if ($emailHistory->getUser() === $this) {
+                $emailHistory->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 }

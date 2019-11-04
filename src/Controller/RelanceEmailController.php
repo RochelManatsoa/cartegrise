@@ -10,6 +10,7 @@ use App\Manager\TaxesManager;
 use App\Manager\MailManager;
 use App\Entity\DailyFacture;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Swift_Mailer;
 
 
 /**
@@ -52,13 +53,35 @@ class RelanceEmailController extends AbstractController
     /**
      * @Route("/email/{index}", name="relance_email_1")
      */
-    public function relance(\Swift_Mailer $mailer, int $index)
+    public function relance(Swift_Mailer $mailer, int $index)
     {
         $responses = $this->getUser();
         $response = $this->getUser()->getEmail();
         $this->send($mailer, $response, $responses, $index);
 
         return new Response('ok');
+    }
+    /**
+     * @Route("/email_test_mandeha", name="email_test_mandeha")
+     */
+    public function huhu(Swift_Mailer $mailer)
+    {
+        $this->send($mailer, 'rapaelec@gmail.com', $this->getUser(), 1);
+
+        return new Response('
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>Document</title>
+        </head>
+        <body>
+            manaona
+        </body>
+        </html>
+        ');
     }
 
     public function send($mailer, $mail, $responses, $index)
