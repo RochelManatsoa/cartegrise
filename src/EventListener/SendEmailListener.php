@@ -40,7 +40,7 @@ class SendEmailListener implements base
             foreach($tos as $to){
                 $user = $this->userManager->getUserByEmail($to);
                 $emailHistory = new EmailHistory();
-                dump($emailHistory->setSubject($subject)->setBody(\base64_encode($body))->setSender($froms[0]));
+                $emailHistory->setSubject($subject)->setBody(\base64_encode($body))->setSender($froms[0]);
                 $user->addEmailHistory($emailHistory);
                 $this->userManager->save($user);
             }

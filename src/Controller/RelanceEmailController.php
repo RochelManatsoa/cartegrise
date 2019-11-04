@@ -9,6 +9,7 @@ use App\Manager\DemandeManager;
 use App\Manager\TaxesManager;
 use App\Manager\MailManager;
 use App\Entity\DailyFacture;
+use App\Entity\EmailHistory;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Swift_Mailer;
 
@@ -84,6 +85,13 @@ class RelanceEmailController extends AbstractController
         ');
     }
 
+    /**
+     * @Route("/email_history", name="email_history")
+     */
+    public function emailHistory() {
+        return $this->render('relance/emailHistory.html.twig');
+    }
+
     public function send($mailer, $mail, $responses, $index)
     {
         $message = (new \Swift_Message('Hello!'))
@@ -99,4 +107,6 @@ class RelanceEmailController extends AbstractController
         );
         $mailer->send($message);
     }
+
+
 }
