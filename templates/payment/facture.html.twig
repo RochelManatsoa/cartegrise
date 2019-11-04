@@ -60,14 +60,14 @@
             {{ demande.commande.clientFacture.clientNom | upper}}
           </strong>
           <br>
-            {{ demande.commande.clientFacture.clientAdresse.numero }} 
-            {{ demande.commande.clientFacture.clientAdresse.typevoie }} 
-            {{ demande.commande.clientFacture.clientAdresse.nom }} 
-            {{ demande.commande.clientFacture.clientAdresse.complement }} 
-            {{ demande.commande.clientFacture.clientAdresse.extension }} 
-          <br>
-            {{ demande.commande.clientFacture.clientAdresse.codePostal }} 
-            {{ demande.commande.clientFacture.clientAdresse.ville | upper }} 
+            {{ adresse.numero }} 
+            {{ adresse.typevoie | displayAdress}} 
+            {{ adresse.nom | upper }} 
+            {{ adresse.complement }} 
+            {{ adresse.extension }} 
+          <br> 
+            {{ adresse.codePostal }} 
+            {{ adresse.ville | upper }}
         </p>
       </div>
     </div>
