@@ -313,7 +313,7 @@ class DemandeManager
         // get facture if not exist
         // if (!is_file($file)) { // attente de finalité du process
             $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
-            //$snappy = new Pdf("\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"");
+            $snappy = new Pdf("\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"");
             $filename = "Facture";
             $html = $this->twig->render("payment/facture.html.twig", array(
                 "demande"=> $demande,
@@ -545,6 +545,40 @@ class DemandeManager
                 return null;
         }
         
+    }
+
+    public function findValueNomPrenomOfDemande(Demande $demande, $nomPrenom)
+    {
+       $fullname = $demande->getCommande()->getDemarche()->getType();
+       $realNomPrenom = $this->getDemandeOfNomPrenom($demande, $fullname);
+       $propertyAccessor = PropertyAccess::createPropertyAccessor();
+       // get the nom prenom titulaire ou acquerreur needed
+       if ($propertyAccessor->getValue($realNomPrenom, $nomPrenom) != null)
+        {
+            return $propertyAccessor->getValue($realNomPrenom, $nomPrenom);
+        }
+
+       return "--";
+    }
+
+    private function getDemandeOfNomPrenom(Demande $demande, $fullname)
+    {
+        switch($fullname) {
+            case "CTVO":
+                return $demande->getCtvo()->getAcquerreur();
+                break;
+            case "DUP":
+                return $demande->getDuplicata()->getTitulaire();
+                break;
+            case "DIVN":
+                return $demande->getDivn()->getAcquerreur();
+                break;
+            case "DCA":
+                return $demande->getChangementAdresse()->getNouveauxTitulaire();
+                break;
+            default:
+                return null;
+        }
     }
 
 }

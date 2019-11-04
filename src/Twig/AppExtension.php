@@ -83,6 +83,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('totalPrestationMajorationTaxeDaily', [$this, 'totalPrestationMajorationTaxeDaily']),
             new TwigFunction('totalPrestationMajorationTTC', [$this, 'totalPrestationMajorationTTC']),
             new TwigFunction('findAdresseInDemande', [$this, 'findAdresseInDemande']),
+            new TwigFunction('findNomPrenomInDemande', [$this, 'findNomPrenomInDemande']),
         ];
     }
 
@@ -442,4 +443,10 @@ class AppExtension extends AbstractExtension
     {
         return $this->demandeManager->findValueAdresseOfDemande($demande, $labelAdresse);
     }
+
+    public function findNomPrenomInDemande(Demande $demande, $nomPrenom)
+    {
+        return $this->demandeManager->findValueNomPrenomOfDemande($demande, $nomPrenom);
+    }
+
 }

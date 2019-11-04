@@ -59,6 +59,19 @@
             {{ demande.commande.clientFacture.clientPrenom | capitalize }} 
             {{ demande.commande.clientFacture.clientNom | upper}}
           </strong>
+
+          {% if demande.commande.transaction is defined and demande.commande.transaction is not null %}
+            <br>
+            {{ findNomPrenomInDemande(demande, "nomPrenomTitulaire") }}
+            {#{ findNomPrenomInDemande(demande, "nomprenom") }#}
+            {{ findNomPrenomInDemande(demande, "prenomTitulaire") }}
+            <br>
+          {%else%}
+            {{ demande.commande.clientFacture.clientAdresse.nomPrenomTitulaire }}
+            {#{ demande.commande.clientFacture.clientAdresse.nomprenom }#}
+            {{ demande.commande.clientFacture.clientAdresse.prenomTitulaire }}
+          {%endif%}
+
           {% if demande.commande.transaction is defined and demande.commande.transaction is not null %}
             <br>
             {{ findAdresseInDemande(demande, "numero") }}
