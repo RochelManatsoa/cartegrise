@@ -21,7 +21,7 @@ class EmailHistory
     /**
      * @ORM\Column(type="string")
      */
-    private $froms;
+    private $from;
 
     /**
      * @ORM\Column(type="string")
@@ -34,28 +34,23 @@ class EmailHistory
     private $body;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="mailHistory", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="user")
      */
     private $user;
-
-    public function __construct()
-    {
-        $this->user = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFroms(): ?string
+    public function getFrom(): ?string
     {
-        return $this->froms;
+        return $this->from;
     }
 
-    public function setFroms(string $froms): self
+    public function setFrom(string $from): self
     {
-        $this->froms = $froms;
+        $this->from = $from;
 
         return $this;
     }
@@ -84,34 +79,18 @@ class EmailHistory
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getUser(): Collection
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function addUser(User $user): self
+    public function setUser(?User $user): self
     {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-            $user->setMailHistory($this);
-        }
+        $this->user = $user;
 
         return $this;
     }
 
-    public function removeUser(User $user): self
-    {
-        if ($this->user->contains($user)) {
-            $this->user->removeElement($user);
-            // set the owning side to null (unless already changed)
-            if ($user->getMailHistory() === $this) {
-                $user->setMailHistory(null);
-            }
-        }
 
-        return $this;
-    }
+    
 }

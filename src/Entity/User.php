@@ -3,6 +3,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -77,7 +79,7 @@ class User extends BaseUser
     private $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\EmailHistory", inversedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\EmailHistory", mappedBy="mailHistory", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $mailHistory;
@@ -90,6 +92,7 @@ class User extends BaseUser
         if (empty($this->registerDate)) {
             $this->registerDate = new \DateTime();
         }
+        $this->mailHistory = new ArrayCollection();
     }
 
     public function getClient(): ?Client
@@ -133,16 +136,36 @@ class User extends BaseUser
         return $this;
     }
 
-    public function getMailHistory(): ?EmailHistory
+    /**
+     * @return Collection|EmailHistory[]
+     */
+    public function getMailHistory(): Collection
     {
         return $this->mailHistory;
     }
 
-    public function setMailHistory(?EmailHistory $mailHistory): self
+    public function addMailHistory(EmailHistory $mailHistory): self
     {
-        $this->mailHistory = $mailHistory;
+        if (!$this->mailHistory->contains($mailHistory)) {
+            $this->mailHistory[] = $mailHistory;
+            $mailHistory->setMailHistory($this);
+        }
 
         return $this;
     }
+
+    public function removeMailHistory(EmailHistory $mailHistory): self
+    {
+        if ($this->mailHistory->contains($mailHistory)) {
+            $this->mailHistory->removeElement($mailHistory);
+            // set the owning side to null (unless already changed)
+            if ($mailHistory->getMailHistory() === $this) {
+                $mailHistory->setMailHistory(null);
+            }
+        }
+
+        return $this;
+    }
+    
 
 }
