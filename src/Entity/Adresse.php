@@ -21,6 +21,28 @@ use ApiPlatform\Core\Annotation\ApiResource;
  */
 class Adresse
 {
+    const ROAD_NAME = [
+        "SANS" => '...',
+        "RUE" => 'Rue',
+        "BLVD" => 'Boulevard',
+        "AVN" => 'Avenue',
+        "ALL" => 'Allée',
+        "PLC" => 'Place',
+        "IMP" => 'Impasse',
+        "CHM" => 'Chemin',
+        "QUAI" => 'Quai',
+        "FORT" => 'Fort',
+        "RTE" => 'Route',
+        "PASS" => 'Passage',
+        "COUR" => 'Cour',
+        "CHAU" => 'Chaussée',
+        "PARC" => 'Parc',
+        "FBG" => 'Faubourg',
+        "LDIT" => 'Lieu-Dit',
+        "SQUA" => 'Square',
+        "SENT" => 'Sente',
+    ];
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

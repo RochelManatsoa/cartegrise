@@ -306,6 +306,8 @@ class DemandeManager
     {
         $folder = $demande->getGeneratedCerfaPath();
         $file = $demande->getGeneratedFacturePathFile();
+        $params = $this->getTitulaireParams($demande);
+        $params = array_merge(['demande' => $demande], $params);
         // create directory
         if (!is_dir($folder)) mkdir($folder, 0777, true);
         // end create file 
@@ -313,9 +315,7 @@ class DemandeManager
         if (!is_file($file)) { // attente de finalité du process
             $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
             $filename = "Facture";
-            $html = $this->twig->render("payment/facture.html.twig", array(
-                "demande"=> $demande,
-            ));
+            $html = $this->twig->render("payment/facture.html.twig", $params);
             $output = $snappy->getOutputFromHtml($html);
             
             $filefinal = file_put_contents($file, $output);
@@ -509,6 +509,35 @@ class DemandeManager
        $user = $this->tokenStorage->getToken()->getUser();
 
        return $this->repository->getLastDemande($user);
+    }
+
+    public function getTitulaireParams(Demande $demande)
+    {
+        switch($demande->getCommande()->getDemarche()->getType()){
+            case "CTVO":
+                $titulaire = $demande->getCtvo()->getAcquerreur();
+                $adresseFacture = $titulaire->getAdresseNewTitulaire();
+                $nomPrenom = $titulaire->getNomPrenomTitulaire().' '.$titulaire->getPrenomTitulaire();
+            break;
+            case "DUP":
+                $adresseFacture = $demande->getDuplicata()->getAdresse();
+                $nomPrenom = $demande->getDuplicata()->getTitulaire()->getNomprenom();
+            break;
+            case "DIVN":
+                $titulaire = $demande->getDivn()->getAcquerreur();
+                $adresseFacture = $titulaire->getAdresseNewTitulaire();
+                $nomPrenom = $titulaire->getNomPrenomTitulaire().' '.$titulaire->getPrenomTitulaire();
+            break;
+            case "DCA":
+                $titulaire = $demande->getChangementAdresse()->getNouveauxTitulaire();
+                $adresseFacture = $demande->getChangementAdresse()->getNewAdresse();
+                $nomPrenom = $titulaire>getNomPrenomTitulaire().' '.$titulaire->getPrenomTitulaire();
+            break;
+        }
+        return [
+            'adresse' => $adresseFacture,
+            'titulaire' => $nomPrenom
+        ];
     }
 
 }
