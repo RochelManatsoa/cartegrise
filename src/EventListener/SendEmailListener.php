@@ -39,9 +39,8 @@ class SendEmailListener implements base
             //dump($froms, $tos, $subject, $body);
             foreach($tos as $to){
                 $user = $this->userManager->getUserByEmail($to);
-                //dump($user);
                 $emailHistory = new EmailHistory();
-                $emailHistory->setSubject($subject)->setBody($body)->setFrom($froms);
+                $emailHistory->setSubject($subject)->setBody(\base64_encode($body))->setSender($froms[0]);
                 $user->addEmailHistory($emailHistory);
                 $this->userManager->save($user);
             }

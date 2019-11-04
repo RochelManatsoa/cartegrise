@@ -3,6 +3,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -77,10 +79,11 @@ class User extends BaseUser
     private $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\EmailHistory", inversedBy="user")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity="App\Entity\EmailHistory", mappedBy="user", cascade={"persist", "remove"})
      */
-    private $mailHistory;
+    private $emailHistories;
+
+
 
 
     public function __construct()
@@ -90,6 +93,8 @@ class User extends BaseUser
         if (empty($this->registerDate)) {
             $this->registerDate = new \DateTime();
         }
+        $this->mailHistorys = new ArrayCollection();
+        $this->emailHistories = new ArrayCollection();
     }
 
     public function getClient(): ?Client
@@ -133,16 +138,36 @@ class User extends BaseUser
         return $this;
     }
 
-    public function getMailHistory(): ?EmailHistory
+    /**
+     * @return Collection|EmailHistory[]
+     */
+    public function getEmailHistories(): Collection
     {
-        return $this->mailHistory;
+        return $this->emailHistories;
     }
 
-    public function setMailHistory(?EmailHistory $mailHistory): self
+    public function addEmailHistory(EmailHistory $emailHistory): self
     {
-        $this->mailHistory = $mailHistory;
+        if (!$this->emailHistories->contains($emailHistory)) {
+            $this->emailHistories[] = $emailHistory;
+            $emailHistory->setUser($this);
+        }
 
         return $this;
     }
+
+    public function removeEmailHistory(EmailHistory $emailHistory): self
+    {
+        if ($this->emailHistories->contains($emailHistory)) {
+            $this->emailHistories->removeElement($emailHistory);
+            // set the owning side to null (unless already changed)
+            if ($emailHistory->getUser() === $this) {
+                $emailHistory->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 }

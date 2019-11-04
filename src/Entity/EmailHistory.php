@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,12 +17,12 @@ class EmailHistory
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
-    private $froms;
+    private $sender;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
     private $subject;
 
@@ -34,28 +32,24 @@ class EmailHistory
     private $body;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="mailHistory", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="emailHistories")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
-
-    public function __construct()
-    {
-        $this->user = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFroms(): ?string
+    public function getSender(): ?string
     {
-        return $this->froms;
+        return $this->sender;
     }
 
-    public function setFroms(string $froms): self
+    public function setSender(string $sender): self
     {
-        $this->froms = $froms;
+        $this->sender = $sender;
 
         return $this;
     }
@@ -84,33 +78,14 @@ class EmailHistory
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getUser(): Collection
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function addUser(User $user): self
+    public function setUser(?User $user): self
     {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-            $user->setMailHistory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->user->contains($user)) {
-            $this->user->removeElement($user);
-            // set the owning side to null (unless already changed)
-            if ($user->getMailHistory() === $this) {
-                $user->setMailHistory(null);
-            }
-        }
+        $this->user = $user;
 
         return $this;
     }
