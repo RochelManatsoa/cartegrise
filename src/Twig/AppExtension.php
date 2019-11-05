@@ -5,15 +5,7 @@ namespace App\Twig;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigFilter;
-<<<<<<< HEAD
-use App\Entity\User;
-use App\Entity\Taxes;
-use App\Entity\TypeDemande;
-use App\Entity\Commande;
-use App\Entity\EmailHistory;
-=======
-use App\Entity\{User, Taxes, TypeDemande, Commande, Adresse};
->>>>>>> f0fc114a541f18e2d81f2ff5a6c8db42cd1c8199
+use App\Entity\{User, Taxes, TypeDemande, Commande, Adresse, EmailHistory};
 use App\Repository\TarifsPrestationsRepository;
 use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager};
 use App\Utils\StatusTreatment;
