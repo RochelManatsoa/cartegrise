@@ -28,6 +28,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Knp\Snappy\Pdf;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Entity\DailyFacture;
@@ -314,6 +315,7 @@ class DemandeManager
         // get facture if not exist
         if (!is_file($file)) { // attente de finalité du process
             $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
+            $snappy = new Pdf("\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"");
             $filename = "Facture";
             $html = $this->twig->render("payment/facture.html.twig", $params);
             $output = $snappy->getOutputFromHtml($html);
@@ -517,27 +519,54 @@ class DemandeManager
             case "CTVO":
                 $titulaire = $demande->getCtvo()->getAcquerreur();
                 $adresseFacture = $titulaire->getAdresseNewTitulaire();
-                $nomPrenom = $titulaire->getNomPrenomTitulaire().' '.$titulaire->getPrenomTitulaire();
             break;
             case "DUP":
                 $adresseFacture = $demande->getDuplicata()->getAdresse();
-                $nomPrenom = $demande->getDuplicata()->getTitulaire()->getNomprenom();
             break;
             case "DIVN":
                 $titulaire = $demande->getDivn()->getAcquerreur();
                 $adresseFacture = $titulaire->getAdresseNewTitulaire();
-                $nomPrenom = $titulaire->getNomPrenomTitulaire().' '.$titulaire->getPrenomTitulaire();
             break;
             case "DCA":
-                $titulaire = $demande->getChangementAdresse()->getNouveauxTitulaire();
-                $adresseFacture = $demande->getChangementAdresse()->getNewAdresse();
-                $nomPrenom = $titulaire>getNomPrenomTitulaire().' '.$titulaire->getPrenomTitulaire();
+                $adresseFacture = $demande->getChangementAdresse()->getAncienAdresse();
             break;
         }
         return [
             'adresse' => $adresseFacture,
-            'titulaire' => $nomPrenom
         ];
+    }
+
+    public function findValueNomPrenomOfTitulaire(Demande $demande, $nomPrenom)
+    {
+       $type = $demande->getCommande()->getDemarche()->getType();
+       $realNomPrenom = $this->getNomPrenomOfTitulaire($demande, $type);
+       $propertyAccessor = PropertyAccess::createPropertyAccessor();
+       if ($propertyAccessor->getValue($realNomPrenom, $nomPrenom) != null)
+        {
+            return $propertyAccessor->getValue($realNomPrenom, $nomPrenom);
+        }
+
+       return "--";
+    }
+
+    private function getNomPrenomOfTitulaire(Demande $demande, $type)
+    {
+        switch($type) {
+            case "CTVO":
+                return $demande->getCtvo()->getAcquerreur();
+                break;
+            case "DUP":
+                return $demande->getDuplicata()->getTitulaire();
+                break;
+            case "DIVN":
+                return $demande->getDivn()->getAcquerreur();
+                break;
+            case "DCA":
+                return $demande->getChangementAdresse()->getNouveauxTitulaire();
+                break;
+            default:
+                return null;
+        }
     }
 
 }
