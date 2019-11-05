@@ -5,7 +5,7 @@ namespace App\Twig;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigFilter;
-use App\Entity\{User, Taxes, TypeDemande, Commande, Adresse};
+use App\Entity\{User, Taxes, TypeDemande, Commande, Adresse, EmailHistory};
 use App\Repository\TarifsPrestationsRepository;
 use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager};
 use App\Utils\StatusTreatment;
@@ -80,6 +80,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('totalPrestationMajorationTaxeDaily', [$this, 'totalPrestationMajorationTaxeDaily']),
             new TwigFunction('totalPrestationMajorationTTC', [$this, 'totalPrestationMajorationTTC']),
             new TwigFunction('displayAccepted', [$this, 'displayAccepted']),
+            new TwigFunction('decodeBody', [$this, 'decodeBody']),
         ];
     }
 
@@ -487,6 +488,11 @@ class AppExtension extends AbstractExtension
         return $reader->getPropertyAnnotations($reflector);
     }
 
+    public function decodeBody(EmailHistory $emailHistory){
+        $email = \base64_decode($emailHistory->getBody());
+
+        return $email;
+    }
     public function displayAdress($value, $default = null)
     {
         $value = $this->displayValue($value, $default);

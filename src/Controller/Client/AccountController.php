@@ -103,4 +103,16 @@ class AccountController extends AbstractController
         );
     }
     
+    /**
+     * @Route("/emails", name="email_history")
+     */
+    public function emailUserHistory()
+    {
+        $user = $this->getUser();
+        $emailHystory = $user->getEmailHistories();
+
+        return $this->render('client/account/emailHistory.html.twig', [
+            'emailsHistory' => $emailHystory,
+        ]);
+    }
 }
