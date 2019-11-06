@@ -38,7 +38,7 @@ class DemandeChangementAdresse
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $rectoVersoCarteGrise;
+    protected $rectoVersoCarteGrise;
 
     /**
     * @ORM\Column(type="string", nullable=true)
@@ -49,7 +49,7 @@ class DemandeChangementAdresse
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $demandeCertificatImmatriculation;
+    protected $demandeCertificatImmatriculation;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -59,7 +59,7 @@ class DemandeChangementAdresse
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $pieceIdentiteValid;
+    protected $pieceIdentiteValid;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -69,7 +69,7 @@ class DemandeChangementAdresse
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $copieAttestationAssuranceValide;
+    protected $copieAttestationAssuranceValide;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -79,7 +79,7 @@ class DemandeChangementAdresse
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $copiePermisConduire;
+    protected $copiePermisConduire;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -89,7 +89,7 @@ class DemandeChangementAdresse
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $justificatifDomicile;
+    protected $justificatifDomicile;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -99,7 +99,7 @@ class DemandeChangementAdresse
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $procurationMandat;
+    protected $procurationMandat;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\ChangementAdresse", mappedBy="file")

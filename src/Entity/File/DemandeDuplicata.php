@@ -36,7 +36,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $justificatifDomicile;
+    protected $justificatifDomicile;
 
     /**
     * @ORM\Column(type="string", nullable=true)
@@ -47,7 +47,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $certificatImmatriculation;
+    protected $certificatImmatriculation;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -57,7 +57,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $declarationdePerteOuVol;
+    protected $declarationdePerteOuVol;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -67,7 +67,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $copieControleTechniqueEnCoursValidite;
+    protected $copieControleTechniqueEnCoursValidite;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -77,7 +77,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $pieceIdentiteValid;
+    protected $pieceIdentiteValid;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -87,7 +87,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $copieAttestationAssuranceValide;
+    protected $copieAttestationAssuranceValide;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -97,7 +97,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $cerfaDeclarationPerteVol;
+    protected $cerfaDeclarationPerteVol;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -107,7 +107,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $permisDeConduireDuTitulaire;
+    protected $permisDeConduireDuTitulaire;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
@@ -117,7 +117,7 @@ class DemandeDuplicata
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $procurationMandat;
+    protected $procurationMandat;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Duplicata", mappedBy="file")
