@@ -6,16 +6,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Entity\User;
+use App\Entity\{User, Demande};
 use App\Form\UpdateUserType;
 use App\Form\Registration\PasswordFormType;
-use App\Manager\UserManager;
+use App\Manager\{UserManager, DemandeManager, DocumentAFournirManager, TMSSauverManager};
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\FormError;
 
 /**
- * @Route("/compte")
+ * @Route("/account")
  */
 class AccountController extends AbstractController
 {
@@ -31,7 +31,7 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/update/{user}/acount", name="update_acount")
+     * @Route("/update/{user}/member", name="update_acount")
      */
     public function update(
         Request $request, 
@@ -114,5 +114,53 @@ class AccountController extends AbstractController
         return $this->render('client/account/emailHistory.html.twig', [
             'emailsHistory' => $emailHystory,
         ]);
+    }
+
+    /**
+     * @Route("/espace-client/{demande}", name="espace_client")
+     * @Route("/espace-client")
+     */
+    public function espaceClient(DemandeManager $demandeManager, DocumentAFournirManager $documentAFournirManager, TMSSauverManager $tmsSauverManager, ?Demande $demande=null)
+    {
+        if (!$demande instanceof Demande) {
+            $demande = $demandeManager->getHerLastDemande();
+        }
+        $params = $tmsSauverManager->getParamsForCommande($demande->getCommande());
+        // dd($params);
+        /*
+        info de TMS
+        */
+        $fileForm = null;
+        $fileType = $documentAFournirManager->getType($demande);
+        $files = $documentAFournirManager->getDaf($demande);
+        if (!null == $fileType) {
+            $fileForm = $this->createForm($fileType, $files);
+        }
+
+        return $this->render(
+            'client/espaceClient.html.twig',
+            [
+                'demande' => $demande,
+                'params' => $params,
+                'client' => $this->getUser()->getClient(),
+                'form'      => is_null($fileForm) ? null :$fileForm->createView(),
+                "files"     => $files,
+            ]
+        );
+    }
+
+
+    /**
+     * @Route("/demande/history", name="demande_history")
+     */
+    public function history(DemandeManager $demandeManager)
+    {
+        return $this->render(
+            'client/account/demandeHistory.html.twig',
+            [
+                'demandes' => $demandeManager->getDemandeOfUser($this->getUser()),
+                'client' => $this->getUser()->getClient(),
+            ]
+        );
     }
 }
