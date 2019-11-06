@@ -158,11 +158,12 @@
 	
 	public function getParamCtvo(Commande $commande, $type = "Cerfa")
     {
-        $client = $commande->getFirstClient();
-        $adresse = $client->getClientAdresse();
-        $carInfo = $commande->getCarInfo();
+	    $ctvo = $commande->getDemande()->getCtvo();
 		$now = new \DateTime();
-		$ctvo = $commande->getDemande()->getCtvo();
+		$newAdresse = $ctvo->getAcquerreur();
+		$adresse = $newAdresse->getAdresseNewTitulaire();
+        $client = $commande->getFirstClient();
+        $carInfo = $commande->getCarInfo();
 
         // check if persone moral or not: 
             if (

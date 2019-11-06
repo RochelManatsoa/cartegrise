@@ -4,6 +4,18 @@
 
 {% set confirmMessage = "Etes-vous sûr de vouloir annuler cette demande ?" %}
 
+{% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') %}
+    {% set status = 'text-success' %}
+{% elseif demande.statusDoc != constant('App\\Entity\\Demande::DOC_PENDING') %}
+    {% set status = 'text-warning' %}
+{% elseif demande.statusDoc != constant('App\\Entity\\Demande::DOC_NONVALID') %}
+    {% set status = 'text-danger' %}
+{% elseif demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
+    {% set status = 'text-primary' %}
+{% else %}
+    {% set status = 'text-secondary' %}
+{% endif %}
+
 {% block page_content %}
     <div class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
         <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container w-100 mx-3 mx-lg-4">
@@ -47,38 +59,37 @@
                                 <a href="{{path('payment_facture', {'demande':demande.id})}}" target="_blank" class="btn btn-outline-primary">Facture</a>
                             </div>
                             <div class="content-demarche tab-pane fade" id="pills-document" role="tabpanel" aria-labelledby="pills-document-tab" style="overflow: auto;">
-                                <p>
-                                    Finalisez votre démarche 
+                                <div>
+                                    <h4>Finalisez votre démarche</h4>
                                     {% for col in form %}
                                         {% if col.vars.type is defined and col.vars.type == 'file' %}
                                         <div class="group-input">
                                             <div>
-                                                <h4>{{ form_label(col) }}
-                                                    {% if checkFile(files, col.vars.name) != "" %}
-                                                    <small>
-                                                        <a href="{{ asset(checkFile(files, col.vars.name)) }}"
-                                                            target="_blank">{{ form.vars.value.getRealFileName(col.vars.name) }}</a>
-                                                    </small>
+                                                <p>
+                                                    {% set name = checkFile(files, col.vars.name) %}
+                                                    {% if name == "" %}
+                                                    <span class="text-secondary">{{ form_label(col) }}</span>
                                                     {% else %}
-                                                    <small class="text-danger">Aucun fichier !</small>
+                                                    <span class="{{ status }}">{{ form_label(col) }}</span>
                                                     {% endif %}
-                                                </h4>
+                                                    {% if name != "" %}
+                                                    <small>
+                                                        <a href="{{ asset(name) }}" target="_blank">
+                                                            <button class="btn btn-sm btn-outline-info">
+                                                                <i class="far fa-eye"></i> Voir
+                                                            </button>
+                                                        </a>
+                                                    </small>
+                                                    {% endif %}
+                                                </p>
                                             </div>
                                         </div>
-                                        <hr>
                                         {% endif %}
                                     {% endfor %}
                                     <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
                                         <button type="button" class="btn btn-primary btn-sm">Dossier à Fournir</button>
                                     </a>
-                                    {% if demande.commande.transaction is not null and demande.commande.transaction.status == "00" %}
-                                        <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
-                                            <button type="button" class="btn btn-primary btn-sm">Valider</button>
-                                        </a>                                            
-                                    {% else %}
-                                        {{ delete_form('demande_annuler', {id: demande.id}, 'demande' ~ demande.id, confirmMessage, 'Annuler', null, 'btn btn-danger btn-sm mb-1') }}
-                                    {% endif %}
-                                </p>
+                                </div>
                             </div>
                         </div>
                         {%else%}

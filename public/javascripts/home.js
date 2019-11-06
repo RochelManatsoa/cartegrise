@@ -58,10 +58,6 @@ $('#formulaire_demarche').on('change', function (e) {
     }
 });
 
-$('a[href="#up"]').click(function(){
-    $('#formulaire_demarche').val(2).change();
-});
-
 function h2over(x){  
     var p = {
         CTVOdemande :"J'achète un véhicule d'occasion",
