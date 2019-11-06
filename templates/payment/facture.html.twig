@@ -62,7 +62,7 @@
           <br>
           {% if demande.commande.transaction is defined and demande.commande.transaction is not null %}
             {{ findNomPrenomOfTitulaire(demande, "nomPrenomTitulaire") }}
-            {#{ findNomPrenomOfTitulaire(demande, "nomprenom") }#}
+            {{ findNomPrenomOfTitulaire(demande, "nomprenom") }}
             {{ findNomPrenomOfTitulaire(demande, "prenomTitulaire") }}
           {% endif %}
           <br>

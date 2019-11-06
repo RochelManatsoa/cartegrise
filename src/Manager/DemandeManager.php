@@ -541,12 +541,14 @@ class DemandeManager
        $type = $demande->getCommande()->getDemarche()->getType();
        $realNomPrenom = $this->getNomPrenomOfTitulaire($demande, $type);
        $propertyAccessor = PropertyAccess::createPropertyAccessor();
-       if ($propertyAccessor->getValue($realNomPrenom, $nomPrenom) != null)
-        {
-            return $propertyAccessor->getValue($realNomPrenom, $nomPrenom);
-        }
+       if ($propertyAccessor->isReadable($realNomPrenom, $nomPrenom)) {
+           if ($propertyAccessor->getValue($realNomPrenom, $nomPrenom) != null)
+            {
+                return $propertyAccessor->getValue($realNomPrenom, $nomPrenom);
+            }
+       }
 
-       return "--";
+       return "";
     }
 
     private function getNomPrenomOfTitulaire(Demande $demande, $type)

@@ -99,7 +99,6 @@ class AppExtension extends AbstractExtension
             new TwigFilter('displayEnergy', [$this, 'displayEnergy']),
             new TwigFilter('formatFacture', [$this, 'formatFacture']),
             new TwigFilter('displayAdress', [$this, 'displayAdress']),
-            new TwigFunction('findNomPrenomOfTitulaire', [$this, 'findNomPrenomOfTitulaire']), 
         ];
     }
 
