@@ -94,17 +94,65 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                         typeNewTitulaire = element.value;
                     }
                     let name = element.name;
+
+                    let value = element.value;
+
+                    let label = {
+                        "demande_ctvo[ctvo][acquerreur][type]" : "Nouveau Titulaire",
+                        "demande_ctvo[ctvo][acquerreur][raisonSociale]" : "Raison sociale",
+                        "demande_ctvo[ctvo][acquerreur][siren]" : "SIREN",
+                        "demande_ctvo[ctvo][acquerreur][societeCommerciale]" : "Société commerciale",
+                        "demande_ctvo[ctvo][acquerreur][nomPrenomTitulaire]" : "Nom de naissance",
+                        "demande_ctvo[ctvo][acquerreur][prenomTitulaire]" : "Prénom(s)",
+                        "demande_ctvo[ctvo][acquerreur][genre]" : "Civilité ",
+                        "demande_ctvo[ctvo][acquerreur][dateN]" : "Date de naissance",
+                        "demande_ctvo[ctvo][acquerreur][lieuN]" : "Lieu de naissance",
+                        "demande_ctvo[ctvo][acquerreur][departementN]" : "Département de naissance",
+                        "demande_ctvo[ctvo][acquerreur][paysN]" : "Pays de naissance",
+                        "demande_ctvo[ctvo][acquerreur][droitOpposition]" : "Opposé(e) à la diffusion de mes informations",
+                        "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][numero]" : "Numéro de rue",
+                        "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][extension]" : "Extention",
+                        "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][typevoie]" : "Type de la voie",
+                        "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][nom]" : "Nom de la voie",
+                        "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][complement]" : "Complément",
+                        "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][codepostal]" : "Code postal",
+                        "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][ville]" : "Ville",
+                        "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][isHosted]" : "Hébergé(e)",
+                        "demande_ctvo[ctvo][ancienTitulaire][type]" : "Ancien Titulaire",
+                        "demande_ctvo[ctvo][ancienTitulaire][raisonSociale]" : "Raison sociale",
+                        "demande_ctvo[ctvo][ciPresent]" : "Carte grise présente",
+                        "demande_ctvo[ctvo][numeroFormule]" : "Numéro de formule",
+                        "demande_ctvo[ctvo][ancienTitulaire][nomprenom]" : "Nom et prénom(s) de l'ancien titulaire",
+                    };
+
+                    if(value === "1"){
+                        value = "Oui";
+                    }else if(value === "0"){
+                        value = "Non";
+                    }else if(value === ""){
+                        value = "Non renseigné";
+                    }else if(value === "M"){
+                        value = "Monsieur";
+                    }else if(value === "F"){
+                        value = "Madame";
+                    }else if(value === "mor"){
+                        value = "Société";
+                    }else if(value === "phy"){
+                        value = "Personne physique";
+                    }else{
+                        value;
+                    };
                     
                     if (typeAncienTitulaire === "mor" && 0 <= $.inArray(name, societyAncienTitulaireArray)) {
-                        html = html.concat(element.name + " ==> " + element.value + "<br>");
+                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                     } else if (typeAncienTitulaire === "phy" && 0 <= $.inArray(name, physicAncientitulaireArray)) {
-                        html = html.concat(element.name + " ==> " + element.value + "<br>");
+                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                     } else if (typeNewTitulaire === "mor" && 0 <= $.inArray(name, societyNouveauxTitulaireArray)) {
-                        html = html.concat(element.name + " ==> " + element.value + "<br>");
+                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                     } else if (typeNewTitulaire === "phy" && 0 <= $.inArray(name, physicNouveauxTitulaireArray)) {
-                        html = html.concat(element.name + " ==> " + element.value + "<br>");
+                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                     } else if (0 <= $.inArray(name, otherNewTitulaireArray)) {
-                        html = html.concat(element.name + " ==> " + element.value + "<br>");
+                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                     }   
                 });
                 resum.html(html);
@@ -140,7 +188,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     depends: function () {
                         let check = $('#demande_ctvo_ctvo_ciPresent').val();
 
-                        if (check == "0") {
+                        if (check == "1") {
                             return true;
                         }
                         else {

@@ -20,8 +20,8 @@ class CtvoType extends AbstractType
             ->add('ciPresent', ChoiceType::class, array(
                 'label' => 'label.ctvo.ciPresent',
                 'choices' => array(
-                    'Non' => Ctvo::CI_KO,
-                    'Oui' => Ctvo::CI_OK,
+                    'Oui' => Ctvo::CI_KO,
+                    'Non' => Ctvo::CI_OK,
                 ),
                 'attr' => [
                     'class' => 'choice-type-ciPresent'
