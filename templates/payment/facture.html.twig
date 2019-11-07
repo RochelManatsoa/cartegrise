@@ -60,6 +60,12 @@
             {{ demande.commande.clientFacture.clientNom | upper}}
           </strong>
           <br>
+          {% if demande.commande.transaction is defined and demande.commande.transaction is not null %}
+            {{ findNomPrenomOfTitulaire(demande, "nomPrenomTitulaire") }}
+            {{ findNomPrenomOfTitulaire(demande, "nomprenom") }}
+            {{ findNomPrenomOfTitulaire(demande, "prenomTitulaire") }}
+          {% endif %}
+          <br>
             {{ adresse.numero }} 
             {{ adresse.typevoie | displayAdress}} 
             {{ adresse.nom | upper }} 
