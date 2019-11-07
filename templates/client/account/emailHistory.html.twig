@@ -10,15 +10,9 @@
             <div class="col-12">
                 <div class="px-2">
                     <br>
-                    <h3 class="text-center title-client">ESPACE CLIENT</h3>
-                    <div class="nav-client mt-5">
-                        <ul class="d-flex align-items-center">
-                            <li><a href="#" class="nav-client-item home-item"><img src="{{ asset('asset/img/home-espace-client.png')}}" alt="home espace client"></a></li>
-                            <li><a href="#" class="nav-client-item">Historique</a></li>
-                            <li><a href="{{ path('email_history') }}" class="nav-client-item">Mails réçus</a></li>
-                        </ul>
-                    </div>
-                    <h3 class="title-client">Demarche:</h3>
+                    {{ include('client/layout/menu.html.twig') }}
+                    <hr>
+                    <h3 class="title-client">Mes mails</h3>
                     <div class="demarche-container">
                         <table class="table table-striped custom-table">
                             <tr>
@@ -31,7 +25,7 @@
                                 <td>{{ email.subject}}</td>
                                 <td>{{ email.createdAt | date('d/m/Y')}}</td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#{{email.id}}">
+                                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#{{email.id}}">
                                         Ouvrir le mail
                                     </button>
                                 </td>
