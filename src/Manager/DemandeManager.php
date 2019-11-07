@@ -4,7 +4,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-17 13:14:01 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-22 16:03:48
+ * @Last Modified time: 2019-11-07 12:03:09
  */
 namespace App\Manager;
 
@@ -315,7 +315,6 @@ class DemandeManager
         // get facture if not exist
         if (!is_file($file)) { // attente de finalité du process
             $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
-            $snappy = new Pdf("\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"");
             $filename = "Facture";
             $html = $this->twig->render("payment/facture.html.twig", $params);
             $output = $snappy->getOutputFromHtml($html);
