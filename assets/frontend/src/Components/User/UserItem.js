@@ -67,7 +67,7 @@ class UserItem extends React.Component {
                 });
             }); 
     }
-    componentDidMount = () => {
+    componentDidMount(){
         this.getUsers();
         this.updateCommande();
         axios({
