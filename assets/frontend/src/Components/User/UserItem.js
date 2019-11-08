@@ -4,7 +4,7 @@ import Card from './../../Widget/Card/card';
 import PieChart from '../../Widget/hightChart/PieChart';
 import LineChart from '../../Widget/hightChart/AreaChart';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
-import 'react-notifications/lib/notifications.css';
+import './lib/notifications.css';
 import param from '../../params';
 
 class UserItem extends React.Component {
