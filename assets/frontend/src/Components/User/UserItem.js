@@ -21,6 +21,7 @@ class UserItem extends React.Component {
         this.renderAllItems = this.renderAllItems.bind(this);
         this.getUsers = this.getUsers.bind(this);
         this.synchro = this.synchro.bind(this);
+        this.updateCommande = this.updateCommande.bind(this);
         
     }
 
@@ -50,7 +51,7 @@ class UserItem extends React.Component {
         }, 5000);
     }
 
-    updateCommande = () => {
+    updateCommande(){
         axios({
             method: 'get',
             url: `${param.ENTRYPOINT}/commandes`,
