@@ -45,9 +45,9 @@ class UserItem extends React.Component {
 
     synchro()
     {
-        setInterval(() => {
-            this.getUsers();
-        }, 5000);
+        // setInterval(() => {
+        //     this.getUsers();
+        // }, 5000);
     }
 
     updateCommande(){
