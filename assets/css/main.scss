@@ -1,0 +1,839 @@
+$bleu: #002a6b;
+$bleu-hover: rgb(63, 87, 149);
+$rouge: rgb(175, 68, 68);
+$white: #fff;
+$dark-blue: #1f3864;
+
+@import 'footer.scss';
+@import 'blog.scss';
+@import 'card.scss';
+@import 'login.scss';
+@import 'espace-client.scss';
+
+@font-face {
+	font-family: font-awesome;
+	src: ("/../../asset/fonts/fontawesome-webfont.woff");
+}
+// Font orkney
+@font-face {
+	font-family: "Orkney";
+	src: url("/../../asset/fonts/Orkney/Orkney-Light.woff2") format("woff2"),
+		   url("/../../asset/fonts/Orkney/Orkney-Light.woff") format("woff");
+	font-weight: 300;
+}
+
+@font-face {
+	font-family: "Orkney";
+	src: url("/../../asset/fonts/Orkney/Orkney-Regular.woff2") format("woff2"),
+		   url("/../../asset/fonts/Orkney/Orkney-Regular.woff") format("woff");
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: "Orkney";
+	src: url("/../../asset/fonts/Orkney/Orkney-Medium.woff2") format("woff2"),
+		   url("/../../asset/fonts/Orkney/Orkney-Medium.woff") format("woff");
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: "Orkney";
+	src: url("/../../asset/fonts/Orkney/Orkney-Bold.woff2") format("woff2"),
+		   url("/../../asset/fonts/Orkney/Orkney-Bold.woff") format("woff");
+	font-weight: 600;
+}
+body {
+	font-family: "Orkney" !important;
+}
+.font-24 {
+	font-size: 24px;
+}
+
+#up{
+	min-height: 100vh;
+	padding-top: 150px;
+	position: relative;
+	// z-index: 10;
+}
+.error {
+	color: #f0064c
+}
+.custom-table tr td {
+	word-break: break-word;
+}
+@media (max-width:480px) {
+	.custom-table tr td,
+	.custom-table tr th {
+		font-size: 14px !important;
+	}	
+}
+.modal-dialog{
+	margin-top: 60px !important;
+}
+
+.mdp-oublie {
+	width: 100%;
+	margin: 0;
+	min-height: 150px;
+	.form-control {
+		padding: 5px 10px;
+		width: -moz-calc(100% - 15px);
+		width: -ms-calc(100% - 15px);
+		width: -webkit-calc(100% - 15px);
+		width: calc(100% - 5px);
+	}
+}
+.contact-title {
+    color: #002a6b;
+}
+.contact-form .form-control {
+	width: -moz-calc(100% - 30px);
+	width: -ms-calc(100% - 30px);
+	width: -webkit-calc(100% - 30px);
+    width: calc(100% - 30px);
+}
+.flex-bottom-custom {
+	justify-content: space-around;
+	align-items: flex-end;
+}
+@media (max-width:992px) {
+	.full-tablet {
+		max-width: 100% !important;
+    	flex: 0 0 100% !important;
+	}
+}
+.error-flex {
+	height: calc(100vh - 100px);
+    flex-wrap: wrap;
+	align-content: center;
+	justify-content: center;
+	.error-container {
+		background: rgba(255,255,255,0.4);
+		border-radius: 20px;
+		border: 2px solid #0275d8;
+		padding: 60px 30px;
+		text-align: center;
+		h1 {
+			font-weight: 700;
+		}
+		.desc-error {
+			text-align: center;
+			font-size: 20px;
+			width: 100%;
+			font-weight: 700;
+		}
+		a {
+			font-weight: 700;
+		}
+	}
+}
+body .popup-center-container {
+    width: 90%;
+	margin: auto;
+	.labelStep {
+		color: #0275d8;
+		font-weight: bold;
+		display: block;
+    	margin-bottom: 6px;
+		.stepNumber {
+			display: inline-block;
+			color: #fff;
+			background: #0275d8;
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			margin-right: 10px;
+			border-radius: 50%;
+		}
+	}
+	.form-control {
+		height: auto !important;
+		width: -moz-calc(100% - 40px);
+		width: -ms-calc(100% - 40px);
+		width: -webkit-calc(100% - 40px);
+		width: calc(100% - 40px);
+	}
+}
+.w-90 {
+	width: 90%;
+}
+.color-blue {
+	color: #0275d8;
+}
+// refont HP
+ul {
+	list-style: none;
+}
+.new-sidebar {
+	background: #f9f9f9;
+	position: fixed !important;
+	
+	.espace-client-user,
+	.espace-client-menu,
+	.espace-client-menu + div,
+	.espace-client-menu + div + div {
+		padding-left: 15px !important;
+	}
+	.espace-client-user {
+		color: #333;
+		a {
+			color: #333;
+			text-align: center;
+		}
+	}
+}
+.demande-element {
+    margin: 20px !important;
+	flex: 0 0 calc(33.33% - 50px) !important;
+	height: 150px;
+	background: #153475;
+	box-shadow: 10px 10px 0px #7296ce;
+	cursor: pointer;
+	&:hover {
+		opacity: 0.8;
+	}
+	.span-h2{
+		color: #fff;
+		font-size: 12px;
+		margin-top: 15px;
+		line-height: 16px;
+		font-family: "Orkney";
+	}
+	.demande-btn {
+		border: none;
+		background: none;
+		padding: 15px 10px;
+		width: calc(100% - 20px);
+		cursor: pointer;
+		outline: none;
+		.fas,
+		h2 {
+			color: #fff;
+			font-weight: 300;
+		}
+		h2 {
+			font-size: 14px;
+			margin-top: 15px;
+			text-transform: uppercase;
+			line-height: 18px;
+			font-family: "Orkney";
+		}
+	}
+}
+.accueil-texte {
+    margin-left: 33.33% !important;	
+}
+.login-access-container {
+	.login-access {
+		&:after {
+			background: url("/../../asset/img/login.png") center no-repeat;
+			background-size: contain;				
+			content: "";
+			display: block;
+			height: 48px;
+			margin: auto;				
+			width: 48px;
+		}
+		button {
+			background: none;
+			border: none;
+			cursor: pointer;
+			text-transform: uppercase;
+			outline: none;
+		}	
+	}
+	.logout-access {
+		&:after {
+			background: url("/../../asset/img/logout.png") center no-repeat;
+			background-size: contain;				
+			content: "";
+			display: block;
+			height: 48px;
+			margin: auto;				
+			width: 48px;
+		}
+		button {
+			background: none;
+			border: none;
+			cursor: pointer;
+			text-transform: uppercase;
+			outline: none;
+		}	
+	}
+	.info-user {
+		width: 100%;
+		text-align: center;
+		margin-bottom: -15px;
+		a {
+			border: 1px solid $white;
+			color: $white;
+			display: inline-block;
+			padding: 5px 15px;
+			&:hover {
+				text-decoration: none;
+				opacity: 0.8;
+			}
+		}
+	}
+}
+.link-rignt {
+	.txt-other-link {
+		font-family: "Orkney";
+		display: block;
+		font-size: 14px;
+		text-transform: uppercase;
+		&.bold {
+			font-weight: bold;
+		}
+	}
+}
+.txt-immatriculation {
+	display: block;
+	font-family: "Orkney";	
+	font-size: 20px;
+    line-height: 26px;
+	text-align: center;
+	text-transform: uppercase;	
+	width: 100%;
+}
+.max-250 {
+	max-width: 250px !important;
+}
+.custom-pad-20 {
+	margin: auto !important;
+	max-width: 400px !important;
+}
+.padd-10 {
+	padding: 10px;
+}
+// icon hp 
+.demande-icon {
+	display: inline-block;
+    height: 40px;
+    width: 40px;
+}
+
+#DUPdemande .demande-icon {
+	background: url("/../../asset/img/icon-1.png") center no-repeat;
+	background-size: contain;
+}
+#CTVOdemande .demande-icon {
+	background: url("/../../asset/img/icon-2.png") center no-repeat;
+	background-size: contain;
+}
+#DCAdemande .demande-icon {
+	background: url("/../../asset/img/icon-3.png") center no-repeat;
+	background-size: contain;
+}
+#DIVNdemande .demande-icon {
+	background: url("/../../asset/img/icon-4.png") center no-repeat;
+	background-size: contain;
+}
+#DCdemande .demande-icon {
+	background: url("/../../asset/img/icon-5.png") center no-repeat;
+	background-size: contain;
+}
+.bg-blue {
+	background: #fbfcfc;
+}
+.critair{
+	margin: 30px auto;
+	max-width: 70%;
+	cursor: pointer;
+	&:hover {
+	opacity: 0.8;
+	cursor: pointer;
+	}
+	.critairLink {
+		text-decoration: none;
+	}
+	img {
+		display: block;
+		margin: auto;
+		max-width: 95%;
+	}
+}
+.link-faq {
+	display: block;
+	margin: 10px 0;
+	text-align: left;
+}
+.demande-sidebar {
+	ul {
+		padding-left: 0;
+		.demande-sidebar-item {
+			display: block;
+			background: #153475;
+			padding: 10px 15px;
+			color: #fff;
+			text-decoration: none;
+			margin: 10px 0;
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+	}
+}
+.home-texte {
+	h3 {
+		font-size: 24px;
+	}
+}
+.bloc-txt-sidebar {
+    border: 1px solid #7296ce;
+	padding: 10px 15px;
+	a {
+		color: #7296ce;
+		font-weight: 700;
+		text-decoration: none !important;
+	}
+}
+.dual-hp-right {
+    margin-left: 50px;
+	max-width: 40%;
+	margin-bottom: 40px;
+}
+.img-down-hp {
+	height: 35px;
+	object-fit: contain;
+	width: 35px;
+}
+.center-container-hp {
+	min-height: calc(100vh - 140px);
+}
+.logo-header-mobile,
+.icon-mobile-menu,
+.icon-mobile-close {
+	display: none;
+}
+/* Début CERFA */
+.downloadCERFA {
+    min-width: 200px;
+	margin-right: 20px;
+	.downloadCERFA-element {
+		position: relative;
+		border-radius: 5px;
+		background: #7296ce;
+		padding: 5px;
+		margin-bottom: 15px;
+		span {
+			display: block;
+			text-align: center;
+			color: #fff;
+			font-weight: 700;
+			font-size: 18px;
+			margin-bottom: 10px;
+		}
+		.download-link {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			background: #767575;
+			padding: 8px 15px;
+			border: 1px solid #7296ce;
+			z-index: 999;
+			color: #fff;
+			border-radius: 10px;
+			display: none;
+			text-decoration: none;
+		}
+		.img-fluid {
+			display: block;
+		}
+		&:hover {
+			.download-link {
+				display: block;
+				text-decoration: none;
+			}
+		}
+	}
+}
+.block {
+	display: block;
+} 
+/* Fin CERFA */
+body.body-accueil {
+	background: url("/../../asset/img/bg-main.png") center no-repeat;
+	background-size: 400px !important;
+    background-attachment: fixed;
+	background-position: bottom 0 left 20% !important;
+}
+/*Piece à fournir*/
+.dossier-element {
+    position: relative;
+    width: calc(25% - 10px);
+    height: 80px;
+    text-decoration: none;
+	padding: 10px 5px;
+	cursor: pointer;
+	&:hover {
+		opacity: 0.8;
+	}
+	@media (max-width:991px) {
+		width: calc(33.33% - 10px);
+	}
+	@media (max-width:767px) {
+		width: calc(50% - 10px);
+	}
+}
+.dossier-element img {
+	width: calc(100% - 20px);
+	height: calc(100% - 20px);
+	object-fit: cover;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	z-index: -1;
+	border:2px solid #7296ce;
+	border-radius: 5px;  
+}
+.numero-dossier {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #e41f25;
+    text-align: center;
+    line-height: 20px;
+	color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 10px;
+}
+.txt-dossier {
+	display: block;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    background: #7296ce;
+    padding: 2px 15px;
+    border-radius: 20px;
+    font-size: 10px;
+}
+.title-dossier {
+	text-transform: uppercase;
+	font-size: 20px;
+	color: #7296ce;
+	font-weight: 700;
+	display: block;
+	text-align: center;
+	margin-bottom: 20px;
+}
+/*Fin pièces à fournir*/
+
+// CGO V2
+.new-header {
+    height: 100px;
+    background: #002a6b;
+    width: 100%;
+	color: #fff;
+	border-radius: 0 0 5px 5px;
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	.title-header {
+		font-size: 12px;
+		@media (max-width:1280px) {
+			font-size: 11px;
+		}
+		span {
+			display: block;
+		}
+		h1 {
+			font-family: "Orkney";
+			font-weight: 500;
+			font-size: 24px;
+			line-height: 26px;
+			margin: 0;
+			background: #1f3864;
+			padding: 10px 30px;
+			display: inline-block;
+			margin-top: 10px;
+			border: 1px solid #2d4f8a;
+		}
+	}
+}
+
+.logo-header {
+	height: 100px;
+	overflow: hidden;
+	a {
+		img {
+			height: 90px;
+		}
+	}
+}
+.col-nav-header {
+	position: fixed !important;
+    z-index: 999;
+	background: #fff;
+	top:100px;
+	width: 100%;
+	.nav-header {
+		padding-left: 0;
+		margin-bottom: 0;
+		li {
+			position: relative;
+			width: 25%;
+			.menu-item {
+				color: $dark-blue;
+				display: block;					
+				font-size: 14px;
+				font-weight: 600;
+				padding: 5px 10px;					
+				text-decoration: none;
+				text-transform: uppercase;
+				border: 2px solid $dark-blue;
+				border-top: none;
+				&:hover {
+					color: $white;
+					background: $bleu-hover;
+					border-color: $bleu-hover;
+				}
+				@media (max-width:1600px) {
+					font-size: 12px;
+				}
+			}
+			&.menu-notif {
+				position: relative;
+				@media (min-width:768px) {
+					display: none;
+				}
+				.badge-pill {
+					position: absolute;
+					top: -10px;
+					right: -10px;
+				}
+			}
+			.nav-sub-menu {
+				background: $white;
+				padding-left: 0;
+				width: 100%;
+				display: none;
+				position: absolute;
+				li {
+					width: 100%;
+					.menu-item {
+						border-color: $bleu-hover;
+						border-top: none;
+					}
+				}
+			}
+			&:hover {
+				.nav-sub-menu {
+					display: block;
+				}	
+			}
+		}
+	}
+}
+.hp-full-height {
+	min-height: calc(100vh - 100px);
+}
+.txt-large-hp {
+	color: #153475;
+	text-align: center;
+	font-weight: 500;
+	span {
+		font-size: 36px;
+		line-height: 120%;
+		display: block;
+		text-align: center;
+	}
+	h2 {
+		margin-top: 30px;
+		font-size: 30px;
+	}
+}
+.demande-hp {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 500px;
+	border-radius: 5px;
+	.form-group {
+		label {
+			color: #7296ce;
+			font-weight: 700;
+		}
+		.form-control {
+			box-shadow: 5px 5px 10px #ddd;
+			border: 1px solid #7296ce;
+		}
+	}
+	.back-btn {
+		background: transparent url("/../../asset/img/icon-back.png") center no-repeat !important;
+		background-size: contain !important;
+		width: 32px;
+		height: 32px;
+		font-size: 0;
+		border: none;
+		&:hover {
+			opacity: 0.8;
+			cursor: pointer;
+		}
+	}
+	.calc-btn {
+		background: #153475 !important;
+		padding: 10px 20px;
+		border-radius: 20px;
+	}
+}
+.label-content-container {
+	width: 100%;
+}
+/* Début sidebar V2 */
+#sidebar-container {
+	height: calc(100vh - 200px);
+}
+.menu-info-sidebar {
+	padding: 20px;
+	background: #153475;
+	color: #fff;
+	ul {
+		padding: 0;
+	}
+	.info-sibebar-item {
+		padding-left: 5px;
+		margin: 5px 0;
+		a { 
+			color: #fff;
+			text-decoration: none;
+			text-transform: uppercase;
+			font-size: 18px;
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+		&:before {
+			content: ">";
+			display: inline-block;
+			padding-right: 2px;
+		}
+	}
+}
+/* Début responsive V2 */
+@media (max-width:1280px){
+	.demande-element {
+		flex: 0 0 calc(50% - 50px) !important;
+	}
+}
+@media (max-width:990px) {
+	.new-header {
+		.logo-header-mobile {
+			display: block;
+			text-align: center;
+			img {
+				background: #002a6b;
+				max-width: 110px;
+			}
+		}
+		.title-header {
+			padding-left: 25px;
+			padding-right: 25px;
+			.desc-top {
+				display: none !important;
+			}
+		}
+	}
+}
+@media (max-width:767px) {
+	body .new-header {
+		-webkit-box-pack: space-around!important;
+		-webkit-justify-content: space-around!important;
+		-ms-flex-pack: space-around!important;
+		justify-content: space-around!important;
+		height: 80px;
+		position: fixed;
+		z-index: 1000;
+		padding: 0 10px;
+    	width: calc(100% - 20px);
+		& + div {
+			margin-top: 80px;
+		}
+		.title-header h1 {
+			margin-top: 0;
+		}
+		.logo-header-mobile {
+			img {
+				max-width: 70px;
+			}
+		}
+		.icon-mobile-menu {
+			display: block;
+			span {
+				display: block;
+				width: 30px;
+				height: 5px;
+				background: #fff;
+				margin: 5px 0;
+				border-radius: 5px;
+			}
+		}
+		.icon-mobile-close {
+			span {
+				display: block;
+				width: 30px;
+				height: 5px;
+				background: #fff;
+				margin: 5px 0;
+				border-radius: 5px;
+				&:first-child {
+					transform: rotate(45deg);
+				}
+				&:last-child {
+					transform: rotate(-45deg);
+    				margin-top: -10px;
+				}
+			}
+		}
+		&.show {
+			.icon-mobile-close {
+				display: block !important;
+			}
+			.icon-mobile-menu {
+				display: none !important;
+			}
+		}
+	}
+	#sidebar-container.show {
+		display: block !important;
+		position: fixed;
+		z-index: 1001;
+		left: 0;
+		.col-2 {
+			width: 100% !important;
+			flex: 0 0 100% !important;
+			max-width: 170px;
+		}
+	}
+	.dual-hp-container {
+		-moz-flex-wrap: wrap;
+		-ms-flex-wrap: wrap;
+		-webkit-flex-wrap: wrap;
+		flex-wrap: wrap;
+		& > div {
+			width: 100%;
+			max-width: 100%;
+			margin: 15px 0;
+		}
+	}
+}
+@media (max-width:480px) {
+	body {
+		.new-header {
+			.title-header h1 {
+				font-size: 14px;
+				line-height: 16px;
+			}
+		}
+	}
+	.demande-element {
+		flex: 0 0 calc(100% - 50px) !important;
+	}
+}
+/* Fin responsive V2 */
+

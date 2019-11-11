@@ -193,76 +193,85 @@
 	</div>
 	<div id="resultecg"></div>
 </div> #}
-<div class="hp-full-height d-flex justify-content-center flex-wrap align-items-center align-content-center">
-	<div class="txt-large-hp">
-		<span>Bienvenue sur le service d’immatriculation de véhicule en ligne, rapide, sécurisé et agréé</span>
-		<h2>Choisissez votre démarche</h2>
-	</div>
-	<div class="col-12 text-center mt-4 mb-4">
-		<img class="img-fluid img-down-hp" src='{{ asset("asset/img/down.png")}}' alt='image down'>
-	</div>
-	<div class="bloc-txt-sidebar mt-4 mb-4 text-center demande-hp">
-		{% if formulaire is defined %}
-			{{ form_start(formulaire, {'attr': {'id': 'form_demarche'}})}}
-			<div class="demarche">
-			{{ form_row(formulaire.demarche, {
-				'attr':{
-					'class': 'col-12 form-control-plaque '
-				},
-				'label_attr': {
-					'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
-				})
-			}}
-			{{ form_row(formulaire.immatriculation, {
-				'attr':{
-					'onkeyup':'this.value = this.value.toUpperCase()',
-					'class': 'col-12 form-control-plaque ',
-					'onblur': 'this.value = valueTreatement(this.value)',
-					'maxlength': '9',
-					'minlength': '5',
-					'placeholder': 'BB-321-BB'
-				},
-				'label_attr': {
-					'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
-				}
-					)}}
-			{{ form_row(formulaire.codePostal, {
-				'attr':{'maxlength':'3','minlength':'2', 'class':'col-12 mx-auto text-center form-control--dep'},
-				'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
-			}
-			)}}
-			</div>	
-			<div class="col-12 col-md-6 mx-auto text-center search-box" id="calcul">
-				<button type="submit" class="btn btn-primary btn-sm mx-auto calc-btn">CALCULER</button>
+<div class="row justify-content-center">
+	<div class="col-md-8">
+		<div class="demarche_block">
+			<div class="title_dermarche text-center">
+				<p>Bienvenue sur le service d’immatriculation <br/>de véhicule en ligne, rapide, sécurisé et agréé</p>
+				<h2>Choisissez votre démarche</h2>
 			</div>
-			{{ form_end(formulaire)}}
-
-			<div id="formVN" style="display:none;">
-				<div class="d-flex justify-content-start">
-					<div onclick="$('#formulaire_demarche').val('1').change();" id='backButton' class='btn btn-primary btn-sm back-btn'>Retour</div>
-				</div>
-				
-				{% set formDivn = tab[3] %}
-				{{ form_start(formDivn)}}
-					{{ form_row(formDivn.department, {'attr':{'class':'col-12 mx-auto text-center form-control--dep'},
-							'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
-					{{ form_row(formDivn.genre, {'attr':{'class':'col-12 mx-auto text-center form-control--dep'},
-							'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
-					{{ form_row(formDivn.puissanceFiscale, {'attr':{'class':'col-12 mx-auto text-center form-control--dep'},
-							'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
-					{{ form_row(formDivn.energie, {'attr':{'class':'col-12 mx-auto text-center form-control--dep'},
-							'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
-					{{ form_row(formDivn.tauxDeCo2, {'attr':{'class':'col-12 mx-auto text-center form-control--dep'},
-							'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
-					{{ form_row(formDivn.Marque, {'attr':{'class':'col-12 mx-auto text-center form-control--dep'},
-							'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}})}}
-					<div class="col-12 col-md-6 mx-auto text-center search-box">
-						<button type="submit" class="btn btn-primary btn-sm mx-auto calc-btn">CALCULER</button>
+			<div class="block_form">
+				<div class="row justify-content-center">
+					<div class="col-md-10">
+						{% if formulaire is defined %}
+						{{ form_start(formulaire, {'attr': {'id': 'form_demarche'}})}}
+						<div class="demarche">
+							{{ form_row(formulaire.demarche, {
+								'attr':{
+									'class': 'form-control-plaque'
+								},
+								'label_attr': {
+									'class': 'text-uppercase resultat-estimation-p'}
+								})
+							}}
+							<div class="row">
+								<div class="col-md-6">
+									{{ form_row(formulaire.immatriculation, {
+										'attr':{
+											'onkeyup':'this.value = this.value.toUpperCase()',
+											'class': 'form-control-plaque ',
+											'onblur': 'this.value = valueTreatement(this.value)',
+											'maxlength': '9',
+											'minlength': '5',
+											'placeholder': 'BB-321-BB'
+										},
+										'label_attr': {
+											'class': 'text-uppercase resultat-estimation-p'}
+										}
+									)}}
+								</div>
+								<div class="col-md-6">
+								{{ form_row(formulaire.codePostal, {
+									'attr':{'maxlength':'3','minlength':'2', 'class':'mx-auto form-control--dep'},
+									'label_attr': {'class': 'text-uppercase resultat-estimation-p'}
+									}
+								)}}
+								</div>
+							</div>
+						</div>	
+						<div class="text-md-right mx-auto search-box" id="calcul">
+							<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>
+						</div>
+						{{ form_end(formulaire)}}
+						<div id="formVN" style="display:none;">
+							<div class="d-flex justify-content-start">
+								<div onclick="$('#formulaire_demarche').val('1').change();" id='backButton' class='btn btn-primary btn-sm back-btn'>Retour</div>
+							</div>
+							{% set formDivn = tab[3] %}
+							{{ form_start(formDivn)}}
+								{{ form_row(formDivn.department, {'attr':{'class':'col-12 mx-auto form-control--dep'},
+										'label_attr': {'class': 'col-12 text-uppercase resultat-estimation-p'}})}}
+								{{ form_row(formDivn.genre, {'attr':{'class':'col-12 mx-auto form-control--dep'},
+										'label_attr': {'class': 'col-12 text-uppercase resultat-estimation-p'}})}}
+								{{ form_row(formDivn.puissanceFiscale, {'attr':{'class':'col-12 mx-auto form-control--dep'},
+										'label_attr': {'class': 'col-12 text-uppercase resultat-estimation-p'}})}}
+								{{ form_row(formDivn.energie, {'attr':{'class':'col-12 mx-auto form-control--dep'},
+										'label_attr': {'class': 'col-12 text-uppercase resultat-estimation-p'}})}}
+								{{ form_row(formDivn.tauxDeCo2, {'attr':{'class':'col-12 mx-auto form-control--dep'},
+										'label_attr': {'class': 'col-12 text-uppercase resultat-estimation-p'}})}}
+								{{ form_row(formDivn.Marque, {'attr':{'class':'col-12 mx-auto form-control--dep'},
+										'label_attr': {'class': 'col-12 text-uppercase resultat-estimation-p'}})}}
+								<div class="col-12 col-md-6 mx-auto search-box">
+									<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>
+								</div>
+							{{ form_end(formDivn)}}
+						</div>
+						{% else %}
+						<a href="{{ path('formulaire')}}">Formulaire</a>
+						{% endif %}
 					</div>
-				{{ form_end(formDivn)}}
+				</div>
 			</div>
-		{% else %}
-		<a href="{{ path('formulaire')}}">Formulaire</a>
-		{% endif %}
+		</div>
 	</div>
 </div>
