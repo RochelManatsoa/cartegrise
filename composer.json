@@ -31,6 +31,7 @@
         "symfony/flex": "^1.1",
         "symfony/form": "*",
         "symfony/framework-bundle": "*",
+        "symfony/mercure-bundle": "^0.1.2",
         "symfony/orm-pack": "^1.0",
         "symfony/profiler-pack": "^1.0",
         "symfony/serializer": "4.2.4",
