@@ -6,6 +6,10 @@
  #}
 
 {% extends base_template %}
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" type="text/css" href="{{ asset('notification/lib/notifications.css') }}">
+{% endblock %}
 
 {% block title %}{{ 'title_dashboard'|trans({}, 'SonataAdminBundle') }}{% endblock%}
 {% block content %}
