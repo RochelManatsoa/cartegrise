@@ -1,0 +1,82 @@
+<header id="header" style="background-image:url({{ asset('asset/img/bg_header.jpg')}})">
+    <div class="Navigation">
+        <div id="topNav">
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="left-topBlock">
+                        <img src="{{ asset('asset/img/service_appel.png')}}" alt="Service Appel">
+                    </div>
+                    <div class="right-topBlock d-flex align-items-center">
+                        <div class="block-habillitation d-flex align-items-center">
+                            <div class="habill_item d-flex align-items-center mr-md-3">
+                                <img id="Rep_fr" src="{{ asset('asset/img/rep_Francaise.png')}}" alt="République Fr">
+                                <span>Habilitation <br/>Ministère de L'intérieur <em>N° 22442</em></span>
+                            </div>
+                            <div class="habill_item d-flex align-items-center">
+                                <img id="Tresr_plc" src="{{ asset('asset/img/tresor_public.png')}}" alt="Trésor publique">
+                                <span>Agrément du <br/>Trésor Public <em>N° 55337</em></span>
+                            </div>
+                        </div>
+                        <div class="block-connexion ml-md-3">
+                            {% if app.user %}
+                            <a class="logout-access d-flex" href="/logout">
+                                <button type="button" class="btn btn-primary text-center login-btn">
+                                    Se déconnecter
+                                </button>
+                            </a>
+                            <div class="info-user">
+                                <a href=" {{ path('compte') }} ">Mes infos</a>
+                            </div>
+                            {% else %}
+                            <a class="login-access btn btn-blue" href="/login">Se connecter <i class="icomoon icon-user"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="menu">
+            <div class="container">
+                <div class="row justify-content-end text-md-right">
+                    <div class="col-md-4 pr-md-0">
+                        <a href="{{ path('Accueil') }}" class="logo">
+                            <img src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="logo">
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="nav align-items-center">
+                            <ul class="nav-list">
+                                <li class="nav-item"><a href="{{ path('Accueil') }}">Accueil</a></li>
+                                <li class="nav-item">
+                                    <a href="{{ path('CommentCaMarche') }}">Comment ça marche ?</a>
+                                    <ul class="nav-sub-menu">
+                                        <li><a href="{{ path('doc_telechargeable') }}">Documents téléchargeables</a></li>
+                                        <li><a href="#">Pièces à fournir</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a href="{{ path('blog') }}">Actualités</a></li>
+                                <li class="nav-item"><a href="{{ path('prix_carte_grise') }}">Prix carte grise</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="accroche">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="text_CG text-md-center pt-5"><span>CG Officiel</span> est un site agréé et habilité par l’Etat, indépendant de l'Administration qui permet d’effectuer les demandes de changement de carte grise ou certificat d’immatriculation. Ces démarches sont également possibles via le service public sans majorations de frais.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--div class="Bg_separator">
+        <div class="svg-separtor-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class=" " width="100%" height="60" fill="#fff" viewBox="0 0 100 10" preserveAspectRatio="none" style="height: 60px; width: 100%;">
+                <path fill="#fff" d="M0,0h100v9.9L50,0L0,9.9"></path>
+            </svg>
+        </div>
+    </div-->
+</header>

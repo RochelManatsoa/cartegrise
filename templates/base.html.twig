@@ -49,203 +49,116 @@
 			style="display:none;visibility:hidden"></iframe>
 	</noscript>
 	<!-- End Google Tag Manager (noscript) -->
-	<div id="up" class="row m-0">
-		<div class="col-12 p-0">
-			<div class="row new-header d-flex justify-content-center align-items-center m-0">
-				<div class="col-2 d-flex align-items-center justify-content-around logo-header">
-					<a href="{{ path('Accueil') }}">
-						<img class="d-block img-fluid" src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="logo">
-					</a>
-				</div>
-				<div class="col-lg-7">
-					<a class="logo-header-mobile" href="{{ path('Accueil') }}">
-						<img class="img-fluid" src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="logo">
-					</a>
-					<div class="text-center title-header mt-2">
-						<span class="desc-top">CG Officiel est un site agréé et habilité par l’Etat, indépendant de l'Administration qui permet d’effectuer les demandes de changement de carte grise ou certificat d’immatriculation. Ces démarches sont également possibles via le service public sans majorations de frais.</span>
+	{{ include('home/composant/header.html.twig') }}
+	<!-- Content -->
+	<section class="sectionTop_">
+		<div class="flash_block">
+			<div class="container">
+				{% block flash %}
+				{% for flash_message in app.session.flashbag.get('success') %}
+					<div class="container-fluid alert alert-success text-center" role="alert">
+						{{ flash_message }}
 					</div>
-
-					<div class="icon-mobile-menu">
-						<span></span>
-						<span></span>
-						<span></span>
+				{% endfor %}
+				{% for flash_message in app.session.flashbag.get('info') %}
+					<div class="container-fluid alert alert-info text-center" role="alert">
+						{{ flash_message }}
 					</div>
-					<div class="icon-mobile-close">
-						<span></span>
-						<span></span>
+				{% endfor %}
+				{% for flash_message in app.session.flashbag.get('warning') %}
+					<div class="container-fluid alert alert-warning text-center" role="alert">
+						{{ flash_message }}
 					</div>
-				</div>
-				<div class="col-3 mx-auto login-access-container d-flex justify-content-center align-items-center flex-wrap">
-					{% if app.user %}
-					<a class="logout-access d-flex" href="/logout">
-						<button type="button" class="btn btn-primary text-center login-btn">
-							Se déconnecter
-						</button>
-					</a>
-					<div class="info-user">
-						<a href=" {{ path('compte') }} ">Mes infos</a>
+				{% endfor %}
+				{% for flash_message in app.session.flashbag.get('danger') %}
+					<div class="container-fluid alert alert-danger text-center" role="alert">
+						{{ flash_message }}
 					</div>
-					{% else %}
-					<a class="login-access d-flex" href="/login">
-						<button type="button" class="btn btn-primary text-center login-btn">
-							Se connecter
-						</button>
-					</a>
-					{# <a href="{{ path('france_connect_login') }}">
-						<img class="col-12 tooltipped rounded mx-auto d-block max-250" src="{{ asset('asset/img/fcbouton.jpg')}}" alt="FranceConnect button">
-					</a> #}
-					{% endif %}
+				{% endfor %}
+				{% endblock %}
+			</div>
+		</div>
+		<div class="form_demarche">
+			<div class="container">
+				{% block page_content %}{% endblock %}
+			</div>
+		</div>
+		<div class="detail_carteG text-center">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-md-10">
+						<div class="line_vert"></div>
+						<strong>Le certificat d’immatriculation ou carte grise</strong> est un document officiel et obligatoire pour l'identification d’un véhicule et est valable pendant toute la durée d'utilisation du véhicule. Il contient le nom du propriétaire du véhicule, son adresse, le numéro d'immatriculation du véhicule assuré. Le certificat d’immatriculation ou carte grise doit être renouvelé lors d’un changement d’adresse, de titulaire,en cas de perte ou vol.
+						<div class="autocollant_block">
+							<a class="critairLink" href="http://www.certificat-air.gouv.fr" target="_blank">
+								<span><img src='{{ asset("asset/img/vert.png")}}' alt=''></span>
+								<span><img src='{{ asset("asset/img/violet.png")}}' alt=''></span>
+								<span><img src='{{ asset("asset/img/jaune.png")}}' alt=''></span>
+								<span><img src='{{ asset("asset/img/orange.png")}}' alt=''></span>
+								<span><img src='{{ asset("asset/img/grenat.png")}}' alt=''></span>
+								<span><img src='{{ asset("asset/img/gris.png")}}' alt=''></span>
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="row col-nav-header">
-				<div class="col-7 offset-2">
-					<ul class="nav-header d-flex justify-content-around">
-						<li>
-							<a href="{{ path('Accueil') }}" class="menu-item">Accueil</a>
-						</li>
-						<li>
-							<a href="{{ path('CommentCaMarche') }}" class="menu-item">Comment ça marche ?</a>
-							<ul class="nav-sub-menu">
-								<li>
-									<a href="{{ path('doc_telechargeable') }}" class="menu-item">Documents téléchargeables</a>
+			<div class="bg_gray">
+				<div class="container">
+				 	<div class="row justify-content-center">
+						<div class="col-md-11">
+							<div class="text_critair">
+								Le certificat qualité de l'air est un autocollant rond qui s'achète auprès de www.certificat-air.gouv.fr. <br/>
+								Il est délivré en fonction des émissions de CO2, émissions polluantes des véhicules, il se présente sous forme d'autocollant rond à coller sur le parebrise. Il classe les véhicules et permet la circulation dans certaines villes lors de pics de pollution et est obligatoire dans certaines zones. Son coût est environ de 3.62 euros et est envoyé par voie postale. <br/>
+								Certaines collectivités offrent des avantages aux véhicules affichant cet autocollant.
+							</div>
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-md-10">
+							<ul class="link-form">
+								<li onclick="$('#formulaire_demarche').val('2').change();" >
+									<a href="#">
+										<span>
+											<span><i class="icomoon icon-duplicate"></i> Duplicata</span>
+										</span>
+									</a>
 								</li>
-								<li>
-									<a href="#" class="menu-item">Pièces à fournir</a>
+								<li onclick="$('#formulaire_demarche').val('1').change();" >
+									<a href="#">
+										<span>
+											<span><i class="icomoon icon-exchange"></i> Changement de titulaire</span>
+										</span>
+									</a>
+								</li>
+								<li onclick="$('#formulaire_demarche').val('3').change();" >
+									<a href="#">
+										<span>
+											<span><i class="icomoon icon-neuf"></i> Immatriculation véhicule neuf</span>
+										</span>
+									</a>
+								</li>
+								<li onclick="$('#formulaire_demarche').val('4').change();" >
+									<a href="#">
+										<span>
+											<span><i class="icomoon icon-adress-location"></i> Changement d’adresse</span>
+										</span>
+									</a>
+								</li>
+								<li onclick="$('#formulaire_demarche').val('5').change();" >
+									<a href="#">
+										<span>
+											<span><i class="icomoon icon-declaration-cession"></i> Déclaration de cession</span>
+										</span>
+									</a>
 								</li>
 							</ul>
-						</li>
-						<li>
-							<a href="{{ path('blog') }}" class="menu-item">actualités</a>
-						</li>
-						<li>
-							<a href="{{ path('prix_carte_grise') }}" class="menu-item">Prix carte grise</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div id="sidebar-container" class="col-2 hidden-md-down d-flex align-items-center" >
-			{# {{ include('home/composant/sidebar.html.twig') }} #}
-			<a href="#">
-				<img class="" src="{{ asset('asset/img/call-cgo.png')}}">
-			</a>
-		</div>
-		<div class="col-12 col-lg-7 col-md-8 col-sm-12">
-			{% block flash %}
-			    {% for flash_message in app.session.flashbag.get('success') %}
-			        <div class="container-fluid alert alert-success text-center" role="alert">
-			            {{ flash_message }}
-			        </div>
-			    {% endfor %}
-			    {% for flash_message in app.session.flashbag.get('info') %}
-			        <div class="container-fluid alert alert-info text-center" role="alert">
-			            {{ flash_message }}
-			        </div>
-			    {% endfor %}
-			    {% for flash_message in app.session.flashbag.get('warning') %}
-			        <div class="container-fluid alert alert-warning text-center" role="alert">
-			            {{ flash_message }}
-			        </div>
-			    {% endfor %}
-			    {% for flash_message in app.session.flashbag.get('danger') %}
-			        <div class="container-fluid alert alert-danger text-center" role="alert">
-			            {{ flash_message }}
-			        </div>
-			    {% endfor %}
-			{% endblock %}
-			{% block page_content %}{% endblock %}
-			{% block pagetext_content %}{% endblock %}
-		</div>
-		<div class="col-3 col-lg-3 col-md-4 link-rignt hidden-sm-down">
-			<div class="row">
-				<div class="col-11 custom-pad-20">
-					{% if app.user %}
-					<div class="txt-other-link text-center mt-4 bold">
-						<h5 class="txt-other-link text-center mt-4">
-						Bonjour {% if app.user.client is defined and app.user.client is not null %}{{ app.user.client.clientPrenom | displayValue}} {{ app.user.client.clientNom | upper}}{% endif %}
-						</h5>
-						<h5 class="txt-other-link text-center mt-4">
-							<a href="{{ path('compte') }}">Mon compte</a>
-						</h5>
-						<h5 class="txt-other-link text-center mt-4">
-							<a href="{{ path('logout') }}">Déconnexion</a>
-						</h5>
-					</div>
-
-					<ul class="espace-client-menu col-11 mx-auto mt-4">
-						<li class="list-group-item d-flex justify-content-between align-items-center active">
-							<a href="#">Information Client</a>
-						</li>
-						<li class="list-group-item d-flex justify-content-between align-items-center">
-							<a href="{{ path('compte') }}">Mon Profil</a>
-						</li>
-						<li class="list-group-item d-flex justify-content-between align-items-center">
-							<a href="{{ path('commande_list') }}">Demandes en cours</a>
-							<span class="badge badge-primary badge-pill">{{ countCommandeUnchecked(app.user) }}</span>
-						</li>
-						</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center">
-							<a href="{{ path('demande_list')}}">Commandes effectuées</a>
-							<span class="badge badge-primary badge-pill">{{ countDemande(app.user) }}</span>
-						</li>
-
-					</ul>
-					{% endif %}
-					<div class="bloc-txt-sidebar mt-4 home-texte">
-						<p><b>Le certificat d’immatriculation</b> ou <b>carte grise</b> est un document officiel et obligatoire pour l'identification d’un véhicule et est valable pendant toute la durée d'utilisation du véhicule. Il contient le nom du propriétaire du véhicule, son adresse, le numéro d'immatriculation du véhicule assuré. Le certificat d’immatriculation ou carte grise doit être renouvelé lors d’un changement d’adresse, de titulaire,en cas de perte ou vol.</p>
-					</div>
-					<div class="critair">
-						<a class="critairLink" href="http://www.certificat-air.gouv.fr" target="_blank"><img class="img-fluid" src='{{ asset("asset/img/critair.jpg")}}' alt='image down'></a>
-					</div>
-					<div class="bloc-txt-sidebar mt-4 text-center home-texte bg-blue">
-						<p>Le certificat qualité de l'air est un autocollant rond qui s'achète auprès de <a href="www.certificat-air.gouv.fr" target="_blank">www.certificat-air.gouv.fr</a>. Il est délivré en fonction des émissions de CO2, émissions polluantes des véhicules, il se présente sous forme d'autocollant rond à coller sur le parebrise. Il classe les véhicules et permet la circulation dans certaines villes lors de pics de pollution et est obligatoire dans certaines zones. Son coût est environ de 3.62 euros et est envoyé par voie postale. Certaines collectivités offrent des avantages aux véhicules affichant cet autocollant.</p>
-					</div>
-					<div class="demande-sidebar mt-4">
-						<ul>
-							<li onclick="$('#formulaire_demarche').val('2').change();" >
-								<a href="#" class="demande-sidebar-item">Duplicata</a>
-							</li>
-							<li onclick="$('#formulaire_demarche').val('1').change();" >
-								<a href="#" class="demande-sidebar-item">Changement de titulaire</a>
-							</li>
-							<li onclick="$('#formulaire_demarche').val('3').change();" >
-								<a href="#" class="demande-sidebar-item">Immatriculation véhicule neuf</a>
-							</li>
-							<li onclick="$('#formulaire_demarche').val('4').change();" >
-								<a href="#" class="demande-sidebar-item">Changement d’adresse</a>
-							</li>
-							<li onclick="$('#formulaire_demarche').val('5').change();" >
-								<a href="#" class="demande-sidebar-item">Déclaration de cession</a>
-							</li>
-						</ul>
-					</div>
-					<div class="bloc-txt-sidebar mt-4 text-center home-texte mb-4">
-						<a class="link-faq" href="#">A quoi sert le certiﬁcat d’immatriculation ?</a>
-						<a class="link-faq" href="#">Doit on immatriculer une remorque ?</a>
-						<a class="link-faq" href="#">Doit on immatriculer un tracteur ?</a>
-					</div>
-					<div class="menu-info-sidebar mb-4">
-						<ul>
-							<li class="info-sibebar-item">
-								<a href="#">Entrez vos informations</a>
-							</li>
-							<li class="info-sibebar-item">
-								<a href="#">Envoyez nous vos documents</a>
-							</li>
-							<li class="info-sibebar-item">
-								<a href="#">Traitement 24h *</a>
-							</li>
-							<li class="info-sibebar-item">
-								<a href="#">Attendez votre nouvelle carte grise chez vous</a>
-							</li>
-						</ul>
-						<span>(* Après réception de votre dossier)</span>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
+	</section>
+	<section class="sectionbot_">{% block pagetext_content %}{% endblock %}</section>
 	{{ include('home/composant/footer.html.twig') }}
 {% block javascripts %}
 	<script src="{{ asset('Utils/js/jquery.js')}}"
@@ -257,6 +170,7 @@
 	<script src="{{ asset('javascript/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('javascript/ckeditor/adapters/jquery.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('asset/libs/js/bootstrap.min.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('asset/libs/js/parallax.min.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('javascripts/home.js') }}"></script>
 	<script type="text/javascript">
         cookiesChecker.init();

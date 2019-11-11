@@ -1,82 +1,97 @@
-<footer class="container-fluid">
-	<div class="row footer d-flex flex-row align-items-center my-flex-container ">
-		<div class="col-12 footer-reseau">
-			<div class="col-10 mx-auto py-2 d-flex align-items-center">
-
-				<!-- Grid column -->
-				<div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-					<h6 class="mb-0">Suivez nous sur les réseaux sociaux !</h6>
+<footer id="footer">
+	<div class="pre-footer">
+		<div class="container">
+			<div class="faq-block">
+				<div class="row">
+					<div class="col-md-4">
+						<a href="#" class="faQ">
+							<img src="{{ asset('asset/img/certificat-icon.svg') }}">
+							<span>A quoi sert le</span> certiﬁcat d’immatriculation ?
+						</a>
+					</div>
+					<div class="col-md-4">
+						<a href="#" class="faQ">
+							<img src="{{ asset('asset/img/remorque-icon.svg') }}">
+							<span>Doit on</span> immatriculer une remorque ?
+						</a>
+					</div>
+					<div class="col-md-4">
+						<a href="#" class="faQ">
+							<img src="{{ asset('asset/img/tractor-icon.svg') }}">
+							<span>Doit on</span> immatriculer un tracteur ?
+						</a>
+					</div>
 				</div>
-				<!-- Grid column -->
-
-				<!-- Grid column -->
-				<div class="col-md-6 col-lg-7 text-center text-md-right">
-
-					<!-- Facebook -->
-					<a class="fb-ic" href="https://www.facebook.com/CG-Officiel-2101234933265302/" target="_blank">
-						<i class="fab fa-2x fa-facebook-f white-text"></i>
-					</a>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<a href="#" class="info_docs">Entrez vos informations</a>
+					<a href="#" class="info_docs">Envoyez nous vos documents</a>
 				</div>
-				<!-- Grid column -->
-
+				<div class="col-md-4">
+					<a href="#" class="info_docs">Traitement 24h *<em>(<sup>*</sup> Après réception de votre dossier)</em></a>
+				</div>
+				<div class="col-md-4">
+					<a href="#" class="info_docs">Attendez votre nouvelle carte grise chez vous</a>
+				</div>
+			</div>
+			<div class="CG_Off_Footer">
+				<div class="row align-items-center">
+					<div class="col-md-3">
+						<a class="logo-footer" href="{{ path('Accueil') }}">
+							<img src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="">
+						</a>
+					</div>
+					<div class="col-md-9">
+						<div class="texte_footer">
+							<p>En tant que professionnel de l'automobile, CG Ofiiciel est habilité par la Préfecture, au Système d'Immatriculation des Véhicules (SIV). Non affilié au gouvernement, CG Officiel est également agrée par le Ministère de l'intérieur (n° 222442), et habilité par le Trésor Public (n° 55337) afin de vous proposer ce service d'immatriculation de véhicule e ligne et vous épargner ainsi tout déplacement pour vous démarches.</p>
+							<p>Si vous préférez envoyer votre demande à l'ANTS, l'Agence nationale des Titres Sécurisés, prenez en compte la possibilité du délai de traitement des demandes d'immatriculation plus importantes, avec son système automatisé de demandes de cartes grises mis en place le 6 novembre 2017.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="habillitation-footer text-center">
+				<div class="row justify-content-center">
+					<div class="col-md-8">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="habill_item">
+									<span>Habilitation >Ministère de L'intérieur <em>N° 22442</em></span>
+									<img id="Rep_fr" src="{{ asset('asset/img/rep_Francaise.png')}}" alt="République Fr">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="habill_item">
+									<span>Agrément du Trésor Public <em>N° 55337</em></span>
+									<img id="Tresr_plc" src="{{ asset('asset/img/tresor_public.png')}}" alt="Trésor publique">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="row mx-auto footer-bottom">
-			<div class="col-10 mx-auto txt-footer">
-				<p>
-					En tant que professionnel de l'automobile, CG Ofiiciel est habilité par la Préfecture, au Système d'Immatriculation des Véhicules (SIV). Non affilié au gouvernement, CG Officiel est également agrée par le Ministère de l'intérieur (n° 222442), et habilité par le Trésor Public (n° 55337) afin de vous proposer ce service d'immatriculation de véhicule e ligne et vous épargner ainsi tout déplacement pour vous démarches.
-				</p>
-				<p>
-					Si vous préférez envoyer votre demande à l'ANTS, l'Agence nationale des Titres Sécurisés, prenez en compte la possibilité du délai de traitement des demandes d'immatriculation plus importantes, avec son système automatisé de demandes de cartes grises mis en place le 6 novembre 2017.
-				</p>
-			</div>
-			<div class="col-10 mx-auto d-flex justify-content-between mt-4">
-				<div class="d-flex justify-content-start logo-footer">
-					<a class="" href="{{ path('Accueil') }}">
-						<img class="rounded mx-auto d-block img-fluid" src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="">
-					</a>
-					<div class="">
-						<ul>
-							<li>
-								<a href="{{ path('Accueil') }}" class="footer-menu-item">Accueil</a>
-							</li>
-							<li>
-								<a href="{{ path('CommentCaMarche') }}" class="footer-menu-item">Comment ça marche ?</a>
-							</li>
-							<li>
-								<a href="http://blog.cgofficiel.fr" class="footer-menu-item">Actualités</a>
-							</li>
-							<li>
-								<a href="{{ path('prix_carte_grise') }}" class="footer-menu-item">Prix de votre carte grise</a>
-							</li>
-							<li>
-								<a href="{{ path('faq') }}" class="footer-menu-item">FAQ</a>
-							</li>
-						</ul>
-					</div>
+	</div>
+	<div class="menu-footer">
+		<div class="container">
+			<ul class="text-center">
+				<li><a href="{{ path('Accueil') }}" class="footer-menu-item">Accueil</a></li>
+				<li><a href="{{ path('CommentCaMarche') }}" class="footer-menu-item">Comment ça marche ?</a></li>
+				<li><a href="http://blog.cgofficiel.fr" class="footer-menu-item">Actualités</a></li>
+				<li><a href="{{ path('prix_carte_grise') }}" class="footer-menu-item">Prix de votre carte grise</a></li>
+				<li><a href="{{ path('faq') }}" class="footer-menu-item">FAQ</a></li>
+				<li><a href="{{ path('contact') }}" class="footer-menu-item">Contact</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="copyright">
+		<div class="container">
+			<div class="d-md-flex justify-content-between">
+				<p>© CG Officiel 2019 | tout droit réservé&nbsp;&nbsp;&nbsp;&nbsp;-<a href="#">Mentions légales</a>-<a href="#">CGV</a></p>
+				<div class="social_block">
+					Suivez nous sur les réseaux sociaux ! 
+					<a class="fb-ic" href="https://www.facebook.com/CG-Officiel-2101234933265302/" target="_blank"><i class="fab fa-2x fa-facebook-f"></i></a>
 				</div>
-				<div class="habilitation-footer">
-					<div class="habilitation-element d-flex align-items-start">
-						<img class="col-12 mx-auto rounded max-250" src="asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation-1.png" alt="agrément CGofficiel carte grise certificat immatriculation">
-						<label>
-							Habilitation
-							<br>Ministère de
-							<br>L'intérieur
-							<br>N° 22442
-						</label>
-					</div>
-					<div class="habilitation-element d-flex align-items-start">
-						<img class="col-12 mx-auto rounded max-250" src="asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation-2.png" alt="agrément CGofficiel carte grise certificat immatriculation">
-						<label>
-							Agrément du
-							<br>Trésor Public 
-							<br>N° 55337
-						</label>
-					</div>
-				</div>
-			</div>			
-			<div class="text-center txt-copyright col-12">
-				Contact - CGV - Mentions légales tout droit réservé CG Officiel 2019
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,42 @@
+$royal-blue : #03347e;
+$aqua-blue : #219de4;
+$pastel-blue :#7296ce;
+$gray : #767474;
+$green : #33b108;
+$white : #ffffff;
+$bbr_color:#b7b7b7;
+$white-opacity:rgba(255, 255, 255, 0.11);
+
+$block:block;
+$bdr_solid_1: 1px solid;
+$size_18:18px;
+$size_15:15px;
+$size_24:24px;
+$size_28:28px;
+$inherit: inherit;
+
+%list-style {
+	list-style: none;
+	padding-left: 0;
+	margin: 0;
+} 
+%nav-hover-active {
+	content:"";
+	display: none;
+	width: 26px;
+	border-bottom: 5px solid;
+}
+%absolute {
+	content:"";
+	position: absolute;
+}
+%bgStyle {
+	background-size: cover;
+	background-position: center bottom;
+	background-repeat: no-repeat;
+}
+
+%linear_anim {
+    transition: all .3s ease;
+	-webkit-transition: all .3s ease;
+}
