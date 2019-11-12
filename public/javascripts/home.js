@@ -14,6 +14,8 @@ function slugify(string) {
 }
 
 $(document).ready(function () {
+    $(".Navigation").sticky({ topSpacing: 0 });
+
     $('#voir_plus_button').on('click', function () { $('.voir_plus_content').toggle() });
     $('.icon-mobile-menu').click(function(){
         $('#sidebar-container').toggleClass('show');
@@ -27,7 +29,7 @@ $(document).ready(function () {
                 $('.new-header').removeClass('show');
             }
         }
-    });  
+    }); 
 });
 
 function valueTreatement(value) {
@@ -48,7 +50,7 @@ $('#formulaire_demarche').on('change', function (e) {
     var Value = $(".demarche").find(":selected").val();
     if (Value !== "3") {
         $(e.target).parent().siblings().show();
-        document.getElementById("calcul").innerHTML = '<button type="submit" class="btn btn-primary btn-sm mx-auto calc-btn">CALCULER</button>';
+        document.getElementById("calcul").innerHTML = '<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>';
         $(this).parents("form").next("div#formVN").hide();
         $(this).parents("form").show();
     } else {
@@ -56,6 +58,12 @@ $('#formulaire_demarche').on('change', function (e) {
         $(this).parents("form").next("div#formVN").show();
         $(this).parents("form").hide();
     }
+});
+$(function() {
+    $('a[href*=\\#]').on('click', function(e) {
+        e.preventDefault();
+        $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top}, 500, 'linear');
+    });
 });
 
 function h2over(x){  
@@ -142,3 +150,63 @@ var cookiesChecker = function () {
         init: init
     };
 }();   
+
+
+
+$('.block_form select').each(function(){
+    var $this = $(this), numberOfOptions = $(this).children('option').length;
+  
+    $this.addClass('select-hidden'); 
+    $this.wrap('<div class="select"></div>');
+    $this.after('<div class="select-styled"></div>');
+
+    var $styledSelect = $this.next('div.select-styled');
+    $styledSelect.text($this.children('option').eq(0).text());
+  
+    var $list = $('<ul />', {
+        'class': 'select-options'
+    }).insertAfter($styledSelect);
+  
+    for (var i = 0; i < numberOfOptions; i++) {
+        $('<li />', {
+            text: $this.children('option').eq(i).text(),
+            rel: $this.children('option').eq(i).val()
+        }).appendTo($list);
+    }
+  
+    var $listItems = $list.children('li');
+  
+    $styledSelect.click(function(e) {
+        e.stopPropagation();
+        $('div.select-styled.active').not(this).each(function(){
+            $(this).removeClass('active').next('ul.select-options').hide();
+        });
+        $(this).toggleClass('active').next('ul.select-options').toggle();
+    });
+  
+    $listItems.click(function(e) {
+        e.stopPropagation();
+        $styledSelect.text($(this).text()).removeClass('active');
+        $this.val($(this).attr('rel'));
+        $list.hide();
+    });
+  
+    $(document).click(function() {
+        $styledSelect.removeClass('active');
+        $list.hide();
+    });
+
+});
+
+// Mobile nav
+$('.nav').append($('<div class="nav-mobile"><span></span></div>'));
+$('.nav-item').has('ul').prepend('<span class="nav-click"><i class="icomoon icon-arrow-down"></i></span>');
+$('.nav-mobile').click(function(){
+    this.classList.toggle('active');
+    $('.nav-list').toggle();
+});
+$('.nav-list').on('click', '.nav-click', function(){
+  $(this).siblings('.nav-sub-menu').toggle();
+  $(this).children('.icon-arrow-down').toggleClass('nav-rotate');
+  
+});

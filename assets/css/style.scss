@@ -19,9 +19,17 @@ a {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	background-color: $royal-blue !important;
+	border: $bdr_solid_1 transparent !important;
 	border-radius: 50px !important;
 	color: $white !important;
-	padding: 9px 30px !important;
+	padding: 8px 30px !important;
+	&:hover, &:focus {
+		box-shadow: none !important;
+		outline: none !important;
+		color: $royal-blue !important;
+		background-color: transparent !important;
+		border-color: $royal-blue !important;
+	}
 }
 
 //header
@@ -30,10 +38,53 @@ header {
 	@extend %bgStyle;
 	overflow-x: hidden;
 	position: relative;
+	@include sm {
+		height: 560px;
+	}
+	#sticky-wrapper {
+		position: absolute;
+    	width: 100%;
+		z-index: 10000 !important;
+		&.is-sticky {
+			.menu {
+				background-color: $royal-blue;
+				.row {
+					> div {
+						text-align: left;
+						.logo {
+							>img {
+								width: 55px;
+								margin-top: 5px;
+								padding-bottom: 5px;
+								@extend %linear_anim;
+							}
+						}
+					}
+					.nav{
+						background: none;
+						&:before, &:after {
+							display: none;
+						}
+						.nav-sub-menu {
+							padding-top: 18px;
+						}
+					}
+				}
+			}
+		}
+	}
     .Navigation {
+		z-index: 10000 !important;
 		#topNav {
 			background-color: $white;
 			padding: 6px 0;
+			.left-topBlock {
+				img {
+					@include lg {
+						width: 330px;
+					}
+				}
+			}
 			.right-topBlock {
 				.block-habillitation {
 					.habill_item {
@@ -82,14 +133,30 @@ header {
 				background-color: $white-opacity;
 				height: 100%;
 				margin-left: 98px;
+				@include md {
+					background-color: transparent;
+					-ms-flex-pack: end;
+					justify-content: flex-end;
+					margin-left: 0;
+				}
 				.nav-list {
 					@extend %list-style;
 					display: table;
 					width: 100%;
+					@include md {
+						display: none;
+						position: absolute;
+    					top: 100%;
+					}
 					.nav-item {
 						display: inline-block;
 						position:relative;
-						padding-left: 48px;
+						margin-left: 48px;
+						@include md {
+							background-color: $white;
+							display: $block;
+							margin-left: 0;
+						}
 						> a {
 							color: $white;
 							display: $block;
@@ -99,6 +166,14 @@ header {
 							letter-spacing: 1px;
 							position: relative;
 							cursor: pointer;
+							@include md {
+								color: #212529;
+								padding: $size_15;
+    							border-bottom: $bdr_solid_1;
+							}
+							@include xs {
+								font-size: 12px;
+							}
 							&:after {
 								content: "";
 								width: 0;
@@ -108,19 +183,103 @@ header {
 								bottom: -7px;
 								transition: all .3s ease;
 								-webkit-transition: all .3s ease;
+								@include md {
+									display: none;
+								}
 							}
 							&:hover {
 								text-decoration: none;
 								&:after {
 									width: 26px;
+									@include md {
+										display: none;
+									}
 								}
 							}
 						}
 						.nav-sub-menu {
-							display: none;
+							position: absolute;
+							@extend %list-style;
+							width: $subMenu-width;
+							margin-left: -16px;
+							padding-top: 33px;
+							text-align: left;
+							top: 120%;
+							z-index: -1;
+							-webkit-transition: top 0.3s ease 0s, visibility 0.2s ease 0.2s, opacity 0.2s ease 0.1s;
+							transition: top 0.3s ease 0s, visibility 0.2s ease 0.2s, opacity 0.2s ease 0.1s;
+							opacity: 0;
+							visibility: hidden;
+							@include md {
+								position: static;
+								position: static;
+								padding: 0;
+								opacity: 1;
+								visibility: visible;
+								width: 100%;
+								margin: 0;
+								display: none;
+								text-align: right;
+							}
+							li {
+								background-color: $white;
+								a {
+									text-transform: uppercase;
+									font-weight: 600;
+									letter-spacing: 1px;
+									color: inherit;
+									border-bottom: $bdr_solid_1 $select-bg;
+									display: $block;
+									font-size: 14px;
+									margin: 0 5px;
+									padding: $size_15 11px;
+									@include xs {
+										font-size: 12px;
+										text-align: left;
+									}
+								}
+								&:last-child {
+									a {
+										border-bottom: none;
+									}
+								}
+								&:hover {
+									a {
+										color: $royal-blue;
+										text-decoration: none;
+									}
+								}
+							}
+							&:before {
+								content: "";
+								width: 0;
+								height: 0;
+								border-left: 25px solid transparent;
+								border-right: 25px solid transparent;
+								border-bottom: 25px solid $white;
+								position: absolute;
+								margin-top: -14px;
+								margin-left: 5px;
+								@include md {
+									display: none;
+								}
+							}
 						}
 						&:first-child {
-							padding-left: 0;
+							margin-left: 0;
+						}
+						&:hover {
+							.nav-sub-menu {
+								z-index: 1000;
+								opacity: 1;
+								top: 100%;
+								transition: top 0.3s ease 0s;
+								-webkit-transition: top 0.3s ease 0s;
+								visibility: visible;
+								@include md {
+									display: none;
+								}
+							}
 						}
 					}
 				}
@@ -133,6 +292,9 @@ header {
 					height: 100%;
 					left: $size_15;
 					top: 0;
+					@include md {
+						display: none;
+					}
 				}
 				&:after{
 					@extend %absolute;
@@ -142,11 +304,94 @@ header {
 					height: 100%;
 					right: -100%;
 					top: 0;
+					@include md {
+						display: none;
+					}
 				}
+				.login-access {
+					@include md {
+						background-color: transparent !important;
+						padding: 0 !important;
+						margin-right: $size_15;
+						font-size: $size_28 !important;
+					}
+				}
+			}
+			.nav-mobile {
+				display: none;
+				margin-right: 40px;
+				margin-top: -2px;
+				position: relative;
+    			z-index: 100;
+				span,
+				span:before,
+				span:after {
+					cursor: pointer;
+					border-radius: 1px;
+					height: 2px;
+					width: 35px;
+					background: $white;
+					position: absolute;
+					display: $block;
+					content: '';
+					transition: all 300ms ease-in-out;
+				}
+				span:before {
+					top: -10px;
+				}
+				span:after {
+					bottom: -10px;
+				}
+				&.active span {
+					background-color: transparent;
+					&:before,
+					&:after {
+					  top: 0;
+					}
+					&:before {
+					  transform: rotate(45deg);
+					}
+					&:after {
+					  transform: rotate(-45deg);
+					}
+				}
+				@include md {
+					display: $block;
+				}
+			}
+			.nav-click {
+				float: right;
+				padding-top: 22px;
+				padding-right: 15px;
+				padding-left: 15px;
+				position: relative;
+    			z-index: 99 !important;
+				display:none;
+				cursor:pointer;
+				@include md {
+					display: $block;
+				}
+			  }
+			.nav-click i {
+				display:block;
+			}
+			.nav-click:hover i {
+				color:$royal-blue;
+			}
+			.nav-rotate {
+				-webkit-transform:rotate(180deg);
+				-moz-transform:rotate(180deg);
+				-ms-transform:rotate(180deg);
+				-o-transform:rotate(180deg);
+				transform:rotate(180deg);
 			}
 		}
 	}
 	.accroche {
+		margin-top: 205px;
+		@include sm {
+			margin-top: 180px;
+		}
 		.text_CG {
 			line-height: 30px;
 			color: $white;
@@ -154,6 +399,10 @@ header {
 			font-style: italic;
 			letter-spacing: 1px;
 			padding: 0 20px;
+			@include sm {
+				font-size: 14px;
+				padding: 0;
+			}
 			> span {
 				color: $royal-blue;
 				background: $white;
@@ -211,87 +460,103 @@ header {
 		.demarche_block {
 			background: $white;
 			position: relative;
-			padding: 25px 60px;
+			padding: $size_15;
 			margin-top: -330px;
 			box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.1);
 			margin-bottom: 160px;
-			&:before {
-				@extend %absolute;
-				width: 97%;
-    			height: 94%;
-				border: 2px solid $bbr_color;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%,-50%);
+			@include md {
+				margin-top: -290px;
 			}
-			.title_dermarche {
-				letter-spacing: 1px;
-				> p {
-					font-weight: 300;
-					margin-bottom: 10px;
-    				line-height: $size_24;
-				}
-				> h2 {
-					font-size: $size_24;
-					font-weight: 600;
-					text-transform: uppercase;
-					margin-bottom: 0;;
-					&:after {
-						content:"";
-						display: $block;
-						width: 190px;
-						border-top: 2px solid $royal-blue;
-						margin: 19px auto 23px;
+			@include sm {
+				margin-top: -150px;
+			}
+			.demarche_block_item {
+				border: 2px solid $bbr_color;
+				padding: $size_15;
+				.title_dermarche {
+					letter-spacing: 1px;
+					> p {
+						font-weight: 300;
+						margin-bottom: 10px;
+						line-height: $size_24;
+					}
+					> h2 {
+						font-size: $size_24;
+						font-weight: 600;
+						text-transform: uppercase;
+						margin-bottom: 0;;
+						&:after {
+							content:"";
+							display: $block;
+							width: 190px;
+							border-top: 2px solid $royal-blue;
+							margin: 19px auto 23px;
+						}
 					}
 				}
-			}
-			.form-group {
-				> label {
+				.form-group {
+					> label {
+						font-size: 14px;
+						letter-spacing: 1px;
+						font-weight: 600;
+						display: $block;
+					}
+				}
+				.form-control {
+					background-color: $select-bg;
+					border-color: $bbr_color;
+					border-radius: 0;
 					font-size: 14px;
 					letter-spacing: 1px;
-					font-weight: 600;
-				}
-			}
-			.form-control {
-				background-color: #f7f7f7;
-				border-color: $bbr_color;
-				border-radius: 0;
-				font-size: 14px;
-				letter-spacing: 1px;
-				line-height: $size_24;
-				height: 54px;
-				-moz-appearance: none;
-				-webkit-appearance:none;
-				appearance: none;
-				&::placeholder {
-					color: #484949;
-				}
-				&:focus {
-					outline: none !important;
-					box-shadow: none !important;
-					border-color: $royal-blue;
-				}
-			}
-			.btn-calcuer {
-				cursor: pointer;
-				padding: 13px 42px !important;
-				letter-spacing: 3px;
-				margin-right: 15px;
-				width: 220px;
-				@extend %linear_anim;
-				.icomoon {
-					margin-left: 10px;
-					font-size: 17px;
-					vertical-align: middle;
-					transition: all .3s ease;
-					-webkit-transition: all .3s ease;
-				}
-				&:hover, &:focus {
-					box-shadow: none;
-					outline: none;
-					.icomoon {
-						padding-left: 5px;
+					line-height: $size_24;
+					height: 54px;
+					-moz-appearance: none;
+					-webkit-appearance:none;
+					appearance: none;
+					&::placeholder {
+						color: #484949;
 					}
+					&:focus {
+						outline: none !important;
+						box-shadow: none !important;
+						border-color: $royal-blue;
+					}
+				}
+				.btn-calcuer {
+					cursor: pointer;
+					padding: 13px 42px !important;
+					letter-spacing: 3px;
+					margin-right: $size_15;
+					width: 220px;
+					@extend %linear_anim;
+					.icomoon {
+						margin-left: 10px;
+						font-size: 17px;
+						vertical-align: middle;
+						transition: all .3s ease;
+						-webkit-transition: all .3s ease;
+					}
+					&:hover, &:focus {
+						box-shadow: none;
+						outline: none;
+						.icomoon {
+							padding-left: 5px;
+						}
+					}
+				}
+			}
+			.back-retour {
+				font-family: "Ubuntu";
+				font-size: 14px !important;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				margin-bottom: 25px;
+				cursor: pointer;
+				color: $royal-blue !important;
+				.icomoon {
+					transform: rotate(-180deg);
+					display: inline-block;
+					margin-right: 10px;
 				}
 			}
 		}
@@ -306,7 +571,10 @@ header {
 		.autocollant_block {
 			margin-top: 25px;
 			position: relative;
-    		z-index: 30;
+			z-index: 30;
+			@include sm {
+				text-align: center;
+			}
 			.critairLink {
 				display: inline-block;
 				> span {
@@ -317,6 +585,9 @@ header {
 					margin: 0 -5px;
 					img {
 						display: $block;
+						@include md {
+							width: 90px;
+						}
 					}
 				}
 			}
@@ -327,8 +598,15 @@ header {
 			padding: 87px 0;
 			color: $white;
 			position: relative;
+			@include md {
+				margin-top: -60px;
+				padding-bottom: 50px;
+			}
 			.text_critair{
 				padding-top: 45px;
+				@include md {
+					padding-top: 10px;
+				}
 			}
 			&:after {
 				@extend %absolute;
@@ -344,11 +622,24 @@ header {
 			.link-form {
 				@extend %list-style;
 				margin-top: 50px;
+				@include sm {
+					margin-top: 0;
+				}
 				li {
 					display: table-cell;
-					padding:0 15px;
+					padding:0 $size_15;
 					vertical-align: top;
 					width: 20%;
+					@include md {
+						display: inline-block;
+						width: 30%;
+						margin: $size_15 0;
+					}
+					@include sm {
+						display: $block;
+						width: 100%;
+						padding: 0;
+					}
 					a {
 						display: $block;
 						background-color: $white;
@@ -373,7 +664,8 @@ header {
 								.icomoon {
 									display: $block;
 									font-size: 30px;
-									padding: 2px 0 5px
+									padding: 2px 0 5px;
+									text-align: center;
 								}
 							}
 						}
@@ -381,6 +673,10 @@ header {
 							text-decoration: none;
 							transform: scale(1.2);
 							-webkit-transform: scale(1.2);
+							@include sm {
+								-webkit-transform: none;
+								transform: none;
+							}
 						}
 					}
 				}
@@ -404,6 +700,9 @@ header {
 				span {
 					display: $block;
 					font-size: 20px;
+					@include sm {
+						line-height: 130%;
+					}
 				}
 				&:after {
 					content: "";
@@ -432,6 +731,10 @@ header {
 		background-color: $royal-blue;
 		color: $white;
 		padding: 80px 0;
+		@include sm {
+			padding-top: 40px;
+			padding-bottom: 5px;
+		}
 		h3 {
 			font-size: $size_24;
 			margin-bottom: 33px;
@@ -444,6 +747,10 @@ header {
 					border-bottom: $bdr_solid_1 $pastel-blue;
 					padding: 50px 0 50px 80px;
 					position: relative;
+					@include sm {
+						padding-top: 20px;
+						padding-bottom: 20px;
+					}
 					&:last-child {
 						border-bottom: none;
 					}
@@ -452,7 +759,7 @@ header {
 						content: counter(compteListe) " ";
 						position: absolute;
 						color:$pastel-blue;
-						left: 15px;
+						left: $size_15;
 						top:35px;
 						width: 50px;
 						height: 50px;
@@ -461,6 +768,9 @@ header {
 						line-height: 45px;
 						font-size: 24px;
 						border-radius: 50px;
+						@include sm {
+							top:10px;
+						}
 					}
 				}
 			}
@@ -495,6 +805,82 @@ header {
 					}
 				}
 			}
+		}
+	}
+}
+//select form
+.select-hidden {
+	display: none;
+	visibility: hidden;
+	padding-right: 10px;
+  }
+  .select {
+	cursor: pointer;
+    position: relative;
+    width: 100%;
+  }
+  .select-styled {
+	position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: $select-bg;
+    border: 1px solid $gray;
+    padding: 8px $size_15;
+    transition: all 0.2s ease-in;
+    font-size: 14px;
+    letter-spacing: 1px;
+    line-height: 38px;
+	&:after {
+		content: "\e905";
+		font-family: 'icomoon' !important;
+		background-color: $gray;
+		color: $white;
+		text-align: center;
+    	line-height: 56px;
+	  	width: 60px;
+	  	height: 100%;
+	  	position: absolute;
+	  	top: 0;
+	  	right: 0;
+	}
+	&:active, &.active {
+		&:after {
+			transform: rotate(180deg);
+		}
+	}
+	@include md {
+		overflow: hidden;
+	}
+  }
+  .select-options {
+	position: absolute;
+	display: none;
+    top: 100%;
+    right: 0;
+    left: 0;
+    z-index: 999;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: $white;
+    border: 1px solid $gray;
+	margin-top: 5px;
+	max-height: $select-height;
+    overflow-y: scroll;
+	li {
+		margin: 0;
+		padding: 5px 12px;
+		border-bottom: 1px solid #ececec;
+		transition: all 0.15s ease-in;
+		font-size: 14px;
+		&:hover {
+			color: $white;
+			background: $royal-blue;
+		}
+		&[rel="hide"] {
+			display: none;
 		}
 	}
 }

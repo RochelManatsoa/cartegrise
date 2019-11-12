@@ -6,7 +6,7 @@
                     <div class="left-topBlock">
                         <img src="{{ asset('asset/img/service_appel.png')}}" alt="Service Appel">
                     </div>
-                    <div class="right-topBlock d-flex align-items-center">
+                    <div class="right-topBlock d-none d-md-flex align-items-center">
                         <div class="block-habillitation d-flex align-items-center">
                             <div class="habill_item d-flex align-items-center mr-md-3">
                                 <img id="Rep_fr" src="{{ asset('asset/img/rep_Francaise.png')}}" alt="République Fr">
@@ -17,7 +17,7 @@
                                 <span>Agrément du <br/>Trésor Public <em>N° 55337</em></span>
                             </div>
                         </div>
-                        <div class="block-connexion ml-md-3">
+                        <div class="block-connexion d-md-none d-lg-block ml-md-3">
                             {% if app.user %}
                             <a class="logout-access d-flex" href="/logout">
                                 <button type="button" class="btn btn-primary text-center login-btn">
@@ -38,12 +38,12 @@
         <nav class="menu">
             <div class="container">
                 <div class="row justify-content-end text-md-right">
-                    <div class="col-md-4 pr-md-0">
+                    <div class="col-4 col-md-2 col-xl-4 pr-md-0">
                         <a href="{{ path('Accueil') }}" class="logo">
                             <img src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="logo">
                         </a>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-8 col-md-10 col-xl-8">
                         <div class="nav align-items-center">
                             <ul class="nav-list">
                                 <li class="nav-item"><a href="{{ path('Accueil') }}">Accueil</a></li>
@@ -57,6 +57,20 @@
                                 <li class="nav-item"><a href="{{ path('blog') }}">Actualités</a></li>
                                 <li class="nav-item"><a href="{{ path('prix_carte_grise') }}">Prix carte grise</a></li>
                             </ul>
+                            <div class="block-connexion d-lg-none">
+                                {% if app.user %}
+                                <a class="logout-access d-flex" href="/logout">
+                                    <button type="button" class="btn btn-primary text-center login-btn">
+                                        Se déconnecter
+                                    </button>
+                                </a>
+                                <div class="info-user">
+                                    <a href=" {{ path('compte') }} ">Mes infos</a>
+                                </div>
+                                {% else %}
+                                <a class="login-access btn btn-blue" href="/login"><i class="icomoon icon-user"></i></a>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,8 +80,8 @@
     <div class="accroche">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="text_CG text-md-center pt-5"><span>CG Officiel</span> est un site agréé et habilité par l’Etat, indépendant de l'Administration qui permet d’effectuer les demandes de changement de carte grise ou certificat d’immatriculation. Ces démarches sont également possibles via le service public sans majorations de frais.</div>
+                <div class="col-12 col-lg-10 col-xl-8">
+                    <div class="text_CG text-md-center"><span>CG Officiel</span> est un site agréé et habilité par l’Etat, indépendant de l'Administration qui permet d’effectuer les demandes de changement de carte grise ou certificat d’immatriculation. Ces démarches sont également possibles via le service public sans majorations de frais.</div>
                 </div>
             </div>
         </div>

@@ -83,10 +83,10 @@
 				{% block page_content %}{% endblock %}
 			</div>
 		</div>
-		<div class="detail_carteG text-center">
+		<div class="detail_carteG text-md-center">
 			<div class="container">
 				<div class="row justify-content-center">
-					<div class="col-md-10">
+					<div class="col-md-12 col-xl-10">
 						<div class="line_vert"></div>
 						<strong>Le certificat d’immatriculation ou carte grise</strong> est un document officiel et obligatoire pour l'identification d’un véhicule et est valable pendant toute la durée d'utilisation du véhicule. Il contient le nom du propriétaire du véhicule, son adresse, le numéro d'immatriculation du véhicule assuré. Le certificat d’immatriculation ou carte grise doit être renouvelé lors d’un changement d’adresse, de titulaire,en cas de perte ou vol.
 						<div class="autocollant_block">
@@ -114,38 +114,38 @@
 						</div>
 					</div>
 					<div class="row justify-content-center">
-						<div class="col-md-10">
+						<div class="col-md-12 col-xl-10">
 							<ul class="link-form">
 								<li onclick="$('#formulaire_demarche').val('2').change();" >
-									<a href="#">
+									<a href="#Demarche">
 										<span>
 											<span><i class="icomoon icon-duplicate"></i> Duplicata</span>
 										</span>
 									</a>
 								</li>
 								<li onclick="$('#formulaire_demarche').val('1').change();" >
-									<a href="#">
+									<a href="#Demarche">
 										<span>
 											<span><i class="icomoon icon-exchange"></i> Changement de titulaire</span>
 										</span>
 									</a>
 								</li>
 								<li onclick="$('#formulaire_demarche').val('3').change();" >
-									<a href="#">
+									<a href="#Demarche">
 										<span>
 											<span><i class="icomoon icon-neuf"></i> Immatriculation véhicule neuf</span>
 										</span>
 									</a>
 								</li>
 								<li onclick="$('#formulaire_demarche').val('4').change();" >
-									<a href="#">
+									<a href="#Demarche">
 										<span>
 											<span><i class="icomoon icon-adress-location"></i> Changement d’adresse</span>
 										</span>
 									</a>
 								</li>
 								<li onclick="$('#formulaire_demarche').val('5').change();" >
-									<a href="#">
+									<a href="#Demarche">
 										<span>
 											<span><i class="icomoon icon-declaration-cession"></i> Déclaration de cession</span>
 										</span>
@@ -169,6 +169,7 @@
 		crossorigin="anonymous"></script>
 	<script src="{{ asset('javascript/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('javascript/ckeditor/adapters/jquery.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('asset/libs/js/jquery.sticky.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('asset/libs/js/bootstrap.min.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('asset/libs/js/parallax.min.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('javascripts/home.js') }}"></script>
