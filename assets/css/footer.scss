@@ -8,13 +8,45 @@ footer {
 				color: $inherit;
 				font-size: 22px;
 				line-height: $size_24;
+				@include lg {
+					font-size: 20px;
+				}
+				@include md {
+					font-size: 15px;
+				}
+				@include sm {
+					display: -ms-flexbox;
+    				display: flex;
+				}
 				img {
 					width: 90px;
 					margin-bottom: 15px;
+					@include md {
+						-ms-flex: 0 0 60px;
+    					flex: 0 0 60px;
+						width: 60px;
+						margin-bottom: 5px;
+					}
+					@include sm {
+						-ms-flex: 0 0 60px;
+    					flex: 0 0 60px;
+					}
 				}
 				> span {
-					display: block;
-					font-size: 18px;
+					@include sm {
+						padding-left: 15px;
+					}
+					> span {
+						display: block;
+						font-size: 18px;
+						@include lg {
+							font-size: 16px;
+						}
+						@include md {
+							font-size: 14px;
+							line-height: 130%;
+						}
+					}
 				}
 				&:hover {
 					text-decoration: none;
@@ -30,6 +62,15 @@ footer {
 			margin: 10px 0;
 			position: relative;
 			padding-left: 40px;
+			@include lg {
+				font-size: 14px;
+			}
+			@include md {
+				line-height: 20px;
+			}
+			@include sm {
+				padding-left: 28px;
+			}
 			&:before {
 				content: "\e903";
 				position: absolute;
@@ -37,6 +78,9 @@ footer {
 				left: 0;
 				font-size: 29px;
 				color: $green;
+				@include sm {
+					font-size: 20px;
+				}
 			}
 			&:hover {
 				text-decoration: none;
@@ -61,12 +105,29 @@ footer {
 				display: $block;
 				text-align: center;
 				padding: $size_24 0;
+				@include md {
+					height: 100%;
+					display: flex;
+					-ms-flex-align: center;
+					align-items: center;
+					-ms-flex-pack: center;
+					justify-content: center;
+				}
 				img {
 					width: 172px;
+					@include md {
+						width: 130px;
+					}
 				}
 			}
 			.texte_footer {
 				padding: 0 20px 0 0;
+				@include md {
+					padding: 10px 20px 10px 0;
+				}
+				@include sm {
+					padding-left: 20px;
+				}
 				p {
 					margin-bottom: 5px;
 				}
@@ -92,6 +153,10 @@ footer {
 				}
 				&#Tresr_plc {
 					width: 293px;
+					@include md {
+						width: 260px;
+    					margin-top: 7px;
+					}
 				}
 			}
 		}
@@ -105,6 +170,9 @@ footer {
 			li {
 				display: inline-block;
 				margin: 0 10px;
+				@include md {
+					margin: 0 5px;
+				}
 				a {
 					color: $white;
 					&:hover {

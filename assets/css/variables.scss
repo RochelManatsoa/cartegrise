@@ -6,6 +6,7 @@ $green : #33b108;
 $white : #ffffff;
 $bbr_color:#b7b7b7;
 $white-opacity:rgba(255, 255, 255, 0.11);
+$select-bg:#f7f7f7;
 
 $block:block;
 $bdr_solid_1: 1px solid;
@@ -14,6 +15,8 @@ $size_15:15px;
 $size_24:24px;
 $size_28:28px;
 $inherit: inherit;
+$select-height: 275px;
+$subMenu-width: 285px;
 
 %list-style {
 	list-style: none;
@@ -39,4 +42,33 @@ $inherit: inherit;
 %linear_anim {
     transition: all .3s ease;
 	-webkit-transition: all .3s ease;
+}
+
+
+$information-phone: "only screen and (min-width : 992px)";
+
+//media queries
+$screen-max: 575px;
+$screen-sm-max: 767px;
+$screen-md-max: 991px;
+$screen-lg-max: 1199px;
+@mixin xs {
+    @media (max-width: #{$screen-max}) {
+        @content;
+    }
+}
+@mixin sm {
+    @media (max-width: #{$screen-sm-max}) {
+        @content;
+    }
+}
+ @mixin md {
+    @media (max-width: #{$screen-md-max}) {
+        @content;
+    }
+}
+ @mixin lg {
+    @media (max-width: #{$screen-lg-max}) {
+        @content;
+    }
 }
