@@ -63,47 +63,6 @@ class DemandeController extends AbstractController
     }
 
     /**
-     * @Route("/history", name="demande_history")
-     */
-    public function history(DemandeManager $demandeManager)
-    {
-        return $this->render(
-            'demande/history.html.twig',
-            [
-                'demandes' => $demandeManager->getDemandeOfUser($this->getUser()),
-                'client' => $this->getUser()->getClient(),
-            ]
-        );
-    }
-
-    /**
-     * @Route("/espace-client/{demande}", name="espace_client")
-     * @Route("/espace-client")
-     */
-    public function espaceClient(DemandeManager $demandeManager, DocumentAFournirManager $documentAFournirManager, ?Demande $demande=null)
-    {
-        if (!$demande instanceof Demande) {
-            $demande = $demandeManager->getHerLastDemande();
-        }
-        $fileForm = null;
-        $fileType = $documentAFournirManager->getType($demande);
-        $files = $documentAFournirManager->getDaf($demande);
-        if (!null == $fileType) {
-            $fileForm = $this->createForm($fileType, $files);
-        }
-
-        return $this->render(
-            'demande/espaceClient.html.twig',
-            [
-                'demande' => $demande,
-                'client' => $this->getUser()->getClient(),
-                'form'      => is_null($fileForm) ? null :$fileForm->createView(),
-                "files"     => $files,
-            ]
-        );
-    }
-
-    /**
      * @Route("/{demande}/recap", name="demande_recap")
      */
     public function recap(Demande $demande, Request $request)

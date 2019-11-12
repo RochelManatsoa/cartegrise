@@ -4,7 +4,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-17 13:14:01 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-22 16:03:48
+ * @Last Modified time: 2019-11-07 12:03:09
  */
 namespace App\Manager;
 
@@ -28,6 +28,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Knp\Snappy\Pdf;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Entity\DailyFacture;
@@ -517,27 +518,56 @@ class DemandeManager
             case "CTVO":
                 $titulaire = $demande->getCtvo()->getAcquerreur();
                 $adresseFacture = $titulaire->getAdresseNewTitulaire();
-                $nomPrenom = $titulaire->getNomPrenomTitulaire().' '.$titulaire->getPrenomTitulaire();
             break;
             case "DUP":
                 $adresseFacture = $demande->getDuplicata()->getAdresse();
-                $nomPrenom = $demande->getDuplicata()->getTitulaire()->getNomprenom();
             break;
             case "DIVN":
                 $titulaire = $demande->getDivn()->getAcquerreur();
                 $adresseFacture = $titulaire->getAdresseNewTitulaire();
-                $nomPrenom = $titulaire->getNomPrenomTitulaire().' '.$titulaire->getPrenomTitulaire();
             break;
             case "DCA":
-                $titulaire = $demande->getChangementAdresse()->getNouveauxTitulaire();
-                $adresseFacture = $demande->getChangementAdresse()->getNewAdresse();
-                $nomPrenom = $titulaire>getNomPrenomTitulaire().' '.$titulaire->getPrenomTitulaire();
+                $adresseFacture = $demande->getChangementAdresse()->getAncienAdresse();
             break;
         }
         return [
             'adresse' => $adresseFacture,
-            'titulaire' => $nomPrenom
         ];
+    }
+
+    public function findValueNomPrenomOfTitulaire(Demande $demande, $nomPrenom)
+    {
+       $type = $demande->getCommande()->getDemarche()->getType();
+       $realNomPrenom = $this->getNomPrenomOfTitulaire($demande, $type);
+       $propertyAccessor = PropertyAccess::createPropertyAccessor();
+       if ($propertyAccessor->isReadable($realNomPrenom, $nomPrenom)) {
+           if ($propertyAccessor->getValue($realNomPrenom, $nomPrenom) != null)
+            {
+                return $propertyAccessor->getValue($realNomPrenom, $nomPrenom);
+            }
+       }
+
+       return "";
+    }
+
+    private function getNomPrenomOfTitulaire(Demande $demande, $type)
+    {
+        switch($type) {
+            case "CTVO":
+                return $demande->getCtvo()->getAcquerreur();
+                break;
+            case "DUP":
+                return $demande->getDuplicata()->getTitulaire();
+                break;
+            case "DIVN":
+                return $demande->getDivn()->getAcquerreur();
+                break;
+            case "DCA":
+                return $demande->getChangementAdresse()->getNouveauxTitulaire();
+                break;
+            default:
+                return null;
+        }
     }
 
 }

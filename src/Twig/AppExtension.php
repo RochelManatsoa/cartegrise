@@ -5,9 +5,9 @@ namespace App\Twig;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigFilter;
-use App\Entity\{User, Taxes, TypeDemande, Commande, Adresse, EmailHistory};
+use App\Entity\{User, Taxes, TypeDemande, Commande, Demande, Adresse, EmailHistory};
 use App\Repository\TarifsPrestationsRepository;
-use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager};
+use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager, DemandeManager};
 use App\Utils\StatusTreatment;
 use App\Manager\DocumentAFournirManager;
 use Doctrine\Common\Annotations\AnnotationReader;
@@ -29,7 +29,8 @@ class AppExtension extends AbstractExtension
         TaxesManager $taxManager, 
         FraisTreatmentManager $fraisTreatmentManager,
         StatusManager $statusManager,
-        DocumentAFournirManager $documentAFournirManager
+        DocumentAFournirManager $documentAFournirManager,
+        DemandeManager $demandeManager
     )
     {
         $this->userManager     = $userManager;
@@ -39,6 +40,7 @@ class AppExtension extends AbstractExtension
         $this->fraisTreatmentManager = $fraisTreatmentManager;
         $this->statusManager = $statusManager;
         $this->documentAFournirManager = $documentAFournirManager;
+        $this->demandeManager = $demandeManager;
     }
     public function getFunctions()
     {
@@ -81,6 +83,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('totalPrestationMajorationTTC', [$this, 'totalPrestationMajorationTTC']),
             new TwigFunction('displayAccepted', [$this, 'displayAccepted']),
             new TwigFunction('decodeBody', [$this, 'decodeBody']),
+            new TwigFunction('findNomPrenomOfTitulaire', [$this, 'findNomPrenomOfTitulaire']) 
         ];
     }
 
@@ -502,6 +505,11 @@ class AppExtension extends AbstractExtension
             return $value;
         }
         return $default? $default : "--";
+    }
+
+    public function findNomPrenomOfTitulaire(Demande $demande, $nomPrenom)
+    {
+        return $this->demandeManager->findValueNomPrenomOfTitulaire($demande, $nomPrenom);
     }
 
 }
