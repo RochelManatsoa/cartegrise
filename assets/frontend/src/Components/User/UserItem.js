@@ -112,16 +112,24 @@ class UserItem extends React.Component {
             let res = JSON.parse(event.data);
             if (res.status === "success") {
                 if (res.item != "") {
-                    let message = 'une Nouvelle '+res.item+' avec info : ' +
-                    ' / Immatriculation ==> ' + res.data.immat + 
-                    ' / departement ==> ' + res.data.department +
-                    ' / demarche ==> ' + res.data.demarche ;
+                    let message = '';
+                    let withImmat = ['commande', 'demande'];
+                    if (withImmat.includes(res.item)) {
+                        message += 'une Nouvelle ' + res.item + ' avec info : ' +
+                            ' / Immatriculation ==> ' + res.data.immat +
+                            ' / departement ==> ' + res.data.department +
+                            ' / demarche ==> ' + res.data.demarche;
+                    } else {
+                        message = res.message;
+                    }
                     NotificationManager.info(message, "Nouvelle "+res.item+"", 7000);
                     switch(res.item){
                         case 'commande':
                             this.updateCommande();
                         case 'demande':
                             this.updateDemande();
+                        case 'utilisateur':
+                            this.getUsers();
                         default:
                             return;
 

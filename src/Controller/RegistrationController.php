@@ -19,6 +19,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('commande_recap', ['commande' => $lastCommande->getId()]);
         }
 
+
         return $this->redirectToRoute('home');
     }
 }
