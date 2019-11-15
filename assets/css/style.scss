@@ -22,7 +22,7 @@ a {
 	border: $bdr_solid_1 transparent !important;
 	border-radius: 50px !important;
 	color: $white !important;
-	padding: 8px 30px !important;
+	padding: 8px $size_30 !important;
 	&:hover, &:focus {
 		box-shadow: none !important;
 		outline: none !important;
@@ -33,13 +33,24 @@ a {
 }
 
 //header
+.body-accueil {
+	header {
+		background-image: url(/asset/img/bg_header.jpg);
+		height: 680px;
+		@include sm {
+			height: 560px;
+		}
+	}
+}
 header {
-	height: 680px;
+	background-color: $royal-blue;
+	height: 377px;
 	@extend %bgStyle;
 	overflow-x: hidden;
 	position: relative;
 	@include sm {
-		height: 560px;
+		height: inherit;
+    	padding-bottom: 60px;
 	}
 	#sticky-wrapper {
 		position: absolute;
@@ -66,7 +77,7 @@ header {
 							display: none;
 						}
 						.nav-sub-menu {
-							padding-top: 18px;
+							padding-top: $size_18;
 						}
 					}
 				}
@@ -115,7 +126,7 @@ header {
 				}
 				.login-access {
 					.icomoon {
-						font-size: 30px;
+						font-size: $size_30;
 						vertical-align: middle;
 						margin-left: 6px;
 					}
@@ -362,8 +373,8 @@ header {
 			.nav-click {
 				float: right;
 				padding-top: 22px;
-				padding-right: 15px;
-				padding-left: 15px;
+				padding-right: $size_15;
+				padding-left: $size_15;
 				position: relative;
     			z-index: 99 !important;
 				display:none;
@@ -393,12 +404,12 @@ header {
 			margin-top: 180px;
 		}
 		.text_CG {
-			line-height: 30px;
+			line-height: $size_30;
 			color: $white;
 			font-size: $size_18;
 			font-style: italic;
 			letter-spacing: 1px;
-			padding: 0 20px;
+			padding: 0 $size_20;
 			@include sm {
 				font-size: 14px;
 				padding: 0;
@@ -454,6 +465,119 @@ header {
 	}
 }
 
+.block_form {
+	.form-group {
+		> label {
+			font-size: 14px;
+			letter-spacing: 1px;
+			font-weight: 600;
+			display: $block;
+		}
+	}
+	.form-control {
+		background-color: $select-bg;
+		border-color: $bbr_color;
+		border-radius: 0;
+		font-size: 14px;
+		letter-spacing: 1px;
+		line-height: $size_24;
+		height: 54px;
+		-moz-appearance: none;
+		-webkit-appearance:none;
+		appearance: none;
+		&::placeholder {
+			color: #484949;
+		}
+		&:focus {
+			outline: none !important;
+			box-shadow: none !important;
+			border-color: $royal-blue;
+		}
+	}
+	.btn-calcuer {
+		cursor: pointer;
+		padding: 13px 42px !important;
+		letter-spacing: 3px;
+		margin-right: $size_15;
+		width: 220px;
+		@extend %linear_anim;
+		.icomoon {
+			margin-left: 10px;
+			font-size: 17px;
+			vertical-align: middle;
+			transition: all .3s ease;
+			-webkit-transition: all .3s ease;
+		}
+		&:hover, &:focus {
+			box-shadow: none;
+			outline: none;
+			.icomoon {
+				padding-left: 5px;
+			}
+		}
+	}
+	.retractation {
+		.form-group {
+			margin-bottom: 0;;
+		}
+	}
+	.form-check {
+		cursor: pointer;
+		position: relative;
+		.form-check-input {
+			position: absolute;
+			pointer-events: none;
+			opacity: 0;
+			margin-top: 0;
+			margin-right: .3125rem;
+			margin-left: 0;
+			&[type="checkbox"]+label:before, 
+			&[type="checkbox"]:not(.filled-in)+label:after {
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 0;
+				width: $size_18;
+				height: $size_18;
+				margin-top: 5px;
+				content: "";
+				border: $bdr_solid_1 $bbr_color;
+				border-radius: 1px;
+				-webkit-transition: .2s;
+				transition: .2s;
+			}
+			&[type="checkbox"]:not(.filled-in)+label:after {
+				border: 0;
+				-webkit-transform: scale(0);
+				transform: scale(0);
+			}
+			&[type="checkbox"]:checked+label:before {
+				top: -4px;
+				left: -5px;
+				width: 12px;
+				height: 1.375rem;
+				border-top: 2px solid transparent;
+				border-right: 2px solid $royal-blue;
+				border-bottom: 2px solid $royal-blue;
+				border-left: 2px solid transparent;
+				-webkit-transform: rotate(40deg);
+				transform: rotate(40deg);
+				-webkit-transform-origin: 100% 100%;
+				transform-origin: 100% 100%;
+				-webkit-backface-visibility: hidden;
+				backface-visibility: hidden;
+			}
+		}
+		.form-check-label {
+			font-size: 14px;
+			color: $royal-blue;
+			padding-left: 10px;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
 //Content
 .sectionTop_ {
 	.form_demarche {
@@ -462,7 +586,7 @@ header {
 			position: relative;
 			padding: $size_15;
 			margin-top: -330px;
-			box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.1);
+			box-shadow: 0px $size_20 $size_20 0px rgba(0, 0, 0, 0.1);
 			margin-bottom: 160px;
 			@include md {
 				margin-top: -290px;
@@ -494,56 +618,6 @@ header {
 						}
 					}
 				}
-				.form-group {
-					> label {
-						font-size: 14px;
-						letter-spacing: 1px;
-						font-weight: 600;
-						display: $block;
-					}
-				}
-				.form-control {
-					background-color: $select-bg;
-					border-color: $bbr_color;
-					border-radius: 0;
-					font-size: 14px;
-					letter-spacing: 1px;
-					line-height: $size_24;
-					height: 54px;
-					-moz-appearance: none;
-					-webkit-appearance:none;
-					appearance: none;
-					&::placeholder {
-						color: #484949;
-					}
-					&:focus {
-						outline: none !important;
-						box-shadow: none !important;
-						border-color: $royal-blue;
-					}
-				}
-				.btn-calcuer {
-					cursor: pointer;
-					padding: 13px 42px !important;
-					letter-spacing: 3px;
-					margin-right: $size_15;
-					width: 220px;
-					@extend %linear_anim;
-					.icomoon {
-						margin-left: 10px;
-						font-size: 17px;
-						vertical-align: middle;
-						transition: all .3s ease;
-						-webkit-transition: all .3s ease;
-					}
-					&:hover, &:focus {
-						box-shadow: none;
-						outline: none;
-						.icomoon {
-							padding-left: 5px;
-						}
-					}
-				}
 			}
 			.back-retour {
 				font-family: "Ubuntu";
@@ -563,7 +637,7 @@ header {
 	}
 	.detail_carteG {
 		.line_vert {
-			margin: -110px auto 20px;
+			margin: -110px auto $size_20;
 			height: 83px;
 			width: 1px;
 			background-color: #838383;
@@ -663,7 +737,7 @@ header {
 								display: $block;
 								.icomoon {
 									display: $block;
-									font-size: 30px;
+									font-size: $size_30;
 									padding: 2px 0 5px;
 									text-align: center;
 								}
@@ -699,7 +773,7 @@ header {
 				line-height: 36px;
 				span {
 					display: $block;
-					font-size: 20px;
+					font-size: $size_20;
 					@include sm {
 						line-height: 130%;
 					}
@@ -709,7 +783,7 @@ header {
 					width: 83px;
 					border-bottom: $bdr_solid_1 #838383;
 					display: inline-block;
-					margin: 30px auto;
+					margin: $size_30 auto;
 				}
 			}
 		}
@@ -748,8 +822,8 @@ header {
 					padding: 50px 0 50px 80px;
 					position: relative;
 					@include sm {
-						padding-top: 20px;
-						padding-bottom: 20px;
+						padding-top: $size_20;
+						padding-bottom: $size_20;
 					}
 					&:last-child {
 						border-bottom: none;
@@ -881,6 +955,243 @@ header {
 		}
 		&[rel="hide"] {
 			display: none;
+		}
+	}
+}
+
+
+//inscription block
+.register-block {
+	background-position: center;
+	background-attachment: fixed;
+	background-size: cover;
+	background-repeat: no-repeat;
+	padding: 80px 0 60px;
+	@include sm {
+		padding: $size_30 0;
+	}
+	.with-mp {
+		@include sm {
+			padding: 0 $size_15;
+		}
+	}
+	.fos_user_registration_register {
+		background-color: $white;
+		border-radius: 5px;
+		overflow: hidden;
+		.heading_form {
+			background-color: $royal-blue;
+			border-bottom: 2px solid $white;
+    		box-shadow: 0px $size_15 19px 5px rgba(0, 0, 0, 0.2);
+			color: $white;
+			margin-bottom: 40px;
+			padding: 37px 50px;
+			@include sm {
+				padding: $size_15;
+			}
+			h2 {
+				font-size: 22px;
+				line-height: 36px;
+				letter-spacing: .5px;
+				font-weight: 600;
+				@include sm {
+					font-size: 16px;
+    				line-height: $size_24;
+				}
+			}
+		}
+		.register-form--client--label {
+			display: inline-block;
+			vertical-align: middle;
+			width: 16.666667%;
+			@include sm {
+				display: $block;
+				width: 100%;
+			}
+		}
+		.select {
+			display: inline-block;
+			width: 83.333333%;
+			@include sm {
+				display: $block;
+				width: 100%;
+			}
+		}
+		.form-control {
+			border-radius: 5px;
+			text-transform: none !important;
+		}
+		.form-group {
+			>label {
+				text-transform: uppercase;
+				margin-bottom: 0;
+			}
+		}
+		.btn-calcuer {
+			width: $inherit;
+		}
+		.select-styled {
+			border-radius: 5px;
+    		overflow: hidden;
+		}
+	}
+}
+
+//CCM
+.block_CCM {
+    background-image: url(/asset/img/page_bg.png);
+    background-position: 0 bottom;
+	background-repeat: no-repeat;
+	border-bottom: $bdr_solid_1 $bdr_color1;
+	padding: 80px 0 60px;
+	@include sm {
+		padding: 40px 0;
+	}
+	.home-secondview--titre {
+		font-size: $size_30;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		line-height: 48px;
+		margin-bottom: $size_30;
+		@include xs {
+			font-size: $size_18;
+			letter-spacing: 0;
+			line-height: $size_24;
+			margin-bottom: 10px;
+		}
+		br {
+			@include sm {
+				display: none;
+			}
+		}
+	}
+	.menu-commander {
+		position: relative;
+		top: 0;
+		height: 200px;
+		display: $block;
+		width: 100%;
+		background: $white;
+		border: $bdr_solid_1 $bdr_color1;
+		border-radius: 10px;
+		padding: $size_30;
+		margin: $size_15 0;
+		text-align: left;
+		line-height: $size_24;
+		transition: top ease .4s;
+		@include xs {
+			text-align: center;
+		}
+		&:focus {
+			box-shadow: none;
+			outline: none;
+		}
+		&:hover {
+			top: -10px;
+			box-shadow: 0 $size_15 $size_30 rgba(0,0,0,.1);
+			border-radius: 10px;
+			background: url(/asset/img/bg_text_CCM.png) -10% -16% $white no-repeat;
+			background-size: 85%;
+			.menu-commander--button---icon {
+				color: $white;
+				.ccm-icon {
+					&.titulaire {
+						background-image: url(/asset/img/titulaire_hover.png);
+					}
+					&.immatricul {
+						background-image: url(/asset/img/immatriculation_hover.png);
+					}
+					&.domicile {
+						background-image: url(/asset/img/domicile_hover.png);
+					}
+					&.duplicata {
+						background-image: url(/asset/img/duplicata_hover.png);
+					}
+					&.status_m {
+						background-image: url(/asset/img/floder_hover.png);
+					}
+					&.justificatif_d {
+						background-image: url(/asset/img/justificatif_hover.png);
+					}
+					&.mise_cass {
+						background-image: url(/asset/img/corbeille_hover.png);
+					}
+					&.lire_cG {
+						background-image: url(/asset/img/lire_hover.png);
+					}
+				}
+			}
+			@include md {
+				display: none;
+			}
+		}
+	}
+	.comment-ca-marche-texte {
+		margin-bottom: $size_30;
+		.menu-commander--button---text {
+			font-weight: 600;
+			display: $block;
+			text-transform: uppercase;
+			border-top: $bdr_solid_1 $bdr_color1;
+			margin-top: $size_20;
+			padding-top: $size_20;
+			@include md {
+				font-size: 13px;
+			}
+		}
+		.menu-commander--button---icon {
+			transition: .3s;
+			.ccm-icon {
+				width: 80px;
+				height: 49px;
+				display: inline-block;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: contain;
+				&.titulaire {
+					background-image: url(/asset/img/titulaire.png);
+				}
+				&.immatricul {
+					background-image: url(/asset/img/immatriculation.png);
+				}
+				&.domicile {
+					background-image: url(/asset/img/domicile.png);
+				}
+				&.duplicata {
+					background-image: url(/asset/img/duplicata.png);
+				}
+				&.status_m {
+					background-image: url(/asset/img/floder.png);
+				}
+				&.justificatif_d {
+					background-image: url(/asset/img/justificatif.png);
+				}
+				&.mise_cass {
+					background-image: url(/asset/img/corbeille.png);
+				}
+				&.lire_cG {
+					background-image: url(/asset/img/lire.png);
+				}
+			}
+		}
+	}
+	.comment-ca-marche-texte-p {
+		ul {
+			@extend %list-style;
+			padding-left: $size_15;
+			> li {
+				position: relative;
+				padding-left: 35px;
+				margin: $size_20 0;
+				&:before {
+					content: "\e909";
+					font-family: "icomoon";
+					left: 0;
+					position: absolute;
+					color: $royal-blue;
+				}
+			}
 		}
 	}
 }
