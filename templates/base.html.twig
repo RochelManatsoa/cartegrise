@@ -78,87 +78,9 @@
 				{% endblock %}
 			</div>
 		</div>
-		<div class="form_demarche">
-			<div class="container">
-				{% block page_content %}{% endblock %}
-			</div>
-		</div>
-		<div class="detail_carteG text-md-center">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-md-12 col-xl-10">
-						<div class="line_vert"></div>
-						<strong>Le certificat d’immatriculation ou carte grise</strong> est un document officiel et obligatoire pour l'identification d’un véhicule et est valable pendant toute la durée d'utilisation du véhicule. Il contient le nom du propriétaire du véhicule, son adresse, le numéro d'immatriculation du véhicule assuré. Le certificat d’immatriculation ou carte grise doit être renouvelé lors d’un changement d’adresse, de titulaire,en cas de perte ou vol.
-						<div class="autocollant_block">
-							<a class="critairLink" href="http://www.certificat-air.gouv.fr" target="_blank">
-								<span><img src='{{ asset("asset/img/vert.png")}}' alt=''></span>
-								<span><img src='{{ asset("asset/img/violet.png")}}' alt=''></span>
-								<span><img src='{{ asset("asset/img/jaune.png")}}' alt=''></span>
-								<span><img src='{{ asset("asset/img/orange.png")}}' alt=''></span>
-								<span><img src='{{ asset("asset/img/grenat.png")}}' alt=''></span>
-								<span><img src='{{ asset("asset/img/gris.png")}}' alt=''></span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="bg_gray">
-				<div class="container">
-				 	<div class="row justify-content-center">
-						<div class="col-md-11">
-							<div class="text_critair">
-								Le certificat qualité de l'air est un autocollant rond qui s'achète auprès de www.certificat-air.gouv.fr. <br/>
-								Il est délivré en fonction des émissions de CO2, émissions polluantes des véhicules, il se présente sous forme d'autocollant rond à coller sur le parebrise. Il classe les véhicules et permet la circulation dans certaines villes lors de pics de pollution et est obligatoire dans certaines zones. Son coût est environ de 3.62 euros et est envoyé par voie postale. <br/>
-								Certaines collectivités offrent des avantages aux véhicules affichant cet autocollant.
-							</div>
-						</div>
-					</div>
-					<div class="row justify-content-center">
-						<div class="col-md-12 col-xl-10">
-							<ul class="link-form">
-								<li onclick="$('#formulaire_demarche').val('2').change();" >
-									<a href="#Demarche">
-										<span>
-											<span><i class="icomoon icon-duplicate"></i> Duplicata</span>
-										</span>
-									</a>
-								</li>
-								<li onclick="$('#formulaire_demarche').val('1').change();" >
-									<a href="#Demarche">
-										<span>
-											<span><i class="icomoon icon-exchange"></i> Changement de titulaire</span>
-										</span>
-									</a>
-								</li>
-								<li onclick="$('#formulaire_demarche').val('3').change();" >
-									<a href="#Demarche">
-										<span>
-											<span><i class="icomoon icon-neuf"></i> Immatriculation véhicule neuf</span>
-										</span>
-									</a>
-								</li>
-								<li onclick="$('#formulaire_demarche').val('4').change();" >
-									<a href="#Demarche">
-										<span>
-											<span><i class="icomoon icon-adress-location"></i> Changement d’adresse</span>
-										</span>
-									</a>
-								</li>
-								<li onclick="$('#formulaire_demarche').val('5').change();" >
-									<a href="#Demarche">
-										<span>
-											<span><i class="icomoon icon-declaration-cession"></i> Déclaration de cession</span>
-										</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		{% block page_content %}{% endblock %}
 	</section>
-	<section class="sectionbot_">{% block pagetext_content %}{% endblock %}</section>
+	{% block pagetext_content %}{% endblock %}
 	{{ include('home/composant/footer.html.twig') }}
 {% block javascripts %}
 	<script src="{{ asset('Utils/js/jquery.js')}}"
