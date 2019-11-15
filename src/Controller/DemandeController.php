@@ -18,6 +18,7 @@ use App\Form\PaiementType;
 use App\Form\VehiculeNeufInfoType;
 use App\Entity\File\DemandeDuplicata;
 use App\Entity\File\Files;
+use App\Manager\Mercure\MercureManager;
 
 /**
  * @Route("/demande")
@@ -31,7 +32,8 @@ class DemandeController extends AbstractController
     public function new(
         Commande        $commande,
         Request         $request,
-        DemandeManager  $demandeManager
+        DemandeManager  $demandeManager,
+        MercureManager  $mercureManager
     )
     {
         $form = $demandeManager->generateForm($commande);
@@ -39,6 +41,19 @@ class DemandeController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $demande = $demandeManager->save($form);
+
+            // The Publisher service is an invokable object
+            $mercureManager->publish(
+                'http://cgofficiel.com/addNewSimulator',
+                'demande',
+                [
+                    'immat' => $commande->getImmatriculation(),
+                    'department' => $commande->getCodePostal(),
+                    'demarche' => $commande->getDemarche()->getType(),
+                ],
+                'nouvelle demande insérer'
+            );
+            // end update
             // redirect after save
             return $this->redirectToRoute(
                 'espace_client'

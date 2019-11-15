@@ -125,3 +125,6 @@ services:
         public: true
         tags:
             - { name: swiftmailer.default.plugin }
+    App\Manager\Mercure\MercureManager:
+        public: true
+        arguments: ['@mercure.hub.default.publisher']

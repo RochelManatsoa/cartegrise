@@ -13,8 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Tms\TmsClient;
 use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager, DivnInitManager, ContactUsManager};
 use App\Form\DivnInitType;
-use Symfony\Component\Mercure\Publisher;
-use Symfony\Component\Mercure\Update;
+use App\Manager\Mercure\MercureManager;
 
 
 class HomeController extends AbstractController
@@ -36,7 +35,7 @@ class HomeController extends AbstractController
         CarInfoManager $carInfoManager,
         TaxesManager $taxesManager,
         DivnInitManager $divnInitManager,
-        Publisher $publisher
+        MercureManager $mercureManager
         )
     {
 
@@ -77,26 +76,17 @@ class HomeController extends AbstractController
                 'codePostal' => $commande->getCodePostal(),
                 'demarche' => $commande->getDemarche(),
             ]);
-
-            // update 
-            $update = new Update(
-                'http://cgofficiel.com/addNewSimulator',
-                json_encode(
-                    [
-                        'status' => 'success',
-                        'item' => 'commande',
-                        'commande' => [
-                            'immat' => $commande->getImmatriculation(),
-                            'department' => $commande->getCodePostal(),
-                            'demarche' => $commande->getDemarche()->getType(),
-                        ],
-                        'message' => 'new Simulation is insert'
-                    ]
-                )
-            );
             // The Publisher service is an invokable object
-            $publisher($update);
-            // end update
+            $mercureManager->publish(
+                'http://cgofficiel.com/addNewSimulator',
+                'commande',
+                [
+                    'immat' => $commande->getImmatriculation(),
+                    'department' => $commande->getCodePostal(),
+                    'demarche' => $commande->getDemarche()->getType(),
+                ],
+                'new Simulation is insert'
+            );
 
             if($commande->getDemarche()->getType() === 'DIVN'){
 
