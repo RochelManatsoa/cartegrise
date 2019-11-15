@@ -1,69 +1,147 @@
-<div class="home_texte" data-parallax="scroll" data-image-src="{{ asset('asset/img/bg_CGOff.jpg')}}">
-	<div class="container">
-		<div class="row justify-content-center text-md-center">
-			<div class="col-md-12 col-xl-10 p-md-0">
-				<div class="titre_home_texte">
-					<h3>Avec CG Officiel, <span>obtenez rapidement et facilement votre certificat d'immatriculation / carte grise</span></h3>
+<section class="sectionTop_">
+	<div class="detail_carteG text-md-center">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-12 col-xl-10">
+					<div class="line_vert"></div>
+					<strong>Le certificat d’immatriculation ou carte grise</strong> est un document officiel et obligatoire pour l'identification d’un véhicule et est valable pendant toute la durée d'utilisation du véhicule. Il contient le nom du propriétaire du véhicule, son adresse, le numéro d'immatriculation du véhicule assuré. Le certificat d’immatriculation ou carte grise doit être renouvelé lors d’un changement d’adresse, de titulaire,en cas de perte ou vol.
+					<div class="autocollant_block">
+						<a class="critairLink" href="http://www.certificat-air.gouv.fr" target="_blank">
+							<span><img src='{{ asset("asset/img/vert.png")}}' alt=''></span>
+							<span><img src='{{ asset("asset/img/violet.png")}}' alt=''></span>
+							<span><img src='{{ asset("asset/img/jaune.png")}}' alt=''></span>
+							<span><img src='{{ asset("asset/img/orange.png")}}' alt=''></span>
+							<span><img src='{{ asset("asset/img/grenat.png")}}' alt=''></span>
+							<span><img src='{{ asset("asset/img/gris.png")}}' alt=''></span>
+						</a>
+					</div>
 				</div>
-				<div class="content_home_texte">
-					<p>Effectuer une demande de certificat d’immatriculation (carte grise) en ligne est désormais chose simple grâce à notre service d’immatriculation des véhicules en ligne.</p>
-					<p>Simplifiez-vous donc la vie : il n’est plus nécessaire de se déplacer pour obtenir un nouveau certificat d’immatriculation (carte grise). <a href="#" class="link-hp-texte"> Obtenez rapidement votre carte grise</a>, tout en économisant du temps pour vos démarches. Nous réceptionnons vos documents via notre service d’immatriculation de carte grise en ligne, accessible à l’adresse
-						<a href="#" class="link-hp-texte">www.cgofficiel.fr</a>.
-					</p>
-					<br/>
-					<h4>Tout dossier complet sera traité dans les 24 heures</h4>
-					<p>Dès réception de votre nouvelle carte grise, pensez à vous procurer sur le site officiel du certificat qualité de l'air, une <a href="http://www.certificat-air.gouv.fr" target="_blank">vignette Crit'Air</a>, l'autocollant sécurisé obligatoire dans certaines grandes villes de France.</p>
+			</div>
+		</div>
+		<div class="bg_gray">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-md-11">
+						<div class="text_critair">
+							Le certificat qualité de l'air est un autocollant rond qui s'achète auprès de www.certificat-air.gouv.fr. <br/>
+							Il est délivré en fonction des émissions de CO2, émissions polluantes des véhicules, il se présente sous forme d'autocollant rond à coller sur le parebrise. Il classe les véhicules et permet la circulation dans certaines villes lors de pics de pollution et est obligatoire dans certaines zones. Son coût est environ de 3.62 euros et est envoyé par voie postale. <br/>
+							Certaines collectivités offrent des avantages aux véhicules affichant cet autocollant.
+						</div>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-md-12 col-xl-10">
+						<ul class="link-form">
+							<li onclick="$('#formulaire_demarche').val('2').change();" >
+								<a href="#Demarche">
+									<span>
+										<span><i class="icomoon icon-duplicate"></i> Duplicata</span>
+									</span>
+								</a>
+							</li>
+							<li onclick="$('#formulaire_demarche').val('1').change();" >
+								<a href="#Demarche">
+									<span>
+										<span><i class="icomoon icon-exchange"></i> Changement de titulaire</span>
+									</span>
+								</a>
+							</li>
+							<li onclick="$('#formulaire_demarche').val('3').change();" >
+								<a href="#Demarche">
+									<span>
+										<span><i class="icomoon icon-neuf"></i> Immatriculation véhicule neuf</span>
+									</span>
+								</a>
+							</li>
+							<li onclick="$('#formulaire_demarche').val('4').change();" >
+								<a href="#Demarche">
+									<span>
+										<span><i class="icomoon icon-adress-location"></i> Changement d’adresse</span>
+									</span>
+								</a>
+							</li>
+							<li onclick="$('#formulaire_demarche').val('5').change();" >
+								<a href="#Demarche">
+									<span>
+										<span><i class="icomoon icon-declaration-cession"></i> Déclaration de cession</span>
+									</span>
+								</a>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="bg_blue">
-	<div class="container">
-		<div class="row justify-content-between">
-			<div class="col-md-5">
-				<div class="block_simple">
-					<h3>Démarche Simplifiée :</h3>
-					<ol>
-						<li>Créez votre compte</li>
-						<li>Renseignez votre plaque d’immatriculation et les informations nécessaires à l’établissement du certificat d’immatriculation (carte grise) pour votre véhicule et validez votre commande en procédant au règlement.</li>
-						<li>Envoyez vos documents et dès réception de votre dossier complet, votre commande sera traitée dans les 24h.</li>
-					</ol>
+<section class="sectionbot_">
+	<div class="home_texte" data-parallax="scroll" data-image-src="{{ asset('asset/img/bg_CGOff.jpg')}}">
+		<div class="container">
+			<div class="row justify-content-center text-md-center">
+				<div class="col-md-12 col-xl-10 p-md-0">
+					<div class="titre_home_texte">
+						<h3>Avec CG Officiel, <span>obtenez rapidement et facilement votre certificat d'immatriculation / carte grise</span></h3>
+					</div>
+					<div class="content_home_texte">
+						<p>Effectuer une demande de certificat d’immatriculation (carte grise) en ligne est désormais chose simple grâce à notre service d’immatriculation des véhicules en ligne.</p>
+						<p>Simplifiez-vous donc la vie: il n’est plus nécessaire de se déplacer pour obtenir un nouveau certificat d’immatriculation (carte grise). <a href="#" class="link-hp-texte"> Obtenez rapidement votre carte grise</a>, tout en économisant du temps pour vos démarches. Nous réceptionnons vos documents via notre service d’immatriculation de carte grise en ligne, accessible à l’adresse
+							<a href="#" class="link-hp-texte">www.cgofficiel.fr</a>.
+						</p>
+						<br/>
+						<h4>Tout dossier complet sera traité dans les 24 heures</h4>
+						<p>Dès réception de votre nouvelle carte grise, pensez à vous procurer sur le site officiel du Certificat qualité de l'air, une <a href="http://www.certificat-air.gouv.fr" target="_blank">vignette Crit'Air</a>, l'autocollant sécurisé obligatoire dans certaines grandes villes de France.</p>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-7 col-xl-6">
-				<div class="block_avantage">
-					<h3>Les avantages de CG Officiel</h3>
-					<div class="item-avantage">
-						<div class="row align-items-center">
-							<div class="col-md-4 text-md-center">
-								<i class="icomoon icon-speed"></i>
-							</div>
-							<div class="col-md-8">
-								<span>Gagnez du temps :</span>
-								Simplifiez vos démarches en accédant au service d'immatriculation de véhicules en ligne de CG Officiel. Économisez du temps et de l’argent sur vos frais de déplacement et stationnement.
+		</div>
+	</div>
+	<div class="bg_blue">
+		<div class="container">
+			<div class="row justify-content-between">
+				<div class="col-md-5">
+					<div class="block_simple">
+						<h3>Démarche Simplifiée :</h3>
+						<ol>
+							<li>Créez votre compte</li>
+							<li>Renseignez votre plaque d’immatriculation et les informations nécessaires à l’établissement du certificat d’immatriculation (carte grise) pour votre véhicule et validez votre commande en procédant au règlement.</li>
+							<li>Envoyez vos documents et dès réception de votre dossier complet, votre commande sera traitée dans les 24h.</li>
+						</ol>
+					</div>
+				</div>
+				<div class="col-md-7 col-xl-6">
+					<div class="block_avantage">
+						<h3>Les avantages de CG Officiel</h3>
+						<div class="item-avantage">
+							<div class="row align-items-center">
+								<div class="col-md-4 text-md-center">
+									<i class="icomoon icon-speed"></i>
+								</div>
+								<div class="col-md-8">
+									<span>Gagnez du temps :</span>
+									Simplifiez vos démarches en accédant au service d'immatriculation de véhicules en ligne de CG Officiel. Économisez du temps et de l’argent sur vos frais de déplacement et stationnement.
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="item-avantage">
-						<div class="row align-items-center">
-							<div class="col-md-4 text-md-center">
-								<i class="icomoon icon-simpicity"></i>
-							</div>
-							<div class="col-md-8">
-								<span>Simplicité :</span>
-								Fini les files d’attente et le parcours du combattant en préfecture. Grâce au service de demande de certificat d’immatriculation (carte grise) de CG Officiel, vous effectuez vos démarches et passez commande depuis votre domicile.
+						<div class="item-avantage">
+							<div class="row align-items-center">
+								<div class="col-md-4 text-md-center">
+									<i class="icomoon icon-simpicity"></i>
+								</div>
+								<div class="col-md-8">
+									<span>Simplicité :</span>
+									Fini les files d’attente et le parcours du combattant en préfecture. Grâce au service de demande de certificat d’immatriculation (carte grise) de CG Officiel, vous effectuez vos démarches et passez commande depuis votre domicile.
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="item-avantage">
-						<div class="row align-items-center">
-							<div class="col-md-4 text-md-center">
-								<i class="icomoon icon-fast-delivery"></i>
-							</div>
-							<div class="col-md-8">
-								<span>Livraison rapide :</span>
-								Recevez rapidement votre certificat d’immatriculation (carte grise) directement à l’adresse de votre domicile.
+						<div class="item-avantage">
+							<div class="row align-items-center">
+								<div class="col-md-4 text-md-center">
+									<i class="icomoon icon-fast-delivery"></i>
+								</div>
+								<div class="col-md-8">
+									<span>Livraison rapide :</span>
+									Recevez rapidement votre certificat d’immatriculation (carte grise) directement à l’adresse de votre domicile.
+								</div>
 							</div>
 						</div>
 					</div>
@@ -71,7 +149,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</section>
 <div class="dual-hp-container d-flex col-11 mx-auto">
 	<div class="dual-hp-left">
 		<div id="cadre2" class="col-12 home-back mx-auto home-texte">
