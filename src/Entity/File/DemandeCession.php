@@ -24,7 +24,7 @@ class DemandeCession
 {
     use FileTrait;
     /**
-    * @ORM\ID
+    * @ORM\Id
     * @ORM\GeneratedValue(strategy="AUTO")
     * @ORM\Column(type="integer")
     */
