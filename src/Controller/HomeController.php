@@ -317,20 +317,6 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/register/confirm",name="redirection_route")
-     */
-
-    public function redirectAction()
-    {
-        $user = $this->getUser();
-        if(1 === count($user->getClient()->getCommandes())){
-            return $this->redirectToRoute('new_demande', ['commande' => $user->getClient()->getCommandes()[0]->getId()]);
-        }
-
-        return $this->redirectToRoute('commande_list');
-    }
-
-    /**
      * @Route("/documents-telechargeables", name="doc_telechargeable")
      */
     public function doc_telechargeableAction()
