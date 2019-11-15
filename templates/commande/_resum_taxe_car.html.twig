@@ -1,50 +1,48 @@
-<div class="voir_plus_content" style="display:none;">
-    <table class="table table-bordered table-striped mx-auto">
-        <tr>
-            <th>Taxe Regionale</th>
-            <td class="text-right">{{ taxe.TaxeRegionale | displayValue }}
-                €</td>
-        </tr>
-        <tr>
-            <th>Taxe > 35CV</th>
-            <td class="text-right">{{ taxe.Taxe35cv | displayValue }}
-                €</td>
-        </tr>
-        <tr>
-            <th>Taxe CO2</th>
-            <td class="text-right">{{ taxe.TaxeCO2 | displayValue}}
-                €</td>
-        </tr>
-        <tr>
-            <th>Taxe Malus</th>
-            <td class="text-right">{{ taxe.TaxeMalus | displayValue}}
-                €</td>
-        </tr>
-        <tr>
-            <th>Taxe ParaFiscale</th>
-            <td class="text-right">{{ taxe.TaxeParafiscale | displayValue}}
-                €</td>
-        </tr>
-        <tr>
-            <th>Taxe SIV</th>
-            <td class="text-right">{{ taxe.TaxeSIV | displayValue}}
-                €</td>
-        </tr>
-        <tr>
-            <th>Taxe d'acheminement</th>
-            <td class="text-right">{{ taxe.TaxeRedevanceSIV | displayValue}} €</td>
-        </tr>
-        <tr>
-            <th>Frais de traitement de dossier</th>
-            <td class="text-right">
-                {{ fraisTotalTraitement(commande) }} €
-            </td>
-        </tr>
-        <tr>
-            <th>TOTAL:</th>
-            <td class="text-right">
-                <strong>{{ fraisTotal(commande) }} €</strong>
-            </td>
-        </tr>
-    </table>
+<div class="list-grid details-taxe">
+    <div class="list-grid__item">
+        <div>Taxe Regionale</div>
+        <div>{{ taxe.TaxeRegionale | displayValue }} €</div>
+    </div>
+    <div class="list-grid__item">
+        <div>Taxe > 35CV</div>
+        <div>{{ taxe.Taxe35cv | displayValue }} €</div>
+    </div>
+    <div class="list-grid__item">
+        <div>Taxe CO2</div>
+        <div>{{ taxe.TaxeCO2 | displayValue}} €</div>
+    </div>
+    <div class="list-grid__item">
+        <div>Taxe Malus</div>
+        <div>{{ taxe.TaxeMalus | displayValue}} €</div>
+    </div>
+    <div class="voir_plus_content" style="display:none;">
+        <div class="list-grid__item">
+            <div>Taxe ParaFiscale</div>
+            <div>{{ taxe.TaxeParafiscale | displayValue}} €</div>
+        </div>
+        <div class="list-grid__item">
+            <div>Taxe SIV</div>
+            <div>{{ taxe.TaxeSIV | displayValue}} €</div>
+        </div>
+        <div class="list-grid__item">
+            <div>Taxe d'acheminement</div>
+            <div>{{ taxe.TaxeRedevanceSIV | displayValue}} €</div>
+        </div>
+        <div class="list-grid__item">
+            <div>Frais de traitement de dossier</div>
+            <div>{{ fraisTotalTraitement(commande) }} €</div>
+        </div>
+    </div>
+    <div class="list-grid__item total-tax">
+        <div>TOTAL:</div>
+        <div><strong>{{ fraisTotal(commande) }} €</strong></div>
+    </div>
+    <div  class="list-grid__item list-grid__item-button">
+        <div></div>
+        <div>
+            <button class="btn btn-info voir_plus_button d-flex align-items-center justify-content-between"  id="more-details-tax">
+                voir plus<i class="icon-arrow-down"></i>
+            </button>
+        </div>
+    </div>
 </div>
