@@ -45,7 +45,9 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                         "demande_changement_adresse[changementAdresse][ancienAdresse][nom]",
                         "demande_changement_adresse[changementAdresse][ancienAdresse][complement]",
                         "demande_changement_adresse[changementAdresse][ancienAdresse][codepostal]",
+                        "demande_changement_adresse[changementAdresse][ancienAdresse][ville]",
                         "demande_changement_adresse[changementAdresse][ancienAdresse][isHosted]",
+                        "demande_changement_adresse[changementAdresse][numeroFormule]",
                     ];
                     let otherNewTitulaireArray = [
                         "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][numero]",
@@ -53,6 +55,7 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                         "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][typevoie]",
                         "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][nom]",
                         "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][complement]",
+                        "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][codepostal]",
                         "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][ville]",
                         "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][isHosted]",
                         "demande_changement_adresse[changementAdresse][numeroFormule]",
@@ -78,14 +81,65 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                             typeNewTitulaire = element.value;
                         let name = element.name;
 
+                        let value = element.value;
+
+                        let label = {
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][type]" : "Titulaire",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][raisonSociale]" : "Raison sociale",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][siren]" : "SIREN",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][societeCommerciale]" : "Société commerciale",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][nomPrenomTitulaire]" : "Nom de naissance",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][prenomTitulaire]" : "Prénom(s)",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][birthName]" : "Nom ",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][dateN]" : "Date de naissance",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][lieuN]" : "Lieu de naissance",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][departementN]" : "Département de naissance",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][paysN]" : "Pays de naissance",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][numero]" : "Numéro de rue",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][extension]" : "Extention",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][typevoie]" : "Type de la voie",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][nom]" : "Nom de la voie",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][complement]" : "Complément",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][codepostal]" : "Code postal",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][ville]" : "Ville",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][isHosted]" : "Hébergé(e)",
+                            "demande_changement_adresse[changementAdresse][ancienAdresse][numero]" : "Ancien Numéro de rue",
+                            "demande_changement_adresse[changementAdresse][ancienAdresse][extension]" : "Ancienne Extention",
+                            "demande_changement_adresse[changementAdresse][ancienAdresse][typevoie]" : "Ancien Type de la voie",
+                            "demande_changement_adresse[changementAdresse][ancienAdresse][nom]" : "Ancien Nom de la voie",
+                            "demande_changement_adresse[changementAdresse][ancienAdresse][complement]" : "Ancien Complément",
+                            "demande_changement_adresse[changementAdresse][ancienAdresse][codepostal]" : "Ancien Code postal",
+                            "demande_changement_adresse[changementAdresse][ancienAdresse][ville]" : "Ancienne Ville",
+                            "demande_changement_adresse[changementAdresse][ancienAdresse][isHosted]" : "Hébergé(e)",
+                            "demande_changement_adresse[changementAdresse][numeroFormule]" : "Numéro de Formule",
+                        };
+
+                        if(value === "1"){
+                            value = "Oui";
+                        }else if(value === "0"){
+                            value = "Non";
+                        }else if(value === ""){
+                            value = "Non renseigné";
+                        }else if(value === "M"){
+                            value = "Monsieur";
+                        }else if(value === "F"){
+                            value = "Madame";
+                        }else if(value === "mor"){
+                            value = "Société";
+                        }else if(value === "phy"){
+                            value = "Personne physique";
+                        }else{
+                            value;
+                        };
+
                         if (typeNewTitulaire == 'mor' && 0 <= $.inArray(name, societyNewTitulaireArray)) {
-                            html = html.concat(element.name + " ==> " + element.value + "<br>");
+                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                         } else if (typeNewTitulaire == 'phy' && 0 <= $.inArray(name, physicNewTitulaireArray)) {
-                            html = html.concat(element.name + " ==> " + element.value + "<br>");
+                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                         } else if (0 <= $.inArray(name, otherOldTitulaireArray)) {
-                            html = html.concat(element.name + " ==> " + element.value + "<br>");
+                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                         } else if (0 <= $.inArray(name, otherNewTitulaireArray)) {
-                            html = html.concat(element.name + " ==> " + element.value + "<br>");
+                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                         }
                     });
                     resum.html(html);
@@ -248,14 +302,7 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 "demande_changement_adresse[changementAdresse][ancienAdresse][numero]": {
                     required: true,
                 },
-                "demande_changement_adresse[changementAdresse][ancienAdresse][extension]": {
-                    required: true,
-                    maxlength: 3,
-                },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][nom]": {
-                    required: true,
-                },
-                "demande_changement_adresse[changementAdresse][ancienAdresse][complement]": {
                     required: true,
                 },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][codepostal]": {
@@ -268,13 +315,7 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][numero]": {
                     required: true,
                 },
-                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][extension]": {
-                    required: true,
-                },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][nom]": {
-                    required: true,
-                },
-                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][complement]": {
                     required: true,
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][codepostal]": {
@@ -321,13 +362,7 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 "demande_changement_adresse[changementAdresse][ancienAdresse][numero]": {
                     required: "Champs obligatoire",
                 },
-                "demande_changement_adresse[changementAdresse][ancienAdresse][extension]": {
-                    required: "Champs obligatoire",
-                },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][nom]": {
-                    required: "Champs obligatoire",
-                },
-                "demande_changement_adresse[changementAdresse][ancienAdresse][complement]": {
                     required: "Champs obligatoire",
                 },
                 "demande_changement_adresse[changementAdresse][ancienAdresse][codepostal]": {
@@ -340,13 +375,7 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][numero]": {
                     required: "Champs obligatoire",
                 },
-                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][extension]": {
-                    required: "Champs obligatoire",
-                },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][nom]": {
-                    required: "Champs obligatoire",
-                },
-                "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][complement]": {
                     required: "Champs obligatoire",
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][adresseNewTitulaire][codepostal]": {

@@ -1055,6 +1055,211 @@ header {
 	}
 }
 
+/**List grid**/
+.list-grid{
+  &__item{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-top: 2px solid transparent;
+    > div {
+      font-family: 'Open Sans';
+      color: $dark;
+      font-weight: 600;
+      flex: 1;
+      background: url('/../../asset/img/layer.jpg') repeat top left;
+      background-size: cover;
+      padding: 10px 20px;
+      border: 1px solid $light;
+      min-height: 50px;
+      +div{
+        font-weight: normal;
+        background: $white;
+        border: 1px solid $light-2;
+        position: relative;
+      }
+    }
+    &-button{
+      background: none;
+      >div{
+        background: none;
+        border: 0;
+        padding: 0;
+        flex: .5;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        #voir_plus_button, #more-details-tax{
+          width: 100%;
+          border-radius: 0;
+          background-color: $aqua-blue;
+          border-color: $aqua-blue;
+          font-family: 'Open Sans';
+          font-weight: 600;
+          font-size: 16px;
+          padding: 10px 20px;
+          text-align: left;
+          height: 100%;
+          text-transform: uppercase;
+
+        }
+      }
+    }
+    &.total-tax{
+      > div {
+        background: $royal-blue;
+        font-weight: 600 !important;
+        font-size: 16px;
+        color: $white;
+      }
+    }
+  }
+  &.details-taxe{
+    .list-grid{
+      &__item {
+        > div{
+          +div{
+            flex: .5;
+            text-align: right;
+          }
+        }
+        &-button {
+          >div{
+            flex: 1;
+            padding: 10px 20px;
+            #more-details-tax{
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**Resultat estimation**/
+.page-resultat-estimation{
+  header{
+    background-image: none!important;
+    background-color: $royal-blue;
+    height: 100%;
+    min-height: 370px;
+  }
+  .sectionTop_{
+    background-color: $light-3;
+  }
+  .sectionbot_, .detail_carteG{
+    display: none !important;
+  }
+}
+.resultat-estimation{
+  h2 {
+    text-transform: uppercase;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 24px;
+  }
+  .img-thumbnail{
+    max-width: 148px;
+  }
+}
+
+.recap-demande {
+  font-family: 'Open Sans';
+  font-weight: normal;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-bottom: 1px solid $white;
+  padding-bottom: 40px;
+  &-wrapper{
+    > div{
+      max-width: 100%;
+      flex: 1;
+    }
+  }
+  h6 {
+    font-family: 'Open Sans';
+    font-weight: 600;
+  }
+  > div{
+    padding: 0 5% 0 0;
+    &:not(:first-child) {
+      padding: 0 5%;
+    }
+    &:not(:last-child){
+      border-right: 1px solid $light-2;
+
+    }
+  }
+}
+.btn-validate-command{
+  padding: 20px 42px !important;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  float: right;
+  i{
+    margin-left: 10px;
+    font-size: 21px;
+  }
+}
+
+/**Modal**/
+
+.modal {
+  z-index: 999999 !important;
+  background: rgba(0,0,0,.5);
+  h5{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  &-header{
+    background: $dark;
+  }
+  .link-connexion{
+    padding: 13px 42px !important;
+    letter-spacing: 3px;
+    margin-right: 15px;
+    min-width: 270px;
+    max-width: 350px;
+    i{
+      margin-left: 10px;
+      font-size: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: $screen-sm-max) {
+  .resultat-estimation{
+    .recap-demande{
+      display: inline-block;
+      padding: 0;
+      &-wrapper {
+        flex-direction: column;
+        +div{
+          > div{
+            display: inline-block;
+            > div {
+              max-width: 100%;
+              padding: 0;
+              margin-bottom: 50px;
+            }
+          }
+        }
+      }
+      > div {
+        max-width: 100%;
+        margin-bottom: 20px;
+        border-right: 0;
+        padding: 0 0 20px 0;
+        &:not(:last-child){
+          border-bottom: 1px solid #838383;
+        }
+      }
+    }
+  }
 
 //inscription block
 .register-block {

@@ -31,7 +31,7 @@ class ContactUs
     private $firstName;
     /**
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="Vous nom ne doit pas être vide")
+     * @Assert\NotBlank(message="Votre nom ne doit pas être vide")
      * @Assert\Length(min=3)
      */
     private $name;
@@ -41,8 +41,7 @@ class ContactUs
      */
     private $email;
     /**
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="La raison doit être renseigner")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $raison;
     /**
@@ -91,19 +90,7 @@ class ContactUs
 
         return $this;
     }
-
-    public function getRaison(): ?string
-    {
-        return $this->raison;
-    }
-
-    public function setRaison(string $raison): self
-    {
-        $this->raison = $raison;
-
-        return $this;
-    }
-
+    
     public function getDescription(): ?string
     {
         return $this->description;
@@ -112,6 +99,18 @@ class ContactUs
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getRaison(): ?string
+    {
+        return $this->raison;
+    }
+
+    public function setRaison(?string $raison): self
+    {
+        $this->raison = $raison;
 
         return $this;
     }

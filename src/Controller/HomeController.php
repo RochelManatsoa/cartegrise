@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Tms\TmsClient;
 use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager, DivnInitManager, ContactUsManager};
 use App\Form\DivnInitType;
+use App\Manager\Mercure\MercureManager;
 
 
 class HomeController extends AbstractController
@@ -33,7 +34,8 @@ class HomeController extends AbstractController
         CommandeManager $commandeManager,
         CarInfoManager $carInfoManager,
         TaxesManager $taxesManager,
-        DivnInitManager $divnInitManager
+        DivnInitManager $divnInitManager,
+        MercureManager $mercureManager
         )
     {
 
@@ -74,6 +76,18 @@ class HomeController extends AbstractController
                 'codePostal' => $commande->getCodePostal(),
                 'demarche' => $commande->getDemarche(),
             ]);
+            // The Publisher service is an invokable object
+            $mercureManager->publish(
+                'http://cgofficiel.com/addNewSimulator',
+                'commande',
+                [
+                    'immat' => $commande->getImmatriculation(),
+                    'department' => $commande->getCodePostal(),
+                    'demarche' => $commande->getDemarche()->getType(),
+                ],
+                'new Simulation is insert'
+            );
+
             if($commande->getDemarche()->getType() === 'DIVN'){
 
                 return $this->redirectToRoute('Accueil');
@@ -290,20 +304,6 @@ class HomeController extends AbstractController
         }
 
         return $this->render('home/formulaire.html.twig', $homeParams);
-    }
-
-    /**
-     * @Route("/register/confirm",name="redirection_route")
-     */
-
-    public function redirectAction()
-    {
-        $user = $this->getUser();
-        if(1 === count($user->getClient()->getCommandes())){
-            return $this->redirectToRoute('new_demande', ['commande' => $user->getClient()->getCommandes()[0]->getId()]);
-        }
-
-        return $this->redirectToRoute('commande_list');
     }
 
     /**

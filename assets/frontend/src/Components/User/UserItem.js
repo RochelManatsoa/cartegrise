@@ -3,6 +3,7 @@ import axios from 'axios';
 import Card from './../../Widget/Card/card';
 import PieChart from '../../Widget/hightChart/PieChart';
 import LineChart from '../../Widget/hightChart/AreaChart';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import param from '../../params';
 
 class UserItem extends React.Component {
@@ -12,12 +13,15 @@ class UserItem extends React.Component {
         this.state = {
             userEntries: [],
             commandeEntries: [],
+            commandeEntriesLength: 0,
             demandeEntries: [],
             transactionEntries: [],
         };
         this.renderAllItems = this.renderAllItems.bind(this);
         this.getUsers = this.getUsers.bind(this);
         this.synchro = this.synchro.bind(this);
+        this.updateCommande = this.updateCommande.bind(this);
+        this.updateDemande = this.updateDemande.bind(this);
         
     }
 
@@ -42,13 +46,9 @@ class UserItem extends React.Component {
 
     synchro()
     {
-        setInterval(() => {
-            this.getUsers();
-        }, 5000);
     }
 
-    componentDidMount() {
-        this.getUsers();
+    updateCommande(){
         axios({
             method: 'get',
             url: `${param.ENTRYPOINT}/commandes`,
@@ -57,11 +57,14 @@ class UserItem extends React.Component {
                 'accept': 'application/json'
             }
         })
-        .then(commandeEntries => {
-            this.setState({
-                commandeEntries: commandeEntries.data
-            });
-        });
+            .then(commandeEntries => {
+                this.setState({
+                    commandeEntries: commandeEntries.data,
+                    commandeEntriesLength: commandeEntries.data.length
+                });
+            }); 
+    }
+    updateDemande(){
         axios({
             method: 'get',
             url: `${param.ENTRYPOINT}/demandes`,
@@ -70,11 +73,17 @@ class UserItem extends React.Component {
                 'accept': 'application/json'
             }
         })
-        .then(demandeEntries => {
-            this.setState({
-                demandeEntries: demandeEntries.data
+            .then(demandeEntries => {
+                this.setState({
+                    demandeEntries: demandeEntries.data
+                });
             });
-        });
+    }
+    componentDidMount(){
+        this.getUsers();
+        this.updateCommande();
+        this.updateDemande();
+        
         axios({
             method: 'get',
             url: `${param.ENTRYPOINT}/transactions`,
@@ -88,6 +97,50 @@ class UserItem extends React.Component {
                 transactionEntries: transactionEntries.data
             });
         });
+
+        // Secret of Mercure Ninja
+        // URL is a built-in JavaScript class to manipulate URLs
+        const url = new URL('http://dev3.cgofficiel.fr/hub/hub');
+        url.searchParams.append('topic', 'http://cgofficiel.com/addNewSimulator');
+        // Subscribe to updates of several Book resources
+        url.searchParams.append('topic', 'http://example.com/books/2');
+        // All Review resources will match this pattern
+        url.searchParams.append('topic', 'http://example.com/reviews/{id}');
+
+        const eventSource = new EventSource(url);
+        eventSource.onmessage = event => {
+            let res = JSON.parse(event.data);
+            if (res.status === "success") {
+                if (res.item != "") {
+                    let message = '';
+                    let withImmat = ['commande', 'demande'];
+                    if (withImmat.includes(res.item)) {
+                        message += 'une Nouvelle ' + res.item + ' avec info : ' +
+                            ' / Immatriculation ==> ' + res.data.immat +
+                            ' / departement ==> ' + res.data.department +
+                            ' / demarche ==> ' + res.data.demarche;
+                    } else {
+                        message = res.message;
+                    }
+                    NotificationManager.info(message, "Nouvelle "+res.item+"", 7000);
+                    switch(res.item){
+                        case 'commande':
+                            this.updateCommande();
+                        case 'demande':
+                            this.updateDemande();
+                        case 'utilisateur':
+                            this.getUsers();
+                        default:
+                            return;
+
+                    }
+                    
+                } else {
+                    NotificationManager.info(res.message);
+                }
+            }
+        }
+        // End of secret of mercure Ninja
 
         // for synchronisation : 
         this.synchro();
@@ -111,7 +164,7 @@ class UserItem extends React.Component {
 
                     <Card
                         type="topCard"
-                        title={this.state.commandeEntries.length}
+                        title={this.state.commandeEntriesLength}
                         text='Estimations'
                         textClass=''
                         innerClass='inner'
@@ -171,6 +224,7 @@ class UserItem extends React.Component {
                         type='Area1'
                     />
                 </div>
+                <NotificationContainer />
             </div>
         )
     }

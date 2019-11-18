@@ -44,16 +44,15 @@
                     {{ form_row(form.changementAdresse.nouveauxTitulaire.lieuN)}}
                     {{ form_row(form.changementAdresse.nouveauxTitulaire.departementN)}}
                     {{ form_row(form.changementAdresse.nouveauxTitulaire.paysN)}}
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.droitOpposition)}}
-                    {{ form_label(form.changementAdresse.numeroFormule)}}
-                        <span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
-                        template='{% include "demande/tooltips/templateCessionNumFormulCarteGrise.html.twig" %}'
-                        title="{% include 'demande/tooltips/cessionNumFormulCarteGrise.html.twig' %}">
-                    </span>
-                    {{ form_errors(form.changementAdresse.numeroFormule)}}
-                    {{ form_widget(form.changementAdresse.numeroFormule)}}
-            
+                    {{ form_row(form.changementAdresse.nouveauxTitulaire.droitOpposition)}}   
                 </div>
+                {{ form_label(form.changementAdresse.numeroFormule)}}
+                <span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
+                    template='{% include "demande/tooltips/templateCessionNumFormulCarteGrise.html.twig" %}'
+                    title="{% include 'demande/tooltips/cessionNumFormulCarteGrise.html.twig' %}">
+                </span>
+                {{ form_errors(form.changementAdresse.numeroFormule)}}
+                {{ form_widget(form.changementAdresse.numeroFormule)}}
             </fieldset>
 
             <h3>Ancienne Adresse</h3>
