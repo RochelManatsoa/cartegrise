@@ -1,6 +1,7 @@
 @import 'variables.scss';
 @import 'stylesheet.scss';
 @import 'footer.scss';
+@import 'espc-client.scss';
 
 body {
 	font-family: "Open Sans" !important;
@@ -13,7 +14,8 @@ body {
 a {
 	@extend %linear_anim;
 }
-.btn-blue {
+.btn-blue,
+.link-connexion-register {
 	font-family: "Ubuntu";
 	font-size: 14px !important;
 	letter-spacing: 1px;
@@ -29,6 +31,31 @@ a {
 		color: $royal-blue !important;
 		background-color: transparent !important;
 		border-color: $royal-blue !important;
+	}
+}
+.link-connexion-register {
+	background-color: $aqua-blue !important;
+	padding: $size_15 60px !important;
+	&:hover, &:focus {
+		border-color: $aqua-blue !important;
+		color: $aqua-blue !important;
+	}
+	.icomoon {
+		margin-left: 10px;
+		font-size: 17px;
+		vertical-align: middle;
+		@extend %linear_anim;
+	}
+}
+.btn-input {
+	input[type=submit] {
+		background: none;
+		color: $inherit;
+		border: none;
+		font-family: "Ubuntu";
+		font-size: 14px !important;
+		letter-spacing: 1px;
+		text-transform: uppercase;
 	}
 }
 
@@ -120,6 +147,75 @@ header {
 							em {
 								display: $block;
 								font-style: italic;
+							}
+						}
+					}
+				}
+				.mon_compte {
+					position: relative;
+					.avatar_ {
+						flex: 0 0 46px;
+						width: 46px;
+						height: 46px;
+						background: #ddd;
+						border-radius: 50%;
+						margin-right: 10px;
+					}
+					.info-user {
+						@extend %list-style;
+						> li {
+							.infos_ {
+								font-weight: bold;
+								color: inherit;
+								&:after {
+									@extend %absolute;
+									width: 0;
+									height: 0;
+									border-left: 5px solid transparent;
+									border-right: 5px solid transparent;
+									border-top: 5px solid #000;
+									top: 50%;
+									transform: translateY(-50%);
+									margin-left: 5px;
+								}
+							}
+							.suMenu {
+								display: none;
+								position: absolute;
+								z-index: 99;
+								width: 200px;
+								right: -15px;
+								padding-top: 19px;
+								.sub-infos {
+									border: $bdr_solid_1 $gray;
+									padding: 10px 0;
+									background: $white;
+									@extend %list-style;
+									li {
+										background-color: $white;
+										> a {
+											font-size: 14px;
+											display: $block;
+											margin: 0 $size_18;
+											color: inherit;
+											&.logout-access {
+												border-top: $bdr_solid_1;
+												text-transform: uppercase;
+												font-weight: 600;
+												padding-top: 10px;
+												margin-top: 10px;
+											}
+										}
+									}
+								}
+							}
+							&:hover {
+								> a { 
+									text-decoration: none;
+								}
+								.suMenu {
+									display: $block;
+								}
 							}
 						}
 					}
@@ -1165,5 +1261,314 @@ header {
     }
   }
 
+//inscription block
+.register-block {
+	background-position: center;
+	background-attachment: fixed;
+	background-size: cover;
+	background-repeat: no-repeat;
+	padding: 80px 0 60px;
+	@include sm {
+		padding: $size_30 0;
+	}
+	.with-mp {
+		@include sm {
+			padding: 0 $size_15;
+		}
+	}
+	.fos_user_registration_register,
+	.formContent-bc {
+		background-color: $white;
+		border-radius: 5px;
+		overflow: hidden;
+		.heading_form {
+			background-color: $royal-blue;
+			border-bottom: 2px solid $white;
+    		box-shadow: 0px $size_15 19px 5px rgba(0, 0, 0, 0.2);
+			color: $white;
+			margin-bottom: 40px;
+			padding: 37px 50px;
+			@include sm {
+				padding: $size_15;
+			}
+			h2 {
+				font-size: 22px;
+				line-height: 36px;
+				letter-spacing: .5px;
+				font-weight: 600;
+				@include sm {
+					font-size: 16px;
+    				line-height: $size_24;
+				}
+			}
+		}
+		.register-form--client--label {
+			display: inline-block;
+			vertical-align: middle;
+			width: 16.666667%;
+			@include sm {
+				display: $block;
+				width: 100%;
+			}
+		}
+		.select {
+			display: inline-block;
+			width: 83.333333%;
+			@include sm {
+				display: $block;
+				width: 100%;
+			}
+		}
+		.form-control {
+			border-radius: 5px;
+			text-transform: none !important;
+		}
+		.form-group {
+			>label {
+				text-transform: uppercase;
+				margin-bottom: 0;
+			}
+		}
+		.btn-calcuer {
+			width: $inherit;
+		}
+		.select-styled {
+			border-radius: 5px;
+    		overflow: hidden;
+		}
+	}
 }
 
+#formFooter {
+	a {
+		color: $royal-blue;
+		font-size: 14px;
+	}
+}
+
+//CCM
+.block_CCM {
+    background-image: url(/asset/img/page_bg.png);
+    background-position: 0 bottom;
+	background-repeat: no-repeat;
+	border-bottom: $bdr_solid_1 $bdr_color1;
+	padding: 80px 0 60px;
+	@include sm {
+		padding: 40px 0;
+	}
+	.home-secondview--titre {
+		font-size: $size_30;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		line-height: 48px;
+		margin-bottom: $size_30;
+		@include xs {
+			font-size: $size_18;
+			letter-spacing: 0;
+			line-height: $size_24;
+			margin-bottom: 10px;
+		}
+		br {
+			@include sm {
+				display: none;
+			}
+		}
+	}
+	.menu-commander {
+		position: relative;
+		top: 0;
+		height: 200px;
+		display: $block;
+		width: 100%;
+		background: $white;
+		border: $bdr_solid_1 $bdr_color1;
+		border-radius: 10px;
+		padding: $size_30;
+		margin: $size_15 0;
+		text-align: left;
+		line-height: $size_24;
+		transition: top ease .4s;
+		@include xs {
+			text-align: center;
+		}
+		&:focus {
+			box-shadow: none;
+			outline: none;
+		}
+		&:hover {
+			top: -10px;
+			box-shadow: 0 $size_15 $size_30 rgba(0,0,0,.1);
+			border-radius: 10px;
+			background: url(/asset/img/bg_text_CCM.png) -10% -16% $white no-repeat;
+			background-size: 85%;
+			.menu-commander--button---icon {
+				color: $white;
+				.ccm-icon {
+					&.titulaire {
+						background-image: url(/asset/img/titulaire_hover.png);
+					}
+					&.immatricul {
+						background-image: url(/asset/img/immatriculation_hover.png);
+					}
+					&.domicile {
+						background-image: url(/asset/img/domicile_hover.png);
+					}
+					&.duplicata {
+						background-image: url(/asset/img/duplicata_hover.png);
+					}
+					&.status_m {
+						background-image: url(/asset/img/floder_hover.png);
+					}
+					&.justificatif_d {
+						background-image: url(/asset/img/justificatif_hover.png);
+					}
+					&.mise_cass {
+						background-image: url(/asset/img/corbeille_hover.png);
+					}
+					&.lire_cG {
+						background-image: url(/asset/img/lire_hover.png);
+					}
+				}
+			}
+			@include md {
+				display: none;
+			}
+		}
+	}
+	.comment-ca-marche-texte {
+		margin-bottom: $size_30;
+		.menu-commander--button---text {
+			font-weight: 600;
+			display: $block;
+			text-transform: uppercase;
+			border-top: $bdr_solid_1 $bdr_color1;
+			margin-top: $size_20;
+			padding-top: $size_20;
+			@include md {
+				font-size: 13px;
+			}
+		}
+		.menu-commander--button---icon {
+			transition: .3s;
+			.ccm-icon {
+				width: 80px;
+				height: 49px;
+				display: inline-block;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: contain;
+				&.titulaire {
+					background-image: url(/asset/img/titulaire.png);
+				}
+				&.immatricul {
+					background-image: url(/asset/img/immatriculation.png);
+				}
+				&.domicile {
+					background-image: url(/asset/img/domicile.png);
+				}
+				&.duplicata {
+					background-image: url(/asset/img/duplicata.png);
+				}
+				&.status_m {
+					background-image: url(/asset/img/floder.png);
+				}
+				&.justificatif_d {
+					background-image: url(/asset/img/justificatif.png);
+				}
+				&.mise_cass {
+					background-image: url(/asset/img/corbeille.png);
+				}
+				&.lire_cG {
+					background-image: url(/asset/img/lire.png);
+				}
+			}
+		}
+	}
+	.comment-ca-marche-texte-p {
+		ul {
+			@extend %list-style;
+			padding-left: $size_15;
+			> li {
+				position: relative;
+				padding-left: 35px;
+				margin: $size_20 0;
+				&:before {
+					content: "\e909";
+					font-family: "icomoon";
+					left: 0;
+					position: absolute;
+					color: $royal-blue;
+				}
+			}
+		}
+	}
+}
+
+//Modal
+.modal {
+	z-index: 10002 !important;
+	&.custom-mobile-modal {
+		.modal-dialog {
+			max-width: 730px;
+			.modal-header {
+				justify-content: center;
+				text-align: center;
+				display: $block;
+				position: relative;
+				border-bottom: none;
+				padding: 50px 0 0;
+				.modal-title {
+					font-size: 36px;
+					font-weight: 600;
+					font-style: italic;
+					text-align: center;
+					&:after {
+						width: 160px;
+						content: "";
+						display: $block;
+						border-bottom: $bdr_solid_1 $gray;
+						margin: 23px auto;
+					}
+					span {
+						display: $block;
+						font-size: $size_24;
+					}
+				}
+				.close {
+					position: absolute;
+					right: -$size_15;
+					top: -10px;
+					width: 60px;
+					height: 60px;
+					background: $royal-blue;
+					opacity: 1;
+					color: $white;
+					border-radius: 50%;
+				}
+			}
+			.modal-body {
+				padding-bottom: 40px;
+				.se-connecter {
+					font-size: $size_18;
+					text-transform: uppercase;
+					font-weight: 600;
+					letter-spacing: 1px;
+					color: $royal-blue;
+				}
+				.bdr-sep {
+					border-top: $bdr_solid_1 $gray;
+					margin-top: $size_30;
+					padding-top: $size_30;
+				}
+			}
+		}
+	}
+}
+.modal-backdrop {
+    z-index: 10001 !important;
+	background: linear-gradient(0.25turn, #002a6b, #1465e1) !important;
+	&.show {
+		opacity: .8 !important;
+	}
+}

@@ -383,6 +383,7 @@ home:
     noAcount: "Je n'ai pas encore de compte sur CG officiel"
     createAcountButton: CREER MON COMPTE
     login: "S'IDENTIFIER"
+    loginConnnex: Se connecter
     loginDescription: "J'ai déjà un compte sur CG officiel"
     franceConnecteDescription: "Je préfère m'identifier avec France Connect"
     condition: "Les produits ou services achetés sur cgofficiel.fr doivent être réglés en euros soit en ligne, soit par chèque. Les catres bancaires accéptées par le système sécuriséHiPay sont Carte bleue, Visa, Eurocard Mastercard."

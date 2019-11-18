@@ -19,13 +19,23 @@
                         </div>
                         <div class="block-connexion d-md-none d-lg-block ml-md-3">
                             {% if app.user %}
-                            <a class="logout-access d-flex" href="/logout">
-                                <button type="button" class="btn btn-primary text-center login-btn">
-                                    Se déconnecter
-                                </button>
-                            </a>
-                            <div class="info-user">
-                                <a href=" {{ path('compte') }} ">Mes infos</a>
+                            <div class="mon_compte">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar_"></div>
+                                    <ul class="info-user">
+                                        <li>
+                                            <a href="#" class="infos_">Mes infos</a>
+                                            <div class="suMenu">
+                                                <ul class="sub-infos">
+                                                    <li><a href=" {{ path('compte') }} ">Mon compte</a></li>
+                                                    <li><a href="">Demande en cours</a></li>
+                                                    <li><a href="">Commandes effectuées</a></li>
+                                                    <li><a class="logout-access" href="/logout">Se déconnecter</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                             {% else %}
                             <a class="login-access btn btn-blue" href="/login">Se connecter <i class="icomoon icon-user"></i></a>
@@ -60,7 +70,7 @@
                             <div class="block-connexion d-lg-none">
                                 {% if app.user %}
                                 <a class="logout-access d-flex" href="/logout">
-                                    <button type="button" class="btn btn-primary text-center login-btn">
+                                    <button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary text-center login-btn">
                                         Se déconnecter
                                     </button>
                                 </a>
