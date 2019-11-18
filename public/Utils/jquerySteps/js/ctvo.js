@@ -201,7 +201,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             "demande_ctvo[ctvo][acquerreur][prenomTitulaire]": {
                 required: {
                     depends: function () {
-                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+                        let persone = $('#demande_ctvo_ctvo_acquerreur_type').val();
 
                         if (persone == 'phy') {
                             return true;
@@ -216,7 +216,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             "demande_ctvo[ctvo][acquerreur][lieuN]": {
                 required: {
                     depends: function () {
-                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+                        let persone = $('#demande_ctvo_ctvo_acquerreur_type').val();
 
                         if (persone == 'phy') {
                             return true;
@@ -231,7 +231,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             "demande_ctvo[ctvo][acquerreur][dateN]": {
                 required: {
                     depends: function () {
-                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+                        let persone = $('#demande_ctvo_ctvo_acquerreur_type').val();
 
                         if (persone == 'phy') {
                             return true;
@@ -246,7 +246,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             "demande_ctvo[ctvo][acquerreur][departementN]": {
                 required: {
                     depends: function () {
-                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+                        let persone = $('#demande_ctvo_ctvo_acquerreur_type').val();
 
                         if (persone == 'phy') {
                             return true;
@@ -261,7 +261,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             "demande_ctvo[ctvo][acquerreur][paysN]": {
                 required: {
                     depends: function () {
-                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+                        let persone = $('#demande_ctvo_ctvo_acquerreur_type').val();
 
                         if (persone == 'phy') {
                             return true;
@@ -306,7 +306,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             "demande_ctvo[ctvo][acquerreur][siren]": {
                 required: {
                     depends: function () {
-                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+                        let persone = $('#demande_ctvo_ctvo_acquerreur_type').val();
 
                         if (persone == 'mor') {
                             return true;
@@ -351,6 +351,9 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                 required: 'Champs obligatoire',
             },
             "demande_ctvo[ctvo][acquerreur][lieuN]": {
+                required: 'Champs obligatoire',
+            },
+            "demande_ctvo[ctvo][acquerreur][dateN]": {
                 required: 'Champs obligatoire',
             },
             "demande_ctvo[ctvo][acquerreur][departementN]": {
