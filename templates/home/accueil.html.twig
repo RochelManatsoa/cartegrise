@@ -3,6 +3,13 @@
 {% block title %}Home{% endblock %}
 
 {% block body_id %}{% endblock %}
+{%  block class %}
+	{% if commande is not defined %}
+	{% if taxe is not defined %}
+		body-accueil
+	{% endif %}
+	{% endif %}
+{%  endblock %}
 
 {% block page_content %}
 	{% if database %}
@@ -94,13 +101,6 @@
 	{% else %}
 		{% if commande is defined %}
 			{% if taxe is defined %}
-			{%  block class %} 
-				{% if commande is defined %}
-					{% if taxe is defined %} 
-						page-resultat-estimation 
-					{% endif %}
-				{% endif %}
-			{%  endblock %}
 				<div class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
 					<div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
 						<img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}" class="rounded mx-auto d-block img-thumbnail mb-3" style="height:100px;" class="img-thumbnail src_img" alt="{{carInfo.marque}}">

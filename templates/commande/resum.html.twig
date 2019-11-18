@@ -1,9 +1,4 @@
 {% extends 'base.html.twig' %}
-{%  block class %}
-{% if commande is defined %}
-page-resultat-estimation
-{% endif %}
-{%  endblock %}
 
 {% block page_content %}
 {% set taxe = commande.taxes %}
