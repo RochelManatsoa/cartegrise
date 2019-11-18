@@ -5,46 +5,40 @@
 {% set confirmMessage = "Etes-vous sûr de vouloir annuler cette demande ?" %}
 
 {% block page_content %}
-    <div class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
-        <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container w-100 mx-3 mx-lg-4">
-            <div class="col-12">
-                <div class="px-2">
-                    <br>
-                    {{ include('client/layout/menu.html.twig') }}
-                    <hr>
-                    <h3 class="title-client">Historique</h3>
-                    <div class="demarche-container">
-                        <table class="table table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Commande</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Dép.</th>
-                                    <th scope="col">Immatriculation</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {% for demande in demandes %}
-                                <tr>
-                                    <td>{{ demande.commande.demarche.nom | displayValue}}</td>
-                                    <td>{{ demande.commande.ceerLe | date('d/m/Y')}}</td>
-                                    <td class="text-center">{{ demande.commande.codePostal | displayValue}}</td>
-                                    <td class="text-center">{{ demande.commande.immatriculation | displayValue}}</td>
-                                    <td>
-                                        <a href="{{path('espace_client', {'demande': demande.id })}}">
-                                            <button type="button" class="btn btn-outline-primary btn-sm">Aperçu</button>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% else %}
-                                <tr><td colspan="8">Aucune demande trouvé</td></tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+    <div class="esp_clientBlock">
+        <div class="container">
+            {{ include('client/layout/menu.html.twig') }}
+            <h4 class="mt-5">Historique</h3>
+            <div class="demarche-container">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Commande</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Dép.</th>
+                            <th scope="col">Immatriculation</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for demande in demandes %}
+                        <tr>
+                            <td>{{ demande.commande.demarche.nom | displayValue}}</td>
+                            <td>{{ demande.commande.ceerLe | date('d/m/Y')}}</td>
+                            <td class="text-center">{{ demande.commande.codePostal | displayValue}}</td>
+                            <td class="text-center">{{ demande.commande.immatriculation | displayValue}}</td>
+                            <td>
+                                <a href="{{path('espace_client', {'demande': demande.id })}}">
+                                    <button type="button" class="btn btn-outline-primary btn-sm">Aperçu</button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="8">Aucune demande trouvé</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>                  
+    </div>                 
 {% endblock %}
