@@ -1,0 +1,42 @@
+merchant_id : 083897291700010
+merchant_country : fr
+amount : 200
+transaction_id : 100346
+transmission_date: 20190222090346
+payment_means: VISA
+payment_time : 100604
+payment_date : 20190222
+response_code : 00
+payment_certificate : 3e54fd26579b
+authorisation_id : 216074
+currency_code : 978
+card_number : 4974.59
+cvv_flag: 1
+cvv_response_code: ??
+bank_response_code: 00
+complementary_code: 
+complementary_info: 
+return_context: 
+caddie : 
+receipt_complement: 
+merchant_language: fr
+language: fr
+customer_id: 
+order_id: 
+customer_email: joachim.peetroons@ynover.com
+customer_ip_address: 
+capture_day: 0
+capture_mode: AUTHOR_CAPTURE
+data: 
+order_validity: 02
+transaction_condition: 3D_SUCCESS
+statement_reference: 
+card_validity: 202001
+score_value: 
+score_color: 
+score_info: 
+score_threshold: 
+score_profile: 
+threed_ls_code: 1
+threed_relegation_code: 0
+-------------------------------------------

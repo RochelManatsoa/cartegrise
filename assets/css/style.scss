@@ -163,10 +163,17 @@ header {
 					}
 					.info-user {
 						@extend %list-style;
+						margin-top: 5px;;
 						> li {
+							.usr_name {
+								font-size: 14px;
+								display: $block;
+								line-height: $size_15;
+							}
 							.infos_ {
 								font-weight: bold;
 								color: inherit;
+								position: relative;
 								&:after {
 									@extend %absolute;
 									width: 0;
@@ -185,7 +192,7 @@ header {
 								z-index: 99;
 								width: 200px;
 								right: -15px;
-								padding-top: 19px;
+								padding-top: 8px;
 								.sub-infos {
 									border: $bdr_solid_1 $gray;
 									padding: 10px 0;
@@ -204,6 +211,12 @@ header {
 												font-weight: 600;
 												padding-top: 10px;
 												margin-top: 10px;
+											}
+										}
+										&:hover {
+											a {
+												text-decoration: none;
+												color: $royal-blue;
 											}
 										}
 									}
@@ -1209,14 +1222,14 @@ header {
 
 .modal {
   z-index: 999999 !important;
-  background: $transBlue;
+  background: rgba(0,0,0,.5);
   h5{
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 20px;
   }
   &-header{
-    background: $transBlue;
+    background: $dark;
   }
   .link-connexion{
     padding: 13px 42px !important;

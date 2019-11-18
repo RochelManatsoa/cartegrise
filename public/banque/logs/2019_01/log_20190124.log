@@ -1,0 +1,42 @@
+merchant_id : 014295303911111
+merchant_country : fr
+amount : 200
+transaction_id : 152039
+transmission_date: 20190124142039
+payment_means: CB
+payment_time : 152058
+payment_date : 20190124
+response_code : 00
+payment_certificate : 1548339658
+authorisation_id : 339658
+currency_code : 978
+card_number : 4974.00
+cvv_flag: 1
+cvv_response_code: 4D
+bank_response_code: 00
+complementary_code: 
+complementary_info: 
+return_context: 
+caddie : 
+receipt_complement: 
+merchant_language: fr
+language: fr
+customer_id: 
+order_id: 
+customer_email: joachim.peetroons@ynover.com
+customer_ip_address: 
+capture_day: 0
+capture_mode: AUTHOR_CAPTURE
+data: 
+order_validity: 02
+transaction_condition: SSL
+statement_reference: 
+card_validity: 202301
+score_value: 
+score_color: 
+score_info: 
+score_threshold: 
+score_profile: 
+threed_ls_code: 
+threed_relegation_code: 0
+-------------------------------------------
