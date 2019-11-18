@@ -1,6 +1,7 @@
 @import 'variables.scss';
 @import 'stylesheet.scss';
 @import 'footer.scss';
+@import 'espc-client.scss';
 
 body {
 	font-family: "Open Sans" !important;
@@ -13,7 +14,8 @@ body {
 a {
 	@extend %linear_anim;
 }
-.btn-blue {
+.btn-blue,
+.link-connexion-register {
 	font-family: "Ubuntu";
 	font-size: 14px !important;
 	letter-spacing: 1px;
@@ -29,6 +31,31 @@ a {
 		color: $royal-blue !important;
 		background-color: transparent !important;
 		border-color: $royal-blue !important;
+	}
+}
+.link-connexion-register {
+	background-color: $aqua-blue !important;
+	padding: $size_15 60px !important;
+	&:hover, &:focus {
+		border-color: $aqua-blue !important;
+		color: $aqua-blue !important;
+	}
+	.icomoon {
+		margin-left: 10px;
+		font-size: 17px;
+		vertical-align: middle;
+		@extend %linear_anim;
+	}
+}
+.btn-input {
+	input[type=submit] {
+		background: none;
+		color: $inherit;
+		border: none;
+		font-family: "Ubuntu";
+		font-size: 14px !important;
+		letter-spacing: 1px;
+		text-transform: uppercase;
 	}
 }
 
@@ -120,6 +147,75 @@ header {
 							em {
 								display: $block;
 								font-style: italic;
+							}
+						}
+					}
+				}
+				.mon_compte {
+					position: relative;
+					.avatar_ {
+						flex: 0 0 46px;
+						width: 46px;
+						height: 46px;
+						background: #ddd;
+						border-radius: 50%;
+						margin-right: 10px;
+					}
+					.info-user {
+						@extend %list-style;
+						> li {
+							.infos_ {
+								font-weight: bold;
+								color: inherit;
+								&:after {
+									@extend %absolute;
+									width: 0;
+									height: 0;
+									border-left: 5px solid transparent;
+									border-right: 5px solid transparent;
+									border-top: 5px solid #000;
+									top: 50%;
+									transform: translateY(-50%);
+									margin-left: 5px;
+								}
+							}
+							.suMenu {
+								display: none;
+								position: absolute;
+								z-index: 99;
+								width: 200px;
+								right: -15px;
+								padding-top: 19px;
+								.sub-infos {
+									border: $bdr_solid_1 $gray;
+									padding: 10px 0;
+									background: $white;
+									@extend %list-style;
+									li {
+										background-color: $white;
+										> a {
+											font-size: 14px;
+											display: $block;
+											margin: 0 $size_18;
+											color: inherit;
+											&.logout-access {
+												border-top: $bdr_solid_1;
+												text-transform: uppercase;
+												font-weight: 600;
+												padding-top: 10px;
+												margin-top: 10px;
+											}
+										}
+									}
+								}
+							}
+							&:hover {
+								> a { 
+									text-decoration: none;
+								}
+								.suMenu {
+									display: $block;
+								}
 							}
 						}
 					}
@@ -975,7 +1071,8 @@ header {
 			padding: 0 $size_15;
 		}
 	}
-	.fos_user_registration_register {
+	.fos_user_registration_register,
+	.formContent-bc {
 		background-color: $white;
 		border-radius: 5px;
 		overflow: hidden;
@@ -1034,6 +1131,13 @@ header {
 			border-radius: 5px;
     		overflow: hidden;
 		}
+	}
+}
+
+#formFooter {
+	a {
+		color: $royal-blue;
+		font-size: 14px;
 	}
 }
 
@@ -1193,5 +1297,73 @@ header {
 				}
 			}
 		}
+	}
+}
+
+//Modal
+.modal {
+	z-index: 10002 !important;
+	&.custom-mobile-modal {
+		.modal-dialog {
+			max-width: 730px;
+			.modal-header {
+				justify-content: center;
+				text-align: center;
+				display: $block;
+				position: relative;
+				border-bottom: none;
+				padding: 50px 0 0;
+				.modal-title {
+					font-size: 36px;
+					font-weight: 600;
+					font-style: italic;
+					text-align: center;
+					&:after {
+						width: 160px;
+						content: "";
+						display: $block;
+						border-bottom: $bdr_solid_1 $gray;
+						margin: 23px auto;
+					}
+					span {
+						display: $block;
+						font-size: $size_24;
+					}
+				}
+				.close {
+					position: absolute;
+					right: -$size_15;
+					top: -10px;
+					width: 60px;
+					height: 60px;
+					background: $royal-blue;
+					opacity: 1;
+					color: $white;
+					border-radius: 50%;
+				}
+			}
+			.modal-body {
+				padding-bottom: 40px;
+				.se-connecter {
+					font-size: $size_18;
+					text-transform: uppercase;
+					font-weight: 600;
+					letter-spacing: 1px;
+					color: $royal-blue;
+				}
+				.bdr-sep {
+					border-top: $bdr_solid_1 $gray;
+					margin-top: $size_30;
+					padding-top: $size_30;
+				}
+			}
+		}
+	}
+}
+.modal-backdrop {
+    z-index: 10001 !important;
+	background: linear-gradient(0.25turn, #002a6b, #1465e1) !important;
+	&.show {
+		opacity: .8 !important;
 	}
 }
