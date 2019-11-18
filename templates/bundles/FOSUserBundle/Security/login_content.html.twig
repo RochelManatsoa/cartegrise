@@ -1,23 +1,34 @@
 {% trans_default_domain 'FOSUserBundle' %}
-<div class="register-block" data-parallax="scroll" data-image-src="{{ asset('asset/img/bg_inscription.jpg')}}">
+{% set current_path = app.request.get('_route') %}
+
+{% if current_path == 'fos_user_security_login' %}
+	{% set divClass = "col-lg-6" %}
+	{% set registerClass = "register-block" %}
+{% else %}
+	{% set divClass = "col-lg-12" %}
+	{% set registerClass = "" %}
+{% endif %}
+
+<div class="{{registerClass}}" data-parallax="scroll" data-image-src="{{ asset('asset/img/bg_inscription.jpg')}}">
 	<div class="container">
 		<div class="block_form">
 			<div id="formContent" class="row justify-content-center">
-				<div class="col-lg-6">
+				
+				<div class="{{ divClass }}">
 					<form class="formContent-bc pt-5 pb-5" action="{{ path("fos_user_security_check") }}" method="post">
 						<div class="row justify-content-center">
 							<div class="col-12 col-sm-10">
-								{% if error %}
+								{% if error is defined and error is not null%}
 									<div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 								{% endif %}
-								{% if csrf_token %}
+								{% if csrf_token is defined %}
 									<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 								{% endif %}
 								{# <div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div> #}
 								{# <div class="login-error">E-mai​l : </div> #}
 								<div class="form-group">
 									<label class="hidden-xl-down" for="username">{{ 'security.login.username'|trans }}</label>
-									<input type="text" id="username" name="_username" class="registrer-form form-control second" placeholder="Votre adresse mail" value="{{ last_username }}">
+									<input type="text" id="username" name="_username" class="registrer-form form-control second" placeholder="Votre adresse mail" {% if last_username is defined %}value="{{ last_username }}"{% endif %} >
 								</div>
 								{# <div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div> #}
 								{# <div class="login-error"></div> #}

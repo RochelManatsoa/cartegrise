@@ -57,18 +57,9 @@
 											<div class="modal-body">
 												<div class="row">
 													<div class="col-10 col-lg-10 mx-auto mt-4">
-														{# <div class="col-12 mx-auto resultat-estimation-p mt-5">
-															<p class="text-center font-24">
-																{{ 'home.createAcountDescription'|trans}}
-															</p>
-														</div> #}
 														<div class="custom-container-flex">
-															<p class="se-connecter">{{ 'home.loginConnnex'|trans}}</p>
-															{# {{ include('bundles/FOSUserBundle/Security/login_content.html.twig') }} #}
-															{# <p class="text-center">{{ 'home.loginDescription'|trans}}</p>
-															<a class="link-connexion" href="{{ path('fos_user_security_login') }}">
-																{{ 'home.login'|trans}}
-															</a> #}
+															<p class="se-connecter text-center">{{ 'home.loginConnnex'|trans}}</p>
+															{{ include('bundles/FOSUserBundle/Security/login_content.html.twig') }}
 														</div>
 														<div class="custom-container-flex bdr-sep text-center">
 															<p class="mb-1">{{ 'home.noAcount'|trans}}</p>
@@ -76,16 +67,9 @@
 																{{ 'home.createAcountButton'|trans}} <i class="icomoon icon-modifier"></i>
 															</a>
 														</div>
-														{# <div class="custom-container-flex">
-															<p class="text-center">{{ 'home.franceConnecteDescription'|trans}}</p>
-															<a class="link-connexion no-border" href="{{ path('france_connect_login') }}" class="btnLink">
-																<img class="img-thumbnail col-12 rounded mx-auto d-block tooltiped" style="max-width: 100%;height:auto;" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
-															</a>
-														</div>											 #}
 													</div>
 												</div>
 											</div>
-											{# <div class="modal-footer"></div> #}
 										</div>
 									</div>
 								</div>	
