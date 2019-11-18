@@ -9,7 +9,6 @@
 		{% if commande is defined %}
 			{% if taxe is defined %}
 				{% if recap is defined %}
-                    {%  block class %} page-resultat-estimation {%  endblock %}
 					<div class="col-md-12 col-lg-12 resultat-estimation mx-auto">
 						<div class="row recap-demande-wrapper  pt-5 pb-5">
 							<img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}" class="rounded col-2 mx-auto d-block img-thumbnail mb-3" style="height:100px;" class="img-thumbnail src_img" alt="{{commande.carInfo.marque}}">
@@ -19,7 +18,7 @@
 							</div>
 						</div>
 						<div class="col-md-12 col-lg-12 mx-auto d-flex my-flex-container pb-5">
-                            <div class="row">
+                            <div class="col-12 row">
                                 <div class="col-6 mx-auto">
                                     <h2 class="mb-4">{{ 'home.carSkills'|trans}}</h2>
                                     {{ include('commande/_resum_caracteristics_car.html.twig') }}
@@ -94,6 +93,13 @@
 	{% else %}
 		{% if commande is defined %}
 			{% if taxe is defined %}
+			{%  block class %} 
+				{% if commande is defined %}
+					{% if taxe is defined %} 
+						page-resultat-estimation 
+					{% endif %}
+				{% endif %}
+			{%  endblock %}
 				<div class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
 					<div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
 						<img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}" class="rounded mx-auto d-block img-thumbnail mb-3" style="height:100px;" class="img-thumbnail src_img" alt="{{carInfo.marque}}">
