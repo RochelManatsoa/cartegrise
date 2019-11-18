@@ -2,55 +2,56 @@
 
 {% block class %}body-ccm{% endblock %}
 {% block page_content %}
-    <div class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
-        <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container w-100 mx-3 mx-lg-4">
-            <div class="col-12">
-                <div class="px-2">
-                    <br>
-                    {{ include('client/layout/menu.html.twig') }}
-                    {{ form_start(form) }}
-                        <div class="demarche-container">
-                            <div class="col-10 col-lg-10 mx-auto">
-                                <legend class="col-form-label">Client</legend>
-                                <hr>
-                                <div class="form-group">
-                                    {{ form_label(form.client.clientGenre) }}
-                                    {{ form_errors(form.client.clientGenre) }}
-                                    {{ form_widget(form.client.clientGenre) }}
-                                </div>
-                                <div class="form-group">
-                                    {{ form_label(form.client.clientNom) }}
-                                    {{ form_errors(form.client.clientNom) }}
-                                    {{ form_widget(form.client.clientNom) }}
-                                </div>
-                                <div class="form-group">
-                                    {{ form_label(form.client.clientPrenom) }}
-                                    {{ form_errors(form.client.clientPrenom) }}
-                                    {{ form_widget(form.client.clientPrenom) }}
-                                </div>
-                                <legend class="col-form-label">Contacts</legend>
-                                <hr>
-                                <div class="form-group">
-                                    {{ form_label(form.client.clientContact.contact_telmobile) }}
-                                    {{ form_errors(form.client.clientContact.contact_telmobile) }}
-                                    {{ form_widget(form.client.clientContact.contact_telmobile) }}
-                                </div>
-                                <div class="form-group">
-                                    {{ form_label(form.client.clientContact.contact_telfixe) }}
-                                    {{ form_errors(form.client.clientContact.contact_telfixe) }}
-                                    {{ form_widget(form.client.clientContact.contact_telfixe) }}
+    <div class="esp_clientBlock">
+        <div class="container">
+            {{ include('client/layout/menu.html.twig') }}
+            {{ form_start(form) }}
+            <div class="demarche-container">
+                <div class="block_form">
+                    <div class="row">
+                        <div class="col-10 col-lg-10 mx-auto">
+                            <h4 class="mt-5">Client</h3>
+                            <div class="form-group">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2">{{ form_label(form.client.clientGenre) }}</div>
+                                    <div class="col-md-10">
+                                        {{ form_errors(form.client.clientGenre) }}
+                                        {{ form_widget(form.client.clientGenre) }}
+                                    </div>
                                 </div>
                             </div>
-                        <div class="text-center mb-5">
-                            <input type="submit" class="btn btn-outline-success" value="Mettre à jour" />
+                            <div class="form-group">
+                                {{ form_label(form.client.clientNom) }}
+                                {{ form_errors(form.client.clientNom) }}
+                                {{ form_widget(form.client.clientNom) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.client.clientPrenom) }}
+                                {{ form_errors(form.client.clientPrenom) }}
+                                {{ form_widget(form.client.clientPrenom) }}
+                            </div>
+                            <h4 class="mt-5">Contact</h3>
+                            <div class="form-group">
+                                {{ form_label(form.client.clientContact.contact_telmobile) }}
+                                {{ form_errors(form.client.clientContact.contact_telmobile) }}
+                                {{ form_widget(form.client.clientContact.contact_telmobile) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.client.clientContact.contact_telfixe) }}
+                                {{ form_errors(form.client.clientContact.contact_telfixe) }}
+                                {{ form_widget(form.client.clientContact.contact_telfixe) }}
+                            </div>
                         </div>
-                        </div>
-                    <div class="text-center">
-                        {{ form_rest(form) }}
                     </div>
-                    {{ form_end(form) }}
+                    <div class="text-center">
+                        <input type="submit" class="btn link-connexion-register" value="Mettre à jour" />
+                    </div>
                 </div>
             </div>
+        <div class="text-center">
+            {{ form_rest(form) }}
         </div>
-    </div>
+        {{ form_end(form) }}
+        </div>
+    </div> 
 {% endblock %}

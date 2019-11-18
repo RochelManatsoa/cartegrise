@@ -2,48 +2,36 @@
 
 {% block class %}body-ccm{% endblock %}
 {% block page_content %}
-    <div class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
-        <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container w-100 mx-3 mx-lg-4">
-            <div class="col-12">
-                <div class="px-2">
-                    <br>
-                    {{ include('client/layout/menu.html.twig') }}
-                    <hr>
-                    <h3 class="title-client">Informations du compte</h3>
-                    {% set client = app.user.client %}
-                    <div class="demarche-container">
-                        <table class="table table-striped custom-table">
-                            <tr>
-                                <th>Nom</th>
-                                <td>{{ client.ClientNom}}</td>
-                            </tr>
-                            <tr>
-                                <th>Prénom(s)</th>
-                                <td>{{ client.ClientPrenom}}</td>
-                            </tr>
-                                <th> E-mail</th>
-                                <td>{{ app.user.email }}</td>
-                            </tr>
-                            <tr>
-                                <th>Téléphone mobile</th>
-                                <td>{{ client.clientContact.contactTelmobile }}</td>
-                            </tr>
-                        </table>
-                        <div class="text-center">
-                            <a href="{{ path('update_acount', {user: app.user.id}) }}" class="">
-                                <button class="btn btn-outline-primary mt-lg-3">
-                                    Modifier mes infos
-                                </button>
-                            </a>
-                        </div>
-                        <div class="text-center">
-                            <a href="{{ path('update_password', {user: app.user.id}) }}" class="">
-                                <button class="btn btn-outline-danger mt-lg-3">
-                                    Changer de mot de passe
-                                </button>
-                            </a>
-                        </div>
-                    </div>
+    <div class="esp_clientBlock">
+        <div class="container">
+            {{ include('client/layout/menu.html.twig') }}
+            <h4 class="mt-5">Informations du compte</h3>
+            {% set client = app.user.client %}
+            <div class="demarche-container">
+                <table class="table table-striped custom-table">
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ client.ClientNom}}</td>
+                    </tr>
+                    <tr>
+                        <th>Prénom(s)</th>
+                        <td>{{ client.ClientPrenom}}</td>
+                    </tr>
+                        <th> E-mail</th>
+                        <td>{{ app.user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Téléphone mobile</th>
+                        <td>{{ client.clientContact.contactTelmobile }}</td>
+                    </tr>
+                </table>
+                <div class="text-center btn-compte">
+                    <a href="{{ path('update_acount', {user: app.user.id}) }}" class="">
+                        <button class="btn btn-blue">Modifier mes infos <i class="icomoon icon-modifier"></i></button>
+                    </a>
+                    <a href="{{ path('update_password', {user: app.user.id}) }}" class="">
+                        <button class="btn link-connexion-register">Changer de mot de passe</button>
+                    </a>
                 </div>
             </div>
         </div>

@@ -1,5 +1,75 @@
-.title-client {
-    font-size: 30px;
-    font-weight: 600;
-    letter-spacing: 2px;
+.esp_clientBlock {
+    padding: 60px 0;
+    background-color: #f1f1f1;
+    .title-client {
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: 2px;
+    }
+    .nav-client {
+        ul {
+            @extend %list-style;
+            background-color: $royal-blue;
+            li {
+                margin: 5px 0;
+                border-right: $bdr_solid_1 $pastel-blue;
+                height: 60px;
+                display: -ms-flexbox;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                @extend %linear_anim;
+                a {
+                    color: $pastel-blue;
+                    font-size: $size_18;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    .icon-home {
+                        font-size: 36px;
+                        margin-top: 5px;
+                        display: inline-block;
+                    }
+                }
+                &:hover {
+                    a {
+                        text-decoration: none;
+                        color: $white;
+                    }
+                }
+                &:last-child {
+                    border-right: none;
+                }
+            }
+        }
+    }
+    h4 {
+        border-bottom: $bdr_solid_1 $bbr_color;
+        padding-bottom: 15px;
+        margin-bottom: $size_24;
+    }
+    .demarche-container {
+        background-color: $white;
+        padding: 40px;
+        .btn-compte {
+            a {
+                vertical-align: middle;
+                margin: 0 $size_15;
+                .btn-blue {
+                    padding: 12px 35px !important;
+                    .icomoon {
+                        margin-left: 5px;
+                        font-size: 27px;
+                        vertical-align: middle;
+                        position: relative;
+                        top: -2px;
+                    }
+                }
+            } 
+        }
+        .form-control,
+        .select-styled {
+            border-radius: 5px !important;
+        }
+    }
 }
