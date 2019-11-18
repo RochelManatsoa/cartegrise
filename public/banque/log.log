@@ -1,0 +1,84 @@
+merchant_id : 014295303911111
+merchant_country : fr
+amount : 200
+transaction_id : 161229
+transmission_date: 20181204151229
+payment_means: VISA
+payment_time : 161304
+payment_date : 20181204
+response_code : 00
+payment_certificate : 1543936384
+authorisation_id : 936384
+currency_code : 978
+card_number : 4974.00
+cvv_flag: 1
+cvv_response_code: 4D
+bank_response_code: 00
+complementary_code: 
+complementary_info: 
+return_context: 
+caddie : 
+receipt_complement: 
+merchant_language: fr
+language: fr
+customer_id: 
+order_id: 
+customer_email: 
+customer_ip_address: 
+capture_day: 0
+capture_mode: AUTHOR_CAPTURE
+data: 
+order_validity: 02
+transaction_condition: SSL
+statement_reference: 
+card_validity: 202001
+score_value: 
+score_color: 
+score_info: 
+score_threshold: 
+score_profile: 
+threed_ls_code: 
+threed_relegation_code: 0
+-------------------------------------------
+merchant_id : 014295303911111
+merchant_country : fr
+amount : 200
+transaction_id : 165713
+transmission_date: 20181204155713
+payment_means: VISA
+payment_time : 165738
+payment_date : 20181204
+response_code : 00
+payment_certificate : 1543939058
+authorisation_id : 939058
+currency_code : 978
+card_number : 4974.00
+cvv_flag: 1
+cvv_response_code: 4D
+bank_response_code: 00
+complementary_code: 
+complementary_info: 
+return_context: 
+caddie : 
+receipt_complement: 
+merchant_language: fr
+language: fr
+customer_id: 
+order_id: 
+customer_email: joachim.peetroons@ynover.com
+customer_ip_address: 
+capture_day: 0
+capture_mode: AUTHOR_CAPTURE
+data: 
+order_validity: 02
+transaction_condition: SSL
+statement_reference: 
+card_validity: 202001
+score_value: 
+score_color: 
+score_info: 
+score_threshold: 
+score_profile: 
+threed_ls_code: 
+threed_relegation_code: 0
+-------------------------------------------
