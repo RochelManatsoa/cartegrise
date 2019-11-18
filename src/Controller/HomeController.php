@@ -38,6 +38,8 @@ class HomeController extends AbstractController
         MercureManager $mercureManager
         )
     {
+        $check = $this->checkIfRedirectLogin($request);
+        if($check){ return $check;}
 
         $type = $demarche->findAll();
         $commande = $commandeManager->createCommande();
@@ -312,6 +314,30 @@ class HomeController extends AbstractController
     public function doc_telechargeableAction()
     {
         return $this->render('home/doc_telechargeable.html.twig');
+    }
+
+    public function checkIfRedirectLogin(Request $request)
+    {
+        $refer = $request->headers->get('referer');
+        $findme = "/login";
+
+        if ($refer && strpos($refer, $findme)) {
+            $user = $this->getUser();
+            
+            if(0 < count($user->getClient()->getCommandes())){
+                $lastCommande = $user->getClient()->getCommandes()->last();
+                
+                if (
+                    null === $lastCommande->getTransaction() ||
+                    (null !== $lastCommande->getTransaction() &&
+                    $lastCommande->getTransaction()->getStatus != '00')
+                ) {
+                    return $this->redirectToRoute('commande_recap', ['commande' => $lastCommande->getId()]);
+                }
+            }
+        }
+
+        return false;
     }
 
 }

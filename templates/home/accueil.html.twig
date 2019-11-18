@@ -28,7 +28,7 @@
                                     {{ include('commande/_resum_taxe_car.html.twig') }}
                                 </div>
                                 <div class="col-12 mx-auto mt-5">
-                                    {% if app.user %}
+									{% if app.user %}
                                         {# <a class="col-12 btn btn-success" href="{{path('new_demande', {'commande': recap.id })}}">{{ 'home.continue'|trans}}</a> #}
                                         <a class="col-12 btn btn-success" href="{{path('payment_request', {'commande': recap.id })}}">{{ 'home.continue'|trans}}</a>
                                     {% else %}
