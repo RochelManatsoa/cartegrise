@@ -23,12 +23,13 @@
                                 <div class="d-flex align-items-center">
                                     <div class="avatar_"></div>
                                     <ul class="info-user">
+                                        <li><span class="usr_name">Bonjour { user.name }</li>
                                         <li>
                                             <a href="#" class="infos_">Mes infos</a>
                                             <div class="suMenu">
                                                 <ul class="sub-infos">
                                                     <li><a href=" {{ path('compte') }} ">Mon compte</a></li>
-                                                    <li><a href="">Demande en cours</a></li>
+                                                    <li><a href="{{ path('demande_history') }}">Demande en cours</a></li>
                                                     <li><a href="">Commandes effectuées</a></li>
                                                     <li><a class="logout-access" href="/logout">Se déconnecter</a></li>
                                                 </ul>
