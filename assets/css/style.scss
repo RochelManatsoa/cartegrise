@@ -959,239 +959,211 @@ header {
 	}
 }
 
+/**List grid**/
+.list-grid{
+  &__item{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-top: 2px solid transparent;
+    > div {
+      font-family: 'Open Sans';
+      color: $dark;
+      font-weight: 600;
+      flex: 1;
+      background: url('/../../asset/img/layer.jpg') repeat top left;
+      background-size: cover;
+      padding: 10px 20px;
+      border: 1px solid $light;
+      min-height: 50px;
+      +div{
+        font-weight: normal;
+        background: $white;
+        border: 1px solid $light-2;
+        position: relative;
+      }
+    }
+    &-button{
+      background: none;
+      >div{
+        background: none;
+        border: 0;
+        padding: 0;
+        flex: .5;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        #voir_plus_button, #more-details-tax{
+          width: 100%;
+          border-radius: 0;
+          background-color: $aqua-blue;
+          border-color: $aqua-blue;
+          font-family: 'Open Sans';
+          font-weight: 600;
+          font-size: 16px;
+          padding: 10px 20px;
+          text-align: left;
+          height: 100%;
+          text-transform: uppercase;
 
-//inscription block
-.register-block {
-	background-position: center;
-	background-attachment: fixed;
-	background-size: cover;
-	background-repeat: no-repeat;
-	padding: 80px 0 60px;
-	@include sm {
-		padding: $size_30 0;
-	}
-	.with-mp {
-		@include sm {
-			padding: 0 $size_15;
-		}
-	}
-	.fos_user_registration_register {
-		background-color: $white;
-		border-radius: 5px;
-		overflow: hidden;
-		.heading_form {
-			background-color: $royal-blue;
-			border-bottom: 2px solid $white;
-    		box-shadow: 0px $size_15 19px 5px rgba(0, 0, 0, 0.2);
-			color: $white;
-			margin-bottom: 40px;
-			padding: 37px 50px;
-			@include sm {
-				padding: $size_15;
-			}
-			h2 {
-				font-size: 22px;
-				line-height: 36px;
-				letter-spacing: .5px;
-				font-weight: 600;
-				@include sm {
-					font-size: 16px;
-    				line-height: $size_24;
-				}
-			}
-		}
-		.register-form--client--label {
-			display: inline-block;
-			vertical-align: middle;
-			width: 16.666667%;
-			@include sm {
-				display: $block;
-				width: 100%;
-			}
-		}
-		.select {
-			display: inline-block;
-			width: 83.333333%;
-			@include sm {
-				display: $block;
-				width: 100%;
-			}
-		}
-		.form-control {
-			border-radius: 5px;
-			text-transform: none !important;
-		}
-		.form-group {
-			>label {
-				text-transform: uppercase;
-				margin-bottom: 0;
-			}
-		}
-		.btn-calcuer {
-			width: $inherit;
-		}
-		.select-styled {
-			border-radius: 5px;
-    		overflow: hidden;
-		}
-	}
+        }
+      }
+    }
+    &.total-tax{
+      > div {
+        background: $royal-blue;
+        font-weight: 600 !important;
+        font-size: 16px;
+        color: $white;
+      }
+    }
+  }
+  &.details-taxe{
+    .list-grid{
+      &__item {
+        > div{
+          +div{
+            flex: .5;
+            text-align: right;
+          }
+        }
+        &-button {
+          >div{
+            flex: 1;
+            padding: 10px 20px;
+            #more-details-tax{
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
-//CCM
-.block_CCM {
-    background-image: url(/asset/img/page_bg.png);
-    background-position: 0 bottom;
-	background-repeat: no-repeat;
-	border-bottom: $bdr_solid_1 $bdr_color1;
-	padding: 80px 0 60px;
-	@include sm {
-		padding: 40px 0;
-	}
-	.home-secondview--titre {
-		font-size: $size_30;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		line-height: 48px;
-		margin-bottom: $size_30;
-		@include xs {
-			font-size: $size_18;
-			letter-spacing: 0;
-			line-height: $size_24;
-			margin-bottom: 10px;
-		}
-		br {
-			@include sm {
-				display: none;
-			}
-		}
-	}
-	.menu-commander {
-		position: relative;
-		top: 0;
-		height: 200px;
-		display: $block;
-		width: 100%;
-		background: $white;
-		border: $bdr_solid_1 $bdr_color1;
-		border-radius: 10px;
-		padding: $size_30;
-		margin: $size_15 0;
-		text-align: left;
-		line-height: $size_24;
-		transition: top ease .4s;
-		@include xs {
-			text-align: center;
-		}
-		&:focus {
-			box-shadow: none;
-			outline: none;
-		}
-		&:hover {
-			top: -10px;
-			box-shadow: 0 $size_15 $size_30 rgba(0,0,0,.1);
-			border-radius: 10px;
-			background: url(/asset/img/bg_text_CCM.png) -10% -16% $white no-repeat;
-			background-size: 85%;
-			.menu-commander--button---icon {
-				color: $white;
-				.ccm-icon {
-					&.titulaire {
-						background-image: url(/asset/img/titulaire_hover.png);
-					}
-					&.immatricul {
-						background-image: url(/asset/img/immatriculation_hover.png);
-					}
-					&.domicile {
-						background-image: url(/asset/img/domicile_hover.png);
-					}
-					&.duplicata {
-						background-image: url(/asset/img/duplicata_hover.png);
-					}
-					&.status_m {
-						background-image: url(/asset/img/floder_hover.png);
-					}
-					&.justificatif_d {
-						background-image: url(/asset/img/justificatif_hover.png);
-					}
-					&.mise_cass {
-						background-image: url(/asset/img/corbeille_hover.png);
-					}
-					&.lire_cG {
-						background-image: url(/asset/img/lire_hover.png);
-					}
-				}
-			}
-			@include md {
-				display: none;
-			}
-		}
-	}
-	.comment-ca-marche-texte {
-		margin-bottom: $size_30;
-		.menu-commander--button---text {
-			font-weight: 600;
-			display: $block;
-			text-transform: uppercase;
-			border-top: $bdr_solid_1 $bdr_color1;
-			margin-top: $size_20;
-			padding-top: $size_20;
-			@include md {
-				font-size: 13px;
-			}
-		}
-		.menu-commander--button---icon {
-			transition: .3s;
-			.ccm-icon {
-				width: 80px;
-				height: 49px;
-				display: inline-block;
-				background-repeat: no-repeat;
-				background-position: center;
-				background-size: contain;
-				&.titulaire {
-					background-image: url(/asset/img/titulaire.png);
-				}
-				&.immatricul {
-					background-image: url(/asset/img/immatriculation.png);
-				}
-				&.domicile {
-					background-image: url(/asset/img/domicile.png);
-				}
-				&.duplicata {
-					background-image: url(/asset/img/duplicata.png);
-				}
-				&.status_m {
-					background-image: url(/asset/img/floder.png);
-				}
-				&.justificatif_d {
-					background-image: url(/asset/img/justificatif.png);
-				}
-				&.mise_cass {
-					background-image: url(/asset/img/corbeille.png);
-				}
-				&.lire_cG {
-					background-image: url(/asset/img/lire.png);
-				}
-			}
-		}
-	}
-	.comment-ca-marche-texte-p {
-		ul {
-			@extend %list-style;
-			padding-left: $size_15;
-			> li {
-				position: relative;
-				padding-left: 35px;
-				margin: $size_20 0;
-				&:before {
-					content: "\e909";
-					font-family: "icomoon";
-					left: 0;
-					position: absolute;
-					color: $royal-blue;
-				}
-			}
-		}
-	}
+/**Resultat estimation**/
+.page-resultat-estimation{
+  header{
+    background-image: none!important;
+    background-color: $royal-blue;
+    height: 100%;
+    min-height: 370px;
+  }
+  .sectionTop_{
+    background-color: $light-3;
+  }
+  .sectionbot_, .detail_carteG{
+    display: none !important;
+  }
 }
+.resultat-estimation{
+  h2 {
+    text-transform: uppercase;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 24px;
+  }
+  .img-thumbnail{
+    max-width: 148px;
+  }
+}
+
+.recap-demande {
+  font-family: 'Open Sans';
+  font-weight: normal;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-bottom: 1px solid $white;
+  padding-bottom: 40px;
+  &-wrapper{
+    > div{
+      max-width: 100%;
+      flex: 1;
+    }
+  }
+  h6 {
+    font-family: 'Open Sans';
+    font-weight: 600;
+  }
+  > div{
+    padding: 0 5% 0 0;
+    &:not(:first-child) {
+      padding: 0 5%;
+    }
+    &:not(:last-child){
+      border-right: 1px solid $light-2;
+
+    }
+  }
+}
+.btn-validate-command{
+  padding: 20px 42px !important;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  float: right;
+  i{
+    margin-left: 10px;
+    font-size: 21px;
+  }
+}
+
+/**Modal**/
+
+.modal {
+  z-index: 999999 !important;
+  background: rgba(0,0,0,.5);
+  h5{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  &-header{
+    background: $dark;
+  }
+  .link-connexion{
+    padding: 13px 42px !important;
+    letter-spacing: 3px;
+    margin-right: 15px;
+    min-width: 270px;
+    max-width: 350px;
+    i{
+      margin-left: 10px;
+      font-size: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: $screen-sm-max) {
+  .resultat-estimation{
+    .recap-demande{
+      display: inline-block;
+      padding: 0;
+      &-wrapper {
+        flex-direction: column;
+        +div{
+          > div{
+            display: inline-block;
+            > div {
+              max-width: 100%;
+              padding: 0;
+              margin-bottom: 50px;
+            }
+          }
+        }
+      }
+      > div {
+        max-width: 100%;
+        margin-bottom: 20px;
+        border-right: 0;
+        padding: 0 0 20px 0;
+        &:not(:last-child){
+          border-bottom: 1px solid #838383;
+        }
+      }
+    }
+  }
+
+}
+

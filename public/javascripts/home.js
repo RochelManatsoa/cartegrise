@@ -16,7 +16,8 @@ function slugify(string) {
 $(document).ready(function () {
     $(".Navigation").sticky({ topSpacing: 0 });
 
-    $('#voir_plus_button').on('click', function () { $('.voir_plus_content').toggle() });
+    $('#voir_plus_button').on('click', function () { $('.voir_plus_content').toggle();$(this).hide(); });
+    $('#more-details-tax').on('click', function () { $(this).parents('.list-grid').find('.voir_plus_content').toggle(); $(this).hide();});
     $('.icon-mobile-menu').click(function(){
         $('#sidebar-container').toggleClass('show');
         $('.new-header').toggleClass('show');
