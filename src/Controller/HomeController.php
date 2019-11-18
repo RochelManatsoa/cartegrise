@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit};
+use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit, User};
 use App\Form\{DemandeType, CommandeType, ContactUsType, FormulaireType};
 use App\Repository\{CommandeRepository, TaxesRepository, TarifsPrestationsRepository, DemandeRepository, TypeDemandeRepository};
 use Doctrine\Common\Persistence\ObjectManager;
@@ -323,16 +323,17 @@ class HomeController extends AbstractController
 
         if ($refer && strpos($refer, $findme)) {
             $user = $this->getUser();
-            
-            if(0 < count($user->getClient()->getCommandes())){
-                $lastCommande = $user->getClient()->getCommandes()->last();
-                
-                if (
-                    null === $lastCommande->getTransaction() ||
-                    (null !== $lastCommande->getTransaction() &&
-                    $lastCommande->getTransaction()->getStatus != '00')
-                ) {
-                    return $this->redirectToRoute('commande_recap', ['commande' => $lastCommande->getId()]);
+            if ($user instanceof User){
+                if(0 < count($user->getClient()->getCommandes())){
+                    $lastCommande = $user->getClient()->getCommandes()->last();
+                    
+                    if (
+                        null === $lastCommande->getTransaction() ||
+                        (null !== $lastCommande->getTransaction() &&
+                        $lastCommande->getTransaction()->getStatus != '00')
+                    ) {
+                        return $this->redirectToRoute('commande_recap', ['commande' => $lastCommande->getId()]);
+                    }
                 }
             }
         }
