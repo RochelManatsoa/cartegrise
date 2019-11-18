@@ -56,22 +56,22 @@
 			<div class="container">
 				{% block flash %}
 				{% for flash_message in app.session.flashbag.get('success') %}
-					<div class="container-fluid alert alert-success text-center" role="alert">
+					<div class="container-fluid alert alert-success text-center mt-3" role="alert">
 						{{ flash_message }}
 					</div>
 				{% endfor %}
 				{% for flash_message in app.session.flashbag.get('info') %}
-					<div class="container-fluid alert alert-info text-center" role="alert">
+					<div class="container-fluid alert alert-info text-center mt-3" role="alert">
 						{{ flash_message }}
 					</div>
 				{% endfor %}
 				{% for flash_message in app.session.flashbag.get('warning') %}
-					<div class="container-fluid alert alert-warning text-center" role="alert">
+					<div class="container-fluid alert alert-warning text-center mt-3" role="alert">
 						{{ flash_message }}
 					</div>
 				{% endfor %}
 				{% for flash_message in app.session.flashbag.get('danger') %}
-					<div class="container-fluid alert alert-danger text-center" role="alert">
+					<div class="container-fluid alert alert-danger text-center mt-3" role="alert">
 						{{ flash_message }}
 					</div>
 				{% endfor %}
