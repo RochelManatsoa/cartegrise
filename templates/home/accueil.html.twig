@@ -16,83 +16,90 @@
 		{% if commande is defined %}
 			{% if taxe is defined %}
 				{% if recap is defined %}
-					<div class="col-md-12 col-lg-12 resultat-estimation mx-auto">
-						<div class="row recap-demande-wrapper  pt-5 pb-5">
-							<img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}" class="rounded col-2 mx-auto d-block img-thumbnail mb-3" style="height:100px;" class="img-thumbnail src_img" alt="{{commande.carInfo.marque}}">
-							<div class="col-10 mx-auto">
-                                <h2 class="col-12 mb-5 row mx-0">{{ 'home.recapDemande'|trans}}</h2>
-                                {{ include('commande/_resum_recap_demande.html.twig') }}
-							</div>
-						</div>
-						<div class="col-md-12 col-lg-12 mx-auto d-flex my-flex-container pb-5">
-                            <div class="col-12 row">
-                                <div class="col-6 mx-auto">
-                                    <h2 class="mb-4">{{ 'home.carSkills'|trans}}</h2>
-                                    {{ include('commande/_resum_caracteristics_car.html.twig') }}
-                                </div>
-                                <div class="col-6 mx-auto">
-                                    <h2 class="mb-4">{{ 'home.detailTaxes'|trans}}</h2>
-                                    {{ include('commande/_resum_taxe_car.html.twig') }}
-                                </div>
-                                <div class="col-12 mx-auto mt-5">
-									{% if app.user %}
-                                        {# <a class="col-12 btn btn-success" href="{{path('new_demande', {'commande': recap.id })}}">{{ 'home.continue'|trans}}</a> #}
-                                        <a class="col-12 btn btn-success" href="{{path('payment_request', {'commande': recap.id })}}">{{ 'home.continue'|trans}}</a>
-                                    {% else %}
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn-validate-command d-flex align-items-center justify-content-between btn btn-blue" data-toggle="modal" data-target="#exampleModalCenter">
-                                            {{ 'home.validateComand'|trans}}<i class="icon-right-arrow"></i>
-                                        </button>
+    <div class="container">
+        <div class="row">
 
-								<!-- Modal -->
-								<div class="modal fade mx-auto custom-mobile-modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-									<div class="modal-dialog modal-dialog-centered" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-											<h3 class="modal-title" id="exampleModalCenterTitle">Connectez-vous <span>pour valider et suivre votre commande</span></h3>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<i class="icomoon icon-close"></i>
-											</button>
-											</div>
-											<div class="modal-body">
-												<div class="row">
-													<div class="col-10 col-lg-10 mx-auto mt-4">
-														{# <div class="col-12 mx-auto resultat-estimation-p mt-5">
-															<p class="text-center font-24">
-																{{ 'home.createAcountDescription'|trans}}
-															</p>
-														</div> #}
-														<div class="custom-container-flex">
-															<p class="se-connecter">{{ 'home.loginConnnex'|trans}}</p>
-															{# {{ include('bundles/FOSUserBundle/Security/login_content.html.twig') }} #}
-															{# <p class="text-center">{{ 'home.loginDescription'|trans}}</p>
-															<a class="link-connexion" href="{{ path('fos_user_security_login') }}">
-																{{ 'home.login'|trans}}
-															</a> #}
-														</div>
-														<div class="custom-container-flex bdr-sep text-center">
-															<p class="mb-1">{{ 'home.noAcount'|trans}}</p>
-															<a class="btn link-connexion link-connexion-register" href="{{ path('fos_user_registration_register') }}">
-																{{ 'home.createAcountButton'|trans}} <i class="icomoon icon-modifier"></i>
-															</a>
-														</div>
-														{# <div class="custom-container-flex">
-															<p class="text-center">{{ 'home.franceConnecteDescription'|trans}}</p>
-															<a class="link-connexion no-border" href="{{ path('france_connect_login') }}" class="btnLink">
-																<img class="img-thumbnail col-12 rounded mx-auto d-block tooltiped" style="max-width: 100%;height:auto;" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
-															</a>
-														</div>											 #}
-													</div>
-												</div>
-											</div>
-											{# <div class="modal-footer"></div> #}
-										</div>
-									</div>
-								</div>	
-								{% endif %}
-							</div>
-						</div>
-					</div>
+            <div class="col-md-12 col-lg-12 resultat-estimation mx-auto">
+                <div class="row recap-demande-wrapper  pt-5 pb-5">
+                    <img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}" class="rounded col-2 mx-auto d-block img-thumbnail mb-3 src_img" style="height:100px;" alt="{{commande.carInfo.marque}}">
+                    <div class="col-10 mx-auto">
+                        <h2 class="col-12 mb-5 row mx-0">{{ 'home.recapDemande'|trans}}</h2>
+                        {{ include('commande/_resum_recap_demande.html.twig') }}
+                    </div>
+                </div>
+                <div class="col-md-12 px-0 col-lg-12 mx-auto d-flex my-flex-container pb-5">
+                    <div class="col-12 px-0 row">
+                        <div class="col-6 mx-auto">
+                            <h2 class="mb-4">{{ 'home.carSkills'|trans}}</h2>
+                            {{ include('commande/_resum_caracteristics_car.html.twig') }}
+                        </div>
+                        <div class="col-6 mx-auto">
+                            <h2 class="mb-4">{{ 'home.detailTaxes'|trans}}</h2>
+                            {{ include('commande/_resum_taxe_car.html.twig') }}
+                        </div>
+                        <div class="col-12 mx-auto mt-5">
+                            {% if app.user %}
+                                {# <a class="col-12 btn btn-success" href="{{path('new_demande', {'commande': recap.id })}}">{{ 'home.continue'|trans}}</a> #}
+                                <a class="col-12 btn btn-success" href="{{path('payment_request', {'commande': recap.id })}}">{{ 'home.continue'|trans}}</a>
+                            {% else %}
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn-validate-command d-flex align-items-center justify-content-between btn btn-blue" data-toggle="modal" data-target="#exampleModalCenter">
+                                    {{ 'home.validateComand'|trans}}<i class="icon-right-arrow"></i>
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade mx-auto custom-mobile-modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title" id="exampleModalCenterTitle">Connectez-vous <span>pour valider et suivre votre commande</span></h3>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <i class="icomoon icon-close"></i>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-10 col-lg-10 mx-auto mt-4">
+                                                        {# <div class="col-12 mx-auto resultat-estimation-p mt-5">
+                                                            <p class="text-center font-24">
+                                                                {{ 'home.createAcountDescription'|trans}}
+                                                            </p>
+                                                        </div> #}
+                                                        <div class="custom-container-flex">
+                                                            <p class="se-connecter">{{ 'home.loginConnnex'|trans}}</p>
+                                                            {# {{ include('bundles/FOSUserBundle/Security/login_content.html.twig') }} #}
+                                                            {# <p class="text-center">{{ 'home.loginDescription'|trans}}</p>
+                                                            <a class="link-connexion" href="{{ path('fos_user_security_login') }}">
+                                                                {{ 'home.login'|trans}}
+                                                            </a> #}
+                                                        </div>
+                                                        <div class="custom-container-flex bdr-sep text-center">
+                                                            <p class="mb-1">{{ 'home.noAcount'|trans}}</p>
+                                                            <a class="btn link-connexion link-connexion-register" href="{{ path('fos_user_registration_register') }}">
+                                                                {{ 'home.createAcountButton'|trans}} <i class="icomoon icon-modifier"></i>
+                                                            </a>
+                                                        </div>
+                                                        {# <div class="custom-container-flex">
+                                                            <p class="text-center">{{ 'home.franceConnecteDescription'|trans}}</p>
+                                                            <a class="link-connexion no-border" href="{{ path('france_connect_login') }}" class="btnLink">
+                                                                <img class="img-thumbnail col-12 rounded mx-auto d-block tooltiped" style="max-width: 100%;height:auto;" src="{{ asset('bundles/franceconnect/images/FCboutons-10.png') }}" alt="FranceConnect button"/>
+                                                            </a>
+                                                        </div>											 #}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {# <div class="modal-footer"></div> #}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
 				{% endif %}
 			{% endif %}
 		{% else %}
