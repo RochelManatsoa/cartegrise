@@ -23,6 +23,8 @@
 								{% endif %}
 								{% if csrf_token is defined %}
 									<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+									{% else %}
+									<input type="hidden" name="_csrf_token" value="{{user_csrf}}"/>
 								{% endif %}
 								{# <div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div> #}
 								{# <div class="login-error">E-mai​l : </div> #}

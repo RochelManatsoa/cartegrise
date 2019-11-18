@@ -14,10 +14,17 @@ use App\Services\Tms\TmsClient;
 use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager, DivnInitManager, ContactUsManager};
 use App\Form\DivnInitType;
 use App\Manager\Mercure\MercureManager;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 
 class HomeController extends AbstractController
 {
+    public function __construct(
+        CsrfTokenManagerInterface $tokenManager = null
+    )
+    {
+        $this->tokenManager = $tokenManager;
+    }
     /**
      * @Route("/", name="Accueil")
      * @Route("/", name="home")
@@ -150,6 +157,7 @@ class HomeController extends AbstractController
         $param = [
             'commande' => $commande, 'recap' => $commande,
             'taxe' => $taxe,        'database' => true,   'majoration' => $majoration,
+            'user_csrf' => $this->getTokenAction()
         ];
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             $param = array_merge([
@@ -318,10 +326,6 @@ class HomeController extends AbstractController
 
     public function checkIfRedirectLogin(Request $request)
     {
-        $refer = $request->headers->get('referer');
-        $findme = "/login";
-
-        if ($refer && strpos($refer, $findme)) {
             $user = $this->getUser();
             if ($user instanceof User){
                 if(0 < count($user->getClient()->getCommandes())){
@@ -336,9 +340,16 @@ class HomeController extends AbstractController
                     }
                 }
             }
-        }
 
         return false;
+    }
+
+    public function getTokenAction()  
+    {
+        $csrf = $this->tokenManager
+            ? $this->tokenManager->getToken('authenticate')->getValue()
+            : null;
+        return $csrf;
     }
 
 }

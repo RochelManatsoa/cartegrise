@@ -19,7 +19,14 @@ class PaiementType extends AbstractType
                 'label' => 'label.termsAccepted',
                 'constraints' => new IsTrue(),
             ])
-            ->add('enregistrer', SubmitType::class, ['label' => 'label.paid'])
+            ->add('enregistrer', SubmitType::class, 
+            [
+                'label' => 'label.paid',
+                'attr' => [
+                    'class' => 'btn-validate-command d-flex align-items-center justify-content-between btn btn-blue'
+                ]
+            ]
+            )
         ;
     }
 
