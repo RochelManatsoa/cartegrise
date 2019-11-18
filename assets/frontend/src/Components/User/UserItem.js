@@ -21,6 +21,7 @@ class UserItem extends React.Component {
         this.getUsers = this.getUsers.bind(this);
         this.synchro = this.synchro.bind(this);
         this.updateCommande = this.updateCommande.bind(this);
+        this.updateDemande = this.updateDemande.bind(this);
         
     }
 
@@ -63,9 +64,7 @@ class UserItem extends React.Component {
                 });
             }); 
     }
-    componentDidMount(){
-        this.getUsers();
-        this.updateCommande();
+    updateDemande(){
         axios({
             method: 'get',
             url: `${param.ENTRYPOINT}/demandes`,
@@ -74,11 +73,17 @@ class UserItem extends React.Component {
                 'accept': 'application/json'
             }
         })
-        .then(demandeEntries => {
-            this.setState({
-                demandeEntries: demandeEntries.data
+            .then(demandeEntries => {
+                this.setState({
+                    demandeEntries: demandeEntries.data
+                });
             });
-        });
+    }
+    componentDidMount(){
+        this.getUsers();
+        this.updateCommande();
+        this.updateDemande();
+        
         axios({
             method: 'get',
             url: `${param.ENTRYPOINT}/transactions`,
@@ -106,13 +111,29 @@ class UserItem extends React.Component {
         eventSource.onmessage = event => {
             let res = JSON.parse(event.data);
             if (res.status === "success") {
-                if (res.item === "commande") {
-                    let message = 'une Estimation avec info : ' +
-                    ' / Immatriculation ==> ' + res.commande.immat + 
-                    ' / departement ==> ' + res.commande.department +
-                    ' / demarche ==> ' + res.commande.demarche ;
-                    NotificationManager.info(message, "Nouvelle Estimation", 7000);
-                    this.updateCommande();
+                if (res.item != "") {
+                    let message = '';
+                    let withImmat = ['commande', 'demande'];
+                    if (withImmat.includes(res.item)) {
+                        message += 'une Nouvelle ' + res.item + ' avec info : ' +
+                            ' / Immatriculation ==> ' + res.data.immat +
+                            ' / departement ==> ' + res.data.department +
+                            ' / demarche ==> ' + res.data.demarche;
+                    } else {
+                        message = res.message;
+                    }
+                    NotificationManager.info(message, "Nouvelle "+res.item+"", 7000);
+                    switch(res.item){
+                        case 'commande':
+                            this.updateCommande();
+                        case 'demande':
+                            this.updateDemande();
+                        case 'utilisateur':
+                            this.getUsers();
+                        default:
+                            return;
+
+                    }
                     
                 } else {
                     NotificationManager.info(res.message);
