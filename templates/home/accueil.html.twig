@@ -99,7 +99,39 @@
             </div>
     </div>
 
-
+								<!-- Modal -->
+								<div class="modal fade mx-auto custom-mobile-modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+											<h3 class="modal-title" id="exampleModalCenterTitle">Connectez-vous <span>pour valider et suivre votre commande</span></h3>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<i class="icomoon icon-close"></i>
+											</button>
+											</div>
+											<div class="modal-body">
+												<div class="row">
+													<div class="col-10 col-lg-10 mx-auto mt-4">
+														<div class="custom-container-flex">
+															<p class="se-connecter text-center">{{ 'home.loginConnnex'|trans}}</p>
+															{{ include('bundles/FOSUserBundle/Security/login_content.html.twig') }}
+														</div>
+														<div class="custom-container-flex bdr-sep text-center">
+															<p class="mb-1">{{ 'home.noAcount'|trans}}</p>
+															<a class="btn link-connexion link-connexion-register" href="{{ path('fos_user_registration_register') }}">
+																{{ 'home.createAcountButton'|trans}} <i class="icomoon icon-modifier"></i>
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>	
+								{% endif %}
+							</div>
+						</div>
+					</div>
 				{% endif %}
 			{% endif %}
 		{% else %}

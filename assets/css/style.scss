@@ -1209,14 +1209,14 @@ header {
 
 .modal {
   z-index: 999999 !important;
-  background: rgba(0,0,0,.5);
+  background: $transBlue;
   h5{
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 20px;
   }
   &-header{
-    background: $dark;
+    background: $transBlue;
   }
   .link-connexion{
     padding: 13px 42px !important;
