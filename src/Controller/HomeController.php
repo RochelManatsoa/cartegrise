@@ -334,7 +334,7 @@ class HomeController extends AbstractController
                     if (
                         null === $lastCommande->getTransaction() ||
                         (null !== $lastCommande->getTransaction() &&
-                        $lastCommande->getTransaction()->getStatus != '00')
+                        $lastCommande->getTransaction()->getStatus() != '00')
                     ) {
                         return $this->redirectToRoute('commande_recap', ['commande' => $lastCommande->getId()]);
                     }
