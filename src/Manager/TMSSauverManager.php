@@ -255,7 +255,7 @@ class TMSSauverManager
                         "DateNaissance" => $ctvo->getAcquerreur()->getDateN()->format('Y-m-d'),
                         "LieuNaissance" => $ctvo->getAcquerreur()->getLieuN(),
                         "DepNaissance" => $ctvo->getAcquerreur()->getDepartementN(),
-                        "PaysNaissance" => $ctvo->getAcquerreur()->getPaysN()!== null ? $adresse->getPays() : "France",
+                        "PaysNaissance" => $ctvo->getAcquerreur()->getPaysN()!== null ? $ctvo->getAcquerreur()->getPaysN() : "France",
                     ],
                     "Adresse" => [
                         "Numero" => $adresse->getNumero(),
