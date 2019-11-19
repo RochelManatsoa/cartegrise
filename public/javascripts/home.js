@@ -49,15 +49,22 @@ function valueTreatement(value) {
 
 $('#formulaire_demarche').on('change', function (e) {
     var Value = $(".demarche").find(":selected").val();
-    if (Value !== "3") {
+    if (Value === "3") {
+        $(e.target).parent().siblings().hide();
+        $("div#formVN").show();
+        $("div#formDC").hide();
+        $(this).parents("form").hide();
+    } else if (Value === "5"){
+        $(e.target).parent().siblings().hide();
+        $("div#formDC").show();
+        $("div#formVN").hide();
+        $(this).parents("form").hide();
+    } else {
         $(e.target).parent().siblings().show();
         document.getElementById("calcul").innerHTML = '<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>';
-        $(this).parents("form").next("div#formVN").hide();
+        $("div#formVN").hide();
+        $("div#formDC").hide();
         $(this).parents("form").show();
-    } else {
-        $(e.target).parent().siblings().hide();
-        $(this).parents("form").next("div#formVN").show();
-        $(this).parents("form").hide();
     }
 });
 $(function() {
