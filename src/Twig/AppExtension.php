@@ -83,7 +83,8 @@ class AppExtension extends AbstractExtension
             new TwigFunction('totalPrestationMajorationTTC', [$this, 'totalPrestationMajorationTTC']),
             new TwigFunction('displayAccepted', [$this, 'displayAccepted']),
             new TwigFunction('decodeBody', [$this, 'decodeBody']),
-            new TwigFunction('findNomPrenomOfTitulaire', [$this, 'findNomPrenomOfTitulaire']) 
+            new TwigFunction('findNomPrenomOfTitulaire', [$this, 'findNomPrenomOfTitulaire']),
+            new TwigFunction('displayServiceClient', [$this, 'displayServiceClient']) 
         ];
     }
 
@@ -510,6 +511,11 @@ class AppExtension extends AbstractExtension
     public function findNomPrenomOfTitulaire(Demande $demande, $nomPrenom)
     {
         return $this->demandeManager->findValueNomPrenomOfTitulaire($demande, $nomPrenom);
+    }
+
+    public function displayServiceClient()
+    {
+        return $this->demandeManager->checkServiceClient();
     }
 
 }
