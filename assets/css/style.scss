@@ -1677,6 +1677,9 @@ header {
   &.table{
     border-top: 1px solid #ccc;
     margin-top: 2rem;
+    &-striped tbody tr:nth-of-type(odd) {
+      background-color: transparent;
+    }
     tr{
       border-bottom: 5px solid #f1f1f1;
       td, th{
@@ -1711,7 +1714,9 @@ header {
   }
 }
 
-
+.no-bg{
+  background: none! important;
+}
 .btn.btn-aqua-blue {
   font-family: "Ubuntu";
   font-size: 15px;
