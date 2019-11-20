@@ -24,30 +24,28 @@
                             <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#{{email.id}}">
                                 Ouvrir le mail
                             </button>
+                            <!-- Button trigger modal -->
+                            <!-- Modal -->
+                            <div class="modal fade" id="{{email.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">
+                                            Objet : {{ email.subject }}<br>
+                                            Date : {{ email.createdAt | date('d M Y')}}
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ decodeBody(email) | raw }}
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
-                        <!-- Button trigger modal -->
-                        
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="{{email.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">
-                                    Objet : {{ email.subject }}<br>
-                                    Date : {{ email.createdAt | date('d M Y')}}
-                                </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                {{ decodeBody(email) | raw }}
-                            </div>
-                            </div>
-                        </div>
-                        </div>
                     {% endfor %}
                 </table>
             </div>
