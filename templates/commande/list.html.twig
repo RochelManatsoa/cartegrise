@@ -3,54 +3,55 @@
 {% from 'shared/macro.html.twig' import delete_form %}
 
 {% block page_content %}
-    <div class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
-        <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container w-100 mx-3 mx-lg-4">
-            <div class="col-12">
-                <div class="px-2">
-                    <br>
-                    <a href="{{ path('home') }}" class="">
-                        <button class="btn btn-primary">
-                            Nouvelle commande
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xs-12 col-lg-12 comment-ca-marche-texte">
+                    <a href="{{ path('home') }}" class="no-underline">
+                        <button class="btn btn-aqua-blue mb-4">
+                            Nouvelle commande<i class="icon-add"></i>
                         </button>
                     </a>
-                    <hr>
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered">
+                        <table class="table table-striped custom-table">
                             <thead>
-                                <tr>
-                                    <th scope="col">Demande</th>
-                                    <th scope="col">Département</th>
-                                    <th scope="col">Immatriculation</th>
-                                    <th scope="col">Statut</th>
-                                    <th scope="col">Action</th>
-                                </tr>
+                            <tr>
+                                <th scope="col">Demande</th>
+                                <th scope="col">Département</th>
+                                <th scope="col">Immatriculation</th>
+                                <th scope="col">Statut</th>
+                                <th scope="col">Action</th>
+                            </tr>
                             </thead>
                             <tbody>
                             {% for commande in commandes %}
                                 {% if statusOfCommande(commande, "style") == "danger" %}
-                                <tr>
-                                    <td>{{ commande.demarche.nom }}</td>
-                                    <td class="text-center">{{ commande.codePostal | displayValue}}</td>
-                                    <td class="text-center">{{ commande.immatriculation | displayValue}}</td>
-                                    <td>
-                                        <span class="badge badge-{{ statusOfCommande(commande, "style") }}">
+                                    <tr>
+                                        <td>{{ commande.demarche.nom }}</td>
+                                        <td class="text-center">{{ commande.codePostal | displayValue}}</td>
+                                        <td class="text-center">{{ commande.immatriculation | displayValue}}</td>
+                                        <td>
+                                        <span id="badge" class="badge badge-{{ statusOfCommande(commande, "style") }}">
                                             {{ statusOfCommande(commande, "text") }}
                                         </span>
-                                    </td>
-                                    <td class="pb-2">
-                                        {% if is_granted(constant('\\App\\Security\\Voter\\CommandeVoter::PASSER'), commande) %}
-                                            <a href="{{path('commande_recap', {'commande': commande.id })}}">
-                                                <button type="button" class="btn btn-primary btn-sm mb-1">Résumer</button>
-                                            </a>
-                                            <button data-url="{{ path('commande_annuler', {id: commande.id, _token: csrf_token('delete' ~ commande.id)}) }}"
-                                                type="button" class="cancel-btn btn btn-danger btn-sm mb-1">annuler</button>
-                                        {% else %}
-                                            <a href="{{path('demande_recap', {'demande': commande.demande.id })}}">
-                                                <button type="button" class="btn btn-primary btn-sm mb-1">Récapitulatif de la demande</button>
-                                            </a>
-                                        {% endif %}
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            <div class="flex flex-column content-actions">
+                                                {% if is_granted(constant('\\App\\Security\\Voter\\CommandeVoter::PASSER'), commande) %}
+                                                    <a href="{{path('commande_recap', {'commande': commande.id })}}">
+                                                        <button type="button" class="btn resume-btn">Résumer</button>
+                                                    </a>
+                                                    <button data-url="{{ path('commande_annuler', {id: commande.id, _token: csrf_token('delete' ~ commande.id)}) }}"
+                                                            type="button" class="btn cancel-btn">annuler</button>
+                                                {% else %}
+                                                    <a href="{{path('demande_recap', {'demande': commande.demande.id })}}">
+                                                        <button type="button" class="btn resume-btn">Récapitulatif de la demande</button>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+
+                                        </td>
+                                    </tr>
                                 {% endif %}
                             {% else %}
                                 <tr><td colspan="5">Aucune commande trouvée</td></tr>
