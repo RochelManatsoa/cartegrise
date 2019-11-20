@@ -211,3 +211,8 @@ $('.nav-list').on('click', '.nav-click', function(){
   $(this).children('.icon-arrow-down').toggleClass('nav-rotate');
   
 });
+
+$('#usrMobile').click(function(){
+    this.classList.toggle('active');
+    $('.sub-infos').toggle();
+});

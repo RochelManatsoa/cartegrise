@@ -1,51 +1,58 @@
-
-<h2 class="col-12 font-24">Caractéristiques du véhicule</h2>
-<table class="table table-striped">
-    <tr>
-        <th>Marque</th>
-        <td>{{commande.carInfo.marque}}</td>
-    </tr>
-    <tr>
-        <th>Modèle</th>
-        <td>{{commande.carInfo.model}}</td>
-    </tr>
-    <tr>
-        <th>VIN</th>
-        <td>{{ commande.taxes.VIN }}</td>
-    </tr>
-    <tr>
-        <th>CO2</th>
-        <td>{{ commande.taxes.CO2 }}</td>
-    </tr>
-    <tr>
-        <th>Genre</th>
-        <td>{{ commande.taxes.Genre }}</td>
-    </tr>
-    <tr>
-        <th>PTAC</th>
-        <td>{{ commande.taxes.PTAC }}</td>
-    </tr>
-    <tr>
-        <th>Energie</th>
-        <td>{{ commande.taxes.Energie }}</td>
-    </tr>
-    <tr>
-        <th>Date de mise en ciruclation</th>
-        <td>{{ commande.taxes.DateMEC | date('Y-m-d') }}</td>
-    </tr>
-</table>
-<h2 class="col-12">Récapitulatif de la demande</h2>
-<table class="table table-striped">
-    <tr>
-        <th>Demarche</th>
-        <td>{{commande.demarche}}</td>
-    </tr>
-    <tr>
-        <th>Immatriculation</th>
-        <td>{{commande.immatriculation}}</td>
-    </tr>
-    <tr>
-        <th>Département</th>
-        <td>{{commande.codePostal}}</td>
-    </tr>
-</table>
+<div class="row">
+    <div class="col-md-5">
+        <h2>Caractéristiques du véhicule</h2>
+        <div class="list-grid">
+            <div class="list-grid__item">
+                <div >Marque</div>
+                <div>{{commande.carInfo.marque}}</div>
+            </div>
+            <div  class="list-grid__item">
+                <div>Modèle</div>
+                <div>{{commande.carInfo.model}}</div>
+            </div>
+            <div class="list-grid__item">
+                <div>VIN</div>
+                <div>{{ commande.taxes.VIN }}</div>
+            </div>
+            <div class="list-grid__item">
+                <div>CO2</div>
+                <div>{{ commande.taxes.CO2 }}</div>
+            </div>
+            <div class="list-grid__item">
+                <div>Genre</div>
+                <div>{{ commande.taxes.Genre }}</div>
+            </div>
+            <div class="list-grid__item">
+                <td></td>
+                <div>PTAC</div>
+                <div>{{ commande.taxes.PTAC }}</div>
+            </div>
+            <div class="list-grid__item">
+                <div>Energie</div>
+                <div>{{ commande.taxes.Energie }}</div>
+            </div>
+            <div class="list-grid__item">
+                <div>Date de mise en ciruclation</div>
+                <div>{{ commande.taxes.DateMEC | date('Y-m-d') }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+        <h2>Récapitulatif de la demande</h2>
+        <div class="list-grid">
+            <div class="list-grid__item">
+                <div>Demarche</div>
+                <div>{{commande.demarche}}</div>
+            </div>
+            <div  class="list-grid__item">
+                <div>Immatriculation</div>
+                <div>{{commande.immatriculation}}</div>
+            </div>
+            <div class="list-grid__item">
+                <div>Département</div>
+                <div>{{commande.codePostal}}</div>
+            </div>
+        </div>
+    </div>
+</div>

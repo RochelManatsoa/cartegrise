@@ -133,13 +133,13 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                         };
 
                         if (typeNewTitulaire == 'mor' && 0 <= $.inArray(name, societyNewTitulaireArray)) {
-                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + + value + "</div>");
                         } else if (typeNewTitulaire == 'phy' && 0 <= $.inArray(name, physicNewTitulaireArray)) {
-                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + + value + "</div>");
                         } else if (0 <= $.inArray(name, otherOldTitulaireArray)) {
-                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + + value + "</div>");
                         } else if (0 <= $.inArray(name, otherNewTitulaireArray)) {
-                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + + value + "</div>");
                         }
                     });
                     resum.html(html);

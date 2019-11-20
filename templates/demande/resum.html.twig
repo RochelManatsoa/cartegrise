@@ -26,7 +26,7 @@
                     {% if demande.commande.transaction is not null and demande.commande.transaction.status == "00" %}
                         <div class="text-center">
                             <a href="{{path('payment_facture', {'demande': demande.id })}}" target="_blank">
-                                <button type="button" class="btn btn-info ">Facture</button>
+                                <button type="button" class="btn link-connexion-register">Facture</button>
                             </a>
                         </div>
                     {% else %}

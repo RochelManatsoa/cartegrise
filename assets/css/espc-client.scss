@@ -51,10 +51,16 @@
     .demarche-container {
         background-color: $white;
         padding: 40px;
+        @include md {
+            padding:10px 10px 40px;
+        }
         .btn-compte {
             a {
                 vertical-align: middle;
                 margin: 0 $size_15;
+                @include sm {
+                    margin: 0;
+                }
                 .btn-blue {
                     padding: 12px 35px !important;
                     .icomoon {
@@ -63,6 +69,12 @@
                         vertical-align: middle;
                         position: relative;
                         top: -2px;
+                    }
+                    @include sm {
+                        margin-bottom: $size_15;
+                        .icomoon {
+                            display: none;
+                        }
                     }
                 }
             } 
