@@ -51,7 +51,7 @@
       <div class="col-5">
         <p>
           <strong>              
-            {% if demande.commande.transaction is defined and demande.commande.transaction is not null %}
+            {% if (demande.commande.transaction is defined and demande.commande.transaction is not null) or (demande.transaction is defined and demande.transaction is not null)%}
               {% if  findNomPrenomOfTitulaire(demande, "type") == "phy" %}
                 {% if  findNomPrenomOfTitulaire(demande, "genre") == "F"%}
                 Madame
