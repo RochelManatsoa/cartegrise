@@ -25,54 +25,83 @@
 {% block class %}body-ccm{% endblock %}
 
 {% block page_content %}
-<div class="col-11 mx-auto main-blog">
-    <div class="row blog">
-        <div class="row col-sm-12 blog-card mt-5">
-            <div class="col-12 blog-card--titre">
-                <h2 class="col-12 text-center text-uppercase">
-                    La plateforme du conducteur français</h2>
-                <h3 class="col-12 text-center">
-                    Immatriculation de véhicules, sécurité routière, pollution et actualités du réseau routier français
-                </h3>
-            </div>
-            {% for article in articles %}
-                <div class="col-sm-12 col-md-6 col-lg-6 mx-auto">
-                    <div class="col-10 mx-auto blog-post">
-                        <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="">
-                            <figure class="blog-post--image">
-                                <img src="{{ asset('uploads/' ~ article.image) }}" alt="{{ article.titre }}" class="img-fluid p-2">
-                            </figure>
-                        </a>
-                        <div class="blog-post--description">
-                            <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="">
-                                <h3 class="blog-titre-article mt-3">{{ article.titre }}</h3>
-                            </a>
-                            <p>
-                                <p class="blog-post--description---date">Crée le
-                                    {{ article.date | date('d M Y') }}</p>
-                            </p>
-                            <p>
-                                {% for categorie in article.categories %}
-                                    <a href="{{ path('show_cat', {'slug':categorie.slug}) }}">
-                                        <span class="badge badge-pill badge-dark">{{ categorie.nom | capitalize}}</span>
-                                    </a>
-                                    {% if not loop.last %}{% endif %}
-                                {% endfor %}
-                            </p>
-                            <p>{{ article.description | truncate(70, true) | raw }}</p>
-                        </div>
-                        <div class="blog-post--tools d-flex flex-row justify-content-center my-flex-container align-items-center">
-                            <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="mx-auto btn btn-outline-dark m-2 mx-auto">Continuer la lecture</a>
+    <div class="content-wrapper blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-12 col-md-12 col-xs-12 main-blog">
+                    <div class="blog-card--titre">
+                        <h2 class="page-title">
+                            La plateforme du conducteur français</h2>
+                        <div class="text-head">
+                            <p>Immatriculation de véhicules, sécurité routière, pollution et actualités du réseau routier français</p>
                         </div>
                     </div>
+                    <div class="row blog-list">
+                        {% for article in articles %}
+                            <div class="col-dm-6 col-lg-6 col-sm-6 col-xs-12 blog-post">
+                                <div class="blog-post--image">
+                                    <figure>
+                                        <a href="{{ path('blog_show', {'slug': article.slug}) }}"><img src="{{ asset('uploads/' ~ article.image) }}" alt="{{ article.titre }}" class="img-fluid"></a>
+                                    </figure>
+                                    <div class="blog-post--category">
+                                        {% for categorie in article.categories %}
+                                            <a href="{{ path('show_cat', {'slug':categorie.slug}) }}" class="blog-post--category-item">
+                                                {{ categorie.nom | capitalize}}
+                                            </a>
+                                            {% if not loop.last %}{% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="blog-post--informations">
+                                    <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="blog-post--titre">
+                                        <h3>{{ article.titre }}</h3>
+                                    </a>
+                                    <div class="blog-post--description">{{ article.description | truncate(70, true) | raw }}</div>
+
+                                    <div class="blog-post--action">
+                                        <div class="blog-post--date">Crée le {{ article.date | date('d M Y') }}</div>
+                                        <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="btn btn-blue more">Lire la suite</a>
+                                    </div>
+                                </div>
+                                <!--<div class="col-10 mx-auto blog-post">
+                                <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="">
+                                    <figure class="blog-post--image">
+                                        <img src="{{ asset('uploads/' ~ article.image) }}" alt="{{ article.titre }}" class="img-fluid p-2">
+                                    </figure>
+                                </a>
+                                <div class="blog-post--description">
+                                    <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="">
+                                        <h3 class="blog-titre-article mt-3">{{ article.titre }}</h3>
+                                    </a>
+                                    <p>
+                                    <p class="blog-post--description---date">Crée le
+                                        {{ article.date | date('d M Y') }}</p>
+                                    </p>
+                                    <p>
+                                        {% for categorie in article.categories %}
+                                            <a href="{{ path('show_cat', {'slug':categorie.slug}) }}">
+                                                <span class="badge badge-pill badge-dark">{{ categorie.nom | capitalize}}</span>
+                                            </a>
+                                            {% if not loop.last %}{% endif %}
+                                        {% endfor %}
+                                    </p>
+                                    <p>{{ article.description | truncate(70, true) | raw }}</p>
+                                </div>
+                                <div class="blog-post--tools d-flex flex-row justify-content-center my-flex-container align-items-center">
+                                    <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="mx-auto btn btn-outline-dark m-2 mx-auto">Continuer la lecture</a>
+                                </div>
+                                </div>-->
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-12 pagination pagination-css  d-flex align-items-center flex-row justify-content-center my-flex-container">
+                        {{ knp_pagination_render(articles) }}
+                    </div>
                 </div>
-            {% endfor %}
-            <div class="col-12 pagination pagination-css  d-flex align-items-center flex-row justify-content-center my-flex-container">
-                {{ knp_pagination_render(articles) }}
             </div>
         </div>
     </div>
-</div>
 
 {% endblock %}
 
