@@ -1660,9 +1660,9 @@ header {
 /**Badge**/
 #badge{
   &.badge{
-    padding: 10px 20px;
+    padding: 5px 20px;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 13px;
     color: $white;
     &-danger{
       background: #ed1c24;
@@ -1679,6 +1679,9 @@ header {
     margin-top: 2rem;
     &-striped tbody tr:nth-of-type(odd) {
       background-color: transparent;
+    }
+    .responsive-toggle{
+      display: none;
     }
     tr{
       border-bottom: 5px solid #f1f1f1;
@@ -1699,7 +1702,42 @@ header {
         color: #292828;
       }
     }
+    @media screen and (max-width: $screen-sm-max){
+      .responsive-toggle{
+        display: block;
+      }
+      thead{
+        display: none;
+      }
+      tr{
+        display: grid;
+        grid-template-rows: 1fr auto;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas: none;
+        th, td{
+          background: $white;
+          padding-bottom: 0;
+          text-align: left!important;
+          &:last-child{
+            padding-bottom: 20px;
+          }
+        }
+        td{
+          font-weight: 400;
+        }
+        th{
+          padding-right: 0;
+          span{
+            &:before{
+              content: ':';
+              float: right;
+            }
+          }
+        }
+      }
+    }
   }
+
 }
 
 /**end**/
@@ -1780,7 +1818,7 @@ header {
     min-width: 130px;
   }
   .resume-btn{
-    background: rgba(3,52,126,0.8);
+    background: rgba(3,52,126,0.9);
     margin-bottom: 5px;
     &:hover{
       background: rgba(3,52,126,1);
@@ -1789,9 +1827,16 @@ header {
     }
   }
   .cancel-btn{
-    background: rgba(54,54,55,.8);
+    background: rgba(54,54,55,.9);
     &:hover{
       background: rgba(54,54,55,1);
+      color: $white;
+    }
+  }
+  @media screen and (max-width: $screen-sm-max){
+    .btn{
+      width: 100%;
+      max-width: 270px;
     }
   }
 }
@@ -1840,5 +1885,98 @@ ul{
 .border--light-2{
   border-top: 2px solid #ccc;
 }
+
 /**end**/
 
+/**Blog**/
+.content-wrapper.blog{
+  border-bottom: 1px solid #ccc;
+}
+h2.page-title{
+  font-size: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 48px;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+.main-blog{
+  .text-head{
+    color: #03347e;
+    font-weight: bold;
+    border-bottom: 1px solid #b7b7b7;
+    margin-bottom: 24px;
+  }
+  .blog-post{
+    margin-bottom: 30px;
+    &--informations{
+      padding: 1.5rem;
+      background: #fff;
+      border-radius: 0 0 5px 5px;
+      border-left: 1px solid rgba(183,183,183,.3);
+      border-right: 1px solid rgba(183,183,183,.3);
+      border-bottom: 1px solid rgba(183,183,183,.3);
+    }
+    &--image{
+      position: relative;
+      figure{
+        margin: 0;
+        img{
+          width: 100%;
+        }
+      }
+    }
+    &--titre{
+      color: #03347e;
+      h3{
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 20px;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #eeeeee;
+      }
+      &:hover{
+        text-decoration: none;
+        color: #219de4;
+      }
+    }
+    &--date{
+      color: #747474;
+      font-weight: normal;
+      font-size: 14px;
+    }
+    &--description{
+      color: #020202;
+      margin-bottom: .5rem;
+    }
+    &--action{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    &--category{
+      position: absolute;
+      bottom: 1rem;
+      left: 1.5rem;
+      &-item{
+        color: $white;
+        background: #1d74a6;
+        padding: 5px 10px;
+        float: left;
+        margin-right: .25rem;
+        text-transform: uppercase;
+        font-size: 13px;
+        line-height: normal;
+        transition: all .3s ease;
+        &:hover{
+          text-decoration: none;
+          background: #219de4;
+        }
+      }
+    }
+  }
+}
+
+/**end**/

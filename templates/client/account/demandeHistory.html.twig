@@ -23,11 +23,11 @@
                     <tbody>
                     {% for demande in demandes %}
                         <tr>
-                            <td>{{ demande.commande.demarche.nom | displayValue}}</td>
-                            <td>{{ demande.commande.ceerLe | date('d/m/Y')}}</td>
-                            <td class="text-center">{{ demande.commande.codePostal | displayValue}}</td>
-                            <td class="text-center">{{ demande.commande.immatriculation | displayValue}}</td>
-                            <td>
+                            <th class="responsive-toggle">Commande<span></span></th><td>{{ demande.commande.demarche.nom | displayValue}}</td>
+                            <th class="responsive-toggle">Date<span></span></th><td>{{ demande.commande.ceerLe | date('d/m/Y')}}</td>
+                            <th class="responsive-toggle">Dép.<span></span></th><td class="text-center">{{ demande.commande.codePostal | displayValue}}</td>
+                            <th class="responsive-toggle">Immatriculation<span></span></th><td class="text-center">{{ demande.commande.immatriculation | displayValue}}</td>
+                            <th class="responsive-toggle">Action<span></span></th><td>
                                 <div class="content-actions">
                                     <a href="{{path('espace_client', {'demande': demande.id })}}">
                                         <button type="button" class="btn resume-btn">Aperçu</button>

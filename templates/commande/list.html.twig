@@ -27,15 +27,15 @@
                             {% for commande in commandes %}
                                 {% if statusOfCommande(commande, "style") == "danger" %}
                                     <tr>
-                                        <td>{{ commande.demarche.nom }}</td>
-                                        <td class="text-center">{{ commande.codePostal | displayValue}}</td>
-                                        <td class="text-center">{{ commande.immatriculation | displayValue}}</td>
-                                        <td>
+                                        <th class="responsive-toggle">Demande<span></span></th><td>{{ commande.demarche.nom }}</td>
+                                        <th class="responsive-toggle">Département<span></span></th><td class="text-center">{{ commande.codePostal | displayValue}}</td>
+                                        <th class="responsive-toggle">Immatriculation<span></span></th><td class="text-center">{{ commande.immatriculation | displayValue}}</td>
+                                        <th class="responsive-toggle">Statut<span></span></th><td>
                                         <span id="badge" class="badge badge-{{ statusOfCommande(commande, "style") }}">
                                             {{ statusOfCommande(commande, "text") }}
                                         </span>
                                         </td>
-                                        <td>
+                                        <th class="responsive-toggle">Action<span></span></th><td>
                                             <div class="flex flex-column content-actions">
                                                 {% if is_granted(constant('\\App\\Security\\Voter\\CommandeVoter::PASSER'), commande) %}
                                                     <a href="{{path('commande_recap', {'commande': commande.id })}}">
