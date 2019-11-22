@@ -10,11 +10,14 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Controller\API\UserApi;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
- *  @ApiResource(
+ * @ApiResource(
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"register"}},
  *     forceEager= false,
@@ -30,6 +33,7 @@ use App\Controller\API\UserApi;
  *     }
  *     }
  * )
+ * @ApiFilter(DateFilter::class, properties={"registerDate"})
  */
 class User extends BaseUser
 {
