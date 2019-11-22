@@ -66,6 +66,9 @@ $('#formulaire_demarche').on('change', function (e) {
         $("div#formDC").hide();
         $(this).parents("form").show();
     }
+        $("#formulaire_demarche").next("div.select-styled").text($(".demarche ul.select-options").eq(0).find("li[rel='"+$(this).val()+"']").text());
+    //     $this.val($(this).attr("rel"));
+    // .val();
 });
 $(function() {
     $('a[href*=\\#]').on('click', function(e) {
