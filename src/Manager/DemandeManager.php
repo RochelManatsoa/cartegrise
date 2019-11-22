@@ -575,7 +575,7 @@ class DemandeManager
         $demandes = $this->getDemandeOfUser($this->tokenStorage->getToken()->getUser());
         $check = [];
         foreach($demandes as $demande){
-            $check[$demande->getId()] = $demande->getTransaction() ? $demande->getTransaction()->getStatus() : $demande->getCommande()->getTransaction()->getStatus();
+            $check[$demande->getId()] = $demande->getTransaction() != null ? $demande->getTransaction()->getStatus() : $demande->getCommande()->getTransaction()->getStatus();
         }
         // dd($check);
         if(in_array("00", $check)){
