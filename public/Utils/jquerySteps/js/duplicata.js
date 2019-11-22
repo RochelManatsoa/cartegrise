@@ -15,7 +15,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             pagination: "Pagination",
             finish: "Terminer",
             next: "Suivant",
-            previous: "Précédant",
+            previous: "Précédent",
             loading: "Chargement ..."
         },
         onStepChanging: function (event, currentIndex, newIndex) {
@@ -81,7 +81,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
 
                     let label = {
                         "demande_duplicata[duplicata][motifDemande]": "Motif de la demande",
-                        "demande_duplicata[duplicata][numeroFormule]": "Numéro de la formule",
+                        "demande_duplicata[duplicata][numeroFormule]": "Numéro de formule",
                         "demande_duplicata[duplicata][datePerte]": "Date de la perte",
                         "demande_duplicata[duplicata][titulaire][type]": "Titulaire",
                         "demande_duplicata[duplicata][titulaire][raisonsociale]": "Raison Sociale",
@@ -106,6 +106,48 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                         value = "Société";
                     }else if(value === "phy"){
                         value = "Personne physique";
+                    }else if(value === "PERT"){
+                        value = "Perte";
+                    }else if(value === "VOL"){
+                        value = "Vol";
+                    }else if(value === "DET"){
+                        value = "Détérioration";
+                    }else if(value === "RUE"){
+                        value = "Rue";
+                    }else if(value === "BLVD"){
+                        value = "Boulevard";
+                    }else if(value === "AVN"){
+                        value = "Avenue";
+                    }else if(value === "ALL"){
+                        value = "Allée";
+                    }else if(value === "PLC"){
+                        value = "Place";
+                    }else if(value === "IMP"){
+                        value = "Impasse";
+                    }else if(value === "CHM"){
+                        value = "Chemin";
+                    }else if(value === "QUAI"){
+                        value = "Quai";
+                    }else if(value === "FORT"){
+                        value = "Fort";
+                    }else if(value === "RTE"){
+                        value = "Route";
+                    }else if(value === "PASS"){
+                        value = "Passage";
+                    }else if(value === "COUR"){
+                        value = "Cour";
+                    }else if(value === "CHAU"){
+                        value = "Chaussée";
+                    }else if(value === "PARC"){
+                        value = "Parc";
+                    }else if(value === "FBG"){
+                        value = "Faubourg";
+                    }else if(value === "LDIT"){
+                        value = "Lieu-dit";
+                    }else if(value === "SQUA"){
+                        value = "Square";
+                    }else if(value === "SENT"){
+                        value = "Sente";
                     }else{
                         value;
                     };
@@ -120,7 +162,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                         html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                     }   
                 });
-                resum.html(html);
+                resum.html(html.concat("<strong> Démarche </strong> : Duplicata <br>"));
             }
         },
         onFinishing: function (event, currentIndex) {
