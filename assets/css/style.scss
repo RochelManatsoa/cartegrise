@@ -1728,6 +1728,7 @@ header {
 		transition: top ease .4s;
 		@include xs {
 			text-align: center;
+			height: inherit;
 		}
 		&:focus {
 			box-shadow: none;
@@ -1842,6 +1843,39 @@ header {
 	}
 }
 
+.body-ccm {
+	&.modal-open {
+		.modal-dialog {
+			max-width: 750px !important;
+			.modal-content {
+				padding: $size_24;
+				.commander-box--section---titre {
+					h3 {
+						font-weight: 600;
+						color: $royal-blue;
+					}
+				}
+			}
+		}
+		.demarche--block {
+			display: table;
+			width: 100%;
+			border-bottom: $bdr_solid_1 $bbr_color;
+			padding: 10px 0;
+			> div {
+				display: table-cell;
+				&.vos-demarches--texte---titre {
+					width: 50px;
+					text-align: right;
+					padding-right: $size_15;
+					font-weight: 600;
+					color: $royal-blue;
+				}
+			}
+		}
+	}
+}
+
 //Modal
 .modal {
 	z-index: 10002 !important;
@@ -1929,22 +1963,41 @@ header {
 			color: white;
 			padding: 0 $size_15;
 		}
+		.map-container {
+			@include md {
+				margin-bottom: $size_24;
+			}
+		}
 	}
 	.foot_PrixCG {
+		background-color: $white;
+		border: $bdr_solid_1 $bbr_color;
+		padding: 40px;
+		border-radius: 7px;
+		@include md {
+			padding: $size_15;
+		}
 		h3 {
 			text-transform: uppercase;
 			color: $inherit;
-			font-size: $size_24;
+			font-size: 20px;
 			font-weight: 600;
+			line-height: 30px;
+			border-bottom: $bdr_solid_1 $bdr_color1;
+			padding-bottom: 10px;
+			margin-bottom: 16px;
 		}
 		.btn-blue {
 			padding: 14px 30px !important;
-			margin: 0 10px;
+			width: 100%;
 		}
 		.btn-blue-outline {
 			border-color: $royal-blue !important;
 			background: none !important;
 			color: $royal-blue !important;
+			padding: 14px 7px !important;
+			width: 100%;
+			margin-bottom: 10px;
 			&:hover {
 				border-color: transparent !important;
 				background: $royal-blue !important;
@@ -1953,6 +2006,26 @@ header {
 			@include sm {
 				margin-bottom: $size_15;
 			}
+		}
+		.head-prix {
+			border: $bdr_solid_1 $aqua-blue;
+			color: $aqua-blue;
+			text-transform: uppercase;
+			font-size: 14px;
+			font-weight: 600;
+			@include md {
+				line-height: 130%;
+			}
+		}
+		.lien_pref {
+			display: $block;
+			text-align: center;
+		}
+		.departement_tarif, 
+		.departement_exoneration {
+			border: $bdr_solid_1 $bbr_color;
+			background: $white;
+			padding: $size_15;
 		}
 	}
 }
