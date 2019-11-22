@@ -79,7 +79,7 @@ class Transaction
 
     public function __construct()
     {
-        $this->createAt = new Date();
+        $this->createAt = new \Datetime();
     }
 
     public function getId(): ?int
