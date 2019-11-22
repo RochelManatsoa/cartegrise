@@ -23,14 +23,14 @@
                         <tr>
                             <th class="responsive-toggle">Objet<span></span></th><td>{{ email.subject}}</td>
                             <th class="responsive-toggle">Date<span></span></th><td>{{ email.createdAt | date('d/m/Y')}}</td>
-                            <th class="responsive-toggle">Action<span></span></th><td class="text-center">
+                            <th class="responsive-toggle">Action<span></span></th>
+                            <td class="text-center">
                                 <div class="content-actions">
                                     <button type="button" class="btn resume-btn" data-toggle="modal" data-target="#{{email.id}}">
                                         Ouvrir le mail
                                     </button>
                                 </div>
                             </td>
-                        </tr>
                         <!-- Button trigger modal -->
 
 
@@ -53,6 +53,7 @@
                                 </div>
                             </div>
                         </div>
+                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>
