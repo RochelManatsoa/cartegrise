@@ -275,6 +275,28 @@
 											</div>
 										{{ form_end(formDivn)}}
 									</div>
+									<div id="formDC" style="display:none;">
+										<div class="d-flex justify-content-start">
+											<div onclick="$('#formulaire_demarche').val('1').change();" id='backButton' class='back-retour'><i class="icomoon icon-right-arrow"></i> Retour</div>
+										</div>
+										<div class="title_dermarche text-center">
+											<h3>Téléchargez le formulaire
+												<br>CERFA n° 15776*01</h3>
+										</div>
+										<div class="title_dermarche text-center">
+											<p>
+												Le formulaire CERFA n° 15776*01 doit être rempli par le vendeur et signé par l'acheteur. Ce dernier est nécessaire au nouveau détenteur du véhicule pour l'immatriculer (carte grise) à son nom.
+											</p>
+										</div>
+										<div class="title_dermarche text-center"> 
+											<p><strong>(à remplir par l’ancien propriétaire et le nouveau proprietaire)</strong></p>
+											<div class="col-md-6 mx-auto search-box">
+												<a href="/../download/cgofficiel_cerfa-15776-01.pdf" target="blank">
+													<button type="submit" class="btn-calcuer btn btn-blue">{{ "Télécharger" | upper}} <i class="icomoon icon-right-arrow"></i></button>
+												</a>
+											</div>
+										</div>
+									</div>
 									{% else %}
 									<a href="{{ path('formulaire')}}">Formulaire</a>
 									{% endif %}

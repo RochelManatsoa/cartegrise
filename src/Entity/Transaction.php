@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TransactionRepository")
@@ -16,6 +18,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
  * )
+ * @ApiFilter(DateFilter::class, properties={"createAt":DateFilter::INCLUDE_NULL_BEFORE_AND_AFTER})
  */
 class Transaction
 {
@@ -66,6 +69,18 @@ class Transaction
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     private $deletedAt;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createAt;
+
+    public function __construct()
+    {
+        $this->createAt = new Date();
+    }
 
     public function getId(): ?int
     {
@@ -152,6 +167,18 @@ class Transaction
     public function setCommande(?Commande $commande): self
     {
         $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getCreateAt(): ?\DateTimeInterface
+    {
+        return $this->createAt;
+    }
+
+    public function setCreateAt(?\DateTimeInterface $createAt): self
+    {
+        $this->createAt = $createAt;
 
         return $this;
     }
