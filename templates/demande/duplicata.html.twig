@@ -29,7 +29,6 @@
                 {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
                 <h3>Etape</h3>
                 <section style="position: relative;width: 100%;">
-                    <div class="block_form">
                         <legend>{{ form_label(form.duplicata.titulaire)}}</legend>
                             <div class="form-titulaire">
                                 {{ form_row(form.duplicata.titulaire.type)}}
@@ -50,12 +49,10 @@
                         </legend> 
                         {{ form_errors(form.duplicata.numeroFormule)}}
                         {{ form_widget(form.duplicata.numeroFormule)}}
-                    </div>
                 </section>
 
                 <h3>Etape</h3>
                 <section style="position: relative;width: 100%;">
-                    <div class="block_form">
                         <legend>{{ form_label(form.duplicata.adresse)}}</legend>
                         {% for adresse in form.duplicata.adresse %}
                         <div class="form-group">
@@ -64,7 +61,6 @@
                             {{ form_widget(adresse, {'attr': {'class': ''}})}}
                         </div>
                         {% endfor %}
-                    </div>
                 </section>
                 <h3>Etape</h3>
                 <section style="position: relative;width: 100%;">

@@ -27,55 +27,52 @@
                  {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
                     <h3>Etape</h3>
                     <section style="position: relative;width: 100%;">
-                        <div class="block_form">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <legend>{{ form_label(form.divn.acquerreur) }}</legend>
-                                    <div class="titulaire">
-                                        {{ form_row(form.divn.acquerreur.type)}}
-                                        {{ form_row(form.divn.acquerreur.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                        {{ form_row(form.divn.acquerreur.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                        {{ form_row(form.divn.acquerreur.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                        {{ form_row(form.divn.acquerreur.nomPrenomTitulaire)}}
-                                        {{ form_row(form.divn.acquerreur.prenomTitulaire)}}
-                                        {{ form_row(form.divn.acquerreur.genre)}}
-                                        {{ form_row(form.divn.acquerreur.dateN)}}
-                                        {{ form_row(form.divn.acquerreur.lieuN)}}
-                                        {#{{ form_row(form.divn.acquerreur.departementN)}}
-                                        {{ form_row(form.divn.acquerreur.paysN)}}#}
-                                        {{ form_row(form.divn.acquerreur.droitOpposition)}}
-                                    </div>
-                                </div>
-                                <div class="col-md-2 d-none d-lg-block"><div class="col-sep d-flex align-items-center justify-content-center"><span></span></div></div>
-                                <div class="col-md-5">
-                                    <legend>{{ form_label(form.divn.acquerreur.adresseNewTitulaire) }}</legend>
-                                    {% for addresseNewTitulaire in form.divn.acquerreur.adresseNewTitulaire %}
-                                        <div class="form-group">
-                                            {{ form_label(addresseNewTitulaire)}}
-                                            {{ form_errors(addresseNewTitulaire)}}
-                                            {{ form_widget(addresseNewTitulaire, {'attr': {'class': ''}})}}
-                                        </div>
-                                    {% endfor %} 
+                        <div class="row">
+                            <div class="col-md-5">
+                                <legend>{{ form_label(form.divn.acquerreur) }}</legend>
+                                <div class="titulaire">
+                                    {{ form_row(form.divn.acquerreur.type)}}
+                                    {{ form_row(form.divn.acquerreur.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.acquerreur.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.acquerreur.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.acquerreur.nomPrenomTitulaire)}}
+                                    {{ form_row(form.divn.acquerreur.prenomTitulaire)}}
+                                    {{ form_row(form.divn.acquerreur.genre)}}
+                                    {{ form_row(form.divn.acquerreur.dateN)}}
+                                    {{ form_row(form.divn.acquerreur.lieuN)}}
+                                    {#{{ form_row(form.divn.acquerreur.departementN)}}
+                                    {{ form_row(form.divn.acquerreur.paysN)}}#}
+                                    {{ form_row(form.divn.acquerreur.droitOpposition)}}
                                 </div>
                             </div>
-                            <legend>{{ form_label(form.divn.cotitulaire) }}</legend>
-                            <ul class="tags" data-prototype="{{ form_widget(form.divn.cotitulaire.vars.prototype)|e('html_attr') }}">
-                                {% for tag in form.divn.cotitulaire %}
-                                    {% if loop.index < 5 %}
-                                    <li>
-                                        {{ form_label(tag.vars.prototype)|e  }}
-                                        {{ form_errors(tag.vars.prototype)|e  }}
-                                        {{ form_widget(tag.vars.prototype, {'attr': {'class': ''}})|e  }}
-                                    </li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul> 
+                            <div class="col-md-2 d-none d-lg-block"><div class="col-sep d-flex align-items-center justify-content-center"><span></span></div></div>
+                            <div class="col-md-5">
+                                <legend>{{ form_label(form.divn.acquerreur.adresseNewTitulaire) }}</legend>
+                                {% for addresseNewTitulaire in form.divn.acquerreur.adresseNewTitulaire %}
+                                    <div class="form-group">
+                                        {{ form_label(addresseNewTitulaire)}}
+                                        {{ form_errors(addresseNewTitulaire)}}
+                                        {{ form_widget(addresseNewTitulaire, {'attr': {'class': ''}})}}
+                                    </div>
+                                {% endfor %} 
+                            </div>
                         </div>
+                        <legend>{{ form_label(form.divn.cotitulaire) }}</legend>
+                        <ul class="tags" data-prototype="{{ form_widget(form.divn.cotitulaire.vars.prototype)|e('html_attr') }}">
+                            {% for tag in form.divn.cotitulaire %}
+                                {% if loop.index < 5 %}
+                                <li>
+                                    {{ form_label(tag.vars.prototype)|e  }}
+                                    {{ form_errors(tag.vars.prototype)|e  }}
+                                    {{ form_widget(tag.vars.prototype, {'attr': {'class': ''}})|e  }}
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul> 
                     </section>
 
                     <h3>Etape</h3>
                     <section style="position: relative;width: 100%;">
-                        <div class="block_form">
                             <div class="row">
                                 <div class="col-md-5">
                                     <legend>{{ form_label(form.divn.vehicule) }}</legend>
@@ -144,7 +141,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </section>
 
                     <h3>Etape</h3>
