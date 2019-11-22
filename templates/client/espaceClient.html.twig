@@ -17,87 +17,85 @@
 {% endif %}
 
 {% block page_content %}
-    <div class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
-        <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container w-100 mx-3 mx-lg-4">
-            <div class="col-12">
-                <div class="px-2">
-                    <br>
+    <div class="esp_clientBlock content-wrapper" id="esp_clientBlock">
+        <div class="container">
+            <div class="row">
+                <div class="comment-ca-marche-texte col-md-12 col-lg-12 col-xs-12">
                     {{ include('client/layout/menu.html.twig') }}
-                    <h3 class="title-client">Demarche:</h3>
-                    <div class="demarche-container">
+                    <h4 class="mt-5 title-client">Demarche:</h4>
+                    <div class="demarche-container p-0" id="custom-tab">
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="pills-apercu-tab" data-toggle="pill" href="#pills-apercu" role="tab" aria-controls="pills-apercu" aria-selected="true">Aperçu</a>
+                                <a class="nav-link active" id="pills-apercu-tab" data-toggle="pill" href="#pills-apercu" role="tab" aria-controls="pills-apercu" aria-selected="true"><i class="icon-eye"></i> Aperçu</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-document-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-document" aria-selected="false">Détails de la commande</a>
+                                <a class="nav-link" id="pills-document-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-document" aria-selected="false"><i class="icon-more-options"></i> Détails de la commande</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-document-tab" data-toggle="pill" href="#pills-document" role="tab" aria-controls="pills-document" aria-selected="false">J'envoie mes documents</a>
+                                <a class="nav-link" id="pills-document-tab" data-toggle="pill" href="#pills-document" role="tab" aria-controls="pills-document" aria-selected="false"><i class="icon-mail-send"></i> J'envoie mes documents</a>
                             </li>
                         </ul>
                         {% if demande is not null %}
-                        <div class="tab-content" id="pills-tabContent">
-                            <div class="content-demarche tab-pane fade show active" id="pills-apercu" role="tabpanel" aria-labelledby="pills-apercu-tab">
-                                <p>{% if demande.transaction.id is defined %}{{demande.transaction.id | number_format()}}{% else %}{{demande.commande.transaction.id | number_format()}}{% endif %}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}} : <br>{{ demande.commande.demarche.nom }} </p>
-                                <p>Créée le {{ demande.commande.ceerLe | date('d.m.Y à H\\h:i')}}</p>
-                                <p>Immatriculation : {{ demande.commande.immatriculation | displayValue}}</p>
-                                <p>Département : {{ demande.commande.codePostal | displayValue}}</p>
-                                <p>
-                                    Dossier à deposer en ligne: 
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="content-demarche tab-pane fade show active" id="pills-apercu" role="tabpanel" aria-labelledby="pills-apercu-tab">
+                                    <p>{% if demande.transaction.id is defined %}{{demande.transaction.id | number_format()}}{% else %}{{demande.commande.transaction.id | number_format()}}{% endif %}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}} :{{ demande.commande.demarche.nom }} </p>
+                                    <p>Créée le {{ demande.commande.ceerLe | date('d.m.Y à H\\h:i')}}</p>
+                                    <p>Immatriculation : {{ demande.commande.immatriculation | displayValue}}</p>
+                                    <p>Département : {{ demande.commande.codePostal | displayValue}}</p>
+                                    <p>
+                                        Dossier à deposer en ligne:
                                     <span class="badge badge-{{ statusOfCommande(demande.commande, "style") }}">
                                         {{ statusOfCommande(demande.commande, "text") }}
                                     </span>
-                                </p>
-                                <!-- <p>Dossier à envoyer par courier: A expédier / Reçu</p> -->
-                            </div>
-                            <div class="content-demarche tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                <p>{{ demande.commande.demarche.nom }} <br> {{ demande.commande.ceerLe | date('d.m.Y à H\\h:i')}}</p>
-                                <br>
-                                <p>Votre commande expire le <span>{{ demande.commande.ceerLe |date_modify("+1 month")|date('d.m.Y à H\\h:i')}}</span></p>
-                                <br>
-                                <a href="{{path('payment_facture', {'demande':demande.id})}}" target="_blank" class="btn btn-outline-primary">Facture</a>
-                            </div>
-                            <div class="content-demarche tab-pane fade" id="pills-document" role="tabpanel" aria-labelledby="pills-document-tab" style="overflow: auto;">
-                                <div>
-                                    <h4>Finalisez votre démarche</h4>
-                                    {% for col in form %}
-                                        {% if col.vars.type is defined and col.vars.type == 'file' %}
-                                        <div class="group-input">
-                                            <div>
-                                                <p>
-                                                    {% set name = checkFile(files, col.vars.name) %}
-                                                    {% if name == "" %}
-                                                    <span class="text-secondary">{{ form_label(col) }}</span>
-                                                    {% else %}
-                                                    <span class="{{ status }}">{{ form_label(col) }}</span>
-                                                    {% endif %}
-                                                    {% if name != "" %}
-                                                    <small>
-                                                        <a href="{{ asset(name) }}" target="_blank">
-                                                            <button class="btn btn-sm btn-outline-info">
-                                                                <i class="far fa-eye"></i> Voir
-                                                            </button>
-                                                        </a>
-                                                    </small>
-                                                    {% endif %}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                    <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
-                                        <button type="button" class="btn btn-primary btn-sm">Dossier à Fournir</button>
-                                    </a>
+                                    </p>
+                                    <!-- <p>Dossier à envoyer par courier: A expédier / Reçu</p> -->
+                                </div>
+                                <div class="content-demarche tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                    <p>{{ demande.commande.demarche.nom }} <br> {{ demande.commande.ceerLe | date('d.m.Y à H\\h:i')}}</p>
+                                    <p>Votre commande expire le <span>{{ demande.commande.ceerLe |date_modify("+1 month")|date('d.m.Y à H\\h:i')}}</span></p>
+                                    <a href="{{path('payment_facture', {'demande':demande.id})}}" target="_blank" class="btn btn-aqua-blue btn-facture">Facture<i class="icon-add"></i></a>
+                                </div>
+                                <div class="content-demarche tab-pane fade" id="pills-document" role="tabpanel" aria-labelledby="pills-document-tab" style="overflow: auto;">
+                                    <div>
+                                        <h4>Finalisez votre démarche</h4>
+                                        {% for col in form %}
+                                            {% if col.vars.type is defined and col.vars.type == 'file' %}
+                                                <div class="group-input">
+                                                    <div>
+                                                        <p>
+                                                            {% set name = checkFile(files, col.vars.name) %}
+                                                            {% if name == "" %}
+                                                                <span class="text-secondary">{{ form_label(col) }}</span>
+                                                            {% else %}
+                                                                <span class="{{ status }}">{{ form_label(col) }}</span>
+                                                            {% endif %}
+                                                            {% if name != "" %}
+                                                                <small>
+                                                                    <a href="{{ asset(name) }}" target="_blank">
+                                                                        <button class="btn btn-sm btn-outline-info">
+                                                                            <i class="far fa-eye"></i> Voir
+                                                                        </button>
+                                                                    </a>
+                                                                </small>
+                                                            {% endif %}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
+                                            <button type="button" class="btn btn-aqua-blue btn-primary btn-sm">Dossier à Fournir<i class="icon-add"></i></button>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         {%else%}
-                        <p>Auccune demande trouvée</p>
+                            <p>Auccune demande trouvée</p>
                         {%endif%}
                     </div>
                 </div>
             </div>
         </div>
-    </div>                  
+    </div>
+
 {% endblock %}
