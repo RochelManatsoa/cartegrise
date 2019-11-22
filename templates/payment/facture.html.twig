@@ -50,27 +50,31 @@
       </div>
       <div class="col-5">
         <p>
-          <strong>
-            {% if demande.commande.clientFacture.clientgenre starts with 'F' %}
-             Madame 
-            {% else %}
-             Monsieur 
+          <strong>              
+            {% if (demande.commande.transaction is defined and demande.commande.transaction is not null) or (demande.transaction is defined and demande.transaction is not null)%}
+              {% if  findNomPrenomOfTitulaire(demande, "type") == "phy" %}
+                {% if  findNomPrenomOfTitulaire(demande, "genre") == "F"%}
+                Madame
+                {% elseif findNomPrenomOfTitulaire(demande, "genre") == "M"%}
+                Monsieur
+                {% else %}
+                Madame/Monsieur
+                {% endif %}
+              {% else %}
+                Société
+              {% endif %}
+              {{ findNomPrenomOfTitulaire(demande, "nomPrenomTitulaire") | upper }}
+              {{ findNomPrenomOfTitulaire(demande, "nomprenom") }}
+              {{ findNomPrenomOfTitulaire(demande, "prenomTitulaire") | capitalize }}
+              {{ findNomPrenomOfTitulaire(demande, "raisonSociale") | upper }}
             {% endif %}
-            {{ demande.commande.clientFacture.clientPrenom | capitalize }} 
-            {{ demande.commande.clientFacture.clientNom | upper}}
           </strong>
           <br>
-          {% if demande.commande.transaction is defined and demande.commande.transaction is not null %}
-            {{ findNomPrenomOfTitulaire(demande, "nomPrenomTitulaire") }}
-            {{ findNomPrenomOfTitulaire(demande, "nomprenom") }}
-            {{ findNomPrenomOfTitulaire(demande, "prenomTitulaire") }}
-          {% endif %}
-          <br>
             {{ adresse.numero }} 
+            {{ adresse.extension }} 
             {{ adresse.typevoie | displayAdress}} 
             {{ adresse.nom | upper }} 
             {{ adresse.complement }} 
-            {{ adresse.extension }} 
           <br> 
             {{ adresse.codePostal }} 
             {{ adresse.ville | upper }}

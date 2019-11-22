@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
 
 /**
@@ -19,6 +21,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
  * )
+ * @ApiFilter(DateFilter::class, properties={"dateDemande"})
  */
 class Demande
 {
@@ -519,8 +522,8 @@ class Demande
     public function preupdate()
     {
         if ($this->statusDoc === "1"){
-            $ref = $this->getTransaction()->getTransactionId() . '-' . $this->id;
-            $this->reference = $ref;
+            $ref = $this->getTransaction() ? $this->getTransaction()->getTransactionId() : $this->getCommande()->getTransaction()->getTransactionId();
+            $this->reference = $ref . '-' . $this->id;
         }
     }
 

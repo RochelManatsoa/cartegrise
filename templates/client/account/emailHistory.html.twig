@@ -8,47 +8,54 @@
     <div class="esp_clientBlock">
         <div class="container">
             {{ include('client/layout/menu.html.twig') }}
-            <h4 class="mt-5">Mes mails</h3>
-            <div class="demarche-container">
-                <table class="table table-striped custom-table">
-                    <tr>
-                        <th>Objet</th>
-                        <th>Date</th>
-                        <th></th>
-                    </tr>
+            <h4 class="mt-5">Mes mails</h4>
+            <div class="demarche-container no-bg p-0">
+                <table class="table table-striped border-0 custom-table">
+                    <thead>
+                        <tr>
+                            <th  scope="col">Objet</th>
+                            <th scope="col">Date</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     {% for email in emailsHistory %}
-                    <tr>
-                        <td>{{ email.subject}}</td>
-                        <td>{{ email.createdAt | date('d/m/Y')}}</td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#{{email.id}}">
-                                Ouvrir le mail
-                            </button>
-                        </td>
-                    </tr>
+                        <tr>
+                            <th class="responsive-toggle">Objet<span></span></th><td>{{ email.subject}}</td>
+                            <th class="responsive-toggle">Date<span></span></th><td>{{ email.createdAt | date('d/m/Y')}}</td>
+                            <th class="responsive-toggle">Action<span></span></th>
+                            <td class="text-center">
+                                <div class="content-actions">
+                                    <button type="button" class="btn resume-btn" data-toggle="modal" data-target="#{{email.id}}">
+                                        Ouvrir le mail
+                                    </button>
+                                </div>
+                            </td>
                         <!-- Button trigger modal -->
-                        
+
 
                         <!-- Modal -->
                         <div class="modal fade" id="{{email.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">
-                                    Objet : {{ email.subject }}<br>
-                                    Date : {{ email.createdAt | date('d M Y')}}
-                                </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                {{ decodeBody(email) | raw }}
-                            </div>
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">
+                                            Objet : {{ email.subject }}<br>
+                                            Date : {{ email.createdAt | date('d M Y')}}
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ decodeBody(email) | raw }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        </div>
+                        </tr>
                     {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </div>

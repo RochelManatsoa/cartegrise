@@ -180,7 +180,6 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             },
             "demande_duplicata[duplicata][numeroFormule]": {
                 required: true,
-                digits: true,
                 minlength: 11,
                 maxlength: 11,
             },
@@ -215,8 +214,8 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             },
             "demande_duplicata[duplicata][numeroFormule]": {
                 required: 'Champs obligatoire',
-                minlength: 'Le numéro doit être à 11 chiffres',
-                maxlength: 'Le numéro doit être à 11 chiffres'
+                minlength: 'Le numéro doit comporter à 11 caractères',
+                maxlength: 'Le numéro doit comporter à 11 caractères'
             },
             "demande_duplicata[duplicata][adresse][typevoie]": {
                 required: 'Champs obligatoire',
