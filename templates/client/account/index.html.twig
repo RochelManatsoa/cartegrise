@@ -5,10 +5,10 @@
     <div class="esp_clientBlock">
         <div class="container">
             {{ include('client/layout/menu.html.twig') }}
-            <h4 class="mt-5">Informations du compte</h3>
+            <h4 class="mt-5">Informations du compte</h4>
             {% set client = app.user.client %}
-            <div class="demarche-container">
-                <table class="table table-striped custom-table">
+            <div class="demarche-container no-bg p-0">
+                <table class="table table-striped border-0 custom-table">
                     <tr>
                         <th>Nom</th>
                         <td>{{ client.ClientNom}}</td>

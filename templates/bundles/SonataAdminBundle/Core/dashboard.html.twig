@@ -9,6 +9,7 @@
 {% block stylesheets %}
 {{ parent() }}
 <link rel="stylesheet" type="text/css" href="{{ asset('notification/lib/notifications.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('notification/styles.min.css') }}">
 {% endblock %}
 
 {% block title %}{{ 'title_dashboard'|trans({}, 'SonataAdminBundle') }}{% endblock%}
