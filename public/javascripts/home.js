@@ -196,6 +196,7 @@ $('.block_form select').each(function(){
         e.stopPropagation();
         $styledSelect.text($(this).text()).removeClass('active');
         $this.val($(this).attr('rel'));
+        $this.change();
         $list.hide();
     });
   
