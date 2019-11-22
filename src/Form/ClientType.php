@@ -50,11 +50,11 @@ class ClientType extends AbstractType
                     'label' => 'label.cgv',
                     'constraints' => new IsTrue(),
                 ])
-                ->add('retractation', CheckboxType::class, [
-                    'mapped' => false,
-                    'label' => 'label.retractation',
-                    'constraints' => new IsTrue(),
-                ])
+                // ->add('retractation', CheckboxType::class, [
+                //     'mapped' => false,
+                //     'label' => 'label.retractation',
+                //     'constraints' => new IsTrue(),
+                // ])
             ;
     }
 
