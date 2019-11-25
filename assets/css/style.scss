@@ -1181,6 +1181,9 @@ header {
 
           }
         }
+        @media screen and (max-width: $screen-sm-max) {
+          flex: 1;
+        }
       }
     }
     &.total-tax{
@@ -1209,6 +1212,14 @@ header {
               position: absolute;
               top: 0;
               left: 0;
+            }
+            @media screen and (max-width: $screen-sm-max) {
+              &:first-child{
+                display: none;
+              }
+              +div {
+                flex: 1;
+              }
             }
           }
         }
@@ -1453,6 +1464,8 @@ header {
         +div{
           > div{
             display: inline-block;
+            margin-left: 0;
+            margin-right: 0;
             > div {
               max-width: 100%;
               padding: 0;
@@ -2506,5 +2519,26 @@ h2.page-title{
     height: 48px;
   }
 
+}
+/**end**/
+
+/**custom style**/
+body{
+  header{
+    height: 170px;
+    .accroche{
+      display: none;
+    }
+  }
+}
+.body-accueil {
+  header{
+    .accroche{
+      display: block !important;
+    }
+  }
+}
+.sectionTop_ .detail_carteG .line_vert{
+  display: none !important;
 }
 /**end**/
