@@ -247,19 +247,19 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     };
                     
                     if (typeVehicule === "1" && 0 <= $.inArray(name, nationalVehiculeArray)) {
-                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     } else if (typeVehicule === "0" && 0 <= $.inArray(name, communautaireVehiculeArray)) {
-                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     } else if (typeNewTitulaire === "mor" && 0 <= $.inArray(name, societyNouveauxTitulaireArray)) {
-                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     } else if (typeNewTitulaire === "phy" && 0 <= $.inArray(name, physicNouveauxTitulaireArray)) {
-                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     } else if (typeCarrossier === "mor" && 0 <= $.inArray(name, societyCarrossierArray)) {
-                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     } else if (typeCarrossier === "phy" && 0 <= $.inArray(name, physicCarrossierArray)) {
-                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     } else if (0 <= $.inArray(name, otherNewTitulaireArray)) {
-                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     }   
                 });
                 resum.html(html.concat("<strong> Démarche </strong> : Immatriculation Véhicule Neuf <br>"));

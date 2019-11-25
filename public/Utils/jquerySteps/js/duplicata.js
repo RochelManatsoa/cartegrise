@@ -153,13 +153,13 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     };
                     
                     if (typeTitulaire === "mor" && 0 <= $.inArray(name, societyTitulaireArray)) {
-                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     } else if (typeTitulaire === "phy" && 0 <= $.inArray(name, physicTitulaireArray)) {
-                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     } else if (motifsDemande === "PERT" && 0 <= $.inArray(name, motifDemandePerteArray )) {
-                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     } else if (0 <= $.inArray(name, otherTitulaireArray)) {
-                        html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     }   
                 });
                 resum.html(html.concat("<strong> Démarche </strong> : Duplicata <br>"));

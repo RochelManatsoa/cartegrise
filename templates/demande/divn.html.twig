@@ -16,18 +16,19 @@
 {% block class %}body-ccm{% endblock %}
 
 {% block page_content %}
-<div class="col-sm-10 col-lg-12 d-flex flex-row justify-content-center my-flex-container align-items-center mobile-center">
-	<div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
-        <div class="col-12 commander-firstview mt-4 custom-form">
-            <h2 class="col-md-10 mx-auto full-mobile text-center">{{ commande.demarche.nom|upper }}</h2>
-            <div class="row">
+<div class="rp_dmd">
+    <div class="container">
+        <div class="row">
+             <div class="col-12 commander-firstview mt-4 custom-form">
+                <h2 class="text-center mb-4 full-mobile">{{ commande.demarche.nom|upper }}</h2>
                 <hr>
-                    <div class="col-4 col-md-10 mx-auto full-mobile">
-                        {% include "demande/caracteristicVehicle.html.twig" %}
-                    </div>
-                    {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
-                        <h3>Etape</h3>
-                        <section style="position: relative;width: 100%;">
+                <div class="resultat-estimation mb-5 full-mobile">{% include "demande/caracteristicVehicle.html.twig" %}</div>
+                <hr>
+                 {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
+                    <h3>Etape</h3>
+                    <section style="position: relative;width: 100%;">
+                        <div class="row">
+                            <div class="col-md-5">
                                 <legend>{{ form_label(form.divn.acquerreur) }}</legend>
                                 <div class="titulaire">
                                     {{ form_row(form.divn.acquerreur.type)}}
@@ -43,6 +44,9 @@
                                     {{ form_row(form.divn.acquerreur.paysN)}}#}
                                     {{ form_row(form.divn.acquerreur.droitOpposition)}}
                                 </div>
+                            </div>
+                            <div class="col-md-2 d-none d-lg-block"><div class="col-sep d-flex align-items-center justify-content-center"><span></span></div></div>
+                            <div class="col-md-5">
                                 <legend>{{ form_label(form.divn.acquerreur.adresseNewTitulaire) }}</legend>
                                 {% for addresseNewTitulaire in form.divn.acquerreur.adresseNewTitulaire %}
                                     <div class="form-group">
@@ -51,23 +55,27 @@
                                         {{ form_widget(addresseNewTitulaire, {'attr': {'class': ''}})}}
                                     </div>
                                 {% endfor %} 
-                                <legend>{{ form_label(form.divn.cotitulaire) }}</legend>
-                                <ul class="tags" data-prototype="{{ form_widget(form.divn.cotitulaire.vars.prototype)|e('html_attr') }}">
-                                    {% for tag in form.divn.cotitulaire %}
-                                        {% if loop.index < 5 %}
-                                        <li>
-                                            {{ form_label(tag.vars.prototype)|e  }}
-                                            {{ form_errors(tag.vars.prototype)|e  }}
-                                            {{ form_widget(tag.vars.prototype, {'attr': {'class': ''}})|e  }}
-                                        </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul> 
-                        </section>
+                            </div>
+                        </div>
+                        <legend>{{ form_label(form.divn.cotitulaire) }}</legend>
+                        <ul class="tags" data-prototype="{{ form_widget(form.divn.cotitulaire.vars.prototype)|e('html_attr') }}">
+                            {% for tag in form.divn.cotitulaire %}
+                                {% if loop.index < 5 %}
+                                <li>
+                                    {{ form_label(tag.vars.prototype)|e  }}
+                                    {{ form_errors(tag.vars.prototype)|e  }}
+                                    {{ form_widget(tag.vars.prototype, {'attr': {'class': ''}})|e  }}
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul> 
+                    </section>
 
-                        <h3>Etape</h3>
-                        <section style="position: relative;width: 100%;">
-                                <legend>{{ form_label(form.divn.vehicule) }}</legend>
+                    <h3>Etape</h3>
+                    <section style="position: relative;width: 100%;">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <legend>{{ form_label(form.divn.vehicule) }}</legend>
                                     <div class="form-info">
                                         {{ form_row(form.divn.vehicule.vin)}}
                                         {{ form_row(form.divn.vehicule.d1Marque)}}
@@ -103,50 +111,56 @@
                                             {{ form_row(form.divn.vehicule.v9ClasseEnvCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                         </div>
                                     </div>
-                                <legend>{{ form_label(form.divn.carrosier) }}</legend>
-                                <div class="carrossier">
-                                    {{ form_row(form.divn.carrosier.typeCarrossier)}}
-                                    {{ form_row(form.divn.carrosier.raisonSocialCarrossier, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.carrosier.nomCarrosssier)}}
-                                    {{ form_row(form.divn.carrosier.prenomCarrossier)}}
                                 </div>
-                                    {{ form_row(form.divn.carrosier.agrement)}}
-                                    {{ form_row(form.divn.carrosier.justificatifs)}}
-                                <legend>{{ form_label(form.divn.caracteristiqueTechniquePart) }}</legend>
-                                <div id="caract" data-prototype="{{ form_widget(form.divn.caracteristiqueTechniquePart.vars.prototype)|e('html_attr') }}">
-                                    {% for row in form.divn.cotitulaire %}
-                                        {% if loop.index < 3 %}
-                                        <div class="panel panel-warning">
-                                            <div class="panel-heading">
+                                <div class="col-md-2 d-none d-lg-block"><div class="col-sep d-flex align-items-center justify-content-center"><span></span></div></div>
+                                <div class="col-md-5">
+                                    <legend>{{ form_label(form.divn.carrosier) }}</legend>
+                                    <div class="carrossier">
+                                        {{ form_row(form.divn.carrosier.typeCarrossier)}}
+                                        {{ form_row(form.divn.carrosier.raisonSocialCarrossier, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                        {{ form_row(form.divn.carrosier.nomCarrosssier)}}
+                                        {{ form_row(form.divn.carrosier.prenomCarrossier)}}
+                                    </div>
+                                        {{ form_row(form.divn.carrosier.agrement)}}
+                                        {{ form_row(form.divn.carrosier.justificatifs)}}
+                                    <legend>{{ form_label(form.divn.caracteristiqueTechniquePart) }}</legend>
+                                    <div id="caract" data-prototype="{{ form_widget(form.divn.caracteristiqueTechniquePart.vars.prototype)|e('html_attr') }}">
+                                        {% for row in form.divn.cotitulaire %}
+                                            {% if loop.index < 3 %}
+                                            <div class="panel panel-warning">
+                                                <div class="panel-heading">
+                                                </div>
+                                                <div class="panel-body">
+                                                    {{ form_label(row.vars.prototype)|e  }}
+                                                    {{ form_errors(row.vars.prototype)|e  }}
+                                                    {{ form_widget(row.vars.prototype, {'attr': {'class': ''}})|e  }}
+                                                </div>
                                             </div>
-                                            <div class="panel-body">
-                                                {{ form_label(row.vars.prototype)|e  }}
-                                                {{ form_errors(row.vars.prototype)|e  }}
-                                                {{ form_widget(row.vars.prototype, {'attr': {'class': ''}})|e  }}
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                    {% endfor %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                        </section>
-
-                        <h3>Etape</h3>
-                        <section style="position: relative;width: 100%;">
-                            <legend>Récapitulatif des informations liées à la demande</legend>
-                            <div id="resum"></div>
-                            <div style="display:none;">
-                                {{form_rest(form)}}
                             </div>
-                        </section>
+                    </section>
 
-                        {# <h3>Etape</h3>
-                        <section style="position: relative;width: 100%;">
-                        </section> #}
-                    {{ form_end(form) }}
-                </div>
+                    <h3>Etape</h3>
+                    <section style="position: relative;width: 100%;">
+                        <legend>Récapitulatif des informations liées à la demande</legend>
+                        <div id="resum"></div>
+                        <div style="display:none;">
+                            {{form_rest(form)}}
+                        </div>
+                    </section>
+
+                    {# <h3>Etape</h3>
+                    <section style="position: relative;width: 100%;">
+                    </section> #}
+                {{ form_end(form) }}
             </div>
         </div>
-	</div>
+    </div>
+</div>
+
 {% endblock %}
 {% block javascripts %} 
 <script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>
@@ -293,5 +307,7 @@
     );
 
 </script>
-</script>    
+</script>   
+<script src="{{ asset('asset/libs/js/jquery.sticky.js') }}" type="text/javascript"></script>
+<script src="{{ asset('javascripts/home.js') }}"></script> 
 {% endblock %}

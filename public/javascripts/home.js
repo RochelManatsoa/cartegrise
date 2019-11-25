@@ -221,8 +221,14 @@ $('.nav-mobile').click(function() {
     this.classList.toggle('active');
     $('.nav-list').toggle();
 });
-$('.nav-list').on('click', '.nav-click', function() {
-    $(this).siblings('.nav-sub-menu').toggle();
-    $(this).children('.icon-arrow-down').toggleClass('nav-rotate');
 
+$('.nav-list').on('click', '.nav-click', function(){
+  $(this).siblings('.nav-sub-menu').toggle();
+  $(this).children('.icon-arrow-down').toggleClass('nav-rotate');
+  
+});
+
+$('#usrMobile').click(function(){
+    this.classList.toggle('active');
+    $('.sub-infos').toggle();
 });

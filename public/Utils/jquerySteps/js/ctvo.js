@@ -1,3 +1,20 @@
+$(document).ready(function () {
+    $(".Navigation").sticky({ topSpacing: 0 });
+
+    // Mobile nav
+    $('.nav').append($('<div class="nav-mobile"><span></span></div>'));
+    $('.nav-item').has('ul').prepend('<span class="nav-click"><i class="icomoon icon-arrow-down"></i></span>');
+    $('.nav-mobile').click(function(){
+        this.classList.toggle('active');
+        $('.nav-list').toggle();
+    });
+    $('.nav-list').on('click', '.nav-click', function(){
+    $(this).siblings('.nav-sub-menu').toggle();
+    $(this).children('.icon-arrow-down').toggleClass('nav-rotate');
+    
+    })
+});
+
 function initFormStep(form, title, bodyTag, transitionEffect)
 {    
     
@@ -180,15 +197,15 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     };
                     
                     if (typeAncienTitulaire === "mor" && 0 <= $.inArray(name, societyAncienTitulaireArray)) {
-                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     } else if (typeAncienTitulaire === "phy" && 0 <= $.inArray(name, physicAncientitulaireArray)) {
-                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     } else if (typeNewTitulaire === "mor" && 0 <= $.inArray(name, societyNouveauxTitulaireArray)) {
-                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     } else if (typeNewTitulaire === "phy" && 0 <= $.inArray(name, physicNouveauxTitulaireArray)) {
-                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     } else if (0 <= $.inArray(name, otherNewTitulaireArray)) {
-                            html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
+                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     }   
                 });
                 resum.html(html.concat("<strong> Démarche </strong> : Changement Titulaire Véhicule d'Occasion Français <br>"));
