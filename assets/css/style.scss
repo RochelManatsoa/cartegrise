@@ -2398,7 +2398,145 @@ h2.page-title{
         }
       }
     }
+    &--navigation{
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      border-top: 1px solid #ccc;
+      &-right{
+        text-align: right;
+        i{
+          margin-left: 20px;
+        }
+      }
+      &-left{
+        i{
+          margin-right: 20px;
+        }
+      }
+      &-title{
+        color: #03347e;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        i {
+          font-size: 20px;
+        }
+        &:hover{
+          text-decoration: none;
+          color:#219de4;
+        }
+      }
+
+    }
+  }
+
+  .related-blog{
+    background: #ffffff;
+    padding: 3rem 2rem 4.5rem 2rem;
+    margin-bottom: 1.5rem;
+    &--title{
+      font-weight: 600;
+      color: #131314;
+    }
+    &--post {
+      position: relative;
+      overflow: hidden;
+      &-image {
+        width: 100%;
+        height: auto;
+      }
+      &-title {
+        font-weight: 600;
+        font-size: 14px;
+        padding: 15px;
+        line-height: 22px;
+        background: rgba(3, 52, 126,.82);
+        color: #fff;
+        position: absolute;
+        bottom: -100%;
+        margin: 0;
+        border-top: 1px solid $white;
+        transition: all .5s ease;
+      }
+      &:hover{
+        h5 {
+          bottom: 0!important;
+        }
+      }
+    }
   }
 }
 
+.blog-details{
+  h2.pge-title {
+    text-transform: none;
+    letter-spacing: normal;
+  }
+  .container-category-post-on{
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+  .blog-post{
+    &--category {
+      position: relative;
+      left: 0;
+      bottom: 0;
+      strong{
+        float: left;
+        margin-right: 20px;
+      }
+    }
+  }
+}
+
+
+
+.commentaire{
+  .badge.badge-pill {
+    background: #000;
+    font-weight: 600;
+    font-size: 18px;
+    border-radius: 50%;
+    padding: 10px 14px;
+    line-height: 1;
+  }
+  &-subject{
+  font-weight: 300;
+    border-bottom: 1px solid #000;
+    strong{
+      font-style: italic;
+    }
+  }
+  .note{
+    font-weight: bold;
+  }
+  &-form{
+    background: $white;
+    padding: 3rem 4rem;
+    &--title{
+      font-weight: 600;
+      color: #131314;
+    }
+    .btn-send{
+      padding: 1.2rem 2.5rem 1rem 2.5rem !important;
+      margin-top: 2rem;
+    }
+  }
+}
+
+.form-group{
+  .label{
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .form-control{
+    background: #f7f7f7;
+    border: 1px solid #ccc;
+  }
+  input{
+    height: 48px;
+  }
+
+}
 /**end**/
