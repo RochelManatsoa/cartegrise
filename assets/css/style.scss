@@ -117,7 +117,10 @@ header {
 							display: none;
 						}
 						.nav-sub-menu {
-							padding-top: $size_18;
+							//padding-top: $size_18;
+                            margin-top: $size_18;
+                            border: 1px solid #03347e;
+                            padding-top: 0;
 						}
 					}
 				}
@@ -353,7 +356,7 @@ header {
 							@extend %list-style;
 							width: $subMenu-width;
 							margin-left: -16px;
-							padding-top: 33px;
+							//padding-top: 33px;
 							text-align: left;
 							top: 120%;
 							z-index: -1;
@@ -361,6 +364,9 @@ header {
 							transition: top 0.3s ease 0s, visibility 0.2s ease 0.2s, opacity 0.2s ease 0.1s;
 							opacity: 0;
 							visibility: hidden;
+                            margin-top: $size_18;
+                            border: 1px solid #03347e;
+                            padding-top: 0;
 							@include md {
 								position: static;
 								position: static;
