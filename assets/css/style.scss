@@ -2,6 +2,7 @@
 @import 'stylesheet.scss';
 @import 'footer.scss';
 @import 'espc-client.scss';
+@import 'upload.scss';
 
 body {
 	font-family: "Open Sans" !important;
@@ -1311,39 +1312,6 @@ header {
 						ul {
 							li {
 								color: $aqua-blue;
-							}
-						}
-					}
-				}
-			}
-			.group-input {
-				margin: $size_15 0;
-				h4 {
-					label {
-						font-size: 16px;
-						font-weight: 600;
-						border-bottom: $bdr_solid_1 #ddd;
-						margin-bottom: 25px;
-						padding-bottom: $size_15;
-						min-height: 45px;
-					}
-				}
-				.custom-flex {
-					border: 1px dashed $aqua-blue;
-					padding: 25px;
-					border-radius: 10px;
-					.btn-bown {
-						border: none;
-						background: none;
-						padding: 0;
-						cursor: pointer;
-						i {
-							color: $aqua-blue;
-							font-size: 30px;
-							position: relative;
-							top: 3px;
-							&:hover {
-								color: $royal-blue;
 							}
 						}
 					}

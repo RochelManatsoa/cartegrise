@@ -8,6 +8,9 @@ footer {
 				color: $inherit;
 				font-size: 22px;
 				line-height: $size_24;
+				display: $block;
+				border: $bdr_solid_1 $royal-blue;
+				padding: 20px;
 				@include lg {
 					font-size: 20px;
 				}
@@ -54,42 +57,46 @@ footer {
 				}
 			}	
 		}
-		.info_docs {
-			color: $inherit;
-			font-weight: bold;
-			text-transform: uppercase;
-			display: $block;
-			margin: 10px 0;
-			position: relative;
-			padding-left: 40px;
-			@include lg {
-				font-size: 14px;
-			}
-			@include md {
-				line-height: 20px;
-			}
-			@include sm {
-				padding-left: 28px;
-			}
-			&:before {
-				content: "\e903";
-				position: absolute;
-				font-family: 'icomoon' !important;
-				left: 0;
-				font-size: 29px;
-				color: $green;
-				@include sm {
-					font-size: 20px;
-				}
-			}
-			&:hover {
-				text-decoration: none;
-				color: $green;
-			}
-			em {
-				text-transform: none;
-    			font-weight: 400;
+		.infos-inner {
+			border: $bdr_solid_1 $royal-blue;
+			padding: 20px;
+			.info_docs {
+				color: $inherit;
+				font-weight: bold;
+				text-transform: uppercase;
 				display: $block;
+				margin: 10px 0;
+				position: relative;
+				padding-left: 40px;
+				@include lg {
+					font-size: 14px;
+				}
+				@include md {
+					line-height: 20px;
+				}
+				@include sm {
+					padding-left: 28px;
+				}
+				&:before {
+					content: "\e903";
+					position: absolute;
+					font-family: 'icomoon' !important;
+					left: 0;
+					font-size: 29px;
+					color: $green;
+					@include sm {
+						font-size: 20px;
+					}
+				}
+				&:hover {
+					text-decoration: none;
+					color: $green;
+				}
+				em {
+					text-transform: none;
+					font-weight: 400;
+					display: $block;
+				}
 			}
 		}
 		.CG_Off_Footer {

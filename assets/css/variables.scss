@@ -55,6 +55,16 @@ $subMenu-width: 285px;
 	-webkit-transition: all .3s ease;
 }
 
+%exa_bdr {
+    width: 250px;
+    height: 143px;
+    background: #eaeaea;
+    text-align: justify;
+}
+%exa {
+    background: $white;
+}
+
 
 $information-phone: "only screen and (min-width : 992px)";
 
