@@ -10,109 +10,117 @@
 {% endblock %}
 
 {% block page_content %}
-    <div class="col-md-12 col-lg-10 mx-auto mt-0 mt-md-5">
-        <h1 class="pl-4">Votre commande </h1>
-                {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
-                    <div class="alert alert-success">
-                        Votre demande est validée, veuillez nous envoyer vos documents par courrier à l'adresse
-                        suivante.
-                        <br>pour un traitement plus rapide, veuillez mettre IMPÉRATIVEMENT sur votre enveloppe la référence suivante : {{ demande.reference | displayValue}}
-                        <br>CG Officiel
-                        <br>20 Impasse Camille Langlade
-                        <br>31100 Toulouse
+    <div class="rp_dmd">
+        <div class="container">
+            <div class="commande_block">
+                <h2>Votre commande </h2>
+                <div class="commande-container mb-5 pb-5">
+                    {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
+                        <div class="alert alert-success">
+                            Votre demande est validée, veuillez nous envoyer vos documents par courrier à l'adresse
+                            suivante.
+                            <br>pour un traitement plus rapide, veuillez mettre IMPÉRATIVEMENT sur votre enveloppe la référence suivante : {{ demande.reference | displayValue}}
+                            <br>CG Officiel
+                            <br>20 Impasse Camille Langlade
+                            <br>31100 Toulouse
+                        </div>
+                    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
+                        <div class="alert alert-warning" role="alert">
+                            Votre demande est en cours de validation, une fois validée, veuillez nous envoyer vos documents par courrier à l'adresse
+                            suivante :
+                            <br>CG Officiel
+                            <br>20 Impasse Camille Langlade
+                            <br>31100 Toulouse
+                        </div>
+                    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
+                        <div class="alert alert-info" role="alert">
+                            Vos documents ont bien été reçus et ont été validés.
+                            <br>Vous recevrez votre commande d'ici quelques jours
+                            <br>CG Officiel
+                            <br>20 Impasse Camille Langlade
+                            <br>31100 Toulouse
+                        </div>
+                    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
+                        <div class="alert alert-danger">
+                            Votre document n'est pas valide, Voici le retour:
+                            <p>
+                                {{ demande.motifDeRejet|nl2br }}
+                            </p>
+                        </div> 
+                    {% endif %}
+                    <ul>
+                        <li><strong>Type Demande </strong> {{ demande.commande.demarche.nom }}</li>
+                        <li class="grayb"><strong>Date </strong> {{ demande.commande.ceerLe | date('d-m-Y')}}</li>
+                        <li><strong>Nom et prénom </strong> {{ client.clientNom }} {{ client.clientPrenom }}</li>
+                        <li class="grayb"><strong>Département </strong> {{ demande.commande.codePostal }}</li>
+                        <li><strong>Immatriculation </strong> {{ demande.commande.immatriculation }}</li>
+                    </ul>
+                </div>
+                <h2>Pièces à fournir pour votre demande</h2>
+                <div class="piece_fournir">
+                    <h3 class="titleDossier mb-5">
+                        FINALISEZ VOTRE DEMARCHE <br>
+                        Plus que 4 étapes 
+                    </h3>
+                    <div class="row dossier-info-container mb-5">
+                        <div class="col-12 col-md-6 col-lg-3 text-center">
+                            <div class="image-dossier">
+                                <span class="image-dossier-icon">
+                                    <i class="fas fa-file-download"></i>
+                                </span>
+                                <span class="desc-dossier">Télécharger le CERFA associé à ma demande</span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3 text-center">
+                            <div class="image-dossier">
+                                <span class="image-dossier-icon">
+                                    <i class="fas fa-user-edit"></i>
+                                </span>
+                                <span class="desc-dossier">Remplir le CERFA et le signer</span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3 text-center">
+                            <div class="image-dossier">
+                                <span class="image-dossier-icon icon-svg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 24.499 24.499" style="enable-background:new 0 0 24.499 24.499;" xml:space="preserve">
+                                        <g>
+                                        <path style="fill:#03347e;" d="M24.25,15.368c0.087-0.143,0.151-0.301,0.151-0.481c0-0.272-0.115-0.518-0.3-0.69l-7.64-10.2   c-0.109-0.144-0.257-0.255-0.426-0.318L7.934,0.662C7.527,0.511,7.071,0.657,6.827,1.015C6.582,1.373,6.614,1.851,6.904,2.174   l6.378,7.117c-0.015,0.004-0.031,0.004-0.047,0.009L1.342,12.881C0.545,13.121,0,13.854,0,14.686v0.556   c0,0.569,0.256,1.108,0.699,1.465l8.371,6.77c0.341,0.276,0.761,0.419,1.185,0.419c0.247,0,0.495-0.048,0.729-0.147l12.36-5.194   c0.701-0.295,1.155-0.979,1.155-1.738v-0.513C24.5,15.971,24.411,15.649,24.25,15.368z M8.089,21.583   c-0.315,0-0.569-0.413-0.569-0.921s0.255-0.92,0.569-0.92s0.569,0.412,0.569,0.92S8.404,21.583,8.089,21.583z M10.508,19.44   l-7.519-5.484l4.858-1.518l7.791,5.066L10.508,19.44z M16.695,17.104c-0.032-0.041-0.067-0.081-0.113-0.111l-7.567-4.92l4.59-1.434   l7.916,4.644L16.695,17.104z"/></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+                                    </svg>
+                                </span>
+                                <span class="desc-dossier">Scanner le CERFA et les autres documets nécessaires à ma demande</span>
+                            </div>
+                        </div>            
+                        <div class="col-12 col-md-6 col-lg-3 text-center">
+                            <div class="image-dossier">
+                                <span class="image-dossier-icon">
+                                    <i class="fas fa-file-upload"></i>
+                                </span>
+                                <span class="desc-dossier">Transmettez nous le CERFA rempli ainsi que vos documents via CG Officiel</span>
+                            </div>
+                        </div>            
                     </div>
-                {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
-                    <div class="alert alert-warning" role="alert">
-                        Votre demande est en cours de validation, une fois validée, veuillez nous envoyer vos documents par courrier à l'adresse
-                        suivante :
-                        <br>CG Officiel
-                        <br>20 Impasse Camille Langlade
-                        <br>31100 Toulouse
+                    <div id="daf-list-wrapper" class="mb-5">
+                        {{ daf|raw }}
                     </div>
-                {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
-                    <div class="alert alert-info" role="alert">
-                        Vos documents ont bien été reçus et ont été validés.
-                        <br>Vous recevrez votre commande d'ici quelques jours
-                        <br>CG Officiel
-                        <br>20 Impasse Camille Langlade
-                        <br>31100 Toulouse
+                    <div class="hidden-lg-down hidden-md-down">
+                        {% if form is not null %}
+                            {% include 'demande/file/FormDossier.html.twig' %}
+                        {% endif %}
+                        <div class="text-center mb-5">
+                        {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
+                            <a href="{{ path("validate_file", {'demande': demande.id}) }}">
+                                <button class="btn link-connexion-register">Valider</button>
+                            </a>
+                        {% endif %}
+                        </div>
                     </div>
-                {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
-                    <div class="alert alert-danger">
-                        Votre document n'est pas valide, Voici le retour:
-                        <p>
-                            {{ demande.motifDeRejet|nl2br }}
-                        </p>
-                    </div> 
-                {% endif %}
-        <ul>
-            <li><b>Type Demande : </b> {{ demande.commande.demarche.nom }}</li>
-            <li><b>Date : </b> {{ demande.commande.ceerLe | date('d-m-Y')}}</li>
-            <li><b>Nom et prénom : </b> {{ client.clientNom }} {{ client.clientPrenom }}</li>
-            <li><b>Département : </b> {{ demande.commande.codePostal }}</li>
-            <li><b>Immatriculation : </b> {{ demande.commande.immatriculation }}</li>
-        </ul>
-        <h1 class="pl-4">Pièces à fournir pour votre demande</h1>
-        <div class="row d-flex dossier-info-container">
-            <h2 class="titleDossier text-center col-12">
-                FINALISEZ VOTRE DEMARCHE <br>
-                Plus que 4 étapes 
-            </h2>
-            <div class="col-5 mx-auto col-md-3 text-center">
-                <div class="image-dossier">
-                    <span class="image-dossier-icon">
-                        <i class="fas fa-file-download"></i>
-                    </span>
-                    <span class="desc-dossier">Télécharger le CERFA associé à ma demande</span>
+                    <div class="pl-4 mb-3 mb-md-0">
+                        <a href="{{ path('demande_list') }}" class="back-retour">
+                            <i class="fa fa-arrow-left"></i> Retour à la liste de vos demandes
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="col-5 mx-auto col-md-3 text-center">
-                <div class="image-dossier">
-                    <span class="image-dossier-icon">
-                        <i class="fas fa-user-edit"></i>
-                    </span>
-                    <span class="desc-dossier">Remplir le CERFA et le signer</span>
-                </div>
-            </div>
-            <div class="col-5 mx-auto col-md-3 text-center">
-                <div class="image-dossier">
-                    <span class="image-dossier-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 24.499 24.499" style="enable-background:new 0 0 24.499 24.499;" xml:space="preserve">
-                            <g>
-                            <path style="fill:#22326b;" d="M24.25,15.368c0.087-0.143,0.151-0.301,0.151-0.481c0-0.272-0.115-0.518-0.3-0.69l-7.64-10.2   c-0.109-0.144-0.257-0.255-0.426-0.318L7.934,0.662C7.527,0.511,7.071,0.657,6.827,1.015C6.582,1.373,6.614,1.851,6.904,2.174   l6.378,7.117c-0.015,0.004-0.031,0.004-0.047,0.009L1.342,12.881C0.545,13.121,0,13.854,0,14.686v0.556   c0,0.569,0.256,1.108,0.699,1.465l8.371,6.77c0.341,0.276,0.761,0.419,1.185,0.419c0.247,0,0.495-0.048,0.729-0.147l12.36-5.194   c0.701-0.295,1.155-0.979,1.155-1.738v-0.513C24.5,15.971,24.411,15.649,24.25,15.368z M8.089,21.583   c-0.315,0-0.569-0.413-0.569-0.921s0.255-0.92,0.569-0.92s0.569,0.412,0.569,0.92S8.404,21.583,8.089,21.583z M10.508,19.44   l-7.519-5.484l4.858-1.518l7.791,5.066L10.508,19.44z M16.695,17.104c-0.032-0.041-0.067-0.081-0.113-0.111l-7.567-4.92l4.59-1.434   l7.916,4.644L16.695,17.104z"/></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
-                        </svg>
-                    </span>
-                    <span class="desc-dossier">Scanner le CERFA et les autres documets nécessaires à ma demande</span>
-                </div>
-            </div>            
-            <div class="col-5 mx-auto col-md-3 text-center">
-                <div class="image-dossier">
-                    <span class="image-dossier-icon">
-                        <i class="fas fa-file-upload"></i>
-                    </span>
-                    <span class="desc-dossier">Transmettez nous le CERFA rempli ainsi que vos documents via CG Officiel</span>
-                </div>
-            </div>            
-        </div>
-        <div id="daf-list-wrapper">
-            {{ daf|raw }}
-        </div>
-        <div class="hidden-lg-down hidden-md-down">
-            {% if form is not null %}
-                {% include 'demande/file/FormDossier.html.twig' %}
-            {% endif %}
-            {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
-                <a href="{{ path("validate_file", {'demande': demande.id}) }}">
-                    <button class="btn btn-info">
-                        Valider
-                    </button>
-                </a>
-            {% endif %}
-        </div>
-        <div class="pl-4 mb-3 mb-md-0">
-            <a href="{{ path('demande_list') }}">
-                <i class="fa fa-arrow-left"></i> Retour à la liste de vos demandes
-            </a>
         </div>
     </div>
 {% endblock %}

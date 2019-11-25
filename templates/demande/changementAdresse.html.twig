@@ -22,73 +22,78 @@
 {% endblock %}
 
 {% block page_content %}
-    <h2 class="col-md-10 mx-auto full-mobile">{{ commande.demarche.nom|upper }}</h2>
-    <div class="col-md-12">
-        <div class="col-4 col-md-10 mx-auto full-mobile">
-            {% include "demande/caracteristicVehicle.html.twig" %}
-        </div>
-        <div>
-        {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
-            <h3>Titulaire</h3>
-            <fieldset style="position: relative;width: 100%; border:none;">
-                <div class="titulaire">
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.type,{'attr': {style:'width:100%'} })}}
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.nomPrenomTitulaire)}}
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.birthName)}}
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.prenomTitulaire)}}
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.genre)}}
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.dateN)}}
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.lieuN)}}
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.departementN)}}
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.paysN)}}
-                    {{ form_row(form.changementAdresse.nouveauxTitulaire.droitOpposition)}}   
-                </div>
-                {{ form_label(form.changementAdresse.numeroFormule)}}
-                <span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
-                    template='{% include "demande/tooltips/templateCessionNumFormulCarteGrise.html.twig" %}'
-                    title="{% include 'demande/tooltips/cessionNumFormulCarteGrise.html.twig' %}">
-                </span>
-                {{ form_errors(form.changementAdresse.numeroFormule)}}
-                {{ form_widget(form.changementAdresse.numeroFormule)}}
-            </fieldset>
+<div class="rp_dmd">
+    <div class="container">
+        <div class="row">
+             <div class="col-12 commander-firstview mt-4 custom-form">
+                <h2 class="text-center mb-4 full-mobile">{{ commande.demarche.nom|upper }}</h2>
+                <hr>
+                    <div class="resultat-estimation mb-5 full-mobile">{% include "demande/caracteristicVehicle.html.twig" %}</div>
+                    <hr>
+                    {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
+                    <h3>Titulaire</h3>
+                    <fieldset style="position: relative;width: 100%; border:none;">
+                        <div class="titulaire">
+                            {{ form_row(form.changementAdresse.nouveauxTitulaire.type,{'attr': {style:'width:100%'} })}}
+                            {{ form_row(form.changementAdresse.nouveauxTitulaire.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                            {{ form_row(form.changementAdresse.nouveauxTitulaire.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                            {{ form_row(form.changementAdresse.nouveauxTitulaire.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                            {{ form_row(form.changementAdresse.nouveauxTitulaire.nomPrenomTitulaire)}}
+                            {{ form_row(form.changementAdresse.nouveauxTitulaire.birthName)}}
+                            {{ form_row(form.changementAdresse.nouveauxTitulaire.prenomTitulaire)}}
+                            {{ form_row(form.changementAdresse.nouveauxTitulaire.genre)}}
+                            {{ form_row(form.changementAdresse.nouveauxTitulaire.dateN)}}
+                            {{ form_row(form.changementAdresse.nouveauxTitulaire.lieuN)}}
+                            {{ form_row(form.changementAdresse.nouveauxTitulaire.departementN)}}
+                            {{ form_row(form.changementAdresse.nouveauxTitulaire.paysN)}}
+                            {{ form_row(form.changementAdresse.nouveauxTitulaire.droitOpposition)}}   
+                        </div>
+                        {{ form_label(form.changementAdresse.numeroFormule)}}
+                        <span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
+                            template='{% include "demande/tooltips/templateCessionNumFormulCarteGrise.html.twig" %}'
+                            title="{% include 'demande/tooltips/cessionNumFormulCarteGrise.html.twig' %}">
+                        </span>
+                        {{ form_errors(form.changementAdresse.numeroFormule)}}
+                        {{ form_widget(form.changementAdresse.numeroFormule)}}
+                    </fieldset>
 
-            <h3>Ancienne Adresse</h3>
-            <fieldset style="position: relative;width: 100%; border:none;">
-                {% for adresse in form.changementAdresse.ancienAdresse %}
-                <div class="form-group">
-                    {{ form_label(adresse)}}
-                    {{ form_errors(adresse)}}
-                    {{ form_widget(adresse, {'attr': {'class': ''}})}}
-                </div>
-                {% endfor %}
-            </fieldset>
+                    <h3>Ancienne Adresse</h3>
+                    <fieldset style="position: relative;width: 100%; border:none;">
+                        {% for adresse in form.changementAdresse.ancienAdresse %}
+                        <div class="form-group">
+                            {{ form_label(adresse)}}
+                            {{ form_errors(adresse)}}
+                            {{ form_widget(adresse, {'attr': {'class': ''}})}}
+                        </div>
+                        {% endfor %}
+                    </fieldset>
 
-            <h3>Nouvelle Adresse</h3>
-            <fieldset style="position: relative;width: 100%; border:none;">
-                {% for address in form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire %}
-                {% if loop.index < 9 %}
-                <div class="form-group">
-                    {{ form_label(address)}}
-                    {{ form_errors(address)}}
-                    {{ form_widget(address, {'attr': {'class': ''}})}}
-                </div>
-                {% endif %}
-            {% endfor %}
-            </fieldset>
+                    <h3>Nouvelle Adresse</h3>
+                    <fieldset style="position: relative;width: 100%; border:none;">
+                        {% for address in form.changementAdresse.nouveauxTitulaire.adresseNewTitulaire %}
+                        {% if loop.index < 9 %}
+                        <div class="form-group">
+                            {{ form_label(address)}}
+                            {{ form_errors(address)}}
+                            {{ form_widget(address, {'attr': {'class': ''}})}}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    </fieldset>
 
-            <h3>Resumé</h3>
-            <fieldset style="position: relative; width: 100%; border:none;">
-                <div id="resum"></div>
-                <div style="display:none">
-                    {{form_rest(form)}}
-                </div>
-            </fieldset>
-        {{ form_end(form) }}
+                    <h3>Resumé</h3>
+                    <fieldset style="position: relative; width: 100%; border:none;">
+                        <div id="resum"></div>
+                        <div style="display:none">
+                            {{form_rest(form)}}
+                        </div>
+                    </fieldset>
+                {{ form_end(form) }}
+               </div>
+            </div>
         </div>
     </div>
+</div>
 
 {% endblock %}
 {% block javascripts %}
@@ -132,4 +137,6 @@
     );
 
 </script>
+<script src="{{ asset('asset/libs/js/jquery.sticky.js') }}" type="text/javascript"></script>
+<script src="{{ asset('javascripts/home.js') }}"></script>
 {% endblock %}

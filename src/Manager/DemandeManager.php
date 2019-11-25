@@ -4,7 +4,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-17 13:14:01 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-11-07 12:03:09
+ * @Last Modified time: 2019-11-25 09:51:44
  */
 namespace App\Manager;
 
@@ -572,14 +572,19 @@ class DemandeManager
 
     public function checkServiceClient()
     {
-        $demandes = $this->getDemandeOfUser($this->tokenStorage->getToken()->getUser());
-        $check = [];
-        foreach($demandes as $demande){
-            $check[$demande->getId()] = $demande->getTransaction() ? $demande->getTransaction()->getStatus() : $demande->getCommande()->getTransaction()->getStatus();
-        }
-        // dd($check);
-        if(in_array("00", $check)){
-            return "0977423130";
+        if ($this->tokenStorage->getToken()->getUser() instanceof User) {
+            $demandes = $this->getDemandeOfUser($this->tokenStorage->getToken()->getUser());
+            $status = false;
+            foreach($demandes as $demande){
+                $tmpStatus = $demande->getTransaction() != null ? $demande->getTransaction()->getStatus() : $demande->getCommande()->getTransaction()->getStatus();
+                if ($tmpStatus == '00') {
+                    $status = true;
+                    break;
+                } 
+            }
+            if($status){
+                return "0977423130";
+            }
         }
 
         return "0897010800";
