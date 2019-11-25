@@ -262,7 +262,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                         html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
                     }   
                 });
-                resum.html(html.concat("<strong> Démarche </strong> : Immatriculation Véhicule Neuf <br>"));
+                resum.html(html.concat("<div><strong> Démarche </strong> Immatriculation Véhicule Neuf</div>"));
             }
         },
         onFinishing: function (event, currentIndex) {
