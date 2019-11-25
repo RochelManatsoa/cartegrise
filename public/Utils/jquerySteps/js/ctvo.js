@@ -15,7 +15,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             pagination: "Pagination",
             finish: "Terminer",
             next: "Suivant",
-            previous: "Précédant",
+            previous: "Précédent",
             loading: "Chargement ..."
         },
         onStepChanging: function (event, currentIndex, newIndex) {
@@ -111,7 +111,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                         "demande_ctvo[ctvo][acquerreur][paysN]" : "Pays de naissance",
                         "demande_ctvo[ctvo][acquerreur][droitOpposition]" : "Opposé(e) à la diffusion de mes informations",
                         "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][numero]" : "Numéro de rue",
-                        "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][extension]" : "Extention",
+                        "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][extension]" : "Extension",
                         "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][typevoie]" : "Type de la voie",
                         "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][nom]" : "Nom de la voie",
                         "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][complement]" : "Complément",
@@ -139,6 +139,42 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                         value = "Société";
                     }else if(value === "phy"){
                         value = "Personne physique";
+                    }else if(value === "RUE"){
+                        value = "Rue";
+                    }else if(value === "BLVD"){
+                        value = "Boulevard";
+                    }else if(value === "AVN"){
+                        value = "Avenue";
+                    }else if(value === "ALL"){
+                        value = "Allée";
+                    }else if(value === "PLC"){
+                        value = "Place";
+                    }else if(value === "IMP"){
+                        value = "Impasse";
+                    }else if(value === "CHM"){
+                        value = "Chemin";
+                    }else if(value === "QUAI"){
+                        value = "Quai";
+                    }else if(value === "FORT"){
+                        value = "Fort";
+                    }else if(value === "RTE"){
+                        value = "Route";
+                    }else if(value === "PASS"){
+                        value = "Passage";
+                    }else if(value === "COUR"){
+                        value = "Cour";
+                    }else if(value === "CHAU"){
+                        value = "Chaussée";
+                    }else if(value === "PARC"){
+                        value = "Parc";
+                    }else if(value === "FBG"){
+                        value = "Faubourg";
+                    }else if(value === "LDIT"){
+                        value = "Lieu-dit";
+                    }else if(value === "SQUA"){
+                        value = "Square";
+                    }else if(value === "SENT"){
+                        value = "Sente";
                     }else{
                         value;
                     };
@@ -155,7 +191,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                             html = html.concat("<strong>" + label[element.name] + "</strong>" + " : " + value + "<br>");
                     }   
                 });
-                resum.html(html);
+                resum.html(html.concat("<strong> Démarche </strong> : Changement Titulaire Véhicule d'Occasion Français <br>"));
             }
         },
         onFinishing: function (event, currentIndex) {
