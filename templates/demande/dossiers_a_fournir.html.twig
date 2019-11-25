@@ -115,7 +115,7 @@
                         </div>
                     </div>
                     <div class="pl-4 mb-3 mb-md-0">
-                        <a href="{{ path('demande_list') }}" class="back-retour">
+                        <a href="{{ path('demande_history') }}" class="back-retour">
                             <i class="fa fa-arrow-left"></i> Retour à la liste de vos demandes
                         </a>
                     </div>
@@ -137,7 +137,7 @@
                 if ($(item).next().length === 1) {
                      $(item).parents('div.group-input').find('label.custom-file-label').text($(item).next().text());
                 } else {
-                    $(item).parents('div.group-input').find('label.custom-file-label').text('Choisir un fichier...');
+                    $(item).parents('div.group-input').find('label.custom-file-label').text('Parcourir');
                 }
             }
         );
