@@ -6,11 +6,7 @@
                     <div class="left-topBlock">
                         {% if app.user %}
                         <a href="tel:{{ displayServiceClient() }}">
-                            {% if cat is defined %}
-                                <img src="../asset/img/{{ displayServiceClient() }}.png" alt="Service Appel">
-                            {% else %}
-                                <img src="asset/img/{{ displayServiceClient() }}.png" alt="Service Appel">
-                            {% endif %}
+                            <img src="{{ asset('asset/img/' ~ displayServiceClient() ~ '.png')}}" alt="Service Appel">
                         </a>
                         {% else %}
                         <a href="tel:0897010800">
