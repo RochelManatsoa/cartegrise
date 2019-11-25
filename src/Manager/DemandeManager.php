@@ -570,4 +570,19 @@ class DemandeManager
         }
     }
 
+    public function checkServiceClient()
+    {
+        $demandes = $this->getDemandeOfUser($this->tokenStorage->getToken()->getUser());
+        $check = [];
+        foreach($demandes as $demande){
+            $check[$demande->getId()] = $demande->getTransaction() ? $demande->getTransaction()->getStatus() : $demande->getCommande()->getTransaction()->getStatus();
+        }
+        // dd($check);
+        if(in_array("00", $check)){
+            return "0977423130";
+        }
+
+        return "0897010800";
+    }
+
 }

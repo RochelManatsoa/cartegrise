@@ -49,16 +49,26 @@ function valueTreatement(value) {
 
 $('#formulaire_demarche').on('change', function (e) {
     var Value = $(".demarche").find(":selected").val();
-    if (Value !== "3") {
+    if (Value === "3") {
+        $(e.target).parent().siblings().hide();
+        $("div#formVN").show();
+        $("div#formDC").hide();
+        $(this).parents("form").hide();
+    } else if (Value === "5"){
+        $(e.target).parent().siblings().hide();
+        $("div#formDC").show();
+        $("div#formVN").hide();
+        $(this).parents("form").hide();
+    } else {
         $(e.target).parent().siblings().show();
         document.getElementById("calcul").innerHTML = '<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>';
-        $(this).parents("form").next("div#formVN").hide();
+        $("div#formVN").hide();
+        $("div#formDC").hide();
         $(this).parents("form").show();
-    } else {
-        $(e.target).parent().siblings().hide();
-        $(this).parents("form").next("div#formVN").show();
-        $(this).parents("form").hide();
     }
+        $("#formulaire_demarche").next("div.select-styled").text($(".demarche ul.select-options").eq(0).find("li[rel='"+$(this).val()+"']").text());
+    //     $this.val($(this).attr("rel"));
+    // .val();
 });
 $(function() {
     $('a[href*=\\#]').on('click', function(e) {
@@ -189,6 +199,7 @@ $('.block_form select').each(function(){
         e.stopPropagation();
         $styledSelect.text($(this).text()).removeClass('active');
         $this.val($(this).attr('rel'));
+        $this.change();
         $list.hide();
     });
   

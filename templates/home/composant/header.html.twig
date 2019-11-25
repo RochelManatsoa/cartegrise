@@ -4,7 +4,19 @@
             <div class="container">
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="left-topBlock">
-                        <img src="{{ asset('asset/img/service_appel.png')}}" alt="Service Appel">
+                        {% if app.user %}
+                        <a href="tel:{{ displayServiceClient() }}">
+                            {% if cat is defined %}
+                                <img src="../asset/img/{{ displayServiceClient() }}.png" alt="Service Appel">
+                            {% else %}
+                                <img src="asset/img/{{ displayServiceClient() }}.png" alt="Service Appel">
+                            {% endif %}
+                        </a>
+                        {% else %}
+                        <a href="tel:0897010800">
+                            <img src="{{ asset('asset/img/0897010800.png')}}" alt="Service Appel">
+                        </a>
+                        {% endif %}
                     </div>
                     <div class="right-topBlock d-none d-md-flex align-items-center">
                         <div class="block-habillitation d-flex align-items-center">
@@ -37,7 +49,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div>                            
                             {% else %}
                             <a class="login-access btn btn-blue" href="/login">Se connecter <i class="icomoon icon-user"></i></a>
                             {% endif %}

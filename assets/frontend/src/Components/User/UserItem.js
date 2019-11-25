@@ -5,69 +5,114 @@ import PieChart from '../../Widget/hightChart/PieChart';
 import LineChart from '../../Widget/hightChart/AreaChart';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import param from '../../params';
+import DatePicker from '../DatePicker/Datepicker';
+import { subDays, subWeeks, startOfWeek, startOfMonth, subMonths } from "date-fns";
+import { format } from 'path';
+
 
 class UserItem extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            userEntries: [],
-            commandeEntries: [],
-            commandeEntriesLength: 0,
-            demandeEntries: [],
-            transactionEntries: [],
+          userEntries: [],
+          commandeEntries: [],
+          commandeEntriesLength: 0,
+          demandeEntries: [],
+          transactionEntries: [],
+          dateFilterStart: new moment().format("YYYY-MM-DD"),
+          dateFilterEnd: new moment().format("YYYY-MM-DD")
         };
         this.renderAllItems = this.renderAllItems.bind(this);
         this.getUsers = this.getUsers.bind(this);
-        this.synchro = this.synchro.bind(this);
         this.updateCommande = this.updateCommande.bind(this);
         this.updateDemande = this.updateDemande.bind(this);
+        this.updateTransaction = this.updateTransaction.bind(this);
+        this.getFilter = this.getFilter.bind(this);
+        this.updateContent = this.updateContent.bind(this);
         
     }
 
     getUsers()
     {
+        // if (this.state.dateFilterStart === this.state.dateFilterEnd)
+        let url =
+          `${param.ENTRYPOINT}/users?registerDate[before]=`+
+          this.state.dateFilterEnd+`&registerDate[after]=`+
+          this.state.dateFilterStart ;
+        // let url = 
         axios({
-            method: 'get',
-            url: `${param.ENTRYPOINT}/users`,
-            headers: {
-                'content-type': 'application/vnd.myapp.type+json',
-                'accept': 'application/json'
-            }
-        })
-            .then(userEntries => {
-                if (this.state.userEntries !== userEntries.data){
-                    this.setState({
-                        userEntries: userEntries.data
-                    });
-                }  
+          method: "get",
+          url: url,
+          headers: {
+            "content-type": "application/vnd.myapp.type+json",
+            accept: "application/json"
+          }
+        }).then(userEntries => {
+          if (this.state.userEntries !== userEntries.data) {
+            this.setState({
+              userEntries: userEntries.data
+            });
+          }
         });
     }
 
-    synchro()
+    getFilter(start, end)
     {
+        console.log(this.state.dateFilterStart !== start.format("YYYY-MM-DD"));
+        console.log(this.state.dateFilterEnd !== end.format("YYYY-MM-DD"));
+        if (
+            this.state.dateFilterStart !== start.format("YYYY-MM-DD") ||
+            this.state.dateFilterEnd !== end.format("YYYY-MM-DD")
+        ) {
+            this.setState({
+              dateFilterStart: start.format("YYYY-MM-DD"),
+              dateFilterEnd: end.format("YYYY-MM-DD")
+            });
+            this.updateContent(
+                start.format("YYYY-MM-DD"),
+                end.format("YYYY-MM-DD")
+            );
+        }
+    }
+
+    updateContent( startString, endString)
+    {
+        this.getUsers();
+        this.updateCommande();
+        this.updateDemande();
+        this.updateTransaction();
     }
 
     updateCommande(){
+        let url =
+          `${param.ENTRYPOINT}/commandes?ceerLe[before]=` +
+          this.state.dateFilterEnd +
+          `&ceerLe[after]=` +
+          this.state.dateFilterStart;
         axios({
-            method: 'get',
-            url: `${param.ENTRYPOINT}/commandes`,
-            headers: {
-                'content-type': 'application/vnd.myapp.type+json',
-                'accept': 'application/json'
-            }
-        })
-            .then(commandeEntries => {
-                this.setState({
-                    commandeEntries: commandeEntries.data,
-                    commandeEntriesLength: commandeEntries.data.length
-                });
-            }); 
+          method: "get",
+          url: url,
+          headers: {
+            "content-type": "application/vnd.myapp.type+json",
+            accept: "application/json"
+          }
+        }).then(commandeEntries => {
+          this.setState({
+            commandeEntries: commandeEntries.data,
+            commandeEntriesLength: commandeEntries.data.length
+          });
+        }); 
     }
     updateDemande(){
+        let url =
+          `${param.ENTRYPOINT}/demandes?dateDemande[before]=` +
+          this.state.dateFilterEnd +
+          `&dateDemande[after]=` +
+          this.state.dateFilterStart;
         axios({
             method: 'get',
-            url: `${param.ENTRYPOINT}/demandes`,
+            url: url ,
             headers: {
                 'content-type': 'application/vnd.myapp.type+json',
                 'accept': 'application/json'
@@ -79,24 +124,31 @@ class UserItem extends React.Component {
                 });
             });
     }
+    updateTransaction()
+    {
+        let url =
+          `${param.ENTRYPOINT}/transactions?createAt[before]=` +
+          this.state.dateFilterEnd +
+          `&createAt[after]=` +
+          this.state.dateFilterStart;
+        axios({
+          method: "get",
+          url: url,
+          headers: {
+            "content-type": "application/vnd.myapp.type+json",
+            accept: "application/json"
+          }
+        }).then(transactionEntries => {
+          this.setState({
+            transactionEntries: transactionEntries.data
+          });
+        });
+    }
     componentDidMount(){
         this.getUsers();
         this.updateCommande();
         this.updateDemande();
-        
-        axios({
-            method: 'get',
-            url: `${param.ENTRYPOINT}/transactions`,
-            headers: {
-                'content-type': 'application/vnd.myapp.type+json',
-                'accept': 'application/json'
-            }
-        })
-        .then(transactionEntries => {
-            this.setState({
-                transactionEntries: transactionEntries.data
-            });
-        });
+        this.updateTransaction();
 
         // Secret of Mercure Ninja
         // URL is a built-in JavaScript class to manipulate URLs
@@ -142,13 +194,14 @@ class UserItem extends React.Component {
         }
         // End of secret of mercure Ninja
 
-        // for synchronisation : 
-        this.synchro();
     }
 
     renderAllItems() {
         return (
             <div>
+                <div>
+                    <DatePicker getFilter = {this.getFilter} />
+                </div>
                 <div className="col-md-12">
                     <Card
                         type="topCard"
