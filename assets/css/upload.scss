@@ -116,6 +116,13 @@
                              -o-transform: rotate(-60deg);
                                 transform: rotate(-60deg);
                     } 
+                    &.uploaded {
+                        background-color: $aqua-blue;
+                        &:before,
+                        &:after {
+                            background-color: $aqua-blue;
+                        }
+                    }
                     .group-input-item {
                         position: absolute; 
                         z-index: 1;
