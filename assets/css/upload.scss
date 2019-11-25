@@ -1,0 +1,251 @@
+.rp_dmd {
+    .commande_block {
+        h2 {
+            text-transform: uppercase;
+            font-weight: 600;
+            border-bottom: $bdr_solid_1 $bbr_color;
+            padding-bottom: $size_15;
+            margin-bottom: $size_24;
+        }
+        .commande-container {
+            ul {
+                @extend %list-style;
+                border: $bdr_solid_1 $bdr_color1;
+                background: $white;
+                li {
+                    &.grayb {
+                        background-color: $light;
+                    }
+                    strong {
+                        display: inline-block;
+                        width: 250px;
+                        border-right: 5px solid $bdr_color1;
+                        margin-right: $size_15;
+                        padding: $size_15 0 $size_15 $size_15;
+                        @include sm {
+                            display: $block;
+                            width: 100%;
+                            border-right: none;
+                            margin-right: 0;
+                            padding: 0;
+                        }
+                    }
+                    @include sm {
+                        text-align: center;
+                        padding: $size_15;
+                    }
+                }
+            }
+        }
+        .piece_fournir {
+            background: $white;
+            padding: 40px;
+            @include sm {
+                padding:10px;
+            }
+            .titleDossier {
+                border-left: 5px solid $aqua-blue;
+                padding-left: $size_15;
+            }
+            .image-dossier {
+                background: $bdr_color1;
+                padding: $size_15;
+                height: 100%;
+                @include md {
+                    height: $inherit;
+                    margin: $size_15 0;;
+                }
+                .image-dossier-icon {
+                    display: $block;
+                    margin-bottom: $size_15 !important;
+                    i {
+                        font-size: 60px;
+                        color: $royal-blue;
+                    }
+                    &.icon-svg {
+                        max-width: 60px;
+                        margin: auto;
+                    }
+                }
+                .desc-dossier {
+                    display: $block;
+                    line-height: 20px;
+                    font-weight: 600;
+                }
+            }
+            #daf-list-wrapper {
+                ol {
+                    padding-left: 25px;
+                    margin: 0;
+                    li {
+                        margin: $size_15 0;
+                        ul {
+                            li {
+                                color: $aqua-blue;
+                            }
+                        }
+                    }
+                }
+            }
+            #form-dossier {
+                .group-input {
+                    margin: $size_15 0;
+
+                    position: relative; 
+                    display: inline-block;
+                    margin: 60px 5px 75px 5px;
+                    @extend %exa_bdr;
+                    z-index: 0;
+                    &:after {
+                        content: "";
+                        position: absolute;  
+                        @extend %exa_bdr;
+                        -webkit-transform: rotate(60deg);
+                           -moz-transform: rotate(60deg);
+                            -ms-transform: rotate(60deg);
+                             -o-transform: rotate(60deg);
+                                transform: rotate(60deg);
+                    }
+                    &:before {
+                        content: "";
+                        position: absolute; 
+                        @extend %exa_bdr;
+                        -webkit-transform: rotate(-60deg);
+                           -moz-transform: rotate(-60deg);
+                            -ms-transform: rotate(-60deg);
+                             -o-transform: rotate(-60deg);
+                                transform: rotate(-60deg);
+                    } 
+                    .group-input-item {
+                        position: absolute; 
+                        z-index: 1;
+                        left: 12px;
+                        right: 12px;
+                        top: 6px;
+                        bottom: 6px; 
+                        @extend %exa;
+                        &:after {
+                            content: "";
+                            position: absolute;  
+                            @extend %exa;
+                            width: 100%;
+                            height: 100%;
+                            -webkit-transform: rotate(60deg);
+                               -moz-transform: rotate(60deg);
+                                -ms-transform: rotate(60deg);
+                                 -o-transform: rotate(60deg);
+                                    transform: rotate(60deg);
+                        }
+                        &:before {
+                            content: "";
+                            position: absolute; 
+                            @extend %exa;
+                            width: 100%;
+                            height: 100%;
+                            -webkit-transform: rotate(-60deg);
+                               -moz-transform: rotate(-60deg);
+                                -ms-transform: rotate(-60deg);
+                                 -o-transform: rotate(-60deg);
+                                    transform: rotate(-60deg);
+                        }
+                        .group-input-item_ {
+                            z-index: 2;
+                            position: absolute;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            top: 0;
+                            padding: 0 20px;
+                            .titre_file_ {
+                                margin-top: 15px;
+                                text-align: center;
+                                h4 {
+                                    label {
+                                        font-size: 14px;
+                                        font-weight: 600;
+                                        border-bottom: $bdr_solid_1 #ddd;
+                                        margin-bottom: 0;
+                                        padding-bottom: $size_15;
+                                        overflow-wrap: break-word;
+                                        max-width: 186px;
+                                        min-height: 64px;
+                                    }
+                                }
+                            }
+                            .custom-flex {
+                                .custom-file {
+                                    .custom-file-input {
+                                        width: 0.1px;
+                                        height: 0.1px;
+                                        opacity: 0;
+                                        overflow: hidden;
+                                        position: absolute;
+                                        z-index: -1;
+                                    }
+                                    .custom-file-label {
+                                        background-color: $royal-blue;
+                                        max-width: 250px;
+                                        font-size: 14px;
+                                        font-weight: 700;
+                                        text-overflow: ellipsis;
+                                        color: $white;
+                                        text-align: center;
+                                        white-space: nowrap;
+                                        cursor: pointer;
+                                        display: inline-block;
+                                        overflow: hidden;
+                                        &:after {
+                                            display: none !important;
+                                        }
+                                    }
+                                }
+                                .btn-bown {
+                                    border: none;
+                                    background: none;
+                                    padding: 0;
+                                    cursor: pointer;
+                                    i {
+                                        color: $aqua-blue;
+                                        font-size: 30px;
+                                        position: relative;
+                                        top: 3px;
+                                        &:hover {
+                                            color: $royal-blue;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .form-group {
+                    .btn-primary {
+                        &.btn {
+                            display: none;
+                        }
+                    }
+                }
+            }
+            .back-retour {
+                font-family: "Ubuntu";
+                font-size: 14px !important;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                margin-bottom: 25px;
+                cursor: pointer;
+                color: $royal-blue !important;
+                &:hover {
+                    text-decoration: none;
+                    opacity: .7;
+                }
+                @include md {
+                    letter-spacing: 0;
+                    font-size: 12px !important;
+                }
+            }
+            .link-connexion-register {
+                padding: 10px 60px !important;
+            }
+        }
+    }
+}
