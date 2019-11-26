@@ -1699,83 +1699,99 @@ header {
 			}
 		}
 	}
+	.accordeon_ {
+		@include sm {
+			padding: 0 $size_15;
+		}
+	}
 	.menu-commander {
 		position: relative;
 		top: 0;
-		height: 200px;
 		display: $block;
 		width: 100%;
 		background: $white;
 		border: $bdr_solid_1 $bdr_color1;
 		border-radius: 10px;
-		padding: $size_30;
-		margin: $size_15 0;
+		padding: 19px 15px 15px;
+		margin: 7px 0;
 		text-align: left;
 		line-height: $size_24;
 		transition: top ease .4s;
-		@include xs {
-			text-align: center;
-			height: inherit;
-		}
 		&:focus {
 			box-shadow: none;
 			outline: none;
 		}
-		&:hover {
-			top: -10px;
-			box-shadow: 0 $size_15 $size_30 rgba(0,0,0,.1);
-			border-radius: 10px;
-			background: url(/asset/img/bg_text_CCM.png) -10% -16% $white no-repeat;
-			background-size: 85%;
-			.menu-commander--button---icon {
-				color: $white;
-				.ccm-icon {
-					&.titulaire {
-						background-image: url(/asset/img/titulaire_hover.png);
-					}
-					&.immatricul {
-						background-image: url(/asset/img/immatriculation_hover.png);
-					}
-					&.domicile {
-						background-image: url(/asset/img/domicile_hover.png);
-					}
-					&.duplicata {
-						background-image: url(/asset/img/duplicata_hover.png);
-					}
-					&.status_m {
-						background-image: url(/asset/img/floder_hover.png);
-					}
-					&.justificatif_d {
-						background-image: url(/asset/img/justificatif_hover.png);
-					}
-					&.mise_cass {
-						background-image: url(/asset/img/corbeille_hover.png);
-					}
-					&.lire_cG {
-						background-image: url(/asset/img/lire_hover.png);
-					}
-				}
-			}
-			@include md {
-				display: none;
+		&:after {
+			content: "+";
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			right: 20px;
+			color: $aqua-blue;
+		}
+		&.active {
+			&:after {
+				content: "-";
 			}
 		}
+		// &:hover {
+		// 	top: -10px;
+		// 	box-shadow: 0 $size_15 $size_30 rgba(0,0,0,.1);
+		// 	border-radius: 10px;
+		// 	background: url(/asset/img/bg_text_CCM.png) -10% -16% $white no-repeat;
+		// 	background-size: 85%;
+		// 	.menu-commander--button---icon {
+		// 		color: $white;
+		// 		.ccm-icon {
+		// 			&.titulaire {
+		// 				background-image: url(/asset/img/titulaire_hover.png);
+		// 			}
+		// 			&.immatricul {
+		// 				background-image: url(/asset/img/immatriculation_hover.png);
+		// 			}
+		// 			&.domicile {
+		// 				background-image: url(/asset/img/domicile_hover.png);
+		// 			}
+		// 			&.duplicata {
+		// 				background-image: url(/asset/img/duplicata_hover.png);
+		// 			}
+		// 			&.status_m {
+		// 				background-image: url(/asset/img/floder_hover.png);
+		// 			}
+		// 			&.justificatif_d {
+		// 				background-image: url(/asset/img/justificatif_hover.png);
+		// 			}
+		// 			&.mise_cass {
+		// 				background-image: url(/asset/img/corbeille_hover.png);
+		// 			}
+		// 			&.lire_cG {
+		// 				background-image: url(/asset/img/lire_hover.png);
+		// 			}
+		// 		}
+		// 	}
+		// 	@include md {
+		// 		display: none;
+		// 	}
+		// }
 	}
 	.comment-ca-marche-texte {
 		margin-bottom: $size_30;
 		.menu-commander--button---text {
 			font-weight: 600;
-			display: $block;
+			display: inline-block;
 			text-transform: uppercase;
-			border-top: $bdr_solid_1 $bdr_color1;
-			margin-top: $size_20;
-			padding-top: $size_20;
+			// border-top: $bdr_solid_1 $bdr_color1;
+			// margin-top: $size_20;
+			// padding-top: $size_20;
+			vertical-align: middle;
 			@include md {
 				font-size: 13px;
 			}
 		}
 		.menu-commander--button---icon {
 			transition: .3s;
+			display: inline-block;
+			vertical-align: middle;
 			.ccm-icon {
 				width: 80px;
 				height: 49px;
@@ -1828,6 +1844,30 @@ header {
 			}
 		}
 	}
+	.toggle-content {
+		background-color: $white;
+		padding: 32px;
+		margin-bottom: 4px;
+		position: relative;
+		box-shadow: inset 0 0 0 1px #e0e0e0;
+		display: none;
+	}
+	.demarche--block {
+		display: table;
+		width: 100%;
+		border-bottom: $bdr_solid_1 $bbr_color;
+		padding: 10px 0;
+		> div {
+			display: table-cell;
+			&.vos-demarches--texte---titre {
+				width: 50px;
+				text-align: right;
+				padding-right: $size_15;
+				font-weight: 600;
+				color: $royal-blue;
+			}
+		}
+	}
 }
 
 .body-ccm {
@@ -1841,22 +1881,6 @@ header {
 						font-weight: 600;
 						color: $royal-blue;
 					}
-				}
-			}
-		}
-		.demarche--block {
-			display: table;
-			width: 100%;
-			border-bottom: $bdr_solid_1 $bbr_color;
-			padding: 10px 0;
-			> div {
-				display: table-cell;
-				&.vos-demarches--texte---titre {
-					width: 50px;
-					text-align: right;
-					padding-right: $size_15;
-					font-weight: 600;
-					color: $royal-blue;
 				}
 			}
 		}
