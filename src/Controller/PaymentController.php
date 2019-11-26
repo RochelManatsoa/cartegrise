@@ -23,6 +23,12 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class PaymentController extends AbstractController
 {
+    private $transactionManager;
+
+    public function __construct(TransactionManager $transactionManager)
+    {
+        $this->transactionManager = $transactionManager;
+    }
     /**
      * @Route("/commande/{commande}/payment", name="payment_commande")
      */
@@ -192,6 +198,9 @@ class PaymentController extends AbstractController
     //function to send email unit
     public function send($mailer, $mail, $responses, $adminPrepend='', $attachments)
     {
+
+        $transaction = $this->transactionManager->findByTransactionId($responses["transaction_id"]);
+
             $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["transaction_id"]. ' de ' . $responses["customer_email"] ))
             ->setFrom('no-reply@cgofficiel.fr');
             if ($adminPrepend != '' && is_iterable($mail) && count($mail)>0) {
@@ -204,7 +213,10 @@ class PaymentController extends AbstractController
             ->setBody(
                 $this->renderView(
                     'email/registration.mail.twig',
-                    array('responses' => $responses)
+                    array(
+                        'responses' => $responses,
+                        'transaction' => $transaction
+                        )
                 ),
                 'text/html'
             );
