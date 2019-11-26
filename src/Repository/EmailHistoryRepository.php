@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\EmailHistory;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -47,4 +48,14 @@ class EmailHistoryRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findEmailHistoryByUser(User $user)
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.user', 'u')
+            ->andWhere('u.id = :idUser')
+            ->orderBy('e.createdAt', 'desc')
+            ->setParameter('idUser', $user->getId())
+            ->getQuery()
+        ;
+    }
 }

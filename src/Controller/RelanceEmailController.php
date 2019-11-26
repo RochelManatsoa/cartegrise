@@ -66,7 +66,7 @@ class RelanceEmailController extends AbstractController
      */
     public function huhu(Swift_Mailer $mailer)
     {
-        $this->send($mailer, $this->getUser()->getEmail(), $this->getUser(), 1);
+        $this->send($mailer, $this->getUser()->getEmail(), $this->getUser(), 2);
 
         return new Response('
         <!DOCTYPE html>

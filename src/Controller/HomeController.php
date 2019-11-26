@@ -321,6 +321,13 @@ class HomeController extends AbstractController
     {
         return $this->render('home/doc_telechargeable.html.twig');
     }
+    /**
+     * @Route("/piece-a-fournir", name="piece_a_fournir")
+     */
+    public function pieceAFournirAction()
+    {
+        return $this->render('home/pieceAFournir.html.twig');
+    }
 
     public function getTokenAction()  
     {
