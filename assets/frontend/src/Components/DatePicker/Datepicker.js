@@ -1,7 +1,7 @@
 import React from "react";
 import DateRangeSelector from "react-daterangeselector";
 import "react-daterangeselector/dist/styles.min.css";
-import { subDays, subWeeks, startOfWeek, startOfMonth, subMonths } from "date-fns";
+import { addDays, subDays, subWeeks, startOfWeek, startOfMonth, subMonths } from "date-fns";
 
 function Datepicker(props) {
   return (
