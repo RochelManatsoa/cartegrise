@@ -6,7 +6,7 @@ import LineChart from '../../Widget/hightChart/AreaChart';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import param from '../../params';
 import DatePicker from '../DatePicker/Datepicker';
-import { subDays, subWeeks, startOfWeek, startOfMonth, subMonths } from "date-fns";
+import { addDays} from "date-fns";
 import { format } from 'path';
 
 
@@ -21,7 +21,7 @@ class UserItem extends React.Component {
           demandeEntries: [],
           transactionEntries: [],
           dateFilterStart: new moment().format("YYYY-MM-DD"),
-          dateFilterEnd: new moment().format("YYYY-MM-DD")
+          dateFilterEnd: moment(addDays(new Date(), 1)).format("YYYY-MM-DD")
         };
         this.renderAllItems = this.renderAllItems.bind(this);
         this.getUsers = this.getUsers.bind(this);
@@ -59,19 +59,17 @@ class UserItem extends React.Component {
 
     getFilter(start, end)
     {
-        console.log(this.state.dateFilterStart !== start.format("YYYY-MM-DD"));
-        console.log(this.state.dateFilterEnd !== end.format("YYYY-MM-DD"));
         if (
             this.state.dateFilterStart !== start.format("YYYY-MM-DD") ||
             this.state.dateFilterEnd !== end.format("YYYY-MM-DD")
         ) {
             this.setState({
               dateFilterStart: start.format("YYYY-MM-DD"),
-              dateFilterEnd: end.format("YYYY-MM-DD")
+                dateFilterEnd: end.add(1, 'days').format("YYYY-MM-DD")
             });
             this.updateContent(
                 start.format("YYYY-MM-DD"),
-                end.format("YYYY-MM-DD")
+                end.add(1, 'days').format("YYYY-MM-DD")
             );
         }
     }
