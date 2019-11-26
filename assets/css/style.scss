@@ -2195,6 +2195,9 @@ header {
 .btn-facture {
   max-width: 270px;
 }
+i.icon-pdf{
+  font-size: 21px;
+}
 #pills-document{
   .group-input{
     p{
@@ -2521,7 +2524,7 @@ h2.page-title{
     background: #f7f7f7;
     border: 1px solid #ccc;
   }
-  input{
+  input, select{
     height: 48px;
   }
 
@@ -2550,3 +2553,39 @@ body{
   display: none !important;
 }
 /**end**/
+
+/**CTVO custom**/
+.rp_dmd{
+  .commander-firstview{
+  #example-advanced-form{
+      #resum{
+        display: grid;
+        grid-template-rows: 1fr auto;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas: none;
+        grid-column-gap: 25px;
+        grid-row-gap: 10px;
+        >div{
+          display: flex;
+          width: 100%;
+          align-items: center;
+          >*{
+            flex: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
+/**end**/
+#formDC{
+  .btn.btn-calcuer{
+    display: flex;
+    width: 100%;
+    i{
+      margin-left: 10px;
+    }
+  }
+}
+
