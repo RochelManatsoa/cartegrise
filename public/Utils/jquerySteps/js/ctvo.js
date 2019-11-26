@@ -197,18 +197,18 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     };
                     
                     if (typeAncienTitulaire === "mor" && 0 <= $.inArray(name, societyAncienTitulaireArray)) {
-                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (typeAncienTitulaire === "phy" && 0 <= $.inArray(name, physicAncientitulaireArray)) {
-                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (typeNewTitulaire === "mor" && 0 <= $.inArray(name, societyNouveauxTitulaireArray)) {
-                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (typeNewTitulaire === "phy" && 0 <= $.inArray(name, physicNouveauxTitulaireArray)) {
-                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (0 <= $.inArray(name, otherNewTitulaireArray)) {
-                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
-                    }   
+                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
+                    }
                 });
-                resum.html(html.concat("<div><strong> Démarche </strong> Changement Titulaire Véhicule d'Occasion Français </div>"));
+                resum.html(html.concat("<div><strong> Démarche </strong> <span>Changement Titulaire Véhicule d'Occasion Français</span> </div>"));
             }
         },
         onFinishing: function (event, currentIndex) {
