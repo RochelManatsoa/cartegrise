@@ -10,6 +10,7 @@ body {
 	font-size: 16px !important;
 	font-weight: 400 !important;
 	-webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 a {
@@ -2710,6 +2711,25 @@ body{
           >*{
             flex: 1;
           }
+        }
+      }
+    }
+  }
+  .resultat-estimation {
+    .block_form--btn-actions {
+      display: flex;
+      > a {
+        flex: 1;
+        &:first-child {
+          margin-right: 20px;
+          text-align: right;
+        }
+        .btn {
+          width: 100%;
+          margin: 0;
+          height: 100%;
+          max-width: 270px;
+          padding: 15px!important;
         }
       }
     }

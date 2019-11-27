@@ -8,20 +8,18 @@
             <div class="row">
                 <div class="col-md-12 col-lg-12 resultat-estimation mx-auto">
                     <h2 class="col-12 text-center">RESUME DE LA COMMANDE</h2>
-                    <div class="col-md-12 col-lg-12  mx-auto">
-                        <div class="row recap-demande-wrapper  pt-5 pb-5">
-                            <img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}"
-                                class="rounded col-2 mx-auto d-block img-thumbnail mb-3" style="height:100px;" alt="">
-                            <div class="col-10 mx-auto">
-                                <h2 class="col-12 mb-5 row mx-0">Récapitulatif de la demande</h2>
-                                {{ include('commande/_resum_recap_demande.html.twig') }}
+                    <div class="row recap-demande-wrapper  pt-5 pb-5">
+                        <img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}"
+                             class="rounded col-2 mx-auto d-block img-thumbnail mb-3" style="height:100px;" alt="">
+                        <div class="col-10 mx-auto">
+                            <h2 class="col-12 mb-5 row mx-0">Récapitulatif de la demande</h2>
+                            {{ include('commande/_resum_recap_demande.html.twig') }}
 
-                            </div>
                         </div>
                     </div>
 
-                    <div class="col-md-12 col-lg-12 mx-auto d-flex my-flex-container">
-                        <div class="col-12 row">
+                    <div class="col-md-12 px-0 col-lg-12 mx-auto d-flex my-flex-container">
+                        <div class="col-12 px-0 row">
                             <div class="col-6 mx-auto">
                                 <h2 class="mb-4">CARACTÉRISTIQUES DU VÉHICULE</h2>
                                 {{ include('commande/_resum_caracteristics_car.html.twig') }}
@@ -33,7 +31,7 @@
                             <div class="col-12 mx-auto mt-5">
                                 <div class="block_form">
                                     {% if commande.transaction is not null and commande.transaction.status == "00" %}
-                                        <div class="text-center">
+                                        <div class="block_form--btn-actions">
                                             <a href="{{path('payment_facture', {'demande': commande.id })}}" target="_blank">
                                                 <button type="button" class="btn link-connexion-register ">Facture</button>
                                             </a>
