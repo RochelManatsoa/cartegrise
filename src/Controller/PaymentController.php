@@ -211,7 +211,7 @@ class PaymentController extends AbstractController
             $this->renderView(
                 'email/registration.mail.twig',[
                     'responses' => $responses,
-                    'transaction' => $this->transactionManager->findByTransactionId($responses["transaction_id"])
+                    // 'transaction' => $this->transactionManager->findByTransactionId($responses["transaction_id"])
                 ]
             ),
             'text/html'
