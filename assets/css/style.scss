@@ -2487,6 +2487,11 @@ h2.page-title{
         }
       }
     }
+    @media screen and (max-width: $screen-sm-max){
+      &--post{
+        margin-bottom: 30px;
+      }
+    }
   }
 }
 
@@ -2522,6 +2527,16 @@ h2.page-title{
       strong{
         float: left;
         margin-right: 20px;
+      }
+    }
+    @media screen and (max-width: $screen-sm-max){
+      &--date{
+        display: inline-block;
+        width: 100%;
+      }
+      &--category {
+        display: inline-block;
+        width: 100%;
       }
     }
   }
@@ -2640,6 +2655,13 @@ body{
   > div{
     background: $white;
     margin-bottom: 2.5rem;
+    @media screen and (max-width: $screen-sm-max){
+      flex-direction: column;
+      .left{
+        height: 250px;
+        flex: inherit;
+      }
+    }
   }
 }
 .piece-fournir{
@@ -2659,12 +2681,22 @@ body{
     border: 1px solid #ccc;
     border-left: 0;
     padding: 2rem !important;
+    h4 {
+      font-weight: 600;
+      color: #131314;
+      text-transform: uppercase;
+    }
     .list {
       padding-left: 0;
       margin: 0;
       li{
         margin: 5px 0;
       }
+    }
+  }
+  @media screen and (max-width: $screen-sm-max){
+    &--description {
+      border-left: 1px solid #ccc;
     }
   }
 }

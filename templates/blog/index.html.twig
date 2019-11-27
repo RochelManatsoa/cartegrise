@@ -38,10 +38,10 @@
                     </div>
                     <div class="row blog-list">
                         {% for article in articles %}
-                            <div class="col-dm-6 col-lg-6 col-sm-6 col-xs-12 blog-post">
+                            <div class="col-dm-6 col-lg-6 col-sm-12 col-xs-12 blog-post">
                                 <div class="blog-post--image">
                                     <figure>
-                                        <a href="{{ path('blog_show', {'slug': article.slug}) }}"><img src="{{ asset('uploads/' ~ article.image) }}" alt="{{ article.titre }}" class="img-fluid"></a>
+                                        <a href="{{ path('blog_show', {'slug': article.slug}) }}"><img src="{{ asset('uploads/' ~ article.image) }}" alt="{{ article.titre }}" class=""></a>
                                     </figure>
                                     <div class="blog-post--category">
                                         {% for categorie in article.categories %}
@@ -63,7 +63,7 @@
                                         <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="btn btn-blue more">Lire la suite</a>
                                     </div>
                                 </div>
-                                <!--<div class="col-10 mx-auto blog-post">
+                                {# <div class="col-10 mx-auto blog-post">
                                 <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="">
                                     <figure class="blog-post--image">
                                         <img src="{{ asset('uploads/' ~ article.image) }}" alt="{{ article.titre }}" class="img-fluid p-2">
@@ -90,7 +90,7 @@
                                 <div class="blog-post--tools d-flex flex-row justify-content-center my-flex-container align-items-center">
                                     <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="mx-auto btn btn-outline-dark m-2 mx-auto">Continuer la lecture</a>
                                 </div>
-                                </div>-->
+                                </div> #}
                             </div>
                         {% endfor %}
                     </div>
