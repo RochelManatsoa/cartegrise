@@ -41,24 +41,27 @@
         </div>
     {{ form_end(form)}}
 {% else %}
-    <div class="row">
+    <div class="row justify-content-center">
     {% for col in form %}
         {% if col.vars.type is defined and col.vars.type == 'file' %}
-            <div class="col-md-6">
+            <div class="col-md-6 col-lg-4 col-xl-3 text-center">
                 <div class="group-input">
-                    <div>
-                        <h4>{{ form_label(col) }}
-                            {% if checkFile(files, col.vars.name) != "" %}
-                            <small>
-                                <a href="{{ asset(checkFile(files, col.vars.name)) }}"
-                                    target="_blank">{{ form.vars.value.getRealFileName(col.vars.name) }}</a>
-                            </small>
-                            {% endif %}
-                        </h4>
+                    <div class="group-input-item">
+                        <div class="group-input-item_">
+                            <div class="titre_file_">
+                                <h4>{{ form_label(col) }}
+                                    {% if checkFile(files, col.vars.name) != "" %}
+                                    <small>
+                                        <a href="{{ asset(checkFile(files, col.vars.name)) }}"
+                                            target="_blank">{{ form.vars.value.getRealFileName(col.vars.name) }}</a>
+                                    </small>
+                                    {% endif %}
+                                </h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <hr>
         {% endif %}
     {% endfor %}
     </div>

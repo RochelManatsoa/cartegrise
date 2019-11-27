@@ -200,6 +200,12 @@ header {
 						font-size: 14px;
 						display: $block;
 						line-height: $size_15;
+						@include md {
+							max-width: 135px;
+							text-overflow: ellipsis;
+							overflow: hidden;
+							white-space: nowrap;
+						}
 					}
 					.infos_ {
 						font-weight: bold;
@@ -2441,10 +2447,13 @@ h2.page-title{
     }
     &--image{
       position: relative;
+      overflow: hidden;
+      height: 360px;
       figure{
         margin: 0;
         img{
-          width: 100%;
+          width: auto;
+          height: 360px;
         }
       }
     }
@@ -2491,6 +2500,7 @@ h2.page-title{
         font-size: 13px;
         line-height: normal;
         transition: all .3s ease;
+        margin-bottom: .25rem;
         &:hover{
           text-decoration: none;
           background: #219de4;
@@ -2541,9 +2551,13 @@ h2.page-title{
     &--post {
       position: relative;
       overflow: hidden;
+      height: 160px;
+      >div{
+        overflow: hidden;
+      }
       &-image {
-        width: 100%;
-        height: auto;
+        width: auto;
+        height: 160px;
       }
       &-title {
         font-weight: 600;
@@ -2577,6 +2591,21 @@ h2.page-title{
     border-bottom: 1px solid #ccc;
   }
   .blog-post{
+    &--description{
+      span, p, strong{
+        font-family: "Open Sans" !important;
+        font-size: 16px !important;
+      }
+    }
+    &--image{
+      height: 400px;
+      overflow: hidden;
+      figure{
+        img{
+          margin-top: -2%;
+        }
+      }
+    }
     &--category {
       position: relative;
       left: 0;
@@ -2697,4 +2726,39 @@ body{
     }
   }
 }
+/**Piece a fournir**/
+.liste-piece-fournir{
+  > div{
+    background: $white;
+    margin-bottom: 2.5rem;
+  }
+}
+.piece-fournir{
+  &--number{
+    background: url(/../../asset/img/layer-triangle.png) no-repeat;
+    width: 138px;
+    height: 138px;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    padding: 84px 0 0 30px;
+    font-size: 50px;
+    color: $white;
+  }
+  &--description {
+    border: 1px solid #ccc;
+    border-left: 0;
+    padding: 2rem !important;
+    .list {
+      padding-left: 0;
+      margin: 0;
+      li{
+        margin: 5px 0;
+      }
+    }
+  }
+}
+
+/**end**/
 
