@@ -3,6 +3,7 @@
 @import 'footer.scss';
 @import 'espc-client.scss';
 @import 'upload.scss';
+@import 'contact.scss';
 
 body {
 	font-family: "Open Sans" !important;
@@ -2761,4 +2762,19 @@ body{
 }
 
 /**end**/
+
+/*CGV*/
+.page_CGV {
+	&.container-cgv {
+		background: white;
+		border: 1px solid #eee;
+		padding: 30px;
+	}
+	h3 {
+		text-transform: uppercase;
+		font-weight: 600;
+		color: $aqua-blue;
+		letter-spacing: 1px;
+	}
+}
 
