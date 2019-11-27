@@ -41,7 +41,7 @@
                             {% if article.categories.count > 0 %}
                                 <strong>Catégories : </strong>
                                 {% for categorie in article.categories %}
-                                    <a href="{{ path('show_cat', {'slug':categorie.slug}) }}">
+                                    <a href="{{ path('show_cat', {'slug':categorie.slug}) }}" class="blog-post--category-item">
                                         {{ categorie.nom | capitalize}}
                                     </a>
                                     {% if not loop.last %}{% endif %}
