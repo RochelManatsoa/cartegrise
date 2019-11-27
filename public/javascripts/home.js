@@ -16,10 +16,14 @@ function slugify(string) {
 $(document).ready(function() {
     $(".Navigation").sticky({ topSpacing: 0 });
 
-    $('#voir_plus_button').on('click', function() { $('.voir_plus_content_car').toggle();
-        $('.voir_plus_content').parents('.list-grid').find('.btn').toggleClass('collapsed'); });
-    $('#more-details-tax').on('click', function() { $('.voir_plus_content_taxes').toggle();
-        $('.voir_plus_content').parents('.list-grid').find('.btn').toggleClass('collapsed'); });
+    $('#voir_plus_button').on('click', function() {
+        $('.voir_plus_content_car').toggle();
+        $('.voir_plus_content_car').parents('.list-grid').find('.btn').toggleClass('collapsed');
+    });
+    $('#more-details-tax').on('click', function() {
+        $('.voir_plus_content_taxes').toggle();
+        $('.voir_plus_content_taxes').parents('.list-grid').find('.btn').toggleClass('collapsed');
+    });
     $('.icon-mobile-menu').click(function() {
         $('#sidebar-container').toggleClass('show');
         $('.new-header').toggleClass('show');
