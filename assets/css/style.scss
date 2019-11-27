@@ -200,6 +200,12 @@ header {
 						font-size: 14px;
 						display: $block;
 						line-height: $size_15;
+						@include md {
+							max-width: 135px;
+							text-overflow: ellipsis;
+							overflow: hidden;
+							white-space: nowrap;
+						}
 					}
 					.infos_ {
 						font-weight: bold;
@@ -228,7 +234,7 @@ header {
 						position: absolute;
 						z-index: 99;
 						width: 200px;
-						right: -15px;
+						right: -$size_15;
 						padding-top: 8px;
 						.sub-infos {
 							border: $bdr_solid_1 $gray;
@@ -1712,7 +1718,7 @@ header {
 		background: $white;
 		border: $bdr_solid_1 $bdr_color1;
 		border-radius: 10px;
-		padding: 19px 15px 15px;
+		padding: 19px $size_15 $size_15;
 		margin: 7px 0;
 		text-align: left;
 		line-height: $size_24;
@@ -1865,6 +1871,91 @@ header {
 				padding-right: $size_15;
 				font-weight: 600;
 				color: $royal-blue;
+			}
+		}
+	}
+	.block_pcs_a_fournir {
+		.item_pcs_a_fournir {
+			border:$bdr_solid_1 $bdr_color1;
+			background-color: $white;
+			margin: $size_15 0;
+			transition: all ease .4s;
+			-webkit-transition: all ease .4s;
+			position: relative;
+			&:hover {
+				box-shadow: 0 $size_15 $size_30 rgba(0,0,0,.1);
+			}
+			.img_pcs {
+				position: relative;
+				img {
+					max-width: 100%;
+					@include sm {
+						width: 100%;
+					}
+				}
+				.numbr {
+					text-align: center;
+					position: absolute;
+					bottom: 0;
+					width: 85px;
+					height: 50px;
+					&:before {
+						@extend %absolute;
+						width: 0;
+						height: 0;
+						border-top: 138px solid transparent;
+						border-bottom: 0 solid transparent;
+						border-left: 138px solid $royal-blue;
+						left: 0;
+						bottom: 0;
+					}
+					span {
+						display: $block;
+						font-size: 50px;
+						color: $white;
+						font-weight: bold;
+						position: relative;
+					}
+				}
+			}
+			.text_pcs {
+				padding: $size_20 $size_15 $size_20 0;
+				@include sm {
+					padding: $size_20;
+				}
+				h3 {
+					text-transform: uppercase;
+					font-size: 24px;
+					font-weight: 600;
+					margin-bottom: 20px;
+					@include sm {
+						font-size: 18px;
+					}
+				}
+				ul {
+					@extend %list-style;
+					li {
+						position: relative;
+						padding-left: 35px;
+						margin-bottom: 10px;
+						line-height: 24px;
+						&:last-child {
+							margin-bottom: 0;
+						}
+						&:before {
+							content: "\e909";
+							font-family: "icomoon";
+							left: 0;
+							position: absolute;
+							color: $royal-blue;
+						}
+						p {
+							&:last-child {
+								margin-bottom: 0;
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -2078,7 +2169,7 @@ header {
        p{
         text-transform: uppercase;
         margin-bottom: 18px;
-        padding-bottom: 15px;
+        padding-bottom: $size_15;
         &:not(:last-child){
           border-bottom: 1px solid #e3e3e3;
         }
@@ -2179,7 +2270,7 @@ header {
 #esp_clientBlock{
   h4.title-client{
     color: #bfbfbf;
-    margin-bottom: 15px;
+    margin-bottom: $size_15;
     padding-bottom: 10px;
     border-bottom: 1px solid #e3e3e3;
   }
@@ -2190,14 +2281,14 @@ header {
 }
 .btn.btn-aqua-blue {
   font-family: "Ubuntu";
-  font-size: 15px;
+  font-size: $size_15;
   letter-spacing: 1px;
   text-transform: uppercase;
   background-color: $aqua-blue;
   border: 1px solid transparent;
   border-radius: 50px;
   color: #fff;
-  padding: 15px 30px;
+  padding: $size_15 30px;
   min-width: 270px;
   align-items: center;
   display: flex;
@@ -2227,7 +2318,7 @@ i.icon-pdf{
     p{
       border-bottom: 1px solid #e3e3e3;
       margin-bottom: 18px;
-      padding-bottom: 15px;
+      padding-bottom: $size_15;
     }
   }
 }
@@ -2471,7 +2562,7 @@ h2.page-title{
       &-title {
         font-weight: 600;
         font-size: 14px;
-        padding: 15px;
+        padding: $size_15;
         line-height: 22px;
         background: rgba(3, 52, 126,.82);
         color: #fff;
