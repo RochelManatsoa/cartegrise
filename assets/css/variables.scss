@@ -8,6 +8,8 @@ $bbr_color:#b7b7b7;
 $white-opacity:rgba(255, 255, 255, 0.11);
 $select-bg:#f7f7f7;
 $bdr_color1:#eeeeee;
+$red:#dc1024;
+$purple:#a52cf5;
 
 /**Custom color**/
 $dark: #0d0c0c;
@@ -58,13 +60,14 @@ $subMenu-width: 285px;
 %exa_bdr {
     width: 250px;
     height: 143px;
-    background: #eaeaea;
+
     text-align: justify;
 }
 %exa {
     background: $white;
 }
 
+$border_gray: #eaeaea;
 
 $information-phone: "only screen and (min-width : 992px)";
 
