@@ -23,12 +23,12 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class PaymentController extends AbstractController
 {
-    private $transactionManager;
+    // private $transactionManager;
 
-    public function __construct(TransactionManager $transactionManager)
-    {
-        $this->transactionManager = $transactionManager;
-    }
+    // public function __construct(TransactionManager $transactionManager)
+    // {
+    //     $this->transactionManager = $transactionManager;
+    // }
     /**
      * @Route("/commande/{commande}/payment", name="payment_commande")
      */

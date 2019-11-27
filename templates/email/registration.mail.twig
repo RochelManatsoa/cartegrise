@@ -11,7 +11,7 @@
             Historique de la transaction effectuée par {{ responses.customer_email }} 
             <br> <hr>
         </div>
-        {% if transaction is defined and transaction is not null %}
+        {# {% if transaction is defined and transaction is not null %}
         <table class="table-striped">
             <tbody>
                 <tr>
@@ -26,7 +26,7 @@
                     <td>Nom et prénom(s)</td>
                     <td>: {{ transaction.card_number | cardNumber(transaction.card_validity) }}</td>
                 </tr> #}
-                <tr>
+                {#<tr>
                     <th>Département </th>
                     <td>: {{ transaction.commande.codePostal }}</td>
                 </tr>
@@ -37,7 +37,7 @@
             </tbody>
         </table>
         <hr>
-        {% endif %}
+        {% endif %} #}
         
         <table class="table-striped">
             <tbody>
