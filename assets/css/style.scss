@@ -2703,34 +2703,3 @@ body{
 
 /**end**/
 
-.pagination{
-  .current{
-    padding: 5px 14px;
-    border-radius: 50%;
-    transition: all .5s ease;
-    margin-right: 2px;
-    width: 40px;
-    height: 40px;
-    display: inline-block;
-    border: 1px solid #03347e;
-    color: #03347e;
-    background: $white;
-  }
-  a{
-    padding: 5px 14px;
-    border-radius: 50%;
-    color: #212529;
-    transition: all .5s ease;
-    margin-right: 2px;
-    width: 40px;
-    height: 40px;
-    display: inline-block;
-    &:hover{
-      text-decoration: none;
-      border: 1px solid #03347e;
-      color: #03347e;
-      background: $white;
-    }
-
-  }
-}

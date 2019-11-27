@@ -32,14 +32,18 @@ $(document).ready(function () {
             $('.departement_selectione_nom').text(region);
             $('#fr_departement').val(code);
             $('#fr_departement_first').val(code);
-            $('.lien_pref').attr('href', 'http://www.' + dep + '.gouv.fr');
+            $('.lien_pref').attr('data-link', 'http://www.' + dep + '.gouv.fr');
             $('.target_blank').attr('target', '_blank');
             $('.src_img').attr('src', 'https://www.regions-et-departements.fr/images/logos-departements/' + valueDep + '-logo-' + depart + '.png');
+            $('.lien_pref').on('click', function(){
+                e.preventDefault();
+                console.log($(this));
+            });
         },
         onRegionOver: function (element, label, region) {
             //alert(element.type);
             //console.log(label);
-            label.html('<div class="map-tooltip"><h1 class="header">' + region + '</h1><p class="description">Some Description</p></div>');
+            // label.html('<div class="map-tooltip"><h1 class="header">' + region + '</h1><p class="description">Some Description</p></div>');
         },
         onRegionOut: function (event, code, region) {
             event.preventDefault();
