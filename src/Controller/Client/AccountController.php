@@ -7,12 +7,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\{User, Demande};
+use App\Repository\{EmailHistoryRepository};
 use App\Form\UpdateUserType;
 use App\Form\Registration\PasswordFormType;
 use App\Manager\{UserManager, DemandeManager, DocumentAFournirManager, TMSSauverManager};
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\FormError;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/account")
@@ -106,13 +108,22 @@ class AccountController extends AbstractController
     /**
      * @Route("/emails", name="email_history")
      */
-    public function emailUserHistory()
+    public function emailUserHistory(
+        Request $request,
+        PaginatorInterface $paginator,
+        EmailHistoryRepository $emailHistoryRepository
+    )
     {
         $user = $this->getUser();
-        $emailHystory = $user->getEmailHistories();
+        $queryEmailHystory = $emailHistoryRepository->findEmailHistoryByUser($user);
+        $pagination = $paginator->paginate(
+            $queryEmailHystory,
+            $request->query->getInt('page', 1),
+            8
+        );
 
         return $this->render('client/account/emailHistory.html.twig', [
-            'emailsHistory' => $emailHystory,
+            'emailsHistory' => $pagination,
         ]);
     }
 
