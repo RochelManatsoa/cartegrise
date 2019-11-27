@@ -247,22 +247,22 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     };
                     
                     if (typeVehicule === "1" && 0 <= $.inArray(name, nationalVehiculeArray)) {
-                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (typeVehicule === "0" && 0 <= $.inArray(name, communautaireVehiculeArray)) {
-                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (typeNewTitulaire === "mor" && 0 <= $.inArray(name, societyNouveauxTitulaireArray)) {
-                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (typeNewTitulaire === "phy" && 0 <= $.inArray(name, physicNouveauxTitulaireArray)) {
-                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (typeCarrossier === "mor" && 0 <= $.inArray(name, societyCarrossierArray)) {
-                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (typeCarrossier === "phy" && 0 <= $.inArray(name, physicCarrossierArray)) {
-                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (0 <= $.inArray(name, otherNewTitulaireArray)) {
-                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     }   
                 });
-                resum.html(html.concat("<div><strong> Démarche </strong> Immatriculation Véhicule Neuf</div>"));
+                resum.html(html.concat("<div><strong> Démarche </strong> <span>Immatriculation Véhicule Neuf</span></div>"));
             }
         },
         onFinishing: function (event, currentIndex) {
