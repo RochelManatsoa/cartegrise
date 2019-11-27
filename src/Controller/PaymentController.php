@@ -198,32 +198,28 @@ class PaymentController extends AbstractController
     //function to send email unit
     public function send($mailer, $mail, $responses, $adminPrepend='', $attachments)
     {
-
-        $transaction = $this->transactionManager->findByTransactionId($responses["transaction_id"]);
-
-            $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["transaction_id"]. ' de ' . $responses["customer_email"] ))
-            ->setFrom('no-reply@cgofficiel.fr');
-            if ($adminPrepend != '' && is_iterable($mail) && count($mail)>0) {
-                $message->setTo(array_shift($mail))
-                ->setBcc($mail);
-            } else {
-                $message->setTo($mail);
-            }
-            $message
-            ->setBody(
-                $this->renderView(
-                    'email/registration.mail.twig',
-                    array(
-                        'responses' => $responses,
-                        'transaction' => $transaction
-                        )
-                ),
-                'text/html'
-            );
-            foreach ($attachments as $attachment){
-                $message->attach(\Swift_Attachment::fromPath($attachment));
-            }
-            $mailer->send($message);
+        $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["transaction_id"]. ' de ' . $responses["customer_email"] ))
+        ->setFrom('no-reply@cgofficiel.fr');
+        if ($adminPrepend != '' && is_iterable($mail) && count($mail)>0) {
+            $message->setTo(array_shift($mail))
+            ->setBcc($mail);
+        } else {
+            $message->setTo($mail);
+        }
+        $message
+        ->setBody(
+            $this->renderView(
+                'email/registration.mail.twig',[
+                    'responses' => $responses,
+                    'transaction' => $this->transactionManager->findByTransactionId($responses["transaction_id"])
+                ]
+            ),
+            'text/html'
+        );
+        foreach ($attachments as $attachment){
+            $message->attach(\Swift_Attachment::fromPath($attachment));
+        }
+        $mailer->send($message);
     }
 
     public function addHistoryTransaction($responses, HistoryTransactionManager $historyTransactionManager)

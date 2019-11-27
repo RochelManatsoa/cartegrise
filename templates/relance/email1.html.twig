@@ -2,38 +2,40 @@
 
 
 {% block body %}
-    <td colspan="2">    
-        <div style="font-family:Roboto;color:#002a6a;font-size:22px;padding-top:20px;padding-bottom:15px;width:fit-content;padding-left:20px;padding-right:20px;margin-right:auto;margin-left:auto">        
-            <div style="">
-                <br> 
-                <br>
-                Bonjour {{ responses.client|displayRelanceInfos }}
-            </div>       
+    <div style="font-family:Raleway;color:#7296ce;font-size:35px;padding-top:50px;text-align:center">
 
-            <p>Vous vous êtes récemment inscrit sur <a href="https://www.cgofficiel.fr" target="_blank">CG Officiel</a>, mais il semblerait que vous n'ayez pas finaliser de commande. </p>
-            <p>Avez-vous besoin d’assistance ?</p>
-            <p>Notre support téléphonique peut vous guider pour vous aider à réaliser vos démarches d’immatriculation. </p>
-            <p>Profitez de notre service sécurisé et rapide sans plus attendre et surtout, sans vous déplacer. </p>
+    </div>
 
-            <p><a href="https://www.cgofficiel.fr" target="_blank">CG Officiel</a> vous remercie de votre attention.</p>
-                <br>
-                <br>
-                <br>
-            <center>
-                <p style="font-size:18px;"> 
-                    Agrément du Trésor Public N° 55337 <br>
-                    Habilitation du Ministère de l'Interieur N° 222442
-                </p>
-                <p style="font-size:16px;">Ce mail est envoyé automatiquement, veuillez ne pas y répondre</p>
-                <p style="font-size:18px;">
-                    Prix TTC. Voir nos conditions sur le site.<br>
-                    Contact: contact@cgofficiel.fr / 0897 010 800*<br>
-                    * 0,80€ TTC/min + coût de l'appel
-                </p>
-                <br> 
-                <br>
-                <img style="height:70px;width:auto;margin:auto;" src="https://www.cgofficiel.fr/asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculationx70.png" alt="logo" class="CToWUd a6T" tabindex="0">
-            </center> 
-        </div>
-    </td>
+    <div style="font-family:Raleway;color:#002a6a;font-size:22px;padding-top:20px;padding-bottom:15px;border-radius:5px;width:fit-content;padding-left:20px;padding-right:20px;margin-right:auto;margin-left:auto">        
+        <div class="mt-5 mb-3">
+            Bonjour {{ responses.client|displayRelanceInfos }}
+            <br>
+            <br>
+        </div>       
+
+        <p>Vous vous êtes récemment inscrit sur <a href="https://www.cgofficiel.fr" target="_blank">CG Officiel</a>, mais il semblerait que vous n'ayez pas finaliser de commande. </p>
+        <p>Avez-vous besoin d’assistance ?</p>
+        <p>Notre support téléphonique peut vous guider pour vous aider à réaliser vos démarches d’immatriculation. </p>
+        <p>Profitez de notre service sécurisé et rapide sans plus attendre et surtout, sans vous déplacer. </p>
+
+        <p><a href="https://www.cgofficiel.fr" target="_blank">CG Officiel</a> vous remercie de votre attention.</p>
+            <br>
+            <br>
+            <br>
+        <center>
+            <p style="font-size:18px;"> 
+                Agrément du Trésor Public N° 55337 <br>
+                Habilitation du Ministère de l'Interieur N° 222442
+            </p>
+            <p style="font-size:16px;">Ce mail est envoyé automatiquement, veuillez ne pas y répondre</p>
+            <p style="font-size:18px;">
+                Prix TTC. Voir nos conditions sur le site.<br>
+                Contact: contact@cgofficiel.fr / 0897 010 800*<br>
+                * 0,80€ TTC/min + coût de l'appel
+            </p>
+            <br> 
+            <br>
+            <img style="height:70px;width:auto;margin:auto;" src="https://www.cgofficiel.fr/asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculationx70.png" alt="logo" class="CToWUd a6T" tabindex="0">
+        </center> 
+    </div>
 {% endblock %}
