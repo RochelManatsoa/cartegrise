@@ -95,6 +95,9 @@
 	<script src="{{ asset('asset/libs/js/bootstrap.min.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('asset/libs/js/parallax.min.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('javascripts/home.js') }}"></script>
+	{% if is_full_view() %}
+		<script src="{{ asset('javascripts/tiretAuto.js') }}"></script>
+	{% endif %}
 	<script type="text/javascript">
         cookiesChecker.init();
         // or customize it a bit:

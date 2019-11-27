@@ -42,9 +42,9 @@
                     </div>
                 </div>
                 {% if transaction is not null and transaction.commande is not null %}
-                    <div class="no-underline">
+                    <div class="no-underline ">
                         <a href="{{path('new_demande', {'commande': transaction.commande.id })}}" >
-                            <button class="btn btn-aqua-blue mb-4">
+                            <button class="btn btn-aqua-blue mb-4 mx-auto mt-5">
                                 Finaliser ma commande
                             </button>
                         </a>
