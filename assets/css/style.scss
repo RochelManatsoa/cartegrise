@@ -17,6 +17,9 @@ body {
 a {
 	@extend %linear_anim;
 }
+.text-lower{
+	text-transform: lowercase;
+}
 .btn-blue,
 .link-connexion-register {
 	font-family: "Ubuntu";
