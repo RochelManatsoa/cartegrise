@@ -197,6 +197,13 @@ class HomeController extends AbstractController
 	public function cgv()
 	{
 		return $this->render('home/cgv.html.twig');
+    }
+    /**
+	 * @Route("/mentions", name="mentions")
+	 */
+	public function mentions()
+	{
+		return $this->render('home/mentions.html.twig');
 	}
 
 	/**
