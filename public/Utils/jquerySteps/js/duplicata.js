@@ -153,16 +153,16 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     };
                     
                     if (typeTitulaire === "mor" && 0 <= $.inArray(name, societyTitulaireArray)) {
-                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + "<span>" + value + "</span>" + "</div>");
                     } else if (typeTitulaire === "phy" && 0 <= $.inArray(name, physicTitulaireArray)) {
-                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + "<span>" + value + "</span>" + "</div>");
                     } else if (motifsDemande === "PERT" && 0 <= $.inArray(name, motifDemandePerteArray )) {
-                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + "<span>" + value + "</span>" + "</div>");
                     } else if (0 <= $.inArray(name, otherTitulaireArray)) {
-                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + value + "</div>");
+                        html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong>" + "<span>" + value + "</span>" + "</div>");
                     }   
                 });
-                resum.html(html.concat("<div><strong> Démarche </strong> : Duplicata </div>"));
+                resum.html(html.concat("<div><strong> Démarche: </strong> <span>Duplicata</span> </div>"));
             }
         },
         onFinishing: function (event, currentIndex) {

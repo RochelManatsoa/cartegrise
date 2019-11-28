@@ -1520,17 +1520,30 @@ header {
 			}
 			#resum {
 				> div {
-					padding: 7px $size_15;
-					margin: 5px;
+					// padding: 7px $size_15;
+					// margin: 5px;
 					width: 49%;
 					display: inline-block;
 					background: $select-bg;
 					vertical-align: top;
 					strong {
-						display: inline-block;
-						width: 300px;
-						border-right: $bdr_solid_1;
-						margin-right: $size_15;
+						background: url(/../../asset/img/layer.jpg) repeat top left;
+						background-size: cover;
+						padding: 10px 20px;
+						border: 1px solid #ededed;
+						height: 100%;
+						line-height: 100%;
+						@include sm {
+							width: 100%;
+							margin-right: 0;
+							border-right: none;
+						}
+					}
+					span {
+						border: 1px solid $light-2;
+						padding: 10px 20px;
+						background-color: $white;
+						height: 100%;
 					}
 				}
 			}
@@ -1558,6 +1571,10 @@ header {
 				text-transform: uppercase;
 				letter-spacing: 1px;
 				border: $bdr_solid_1 transparent;
+				@include sm {
+					padding-right: $size_24;
+					padding-left: $size_24;
+				}
 				&:hover,
 				&:active {
 					box-shadow: none;
@@ -2704,13 +2721,25 @@ body{
         grid-template-columns: repeat(2, 1fr);
         grid-template-areas: none;
         grid-column-gap: 25px;
-        grid-row-gap: 10px;
+		grid-row-gap: 5px;
+		@include md {
+			display: block !important;
+			
+		}
         >div{
           display: flex;
           width: 100%;
-          align-items: center;
+		  align-items: center;
+		  height: 100%;
+		  @include md {
+			display: block !important;
+			margin: 5px 0;
+		  }
           >*{
-            flex: 1;
+			flex: 1;
+			@include sm {
+				display: block !important;
+			}
           }
         }
       }
