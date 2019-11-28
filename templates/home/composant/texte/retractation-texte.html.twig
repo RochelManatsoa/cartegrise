@@ -14,10 +14,11 @@
 		<p class="col-10 mx-auto">
 			<strong>Aucune commande ne pourra être annulée et remboursée après réception et traitement du dossier complet dans le SIV, la prestation ayant été assurée.</strong>
 		</p>
-		<div class="col-10 mx-auto text-center">
-			<a href="/../download/retractation.pdf" target="blank">
-				<button type="button" class="btn btn-primary">PDF à télecharger pour rétractation</button>
-			</a>
+		<div class="col-10 mx-auto text-center btn-blue">
+			{# <a href="/../download/retractation.pdf" class="btn btn-blue" target="blank">
+				PDF à télecharger pour rétractation <i class="icon-pdf"></i>
+			</a> #}
+			Pour obtenir le formulaire de rétractation merci de nous contacter par mail à : <span class="text-lower">relationclients@cgofficiel.fr</span>
 		</div>
 		<h3 class="col-10 mx-auto mt-5">Où envoyer le bordereau de rétractation ?
 		</h3>
@@ -39,7 +40,15 @@
 					<strong>Pour toutes aides, vous disposez d'un numéros.</strong>
 				</p>
 				<div class="col-8 mx-auto">
-					<img class="rounded mx-auto d-block img-fluid" src="asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculation.png" alt="0897010800 CGofficiel carte grise certificat immatriculation">
+                        {% if app.user %}
+                        <a href="tel:{{ displayServiceClient() }}">
+                            <img src="{{ asset('asset/img/' ~ displayServiceClient() ~ '.png')}}" class="rounded mx-auto d-block img-fluid" alt="Service Appel">
+                        </a>
+                        {% else %}
+                        <a href="tel:0897010800">
+                            <img src="{{ asset('asset/img/0897010800.png')}}" class="rounded mx-auto d-block img-fluid" alt="Service Appel">
+                        </a>
+                        {% endif %}
 				</div>
 			</div>
 		</div>

@@ -344,4 +344,12 @@ class HomeController extends AbstractController
         return $csrf;
     }
 
+    /**
+     * @Route("/mentions-legales", name="mentions_legales")
+     */
+    public function mentionsLegales()
+    {
+        return $this->render('home/mentionsLegales.html.twig');
+    }
+
 }
