@@ -2852,6 +2852,9 @@ body{
 		span {
 			color: $aqua-blue;
 		}
+		@include sm {
+			font-size: 22px;
+		}
 	}
 	.retractation_item {
 		background-color: $aqua-blue;
@@ -2859,6 +2862,12 @@ body{
 		margin: 0 -30px -30px;
 		h3 {
 			color: $white;
+			@include sm {
+				font-size: 18px;
+			}
+		}
+		@include sm {
+			padding: 10px;
 		}
 	}
 }
