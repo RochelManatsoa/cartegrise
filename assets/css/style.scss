@@ -2828,5 +2828,22 @@ body{
 		color: $aqua-blue;
 		letter-spacing: 1px;
 	}
+	.lisml {
+		p {
+			b{
+				display: block;
+			} 
+		}
+	}
+	.foot_mentions {
+		.card {
+			background-color: $aqua-blue;
+			color: $white;
+			h4 {
+				font-weight: 600;
+				letter-spacing: 1px;
+			}
+		}
+	}
 }
 
