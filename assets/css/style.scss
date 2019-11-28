@@ -2819,6 +2819,7 @@ body{
 		border: 1px solid #eee;
 		padding: 30px;
 	}
+	h1,
 	h3 {
 		text-transform: uppercase;
 		font-weight: 600;
@@ -2841,6 +2842,23 @@ body{
 				letter-spacing: 1px;
 				font-size: 20px;
 			}
+		}
+	}
+}
+.body-retractation {
+	h1 {
+		text-transform: uppercase;
+		font-weight: 600;
+		span {
+			color: $aqua-blue;
+		}
+	}
+	.retractation_item {
+		background-color: $aqua-blue;
+		color: $white;
+		margin: 0 -30px -30px;
+		h3 {
+			color: $white;
 		}
 	}
 }
