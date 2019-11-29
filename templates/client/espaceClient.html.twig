@@ -3,17 +3,19 @@
 {% from 'shared/macro.html.twig' import delete_form %}
 
 {% set confirmMessage = "Etes-vous sûr de vouloir annuler cette demande ?" %}
-
-{% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') %}
-    {% set status = 'text-success' %}
-{% elseif demande.statusDoc != constant('App\\Entity\\Demande::DOC_PENDING') %}
-    {% set status = 'text-warning' %}
-{% elseif demande.statusDoc != constant('App\\Entity\\Demande::DOC_NONVALID') %}
-    {% set status = 'text-danger' %}
-{% elseif demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
-    {% set status = 'text-primary' %}
-{% else %}
-    {% set status = 'text-secondary' %}
+{% set status = 'text-secondary' %}
+{% if demande is not null %}
+    {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') %}
+        {% set status = 'text-success' %}
+    {% elseif demande.statusDoc != constant('App\\Entity\\Demande::DOC_PENDING') %}
+        {% set status = 'text-warning' %}
+    {% elseif demande.statusDoc != constant('App\\Entity\\Demande::DOC_NONVALID') %}
+        {% set status = 'text-danger' %}
+    {% elseif demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
+        {% set status = 'text-primary' %}
+    {% else %}
+        {% set status = 'text-secondary' %}
+    {% endif %}
 {% endif %}
 
 {% block page_content %}
