@@ -136,17 +136,17 @@ class AccountController extends AbstractController
         if (!$demande instanceof Demande) {
             $demande = $demandeManager->getHerLastDemande();
         }
-        $params = $tmsSauverManager->getParamsForCommande($demande->getCommande());
-        // dd($params);
+        $fileForm = null;
+        $params = ($demande instanceof Demande) ? $tmsSauverManager->getParamsForCommande($demande->getCommande()) : null;
         /*
         info de TMS
         */
-        $fileForm = null;
-        $fileType = $documentAFournirManager->getType($demande);
-        $files = $documentAFournirManager->getDaf($demande);
+        $fileType = ($demande instanceof Demande) ? $documentAFournirManager->getType($demande): null;
+        $files = ($demande instanceof Demande) ? $documentAFournirManager->getDaf($demande) : null;
         if (!null == $fileType) {
             $fileForm = $this->createForm($fileType, $files);
         }
+        
 
         return $this->render(
             'client/espaceClient.html.twig',
