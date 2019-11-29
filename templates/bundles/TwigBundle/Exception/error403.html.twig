@@ -3,16 +3,19 @@
 
 {% block class %}body-erreur{% endblock %}
 {% block page_content %}
-<div class="col-md-12 col-lg-8 mx-auto d-flex error-flex">
+<div class="erreur-block">
     <div class="error-container">
+        <div class="erreur">403</div>
         <h1 class="text-center">{{"Accès refusé" | upper}}</h1>
         <p class="desc-error">
             {# Quelque chose est cassé. S'il vous plaît laissez-nous savoir ce que vous faisiez. Désolé pour tout inconvénient causé. #}
             Vous ne possédez pas l’autorisation d’appeler spécifiquement cette URL, veillez vous identifier ou contactez notre service client.
-             {# Vous pouvez <a href="{{ path('contact') }}">nous contacter</a> et nous pouvons vous aider! #}
+            {# Vous pouvez <a href="{{ path('contact') }}">nous contacter</a> et nous pouvons vous aider! #}
         </p>
-        <p><a href="{{ path('contact') }}"><i class="fas fa-angle-double-right"></i> {{"Service Client" | upper}}</a></p>
-        <p><a class="btn btn-primary btn-lg" href="{{ path('fos_user_security_login') }}"><i class="fas fa-angle-double-right"></i> {{"S'identifier" | upper}}</a></p>
+        <p>
+            <a href="{{ path('contact') }}" class="btn link-connexion-register">{{"Service Client" | upper}} <i class="fas fa-angle-double-right"></i></a>
+            <a class="btn btn-erreur" href="{{ path('fos_user_security_login') }}">{{"S'identifier" | upper}}</a>
+        </p>
     </div>
 </div>
 {% endblock %}

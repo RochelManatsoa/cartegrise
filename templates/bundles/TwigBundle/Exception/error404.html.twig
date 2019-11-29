@@ -2,16 +2,19 @@
 {% extends 'base.html.twig' %}
 {% block class %}body-erreur{% endblock %}
 {% block page_content %}
-<div class="col-md-12 col-lg-8 mx-auto d-flex error-flex">
+<div class="erreur-block">
     <div class="error-container">
+        <div class="erreur">404</div>
         <h1 class="text-center">PAGE INTROUVABLE</h1>
         <p class="desc-error">
             {# Quelque chose est cassé. S'il vous plaît laissez-nous savoir ce que vous faisiez. Désolé pour tout inconvénient causé. #}
             La page que vous recherchez n'est pas disponible. Merci de bien vouloir contacter notre Service Client ou changer de page.
-             {# Vous pouvez <a href="{{ path('contact') }}">nous contacter</a> et nous pouvons vous aider! #}
+            {# Vous pouvez <a href="{{ path('contact') }}">nous contacter</a> et nous pouvons vous aider! #}
         </p>
-        <p><a href="{{ path('contact') }}"><i class="fas fa-angle-double-right"></i> {{"Service Client" | upper}}</a></p>
-        <p><a class="btn btn-primary btn-lg" href="{{ path('Accueil') }}"><i class="fas fa-angle-double-right"></i> {{"Retour à la page d'accueil" | upper}}</a></p>
+        <p>
+            <a href="{{ path('contact') }}" class="btn link-connexion-register">{{"Service Client" | upper}} <i class="fas fa-angle-double-right"></i></a>
+            <a class="btn btn-erreur" href="{{ path('Accueil') }}">{{"Retour à la page d'accueil" | upper}}</a>
+        </p>
     </div>
 </div>
 {% endblock %}
