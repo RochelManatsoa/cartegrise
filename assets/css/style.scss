@@ -322,7 +322,8 @@ header {
 							display: $block;
 							margin-left: 0;
 						}
-						> a {
+						> a,
+						> strong {
 							color: $white;
 							display: $block;
 							text-transform: uppercase;
