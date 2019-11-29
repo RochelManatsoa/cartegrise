@@ -1754,7 +1754,7 @@ header {
 		background: $white;
 		border: $bdr_solid_1 $bdr_color1;
 		border-radius: 10px;
-		padding: 19px $size_15 $size_15;
+		padding: 19px 55px 15px 15px;
 		margin: 7px 0;
 		text-align: left;
 		line-height: $size_24;
@@ -1770,6 +1770,7 @@ header {
 			transform: translateY(-50%);
 			right: 20px;
 			color: $aqua-blue;
+          font-size: 32px;
 		}
 		&.active {
 			&:after {
