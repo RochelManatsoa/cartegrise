@@ -69,6 +69,11 @@ a {
 		text-transform: uppercase;
 	}
 }
+.btn-reste-m {
+	@include sm {
+		font-size: 12px !important;
+	}
+}
 
 //header
 .body-accueil {
