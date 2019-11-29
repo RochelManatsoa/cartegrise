@@ -17,7 +17,7 @@
 		<div class="col-10 mx-auto text-center btn-blue">
 			a href="/../download/retractation.pdf" class="btn btn-blue" target="blank">
 				PDF à télecharger pour rétractation <i class="icon-pdf"></i>
-			</a> #}
+			</a>
 <div class="container mt-5">
 	<div class="row justify-content-center text-md-center">
 		<div class="col-md-10">
@@ -62,7 +62,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> #}
 <div class="rp_dmd">
 	<div class="container">
 		<h1 class="home-secondview--titre">Formulaire de rétractation Tout ce qu’il faut savoir concernant le droit de rétraction suite à une commande sur <span>CGOfficiel.com</span></h1>
@@ -76,12 +76,25 @@
 			<p>
 				<strong>Aucune commande ne pourra être annulée et remboursée après réception et traitement du dossier complet dans le SIV, la prestation ayant été assurée.</strong>
 			</p>
-			<div class="col-12 col-md-10 mx-auto text-center">
-				<a href="/../download/retractation.pdf" target="blank">
-					<button type="button" class="btn btn-blue">PDF à télecharger pour rétractation</button>
-				</a>
+			<div class="col-12 col-md-10 mx-auto mb-3 text-center">
+				<strong class="d-block mb-1">Pour obtenir le formulaire de rétractation merci de nous contacter par mail à :</strong><br/>
+				<a href="mailto:relationclients@cgofficiel.fr" target="_blank" style="text-transform: none!important" class="text-lower btn btn-blue">relationclients@cgofficiel.fr</a>
+				<hr class="border--light-2">
 			</div>
-			<div class="retractation_item mt-5">
+			<div class="col-12 col-md-5 mx-auto">
+				<strong class="d-block mb-1">Pour toutes aides, vous disposez d'un numéros.</strong><br/>
+				{% if app.user %}
+				<a href="tel:{{ displayServiceClient() }}">
+					<img src="{{ asset('asset/img/' ~ displayServiceClient() ~ '.png')}}" class="rounded mx-auto d-block img-fluid" alt="Service Appel">
+				</a>
+				{% else %}
+				<a href="tel:0897010800">
+					<img src="{{ asset('asset/img/0897010800.png')}}" class="rounded mx-auto d-block img-fluid" alt="Service Appel">
+				</a>
+				{% endif %}
+				</div>
+			</div>
+			<div class="retractation_item">
 				<div class="row justify-content-center">
 					<div class="col-md-10 text-md-center">
 						<h3 class="mt-5">Où envoyer le bordereau de rétractation ?</h3>
