@@ -44,7 +44,7 @@ class DemandeController extends AbstractController
 
             // The Publisher service is an invokable object
             $mercureManager->publish(
-                'http://cgofficiel.com/addNewSimulator',
+                'http://cgofficiel.fr/addNewSimulator',
                 'demande',
                 [
                     'immat' => $commande->getImmatriculation(),

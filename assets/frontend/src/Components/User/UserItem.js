@@ -151,7 +151,7 @@ class UserItem extends React.Component {
         // Secret of Mercure Ninja
         // URL is a built-in JavaScript class to manipulate URLs
         const url = new URL('http://dev3.cgofficiel.fr/hub/hub');
-        url.searchParams.append('topic', 'http://cgofficiel.com/addNewSimulator');
+        url.searchParams.append('topic', 'http://cgofficiel.fr/addNewSimulator');
         // Subscribe to updates of several Book resources
         url.searchParams.append('topic', 'http://example.com/books/2');
         // All Review resources will match this pattern
