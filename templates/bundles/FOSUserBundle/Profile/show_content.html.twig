@@ -1,6 +1,32 @@
 {% trans_default_domain 'FOSUserBundle' %}
-
-<div class="fos_user_user_show">
-    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+<div class="register-block" data-parallax="scroll" data-image-src="{{ asset('asset/img/bg_inscription.jpg')}}">
+	<div class="container">
+		<div class="block_form">
+            <form class="mail-rejet mdp-oublie row justify-content-center" action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+                <div class="col-lg-6">
+                    <div class="formContent-bc pt-5 pb-5">
+                        <div class="row justify-content-center text-center">
+                            <div class="col-10">
+                                <h2>Informations du compte</h2>
+                                <div class="list-grid mt-5">
+                                    <div class="list-grid__item">
+                                        <div>{{ 'profile.show.username'|trans }}</div>
+                                        <div>{{ user.username }}</div>
+                                    </div>
+                                    <div  class="list-grid__item">
+                                        <div>{{ 'profile.show.email'|trans }}</div>
+                                        <div>{{ user.email }}</div>
+                                    </div>
+                                    <div class="mt-5">
+                                        <a class="btn-reste-m btn btn-blue" href="{{ path('espace_client') }}"> Espace client </a>
+                                        <a class="btn-reste-m btn btn-blue" href="{{ path('commande_list') }}"> Mes estimations </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
