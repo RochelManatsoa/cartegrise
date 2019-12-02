@@ -62,7 +62,7 @@ class RegisterListener implements EventSubscriberInterface
         $this->userManager->checkCommandeInSession($user);
         // The Publisher service is an invokable object
         $this->mercureManager->publish(
-        'http://cgofficiel.com/addNewSimulator',
+        'http://cgofficiel.fr/addNewSimulator',
         'utilisateur',
         [],
         'nouvelle Utilisateur insérer'
