@@ -85,7 +85,7 @@ class HomeController extends AbstractController
             ]);
             // The Publisher service is an invokable object
             $mercureManager->publish(
-                'http://cgofficiel.fr/addNewSimulator',
+                'http://cgofficiel.com/addNewSimulator',
                 'commande',
                 [
                     'immat' => $commande->getImmatriculation(),
