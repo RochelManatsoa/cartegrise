@@ -1,22 +1,33 @@
 {% trans_default_domain 'FOSUserBundle' %}
-<div class="col-lg-7 col-sm-10 mx-auto mb-5 d-flex align-items-center">
+<div class="register-block" data-parallax="scroll" data-image-src="{{ asset('asset/img/bg_inscription.jpg')}}">
+	<div class="container">
+		<div class="block_form">
+                <div class="col-lg-6 mx-auto">
+                    <div class="formContent-bc pt-5 pb-5">
+                        <div class="row justify-content-center text-center">
+                            <div class="col-10 ">
 
-{{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset mdp-oublie mail-rejet' } }) }}
-    <div class="form-group">
-        {{ form_label(form.plainPassword.first) }}
-        {{ form_errors(form.plainPassword.first) }}
-        {{ form_widget(form.plainPassword.first) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(form.plainPassword.second) }}
-        {{ form_errors(form.plainPassword.second) }}
-        {{ form_widget(form.plainPassword.second) }}
-    </div>
-    {{ form_rest(form) }}
+                                {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset mdp-oublie mail-rejet' } }) }}
+                                    <div class="form-group">
+                                        {{ form_label(form.plainPassword.first) }}
+                                        {{ form_errors(form.plainPassword.first) }}
+                                        {{ form_widget(form.plainPassword.first) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_label(form.plainPassword.second) }}
+                                        {{ form_errors(form.plainPassword.second) }}
+                                        {{ form_widget(form.plainPassword.second) }}
+                                    </div>
+                                    {{ form_rest(form) }}
 
-    <div>
-        <input type="submit" class="btn btn btn-primary" value="{{ 'resetting.reset.submit'|trans }}" />
+                                    <div>
+                                        <input type="submit" class="btn-reste-m btn btn-blue" value="{{ 'resetting.reset.submit'|trans }}" />
+                                    </div>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
     </div>
-{{ form_end(form) }}
-
 </div>
