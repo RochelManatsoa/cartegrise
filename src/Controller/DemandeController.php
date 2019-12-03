@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\DocumentDemande\DemandeDuplicataType;
-use App\Form\PaiementType;
+use App\Form\{PaiementType, SaveAndValidateType};
 use App\Form\VehiculeNeufInfoType;
 use App\Entity\File\DemandeDuplicata;
 use App\Entity\File\Files;
@@ -114,12 +114,18 @@ class DemandeController extends AbstractController
         $fileType = $documentAFournirManager->getType($demande);
         $path = $demande->getUploadPath();
         $fileForm = null;
+        $formSave = $this->createForm(SaveAndValidateType::class, null);
+        $formSave->handleRequest($request);
         if (!null == $fileType) {
             $fileForm = $this->createForm($fileType, $files);
             $fileForm->handleRequest($request);
 
             if ($fileForm->isSubmitted() && $fileForm->isValid()) {
                 $documentAFournirManager->handleForm($fileForm, $path)->save($fileForm);
+            }
+            if($formSave->isSubmitted() && $formSave->isValid()){
+                
+                return $this->redirectToRoute('validate_file', ['demande' => $demande->getId()]);
             }
         }
 
@@ -128,6 +134,7 @@ class DemandeController extends AbstractController
             'daf'       => $daf,
             'pathCerfa' => $pathCerfa,
             'form'      => is_null($fileForm) ? null :$fileForm->createView(),
+            'formSave'  => $formSave->createView(),
             'client'    => $this->getUser()->getClient(),
             "files"     => $files,
         ]);

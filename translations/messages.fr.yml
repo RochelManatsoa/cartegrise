@@ -257,6 +257,7 @@ label:
     send: Envoyer
     save: Enregistrer
     search: Chercher
+    saveAndValidate: Enregistrer et valider
     paid: Procéder au paiement
     motifDeRejet: Motif du rejet
     raisonsocial: Raison sociale
@@ -294,6 +295,7 @@ label:
         justificatifDomicile: Justificatif de domicile récent
         copiePermisConduire: Copie du permis de conduire
         copieAttestationAssuranceValide: Copie d'attestation d'assurance valide
+        recepisseDemandeAchat: Récépissé de demande d'achat
         pieceIdentiteValid: Pièce d'identité valide
         rectoVersoCarteGrise: Original de la CARTE GRISE
         copieRectoVersoCarteGrise: Copie recto verso de la CARTE GRISE

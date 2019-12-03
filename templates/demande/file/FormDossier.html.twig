@@ -12,20 +12,18 @@
                         <div class="group-input-item">
                             <div class="group-input-item_">
                                 <div class="titre_file_">
-                                    <h4>{{ form_label(col) }}
-                                        {% if checkFile(files, col.vars.name) != "" %}
-                                            <small>
-                                                <a href="{{ asset(checkFile(files, col.vars.name)) }}" target="_blank">{{ form.vars.value.getRealFileName(col.vars.name) }}</a>
-                                            </small>
-                                        {% endif %}
-                                    </h4>
+                                    <h4>{{ form_label(col)}}</h4>
                                 </div>
                                 <div>{{ form_errors(col) }}</div>
                                 <div class="custom-flex">
                                     <div class="row">
                                         <div class="col-9 pr-0">{{ form_widget(col, { 'attr': {'accept': 'application/pdf'} }) }}</div>
                                         <div class="col-3">
-                                            <button onclick="$('#form-dossier').submit();" type="button" class="btn-bown"><i class="fas fa-save" title="Download"></i></span></button>
+                                            {% if checkFile(files, col.vars.name) != "" %}
+                                                <a href="{{ asset(checkFile(files, col.vars.name)) }}" class="btn-bown" target="_blank"><i class="far fa-eye"></i></a>
+                                            {% else %}
+                                                <button onclick="$('#form-dossier').submit();" type="button" class="btn-bown"><i class="fas fa-save" title="Download"></i></span></button>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>

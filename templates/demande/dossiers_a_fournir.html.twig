@@ -108,9 +108,9 @@
                         {% endif %}
                         <div class="text-center mb-5">
                         {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
-                            <a href="{{ path("validate_file", {'demande': demande.id}) }}">
-                                <button class="btn link-connexion-register">Valider</button>
-                            </a>
+                            {{ form_start(formSave, {'attr': {'role': 'form', 'onsubmit':'return validate();'}})}}
+                            {{ form_widget(formSave)}}
+                            {{ form_end(formSave)}}
                         {% endif %}
                         </div>
                     </div>
@@ -141,5 +141,9 @@
                 }
             }
         );
+        function validate() {
+            $('#form-dossier').submit();
+            alert("Vos documents sont enregistrés");
+        }
     </script>
 {% endblock %}
