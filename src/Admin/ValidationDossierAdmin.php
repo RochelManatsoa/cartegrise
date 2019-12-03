@@ -22,19 +22,17 @@ final class ValidationDossierAdmin extends AbstractAdmin
         $query = parent::createQuery($context);
         $qb = $query->getQueryBuilder();
         $alias = $query->getRootAliases()[0];
-        // $qb->leftJoin($alias.'.transaction', 'trans')
         $qb
-        ->andWhere($alias.'.statusDoc IS NOT NULL')
-        ->andWhere($alias.'.statusDoc !=:statusDoc')
-        ->setParameter('statusDoc', Demande::DOC_NONVALID);
+        ->orderBy($alias.'.id', 'desc')
+        ;
 
         return $query;
     }
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        // $collection->clearExcept(['dossier']);
         $collection->add('dossier', $this->getRouterIdParameter().'/dossier');
+        $collection->add('uploadDossier', $this->getRouterIdParameter().'/upload_dossier');
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -65,6 +63,9 @@ final class ValidationDossierAdmin extends AbstractAdmin
             'actions' => [ 
                 'dossier' => [
                     'template'=>'CRUD/list__demande_document.html.twig'
+                ],
+                'upload' => [
+                    'template'=>'CRUD/list__demande_document_upload.html.twig'
                 ]
             ],
             
