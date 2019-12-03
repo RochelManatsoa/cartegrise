@@ -2190,7 +2190,7 @@ header {
           font-size: 35px;
         }
         &.active{
-          background: #ffffff;
+          background: $white;
           border-top: 1px solid #219de4;
           color: #219de4;
           >*{
@@ -2324,7 +2324,7 @@ header {
   background-color: $aqua-blue;
   border: 1px solid transparent;
   border-radius: 50px;
-  color: #fff;
+  color: $white;
   padding: $size_15 30px;
   min-width: 270px;
   align-items: center;
@@ -2442,7 +2442,7 @@ ul{
   background: #219de4;
   width: auto;
   display: inline-block;
-  color: #fff;
+  color: $white;
   padding: 20px 40px;
   min-width: 270px;
 }
@@ -2476,7 +2476,7 @@ h2.page-title{
     margin-bottom: 30px;
     &--informations{
       padding: 1.5rem;
-      background: #fff;
+      background: $white;
       border-radius: 0 0 5px 5px;
       border-left: 1px solid rgba(183,183,183,.3);
       border-right: 1px solid rgba(183,183,183,.3);
@@ -2578,7 +2578,7 @@ h2.page-title{
   }
 
   .related-blog{
-    background: #ffffff;
+    background: $white;
     padding: 3rem 2rem 4.5rem 2rem;
     margin-bottom: 1.5rem;
     &--title{
@@ -2602,7 +2602,7 @@ h2.page-title{
         padding: $size_15;
         line-height: 22px;
         background: rgba(3, 52, 126,.82);
-        color: #fff;
+        color: $white;
         position: absolute;
         bottom: -100%;
         margin: 0;
@@ -2956,17 +2956,17 @@ body{
 					&:after {
 						color: $white !important;
 					}
-					width: 50px;
-					height: 50px;
-					line-height: 50px;
 					color: $white;
 					opacity: 1;
+					box-shadow: none;
+					outline: none;
 				}
 			}
 			.close.rounded {
-				width: 50px;
-				height: 50px;
-				line-height: 50px;
+				float: none;
+				margin-top: 4px;
+				display: block;
+				font-size: 16px;
 				color: $white;
 				opacity: 1;
 				&:hover {
@@ -2979,3 +2979,54 @@ body{
 		}
 	}
 }
+// #sp-modal {
+//     height: 100%;
+//     left: 0;
+//     opacity: 1;
+//     position: fixed;
+//     text-rendering: optimizeLegibility;
+//     top: 0;
+//     transition: opacity .5s ease-in-out;
+//     width: 100%;
+// 	z-index: 1000;
+// 	&.hidden {
+// 		opacity: 0;
+// 		transition: opacity .5s ease-in-out;
+// 	}
+// 	.sp-modal_overlay {
+// 		background: 
+// 		rgba(0,0,0,0.65);
+// 		height: 100%;
+// 		left: 0;
+// 		position: absolute;
+// 		top: 0;
+// 		width: 100%;
+// 		z-index: 1100;
+// 	}
+// 	.sp-modal_content {
+// 		color:$white;
+// 		left: 50%;
+// 		min-width: 645px;
+// 		max-width: 700px;
+// 		padding: 1.875em;
+// 		position: absolute;
+// 		top: 50%;
+// 		transform: translate(-50%, -50%);
+// 		z-index: 1110;
+// 	}
+// 	.sp-close-modal {
+// 		background: none;
+// 		border: none;
+// 		color: 	$white !important;
+// 		cursor: pointer;
+// 		font-size: 16px;
+// 		font-weight: 600;
+// 		opacity: 0.6;
+// 		position: absolute;
+// 		right: 10px;
+// 		top: 10px;
+// 		transition: opacity 0.3s ease;
+// 		margin: 0;
+// 		padding: 0px;
+// 	}
+// }
