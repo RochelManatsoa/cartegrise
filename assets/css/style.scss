@@ -298,6 +298,9 @@ header {
 				> img {
 					width: 88px;
 					margin-top: 8px;
+					@include sm {
+						width: 60px;
+					}
 				}
 			}
 			.nav {
@@ -570,20 +573,19 @@ header {
 		}
 	}
 	.accroche {
-		margin-top: 205px;
+		margin-top: 190px;
 		@include sm {
-			margin-top: 180px;
+			margin-top: 135px;
 		}
 		.text_CG {
-			line-height: $size_30;
 			color: $white;
-			font-size: $size_18;
+			font-size: 14px;
 			font-style: italic;
 			letter-spacing: 1px;
-			padding: 0 $size_20;
 			@include sm {
-				font-size: 14px;
+				font-size: 12px;
 				padding: 0;
+				line-height: 150%;
 			}
 			> span {
 				color: $royal-blue;
@@ -769,14 +771,14 @@ header {
 			background: $white;
 			position: relative;
 			padding: $size_15;
-			margin-top: -330px;
+			margin-top: -390px;
 			box-shadow: 0px $size_20 $size_20 0px rgba(0, 0, 0, 0.1);
-			margin-bottom: 160px;
+			margin-bottom: 90px;
 			@include md {
-				margin-top: -290px;
+				margin-top: -385px;
 			}
 			@include sm {
-				margin-top: -150px;
+				margin-top: -305px;
 			}
 			.demarche_block_item {
 				border: 2px solid $bbr_color;
@@ -787,18 +789,29 @@ header {
 						font-weight: 300;
 						margin-bottom: 10px;
 						line-height: $size_24;
+						font-size: 14px;
+						@include md {
+    						font-size: 16px;
+						}
+						@include sm {
+							line-height: 150%;
+    						font-size: 12px;
+						}
 					}
 					> h2 {
 						font-size: $size_24;
 						font-weight: 600;
 						text-transform: uppercase;
-						margin-bottom: 0;;
+						margin-bottom: 0;
+						@include sm {
+							font-size: 16px;
+						}
 						&:after {
 							content:"";
 							display: $block;
 							width: 190px;
 							border-top: 2px solid $royal-blue;
-							margin: 19px auto 23px;
+							margin: 19px auto $size_15;
 						}
 					}
 				}
