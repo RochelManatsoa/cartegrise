@@ -292,7 +292,6 @@ function datePickerFunction(element){
         dateFormat: 'dd/mm/yy',
         changeMonth: true,
         changeYear: true,
-        maxDate: (new Date(2003, 1 - 1, 26)),
     });
 }
 
