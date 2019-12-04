@@ -19,6 +19,17 @@ class TransactionRepository extends ServiceEntityRepository
         parent::__construct($registry, Transaction::class);
     }
 
+    public function numFacture()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->where('t.status = :status')
+            ->setParameter('status', '00')
+            ->getQuery()
+            ->getResult();
+
+    }
+
     // /**
     //  * @return Transaction[] Returns an array of Transaction objects
     //  */
