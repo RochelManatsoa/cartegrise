@@ -1477,7 +1477,10 @@ header {
     letter-spacing: 3px;
     margin-right: $size_15;
     min-width: 270px;
-    max-width: 350px;
+	max-width: 350px;
+	@include sm {
+		padding: 13px 25px !important;
+	}
     i{
       margin-left: 10px;
       font-size: 20px;
@@ -1642,6 +1645,10 @@ header {
 			padding: 0 $size_15;
 		}
 	}
+	.formContent-bc {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
 	.fos_user_registration_register,
 	.formContent-bc {
 		background-color: $white;
@@ -1709,6 +1716,9 @@ header {
 	a {
 		color: $royal-blue;
 		font-size: 14px;
+		@include sm {
+			font-size: 12px;
+		}
 	}
 }
 
@@ -2027,22 +2037,31 @@ header {
 				display: $block;
 				position: relative;
 				border-bottom: none;
-				padding: 50px 0 0;
+				padding: 25px 0 0;
 				.modal-title {
 					font-size: 36px;
 					font-weight: 600;
 					font-style: italic;
 					text-align: center;
+					@include sm {
+						font-size: 26px;
+					}
 					&:after {
 						width: 160px;
 						content: "";
 						display: $block;
 						border-bottom: $bdr_solid_1 $gray;
 						margin: 23px auto;
+						@include sm {
+							margin-bottom: 0;
+						}
 					}
 					span {
 						display: $block;
 						font-size: $size_24;
+						@include sm {
+							font-size: 14px;
+						}
 					}
 				}
 				.close {
@@ -2055,6 +2074,10 @@ header {
 					opacity: 1;
 					color: $white;
 					border-radius: 50%;
+					@include sm {
+						right: 20px;
+    					top: 20px;
+					}
 				}
 			}
 			.modal-body {
@@ -2065,11 +2088,28 @@ header {
 					font-weight: 600;
 					letter-spacing: 1px;
 					color: $royal-blue;
+					padding-left: 15px;
+					@include sm {
+						margin-bottom: 0;
+					}
 				}
 				.bdr-sep {
 					border-top: $bdr_solid_1 $gray;
-					margin-top: $size_30;
-					padding-top: $size_30;
+					// margin-top: $size_30;
+					padding-top: 20px;
+					p {
+						@include sm {
+							font-size: 14px;
+						}
+					}
+				}
+				.formContent-bc {
+					padding-top: 0 !important;
+				}
+				.custom-container-flex {
+					>div {
+						background-image: none !important;
+					}
 				}
 			}
 		}
@@ -2889,3 +2929,93 @@ body{
 	}
 }
 
+
+//assurance
+#assurance {
+	&.popup {
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0px;
+		left: 0px;
+		background: rgba(0, 0, 0, 0.6);
+		z-index: 99999;
+		&.hidden {
+			display: none !important;
+		}
+		&.visible {
+			display: block !important;
+		}
+		.popup-content {
+			background: $white;
+			// border: 5px solid #e3e3e3;
+			// border-radius: 10px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			width: 40%;
+			height: 600px;
+			overflow: scroll;
+			@include sm {
+				width: 100%;
+				height: inherit;
+			}
+		}
+		#divLCA {
+			#FrnLCA {
+				.zoneTheme {
+					border: none !important;
+				}
+				.zoneButton {
+					&.cta {
+						margin-top: 0 !important;
+					}
+				}
+			}
+		}
+		.popup-close {
+			color: $gray;
+			font-weight: 100;
+			width: 50px;
+			height: 50px;
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			font-size: 20pt;
+			text-align: center;
+			border-radius: 100% !important;
+			background: $royal-blue;
+			line-height: 33px;
+			&:hover,
+			&:focus {
+				background: $aqua-blue;
+				.close.rounded {
+					&:before,
+					&:after {
+						color: $white !important;
+					}
+					width: 50px;
+					height: 50px;
+					line-height: 50px;
+					color: $white;
+					opacity: 1;
+				}
+			}
+			.close.rounded {
+				width: 50px;
+				height: 50px;
+				line-height: 50px;
+				color: $white;
+				opacity: 1;
+				&:hover {
+					&:before,
+					&:after {
+						color: $white !important;
+					}
+				}
+			}
+		}
+	}
+}

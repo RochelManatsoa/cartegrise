@@ -15,43 +15,39 @@
 			<div id="formContent" class="row justify-content-center">
 				
 				<div class="{{ divClass }}">
-					<form class="formContent-bc pt-5 pb-5" action="{{ path("fos_user_security_check") }}" method="post">
-						<div class="row justify-content-center">
-							<div class="col-10">
-								{% if error is defined and error is not null%}
-									<div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-								{% endif %}
-								{% if csrf_token is defined %}
-									<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-									{% else %}
-									<input type="hidden" name="_csrf_token" value="{{user_csrf}}"/>
-								{% endif %}
-								{# <div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div> #}
-								{# <div class="login-error">E-mai​l : </div> #}
-								<div class="form-group">
-									<label class="hidden-xl-down" for="username">{{ 'security.login.username'|trans }}</label>
-									<input type="text" id="username" name="_username" class="registrer-form form-control second" placeholder="Votre adresse mail" {% if last_username is defined %}value="{{ last_username }}"{% endif %} >
-								</div>
-								{# <div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div> #}
-								{# <div class="login-error"></div> #}
-								<div class="form-group">
-									<label class="hidden-xl-down" for="password">{{ 'security.login.password'|trans }}</label>
-									<input type="password" id="password" name="_password" class="registrer-form form-control third" placeholder="Mot de passe">
-								</div>
-								<div class="label-content-container form-check">
-									<input type="checkbox" id="remember_me" name="_remember_me" class="form-check-input" value="on" />
-									<label for="remember_me" class="form-check-label">{{ 'security.login.remember_me'|trans }}</label>
-								</div>
-								<div class="text-center">
-									<div class="btn btn-input btn-blue">
-										<input type="submit" id="_submit" name="_submit" class="fourth" value="{{ 'security.login.submit'|trans }}" />
-										<i class="icomoon icon-check"></i>
-									</div>
-								</div>
-								<div id="formFooter" class="text-center mt-3">
-									<a class="underlineHover" href="{{ path('Accueil')}}">Retourner à l'accueil</a> | <a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a>
-								</div>
+					<form class="formContent-bc pt-5 pb-3" action="{{ path("fos_user_security_check") }}" method="post">
+						{% if error is defined and error is not null%}
+							<div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+						{% endif %}
+						{% if csrf_token is defined %}
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+							{% else %}
+							<input type="hidden" name="_csrf_token" value="{{user_csrf}}"/>
+						{% endif %}
+						{# <div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div> #}
+						{# <div class="login-error">E-mai​l : </div> #}
+						<div class="form-group">
+							<label class="hidden-xl-down" for="username">{{ 'security.login.username'|trans }}</label>
+							<input type="text" id="username" name="_username" class="registrer-form form-control second" placeholder="Votre adresse mail" {% if last_username is defined %}value="{{ last_username }}"{% endif %} >
+						</div>
+						{# <div class=" col-10 mx-auto fadeIn login-error mt-2">Erreur : </div> #}
+						{# <div class="login-error"></div> #}
+						<div class="form-group">
+							<label class="hidden-xl-down" for="password">{{ 'security.login.password'|trans }}</label>
+							<input type="password" id="password" name="_password" class="registrer-form form-control third" placeholder="Mot de passe">
+						</div>
+						<div class="label-content-container form-check">
+							<input type="checkbox" id="remember_me" name="_remember_me" class="form-check-input" value="on" />
+							<label for="remember_me" class="form-check-label">{{ 'security.login.remember_me'|trans }}</label>
+						</div>
+						<div class="text-center">
+							<div class="btn btn-input btn-blue">
+								<input type="submit" id="_submit" name="_submit" class="fourth" value="{{ 'security.login.submit'|trans }}" />
+								<i class="icomoon icon-check"></i>
 							</div>
+						</div>
+						<div id="formFooter" class="text-center mt-3">
+							<a class="underlineHover" href="{{ path('Accueil')}}">Retourner à l'accueil</a> | <a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a>
 						</div>
 					</form>
 				</div>
