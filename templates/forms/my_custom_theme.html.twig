@@ -24,7 +24,7 @@
             <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
                 {{- label | trans() -}} 
                 {%- if type == "file" -%}
-                    {{ displayAccepted(form.parent.vars.value, form.vars.name)}}
+                    {{ displayAccepted(form.parent.vars.value, form.vars.name)|raw }}
                 {%- endif -%}
             </{{ element|default('label') }}>
         {%- endif -%}
