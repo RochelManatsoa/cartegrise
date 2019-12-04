@@ -62,4 +62,31 @@
             </div>
         </div>
     </div>
+    
+
+<!-- DEBUT Marque blanche MASS -->
+<div id="assurance" class="popup hidden" data-popup="popup-1">
+	<div class="popup-content">
+		<div id="erreurLCA"></div>
+		<div id="divLCA">
+			<iframe id="FrnLCA" frameborder="0" scrolling="no" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"></iframe>
+		</div>
+		<button class="popup-close" data-popup-close="popup"><span class="close rounded"><i class="icon icon-close"></i></span></button>
+	</div>
+</div>
+{% block javascripts %}
+<script src="https://forms.lecomparateurassurance.com/MarqueBlanche/MarqueBlancheJs" type="text/javascript" ></script>
+<script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>
+<script type="text/javascript">
+       CreateFrame("CGauto","9999");
+	   //modal
+		setTimeout(function(){ 
+			$('.popup').removeClass('hidden').addClass('visible');
+		}, 5000);
+		$(".popup-close").click(function() {
+			$(".popup").removeClass("visible").addClass("hidden").fadeOut(350);
+		});
+</script>
+{% endblock %}
+<!-- FIN Marque blanche MASS -->
 {% endblock %}
