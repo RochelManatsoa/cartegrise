@@ -60,22 +60,6 @@
                 {% endif %}
 
             </div>
-        
-            <div class="col-12">
-                <div class="px-2">
-                    <hr>
-                    <div class="col-md-6 mx-auto">
-                        <!-- DEBUT Marque blanche MASS -->
-                        <script src="https://forms.lecomparateurassurance.com/MarqueBlanche/MarqueBlancheJs" type="text/javascript" ></script>
-                        <div id="erreurLCA"></div>
-                        <div id="divLCA"><iframe id="FrnLCA" frameborder="0" scrolling="no" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"></iframe></div>
-                        <script type="text/javascript">
-                            CreateFrame("CGauto","9999");
-                        </script>
-                        <!-- FIN Marque blanche MASS -->
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     
@@ -98,7 +82,7 @@
 	   //modal
 		setTimeout(function(){ 
 			$('.popup').removeClass('hidden').addClass('visible');
-		}, 5000);
+		}, 3000);
 		$(".popup-close").click(function() {
 			$(".popup").removeClass("visible").addClass("hidden").fadeOut(350);
 		});
