@@ -57,7 +57,6 @@ class PaymentController extends AbstractController
         $email = $this->getUser()->getEmail();
         $commandeManager->checkPayment($commande);
         $idTransaction = $transactionManager->generateIdTransaction($commande->getTransaction());
-        $facture = $transactionManager->generateNumFacture($commande->getTransaction());
         $amount *=100;
         $paramDynamical = [
             'amount' => $amount,
@@ -98,6 +97,8 @@ class PaymentController extends AbstractController
             $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
             $files = [];
             if ($transaction->getStatus() === 00) {
+                $transaction->setFacture($transactionManager->generateNumFacture());
+                $transactionManager->save($transaction);
                 $file = $demandeManager->generateFacture($transaction->getDemande());
                 $files = [$file];
             }
@@ -122,8 +123,6 @@ class PaymentController extends AbstractController
         // dd($response);
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
         $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
-        $facture = $transactionManager->generateNumFacture($transaction);
-        $transaction->setFacture($facture);
         $transactionManager->save($transaction);
 
         return $this->render(

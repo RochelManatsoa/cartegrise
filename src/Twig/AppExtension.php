@@ -452,15 +452,15 @@ class AppExtension extends AbstractExtension
         }
         
         if (isset($annotationFile->mimeTypes) && is_array($annotationFile->mimeTypes)) {
-            $typeFile = ', ( ';
+            $typeFile = '<br> <small>( format: ';
             foreach ($annotationFile->mimeTypes as $key => $value) {
                 $typeFile .=  ($value == end($annotationFile->mimeTypes)) ? $this->getTypeOfMimeType($value).' ' : $this->getTypeOfMimeType($value) . ', ' ; 
             }
 
             if (isset($annotationFile->maxSize)) {
-                $typeFile.=', maxSize: '. $this->convertToReadableSize($annotationFile->maxSize) . ')';
+                $typeFile.=', taille maximum: '. $this->convertToReadableSize($annotationFile->maxSize) . ')</small>';
             } else {
-                $typeFile.=')';
+                $typeFile.=')</small>';
             }
         } else {
             return '';

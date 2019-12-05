@@ -527,7 +527,7 @@ class DemandeManager
                 $adresseFacture = $titulaire->getAdresseNewTitulaire();
             break;
             case "DCA":
-                $adresseFacture = $demande->getChangementAdresse()->getAncienAdresse();
+                $adresseFacture = $demande->getChangementAdresse()->getNouveauxTitulaire()->getAdresseNewTitulaire();
             break;
         }
         return [
