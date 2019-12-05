@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\CoreBundle\Form\Type\DateRangePickerType;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 final class CommandeAdmin extends AbstractAdmin
 {
@@ -57,6 +58,11 @@ final class CommandeAdmin extends AbstractAdmin
         ])
         ->add('codePostal')
         ->add('immatriculation');
+    }
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('facture', $this->getRouterIdParameter().'/facture');
     }
 
     protected function configureListFields(ListMapper $listMapper)

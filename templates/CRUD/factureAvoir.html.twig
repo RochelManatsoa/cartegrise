@@ -1,7 +1,17 @@
 {% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
 
 {% block field %}
-facture
+{% if object.demande is defined and object.demande is not null %}
+<a class="btn btn-sm btn-default view_link" target="_blank" href="{{ admin.generateObjectUrl('facture', object.demande) }}"
+    title="facture">
+    <i class="fa fa-file" aria-hidden="true"></i>
+    facture
+</a>
+{% else %}
+<a target="">
+    facture
+</a>
+{% endif %}
 /
 avoir
 {# {{ fraisTotalTraitement(object) }} #}
