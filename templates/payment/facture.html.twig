@@ -66,8 +66,11 @@
               {% else %}
                 Société
               {% endif %}
+              {% if demande.commande.demarche.type == "DCA" %}
+              {{ findNomPrenomOfTitulaire(demande, "birthName") | upper }}
+              {% else %}
               {{ findNomPrenomOfTitulaire(demande, "nomPrenomTitulaire") | upper }}
-              {{ findNomPrenomOfTitulaire(demande, "nomprenom") }}
+              {% endif %}
               {{ findNomPrenomOfTitulaire(demande, "prenomTitulaire") | capitalize }}
               {{ findNomPrenomOfTitulaire(demande, "raisonSociale") | upper }}
             {% endif %}
