@@ -2,15 +2,38 @@
 
 
 {% block body %}
+
     <div style="font-family:Raleway;color:#7296ce;font-size:35px;padding-top:50px;text-align:center">
         {{ "#{responses.response_code}" | statusMessage }}
     </div>
 
+<table width="100%" summary="" border="0" cellpadding="0" cellspacing="0" align="left" bgcolor="#FFFFFF" style="margin:0 auto">
+    <tr>
+        <td width="130" height="40" colspan=2><b style="color:#1a3f78;">Historique de la transaction effectuée par {{ responses.customer_email }} </b></td>
+    </tr>
+    <tr>
+        <td width="130" height="20"><b style="color:#1a3f78;">Référence de la transaction </b></td>
+        <td>: {{ responses.transaction_id }}</td>
+    </tr>
+    <tr>
+        <td width="130" height="20"><b style="color:#1a3f78;">Montant de la transaction </b></td>
+        <td>: {{ responses.amount | amount(2) }}</td>
+    </tr>
+    <tr>
+        <td width="130" height="20"><b style="color:#1a3f78;">Numéro de la carte </b></td>
+        <td>: {{ responses.card_number | cardNumber(responses.card_validity) }}</td>
+    </tr>
+    <tr>
+        <td width="130" height="20"><b style="color:#1a3f78;">Autorisation </b></td>
+        <td>: {{ responses.authorisation_id }}</td>
+    </tr>
+    <tr>
+        <td width="130" height="20"><b style="color:#1a3f78;">Certificat de la transaction </b></td>
+        <td>: {{ responses.payment_certificate }}</td>
+    </tr>
+</table>
+
     <div style="font-family:Raleway;color:#002a6a;font-size:22px;padding-top:20px;padding-bottom:15px;text-align:center;border:1px solid #002a6a;border-radius:5px;width:fit-content;padding-left:20px;padding-right:20px;margin-right:auto;margin-left:auto">        
-        <div>
-            Historique de la transaction effectuée par {{ responses.customer_email }} 
-            <br> <hr>
-        </div>
         {# {% if transaction is defined and transaction is not null %}
         <table class="table-striped">
             <tbody>
@@ -38,31 +61,6 @@
         </table>
         <hr>
         {% endif %} #}
-        
-        <table class="table-striped">
-            <tbody>
-                <tr>
-                    <th class="text-left">Référence de la transaction </th>
-                    <td class="text-left">{{ responses.transaction_id }}</td>
-                </tr>
-                <tr>
-                    <th class="text-left">Montant de la transaction </th>
-                    <td class="text-left">{{ responses.amount | amount(2) }}</td>
-                </tr>
-                <tr>
-                    <th class="text-left">Numéro de la carte </th>
-                    <td class="text-left">{{ responses.card_number | cardNumber(responses.card_validity) }}</td>
-                </tr>
-                <tr>
-                    <th class="text-left">Autorisation </th>
-                    <td class="text-left">{{ responses.authorisation_id }}</td>
-                </tr>
-                <tr>
-                    <th class="text-left">Certificat de la transaction </th>
-                    <td class="text-left">{{ responses.payment_certificate }}</td>
-                </tr>
-            </tbody>
-        </table>
         <hr>
         <table width="80%" style="margin:auto;color:#002a6a;font-size:22px;padding:20px;">
             {% if responses.response_code == "00" %}
@@ -76,7 +74,7 @@
             <tr>
                 <td>
                 <center>
-                    <img style="height:70px;width:auto;margin:auto;" src="https://www.cgofficiel.fr/asset/img/0977423130-CGofficiel-carte-grise-certificat-immatriculationx70.png" alt="logo" class="CToWUd a6T" tabindex="0">
+                    <img style="height:70px;width:auto;margin:auto;" src="https://www.cgofficiel.fr/asset/img/0977423130.png" alt="logo" class="CToWUd a6T" tabindex="0">
                 </center>
                 </td>
             </tr>
@@ -92,7 +90,7 @@
             <tr>
                 <td>
                     <center>
-                        <img style="height:70px;width:auto;margin:auto;" src="https://www.cgofficiel.fr/asset/img/0897010800-CGofficiel-carte-grise-certificat-immatriculationx70.png" alt="logo" class="CToWUd a6T" tabindex="0">
+                        <img style="height:70px;width:auto;margin:auto;" src="https://www.cgofficiel.fr/asset/img/0897010800.png" alt="logo" class="CToWUd a6T" tabindex="0">
                     </center>   
                 </td>
             </tr>
