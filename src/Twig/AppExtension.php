@@ -219,6 +219,7 @@ class AppExtension extends AbstractExtension
     {
 
         return $this->fraisTreatmentManager->fraisTotalTreatmentOfCommande($commande);
+        
     }
 
     public function fraisTraitementWhithTva(Commande $commande)

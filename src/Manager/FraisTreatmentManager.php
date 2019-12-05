@@ -9,6 +9,7 @@
  namespace App\Manager;
 
  use App\Manager\TaxesManager;
+ use App\Entity\Taxes;
  use App\Entity\Commande;
  use App\Repository\TarifsPrestationsRepository;
 
@@ -46,8 +47,10 @@
 
      public function fraisTotalTreatmentOfCommande(Commande $commande)
      {
+        $majoration = 0;
         $prestation = $this->fraisTreatmentOfCommande($commande);
-        $majoration = $this->taxesManager->getMajoration($commande->getTaxes());
+        if ($commande->getTaxes() instanceof Taxes)
+         $majoration = $this->taxesManager->getMajoration($commande->getTaxes());
 
         return $prestation + $majoration;
      }
