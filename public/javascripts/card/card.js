@@ -11,6 +11,11 @@ $(document).ready(function () {
         showTooltip: true,
         onRegionClick: function (element, code, region) {
             let value = code.replace('fr-', '');
+            let tempValue = value;
+            if (value == '2b' || value == '2a') {
+                tempValue = "20"
+            }
+            $('#valuePostalCode').val(tempValue);
             value = value.toUpperCase();
             var dep = slugify(region);
             var depart = dep;

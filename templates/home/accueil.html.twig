@@ -163,6 +163,11 @@
 {% block javascripts %}
 	{{ parent() }}
 	<script type="application/javascript">
+		{% if defaultDepartment is defined and defaultDepartment is not null %}
+			$("#formulaire_codePostal").parent('div').find('ul.select-options').find('li[rel="{{defaultDepartment}}"]').click();
+		{% endif %}
+	</script>
+	<script type="application/javascript">
 		// URL is a built-in JavaScript class to manipulate URLs
 			const url = new URL('http://dev3.cgofficiel.fr/hub/hub');
 			url.searchParams.append('topic', 'http://cgofficiel.com/addNewSimulator');

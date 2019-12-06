@@ -47,6 +47,10 @@ class HomeController extends AbstractController
     {
 
         $type = $demarche->findAll();
+        $department = null;
+        if ($request->query->has('department')) {
+            $department = $request->query->get('department');
+        }
         $commande = $commandeManager->createCommande();
         foreach($type as $typeId) {
             $defaultType = $demarche->find($typeId->getId());
@@ -135,6 +139,7 @@ class HomeController extends AbstractController
             'tab' => $tabForm,
             'formulaire' => $formulaire->createView(),
             'database' => false,
+            'defaultDepartment' => $department,
         ];
 
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {

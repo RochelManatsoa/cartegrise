@@ -23,6 +23,7 @@
 {% block body_id %}{% endblock %}
 
 {% block page_content %}
+<input type="text" id="valuePostalCode">
 <div class="prix_CG">
     <div class="container">
         <h2 class="home-prix--titre">Quel est le coût d'une Carte Grise?</h2>
@@ -67,7 +68,7 @@
                         </table>
                         <div class="text-center mt-4">
                             <a class="btn btn-blue btn-blue-outline lien_pref target_blank"  target="_self" href="#" >En savoir plus sur cette préfécture</a>
-                            <a class="btn btn-blue" href="{{path('Accueil')}}">Passer ma commande <i class="icon-right-arrow"></i></a>
+                            <a id="passerCommande" class="btn btn-blue" data-href="{{url('Accueil')}}">Passer ma commande <i class="icon-right-arrow"></i></a>
                         </div>
                     </centdiver>
                 </div>
@@ -97,4 +98,12 @@
 
     </script>
     <script src="{{ asset('javascripts/card/card.js') }}"></script>
+    <script>
+        $('#passerCommande').on('click', function(){
+            let aceuil = $(this).data('href');
+            let valuePostal = $('#valuePostalCode').val();
+            let realUrl = aceuil + '?department=' + valuePostal;
+            window.location.href = realUrl;
+        });
+    </script>
 {% endblock %}
