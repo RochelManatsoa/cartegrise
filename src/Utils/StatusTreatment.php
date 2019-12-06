@@ -10,7 +10,7 @@ class StatusTreatment
             "02" => "Contacter l'émetteur de carte",
             "03" => "Accepteur invalide",
             "04" => "Conserver la carte",
-            "05" => "Ne pas honorer",
+            "05" => "Echec de la transaction",
             "07" => "Conserver la carte, conditions spéciales",
             "08" => "Approuver après identification",
             "12" => "Transaction invalide",
