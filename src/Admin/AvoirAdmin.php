@@ -25,11 +25,11 @@ final class AvoirAdmin extends AbstractAdmin
         $alias = $query->getRootAliases()[0];
         $qb->leftJoin($alias.'.transaction', 'transDemande')
         ->leftJoin($alias.'.commande', 'commande')
+        ->leftJoin($alias.'.avoir', 'demandeAvoir')
         ->leftJoin('commande.transaction', 'transCommande')
         ->andWhere('transDemande.status =:status OR transCommande.status =:status')
-        ->andWhere($alias.'.retractation =:true')
-        ->setParameter('status', '00')
-        ->setParameter('true', true);
+        ->andWhere('demandeAvoir.id IS NOT NULL')
+        ->setParameter('status', '00');
 
         return $query;
     }
