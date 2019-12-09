@@ -166,6 +166,16 @@ class PaymentController extends AbstractController
         return new BinaryFileResponse($file);
     }
 
+    /**
+     * @Route("/payment/{demande}/avoir", name="payment_avoir")
+     */
+    public function avoir(Demande $demande, FraisTreatmentManager $fraisTreatmentManager, DemandeManager $demandeManager)
+    {
+        $file = $demandeManager->generateAvoir($demande);
+
+        return new BinaryFileResponse($file);
+    }
+
     // price with TVA
     private function calculateTOTAL($prix)
     {

@@ -63,6 +63,7 @@ final class CommandeAdmin extends AbstractAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->add('facture', $this->getRouterIdParameter().'/facture');
+        $collection->add('avoir', $this->getRouterIdParameter().'/avoir');
     }
 
     protected function configureListFields(ListMapper $listMapper)

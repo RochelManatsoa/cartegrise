@@ -159,11 +159,21 @@ class Demande
     private $motifDeRejet;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $retractation;
+
+    /**
      * @var \DateTime $deletedAt
      *
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     private $deletedAt;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Avoir", mappedBy="demande", cascade={"persist", "remove"})
+     */
+    private $avoir;
 
     public function __construct()
     {
@@ -397,6 +407,12 @@ class Demande
         return $this->getGeneratedCerfaPath().'/facture.pdf';
     }
 
+    public function getGeneratedAvoirPathFile(): ?string
+    {
+
+        return $this->getGeneratedCerfaPath().'/avoir.pdf';
+    }
+
     public function getUploadPath()
     {
         return $this->getGeneratedCerfaPath();
@@ -556,6 +572,36 @@ class Demande
     public function setDeletedAt(?\DateTimeInterface $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getRetractation(): ?bool
+    {
+        return $this->retractation;
+    }
+
+    public function setRetractation(?bool $retractation): self
+    {
+        $this->retractation = $retractation;
+
+        return $this;
+    }
+
+    public function getAvoir(): ?Avoir
+    {
+        return $this->avoir;
+    }
+
+    public function setAvoir(?Avoir $avoir): self
+    {
+        $this->avoir = $avoir;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newDemande = null === $avoir ? null : $this;
+        if ($avoir->getDemande() !== $newDemande) {
+            $avoir->setDemande($newDemande);
+        }
 
         return $this;
     }

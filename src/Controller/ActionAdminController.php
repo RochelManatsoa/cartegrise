@@ -11,6 +11,7 @@ use App\Manager\{DemandeManager, CommandeManager, TMSSauverManager};
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Entity\Demande;
+use App\Entity\Avoir;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ActionAdminController extends Controller
@@ -30,6 +31,46 @@ class ActionAdminController extends Controller
 
         // if you have a filtered list and want to keep your filters after the redirect
         // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+
+    /**
+     * @param $id
+     */
+    public function avoirAction($id)
+    {
+        $object = $this->admin->getSubject();
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+        }
+
+        return new RedirectResponse($this->generateUrl('payment_avoir', ['demande'=> $object->getId()]));
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+
+    /**
+     * @param $id
+     */
+    public function retracterAction($id, DemandeManager $demandeManager)
+    {
+        $object = $this->admin->getSubject();
+
+        if (!$object && !$object instanceof Demande) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+        }
+        if (is_null($object->getAvoir())) {
+            $avoir = new Avoir();
+            $object->setAvoir($avoir);
+        }
+        
+        $file = $demandeManager->generateAvoir($object);
+
+        // return new RedirectResponse($this->generateUrl('payment_avoir', ['demande'=> $object->getId()]));
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
     }
 
     /**

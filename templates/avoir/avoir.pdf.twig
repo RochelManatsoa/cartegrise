@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Avoir N°
+        {{ demande.avoir.numeroAvoirValue }}
+    </title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ pathToWeb ~ asset('css/style.css') }}">
+    <style type="text/css">
+        .logo-facture {
+            width: 100px;
+        }
+
+        body {
+            font-family: Roboto;
+            font-size: 14px;
+        }
+
+        .foot {
+            < !-- position: absolute;
+            top: 120%;
+            -->
+        }
+
+        h1 {
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="invoice">
+            <div class="row">
+                <div class="col-7">
+                    <img src="{{  pathToWeb ~ asset('asset/img/logo.png')}}" class="logo-facture">
+                </div>
+                <div class="col-5">
+                    <h1>AVOIR</h1>
+                    <p><strong>N°{{ demande.avoir.numeroAvoirValue }}</strong>
+                    </p>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-7">
+                    <p>
+                        <strong>CG Officiel</strong><br>
+                        20 Impasse Camille Langlade, <br>
+                        31000 TOULOUSE
+                    </p>
+                </div>
+                <div class="col-5">
+                    <p>
+                        <strong>
+                            {% if (demande.commande.transaction is defined and demande.commande.transaction is not null) or (demande.transaction is defined and demande.transaction is not null)%}
+                            {% if  findNomPrenomOfTitulaire(demande, "type") == "phy" %}
+                            {% if  findNomPrenomOfTitulaire(demande, "genre") == "F"%}
+                            Madame
+                            {% elseif findNomPrenomOfTitulaire(demande, "genre") == "M"%}
+                            Monsieur
+                            {% else %}
+                            Madame/Monsieur
+                            {% endif %}
+                            {% else %}
+                            Société
+                            {% endif %}
+                            {% if demande.commande.demarche.type == "DCA" %}
+                            {{ findNomPrenomOfTitulaire(demande, "birthName") | upper }}
+                            {% elseif demande.commande.demarche.type == "DUP" %}
+                            {{ findNomPrenomOfTitulaire(demande, "nomPrenom")}}
+                            {% else %}
+                            {{ findNomPrenomOfTitulaire(demande, "nomPrenomTitulaire") | upper }}
+                            {% endif %}
+                            {{ findNomPrenomOfTitulaire(demande, "prenomTitulaire") | capitalize }}
+                            {{ findNomPrenomOfTitulaire(demande, "raisonSociale") | upper }}
+                            {% endif %}
+                        </strong>
+                        <br>
+                        {{ adresse.numero }}
+                        {{ adresse.extension }}
+                        {{ adresse.typevoie | displayAdress}}
+                        {{ adresse.nom | upper }}
+                        {{ adresse.complement }}
+                        <br>
+                        {{ adresse.codePostal }}
+                        {{ adresse.ville | upper }}
+                    </p>
+                </div>
+            </div>
+            <br>
+            <br>
+
+            <table class="table table-bordered table-sm">
+                <thead class="table-active">
+                    <tr>
+                        <th>N° de Avoir</th>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">Ref client</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{% if demande.transaction.facture is defined %}{{demande.transaction.facture | formatFacture}}{% else %}{{demande.commande.transaction.facture | formatFacture}}{% endif %}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}{% if demande.transaction.id is defined %}{{demande.transaction.id }}{% else %}{{demande.commande.transaction.id}}{% endif %}
+                        </td>
+                        <td class="text-center">{{demande.avoir.createdAt | date('d/m/Y')}}</td>
+                        {% if demande.transaction is not null %}
+                            {% set currentTransaction = demande.transaction %}
+                        {% else %}
+                            {% set currentTransaction = demande.commande.transaction %}
+                        {% endif %}
+                        <td class="text-center">{{currentTransaction.transactionId}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <table class="table table-bordered table-sm">
+                <thead class="table-active">
+                    <tr>
+                        <th>Produit</th>
+                        <th class="text-center">Prix HT</th>
+                        <th class="text-center">Taux TVA</th>
+                        <th class="text-center">TVA</th>
+                        <th class="text-center">Prix TTC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>Taxes fiscales carte grise </strong>
+                            <br>Démarche : {{demande.commande.demarche.nom}}
+                            <br>Département de résidence : {{demande.commande.codePostal}}
+                            <br>Numéro d'immatriculation : {{demande.commande.immatriculation}}
+                            <br>VIN : {{demande.commande.taxes.VIN}}
+                            <br>Modèle : {{demande.commande.carInfo.model}}
+                            <br>Marque : {{demande.commande.carInfo.marque}}
+                            <br>Département plaque : {{demande.commande.codePostal}}
+                        </td>
+                        <td class="text-center">
+                            <strong>{{(demande.commande.taxes.taxeTotale)|number_format(2, '.', ',') }} €</strong></td>
+                        <td class="text-center">0%</td>
+                        <td class="text-center"><strong>0,00 €</strong></td>
+                        <td class="text-center">
+                            <strong>{{(demande.commande.taxes.taxeTotale)|number_format(2, '.', ',') }} €</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Frais de dossier</strong></td>
+                        <td class="text-center">
+                            <strong>{{(fraisdossierWithoutTva(demande.commande))|number_format(2, '.', ',') }}
+                                €</strong></td>
+                        <td class="text-center">{{ tvaCommande(demande.commande) }}</td>
+                        <td class="text-center">
+                            <strong>{{(tvaTraitement(demande.commande))|number_format(2, '.', ',') }} €</strong></td>
+                        <td class="text-center">
+                            <strong>{{(fraisTraitementWhithTva(demande.commande))|number_format(2, '.', ',') }}
+                                €</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <div class="row">
+                <div class="col-7">
+                    <p> Somme à rembourser: </p>
+                </div>
+                <div class="col-5">
+                    <table class="table table-md text-right table-active">
+                        <tr>
+                            <td><strong>Total HT : </strong></td>
+                            <td class="text-right">
+                                <strong>{{(fraisTotalHT(demande.commande)|number_format(2, '.', ','))}} €</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Base HT pour TVA :</strong></td>
+                            <td class="text-right">
+                                <strong>{{(fraisdossierWithoutTva(demande.commande)|number_format(2, '.', ','))}}
+                                    €</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>TVA {{ tvaCommande(demande.commande) }} :</strong></td>
+                            <td class="text-right bg">
+                                <strong>{{(tvaTraitement(demande.commande)|number_format(2, '.', ',') )}} €</strong>
+                            </td>
+                        </tr>
+                        <tr class="table-active">
+                            <td><strong>Total TTC :</strong></td>
+                            <td class="text-right"><strong>{{(total(demande.commande))|number_format(2, '.', ',') }}
+                                    €</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-12 foot">
+                    <hr>
+                    <p class="bottom-page text-right">
+                        <small>
+                            CG Officiel - N° SIRET 83897291700010 Toulouse<br>
+                            20 Impasse Camille Langlade, 31000 Toulouse 09 77 42 31 20 - www.cgofficiel.fr<br>
+                            IBAN FR76 3000 4003 3900 0102 24 95 637 - SWIFT CCBPFRPPMTZ
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
