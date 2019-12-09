@@ -7,7 +7,7 @@ use Twig\TwigFunction;
 use Twig\TwigFilter;
 use App\Entity\{User, Taxes, TypeDemande, Commande, Demande, Adresse, EmailHistory};
 use App\Repository\TarifsPrestationsRepository;
-use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager, DemandeManager};
+use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager, DemandeManager, TransactionManager};
 use App\Utils\StatusTreatment;
 use App\Manager\DocumentAFournirManager;
 use Doctrine\Common\Annotations\AnnotationReader;
@@ -22,6 +22,7 @@ class AppExtension extends AbstractExtension
     private $fraisTreatmentManager;
     private $statusManager;
     private $documentAFournirManager;
+    private $transactionManager;
     public function __construct(
         UserManager $userManager, 
         StatusTreatment $statusTreatment,
@@ -30,7 +31,8 @@ class AppExtension extends AbstractExtension
         FraisTreatmentManager $fraisTreatmentManager,
         StatusManager $statusManager,
         DocumentAFournirManager $documentAFournirManager,
-        DemandeManager $demandeManager
+        DemandeManager $demandeManager,
+        TransactionManager $transactionManager
     )
     {
         $this->userManager     = $userManager;
@@ -41,6 +43,7 @@ class AppExtension extends AbstractExtension
         $this->statusManager = $statusManager;
         $this->documentAFournirManager = $documentAFournirManager;
         $this->demandeManager = $demandeManager;
+        $this->transactionManager = $transactionManager;
     }
     public function getFunctions()
     {
@@ -84,7 +87,8 @@ class AppExtension extends AbstractExtension
             new TwigFunction('displayAccepted', [$this, 'displayAccepted']),
             new TwigFunction('decodeBody', [$this, 'decodeBody']),
             new TwigFunction('findNomPrenomOfTitulaire', [$this, 'findNomPrenomOfTitulaire']),
-            new TwigFunction('displayServiceClient', [$this, 'displayServiceClient']) 
+            new TwigFunction('displayServiceClient', [$this, 'displayServiceClient']),
+            new TwigFunction('findByTransactionId', [$this, 'findByTransactionId']) 
         ];
     }
 
@@ -517,6 +521,11 @@ class AppExtension extends AbstractExtension
     public function displayServiceClient()
     {
         return $this->demandeManager->checkServiceClient();
+    }
+
+    public function findByTransactionId(string $responseId)
+    {
+        return $this->transactionManager->findByTransactionId($responseId);
     }
 
 }
