@@ -3,111 +3,11 @@
 
 {% block body %}
     {% set transaction = findByTransactionId(responses.transaction_id) %}
-                            <td class="bodyEmail" bgcolor="#ffffff">
-                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                    <tr class="recapDemande">
-                                        <td class="col35">
-                                            <strong>Type demande <span>:</span></strong>
-                                        </td>
-                                        <td>{{ transaction.commande.demarche.nom}}</td>
-                                    </tr>
-                                    <tr class="recapDemande">
-                                        <td class="col35">
-                                            <strong>Date <span>:</span></strong>
-                                        </td>
-                                        <td>{{ transaction.createAt | date('d/m/Y')}}</td>
-                                    </tr>
-                                    <tr class="recapDemande">
-                                        <td class="col35">
-                                            <strong>Département <span>:</span></strong>
-                                        </td>
-                                        <td>{{ transaction.commande.codePostal }}</td>
-                                    </tr>
-                                    <tr class="recapDemande">
-                                        <td class="col35">
-                                            <strong>Immatriculation <span>:</span></strong>
-                                        </td>
-                                        <td>{{ transaction.commande.immatriculation}}</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="bodyTransa" bgcolor="#ffffff">
-                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                    <tr class="transaB">
-                                        <td class="transaItem">
-                                            <strong>{{ "#{responses.response_code}" | statusMessage }}</strong>
-                                            Historique de la transaction effectuée par <a href="mailto:{{ responses.customer_email }}">{{ responses.customer_email }}</a>
-                                            <hr>
-                                            <table width="100%" border="0" cellspacing="4px" cellpadding="0">
-                                                <tr class="recapTransa">
-                                                    <td class="col50">
-                                                        <strong>Référence de la transaction</strong>
-                                                    </td>
-                                                    <td>{{ responses.transaction_id }}</td>
-                                                </tr>
-                                                <tr class="recapTransa">
-                                                    <td class="col50">
-                                                        <strong>Montant de la transaction</strong>
-                                                    </td>
-                                                    <td>{{ responses.amount | amount(2) }} </td>
-                                                </tr>
-                                                <tr class="recapTransa">
-                                                    <td class="col50">
-                                                        <strong>Numéro de la carte</strong>
-                                                    </td>
-                                                    <td>{{ responses.card_number | cardNumber(responses.card_validity) }}</td>
-                                                </tr>
-                                                <tr class="recapTransa">
-                                                    <td class="col50">
-                                                        <strong>Autorisation</strong>
-                                                    </td>
-                                                    <td>{{ responses.authorisation_id }}</td>
-                                                </tr>
-                                                <tr class="recapTransa">
-                                                    <td class="col50">
-                                                        <strong>Certificat de la transaction</strong>
-                                                    </td>
-                                                    <td>{{ responses.payment_certificate }}</td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="footer" bgcolor="#03347e">
-                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                    <tr>
-                                        <td align="center" class="footercopy">
-                                            {% if responses.response_code == "00" %}
-                                            Pour finaliser votre commande, merci de nous faire parvenir les documents necessaire à votre demande sur <a href="https://www.cgofficiel.fr/" target="_blank">CG Officiel</a> et par courrier à l'adresse <br><strong>20 impasse Camille Langlade 31 100 Toulouse</strong>
-                                            {% else %}
-                                            Il y a eu un problème lors de votre transaction, vous pouvez réessayer depuis depuis votre espace client sur <a href="https://www.cgofficiel.fr" target="_blank"> https://www.cgofficiel.fr</a>. Pour toute autre demande, notre service client reste à votre disposition.
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="center" style="padding: 20px 0 0 0;">
-                                            <table border="0" cellspacing="0" cellpadding="0">
-                                                <tr>
-                                                {% if responses.response_code == "00" %}
-                                                    <td bgcolor="#ffffff" style="text-align: center; padding: 0px;">
-                                                        <img src="https://www.cgofficiel.fr/asset/img/0977423130.png" alt="" border="0" style="max-width: 300px;background:fff" />
-                                                    </td>
-                                                {% else %}
-                                                    <td bgcolor="#ffffff" style="text-align: center; padding: 0px;">
-                                                        <img src="https://www.cgofficiel.fr/asset/img/0897010800.png" alt="" border="0" style="max-width: 300px;background:fff" />
-                                                    </td>
-                                                {% endif %}
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
+        {% if responses.response_code === 00 %}
+            {{ include('email/success.mail.twig') }}
+        {% else %}
+            {{ include('email/cancel.mail.twig') }}
+        {% endif %}
 
                             
     {# <div style="font-family:Raleway;color:#7296ce;font-size:35px;padding-top:50px;text-align:center">
