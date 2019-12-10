@@ -48,7 +48,7 @@
                                     <tr class="transaB">
                                         <td class="transaItem">
                                             <strong>Dossiers à valider sont en pièce joint et doivent comporter :</strong>
-                                            Historique de la transaction effectuée par <a href="mailto:{{ responses.customer_email }}">{{ responses.customer_email }}</a>
+                                            Historique de la transaction effectuée par <a href="mailto:{{ client.user.email }}">{{ client.user.email }}</a>
                                             <hr>
                                             {{ daf|raw }}
                                         </td>
