@@ -1,4 +1,24 @@
 .rp_dmd {
+    &.adminStyle {
+        padding: 0;
+        .col-xl-3 {
+            @include xl {
+				-ms-flex: 0 0 25%;
+                flex: 0 0 25%;
+                max-width: 25%;
+			}
+        }
+        .row {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+        .justify-content-center {
+            -ms-flex-pack: center!important;
+            justify-content: center!important;
+        }
+    }
     .commande_block {
         h2 {
             text-transform: uppercase;
