@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 final class UserAdmin extends AbstractAdmin
 {
@@ -38,6 +39,11 @@ final class UserAdmin extends AbstractAdmin
         ;
     }
 
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('ficheClient', $this->getRouterIdParameter().'/fiche-client');
+    }
+
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -46,7 +52,10 @@ final class UserAdmin extends AbstractAdmin
         ->add('client.clientContact.contact_telmobile', null, [
             'label' => 'télephone'
         ])
-        ->add('client.clientNom')
+        ->addIdentifier('nameClient', null, [
+            'label' => 'Nom',
+            'template' => 'CRUD/client/ficheClientList.html.twig',
+        ])
         ->add('client.clientPrenom')
         ->add('roles')
         ;
