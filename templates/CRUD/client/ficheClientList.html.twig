@@ -1,0 +1,11 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+{% if object.client is not null %}
+    <a class="btn btn-sm btn-default view_link" target="_blank"
+        href="{{ admin.generateObjectUrl('ficheClient', object.client) }}" title="ficheClient">
+        <i class="fa fa-user" aria-hidden="true"></i>
+        {{object.client.clientNom}}
+    </a>
+{% endif %}
+{% endblock %}

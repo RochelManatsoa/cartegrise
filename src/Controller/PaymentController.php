@@ -176,18 +176,6 @@ class PaymentController extends AbstractController
         return new BinaryFileResponse($file);
     }
 
-    // price with TVA
-    private function calculateTOTAL($prix)
-    {
-        return ($prix) + ($prix * 20 / 100);
-    }
-
-    // calculate TVA 20%
-    private function calculateTVA($prix)
-    {
-        return $prix * 20 / 100;
-    }
-
     // to get response
     private function getResponse($response, $paymentUtils, $parameterBag, $responseTreatment)
     {

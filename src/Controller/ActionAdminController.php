@@ -7,10 +7,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Manager\DocumentAFournirManager;
-use App\Manager\{DemandeManager, CommandeManager, TMSSauverManager};
+use App\Manager\{DemandeManager, CommandeManager, TMSSauverManager, ClientManager};
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Entity\Demande;
+use App\Entity\Client;
 use App\Entity\Avoir;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -71,6 +72,17 @@ class ActionAdminController extends Controller
 
         // if you have a filtered list and want to keep your filters after the redirect
         return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+
+    /**
+     * @param $id
+     */
+    public function ficheClientAction(Client $object, ClientManager $clientManager)
+    {
+
+        return $this->renderWithExtraParams('CRUD/client/ficheClientView.html.twig', [
+                'client'   => $object
+            ]);
     }
 
     /**

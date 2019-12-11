@@ -100,14 +100,14 @@
             <table class="table table-bordered table-sm">
                 <thead class="table-active">
                     <tr>
-                        <th>N° de Avoir</th>
+                        <th>N° d'Avoir</th>
                         <th class="text-center">Date</th>
                         <th class="text-center">Ref client</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{% if demande.transaction.facture is defined %}{{demande.transaction.facture | formatFacture}}{% else %}{{demande.commande.transaction.facture | formatFacture}}{% endif %}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}{% if demande.transaction.id is defined %}{{demande.transaction.id }}{% else %}{{demande.commande.transaction.id}}{% endif %}
+                        <td>{{ demande.avoir.numeroAvoirValue }}
                         </td>
                         <td class="text-center">{{demande.avoir.createdAt | date('d/m/Y')}}</td>
                         {% if demande.transaction is not null %}
