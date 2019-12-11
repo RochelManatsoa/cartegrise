@@ -52,6 +52,7 @@ final class DemandeAdmin extends AbstractAdmin
         $collection->add('facture', $this->getRouterIdParameter().'/facture');
         $collection->add('avoir', $this->getRouterIdParameter().'/avoir');
         $collection->add('retracter', $this->getRouterIdParameter().'/retracter');
+        $collection->add('ficheClient', $this->getRouterIdParameter().'/fiche-client');
     }
 
     protected function configureListFields(ListMapper $listMapper)
@@ -65,8 +66,9 @@ final class DemandeAdmin extends AbstractAdmin
             'label' => 'Type de commande'
         ])
         ->add('commande.immatriculation')
-        ->addIdentifier('commande.client.clientNom', null, [
-            'label' => 'Nom'
+        ->addIdentifier('clientName', null, [
+            'label' => 'Nom',
+            'template' => 'CRUD/client/ficheClientList.html.twig',
         ])
         ->addIdentifier('status', null, [
             'label' => 'Status Commande'
