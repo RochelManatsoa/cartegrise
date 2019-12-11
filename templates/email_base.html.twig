@@ -1,4 +1,150 @@
 <!DOCTYPE html>
+<html dir="ltr" lang="fr-FR">
+    <head>
+      {% block head %}
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name=viewport content="width=device-width, initial-scale=1.0, minimum-scale=1.0 maximum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      {% endblock head %}
+      {% block style %}{% endblock %}
+        <style type="text/css">
+            body {
+                margin: 0; 
+                padding: 0; 
+                min-width: 100%!important;
+                font-family: sans-serif; 
+                font-size: 14px;
+            }
+            .content {
+                width: 100%;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                overflow: hidden;
+            }  
+            img {
+                width: 100%;
+            }
+            @media only screen and (min-device-width: 601px) {
+                .content {
+                    width: 600px !important;
+                }
+            }
+            .header {
+                padding: 10px 20px;
+                text-align: center;
+            }
+            .subhead {
+                font-size: 15px; 
+                color: #ffffff; 
+                font-family: sans-serif; 
+                letter-spacing: 10px;
+            }
+            .h1 {
+                font-size: 26px; 
+                line-height: 38px; 
+                font-weight: bold;
+                color: white;
+                padding:15px;
+            }
+            .h1, .h2, .bodycopy {
+                font-family: sans-serif;
+            }
+            .bodyEmail {
+                padding: 20px;
+            }
+            .bodyEmail strong {
+                color: #03347e;
+                display: block;
+            }
+            .col35 {
+                width: 35%;
+            }
+            @media(max-width: 767px) {
+                .col35 {
+                    width: 50%;
+                }
+            }
+            .col50 {
+                width: 50%;
+            }
+            .col35 span {
+                float: right;
+                padding-right: 35px;
+            }
+            tr.recapDemande td {
+                padding: 10px 0;
+                border-bottom: 1px dotted #dddddd;
+            }
+            tr.recapDemande:last-child td {
+                border-bottom: none;
+            }
+            td.bodyTransa {
+                padding: 0 20px 20px;
+            }
+            .transaB .transaItem > strong {
+                display: block;
+                color: #03347e;
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            a {
+                color: #219de4;
+            }
+            .transaB .transaItem {
+                border: 3px solid #03347e;
+                padding: 15px;
+                text-align: center;
+            }
+            .recapTransa td {
+                text-align: left;
+                padding: 10px;
+                background: #f7f7f7;
+            }
+            .footer {
+                padding: 20px 30px 15px 30px;
+            }
+            .footercopy {
+                font-family: sans-serif; 
+                font-size: 14px; 
+                color: #ffffff;
+                line-height: 24px;
+            }
+            .footercopy a {
+                color: #ffffff; 
+                text-decoration: underline;
+            }
+
+        </style>
+    </head>
+    <body bgcolor="#f6f8f1">
+        <table width="100%" bgcolor="#f6f8f1" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                  <table class="content" align="center" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                          <td class="header" bgcolor="#03347e">
+                              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                      <td class="subhead" style="padding: 0 0 0 3px;">
+                                          <img src="https://www.cgofficiel.fr/asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png" style="width: 80px" border="0" alt="" / >
+                                      </td>
+                                      <td class="h1">
+                                          Service de carte grise en ligne
+                                      </td>
+                                  </tr>
+                              </table>
+                          </td>
+                      </tr>
+                      <tr>
+                        {% block body %}{% endblock %}  
+                      </tr>
+                    </table> 
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
+{# <!DOCTYPE html>
 <html lang="fr">
 <head>
 {% block head %}
@@ -25,4 +171,4 @@
         </div>
     </div>
 </body>
-</html>
+</html> #}

@@ -2960,3 +2960,20 @@ body{
 		}
 	}
 }
+
+.mailModal {
+	.modal-dialog {
+		max-width: 650px;
+		table {
+			.content {
+				width: 100% !important;
+				.h1 {
+					@include sm {
+						line-height: 18px;
+						font-size: 18px;
+					}
+				}
+			}
+		}
+	}
+}
