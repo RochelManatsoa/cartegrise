@@ -1,12 +1,26 @@
 .rp_dmd {
     &.adminStyle {
         padding: 0;
+        .col-3 {
+            -ms-flex: 0 0 25%;
+            flex: 0 0 25%;
+            max-width: 25%;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
         .col-xl-3 {
             @include xl {
 				-ms-flex: 0 0 25%;
                 flex: 0 0 25%;
                 max-width: 25%;
 			}
+        }
+        .col-9 {
+            -ms-flex: 0 0 75%;
+            flex: 0 0 75%;
+            max-width: 75%;
+            padding-right: 15px;
+            padding-left: 15px;
         }
         .row {
             display: -ms-flexbox;
@@ -17,6 +31,36 @@
         .justify-content-center {
             -ms-flex-pack: center!important;
             justify-content: center!important;
+        }
+        .custom-file-label {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1;
+            height: calc(1.5em + .75rem + 2px);
+            padding: .375rem .75rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+        }
+        .custom-file {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            height: calc(1.5em + .75rem + 2px);
+            margin-bottom: 0;
+        }
+        .pr-0 {
+            padding-right: 0!important;
+        }
+        .btn-bown {
+            i {
+                top: 0 !important;
+            }
         }
     }
     .commande_block {
