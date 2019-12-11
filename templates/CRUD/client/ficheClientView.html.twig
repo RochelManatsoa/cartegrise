@@ -10,7 +10,13 @@
 <h1>Fiche Client</h1>
 <h2>{{ client.clientNom |upper}} {{ client.clientPrenom}}</h2>
 <p>Inscrit le {{ client.user.registerDate |date('d/m/Y')}}</p>
-<p>Tél : {{ client.clientContact.contactTelmobile}}</p>
+<p>Tél :
+    {% if client.clientContact is not null %}
+        {{ client.clientContact.contactTelmobile}}
+    {% else %}
+        --
+    {% endif %}
+</p>
 <p>Mail : {{ client.user.email}}</p>
 <p>{{ client.countDemande}} Démarche en cours : </p>
 <table class="">
