@@ -2362,8 +2362,54 @@ header {
     color: #bfbfbf;
     margin-bottom: $size_15;
     padding-bottom: 10px;
-    border-bottom: 1px solid #e3e3e3;
+    border-bottom: $bdr_solid_1 #e3e3e3;
   }
+}
+.esp_clientBlock {
+	&.AdminFicheC {
+		padding: 0;
+		.badge {
+			display: inline-block;
+			padding: .25em .4em;
+			font-size: 75%;
+			font-weight: 700;
+			line-height: 1;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: baseline;
+			border-radius: .25rem;
+			transition: color .15s ease-in-out,
+			background-color .15s ease-in-out,
+			border-color .15s ease-in-out,
+			box-shadow .15s ease-in-out;
+			&.badge-info {
+				color: $white;
+				background-color: #17a2b8;
+				text-transform: uppercase;
+				margin-left: 5px;;
+			}
+		}
+		h2.title-client {
+			color: #bfbfbf;
+			margin-bottom: $size_15;
+			padding-bottom: 10px;
+			letter-spacing: 0;
+			border-bottom:$bdr_solid_1 $bdr_color1;
+		}
+		.recapInfos {
+			padding: 40px;
+			background-color: $white;
+			border:$bdr_solid_1 $bdr_color1;
+			p {
+				text-transform: uppercase;
+				margin-bottom: $size_18;
+				padding-bottom: $size_15;
+				&:not(:last-child) {
+					border-bottom: $bdr_solid_1 #e3e3e3;
+				}
+			}
+		}
+	}
 }
 
 .no-bg{
