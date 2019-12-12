@@ -4,7 +4,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-17 13:14:01 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-12-09 10:55:08
+ * @Last Modified time: 2019-12-12 12:32:42
  */
 namespace App\Manager;
 
@@ -12,6 +12,7 @@ use App\Entity\Commande;
 use App\Entity\Demande;
 use App\Entity\Transaction;
 use App\Entity\TypeDemande;
+use App\Entity\Adresse;
 use App\Entity\User;
 use App\Form\Demande\DemandeCtvoType;
 use App\Form\Demande\DemandeDivnType;
@@ -554,7 +555,12 @@ class DemandeManager
                 $adresseFacture = $titulaire->getAdresseNewTitulaire();
             break;
             case "DUP":
-                $adresseFacture = $demande->getDuplicata()->getAdresse();
+                if ($demande->getDuplicata()->getAdresse() instanceof Adresse) {
+                    $adresseFacture = $demande->getDuplicata()->getAdresse();
+                } else {
+                    $adresseFacture = $demande->getCommande()->getClient()->getClientAdresse();
+                }
+                
             break;
             case "DIVN":
                 $titulaire = $demande->getDivn()->getAcquerreur();
