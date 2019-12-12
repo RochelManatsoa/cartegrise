@@ -2365,6 +2365,13 @@ header {
     border-bottom: $bdr_solid_1 #e3e3e3;
   }
 }
+.sonata-bc {
+	.content {
+		width: 100% !important;
+		border-radius: 0 !important;
+		border: none !important;
+	}
+}
 .esp_clientBlock {
 	&.AdminFicheC {
 		padding: 0;
