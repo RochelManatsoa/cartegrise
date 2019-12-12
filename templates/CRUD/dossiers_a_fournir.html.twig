@@ -114,9 +114,7 @@
                     {% endif %}
                     {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
                         <a href="{{ path("validate_file", {'demande': demande.id}) }}">
-                            <button class="btn btn-info">
-                                Valider
-                            </button>
+                            <button class="pull-right btn btn-blue btn">Valider</button>
                         </a>
                     {% endif %}
                 </div>
@@ -136,7 +134,7 @@
                             if ($(item).next().length === 1) {
                                 $(item).parents('div.group-input').find('label.custom-file-label').text($(item).next().text());
                             } else {
-                                $(item).parents('div.group-input').find('label.custom-file-label').text('Choisir un fichier...');
+                                $(item).parents('div.group-input').find('label.custom-file-label').text('Parcourir');
                             }
                         }
                     );
