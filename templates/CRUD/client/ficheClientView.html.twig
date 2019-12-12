@@ -17,7 +17,7 @@
     <div class="nav-client">
         <ul class="row text-center align-items-center" id="pills-tab" role="tablist">
             <li class="col-md-3"><a id="pills-apercu-tab" data-toggle="pill" href="#pills-apercu" role="tab" aria-controls="pills-apercu" aria-selected="true" class="nav-client-item home-item"><i class="icomoon icon-home"></i></a></li>
-            <li class="col-md-3"><a id="pills-document-tab" data-toggle="pill" href="#pills-status" role="tab" aria-controls="pills-status" aria-selected="false" class="nav-client-item">Status</a></li>
+            <li class="col-md-3"><a id="pills-document-tab" data-toggle="pill" href="#pills-status" role="tab" aria-controls="pills-status" aria-selected="false" class="nav-client-item">Panier</a></li>
             <li class="col-md-3"><a id="pills-document-tab" data-toggle="pill" href="#pills-date" role="tab" aria-controls="pills-date" aria-selected="false" class="nav-client-item">Mails reçus</a></li>
         </ul>
     </div>
@@ -49,7 +49,7 @@
                 {% for commande in client.commandes %}
                 {% if commande.demande is not null %}
                     <tr>
-                        <th class="responsive-toggle">Objet<span></span></th><td>{{commande.demarche.type}}</td>
+                        <th class="responsive-toggle">Objet<span></span></th><td>{{commande.demarche.nom}}</td>
                         <th class="responsive-toggle">Date<span></span></th><td><span class="badge badge-{{ statusOfCommande(commande, "style") }}">{{ statusOfCommande(commande, "text") }}</span></td>
                     </tr>
                 {% endif %}
@@ -63,6 +63,7 @@
                     <tr>
                         <th scope="col">Objet</th>
                         <th scope="col">Date</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,11 +71,46 @@
                     <tr>
                         <th class="responsive-toggle">Objet<span></span></th><td>{{mail.subject}}</td>
                         <th class="responsive-toggle">Date<span></span></th><td>{{mail.createdAt |date('d/m/Y')}}</td>
+                        <th class="responsive-toggle"><span></span></th>
+                            <td class="text-center">
+                                <div class="content-actions">
+                                    <button type="button" class="btn resume-btn" data-toggle="modal" data-target="#{{mail.id}}">
+                                        Ouvrir le mail
+                                    </button>
+                                </div>
+                            </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+            {# <div class="navigation">
+                {{ knp_pagination_render(client.user.emailHistories) }}
+            </div> #}
+            <!-- end display navigation -->
         </div>
     </div>
 </div>
+
+{% for mail in client.user.emailHistories %}
+    <!-- Modal -->
+    <div class="mailModal modal fade" id="{{mail.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Objet : {{ mail.subject }}<br>
+                        Date : {{ mail.createdAt | date('d M Y')}}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ decodeBody(mail) | raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
 {% endblock %}
