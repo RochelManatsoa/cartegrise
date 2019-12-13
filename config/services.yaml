@@ -99,7 +99,11 @@ services:
     App\Admin\NotificationEmailAdmin:
         arguments: [~, App\Entity\NotificationEmail, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'NOTIFICATION', label: 'Gestions des notifications ' }
+            - { name: sonata.admin, manager_type: orm,group: 'NOTIFICATION', label: 'Mails de notification ' }
+    App\Admin\NotificationAdmin:
+        arguments: [~, App\Entity\Notification,  App\Controller\ActionAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'NOTIFICATION', label: 'Notifications ' }
     App\Admin\FactureAdmin:
         arguments: [~, App\Entity\Demande, App\Controller\ActionAdminController]
         tags:

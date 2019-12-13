@@ -129,6 +129,11 @@ class Commande
      */
     private $transaction;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Notification", mappedBy="commande", cascade={"persist", "remove"})
+     */
+    private $notification;
+
 
     public function __construct()
     {
@@ -393,6 +398,24 @@ class Commande
     public function setTransaction(?Transaction $transaction): self
     {
         $this->transaction = $transaction;
+
+        return $this;
+    }
+
+    public function getNotification(): ?Notification
+    {
+        return $this->notification;
+    }
+
+    public function setNotification(?Notification $notification): self
+    {
+        $this->notification = $notification;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCommande = null === $notification ? null : $this;
+        if ($notification->getCommande() !== $newCommande) {
+            $notification->setCommande($newCommande);
+        }
 
         return $this;
     }
