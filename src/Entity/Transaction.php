@@ -77,6 +77,11 @@ class Transaction
      */
     private $createAt;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Notification", mappedBy="transaction", cascade={"persist", "remove"})
+     */
+    private $notification;
+
     public function __construct()
     {
         $this->createAt = new \Datetime();
@@ -179,6 +184,24 @@ class Transaction
     public function setCreateAt(?\DateTimeInterface $createAt): self
     {
         $this->createAt = $createAt;
+
+        return $this;
+    }
+
+    public function getNotification(): ?Notification
+    {
+        return $this->notification;
+    }
+
+    public function setNotification(?Notification $notification): self
+    {
+        $this->notification = $notification;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newTransaction = null === $notification ? null : $this;
+        if ($notification->getTransaction() !== $newTransaction) {
+            $notification->setTransaction($newTransaction);
+        }
 
         return $this;
     }
