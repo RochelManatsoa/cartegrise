@@ -2365,6 +2365,23 @@ header {
     border-bottom: $bdr_solid_1 #e3e3e3;
   }
 }
+.sonata-bc {
+	.sidebar-menu {
+		> li {
+			font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif !important;
+			font-weight: 400;
+			font-size: 14px !important;
+			line-height: 1.42857143;
+			color: #333;
+			-webkit-font-smoothing: none;
+		}
+	}
+	.content {
+		width: 100% !important;
+		border-radius: 0 !important;
+		border: none !important;
+	}
+}
 .esp_clientBlock {
 	&.AdminFicheC {
 		padding: 0;
