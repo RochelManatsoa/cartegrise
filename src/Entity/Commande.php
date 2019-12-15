@@ -75,6 +75,7 @@ class Commande
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="commandes")
+     * @ORM\JoinColumn()
      */
     private $client;
 

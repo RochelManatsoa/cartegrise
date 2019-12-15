@@ -64,7 +64,9 @@ class RegisterListener implements EventSubscriberInterface
         $this->mercureManager->publish(
         'http://cgofficiel.com/addNewSimulator',
         'utilisateur',
-        [],
+        [
+            'id' => $user->getId(),
+        ],
         'nouvelle Utilisateur insérer'
         );
         

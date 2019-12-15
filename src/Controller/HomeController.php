@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Tms\TmsClient;
-use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager, DivnInitManager, ContactUsManager};
+use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager, DivnInitManager, ContactUsManager, NotificationManager};
 use App\Form\DivnInitType;
 use App\Manager\Mercure\MercureManager;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -42,7 +42,8 @@ class HomeController extends AbstractController
         CarInfoManager $carInfoManager,
         TaxesManager $taxesManager,
         DivnInitManager $divnInitManager,
-        MercureManager $mercureManager
+        MercureManager $mercureManager,
+        NotificationManager $notificationManager
         )
     {
 
@@ -118,17 +119,23 @@ class HomeController extends AbstractController
                     $manager->flush();
 
                     // The Publisher service is an invokable object
-                    $mercureManager->publish(
-                        'http://cgofficiel.com/addNewSimulator',
-                        'commande',
-                        [
+                    $data = [
                             'immat' => $commande->getImmatriculation(),
                             'department' => $commande->getCodePostal(),
                             'demarche' => $commande->getDemarche()->getType(),
                             'id' => $commande->getId(),
-                        ],
+                    ];
+                    $mercureManager->publish(
+                        'http://cgofficiel.com/addNewSimulator',
+                        'commande',
+                        $data,
                         'new Simulation is insert'
                     );
+
+                    $notificationManager->saveNotification([
+                        "type" => 'commande', 
+                        "data" => $data,
+                    ]);
 
                     $param = $this->getParamHome($commande, $sessionManager, $tabForm);
 

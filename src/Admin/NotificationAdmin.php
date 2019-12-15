@@ -18,9 +18,9 @@ use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 
 final class NotificationAdmin extends AbstractAdmin
 {
-    public function configureRoutes(RouteCollection $collection)
+    protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('delete');
+        $collection->add('ficheClient', $this->getRouterIdParameter().'/fiche-client');
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -59,8 +59,9 @@ final class NotificationAdmin extends AbstractAdmin
         ->addIdentifier('commande.immatriculation', null, [
             'label' => 'Immatriculation'
         ])
-        ->addIdentifier('client.clientNom', null, [
-            'label' => 'Nom client'
+        ->addIdentifier('name', null, [
+            'label' => 'Nom client',
+            'template' => 'CRUD/client/ficheClientNotificationList.html.twig',
         ])
         ->addIdentifier('commande.status', null, [
             'label' => 'Status Commande'
