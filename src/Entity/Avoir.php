@@ -115,6 +115,6 @@ class Avoir
         $type = $this->getDemande()->getCommande()->getDemarche()->getType();
         $demandeId = $this->getDemande()->getId();
 
-        return $num . $dateDemande . '/' . $type . $demandeId;
+        return 'A'.$num . $dateDemande . '/' . $type . $demandeId;
     }
 }
