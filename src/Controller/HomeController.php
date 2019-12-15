@@ -87,17 +87,6 @@ class HomeController extends AbstractController
                 'codePostal' => $commande->getCodePostal(),
                 'demarche' => $commande->getDemarche(),
             ]);
-            // The Publisher service is an invokable object
-            $mercureManager->publish(
-                'http://cgofficiel.com/addNewSimulator',
-                'commande',
-                [
-                    'immat' => $commande->getImmatriculation(),
-                    'department' => $commande->getCodePostal(),
-                    'demarche' => $commande->getDemarche()->getType(),
-                ],
-                'new Simulation is insert'
-            );
 
             if($commande->getDemarche()->getType() === 'DIVN'){
 
@@ -127,6 +116,20 @@ class HomeController extends AbstractController
                     $manager->persist($taxe);
 
                     $manager->flush();
+
+                    // The Publisher service is an invokable object
+                    $mercureManager->publish(
+                        'http://cgofficiel.com/addNewSimulator',
+                        'commande',
+                        [
+                            'immat' => $commande->getImmatriculation(),
+                            'department' => $commande->getCodePostal(),
+                            'demarche' => $commande->getDemarche()->getType(),
+                            'id' => $commande->getId(),
+                        ],
+                        'new Simulation is insert'
+                    );
+
                     $param = $this->getParamHome($commande, $sessionManager, $tabForm);
 
                     return $this->render('home/accueil.html.twig', $param);
