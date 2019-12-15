@@ -175,6 +175,11 @@ class Demande
      */
     private $avoir;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Notification", mappedBy="demande", cascade={"persist", "remove"})
+     */
+    private $notification;
+
     public function __construct()
     {
         $this->fichiers = new ArrayCollection();
@@ -601,6 +606,24 @@ class Demande
         $newDemande = null === $avoir ? null : $this;
         if ($avoir->getDemande() !== $newDemande) {
             $avoir->setDemande($newDemande);
+        }
+
+        return $this;
+    }
+
+    public function getNotification(): ?Notification
+    {
+        return $this->notification;
+    }
+
+    public function setNotification(?Notification $notification): self
+    {
+        $this->notification = $notification;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newDemande = null === $notification ? null : $this;
+        if ($notification->getDemande() !== $newDemande) {
+            $notification->setDemande($newDemande);
         }
 
         return $this;
