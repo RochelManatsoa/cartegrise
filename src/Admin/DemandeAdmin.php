@@ -73,9 +73,6 @@ final class DemandeAdmin extends AbstractAdmin
         ->addIdentifier('status', null, [
             'label' => 'Status Commande'
         ])
-        ->addIdentifier('notification', null, [
-            'label' => 'Notification'
-        ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoirs',
             'template' => 'CRUD/demande/factureAvoir.html.twig',

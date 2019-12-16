@@ -43,9 +43,6 @@ final class CommandeAdmin extends AbstractAdmin
         ->add('immatriculation', TextType::class,[
             'disabled' => true,
         ])
-        ->add('notification', TextType::class,[
-            'disabled' => true,
-        ])
         ;
     }
 
@@ -91,9 +88,6 @@ final class CommandeAdmin extends AbstractAdmin
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoirs',
             'template' => 'CRUD/factureAvoir.html.twig',
-        ])
-        ->addIdentifier('notification', null, [
-            'label' => 'Notification'
         ])
         ->addIdentifier('codePostal')
         ->addIdentifier('taxes.taxeTotale', null, [
