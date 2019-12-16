@@ -38,6 +38,7 @@ final class AvoirAdmin extends AbstractAdmin
     {
         $collection->add('avoir', $this->getRouterIdParameter().'/avoir');
         $collection->add('facture', $this->getRouterIdParameter().'/facture');
+        $collection->add('ficheClient', $this->getRouterIdParameter().'/fiche-client');
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -69,8 +70,9 @@ final class AvoirAdmin extends AbstractAdmin
             'label' => 'Type de commande'
         ])
         ->addIdentifier('commande.immatriculation')
-        ->addIdentifier('client.clientNom', null, [
-            'label' => 'Nom'
+        ->addIdentifier('nameClient', null, [
+            'label' => 'Nom',
+            'template' => 'CRUD/client/ficheClientList.html.twig',
         ])
         ->addIdentifier('commande.status', null, [
             'label' => 'Status Commande'
