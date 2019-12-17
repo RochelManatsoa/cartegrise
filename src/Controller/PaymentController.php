@@ -133,11 +133,11 @@ class PaymentController extends AbstractController
     {
         $response = $request->request->get('DATA');
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
-        dd($responses);
         $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
         // send mail
             $this->addHistoryTransaction($responses, $historyTransactionManager);
             $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
+            dd($transaction);
             $commande = $transaction->getCommande() == null ? $transaction->getDemande()->getCommande() : $transaction->getCommande();
             $files = [];
             if ($transaction->getStatus() === 00) {
