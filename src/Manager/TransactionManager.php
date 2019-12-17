@@ -56,6 +56,7 @@ class TransactionManager
 
     public function findByTransactionId($transactionId)
     {
+        dd($transactionId);
         $transaction = $this->repository->findOneBy(['transactionId' => $transactionId]);
         if (!$transaction instanceof Transaction) {
             return null;
