@@ -21,9 +21,9 @@ class FactureType extends AbstractType
             ->add('firstName', TextType::class,[
                 'label' => 'label.prenom.client'
             ])
-            ->add('label', IntegerType::class,[
-                'label' => 'label.label'
-            ])
+            // ->add('label', IntegerType::class,[
+            //     'label' => 'label.label'
+            // ])
             ->add('adresse', AdresseType::class, [
                 'label' => 'label.clientAdresse'
             ])
