@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\PaiementType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Manager\CommandeManager;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 use App\Entity\Commande;
 
@@ -16,6 +18,12 @@ use App\Entity\Commande;
  */
 class CommandeController extends AbstractController
 {
+    public function __construct(
+        CsrfTokenManagerInterface $tokenManager = null
+    )
+    {
+        $this->tokenManager = $tokenManager;
+    }
     /**
      * @Route("/list", name="commande_list")
      */
@@ -46,12 +54,12 @@ class CommandeController extends AbstractController
     /**
      * @Route("/{commande}/recap", name="commande_recap")
      */
-    public function recap(Commande $commande, Request $request)
+    public function recap(Commande $commande, Request $request, CommandeManager $commandeManager)
     {
-        $formCGV = $this->createForm(PaiementType::class, null);
+        $formCGV = $this->createForm(PaiementType::class, $commande);
         $formCGV->handleRequest($request);
         if($formCGV->isSubmitted() && $formCGV->isValid()){
-
+            $commandeManager->save($commande);
             return $this->redirectToRoute('payment_commande', ['commande' => $commande->getId()]);
         }
         return $this->render(
@@ -59,6 +67,7 @@ class CommandeController extends AbstractController
             [
                 'commande' => $commande,
                 'formCGV'    => $formCGV->createView(),
+                'user_csrf' => $this->getTokenAction()
             ]
         );
     }
@@ -71,5 +80,13 @@ class CommandeController extends AbstractController
         return $this->render('commande/paiement.html.twig', [
             'commande' => $commande,
         ]);
+    }
+
+    public function getTokenAction()  
+    {
+        $csrf = $this->tokenManager
+            ? $this->tokenManager->getToken('authenticate')->getValue()
+            : null;
+        return $csrf;
     }
 }

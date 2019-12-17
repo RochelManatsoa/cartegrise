@@ -136,10 +136,11 @@ class HomeController extends AbstractController
                         "type" => 'commande', 
                         "data" => $data,
                     ]);
+                    return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
 
-                    $param = $this->getParamHome($commande, $sessionManager, $tabForm);
+                    // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
 
-                    return $this->render('home/accueil.html.twig', $param);
+                    // return $this->render('home/accueil.html.twig', $param);
                 }
             // }
         }

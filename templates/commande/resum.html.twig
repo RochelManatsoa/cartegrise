@@ -40,17 +40,58 @@
                                             </a>
                                         </div>
                                     {% else %}
-                                        {{ form_start(formCGV)}}
-                                        <div>
-                                            {{ form_row(formCGV.termsAccepted)}} 
-											<br>
-											<br>
-											<a href="{{ path('cgv')}}" target="_blank" class="">
-												<span class="menu-commander--button---text">Conditions générales de ventes CG Officiel</span>
-											</a>  
-                                            {{ form_row(formCGV.enregistrer)}} <br>
+                                        {% if app.user %}
+                                            {{ form_start(formCGV)}}
+                                                <div>
+                                                    {{ form_row(formCGV.facture)}}
+                                                    {{ form_row(formCGV.termsAccepted)}}
+                                                    <br>
+                                                    <br>
+                                                    <a href="{{ path('cgv')}}" target="_blank" class="">
+                                                        <span class="menu-commander--button---text">Conditions générales de ventes CG Officiel</span>
+                                                    </a>
+                                                    {{ form_row(formCGV.enregistrer)}} <br>
+                                                </div>
+                                            {{ form_end(formCGV)}}
+                                        {% else %}
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn-validate-command d-flex align-items-center justify-content-between btn btn-blue"
+                                            data-toggle="modal" data-target="#exampleModalCenter">
+                                            {{ 'home.validateComand'|trans}}<i class="icon-right-arrow"></i>
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade mx-auto custom-mobile-modal" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title" id="exampleModalCenterTitle">Connectez-vous <span>pour valider et suivre votre
+                                                                commande</span></h3>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <i class="icomoon icon-close"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-12 col-lg-10 mx-auto">
+                                                                <div class="custom-container-flex  text-center">
+                                                                    <p class="mb-1">{{ 'home.noAcount'|trans}}</p>
+                                                                    <a class="btn link-connexion link-connexion-register"
+                                                                        href="{{ path('fos_user_registration_register') }}">
+                                                                        {{ 'home.createAcountButton'|trans}} <i class="icomoon icon-modifier"></i>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="custom-container-flex bdr-sep mt-3">
+                                                                    <p class="se-connecter">{{ 'home.loginConnnex'|trans}}</p>
+                                                                    {% include "bundles/FOSUserBundle/Security/login_content.html.twig" %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        {{ form_end(formCGV)}}
+                                        {% endif %}
                                     {% endif %}
                         </div>
                     </div>

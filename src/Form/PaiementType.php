@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use App\Entity\Commande;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -14,6 +15,9 @@ class PaiementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('facture', FactureType::class, [
+                'label' => 'Facture Infos',
+            ])
             ->add('termsAccepted', CheckboxType::class, [
                 'mapped' => false,
                 'label' => 'label.termsAccepted',
@@ -34,6 +38,7 @@ class PaiementType extends AbstractType
     {
         $resolver->setDefaults([
             // Configure your form options here
+            'data_class' => Commande::class
         ]);
     }
 }

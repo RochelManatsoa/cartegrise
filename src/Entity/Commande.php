@@ -135,6 +135,11 @@ class Commande
      */
     private $notification;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Facture", mappedBy="commande", cascade={"persist", "remove"})
+     */
+    private $facture;
+
 
     public function __construct()
     {
@@ -416,6 +421,24 @@ class Commande
         $newCommande = null === $notification ? null : $this;
         if ($notification->getCommande() !== $newCommande) {
             $notification->setCommande($newCommande);
+        }
+
+        return $this;
+    }
+
+    public function getFacture(): ?Facture
+    {
+        return $this->facture;
+    }
+
+    public function setFacture(?Facture $facture): self
+    {
+        $this->facture = $facture;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCommande = null === $facture ? null : $this;
+        if ($facture->getCommande() !== $newCommande) {
+            $facture->setCommande($newCommande);
         }
 
         return $this;
