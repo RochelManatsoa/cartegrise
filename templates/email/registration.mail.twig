@@ -3,7 +3,7 @@
 
 {% block body %}
     {% set transaction = findByTransactionId(responses.transaction_id) %}
-        {% if responses.response_code === 00 %}
+        {% if responses.response_code == '00' %}
             {{ include('email/success.mail.twig') }}
         {% else %}
             {{ include('email/cancel.mail.twig') }}
