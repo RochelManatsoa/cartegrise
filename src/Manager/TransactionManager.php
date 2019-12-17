@@ -25,7 +25,7 @@ class TransactionManager
     public function __construct
     (
         EntityManagerInterface $em,
-        TransactionRepository  $repository
+        TransactionRepository      $repository
     )
     {
         $this->em =          $em;
@@ -56,9 +56,7 @@ class TransactionManager
 
     public function findByTransactionId($transactionId)
     {
-        dump($transactionId);
-        $transaction = $this->repository->findAll();
-        dd($transaction);
+        $transaction = $this->repository->findOneByTransactionId($transactionId);
         if (!$transaction instanceof Transaction) {
             return null;
         }
