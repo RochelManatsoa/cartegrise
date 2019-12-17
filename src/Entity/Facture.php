@@ -35,7 +35,7 @@ class Facture
     private $path;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $label;
 
@@ -152,5 +152,23 @@ class Facture
     public function setCreatedAtValue()
     {
         $this->createdAt = new \DateTime();
+    }
+
+
+    public function getNumeroFactureValue(){
+        $num = $this->getId();
+        $string = '0';
+        $length = 4;
+        $numlength = strlen((string)$num);
+        $restLength = $length - $numlength;
+        for($i= 0; $i < $restLength; $i++) {
+            $num =$string . (string)$num;
+        }
+        $num;
+        $dateCommande = $this->getCreatedAt()->format('Ym');
+        $type = $this->getCommande()->getDemarche()->getType();
+        $commandeId = $this->getCommande()->getId();
+
+        return $num . $dateCommande . '/' . $type . $commandeId;
     }
 }

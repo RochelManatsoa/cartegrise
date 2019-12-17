@@ -32,9 +32,9 @@
                                 <div class="block_form">
                                     {% if commande.transaction is not null and commande.transaction.status == "00" %}
                                         <div class="block_form--btn-actions">
-                                            {# <a href="{{path('payment_facture', {'demande': commande.id })}}" target="_blank">
+                                            <a href="{{path('payment_facture_commande', {'commande': commande.id })}}" target="_blank">
                                                 <button type="button" class="btn link-connexion-register ">Facture</button>
-                                            </a> #}
+                                            </a>
                                             <a href="{{path('new_demande', {'commande': commande.id })}}">
                                                 <button type="button" class="btn btn-blue ">Faire la Demande</button>
                                             </a>
