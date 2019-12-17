@@ -146,6 +146,7 @@ class PaymentController extends AbstractController
                 $transaction->setFacture($transactionManager->generateNumFacture());
                 $transactionManager->save($transaction);
                 $file = $commandeManager->generateFacture($commande);
+                dd($file);die;
                 $files = [$file];
             }
             $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails, $files);
