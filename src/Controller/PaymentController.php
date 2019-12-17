@@ -133,6 +133,7 @@ class PaymentController extends AbstractController
     {
         $response = $request->request->get('DATA');
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
+        dd($responses);
         $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
         // send mail
             $this->addHistoryTransaction($responses, $historyTransactionManager);
