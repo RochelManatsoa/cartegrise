@@ -144,6 +144,11 @@ class Commande
     private $facture;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\InfosFacture", mappedBy="commande", cascade={"persist", "remove"})
+     */
+    private $infosFacture;
+
+    /**
      * @ORM\Column(type="boolean", nullable=true,  options={"default" : false})
      */
     private $paymentOk;
@@ -477,6 +482,24 @@ class Commande
     {
 
         return $this->getGeneratedCerfaPath().'/facture.pdf';
+    }
+
+    public function getInfosFacture(): ?InfosFacture
+    {
+        return $this->infosFacture;
+    }
+
+    public function setInfosFacture(?InfosFacture $infosFacture): self
+    {
+        $this->infosFacture = $infosFacture;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCommande = null === $infosFacture ? null : $this;
+        if ($infosFacture->getCommande() !== $newCommande) {
+            $infosFacture->setCommande($newCommande);
+        }
+
+        return $this;
     }
 
 }

@@ -13,25 +13,26 @@ use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\DateRangePickerType;
 
-final class FactureAdmin extends AbstractAdmin
+final class AncienFactureAdmin extends AbstractAdmin
 {
-    protected $baseRoutePattern = 'facture';
-    protected $baseRouteName = 'facture';
+    protected $baseRoutePattern = 'ancien-facture';
+    protected $baseRouteName = 'ancien-facture';
 
     public function createQuery($context = 'list')
     {
         $query = parent::createQuery($context);
         $qb = $query->getQueryBuilder();
         $alias = $query->getRootAliases()[0];
-        $qb
-        ->orderBy($alias.'.id', 'DESC');
+        $qb->leftJoin($alias.'.transaction', 'trans')
+        ->andWhere('trans.status =:status')
+        ->setParameter('status', '00');
 
         return $query;
     }
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('factureCommande', $this->getRouterIdParameter().'/facture');
+        $collection->add('facture', $this->getRouterIdParameter().'/ancien-facture');
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -56,14 +57,14 @@ final class FactureAdmin extends AbstractAdmin
     {
         $listMapper
         ->add('id')
-        ->add('commande.creerLe')
+        ->add('dateDemande')
         ->add('commande.immatriculation')
         ->add('commande.status')
-        ->add('commande.transaction.transactionId')
+        ->add('transaction.transactionId')
         ->add('_action', null, [
             'actions' => [
                 'facture' => [
-                    'template' => 'CRUD/list__action_facture.html.twig'
+                    'template' => 'CRUD/list__action_clone.html.twig'
                 ]
             ],
             

@@ -100,6 +100,7 @@ class PaymentController extends AbstractController
             $files = [];
             if ($transaction->getStatus() === 00) {
                 $commande->setPaymentOk(true);
+                $commandeManager->migrateFacture($commande);
                 $commandeManager->save($commande);
                 $transaction->setFacture($transactionManager->generateNumFacture());
                 $transactionManager->save($transaction);
@@ -173,12 +174,11 @@ class PaymentController extends AbstractController
     }
 
     /**
-     * @Route("/payment/{commande}/facture", name="payment_facture_commande")
+     * @Route("/payment-commande/{commande}/facture", name="payment_facture_commande")
      */
     public function factureCommande(Commande $commande, FraisTreatmentManager $fraisTreatmentManager, CommandeManager $commandeManager)
     {
         $file = $commandeManager->generateFacture($commande);
-        // $file = $demandeManager->generateFacture($demande);
 
         return new BinaryFileResponse($file);
     }

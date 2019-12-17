@@ -32,9 +32,11 @@
                                 <div class="block_form formRecap">
                                     {% if commande.transaction is not null and commande.transaction.status == "00" %}
                                         <div class="block_form--btn-actions">
-                                            <a href="{{path('payment_facture_commande', {'commande': commande.id })}}" target="_blank">
-                                                <button type="button" class="btn link-connexion-register ">Facture</button>
-                                            </a>
+                                            {% if commande.facture is not null %}
+                                                <a href="{{path('payment_facture_commande', {'commande': commande.id })}}" target="_blank">
+                                                    <button type="button" class="btn link-connexion-register ">Facture</button>
+                                                </a>
+                                            {% endif %}
                                             <a href="{{path('new_demande', {'commande': commande.id })}}">
                                                 <button type="button" class="btn btn-blue ">Faire la Demande</button>
                                             </a>
@@ -43,7 +45,7 @@
                                         {% if app.user %}
                                             {{ form_start(formCGV)}}
                                                 <div>
-                                                    {{ form_row(formCGV.facture)}}
+                                                    {{ form_row(formCGV.infosFacture)}}
                                                     {{ form_row(formCGV.termsAccepted)}}
                                                     <br>
                                                     <br>
@@ -93,11 +95,11 @@
                                         </div>
                                         {% endif %}
                                     {% endif %}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 {% endif %}
 {% endblock %}

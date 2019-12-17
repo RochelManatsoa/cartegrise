@@ -15,7 +15,7 @@ class PaiementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('facture', FactureType::class, [
+            ->add('infosFacture', InfosFactureType::class, [
                 'label' => 'Facture Infos',
             ])
             ->add('termsAccepted', CheckboxType::class, [

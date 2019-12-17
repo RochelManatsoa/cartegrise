@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use App\Services\Tms\TmsClient;
 use App\Services\Tms\Response as ResponseTms;
-use App\Entity\Commande;
+use App\Entity\{Commande, Facture};
 use App\Manager\SessionManager;
 use App\Manager\{StatusManager, TMSSauverManager, TransactionManager};
 use Knp\Snappy\Pdf;
@@ -359,6 +359,17 @@ class CommandeManager
             $transaction->setCommande($commande);
             $this->save($commande);
         // } 
+	}
+
+	public function migrateFacture(Commande $commande)
+    {
+		$facture = is_null($commande->getFacture()) ? new Facture() : $commande->getFacture();
+		$infosFacture = $commande->getInfosFacture();
+		$facture->setName($infosFacture->getName());
+		$facture->setFirstName($infosFacture->getFirstName());
+		$facture->setAdresse($infosFacture->getAdresse());
+		$commande->setFacture($facture);
+		$this->save($commande);
     }
 
     public function generateFacture(Commande $commande)
@@ -370,7 +381,7 @@ class CommandeManager
         // end create file 
         // get facture if not exist
         if (!is_file($file)) { // attente de finalité du process
-            $snappy = new Pdf('/usr/bin/wkhtmltopdf');
+            $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
             $filename = "Facture";
             $html = $this->twig->render("payment/facture.pdf.twig", ['commande' => $commande]);
             $output = $snappy->getOutputFromHtml($html);
