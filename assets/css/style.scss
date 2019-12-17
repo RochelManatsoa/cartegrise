@@ -3040,3 +3040,57 @@ body{
 		}
 	}
 }
+
+/*
+Formulaire REcap
+*/
+.formRecap {
+	background-color: $white;
+	padding: $size_30;
+	@include sm {
+		padding: 10px;
+	}
+	.col-form-label {
+		text-transform: uppercase;
+		font-family: 'Open Sans';
+		font-weight: 600;
+		font-size: 24px;
+		border-bottom: $bdr_solid_1 #ddd;
+		margin-bottom: $size_20;
+	}
+	.form-group {
+		@include sm {
+			margin-bottom: 5px;
+		}
+	}
+	fieldset {
+		&.form-group {
+			padding: 0;
+		}
+	}
+	#paiement_facture {
+		border-bottom: 3px solid $aqua-blue;
+		margin-bottom: $size_20;
+	}
+	#paiement_enregistrer {
+		margin-top: -50px;
+		@include md {
+			margin-top: $size_15;
+			padding: $size_15 25px !important;
+			letter-spacing: 1px;
+			float: none;
+			margin: $size_15 auto 0;
+		}
+	}
+	.link-cgv {
+		font-size: 14px;
+		color: $royal-blue;
+		text-decoration: underline;
+		padding-left: 32px;
+		@include md {
+			padding-left: 0;
+			display: block;
+			text-align: center;
+		}
+	}
+}

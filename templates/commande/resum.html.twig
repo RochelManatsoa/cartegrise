@@ -29,7 +29,7 @@
                                 {{ include('commande/_resum_taxe_car.html.twig') }}
                             </div>
                             <div class="col-12 mx-auto mt-5">
-                                <div class="block_form">
+                                <div class="block_form formRecap">
                                     {% if commande.transaction is not null and commande.transaction.status == "00" %}
                                         <div class="block_form--btn-actions">
                                             <a href="{{path('payment_facture_commande', {'commande': commande.id })}}" target="_blank">
@@ -47,7 +47,7 @@
                                                     {{ form_row(formCGV.termsAccepted)}}
                                                     <br>
                                                     <br>
-                                                    <a href="{{ path('cgv')}}" target="_blank" class="">
+                                                    <a class="link-cgv" href="{{ path('cgv')}}" target="_blank" class="">
                                                         <span class="menu-commander--button---text">Conditions générales de ventes CG Officiel</span>
                                                     </a>
                                                     {{ form_row(formCGV.enregistrer)}} <br>

@@ -194,6 +194,7 @@ type_demande:
                 </li>
             </ol>
 label:
+    label: Label
     numeroFormule: Numéro de formule présent sur la carte grise
     fourthChange: 4ème changement d'adresse ? S'il s'agit de votre 4ème changement d'adresse une taxe de 2,76€ vous sera facturé pour l'acheminement de la nouvelle carte grise à votre domicile
     acquerreur: Acquéreur
