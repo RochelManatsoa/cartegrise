@@ -136,7 +136,7 @@ class PaymentController extends AbstractController
         $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
         // send mail
             $this->addHistoryTransaction($responses, $historyTransactionManager);
-            $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
+            $transaction = $transactionManager->findByTransactionId((double)$responses["transaction_id"]);
             dump($responses);
             dd($transaction);
             $commande = $transaction->getCommande() == null ? $transaction->getDemande()->getCommande() : $transaction->getCommande();
