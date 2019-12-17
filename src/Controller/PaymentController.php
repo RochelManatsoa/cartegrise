@@ -117,28 +117,41 @@ class PaymentController extends AbstractController
      * @Route("/payment/success", name="payment_success")
      */
     public function success(
-        Request $request,
+        Request $request, 
+        SessionManager $sessionManager, 
+        \Swift_Mailer $mailer,
         PaymentUtils $paymentUtils,
-        ParameterBagInterface $parameterBag,
-        PaymentResponseTreatment $responseTreatment,
+        ParameterBagInterface $parameterBag, 
+        PaymentResponseTreatment $responseTreatment, 
+        StatusTreatment $statusTreatment,
+        HistoryTransactionManager $historyTransactionManager,
         TransactionManager $transactionManager,
+        DemandeManager $demandeManager,
+        NotificationEmailManager $notificationManager,
         CommandeManager $commandeManager
     )
     {
         $response = $request->request->get('DATA');
-        // dd($response);
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
-        $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
-        $transactionManager->save($transaction);
-        $commande = $commandeManager->findByTransaction($transaction);
+        $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
+        // send mail
+            $this->addHistoryTransaction($responses, $historyTransactionManager);
+            $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
+            $commande = $transaction->getCommande() == null ? $transaction->getDemande()->getCommande() : $transaction->getCommande();
+            $files = [];
+            if ($transaction->getStatus() === 00) {
+                $commande->setPaymentOk(true);
+                $commandeManager->migrateFacture($commande);
+                $commandeManager->save($commande);
+                $transaction->setFacture($transactionManager->generateNumFacture());
+                $transactionManager->save($transaction);
+                $file = $commandeManager->generateFacture($commande);
+                $files = [$file];
+            }
+            $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails, $files);
+        // end send mail
 
-        return $this->render(
-                'transaction/transactionResponse.html.twig',
-                [
-                    'responses' => $responses,
-                    'transaction' => $transaction,
-                ]
-        );
+        return new Response('ok');
     }
 
     /**
