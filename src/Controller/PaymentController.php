@@ -137,7 +137,7 @@ class PaymentController extends AbstractController
         // send mail
             $this->addHistoryTransaction($responses, $historyTransactionManager);
             $transaction = $transactionManager->findByTransactionId((int)$responses["transaction_id"]);
-            dump($responses);
+            // dump($responses);
             dd($transaction);
             $commande = $transaction->getCommande() == null ? $transaction->getDemande()->getCommande() : $transaction->getCommande();
             $files = [];
