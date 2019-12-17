@@ -139,7 +139,7 @@ class PaymentController extends AbstractController
             $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
             $commande = $transaction->getCommande() == null ? $transaction->getDemande()->getCommande() : $transaction->getCommande();
             $files = [];
-            if ($transaction->getStatus() === 00) {
+            if ($transaction->getStatus() === '00') {
                 $commande->setPaymentOk(true);
                 $commandeManager->migrateFacture($commande);
                 $commandeManager->save($commande);
