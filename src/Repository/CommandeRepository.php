@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Commande;
+use App\Entity\{Commande, Transaction, User};
 use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -57,6 +57,25 @@ class CommandeRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function getDailyCommandeFacture($begin, \DateTime $now)
+    {
+        $qb = $this->createQueryBuilder('c')
+        ->join('c.transaction','trans')
+        ->join('c.client','cli')
+        ->join('cli.user','u')
+        ->distinct()
+        ->where('trans.status =:paramSuccess')
+        // ->andWhere('trans.amount IS NOT NULL')
+        ->andWhere('trans.createAt <= :now');
+
+        $qb
+        ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
+        ->setParameter('now', $now);
+        // dd($qb->getQuery()->getResult());
+
+        return $qb->getQuery()->getResult();
     }
     
 }
