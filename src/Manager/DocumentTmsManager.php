@@ -244,7 +244,7 @@
                     "Prenom" => $dca->getNouveauxTitulaire()->getPrenomTitulaire(),
                     "Sexe" => $dca->getNouveauxTitulaire()->getGenre(),
                     "NomUsage" => null,
-                    "DateNaissance" => $dca->getNouveauxTitulaire()->getDateN()->format('Y-m-d'),
+                    "DateNaissance" => $dca->getNouveauxTitulaire()->getDateN()->format('d-m-Y'),
                     "LieuNaissance" => $dca->getNouveauxTitulaire()->getLieuN(),
                     "DepNaissance" => $dca->getNouveauxTitulaire()->getDepartementN(),
                     "PaysNaissance" => $dca->getNouveauxTitulaire()->getPaysN(),
