@@ -86,7 +86,8 @@ class PaymentController extends AbstractController
         HistoryTransactionManager $historyTransactionManager,
         TransactionManager $transactionManager,
         DemandeManager $demandeManager,
-        NotificationEmailManager $notificationManager
+        NotificationEmailManager $notificationManager,
+        CommandeManager $commandeManager
     )
     {
         $response = $request->request->get('DATA');
@@ -95,11 +96,15 @@ class PaymentController extends AbstractController
         // send mail
             $this->addHistoryTransaction($responses, $historyTransactionManager);
             $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
+            $commande = $transaction->getCommande() == null ? $transaction->getDemande()->getCommande() : $transaction->getCommande();
             $files = [];
-            if ($transaction->getStatus() === 00) {
+            if ($transaction->getStatus() === '00') {
+                $commande->setPaymentOk(true);
+                $commandeManager->migrateFacture($commande);
+                $commandeManager->save($commande);
                 $transaction->setFacture($transactionManager->generateNumFacture());
                 $transactionManager->save($transaction);
-                $file = $demandeManager->generateFacture($transaction->getDemande());
+                $file = $commandeManager->generateFacture($commande);
                 $files = [$file];
             }
             $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails, $files);
@@ -162,6 +167,16 @@ class PaymentController extends AbstractController
     public function facture(Demande $demande, FraisTreatmentManager $fraisTreatmentManager, DemandeManager $demandeManager)
     {
         $file = $demandeManager->generateFacture($demande);
+
+        return new BinaryFileResponse($file);
+    }
+
+    /**
+     * @Route("/payment-commande/{commande}/facture", name="payment_facture_commande")
+     */
+    public function factureCommande(Commande $commande, FraisTreatmentManager $fraisTreatmentManager, CommandeManager $commandeManager)
+    {
+        $file = $commandeManager->generateFacture($commande);
 
         return new BinaryFileResponse($file);
     }

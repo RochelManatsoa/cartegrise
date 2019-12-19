@@ -25,6 +25,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 class Commande
 {
     use \App\Manager\TraitList\CommandeStatusTrait;
+
+    const DOC_DOWNLOAD = 'document/';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -139,6 +142,16 @@ class Commande
      * @ORM\OneToOne(targetEntity="App\Entity\Facture", mappedBy="commande", cascade={"persist", "remove"})
      */
     private $facture;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\InfosFacture", mappedBy="commande", cascade={"persist", "remove"})
+     */
+    private $infosFacture;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true,  options={"default" : false})
+     */
+    private $paymentOk;
 
 
     public function __construct()
@@ -439,6 +452,51 @@ class Commande
         $newCommande = null === $facture ? null : $this;
         if ($facture->getCommande() !== $newCommande) {
             $facture->setCommande($newCommande);
+        }
+
+        return $this;
+    }
+
+    public function getPaymentOk(): ?bool
+    {
+        return $this->paymentOk;
+    }
+
+    public function setPaymentOk(?bool $paymentOk): self
+    {
+        $this->paymentOk = $paymentOk;
+
+        return $this;
+    }
+
+    public function getGeneratedCerfaPath(): ?string
+    {
+        $path = $this::DOC_DOWNLOAD . $this->id ."/".
+            $this->immatriculation. '-' .
+            $this->codePostal;
+
+        return $path;
+    }
+
+    public function getGeneratedFacturePathFile(): ?string
+    {
+
+        return $this->getGeneratedCerfaPath().'/facture.pdf';
+    }
+
+    public function getInfosFacture(): ?InfosFacture
+    {
+        return $this->infosFacture;
+    }
+
+    public function setInfosFacture(?InfosFacture $infosFacture): self
+    {
+        $this->infosFacture = $infosFacture;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCommande = null === $infosFacture ? null : $this;
+        if ($infosFacture->getCommande() !== $newCommande) {
+            $infosFacture->setCommande($newCommande);
         }
 
         return $this;

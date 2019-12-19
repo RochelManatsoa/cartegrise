@@ -13,12 +13,14 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use App\Services\Tms\TmsClient;
 use App\Services\Tms\Response as ResponseTms;
-use App\Entity\Commande;
+use App\Entity\{Commande, Facture};
 use App\Manager\SessionManager;
 use App\Manager\{StatusManager, TMSSauverManager, TransactionManager};
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Twig_Environment as Twig;
 
 class CommandeManager
 {
@@ -26,6 +28,7 @@ class CommandeManager
 		TmsClient $tmsClient, 
 		EntityManagerInterface $em, 
 		SessionManager $sessionManager,
+        Twig $twig,
 		StatusManager $statusManager,
 		TokenStorageInterface $tokenStorage,
 		DocumentTmsManager $documentTmsManager,
@@ -41,6 +44,7 @@ class CommandeManager
 		$this->tokenStorage = $tokenStorage;
 		$this->documentTmsManager = $documentTmsManager;
 		$this->serializer = $serializer;
+        $this->twig = $twig;
 		$this->tmsSaveManager = $tmsSaveManager;
 		$this->transactionManager = $transactionManager;
 	}
@@ -355,5 +359,36 @@ class CommandeManager
             $transaction->setCommande($commande);
             $this->save($commande);
         // } 
+	}
+
+	public function migrateFacture(Commande $commande)
+    {
+		$facture = is_null($commande->getFacture()) ? new Facture() : $commande->getFacture();
+		$infosFacture = $commande->getInfosFacture();
+		$facture->setName($infosFacture->getName());
+		$facture->setFirstName($infosFacture->getFirstName());
+		$facture->setAdresse($infosFacture->getAdresse());
+		$commande->setFacture($facture);
+		$this->save($commande);
     }
+
+    public function generateFacture(Commande $commande)
+    {
+        $folder = $commande->getGeneratedCerfaPath();
+        $file = $commande->getGeneratedFacturePathFile();
+        // create directory
+        if (!is_dir($folder)) mkdir($folder, 0777, true);
+        // end create file 
+        // get facture if not exist
+        if (!is_file($file)) { // attente de finalité du process
+            $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
+            $filename = "Facture";
+            $html = $this->twig->render("payment/facture.pdf.twig", ['commande' => $commande]);
+            $output = $snappy->getOutputFromHtml($html);
+            
+            $filefinal = file_put_contents($file, $output);
+        }
+        
+        return $file;
+	}
 }

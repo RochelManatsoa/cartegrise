@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass="App\Repository\FactureRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\InfosFactureRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Facture
+class InfosFacture
 {
     /**
      * @ORM\Id()
@@ -20,7 +20,7 @@ class Facture
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Commande", inversedBy="facture", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Commande", inversedBy="infosFacture", cascade={"persist", "remove"})
      */
     private $commande;
 
@@ -154,21 +154,4 @@ class Facture
         $this->createdAt = new \DateTime();
     }
 
-
-    public function getNumeroFactureValue(){
-        $num = $this->getId();
-        $string = '0';
-        $length = 4;
-        $numlength = strlen((string)$num);
-        $restLength = $length - $numlength;
-        for($i= 0; $i < $restLength; $i++) {
-            $num =$string . (string)$num;
-        }
-        $num;
-        $dateCommande = $this->getCreatedAt()->format('Ym');
-        $type = $this->getCommande()->getDemarche()->getType();
-        $commandeId = $this->getCommande()->getId();
-
-        return $num . $dateCommande . '/' . $type . $commandeId;
-    }
 }
