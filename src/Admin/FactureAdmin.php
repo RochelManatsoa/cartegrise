@@ -56,7 +56,7 @@ final class FactureAdmin extends AbstractAdmin
     {
         $listMapper
         ->add('id')
-        ->add('commande.creerLe')
+        ->add('commande.ceerLe')
         ->add('commande.immatriculation')
         ->add('commande.status')
         ->add('commande.transaction.transactionId')
