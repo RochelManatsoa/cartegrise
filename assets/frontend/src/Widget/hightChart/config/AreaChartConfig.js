@@ -14,33 +14,45 @@ const convertDate = (date) =>
 //         let key = convertDate(date);
 //         let find = compiled.find(data => data.name === key)
 //         if (find == undefined) {
-//             compiled = [...compiled, { name: key, inscriptions: 0, commandes: 1 }]
+//             compiled = [...compiled, { name: key, inscriptions: 0, estimations: 1 }]
 //             return;
 //         }
 //         let temp = compiled.find(data => data.name === key);
-//         temp.commandes = temp.commandes + 1;
+//         temp.estimations = temp.estimations + 1;
 //     })
 // }
 
-const manageData = (datas, commandes) => {
+const manageData = (datas, estimations, paniers) => {
     let compiled = [];
-    commandes.map((item, i) => {
+    paniers.map((item, i) => {
+        let date = new Date(item.dateDemande);
+        let key = convertDate(date);
+        let find = compiled.find(data => data.name === key)
+        if (find == undefined) {
+            compiled = [...compiled, { name: key, inscriptions: 0, estimations: 0, paniers: 1 }]
+            return;
+        }
+        let temp = compiled.find(data => data.name === key);
+        temp.paniers = temp.paniers + 1;
+    })
+
+    estimations.map((item, i) => {
         let date = new Date(item.ceerLe);
         let key = convertDate(date);
         let find = compiled.find(data => data.name === key)
         if (find == undefined) {
-            compiled = [...compiled, { name: key, inscriptions: 0, commandes: 1 }]
+            compiled = [...compiled, { name: key, inscriptions: 0, estimations: 1, paniers: 0 }]
             return;
         }
         let temp = compiled.find(data => data.name === key);
-        temp.commandes = temp.commandes + 1;
+        temp.estimations = temp.estimations + 1;
     })
     datas.map((item, i) => {
         let date = new Date(item.registerDate);
         let key = convertDate(date);
         let find = compiled.find(data => data.name === key)
         if (find == undefined) {
-            compiled = [...compiled, { name: key, inscriptions: 1, demandes: 0 }]
+            compiled = [...compiled, { name: key, inscriptions: 1, estimations: 0, paniers: 0}]
             return;
         }
         let temp = compiled.find(data => data.name === key);

@@ -72,6 +72,7 @@ class Demande
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
+     * @Groups({"read"})
      */
     private $dateDemande;
 

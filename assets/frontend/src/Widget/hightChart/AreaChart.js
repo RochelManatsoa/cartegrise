@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+    AreaChart, LineChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts';
 import config from './config/AreaChartConfig';
 
@@ -10,7 +10,7 @@ class AreaChartClass extends Component {
     {
         super(props);
         this.state = {
-            datas : [{name: 0, inscriptions:0, commandes: 0}]
+            datas : [{name: 0, inscriptions:0, estimations: 0, paniers: 0}]
         };
         this.updateStateDatas = this.updateStateDatas.bind(this);
     }
@@ -24,13 +24,19 @@ class AreaChartClass extends Component {
     componentWillUpdate(nextProps, nextState)
     {
         if (this.props.datas !== nextProps.datas){
-            let managed = config.manageData(nextProps.datas, nextProps.commandes);
+            let managed = config.manageData(nextProps.datas, nextProps.estimations, nextProps.paniers);
             this.updateStateDatas(managed);
             return true;
         }
 
-        if (this.props.commandes !== nextProps.commandes) {
-            let managed = config.manageData(nextProps.datas, nextProps.commandes);
+        if (this.props.estimations !== nextProps.estimations) {
+            let managed = config.manageData(nextProps.datas, nextProps.estimations, nextProps.paniers);
+            this.updateStateDatas(managed);
+            return true;
+        }
+
+        if (this.props.paniers !== nextProps.paniers) {
+            let managed = config.manageData(nextProps.datas, nextProps.estimations, nextProps.paniers);
             this.updateStateDatas(managed);
             return true;
         }
@@ -76,7 +82,7 @@ class AreaChartClass extends Component {
                     }}
                     >
                         <ResponsiveContainer>
-                            <AreaChart
+                            <LineChart
                                 width={500}
                                 height={400}
                                 data={this.state.datas}
@@ -88,10 +94,10 @@ class AreaChartClass extends Component {
                                 <XAxis dataKey="name" />
                                 <YAxis />
                                 <Tooltip />
-                                <Area type="line" dataKey="inscriptions" stackId="1" stroke="#8884d8" fill="#8884d8" />
-                                <Area type="line" dataKey="commandes" stackId="1" stroke="#82ca9d" fill="#f39b11" />
-                                {/* <Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" /> */}
-                            </AreaChart>
+                                <Line type="line" dataKey="inscriptions" stackId="1" stroke="#8884d8" fill="#8884d8" />
+                                <Line type="line" dataKey="estimations" stackId="1" stroke="#f39b11" fill="#f39b11" />
+                                <Line type="line" dataKey="paniers" stackId="1" stroke="#00C49F" fill="#00C49F" />
+                            </LineChart>
                         </ResponsiveContainer>
                     </div>
                 break;

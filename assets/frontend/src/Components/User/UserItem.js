@@ -270,7 +270,8 @@ class UserItem extends React.Component {
                 <div className="col-md-12">
                     <LineChart 
                         datas={this.state.userEntries}
-                        commandes={this.state.commandeEntries}
+                        estimations={this.state.commandeEntries}
+                        paniers={this.state.demandeEntries}
                         paddingTop={15}
                         height={400}
                         borderRadius={4}
