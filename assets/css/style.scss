@@ -2571,6 +2571,34 @@ ul{
 /**Blog**/
 .content-wrapper.blog{
   border-bottom: 1px solid #ccc;
+  	.pagination {
+		.page-link {
+			color: $aqua-blue;
+			font-size: 12px;
+			&:hover,
+			&:focus {
+				box-shadow: none;
+				color: $royal-blue;
+			}
+		}
+		.page-item.disabled .page-link {
+			color: #6c757d;
+		}
+		ul.pagination {
+			li.active {
+				.page-link {
+					background-color: $aqua-blue;
+					font-weight: 600;
+					color: white;
+					&:hover,
+					&:focus {
+						box-shadow: none;
+						color: $royal-blue;
+					}
+				}
+			}
+		}
+	}
 }
 h2.page-title{
   font-size: 30px;
@@ -2578,47 +2606,77 @@ h2.page-title{
   text-transform: uppercase;
   letter-spacing: 1px;
   line-height: 48px;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   text-align: left;
+  	@include sm {
+		font-size: 26px;
+		line-height: 30px;
+		margin-bottom: 15px;
+	}
 }
 .main-blog{
   .text-head{
-    color: #03347e;
+    color: $royal-blue;
     font-weight: bold;
     border-bottom: 1px solid #b7b7b7;
-    margin-bottom: 24px;
+	margin-bottom: 24px;
+	text-transform: none;
+	font-size: 20px;
+	@include sm {
+		font-size: 16px;
+    	line-height: 130%;
+	}
   }
   .blog-post{
-    margin-bottom: 30px;
+	margin-bottom: 30px;
+	border-radius: 5px;
+	border: 1px solid rgb(224, 224, 224);
+    overflow: hidden;
+	box-shadow: 0px 6px 9px rgba(193, 193, 193, 0.45);
+	@extend %linear_anim;
+	&:hover {
+		box-shadow: none;
+	}
     &--informations{
-      padding: 1.5rem;
+      padding: 10px;
       background: $white;
       border-radius: 0 0 5px 5px;
-      border-left: 1px solid rgba(183,183,183,.3);
-      border-right: 1px solid rgba(183,183,183,.3);
-      border-bottom: 1px solid rgba(183,183,183,.3);
     }
     &--image{
       position: relative;
       overflow: hidden;
-      height: 360px;
       figure{
-        margin: 0;
+		margin: 0;
+		a {
+			display: $block;
+			height: 190px;
+			overflow: hidden;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
         img{
-          width: auto;
-          height: 360px;
+          width: 100%;
         }
       }
     }
     &--titre{
       color: #03347e;
       h3{
-        text-transform: uppercase;
+        // text-transform: uppercase;
         font-weight: 600;
-        font-size: 20px;
-        margin-bottom: 1rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid #eeeeee;
+        font-size: 16px;
+        margin-bottom: 10px;
+    	padding-bottom: 10px;
+		border-bottom: 1px solid #eeeeee;
+		height: 50px;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		letter-spacing: -.5px;
+		@include sm {
+			height: inherit;
+		}
       }
       &:hover{
         text-decoration: none;
@@ -2628,32 +2686,50 @@ h2.page-title{
     &--date{
       color: #747474;
       font-weight: normal;
-      font-size: 14px;
+      font-size: 12px;
     }
     &--description{
-      color: #020202;
-      margin-bottom: .5rem;
+      	color: #020202;
+      	margin-bottom: 1.5rem;
+		line-height: 130%;
+		font-size: 14px;
     }
     &--action{
       display: flex;
       justify-content: space-between;
-      align-items: center;
+	  align-items: center;
+	  	.btn {
+			&.link-connexion-register {
+				&.more {
+					font-size: 10px !important;
+					padding: 5px 15px !important;
+				}
+			}
+		}
     }
     &--category{
-      position: absolute;
-      bottom: 1rem;
-      left: 1.5rem;
+		margin-bottom: 10px;
       &-item{
-        color: $white;
-        background: #1d74a6;
-        padding: 5px 10px;
-        float: left;
-        margin-right: .25rem;
-        text-transform: uppercase;
-        font-size: 13px;
-        line-height: normal;
-        transition: all .3s ease;
-        margin-bottom: .25rem;
+        // color: $white;
+        // background: #1d74a6;
+        // padding: 5px 10px;
+        // float: left;
+        // margin-right: .25rem;
+        // text-transform: uppercase;
+        // font-size: 13px;
+        // line-height: normal;
+        // transition: all .3s ease;
+		// margin-bottom: .25rem;
+		color: #020202;
+		background: #cccccc;
+		padding: 2px 10px;
+		display: inline-block;
+		margin-right: 0px;
+		text-transform: uppercase;
+		font-size: 10px;
+		line-height: normal;
+		transition: all .3s ease;
+		border-radius: 25px;
         &:hover{
           text-decoration: none;
           background: #219de4;
@@ -2694,23 +2770,36 @@ h2.page-title{
   }
 
   .related-blog{
-    background: $white;
-    padding: 3rem 2rem 4.5rem 2rem;
-    margin-bottom: 1.5rem;
+    background: $aqua-blue;
+	padding: 2rem;
+	@include sm {
+		padding: 20px;
+	}
     &--title{
       font-weight: 600;
-      color: #131314;
+	  color: #131314;
+	  	@include sm {
+			font-size: 18px;
+		}
     }
     &--post {
       position: relative;
       overflow: hidden;
-      height: 160px;
+	  height: 160px;
+	  	@include sm {
+			height: inherit;
+    		margin: 10px 0;
+		}
       >div{
-        overflow: hidden;
+		overflow: hidden;
       }
       &-image {
         width: auto;
-        height: 160px;
+		height: 160px;
+		@include sm {
+			height: inherit;
+			width: 100%;
+		}
       }
       &-title {
         font-weight: 600;
@@ -2723,7 +2812,10 @@ h2.page-title{
         bottom: -100%;
         margin: 0;
         border-top: 1px solid $white;
-        transition: all .5s ease;
+		transition: all .5s ease;
+		@include sm {
+			position: static;
+		}
       }
       &:hover{
         h5 {
@@ -2735,9 +2827,16 @@ h2.page-title{
 }
 
 .blog-details{
-  h2.pge-title {
+  h2.page-title {
     text-transform: none;
-    letter-spacing: normal;
+	letter-spacing: normal;
+	text-align: center;
+	font-size: 26px;
+	@include sm {
+		text-align: left;
+		font-size: 20px;
+		line-height: 100%;
+	}
   }
   .container-category-post-on{
     border-top: 1px solid #ccc;
@@ -2747,12 +2846,37 @@ h2.page-title{
     &--description{
       span, p, strong{
         font-family: "Open Sans" !important;
-        font-size: 16px !important;
-      }
+		font-size: 14px !important;
+		line-height: 24px;
+		@include sm {
+			text-align: left !important;
+			display: block;
+		}
+	  }
+	  h2 {
+		  strong, span {
+			  color: $royal-blue !important;
+			font-size: 20px !important;
+			text-transform: uppercase;
+			@include sm {
+				font-size: 16px !important;
+				display: block;
+			}
+		  }
+	  }
+	  ul {
+		padding-left: 20px;
+		  p {
+			  margin-bottom: 0 !important;
+		  }
+	  }
     }
     &--image{
       height: 400px;
-      overflow: hidden;
+	  overflow: hidden;
+	  	@include sm {
+			  height: inherit;
+		}
       figure{
         img{
           margin-top: -2%;
@@ -2765,14 +2889,30 @@ h2.page-title{
       bottom: 0;
       strong{
         float: left;
-        margin-right: 20px;
+		margin-right: 20px;
+		@include sm {
+			float: none;
+			display: block;
+	  	}
       }
     }
+  }
+  .main-blog {
+	background-color: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+	box-shadow: 0 2px 8px #ddd;
+	.blog-post--navigation-title {
+		font-size: 14px;
+	}
   }
 }
 
 
-
+.blog-post--commentaire.commentaire {
+	background: #efefef;
+	padding: 20px;
+}
 .commentaire{
   .badge.badge-pill {
     background: #000;
@@ -2793,15 +2933,16 @@ h2.page-title{
     font-weight: bold;
   }
   &-form{
-    background: $white;
-    padding: 3rem 4rem;
     &--title{
       font-weight: 600;
       color: #131314;
     }
     .btn-send{
       padding: 1.2rem 2.5rem 1rem 2.5rem !important;
-      margin-top: 2rem;
+	  margin-top: 2rem;
+	  	@include sm {
+			padding: 7px 25px !important;
+		}
     }
   }
 }
