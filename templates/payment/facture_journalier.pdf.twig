@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Facture N°{{ date|date('dmY')}}</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ pathToWeb ~ asset('css/style.css') }}">
+  <style type="text/css">
+    .logo-facture{
+      width:100px;
+    }
+    body{
+      font-family:Roboto;
+      font-size: 14px;
+    }
+    .foot{
+      <!-- 
+        position:absolute;
+        top: 120%; 
+      -->
+    }
+    h1{
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+  <div class="invoice">
+    <div class="row">
+      <div class="col-7">
+        <img src="{{  pathToWeb ~ asset('asset/img/logo.png')}}" class="logo-facture">
+      </div>
+      <div class="col-5">
+        <h1>RECAPITULATIF JOURNALIER</h1>
+        <p><strong>du {{ date|date('d-m-Y')}}</strong></p>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-7">
+				<p>
+          <strong>CG Officiel</strong><br>
+          20 Impasse Camille Langlade, <br>
+          31000 TOULOUSE
+        </p>        
+      </div>
+      <div class="col-5">
+
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+		<table class="table table-bordered table-sm">
+      <thead class="table-active">
+        <tr>
+          <th>Prestations</th>
+          <th class="text-center">Prix Unitaire HT (€)</th>
+          <th class="text-center">Quantité</th>
+          <th class="text-center">Total HT (€)</th>
+          <th class="text-center">Taux TVA </th>
+          <th class="text-center">TVA (€)</th>
+          <th class="text-center">Prix TTC (€)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key,result in results %}
+          <tr>
+            <td>{{ key }}</td>
+            <td class="text-center">{{ (fraisdossierWithoutTvaDailyFacture(result[0]))|number_format(2, '.', ',') }}</td>
+            <td class="text-center">{{ result | length }}</td>
+            <td class="text-center">{{ (fraisdossierWithoutTvaTotal(result))|number_format(2, '.', ',') }}</td>
+            <td class="text-center">{{ tvaCommande(result[0]) }}</td>
+            <td class="text-center">{{ (tvaTraitementDailyTotal(result))|number_format(2, '.', ',') }}</td>
+            <td class="text-center">{{ (fraisTraitementWhithTvaTotal(result))|number_format(2, '.', ',') }}</td>
+          </tr>
+        {% endfor %} 
+          <tr>
+            <td class="text-center">TOTAL</td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{demandes | length}}</strong></td>
+            <td class="text-center"><strong>{{ (totalOfDemandesDailyWithoutTvaAndMajoration(demandes))|number_format(2, '.', ',') }} </strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{ (totalOfTvaDailyWithoutMajoration(demandes))|number_format(2, '.', ',') }} </strong></td>
+            <td class="text-center"><strong>{{ (totalOfDemandesDailyWithoutMajoration(demandes))|number_format(2, '.', ',') }} </strong></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr class="table-active">
+            <td ><strong>Majorations</strong></td>
+            <td class="text-center"><strong></strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong></strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong></strong></td>
+            <td class="text-center"><strong></strong></td>
+          </tr>
+          {% for key,taxes in majorations %}
+          <tr>
+            <td>
+              {% for dem in taxes %}
+              <strong>
+              {{ dem.commande.demarche.type }}
+              </strong>
+              {% endfor %}
+            </td>
+            <td clospan="2" class="text-center">{{ (without20tva(key))|number_format(2, '.', ',') }}</td>
+            <td class="text-center">{{ taxes | length }}</td>
+            <td class="text-center">{{ (without20tvaTotal(key, taxes|length))|number_format(2, '.', ',') }}</td>
+            <td class="text-center">20 %</td>
+            <td class="text-center">{{ (just20tvaTotal(key, taxes|length))|number_format(2, '.', ',') }}</td>
+            <td class="text-center">{{ (key * taxes | length)|number_format(2, '.', ',')}}</td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td class="text-center">TOTAL</td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{demandes | length}}</strong></td>
+            <td class="text-center"><strong>{{ (totalWithoutTvaOfMajorationDaily(majorations))|number_format(2, '.', ',') }} </strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{ (totalTvaOfMajorationDaily(majorations))|number_format(2, '.', ',') }} </strong></td>
+            <td class="text-center"><strong>{{ (totalOfMajorationDaily(majorations))|number_format(2, '.', ',') }} </strong></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr class="table-active">
+            <td><strong>Prestations & Majorations</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="text-center">TOTAL</td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{ (totalPrestationMajorationWithoutTaxeDaily(demandes, majorations))|number_format(2, '.', ',')}}</strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{ (totalPrestationMajorationTaxeDaily(demandes, majorations))|number_format(2, '.', ',')}} </strong></td>
+            <td class="text-center"><strong>{{ (totalPrestationMajorationTTC(demandes, majorations))|number_format(2, '.', ',')}} </strong></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr class="table-active">
+            <td><strong>Taxes</strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+          </tr>
+          {% for key,result in results %}
+          <tr>
+            <td>{{ key }}</td>
+            <td clospan="2" class="text-center"></td>
+            <td clospan="2" class="text-center">{{ result | length }}</td>
+            <td clospan="2" class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center">{{ (getTaxesTotal(result))|number_format(2, '.', ',') }}</td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td class="text-center">TOTAL</td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{demandes | length}}</strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{ (getTaxesTotal(demandes))|number_format(2, '.', ',') }}</strong></td>
+          </tr>
+      </tbody>
+    </table>
+    <br>
+      <div class="row">
+        <div class="col-7"></div>
+        <div class="col-5">
+            <table class="table table-md text-right table-active">
+              <tr class="table-active">
+                <td><strong>TOTAL :</strong></td>
+                <td class="text-right"><strong>{{ (finalTotalOfDaily(demandes, majorations)|number_format(2, '.', ',')) }}</strong></td>
+              </tr>
+            </table>
+
+        </div>
+      </div>
+    <br><br>
+    <div class="row">
+      <div class="col-12 foot">
+      <hr>
+      <p class="bottom-page text-right">
+        <small>
+            CG Officiel - N° SIRET 83897291700010 Toulouse<br>
+            20 Impasse Camille Langlade, 31000 Toulouse 09 77 42 31 20 - www.cgofficiel.fr<br>
+            IBAN FR76 3000 4003 3900 0102 24 95 637 - SWIFT CCBPFRPPMTZ
+        </small>      
+      </p>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

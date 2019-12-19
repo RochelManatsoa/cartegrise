@@ -27,7 +27,7 @@
     <div class="content-wrapper blog">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-lg-12 col-md-12 col-xs-12 main-blog">
+                <div class="col-12 col-lg-12 col-md-12 col-12 main-blog">
                     <div class="blog-card--titre">
                         <h2 class="page-title">
                             {{ categorie.nom }}</h2>
@@ -35,35 +35,36 @@
                             <p>{{ categorie.description }}</p>
                         </div>
                     </div>
-                    <div class="row blog-list">
+                    <div class="row blog-list mb-5">
                     {% for article in articles %}
-                        <div class="col-dm-6 col-lg-6 col-sm-6 col-xs-12 blog-post">
-                            <div class="blog-post--image">
-                                <figure>
-                                    <a href="{{ path('blog_show', {'slug': article.slug}) }}"><img src="{{ asset('uploads/' ~ article.image) }}" alt="{{ article.titre }}" class="img-fluid"></a>
-                                </figure>
-                                <div class="blog-post--category">
-                                    {% for categorie in article.categories %}
-                                        <a href="{{ path('show_cat', {'slug':categorie.slug}) }}" class="blog-post--category-item">
-                                            {{ categorie.nom | capitalize}}
-                                        </a>
-                                        {% if not loop.last %}{% endif %}
-                                    {% endfor %}
+                        <div class="col-md-6 col-lg-4 col-sm-6 col-12">
+                            <div class="blog-post">
+                                <div class="blog-post--image">
+                                    <figure>
+                                        <a href="{{ path('blog_show', {'slug': article.slug}) }}" style="background-image: url('{{ asset('uploads/' ~ article.image) }}');"></a>
+                                    </figure>
+                                    {# <div class="blog-post--category">
+                                        {% for categorie in article.categories %}
+                                            <a href="{{ path('show_cat', {'slug':categorie.slug}) }}" class="blog-post--category-item">
+                                                {{ categorie.nom | capitalize}}
+                                            </a>
+                                            {% if not loop.last %}{% endif %}
+                                        {% endfor %}
+                                    </div> #}
                                 </div>
-                            </div>
-                            <div class="blog-post--informations">
-                                <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="blog-post--titre">
-                                    <h3>{{ article.titre }}</h3>
-                                </a>
-                                <div class="blog-post--description">{{ article.description | truncate(70, true) | raw }}</div>
+                                <div class="blog-post--informations">
+                                    <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="blog-post--titre">
+                                        <h3>{{ article.titre }}</h3>
+                                    </a>
+                                    <div class="blog-post--description">{{ article.description | truncate(70, true) | raw }}</div>
 
-                                <div class="blog-post--action">
-                                    <div class="blog-post--date">Crée le {{ article.date | date('d M Y') }}</div>
-                                    <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="btn btn-blue more">Lire la suite</a>
+                                    <div class="blog-post--action">
+                                        <div class="blog-post--date">Crée le {{ article.date | date('d M Y') }}</div>
+                                        <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="btn link-connexion-register more">Lire la suite</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     {% endfor %}
                     <div class="col-12 pagination pagination-css  d-flex align-items-center flex-row justify-content-center my-flex-container">
                         {{ knp_pagination_render(articles) }}

@@ -83,6 +83,6 @@ class LoginAuthenticationHandler implements AuthenticationSuccessHandlerInterfac
         }
         $this->userManager->checkCommandeInSession($user);
 
-        return new RedirectResponse($this->routerInterface->generate('Accueil'));
+        return new RedirectResponse($this->routerInterface->generate('espace_client'));
     }
 }
