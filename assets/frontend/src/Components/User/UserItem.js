@@ -270,10 +270,11 @@ class UserItem extends React.Component {
                 <div className="col-md-12">
                     <LineChart 
                         datas={this.state.userEntries}
+                        commandes={this.state.commandeEntries}
                         paddingTop={15}
                         height={400}
                         borderRadius={4}
-                        type='Area1'
+                        type='Area2'
                     />
                 </div>
                 <NotificationContainer />

@@ -68,6 +68,7 @@ class Commande
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("read")
      */
     private $ceerLe;
 
@@ -152,6 +153,14 @@ class Commande
      * @ORM\Column(type="boolean", nullable=true,  options={"default" : false})
      */
     private $paymentOk;
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->ceerLe = new \DateTime();
+    }
 
 
     public function __construct()

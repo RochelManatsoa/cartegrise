@@ -19,19 +19,19 @@ class Notification
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Commande", inversedBy="notification", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Commande", inversedBy="notification", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $commande;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Demande", inversedBy="notification", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Demande", inversedBy="notification", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $demande;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Transaction", inversedBy="notification", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Transaction", inversedBy="notification", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $transaction;

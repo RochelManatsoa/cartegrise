@@ -8,20 +8,53 @@ const convertDate = (date) =>
 
     return converted;
 }
+// const convertData = (data) => {
+//     data.map((item, i) => {
+//         let date = new Date(item.ceerLe);
+//         let key = convertDate(date);
+//         let find = compiled.find(data => data.name === key)
+//         if (find == undefined) {
+//             compiled = [...compiled, { name: key, inscriptions: 0, commandes: 1 }]
+//             return;
+//         }
+//         let temp = compiled.find(data => data.name === key);
+//         temp.commandes = temp.commandes + 1;
+//     })
+// }
 
-const manageData = (datas) => {
+const manageData = (datas, commandes) => {
     let compiled = [];
+    commandes.map((item, i) => {
+        let date = new Date(item.ceerLe);
+        let key = convertDate(date);
+        let find = compiled.find(data => data.name === key)
+        if (find == undefined) {
+            compiled = [...compiled, { name: key, inscriptions: 0, commandes: 1 }]
+            return;
+        }
+        let temp = compiled.find(data => data.name === key);
+        temp.commandes = temp.commandes + 1;
+    })
     datas.map((item, i) => {
         let date = new Date(item.registerDate);
         let key = convertDate(date);
         let find = compiled.find(data => data.name === key)
         if (find == undefined) {
-            compiled = [...compiled, { name: key, inscriptions: 1 }]
+            compiled = [...compiled, { name: key, inscriptions: 1, demandes: 0 }]
             return;
         }
         let temp = compiled.find(data => data.name === key);
         temp.inscriptions = temp.inscriptions + 1;
     })
+
+    compiled.sort(function (a, b) {
+        var keyA = new Date(a.name),
+            keyB = new Date(b.name);
+        // Compare the 2 dates
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+    });
 
     return compiled;
 }
