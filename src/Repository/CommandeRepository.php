@@ -62,17 +62,41 @@ class CommandeRepository extends ServiceEntityRepository
     public function getDailyCommandeFacture($begin, \DateTime $now)
     {
         $qb = $this->createQueryBuilder('c')
-        ->join('c.transaction','trans')
-        ->join('c.client','cli')
-        ->join('cli.user','u')
+        ->join('c.facture','fact')
+        // ->join('c.client','cli')
+        // ->join('cli.user','u')
         ->distinct()
-        ->where('trans.status =:paramSuccess')
+        // ->where('trans.status =:paramSuccess')
+        ->where('fact.createdAt <= :now');
         // ->andWhere('trans.amount IS NOT NULL')
-        ->andWhere('trans.createAt <= :now');
+        // ->andWhere('trans.createAt <= :now');
 
         $qb
-        ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
+        // ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
         ->setParameter('now', $now);
+        // dd($qb->getQuery()->getResult());
+
+        return $qb->getQuery()->getResult();
+    }
+    public function getDailyCommandeFactureLimitate(\DateTime $start, \DateTime $end)
+    {
+        // $now->modify('- 40day');
+        $qb = $this->createQueryBuilder('c')
+        // ->select('u.email, c.clientNom, c.clientPrenom, c.id as idClient, c.clientGenre')
+        ->join('c.facture','fact')
+        // ->join('c.client','cli')
+        // ->join('cli.user','u')
+        ->distinct()
+        // ->where('trans.status =:paramSuccess')
+        // ->andWhere('trans.amount IS NOT NULL')
+        // ->andWhere('trans.createAt <= :end')
+        ->where('fact.createdAt <= :end')
+        ->andWhere('fact.createdAt > :start');
+
+        $qb
+        // ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
+        ->setParameter('start', $start)
+        ->setParameter('end', $end);
         // dd($qb->getQuery()->getResult());
 
         return $qb->getQuery()->getResult();

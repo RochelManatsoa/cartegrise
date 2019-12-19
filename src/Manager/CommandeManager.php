@@ -410,6 +410,13 @@ class CommandeManager
         return $commandes;
     }
 
+    public function getDailyCommandeFactureLimitate(\DateTime $start, \DateTime $end)
+    {
+        $demandes = $this->repository->getDailyCommandeFactureLimitate($start,$end);
+
+        return $demandes;
+    }
+
     public function generateDailyFacture(array $commandes, \DateTime $now)
     {
         $results = [];
