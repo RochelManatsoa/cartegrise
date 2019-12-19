@@ -13,9 +13,10 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use App\Services\Tms\TmsClient;
 use App\Services\Tms\Response as ResponseTms;
-use App\Entity\{Commande, Facture};
+use App\Entity\{Commande, Facture, DailyFacture};
+use App\Repository\{CommandeRepository, DailyFactureRepository};
 use App\Manager\SessionManager;
-use App\Manager\{StatusManager, TMSSauverManager, TransactionManager};
+use App\Manager\{StatusManager, TMSSauverManager, TransactionManager, TaxesManager};
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -29,6 +30,9 @@ class CommandeManager
 		EntityManagerInterface $em, 
 		SessionManager $sessionManager,
         Twig $twig,
+        CommandeRepository $repository,
+        TaxesManager $taxesManager,
+        DailyFactureRepository $dailyFactureRepository,
 		StatusManager $statusManager,
 		TokenStorageInterface $tokenStorage,
 		DocumentTmsManager $documentTmsManager,
@@ -39,6 +43,9 @@ class CommandeManager
 	{
 		$this->tmsClient = $tmsClient;
 		$this->em = $em;
+		$this->repository = $repository;
+		$this->taxesManager = $taxesManager;
+		$this->dailyFactureRepository = $dailyFactureRepository;
 		$this->sessionManager = $sessionManager;
 		$this->statusManager = $statusManager;
 		$this->tokenStorage = $tokenStorage;
@@ -391,4 +398,61 @@ class CommandeManager
         
         return $file;
 	}
+
+    public function getDailyCommandeFacture(\DateTime $now)
+    {
+        $dailyFacture = $this->dailyFactureRepository->findOneBy([], ['id' => 'DESC']);
+        if (is_object($dailyFacture))
+            $commandes = $this->repository->getDailyCommandeFacture($dailyFacture->getDateCreate(),$now);
+        else 
+            $commandes = $this->repository->getDailyCommandeFacture(null,$now);
+
+        return $commandes;
+    }
+
+    public function getDailyCommandeFactureLimitate(\DateTime $start, \DateTime $end)
+    {
+        $demandes = $this->repository->getDailyCommandeFactureLimitate($start,$end);
+
+        return $demandes;
+    }
+
+    public function generateDailyFacture(array $commandes, \DateTime $now)
+    {
+        $results = [];
+        $majorations = [];
+        foreach($commandes as $commande) {
+            $results[$commande->getDemarche()->getNom()][] = $commande;
+            $majorations[$this->taxesManager->getMajoration($commande->getTaxes())][] = $commande->getTaxes();
+        }
+        ksort($majorations);
+        $dailyFacture = new DailyFacture();
+
+        $folder = $dailyFacture->getDailyFacturePath();
+        $file = $dailyFacture->getDailyFacturePathFile($now);
+
+        // create directory
+        if (!is_dir($folder)) mkdir($folder, 0777, true);
+        // end create file 
+        // get facture if not exist
+        $origin = '/Users/rapaelec/Downloads/partage/cgoff/cartegrise/public/';
+        // dd(__DIR__.'/../../'.$file);
+        // dd(!is_file(__DIR__.'/../../'.$file));
+        // if (!is_file($file)) { // attente de finalité du process
+            $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
+            $filename = "Facture";
+            $html = $this->twig->render('payment/facture_journalier.pdf.twig',
+            [
+                'results' => $results,
+                'date' => $now,
+                'majorations' => $majorations,
+                'demandes' => $commandes,
+            ]);
+            $output = $snappy->getOutputFromHtml($html);
+            
+            $filefinal = file_put_contents($file, $output);
+        // }
+        
+        return $file;
+    }
 }

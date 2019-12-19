@@ -235,7 +235,10 @@ class AppExtension extends AbstractExtension
     {
         $result = 0;
         foreach ($demandes as $demande) {
-            $result += $this->fraisTreatmentManager->fraisTotalTreatmentOfCommandeWithTvaDaily($demande->getCommande());
+            if($demande instanceof Demande){
+                $demande = $demande->getCommande();
+            }
+            $result += $this->fraisTreatmentManager->fraisTotalTreatmentOfCommandeWithTvaDaily($demande);
         }
 
         return $result;
@@ -244,7 +247,10 @@ class AppExtension extends AbstractExtension
     {
         $result = 0;
         foreach ($demandes as $demande) {
-            $result += $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommandeDaily($demande->getCommande());
+            if($demande instanceof Demande){
+                $demande = $demande->getCommande();
+            }
+            $result += $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommandeDaily($demande);
         }
 
         return $result;
@@ -253,7 +259,10 @@ class AppExtension extends AbstractExtension
     {
         $result = 0;
         foreach ($demandes as $demande) {
-            $result += $this->fraisTreatmentManager->tvaOfFraisTreatmentDaily($demande->getCommande());
+            if($demande instanceof Demande){
+                $demande = $demande->getCommande();
+            }
+            $result += $this->fraisTreatmentManager->tvaOfFraisTreatmentDaily($demande);
         }
 
         return $result;
@@ -278,7 +287,10 @@ class AppExtension extends AbstractExtension
     {
         $result = 0;
         foreach ($demandes as $demande){
-            $result += $this->fraisTreatmentManager->tvaOfFraisTreatmentDaily($demande->getCommande());
+            if($demande instanceof Demande){
+                $demande = $demande->getCommande();
+            }
+            $result += $this->fraisTreatmentManager->tvaOfFraisTreatmentDaily($demande);
         }
 
         return $result;
@@ -317,7 +329,7 @@ class AppExtension extends AbstractExtension
 
     public function fraisdossierWithoutTvaTotal(array $demandes)
     {
-        return $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommandeDaily($demandes[0]->getCommande()) * count($demandes);
+        return $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommandeDaily(($demandes[0] instanceof Demande)? $demandes[0]->getCommande(): $demandes[0]) * count($demandes);
     }
 
     public function tvaTreatmentOfCommandeTotal(array $demandes)
@@ -441,7 +453,10 @@ class AppExtension extends AbstractExtension
         $taxesTotal = 0;
         foreach($demandes as $key=>$demande)
         {
-            $taxesTotal += $demande->getCommande()->getTaxes()->getTaxeTotale();
+            if($demande instanceof Demande){
+                $demande = $demande->getCommande();
+            }
+            $taxesTotal += $demande->getTaxes()->getTaxeTotale();
         }
 
         return $taxesTotal;
