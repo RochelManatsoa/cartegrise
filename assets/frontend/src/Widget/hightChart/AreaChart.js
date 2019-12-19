@@ -94,9 +94,9 @@ class AreaChartClass extends Component {
                                 <XAxis dataKey="name" />
                                 <YAxis />
                                 <Tooltip />
-                                <Line type="line" dataKey="inscriptions" stackId="1" stroke="#8884d8" fill="#8884d8" />
-                                <Line type="line" dataKey="estimations" stackId="1" stroke="#f39b11" fill="#f39b11" />
-                                <Line type="line" dataKey="paniers" stackId="1" stroke="#00C49F" fill="#00C49F" />
+                                <Line type="line" dataKey="inscriptions" dot={false} stackId="1" strokeWidth="3" stroke="#8884d8" fill="#8884d8" />
+                                <Line type="line" dataKey="estimations" dot={false} stackId="1" strokeWidth="3" stroke="#f39b11" fill="#f39b11" />
+                                <Line type="line" dataKey="paniers" dot={false} stackId="1" strokeWidth="3" stroke="#00C49F" fill="#00C49F" />
                             </LineChart>
                         </ResponsiveContainer>
                     </div>
