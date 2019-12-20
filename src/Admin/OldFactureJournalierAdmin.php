@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-final class FactureJournalierAdmin extends AbstractAdmin
+final class OldFactureJournalierAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -33,8 +33,8 @@ final class FactureJournalierAdmin extends AbstractAdmin
         ->add('dateCreate')
         ->add('_action', null, [
             'actions' => [
-                'facturejournalier' => [
-                    'template' => 'CRUD/list_action_facture_journalier.html.twig'
+                'ancien-facture-journalier' => [
+                    'template' => 'CRUD/list_action_ancien_facture_journalier.html.twig'
                 ]
             ],
             

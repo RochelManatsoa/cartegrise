@@ -6,12 +6,12 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use App\Manager\{DemandeManager, UserManager, NewDailyFactureManager, CommandeManager};
-use App\Entity\NewDailyFacture;
+use App\Manager\{DemandeManager, UserManager, DailyFactureManager, CommandeManager};
+use App\Entity\DailyFacture;
 
-class FactureJournalierCommand extends Command
+class OldFactureJournalierCommand extends Command
 {
-    protected static $defaultName = "app:facture:relance";
+    protected static $defaultName = "app:oldfacture:relance";
     protected $userManager;
     protected $commandeManager;
     protected $dailyFactureManager;
@@ -40,7 +40,7 @@ class FactureJournalierCommand extends Command
         // ;
     }
 
-    public function __construct(bool $requirePassword = false ,NewDailyFactureManager $dailyFactureManager, DemandeManager $demandeManager, CommandeManager $commandeManager, UserManager $userManager)
+    public function __construct(bool $requirePassword = false ,DailyFactureManager $dailyFactureManager, DemandeManager $demandeManager, CommandeManager $commandeManager, UserManager $userManager)
     {
         // best practices recommend to call the parent constructor first and
         // then set your own properties. That wouldn't work in this case
@@ -68,10 +68,10 @@ class FactureJournalierCommand extends Command
         // outputs a message followed by a "\n"
         // $output->writeln('Whoa!');
         $now = new \DateTime();
-        // $demandes = $this->demandeManager->getDailyDemandeFacture($now);
-        $commandes = $this->commandeManager->getDailyCommandeFacture($now);
-        // $file = $this->demandeManager->generateDailyFacture($demandes, $now);
-        $file = $this->commandeManager->generateDailyFacture($commandes, $now);
+        $demandes = $this->demandeManager->getDailyDemandeFacture($now);
+        // $commandes = $this->commandeManager->getDailyCommandeFacture($now);
+        $file = $this->demandeManager->generateDailyFacture($demandes, $now);
+        // $file = $this->commandeManager->generateDailyFacture($commandes, $now);
         $dailyFacture = $this->dailyFactureManager->init();
         $dailyFacture->setDateCreate($now);
         $dailyFacture->setPath($file);

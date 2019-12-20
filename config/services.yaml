@@ -85,9 +85,13 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm,group: 'TARIFS', label: 'Tarif prestation' }
     App\Admin\FactureJournalierAdmin:
-        arguments: [~, App\Entity\DailyFacture, App\Controller\ActionAdminController]
+        arguments: [~, App\Entity\NewDailyFacture, App\Controller\ActionAdminController]
         tags:
             - { name: sonata.admin, manager_type: orm,group: 'FACTURE', label: 'Récapitulatif journalier' }
+    App\Admin\OldFactureJournalierAdmin:
+        arguments: [~, App\Entity\DailyFacture, App\Controller\ActionAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'FACTURE', label: 'Ancien récapitulatif journalier' }
     App\Admin\UserAdmin:
         arguments: [~, App\Entity\User, App\Controller\ActionAdminController]
         tags:

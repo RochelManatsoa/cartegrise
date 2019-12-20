@@ -45,6 +45,23 @@ class RelanceEmailController extends AbstractController
         return new BinaryFileResponse($file);
     }
     /**
+     * @Route("/ancien/facture/journalier/{dailyFacture}", name="old_facture_journalier")
+     */
+    public function old_facture_journalier(DailyFacture $dailyFacture, CommandeManager $commandeManager, DemandeManager $demandeManager,TaxesManager $taxesManager, MailManager $mailManager)
+    {
+        $date = $dailyFacture->getDateCreate()->format('Y-m-d');
+        $start = new \DateTime($date.' 00:00:00');
+        $end = new \DateTime($date.' 23:59:59');
+        $demandes = $demandeManager->getDailyDemandeFactureLimitate($start, $end);
+        $file = $demandeManager->generateDailyFacture($demandes, $start);
+        // $commandes = $commandeManager->getDailyCommandeFactureLimitate($start, $end);
+        // $file = $commandeManager->generateDailyFacture($commandes, $start);
+        // dump($commandes);
+        // dd($file);
+
+        return new BinaryFileResponse($file);
+    }
+    /**
      * @Route("/user_paiment_with_doc_non_valid/{day}", name="user_paiment")
      */
     public function user_relance_doc_non_valid(int $day, DemandeManager $demandeManager, MailManager $mailManager)
