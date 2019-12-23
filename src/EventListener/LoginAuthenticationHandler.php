@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-05-21 10:55:09 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-11-20 14:12:18
+ * @Last Modified time: 2019-12-24 00:22:15
  */
 namespace App\EventListener;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -74,8 +74,6 @@ class LoginAuthenticationHandler implements AuthenticationSuccessHandlerInterfac
                         (null !== $lastCommande->getTransaction() &&
                         $lastCommande->getTransaction()->getStatus() != '00')
                 ) {
-                    $this->userManager->checkCommandeInSession($user);
-
                     return new RedirectResponse($this->routerInterface->generate('commande_recap', ["commande" => $lastCommande->getId()]));
                 }
             }

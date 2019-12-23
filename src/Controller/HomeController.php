@@ -136,6 +136,7 @@ class HomeController extends AbstractController
                         "type" => 'commande', 
                         "data" => $data,
                     ]);
+                    $this->saveToSession($commande, $sessionManager, $tabForm);
                     return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
 
                     // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
@@ -189,6 +190,24 @@ class HomeController extends AbstractController
         }
 
         return $param;
+    }
+    private function saveToSession(Commande $commande, SessionManager $sessionManager, $tabForm)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $taxe = $commande->getTaxes();
+        $majoration = 0;
+        
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $this->getUser()->getClient()->addCommande($commande);
+            $manager->persist($this->getUser()->getClient());
+            $manager->flush();
+        } else {
+            
+            $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
+            // end treatment session
+        }
+
+        return "ok";
     }
 
     /**
