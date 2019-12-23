@@ -138,6 +138,11 @@ class Demande
      */
     private $cerfa_path;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $fraisRembourser;
+
     
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -626,6 +631,18 @@ class Demande
         if ($notification->getDemande() !== $newDemande) {
             $notification->setDemande($newDemande);
         }
+
+        return $this;
+    }
+
+    public function getFraisRembourser()
+    {
+        return $this->fraisRembourser;
+    }
+
+    public function setFraisRembourser($fraisRembourser): self
+    {
+        $this->fraisRembourser = $fraisRembourser;
 
         return $this;
     }

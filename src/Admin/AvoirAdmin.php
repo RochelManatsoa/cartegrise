@@ -44,6 +44,7 @@ final class AvoirAdmin extends AbstractAdmin
     {
         $formMapper
         ->add('id')
+        ->add('fraisRembourser')
         ;
     }
 
@@ -91,9 +92,8 @@ final class AvoirAdmin extends AbstractAdmin
             'label' => 'Remboursement taxe',
             'template' => 'CRUD/remboursement/prestation.html.twig',
         ])
-        ->addIdentifier('remboursementTraitement', null, [
+        ->addIdentifier('fraisRembourser', null, [
             'label' => 'Remboursement prestation',
-            'template' => 'CRUD/remboursement/taxes.html.twig',
         ])
         ;
     }

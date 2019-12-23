@@ -152,13 +152,13 @@
                     <tr>
                         <td><strong>Frais de dossier</strong></td>
                         <td class="text-center">
-                            <strong>{{(fraisdossierWithoutTva(demande.commande))|number_format(2, '.', ',') }}
+                            <strong>{{(fraisdossierWithoutTvaAvoir(demande.commande))|number_format(2, '.', ',') }}
                                 €</strong></td>
                         <td class="text-center">{{ tvaCommande(demande.commande) }}</td>
                         <td class="text-center">
-                            <strong>{{(tvaTraitement(demande.commande))|number_format(2, '.', ',') }} €</strong></td>
+                            <strong>{{(tvaTraitementAvoir(demande.commande))|number_format(2, '.', ',') }} €</strong></td>
                         <td class="text-center">
-                            <strong>{{(fraisTraitementWhithTva(demande.commande))|number_format(2, '.', ',') }}
+                            <strong>{{(fraisTraitementWhithTvaAvoir(demande.commande))|number_format(2, '.', ',') }}
                                 €</strong></td>
                     </tr>
                 </tbody>
@@ -173,23 +173,23 @@
                         <tr>
                             <td><strong>Total HT : </strong></td>
                             <td class="text-right">
-                                <strong>{{(fraisTotalHT(demande.commande)|number_format(2, '.', ','))}} €</strong></td>
+                                <strong>{{(fraisTotalHTAvoir(demande.commande)|number_format(2, '.', ','))}} €</strong></td>
                         </tr>
                         <tr>
                             <td><strong>Base HT pour TVA :</strong></td>
                             <td class="text-right">
-                                <strong>{{(fraisdossierWithoutTva(demande.commande)|number_format(2, '.', ','))}}
+                                <strong>{{(fraisdossierWithoutTvaAvoir(demande.commande)|number_format(2, '.', ','))}}
                                     €</strong></td>
                         </tr>
                         <tr>
                             <td><strong>TVA {{ tvaCommande(demande.commande) }} :</strong></td>
                             <td class="text-right bg">
-                                <strong>{{(tvaTraitement(demande.commande)|number_format(2, '.', ',') )}} €</strong>
+                                <strong>{{(tvaTraitementAvoir(demande.commande)|number_format(2, '.', ',') )}} €</strong>
                             </td>
                         </tr>
                         <tr class="table-active">
                             <td><strong>Total TTC :</strong></td>
-                            <td class="text-right"><strong>{{(total(demande.commande))|number_format(2, '.', ',') }}
+                            <td class="text-right"><strong>{{(totalAvoir(demande.commande))|number_format(2, '.', ',') }}
                                     €</strong></td>
                         </tr>
                     </table>

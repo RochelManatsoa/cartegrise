@@ -348,14 +348,14 @@ class DemandeManager
         }
         // end sav Avoir before generate number
         // get facture if not exist
-        if (!is_file($file)) { // attente de finalité du process
+        // if (!is_file($file)) { // attente de finalité du process
             $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
             $filename = "Facture";
             $html = $this->twig->render("avoir/avoir.pdf.twig", $params);
             $output = $snappy->getOutputFromHtml($html);
             
             $filefinal = file_put_contents($file, $output);
-        }
+        // }
         
         return $file;
     }
