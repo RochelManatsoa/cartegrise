@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Form\PaiementType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Manager\CommandeManager;
-use App\Manager\ClientManager;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 use App\Entity\Commande;
@@ -55,10 +54,14 @@ class CommandeController extends AbstractController
     /**
      * @Route("/{commande}/recap", name="commande_recap")
      */
-    public function recap(Commande $commande, Request $request, CommandeManager $commandeManager, ClientManager $clientManager)
+    public function recap(Commande $commande, Request $request, CommandeManager $commandeManager)
     {
         $formCGV = $this->createForm(PaiementType::class, $commande);
         $formCGV->handleRequest($request);
+        if($formCGV->isSubmitted() && $formCGV->isValid()){
+            $commandeManager->save($commande);
+            return $this->redirectToRoute('payment_commande', ['commande' => $commande->getId()]);
+        }
         return $this->render(
             'commande/resum.html.twig',
             [
