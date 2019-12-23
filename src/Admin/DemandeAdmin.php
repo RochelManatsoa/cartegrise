@@ -26,9 +26,6 @@ final class DemandeAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-        ->add('commande', TextType::class,[
-            'disabled' => true,
-        ])
         ;
     }
 
