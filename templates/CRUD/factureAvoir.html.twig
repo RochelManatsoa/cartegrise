@@ -3,7 +3,7 @@
 {% block field %}
 {% if object.facture is not null %}
     <a class="btn btn-sm btn-default view_link" target="_blank"
-        href="{{ admin.generateObjectUrl('commandeFacture', object.facture) }}" title="facture">
+        href="{{ admin.generateObjectUrl('commandeFacture', object) }}" title="facture">
         <i class="fa fa-file" aria-hidden="true"></i>
         facture
     </a>
