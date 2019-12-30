@@ -167,7 +167,6 @@ class Facture
         for($i= 0; $i < $restLength; $i++) {
             $num =$string . (string)$num;
         }
-        $num;
         $dateCommande = $this->getCreatedAt()->format('Ym');
         $type = $this->getCommande()->getDemarche()->getType();
         $commandeId = $this->getCommande()->getId();
