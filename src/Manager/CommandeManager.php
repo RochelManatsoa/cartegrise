@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-12-30 18:47:33
+ * @Last Modified time: 2019-12-30 19:19:01
  */
 
 namespace App\Manager;
@@ -387,14 +387,14 @@ class CommandeManager
         if (!is_dir($folder)) mkdir($folder, 0777, true);
         // end create file 
         // get facture if not exist
-        // if (!is_file($file)) { // attente de finalité du process
+        if (!is_file($file)) { // attente de finalité du process
             $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
             $filename = "Facture";
             $html = $this->twig->render("payment/facture.pdf.twig", ['commande' => $commande]);
             $output = $snappy->getOutputFromHtml($html);
             
             $filefinal = file_put_contents($file, $output);
-        // }
+        }
         
         return $file;
 	}
