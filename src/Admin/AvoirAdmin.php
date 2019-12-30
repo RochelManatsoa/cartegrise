@@ -43,7 +43,9 @@ final class AvoirAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-        ->add('id')
+        ->add('id', null, [
+            'disabled' => true,
+        ])
         ->add('fraisRembourser')
         ;
     }

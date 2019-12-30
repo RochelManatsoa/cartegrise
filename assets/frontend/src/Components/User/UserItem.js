@@ -7,7 +7,6 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 import param from '../../params';
 import DatePicker from '../DatePicker/Datepicker';
 import { addDays} from "date-fns";
-import { format } from 'path';
 import moment from 'moment';
 
 
@@ -21,6 +20,7 @@ class UserItem extends React.Component {
           commandeEntriesLength: 0,
           demandeEntries: [],
           transactionEntries: [],
+          factureEntries: [],
           dateFilterStart: new moment().format("YYYY-MM-DD"),
           dateFilterEnd: moment(addDays(new Date(), 1)).format("YYYY-MM-DD")
         };
@@ -29,6 +29,7 @@ class UserItem extends React.Component {
         this.updateCommande = this.updateCommande.bind(this);
         this.updateDemande = this.updateDemande.bind(this);
         this.updateTransaction = this.updateTransaction.bind(this);
+        this.updateFacture = this.updateFacture.bind(this);
         this.getFilter = this.getFilter.bind(this);
         this.updateContent = this.updateContent.bind(this);
         
@@ -81,6 +82,7 @@ class UserItem extends React.Component {
         this.updateCommande();
         this.updateDemande();
         this.updateTransaction();
+        this.updateFacture();
     }
 
     updateCommande(){
@@ -143,11 +145,32 @@ class UserItem extends React.Component {
           });
         });
     }
+    updateFacture()
+    {
+        let url =
+            `${param.ENTRYPOINT}/factures?createdAt[before]=` +
+          this.state.dateFilterEnd +
+          `&createdAt[after]=` +
+          this.state.dateFilterStart;
+        axios({
+          method: "get",
+          url: url,
+          headers: {
+            "content-type": "application/vnd.myapp.type+json",
+            accept: "application/json"
+          }
+        }).then(factureEntries => {
+          this.setState({
+            factureEntries: factureEntries.data
+          });
+        });
+    }
     componentDidMount(){
         this.getUsers();
         this.updateCommande();
         this.updateDemande();
         this.updateTransaction();
+        this.updateFacture();
 
         // Secret of Mercure Ninja
         // URL is a built-in JavaScript class to manipulate URLs
@@ -162,7 +185,7 @@ class UserItem extends React.Component {
         eventSource.onmessage = event => {
             let res = JSON.parse(event.data);
             if (res.status === "success") {
-                if (res.item != "") {
+                if (res.item !== "") {
                     let message = '';
                     let withImmat = ['commande', 'demande'];
                     if (withImmat.includes(res.item)) {
@@ -177,10 +200,13 @@ class UserItem extends React.Component {
                     switch(res.item){
                         case 'commande':
                             this.updateCommande();
+                            break;
                         case 'demande':
                             this.updateDemande();
+                            break;
                         case 'utilisateur':
                             this.getUsers();
+                            break;
                         default:
                             return;
 
@@ -204,6 +230,7 @@ class UserItem extends React.Component {
                 <div className="col-md-12">
                     <Card
                         type="topCard"
+                        lgCol='2'
                         title={this.state.userEntries.length}
                         text='Utilisateurs'
                         textClass=''
@@ -215,6 +242,7 @@ class UserItem extends React.Component {
                     />
 
                     <Card
+                        lgCol='3'
                         type="topCard"
                         title={this.state.commandeEntriesLength}
                         text='Estimations'
@@ -228,6 +256,7 @@ class UserItem extends React.Component {
 
                     <Card
                         type="topCard"
+                        lgCol='2'
                         title={this.state.demandeEntries.length}
                         text='Panier'
                         textClass=''
@@ -240,6 +269,20 @@ class UserItem extends React.Component {
 
                     <Card
                         type="topCard"
+                        lgCol='3'
+                        title={this.state.factureEntries.length}
+                        text='Paiement effectué'
+                        textClass=''
+                        innerClass='inner'
+                        iconName='credit-card'
+                        linkDetail='/'
+                        textDetail='detail'
+                        background='navy'
+                    />
+
+                    <Card
+                        type="topCard"
+                        lgCol='2'
                         title={this.state.transactionEntries.length}
                         text='En attente de documents'
                         textClass=''
@@ -272,6 +315,7 @@ class UserItem extends React.Component {
                         datas={this.state.userEntries}
                         estimations={this.state.commandeEntries}
                         paniers={this.state.demandeEntries}
+                        factures={this.state.factureEntries}
                         paddingTop={15}
                         height={400}
                         borderRadius={4}

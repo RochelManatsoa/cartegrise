@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
 /**
  * @ApiResource()
+ * @ApiFilter(DateFilter::class, properties={"createdAt"})
  * @ORM\Entity(repositoryClass="App\Repository\FactureRepository")
  * @ORM\HasLifecycleCallbacks()
  */
