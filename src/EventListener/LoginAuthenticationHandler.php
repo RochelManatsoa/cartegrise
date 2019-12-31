@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-05-21 10:55:09 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-12-24 00:22:15
+ * @Last Modified time: 2019-12-31 08:46:38
  */
 namespace App\EventListener;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

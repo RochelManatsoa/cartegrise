@@ -219,8 +219,8 @@ class DemandeRepository extends ServiceEntityRepository
                 ->join('d.commande', 'comm');
             }
             $builder
-            ->andWhere('comm.immatriculation = :immatriculation')
-            ->setParameter('immatriculation', $crmSearch->getImmatriculation());
+            ->andWhere('comm.immatriculation like :immatriculation')
+            ->setParameter('immatriculation', '%'.$crmSearch->getImmatriculation().'%');
         }
 
         return $builder->getQuery()->getResult();        

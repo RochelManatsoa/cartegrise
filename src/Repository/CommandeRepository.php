@@ -6,6 +6,7 @@ use App\Entity\{Commande, Transaction, User};
 use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\Manager\Crm\Modele\CrmSearch;
 
 /**
  * @method Commande|null find($id, $lockMode = null, $lockVersion = null)
@@ -100,6 +101,47 @@ class CommandeRepository extends ServiceEntityRepository
         // dd($qb->getQuery()->getResult());
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function getCrmFilter(CrmSearch $crmSearch)
+    {
+        if (!$crmSearch->isFilterable())
+            return [];
+        /**
+         * search started
+         */
+        $builder = $this->createQueryBuilder('c')
+        ->leftJoin('c.facture', 'facture')
+        ->leftJoin('c.demande', 'demande')
+        ->leftJoin('demande.transaction', 'transaction')
+        ->where('facture IS NOT NULL or (demande IS NOT NULL and transaction IS NOT NULL and transaction.status = :successTransactionStatus)')
+        ->setParameter('successTransactionStatus', '00');
+        #filter email
+        if (null != $crmSearch->getEmail()) {
+            $builder
+            ->join('c.client', 'client')
+            ->join('client.user', 'user')
+            ->andWhere('user.email like :email')
+            ->setParameter('email', '%'.$crmSearch->getEmail().'%');
+        }
+        #filter nom
+        if (null != $crmSearch->getNom()) {
+            if (null == $crmSearch->getEmail()) {
+                $builder
+                ->join('c.client', 'client');
+            }
+            $builder
+            ->andWhere('client.clientNom like :nom OR client.clientPrenom like :nom')
+            ->setParameter('nom', '%'.$crmSearch->getNom().'%');
+        }
+        #filter immatriculation
+        if (null != $crmSearch->getImmatriculation()) {
+            $builder
+            ->andWhere('c.immatriculation like :immatriculation')
+            ->setParameter('immatriculation', '%'.$crmSearch->getImmatriculation().'%');
+        }
+
+        return $builder->getQuery()->getResult();        
     }
     
 }

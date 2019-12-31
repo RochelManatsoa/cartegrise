@@ -82,15 +82,17 @@
               {{ findNomPrenomOfTitulaire(demande, "raisonSociale") | upper }}
             {% endif %}
           </strong>
-          <br>
-            {{ adresse.numero }} 
-            {{ adresse.extension }} 
-            {{ adresse.typevoie | displayAdress}} 
-            {{ adresse.nom | upper }} 
-            {{ adresse.complement }} 
-          <br> 
-            {{ adresse.codePostal }} 
-            {{ adresse.ville | upper }}
+          {% if adresse is not null %}
+            <br>
+              {{ adresse.numero }} 
+              {{ adresse.extension }} 
+              {{ adresse.typevoie | displayAdress}} 
+              {{ adresse.nom | upper }} 
+              {{ adresse.complement }} 
+            <br> 
+              {{ adresse.codePostal }} 
+              {{ adresse.ville | upper }}
+          {% endif %}
         </p>
       </div>
     </div>
