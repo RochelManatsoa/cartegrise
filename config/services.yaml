@@ -66,63 +66,63 @@ services:
     App\Admin\CommandeAdmin:
         arguments: [~, App\Entity\Commande, App\Controller\ActionAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'TABLEAU DE BORD', label: Estimations }
+            - { name: sonata.admin, manager_type: orm, group: tableaudebord, label: Estimations }
     App\Admin\DemandeAdmin:
         arguments: [~, App\Entity\Demande, App\Controller\ActionAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'TABLEAU DE BORD', label: Dossiers }
-    App\Admin\TransactionWithoutFactureAdmin:
-        arguments: [~, App\Entity\Transaction, App\Controller\ActionAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm,group: 'TRANSACTION', label: Transaction Du 21 Nov au 23 Dec }
-    App\Admin\ConfigurationAdmin:
-        arguments: [~, App\Entity\Configuration, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm,group: 'CONFIGURATION', label: 'Traitement Taxes' }
-    App\Admin\AvoirAdmin:
-        arguments: [~, App\Entity\Demande, App\Controller\ActionAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: 'FACTURE', label: 'Avoir clients' }
-        public: true
-    App\Admin\TarifPrestationAdmin:
-        arguments: [~, App\Entity\TarifsPrestations, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm,group: 'TARIFS', label: 'Tarif prestation' }
-    App\Admin\FactureJournalierAdmin:
-        arguments: [~, App\Entity\DailyFacture, App\Controller\ActionAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm,group: 'FACTURE', label: 'Récapitulatif journalier' }
-    App\Admin\UserAdmin:
-        arguments: [~, App\Entity\User, App\Controller\ActionAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm,group: 'UTILISATEURS', label: 'Gestion des Utilisateurs' }
+            - { name: sonata.admin, manager_type: orm, group: tableaudebord,label: Dossiers }
     App\Admin\RemananceClientAdmin:
         arguments: [~, App\Entity\User,  App\Controller\ActionAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'TABLEAU DE BORD', label: "Rémanance" }
-    App\Admin\NotificationEmailAdmin:
-        arguments: [~, App\Entity\NotificationEmail, ~]
+            - { name: sonata.admin, manager_type: orm, group: tableaudebord,label: "Rémanance" }
+    App\Admin\AvoirAdmin:
+        arguments: [~, App\Entity\Demande, App\Controller\ActionAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'NOTIFICATION', label: 'Mails de notification ' }
-    App\Admin\NotificationAdmin:
-        arguments: [~, App\Entity\Notification,  App\Controller\ActionAdminController]
+            - { name: sonata.admin, manager_type: orm, group: facture, label: 'Avoir clients' }
+        public: true
+    App\Admin\FactureJournalierAdmin:
+        arguments: [~, App\Entity\DailyFacture, App\Controller\ActionAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'NOTIFICATION', label: 'Notifications ' }
+            - { name: sonata.admin, manager_type: orm, group: facture, label: 'Récapitulatif journalier' }
     App\Admin\AncienFactureAdmin:
         arguments: [~, App\Entity\Demande, App\Controller\ActionAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'FACTURE', label: 'Anciens Factures clients' }
+            - { name: sonata.admin, manager_type: orm, group: facture, label: 'Anciens Factures clients' }
         public: true
     App\Admin\FactureAdmin:
         arguments: [~, App\Entity\Facture, App\Controller\ActionAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'FACTURE', label: 'Factures clients' }
+            - { name: sonata.admin, manager_type: orm,group: facture, label: 'Factures clients' }
+    App\Admin\ConfigurationAdmin:
+        arguments: [~, App\Entity\Configuration, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: configuration, label: 'Traitement Taxes' }
+    App\Admin\TarifPrestationAdmin:
+        arguments: [~, App\Entity\TarifsPrestations, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: tarifs, label: 'Tarif prestation' }
         public: true
+    App\Admin\UserAdmin:
+        arguments: [~, App\Entity\User, App\Controller\ActionAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: users, label: 'Gestion des Utilisateurs' }
+    App\Admin\NotificationEmailAdmin:
+        arguments: [~, App\Entity\NotificationEmail, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: notification, label: 'Mails de notification ' }
+    App\Admin\NotificationAdmin:
+        arguments: [~, App\Entity\Notification,  App\Controller\ActionAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: notification, label: 'Notifications ' }
     App\Admin\ValidationDossierAdmin:
         arguments: [~, App\Entity\Demande, App\Controller\ActionAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: 'DOCUMENTS', label: 'Valider et Upload des documents' }
+            - { name: sonata.admin, manager_type: orm,group: documents, label: 'Valider et Upload des documents' }
         public: true
+    App\Admin\TransactionWithoutFactureAdmin:
+        arguments: [~, App\Entity\Transaction, App\Controller\ActionAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: transactions, label: Transaction Du 21 Nov au 23 Dec }
     # App\Admin\UploadDossierAdmin:
     #     arguments: [~, App\Entity\Demande, App\Controller\ActionAdminController]
     #     tags:

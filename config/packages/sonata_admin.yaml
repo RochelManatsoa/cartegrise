@@ -3,6 +3,24 @@ sonata_admin:
     dashboard:
         blocks:
             - { type: sonata.admin.block.admin_list, position: left }
+        groups:
+            tableaudebord:
+                label: TABLEAU DE BORD
+            facture:
+                label: FACTURE
+            configuration:
+                label: CONFIGURATION
+            tarifs:
+                label: TARIFS
+            users:
+                label: UTILISATEURS
+            notification:
+                label: NOTIFICATION
+            documents:
+                label: DOCUMENTS
+            transactions:
+                label: TRANSACTIONS
+                
 
 sonata_block:
     blocks:
