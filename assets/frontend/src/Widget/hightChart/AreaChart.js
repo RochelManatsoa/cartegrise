@@ -10,7 +10,7 @@ class AreaChartClass extends Component {
     {
         super(props);
         this.state = {
-            datas : [{name: 0, inscriptions:0, estimations: 0, paniers: 0, paiements: 0}]
+            datas : [{name: 0, inscriptions:0, estimations: 0, dossiers: 0, paiements: 0}]
         };
         this.updateStateDatas = this.updateStateDatas.bind(this);
     }
@@ -102,7 +102,7 @@ class AreaChartClass extends Component {
                                 <Tooltip />
                                 <Line type="line" dataKey="inscriptions" dot={false} stackId="1" strokeWidth="3" stroke="#8884d8" fill="#8884d8" />
                                 <Line type="line" dataKey="estimations" dot={false} stackId="1" strokeWidth="3" stroke="#f39b11" fill="#f39b11" />
-                                <Line type="line" dataKey="paniers" dot={false} stackId="1" strokeWidth="3" stroke="#00C49F" fill="#00C49F" />
+                                <Line type="line" dataKey="dossiers" dot={false} stackId="1" strokeWidth="3" stroke="#00C49F" fill="#00C49F" />
                                 <Line type="line" dataKey="paiements" dot={false} stackId="1" strokeWidth="3" stroke="#001F3F" fill="#001F3F" />
                             </LineChart>
                         </ResponsiveContainer>

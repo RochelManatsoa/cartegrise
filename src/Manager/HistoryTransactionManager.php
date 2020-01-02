@@ -74,4 +74,9 @@ class HistoryTransactionManager
         $this->save($historyTransaction);
     }
 
+    public function getRepository()
+    {
+        return $this->repository;
+    }
+
 }

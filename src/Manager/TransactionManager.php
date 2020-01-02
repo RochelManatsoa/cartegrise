@@ -13,7 +13,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Entity\User;
-use App\Repository\TransactionRepository;
+use App\Repository\{TransactionRepository, HistoryTransactionRepository};
 use Twig_Environment as Twig;
 
 class TransactionManager
@@ -22,14 +22,17 @@ class TransactionManager
     private $formFactory;
     private $twig;
     private $repository;
+    private $historyTransactionManager;
     public function __construct
     (
         EntityManagerInterface $em,
-        TransactionRepository      $repository
+        TransactionRepository      $repository,
+        HistoryTransactionRepository $historyTransactionRepository
     )
     {
         $this->em =          $em;
         $this->repository =  $repository;
+        $this->historyTransactionRepository =  $historyTransactionRepository;
     }
 
     public function init()
@@ -70,5 +73,35 @@ class TransactionManager
         $facture = $numFacture[0][1];
 
         return $facture + 1;
+    }
+
+    public function generateDateCreateForTransaction()
+    {
+        $transactions = $this->repository->findByCreateAt(null);
+        foreach($transactions as $transaction){
+            if ($transaction->getTransactionId()){
+                $historyTransaction = $this->historyTransactionRepository->findOneByTransactionId($transaction->getTransactionId());
+                if ($historyTransaction !== null){
+                    $data = json_decode($historyTransaction->getData());
+                    $dateString = $data->transmission_date; 
+                    $string = '-'; 
+                    $position = '4';
+                    $dateString = substr_replace($dateString, $string, $position, 0 );
+                    $position = '7';
+                    $dateString = substr_replace($dateString, $string, $position, 0 );
+                    $string = ' ';
+                    $position = '10';
+                    $dateString = substr_replace($dateString, $string, $position, 0 );
+                    $string = ':';
+                    $position = '13';
+                    $dateString = substr_replace($dateString, $string, $position, 0 );
+                    $position = '16';
+                    $dateString = substr_replace($dateString, $string, $position, 0 );
+                    $dateCreate = new \DateTime($dateString);
+                    $transaction->setCreateAt($dateCreate);
+                    $this->save($transaction);
+                }
+            }
+        }
     }
 }

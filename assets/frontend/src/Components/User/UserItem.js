@@ -258,7 +258,7 @@ class UserItem extends React.Component {
                         type="topCard"
                         lgCol='2'
                         title={this.state.demandeEntries.length}
-                        text='Panier'
+                        text='Dossiers'
                         textClass=''
                         innerClass='inner'
                         iconName='folder'
