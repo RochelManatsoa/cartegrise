@@ -74,6 +74,10 @@ final class TransactionWithoutFactureAdmin extends AbstractAdmin
             'label' => 'Infos Client',
             'template' => 'admin/transaction/infosClient.html.twig',
         ])
+        ->addIdentifier('immatriculation', null, [
+            'label' => 'Immatriculation',
+            'template' => 'admin/transaction/immatriculaiton.html.twig',
+        ])
         ;
     }
 }
