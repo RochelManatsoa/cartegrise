@@ -13,6 +13,7 @@ use App\Entity\User;
 use App\Entity\Demande;
 use App\Entity\Client;
 use App\Entity\Avoir;
+use App\Form\SaveAndValidateType;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ActionAdminController extends Controller
@@ -241,6 +242,10 @@ class ActionAdminController extends Controller
 
             if ($fileForm->isSubmitted() && $fileForm->isValid()) {
                 $documentAFournirManager->handleForm($fileForm, $path)->save($fileForm);
+            }
+
+            if($request->request->get('validate') === 'on') {
+                return $this->redirectToRoute('validate_file', ['demande' => $demande->getId()]);
             }
         }
 

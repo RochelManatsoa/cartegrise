@@ -34,9 +34,6 @@ class FileDemarcheController extends AbstractController
         $referer = $request->headers->get('referer');
 
         return $this->redirect($referer);
-
-        
-        // return $this->redirect($this->generateUrl('demande_dossiers_a_fournir', ["id" => $demande->getId()]));
     }
 
     /**

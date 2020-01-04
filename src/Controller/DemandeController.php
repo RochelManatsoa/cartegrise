@@ -120,8 +120,6 @@ class DemandeController extends AbstractController
         $fileType = $documentAFournirManager->getType($demande);
         $path = $demande->getUploadPath();
         $fileForm = null;
-        $formSave = $this->createForm(SaveAndValidateType::class, null);
-        $formSave->handleRequest($request);
         if (!null == $fileType) {
             $fileForm = $this->createForm($fileType, $files);
             $fileForm->handleRequest($request);
@@ -129,8 +127,8 @@ class DemandeController extends AbstractController
             if ($fileForm->isSubmitted() && $fileForm->isValid()) {
                 $documentAFournirManager->handleForm($fileForm, $path)->save($fileForm);
             }
-            if($formSave->isSubmitted() && $formSave->isValid()){
-                
+
+            if($request->request->get('validate') === 'on') {
                 return $this->redirectToRoute('validate_file', ['demande' => $demande->getId()]);
             }
         }
@@ -140,7 +138,6 @@ class DemandeController extends AbstractController
             'daf'       => $daf,
             'pathCerfa' => $pathCerfa,
             'form'      => is_null($fileForm) ? null :$fileForm->createView(),
-            'formSave'  => $formSave->createView(),
             'client'    => $this->getUser()->getClient(),
             "files"     => $files,
         ]);

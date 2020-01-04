@@ -108,9 +108,11 @@
                         {% endif %}
                         <div class="text-center mb-5">
                         {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
-                            {{ form_start(formSave, {'attr': {'role': 'form', 'onsubmit':'return validate();'}})}}
-                            {{ form_widget(formSave)}}
-                            {{ form_end(formSave)}}
+                            <div class="form-group">
+                                <button type="button" onclick="saveAndValidate();" class="btn-validate-command d-flex align-items-center justify-content-between btn btn-blue btn">
+                                    {{ 'label.saveAndValidate' | trans }}
+                                </button>
+                            </div>
                         {% endif %}
                         </div>
                     </div>
@@ -141,9 +143,9 @@
                 }
             }
         );
-        function validate() {
+        function saveAndValidate() {
+            $("#validate").prop('checked', true);
             $('#form-dossier').submit();
-            console.log("Vos documents sont enregistrés");
         }
     </script>
 {% endblock %}

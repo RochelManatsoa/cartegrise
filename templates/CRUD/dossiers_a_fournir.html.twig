@@ -113,9 +113,12 @@
                         {% include 'demande/file/FormDossier.html.twig' %}
                     {% endif %}
                     {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
-                        <a href="{{ path("validate_file", {'demande': demande.id}) }}">
-                            <button class="pull-right btn btn-blue btn">Valider</button>
-                        </a>
+                            <div class="form-group">
+                                <button type="button" onclick="saveAndValidate();"
+                                    class="btn-validate-command d-flex align-items-center justify-content-between btn btn-blue btn">
+                                    {{ 'label.saveAndValidate' | trans }}
+                                </button>
+                            </div>
                     {% endif %}
                 </div>
                 <div class="pl-4 mb-3 mb-md-0">
@@ -142,4 +145,27 @@
             </div>
         </div>
     </div> 
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script type="application/javascript">
+    $('input.custom-file-input[type="file"]').change(function (e) {
+        let name = e.target.files[0].name;
+        let element = $(e.target);
+        element.next('label.custom-file-label').text(name);
+    });
+    $('.group-input').find('h4 label').map(
+        (key, item) => {
+            if ($(item).next().length === 1) {
+                $(item).parents('div.group-input').find('label.custom-file-label').text($(item).next().text());
+            } else {
+                $(item).parents('div.group-input').find('label.custom-file-label').text('Parcourir');
+            }
+        }
+    );
+    function saveAndValidate() {
+        $("#validate").prop('checked', true);
+        $('#form-dossier').submit();
+    }
+</script>
 {% endblock %}
