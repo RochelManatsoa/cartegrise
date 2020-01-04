@@ -3235,3 +3235,52 @@ Formulaire REcap
 		}
 	}
 }
+
+.crm-jumbotron {
+	background-color: $royal-blue;
+	border-radius: 0;
+    color: white;
+    padding: 3rem 2rem;
+}
+form {
+	#crm_search_Chercher {
+		font-family: "Ubuntu";
+		font-size: 14px !important;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		background-color: $aqua-blue !important;
+		border: $bdr_solid_1 transparent !important;
+		margin-top: 35px;
+		border-radius: 50px !important;
+		color: $white !important;
+		padding: 8px $size_30 !important;
+		width: 100%;
+		&:hover, &:focus {
+			box-shadow: none !important;
+			outline: none !important;
+			color: $aqua-blue !important;
+			background-color: transparent !important;
+			border-color: $aqua-blue !important;
+			text-decoration: none;
+		}
+	}
+}
+.container-result {
+	border: 1px solid #ddd;
+    background: #f1f1f1;
+    padding: 25px;
+	h3 {
+		text-transform: uppercase;
+		font-weight: 600;
+		font-size: 24px;
+	}
+	.custom-table{
+		&.table{
+			tr {
+				td, th{
+					font-size: 14px;
+				}
+			}
+		}
+	}
+}
