@@ -194,6 +194,13 @@ footer {
 		border-top: $bdr_solid_1 $gray;
 		padding: 20px 0;
 		font-size: 14px;
+		.txt-d {
+			font-style: italic;
+			display: inline-block;
+			color: #afafaf;
+			font-size: 12px;
+			line-height: 130%;
+		}
 		p {
 			margin-bottom: 0;
 			a {
