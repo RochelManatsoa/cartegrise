@@ -54,11 +54,11 @@ class DemandeCtvoType extends AbstractType
             "required" => false,
             "data_class" => null,
         ])
-        ->add('recepisseDemandeAchat', FileType::class, [
-            'label' => 'label.demande.recepisseDemandeAchat',
-            "required" => false,
-            "data_class" => null,
-        ])
+        // ->add('recepisseDemandeAchat', FileType::class, [
+        //     'label' => 'label.demande.recepisseDemandeAchat',
+        //     "required" => false,
+        //     "data_class" => null,
+        // ])
         ->add('copiePermisConduireTitulaire', FileType::class, [
             'label' => 'label.demande.copiePermisConduire',
             "required" => false,
