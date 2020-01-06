@@ -7,7 +7,11 @@
         </div>
     {% endfor %}
 <div>
-    {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
+    {% if demande.commande is defined and demande.commande is not null and demande.commande.saved %}
+        <div class="alert alert-success">
+            la demande est validée et a été envoyée
+        </div>
+    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
         <div class="alert alert-success">
             La demande est validée, attende des documents par courrier à l'adresse
         </div>
