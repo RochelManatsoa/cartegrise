@@ -19,6 +19,7 @@ use App\Form\VehiculeNeufInfoType;
 use App\Entity\File\DemandeDuplicata;
 use App\Entity\File\Files;
 use App\Manager\Mercure\MercureManager;
+use App\Manager\NotificationManager;
 
 /**
  * @Route("/demande")
@@ -33,7 +34,8 @@ class DemandeController extends AbstractController
         Commande        $commande,
         Request         $request,
         DemandeManager  $demandeManager,
-        MercureManager  $mercureManager
+        MercureManager  $mercureManager,
+        NotificationManager $notificationManager
     )
     {
         $form = $demandeManager->generateForm($commande);
