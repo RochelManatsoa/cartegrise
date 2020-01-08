@@ -31,7 +31,7 @@ class Demande
     const DOC_PENDING = 2;
     const DOC_NONVALID = 3;
     const DOC_RECEIVE_VALID = 4;
-    const DOC_RECEIVE_NON_VALID = 5;
+    const DOC_UNCOMPLETED = 5;
     const DOC_VALID_SEND_TMS = 6;
     const RETRACT_DEMAND = 7;
     const RETRACT_REFUND = 8;
@@ -672,7 +672,7 @@ class Demande
                 break;
             case $this::DOC_NONVALID :
                 $result = [
-                    'text' => 'documents incomplets ',
+                    'text' => 'documents reçus mais non validés',
                     'class' => 'btn btn-warning',
                 ];
                 break;
@@ -682,9 +682,9 @@ class Demande
                     'class' => 'btn btn-primary',
                 ];
                 break;
-            case $this::DOC_RECEIVE_NON_VALID :
+            case $this::DOC_UNCOMPLETED :
                 $result = [
-                    'text' => 'documents reçus mais non validés',
+                    'text' => 'documents incomplets',
                     'class' => 'btn btn-warning',
                 ];
                 break;
