@@ -331,6 +331,7 @@ class DemandeManager
         if (is_null($demande->getAvoir())){
             Throw new Exception("La demande n'a pas encore été retracter");
         }
+        $demande->setStatusDoc(Demande::RETRACT_DEMAND);
         $folder = $demande->getGeneratedCerfaPath();
         $file = $demande->getGeneratedAvoirPathFile();
         $params = $this->getTitulaireParams($demande);

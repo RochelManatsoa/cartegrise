@@ -191,6 +191,7 @@ class ActionAdminController extends Controller
                 if ($tmsResponse->isSuccessfull()) {
                     // $demande->setStatusDoc(Demande::DOC_RECEIVE_VALID);
                     $demande->getCommande()->setSaved(true);
+                    $demande->setStatusDoc(Demande::DOC_VALID_SEND_TMS);
                     $demandeManager->saveDemande($demande);
                     $this->addFlash('success', 'La demande '.$demande->getCommande()->getId().' a bien été enregister sur TMS');
                 }
