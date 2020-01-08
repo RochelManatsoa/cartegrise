@@ -30,6 +30,11 @@ class Demande
     const DOC_PENDING = 2;
     const DOC_NONVALID = 3;
     const DOC_RECEIVE_VALID = 4;
+    const DOC_RECEIVE_NON_VALID = 5;
+    const DOC_VALID_SEND_TMS = 6;
+    const RETRACT_DEMAND = 7;
+    const RETRACT_REFUND = 8;
+    const RETRACT_FORM_WAITTING = 9;
     const DOC_INVALID_MESSAGE= "Ce lien n'est plus valide";
     /**
      * @ORM\Id()
@@ -662,6 +667,21 @@ class Demande
                 break;
             case $this::DOC_RECEIVE_VALID :
                 $result = 'document reçus';
+                break;
+            case $this::DOC_RECEIVE_NON_VALID :
+                $result = 'documents reçus mais non validés';
+                break;
+            case $this::DOC_VALID_SEND_TMS :
+                $result = 'validé et envoyé à TMS';
+                break;
+            case $this::RETRACT_DEMAND :
+                $result = 'retracté';
+                break;
+            case $this::RETRACT_REFUND :
+                $result = 'remboursé';
+                break;
+            case $this::RETRACT_FORM_WAITTING :
+                $result = 'attente formulaire de rétractation';
                 break;
             default: 
                 $result = 'attente de document';

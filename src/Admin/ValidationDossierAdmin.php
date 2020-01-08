@@ -58,9 +58,6 @@ final class ValidationDossierAdmin extends AbstractAdmin
         ->add('reference')
         ->add('dateDemande')
         ->add('commande.immatriculation')
-        ->add('commande.status', null, [
-            'label'=> 'Statut de la commande'
-        ])
         ->add('transaction.transactionId')
         ->add('statusDocString', null, [
             'label' => "Etat",
