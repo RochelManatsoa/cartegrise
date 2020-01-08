@@ -128,6 +128,22 @@ class DemandeManager
 
     }
 
+    public function retracter(Demande $demande)
+    {
+        if (!$demande instanceof Demande)
+            return;
+        $demande->setStatusDoc(Demande::RETRACT_DEMAND);
+        $this->saveDemande($demande);
+    }
+
+    public function refund(Demande $demande)
+    {
+        if (!$demande instanceof Demande)
+            return;
+        $demande->setStatusDoc(Demande::RETRACT_REFUND);
+        $this->saveDemande($demande);
+    }
+
     public function saveDemande(Demande $demande)
     {
         if (!$demande instanceof Demande)
@@ -331,7 +347,7 @@ class DemandeManager
         if (is_null($demande->getAvoir())){
             Throw new Exception("La demande n'a pas encore été retracter");
         }
-        $demande->setStatusDoc(Demande::RETRACT_DEMAND);
+        $demande->setStatusDoc(Demande::RETRACT_FORM_WAITTING);
         $folder = $demande->getGeneratedCerfaPath();
         $file = $demande->getGeneratedAvoirPathFile();
         $params = $this->getTitulaireParams($demande);
@@ -558,8 +574,10 @@ class DemandeManager
             case "DUP":
                 if ($demande->getDuplicata()->getAdresse() instanceof Adresse) {
                     $adresseFacture = $demande->getDuplicata()->getAdresse();
-                } else {
+                } else if ($demande->getCommande()->getClient() !== null) {
                     $adresseFacture = $demande->getCommande()->getClient()->getClientAdresse();
+                } else {
+                    $adresseFacture = null;
                 }
                 
             break;

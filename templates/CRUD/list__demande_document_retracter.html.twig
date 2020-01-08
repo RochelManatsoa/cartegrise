@@ -1,0 +1,13 @@
+
+{% if object.statusDoc == constant('App\\Entity\\Demande::RETRACT_FORM_WAITTING') %} 
+    <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracterWithDocument', object) }}" title="retracter">
+    <i class="fa fa-close" aria-hidden="true"></i>
+    retracté
+    </a>
+{% elseif object.statusDoc == constant('App\\Entity\\Demande::RETRACT_DEMAND') %}
+<a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('refund', object) }}"
+    title="retracter">
+    <i class="fa fa-close" aria-hidden="true"></i>
+    remboursé
+</a>
+{% endif %}

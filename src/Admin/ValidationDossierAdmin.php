@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
@@ -33,6 +34,9 @@ final class ValidationDossierAdmin extends AbstractAdmin
     {
         $collection->add('dossier', $this->getRouterIdParameter().'/dossier');
         $collection->add('uploadDossier', $this->getRouterIdParameter().'/upload_dossier');
+        $collection->add('ficheClient', $this->getRouterIdParameter().'/fiche-client');
+        $collection->add('retracterWithDocument', $this->getRouterIdParameter().'/retracter');
+        $collection->add('refund', $this->getRouterIdParameter().'/refund');
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -47,7 +51,31 @@ final class ValidationDossierAdmin extends AbstractAdmin
         $datagridMapper
         ->add('id')
         ->add('reference')
-        ->add('statusDoc')
+        ->add('commande.client.clientNom', null, [
+            'label' => 'Nom'
+        ])
+        ->add('commande.immatriculation', null, [
+            'label' => 'Immatriculation'
+        ])
+        ->add('statusDoc', 'doctrine_orm_choice' ,[
+            'label' => 'Etat',
+            'global_search' => true,
+            'field_type' => ChoiceType::class,
+            'field_options' => [
+                'choices' => [
+                        'attente de document' => Demande::DOC_WAITTING,
+                        'document valide' => Demande::DOC_VALID,
+                        'en cours' => Demande::DOC_PENDING,
+                        'documents incomplets ' => Demande::DOC_NONVALID,
+                        'document reçus' => Demande::DOC_RECEIVE_VALID,
+                        'documents reçus mais non validés' => Demande::DOC_RECEIVE_NON_VALID,
+                        'validé et envoyé à TMS' => Demande::DOC_VALID_SEND_TMS,
+                        'retracté' => Demande::RETRACT_DEMAND,
+                        'remboursé' => Demande::RETRACT_REFUND,
+                        'attente formulaire de rétractation' => Demande::RETRACT_FORM_WAITTING,
+                ]
+            ]
+        ])
         ;
     }
 
@@ -57,10 +85,19 @@ final class ValidationDossierAdmin extends AbstractAdmin
         ->add('id')
         ->add('reference')
         ->add('dateDemande')
-        ->add('commande.immatriculation')
-        ->add('transaction.transactionId')
-        ->add('statusDocString', null, [
+        ->addIdentifier('clientName', null, [
+            'label' => 'Nom',
+            'template' => 'CRUD/client/ficheClientList.html.twig',
+        ])
+        ->add('commande.immatriculation', null, [
+            'label' => 'Immatriculation'
+        ])
+        ->add('transaction.transactionId', null , [
+            'label' => 'Id Transaction'
+        ])
+        ->add('statusDocStringDesigned', null, [
             'label' => "Etat",
+            'template' => 'CRUD/statusDocDesigned.html.twig',
         ])
         ->add('_action', null, [
             'actions' => [ 
@@ -69,6 +106,9 @@ final class ValidationDossierAdmin extends AbstractAdmin
                 ],
                 'upload' => [
                     'template'=>'CRUD/list__demande_document_upload.html.twig'
+                ],
+                'retracter' => [
+                    'template'=>'CRUD/list__demande_document_retracter.html.twig'
                 ]
             ],
             

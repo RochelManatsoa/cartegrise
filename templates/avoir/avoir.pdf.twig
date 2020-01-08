@@ -82,15 +82,17 @@
                             {{ findNomPrenomOfTitulaire(demande, "raisonSociale") | upper }}
                             {% endif %}
                         </strong>
-                        <br>
-                        {{ adresse.numero }}
-                        {{ adresse.extension }}
-                        {{ adresse.typevoie | displayAdress}}
-                        {{ adresse.nom | upper }}
-                        {{ adresse.complement }}
-                        <br>
-                        {{ adresse.codePostal }}
-                        {{ adresse.ville | upper }}
+                        {% if adresse is not null %}
+                            <br>
+                            {{ adresse.numero }}
+                            {{ adresse.extension }}
+                            {{ adresse.typevoie | displayAdress}}
+                            {{ adresse.nom | upper }}
+                            {{ adresse.complement }}
+                            <br>
+                            {{ adresse.codePostal }}
+                            {{ adresse.ville | upper }}
+                        {% endif %}
                     </p>
                 </div>
             </div>
@@ -115,7 +117,9 @@
                         {% else %}
                             {% set currentTransaction = demande.commande.transaction %}
                         {% endif %}
-                        <td class="text-center">{{currentTransaction.transactionId}}</td>
+                        {% if currentTransaction is not null %}
+                            <td class="text-center">{{currentTransaction.transactionId}}</td>
+                        {% endif %}
                     </tr>
                 </tbody>
             </table>

@@ -26,6 +26,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 class Demande
 {
     const DOC_DOWNLOAD = 'document/';
+    const DOC_WAITTING = 0;
     const DOC_VALID = 1;
     const DOC_PENDING = 2;
     const DOC_NONVALID = 3;
@@ -195,6 +196,7 @@ class Demande
     {
         $this->fichiers = new ArrayCollection();
         $this->dateDemande = new \Datetime();
+        $this->statusDoc = $this::DOC_WAITTING;
     }
 
     public function getId(): ?int
@@ -657,34 +659,64 @@ class Demande
         $result = '';
         switch($this->statusDoc){
             case $this::DOC_VALID :
-                $result = "document valide"; 
+                $result = [
+                    'text' => 'document valide',
+                    'class' => 'btn btn-success',
+                ];
                 break;
             case $this::DOC_PENDING :
-                $result = 'en cours';
+                $result = [
+                    'text' => 'en cours',
+                    'class' => 'btn btn-info',
+                ];
                 break;
             case $this::DOC_NONVALID :
-                $result = 'documents incomplets ';
+                $result = [
+                    'text' => 'documents incomplets ',
+                    'class' => 'btn btn-warning',
+                ];
                 break;
             case $this::DOC_RECEIVE_VALID :
-                $result = 'document reçus';
+                $result = [
+                    'text' => 'document reçus',
+                    'class' => 'btn btn-primary',
+                ];
                 break;
             case $this::DOC_RECEIVE_NON_VALID :
-                $result = 'documents reçus mais non validés';
+                $result = [
+                    'text' => 'documents reçus mais non validés',
+                    'class' => 'btn btn-warning',
+                ];
                 break;
             case $this::DOC_VALID_SEND_TMS :
-                $result = 'validé et envoyé à TMS';
+                $result = [
+                    'text' => 'validé et envoyé à TMS',
+                    'class' => 'btn btn-success',
+                ];
                 break;
             case $this::RETRACT_DEMAND :
-                $result = 'retracté';
+                $result = [
+                    'text' => 'retracté',
+                    'class' => 'btn btn-danger',
+                ];
                 break;
             case $this::RETRACT_REFUND :
-                $result = 'remboursé';
+                $result = [
+                    'text' => 'remboursé',
+                    'class' => 'btn btn-warning',
+                ];
                 break;
             case $this::RETRACT_FORM_WAITTING :
-                $result = 'attente formulaire de rétractation';
+                $result = [
+                    'text' => 'attente formulaire de rétractation',
+                    'class' => 'btn btn-danger',
+                ];
                 break;
             default: 
-                $result = 'attente de document';
+                $result = [
+                    'text' => 'attente de document',
+                    'class' => 'btn btn-info',
+                ];
                 break;
         }
 

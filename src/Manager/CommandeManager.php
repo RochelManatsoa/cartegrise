@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use App\Services\Tms\TmsClient;
 use App\Services\Tms\Response as ResponseTms;
-use App\Entity\{Commande, Facture, DailyFacture};
+use App\Entity\{Commande, Demande, Facture, DailyFacture, Avoir};
 use App\Repository\{CommandeRepository, DailyFactureRepository};
 use App\Manager\SessionManager;
 use App\Manager\{StatusManager, TMSSauverManager, TransactionManager, TaxesManager};
@@ -56,10 +56,37 @@ class CommandeManager
 		$this->transactionManager = $transactionManager;
 	}
 
+	public function updateEtatDemande()
+	{
+		$commandes = $this->repository->findAll();
+		foreach ($commandes as $commande) {
+			if ($commande->getDemande() instanceof Demande) {
+				$demande = $commande->getDemande();
+				if ($commande->getSaved()){
+					$demande->setStatusDoc(Demande::DOC_VALID_SEND_TMS);
+					$this->saveDemande($demande);
+				} elseif (($demande->getAvoir() instanceof Avoir) && ($demande->getStatusDoc() !== Demande::DOC_VALID_SEND_TMS)) {
+					$demande->setStatusDoc(Demande::RETRACT_FORM_WAITTING);
+					$this->saveDemande($demande);
+				} elseif ($demande->getStatusDoc() === null) {
+					$demande->setStatusDoc(Demande::DOC_WAITTING);
+					$this->saveDemande($demande);
+				}
+			}
+		}
+	}
+
 	public function save(Commande $commande)
 	{
 		// hydrage sql
 		$this->persist($commande);
+		// save in database
+		$this->flush();
+	}
+	public function saveDemande(Demande $demande)
+	{
+		// hydrage sql
+		$this->em->persist($demande);
 		// save in database
 		$this->flush();
 	}

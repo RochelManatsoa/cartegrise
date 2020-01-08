@@ -1,0 +1,7 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+{% set data = object.statusDocString %}
+
+<span class="{{ data.class }}">{{ data.text }}</span>
+{% endblock field %}

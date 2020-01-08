@@ -107,6 +107,43 @@ class ActionAdminController extends Controller
         // if you have a filtered list and want to keep your filters after the redirect
         return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
     }
+    /**
+     * @param $id
+     */
+    public function retracterWithDocumentAction($id, DemandeManager $demandeManager)
+    {
+        $object = $this->admin->getSubject();
+
+        if (!$object && !$object instanceof Demande) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+        }
+        
+        $file = $demandeManager->retracter($object);
+
+        // return new RedirectResponse($this->generateUrl('payment_avoir', ['demande'=> $object->getId()]));
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+
+    /**
+     * @param $id
+     */
+    public function refundAction($id, DemandeManager $demandeManager)
+    {
+        $object = $this->admin->getSubject();
+
+        if (!$object && !$object instanceof Demande) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+        }
+        
+        $file = $demandeManager->refund($object);
+
+        // return new RedirectResponse($this->generateUrl('payment_avoir', ['demande'=> $object->getId()]));
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
 
     /**
      * @param $id
