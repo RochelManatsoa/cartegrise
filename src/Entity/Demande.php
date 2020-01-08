@@ -646,4 +646,28 @@ class Demande
 
         return $this;
     }
+
+    public function getStatusDocString()
+    {
+        $result = '';
+        switch($this->statusDoc){
+            case $this::DOC_VALID :
+                $result = "document valide"; 
+                break;
+            case $this::DOC_PENDING :
+                $result = 'en cours';
+                break;
+            case $this::DOC_NONVALID :
+                $result = 'documents incomplets ';
+                break;
+            case $this::DOC_RECEIVE_VALID :
+                $result = 'document reçus';
+                break;
+            default: 
+                $result = 'attente de document';
+                break;
+        }
+
+        return $result;
+    }
 }

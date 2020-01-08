@@ -47,6 +47,7 @@ final class ValidationDossierAdmin extends AbstractAdmin
         $datagridMapper
         ->add('id')
         ->add('reference')
+        ->add('statusDoc')
         ;
     }
 
@@ -61,6 +62,9 @@ final class ValidationDossierAdmin extends AbstractAdmin
             'label'=> 'Statut de la commande'
         ])
         ->add('transaction.transactionId')
+        ->add('statusDocString', null, [
+            'label' => "Etat",
+        ])
         ->add('_action', null, [
             'actions' => [ 
                 'dossier' => [
