@@ -667,7 +667,7 @@ class Demande
             case $this::DOC_PENDING :
                 $result = [
                     'text' => 'en cours',
-                    'class' => 'btn btn-info',
+                    'class' => 'btn btn-warning',
                 ];
                 break;
             case $this::DOC_NONVALID :
