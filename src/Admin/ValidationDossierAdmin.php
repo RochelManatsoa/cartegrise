@@ -37,6 +37,8 @@ final class ValidationDossierAdmin extends AbstractAdmin
         $collection->add('ficheClient', $this->getRouterIdParameter().'/fiche-client');
         $collection->add('retracterWithDocument', $this->getRouterIdParameter().'/retracter');
         $collection->add('refund', $this->getRouterIdParameter().'/refund');
+        $collection->add('facture', $this->getRouterIdParameter().'/facture');
+        $collection->add('avoir', $this->getRouterIdParameter().'/avoir');
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -51,6 +53,9 @@ final class ValidationDossierAdmin extends AbstractAdmin
         $datagridMapper
         ->add('id')
         ->add('reference')
+        ->add('commande.client.user.email', null, [
+            'label' => 'email'
+        ])
         ->add('commande.client.clientNom', null, [
             'label' => 'Nom'
         ])
@@ -83,8 +88,16 @@ final class ValidationDossierAdmin extends AbstractAdmin
     {
         $listMapper
         ->add('id')
-        ->add('reference')
+        ->add('commande.client.clientNom', null, [
+            'label' => 'Nom'
+        ])
+        ->add('commande.client.clientContact.contact_telmobile', null , [
+            'label' => 'Telephone'
+        ])
         ->add('dateDemande')
+        ->add('commande.client.user.email', null, [
+            'label' => 'email'
+        ])
         ->addIdentifier('clientName', null, [
             'label' => 'Nom',
             'template' => 'CRUD/client/ficheClientList.html.twig',
@@ -92,8 +105,9 @@ final class ValidationDossierAdmin extends AbstractAdmin
         ->add('commande.immatriculation', null, [
             'label' => 'Immatriculation'
         ])
-        ->add('transaction.transactionId', null , [
-            'label' => 'Id Transaction'
+        ->addIdentifier('factureAvoir', null, [
+            'label' => 'facture / avoirs',
+            'template' => 'CRUD/demande/factureAvoir.html.twig',
         ])
         ->add('statusDocStringDesigned', null, [
             'label' => "Etat",
