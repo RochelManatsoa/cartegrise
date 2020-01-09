@@ -88,7 +88,12 @@ final class ValidationDossierAdmin extends AbstractAdmin
     {
         $listMapper
         ->add('id')
-        ->add('reference')
+        ->add('commande.client.clientNom', null, [
+            'label' => 'Nom'
+        ])
+        ->add('commande.client.clientContact.contact_telmobile', null , [
+            'label' => 'Telephone'
+        ])
         ->add('dateDemande')
         ->add('commande.client.user.email', null, [
             'label' => 'email'
@@ -99,9 +104,6 @@ final class ValidationDossierAdmin extends AbstractAdmin
         ])
         ->add('commande.immatriculation', null, [
             'label' => 'Immatriculation'
-        ])
-        ->add('transaction.transactionId', null , [
-            'label' => 'Id Transaction'
         ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoirs',
