@@ -422,20 +422,21 @@ class CommandeManager
 
     public function generateFacture(Commande $commande)
     {
+		$this->checkIfTransactionSuccess($commande);
         $folder = $commande->getGeneratedCerfaPath();
         $file = $commande->getGeneratedFacturePathFile();
         // create directory
         if (!is_dir($folder)) mkdir($folder, 0777, true);
         // end create file 
         // get facture if not exist
-        if (!is_file($file)) { // attente de finalité du process
+        // if (!is_file($file)) { // attente de finalité du process
             $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
             $filename = "Facture";
             $html = $this->twig->render("payment/facture.pdf.twig", ['commande' => $commande]);
             $output = $snappy->getOutputFromHtml($html);
             
             $filefinal = file_put_contents($file, $output);
-        }
+        // }
         
         return $file;
 	}
