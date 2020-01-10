@@ -7,7 +7,7 @@
 {% if demande is not null %}
     {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') %}
         {% set status = 'text-success' %}
-    {% elseif demande.statusDoc != constant('App\\Entity\\Demande::DOC_PENDING') %}
+    {% elseif demande.statusDoc != constant('App\\Entity\\Demande::DOC_PENDING') or demande.statusDoc != constant('App\\Entity\\Demande::DOC_UNCOMPLETED') %}
         {% set status = 'text-warning' %}
     {% elseif demande.statusDoc != constant('App\\Entity\\Demande::DOC_NONVALID') %}
         {% set status = 'text-danger' %}

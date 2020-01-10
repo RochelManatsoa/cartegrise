@@ -20,7 +20,7 @@
                     <br>20 Impasse Camille Langlade
                     <br>31100 Toulouse
                 </div>
-            {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
+            {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') or demande.statusDoc == constant('App\\Entity\\Demande::DOC_UNCOMPLETED') %}
                 <div class="alert alert-warning" role="alert">
                     Votre demande est en cours de validation, une fois validée, veuillez nous envoyer vos documents physiques à l'adresse
                     suivante : 

@@ -36,6 +36,7 @@ class Demande
     const RETRACT_DEMAND = 7;
     const RETRACT_REFUND = 8;
     const RETRACT_FORM_WAITTING = 9;
+    const WILL_BE_UNCOMPLETED = 20;
     const DOC_INVALID_MESSAGE= "Ce lien n'est plus valide";
     /**
      * @ORM\Id()
@@ -666,7 +667,7 @@ class Demande
                 break;
             case $this::DOC_PENDING :
                 $result = [
-                    'text' => 'en cours',
+                    'text' => 'document numériser',
                     'class' => 'btn btn-warning',
                 ];
                 break;

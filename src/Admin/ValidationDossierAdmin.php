@@ -70,7 +70,7 @@ final class ValidationDossierAdmin extends AbstractAdmin
                 'choices' => [
                         'attente de document' => Demande::DOC_WAITTING,
                         'document valide' => Demande::DOC_VALID,
-                        'en cours' => Demande::DOC_PENDING,
+                        'document numériser' => Demande::DOC_PENDING,
                         'documents incomplets ' => Demande::DOC_UNCOMPLETED,
                         'document reçus' => Demande::DOC_RECEIVE_VALID,
                         'documents reçus mais non validés' => Demande::DOC_NONVALID,
