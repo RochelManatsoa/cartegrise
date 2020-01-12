@@ -10,7 +10,7 @@ use App\Manager\DocumentAFournirManager;
 use App\Manager\{DemandeManager, CommandeManager, TMSSauverManager, ClientManager};
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
-use App\Entity\Demande;
+use App\Entity\{Demande, Commande};
 use App\Entity\Client;
 use App\Entity\Avoir;
 use App\Form\SaveAndValidateType;
@@ -46,7 +46,12 @@ class ActionAdminController extends Controller
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
         }
 
-        return new RedirectResponse($this->generateUrl('payment_facture_commande', ['commande'=> $object->getCommande()->getId()]));
+        if ($object instanceof Demande) {
+            return new RedirectResponse($this->generateUrl('payment_facture_commande', ['commande'=> $object->getCommande()->getId()]));
+        } elseif ($object instanceof Commande) {
+            return new RedirectResponse($this->generateUrl('payment_facture_commande', ['commande'=> $object->getId()]));
+
+        }
 
         // if you have a filtered list and want to keep your filters after the redirect
         // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
