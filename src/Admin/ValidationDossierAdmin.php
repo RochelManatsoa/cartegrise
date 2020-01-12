@@ -99,7 +99,7 @@ final class ValidationDossierAdmin extends AbstractAdmin
             'label' => 'email'
         ])
         ->addIdentifier('clientName', null, [
-            'label' => 'Nom',
+            'label' => 'Profil',
             'template' => 'CRUD/client/ficheClientList.html.twig',
         ])
         ->add('commande.immatriculation', null, [
