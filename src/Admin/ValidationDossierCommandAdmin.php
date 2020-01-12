@@ -56,7 +56,6 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
     {
         $datagridMapper
         ->add('id')
-        ->add('demande.reference')
         ->add('client.user.email', null, [
             'label' => 'email'
         ])
