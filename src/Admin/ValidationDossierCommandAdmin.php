@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\CoreBundle\Form\Type\DateRangePickerType;
 use App\Entity\Demande;
 
 final class ValidationDossierCommandAdmin extends AbstractAdmin
@@ -58,6 +59,10 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
         ->add('id')
         ->add('client.user.email', null, [
             'label' => 'email'
+        ])
+        ->add('facture.createdAt', 'doctrine_orm_date_range', [
+            'field_type'=> DateRangePickerType::class,
+            'label' => 'Paier le:'
         ])
         ->add('client.clientNom', null, [
             'label' => 'Nom'
@@ -107,6 +112,9 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
         ->add('id')
         ->add('client.clientNom', null, [
             'label' => 'Nom'
+        ])
+        ->add('facture.createdAt', null, [
+            'label' => 'Paier le:'
         ])
         ->add('client.clientContact.contact_telmobile', null , [
             'label' => 'Telephone'
