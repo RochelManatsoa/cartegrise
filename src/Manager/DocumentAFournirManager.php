@@ -137,6 +137,7 @@ class DocumentAFournirManager
         $data = $form->getData();
         $uow = $this->entityManager->getUnitOfWork();
         $oldData = $uow->getOriginalEntityData($data);
+
         foreach ($form as $value) {
             $file = $value->getData();
             $fineName = $value->getName();
@@ -152,9 +153,11 @@ class DocumentAFournirManager
                 if (!$value instanceof SubmitButton) {
                     $demande = $data->getParent()->getDemande();
                     if ($demande instanceof Demande) {
-                        $demande->setStatusDoc(Demande::WILL_BE_UNCOMPLETED);
-                        $this->entityManager->persist($demande);
-                        $this->entityManager->flush();
+                        if ($demande->getStatusDoc() != Demande::DOC_VALID_SEND_TMS){
+                            $demande->setStatusDoc(Demande::WILL_BE_UNCOMPLETED);
+                            $this->entityManager->persist($demande);
+                            $this->entityManager->flush();
+                        }
                     }
                 }
             }
