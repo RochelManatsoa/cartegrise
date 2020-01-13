@@ -214,7 +214,7 @@ class ActionAdminController extends Controller
         if ($object instanceof Demande){
             $demande = $object;
         } elseif($object instanceof Commande) {
-            $demande = $object->getDemande();
+            $demande = $demandeManager->getRepository()->findOneBy(['commande'=>$object->getId()]);
         }
 
         if (!$demande) {
