@@ -18,6 +18,9 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ActionAdminController extends Controller
 {
+    public function __construct(DemandeManager $demandeManager){
+        $this->demandeManager = $demandeManager;
+    }
     /**
      * @param $id
      */
@@ -211,11 +214,7 @@ class ActionAdminController extends Controller
     {
         $object = $this->admin->getSubject();
 
-        if ($object instanceof Demande){
-            $demande = $object;
-        } elseif($object instanceof Commande) {
-            $demande = $demandeManager->getRepository()->findOneBy(['commande'=>$object->getId()]);
-        }
+        $demande = $this->getDemandeInObject($object);
 
         if (!$demande) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
@@ -265,6 +264,16 @@ class ActionAdminController extends Controller
         // if you have a filtered list and want to keep your filters after the redirect
         // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
     }
+    private function getDemandeInObject($object){
+        $demande = null;
+        if ($object instanceof Demande){
+            $demande = $object;
+        } elseif($object instanceof Commande) {
+            $demande = $this->demandeManager->getRepository()->findOneBy(['commande'=>$object->getId()]);
+        }
+
+        return $demande;
+    }
     /**
      * @param $id
      */
@@ -275,7 +284,8 @@ class ActionAdminController extends Controller
         Request $request
     )
     {
-        $demande = $this->admin->getSubject();
+        $object = $this->admin->getSubject();
+        $demande = $this->getDemandeInObject($object);
 
         $pathCerfa = $demandeManager->generateCerfa($demande);
         $daf = $demandeManager->getDossiersAFournir($demande, $pathCerfa);
