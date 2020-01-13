@@ -209,7 +209,13 @@ class ActionAdminController extends Controller
         TMSSauverManager $tmsSauverManager
     )
     {
-        $demande = $this->admin->getSubject();
+        $object = $this->admin->getSubject();
+
+        if ($object instanceof Demande){
+            $demande = $object;
+        } elseif($object instanceof Commande) {
+            $demande = $object->getDemande();
+        }
 
         if (!$demande) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
