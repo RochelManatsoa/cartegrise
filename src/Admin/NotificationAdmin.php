@@ -64,7 +64,7 @@ final class NotificationAdmin extends AbstractAdmin
             'template' => 'CRUD/client/ficheClientNotificationList.html.twig',
         ])
         ->addIdentifier('commande.status', null, [
-            'label' => 'Status Commande'
+            'label' => 'Statut Commande'
         ])
         ->addIdentifier('demande.statutDemande', null, [
             'label' => 'Status Demande'
