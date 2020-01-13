@@ -62,7 +62,7 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
         ])
         ->add('facture.createdAt', 'doctrine_orm_date_range', [
             'field_type'=> DateRangePickerType::class,
-            'label' => 'Paier le:'
+            'label' => 'payer le:'
         ])
         ->add('client.clientNom', null, [
             'label' => 'Nom'
@@ -114,7 +114,7 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
             'label' => 'Nom'
         ])
         ->add('facture.createdAt', null, [
-            'label' => 'Paier le:'
+            'label' => 'payer le:'
         ])
         ->add('client.clientContact.contact_telmobile', null , [
             'label' => 'Telephone'
