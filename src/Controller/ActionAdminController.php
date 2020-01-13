@@ -98,6 +98,8 @@ class ActionAdminController extends Controller
     {
         $object = $this->admin->getSubject();
 
+        $object = $this->getDemandeInObject($object);
+
         if (!$object && !$object instanceof Demande) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
         }
@@ -119,6 +121,7 @@ class ActionAdminController extends Controller
     public function retracterWithDocumentAction($id, DemandeManager $demandeManager)
     {
         $object = $this->admin->getSubject();
+        $object = $this->getDemandeInObject($object);
 
         if (!$object && !$object instanceof Demande) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
