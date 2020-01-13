@@ -5,7 +5,7 @@
 </a>
 {% else %}
     {% if object.demande is defined and object.demande is not null %}
-        <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('dossier', object.demande) }}" title="dossier">
+        <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('dossier', object) }}" title="dossier">
             <i class="fa fa-file" aria-hidden="true"></i>
             dossier
         </a>
