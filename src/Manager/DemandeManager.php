@@ -88,6 +88,7 @@ class DemandeManager
     {
         $demande = $this->init();
         $commande->setDemande($demande);
+        $demande->setCommande($commande);
         switch ($commande->getDemarche()->getType()) {
             case "CTVO":
                 $form = $this->formFactory->create(DemandeCtvoType::class, $demande);
@@ -420,6 +421,11 @@ class DemandeManager
     {
 
         return $this->repository->find($id);
+    }
+
+    public function getRepository()
+    {
+        return $this->repository;
     }
 
     public function getUserWithoutSendDocumentInDay(int $day, MailManager $mailManager){
