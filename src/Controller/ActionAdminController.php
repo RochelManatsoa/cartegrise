@@ -211,6 +211,8 @@ class ActionAdminController extends Controller
     {
         $object = $this->admin->getSubject();
 
+        dd($object);
+
         if ($object instanceof Demande){
             $demande = $object;
         } elseif($object instanceof Commande) {
