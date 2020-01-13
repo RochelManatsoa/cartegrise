@@ -141,6 +141,7 @@ class ActionAdminController extends Controller
     public function refundAction($id, DemandeManager $demandeManager)
     {
         $object = $this->admin->getSubject();
+        $object = $this->getDemandeInObject($object);
 
         if (!$object && !$object instanceof Demande) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
