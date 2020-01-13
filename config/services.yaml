@@ -122,7 +122,7 @@ services:
     App\Admin\ValidationDossierCommandAdmin:
         arguments: [~, App\Entity\Commande, App\Controller\ActionAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm,group: documents, label: 'Estimations paier et Upload des documents' }
+            - { name: sonata.admin, manager_type: orm,group: documents, label: 'Dossiers payés / Upload des documents' }
         public: true
     App\Admin\TransactionWithoutFactureAdmin:
         arguments: [~, App\Entity\Transaction, App\Controller\ActionAdminController]

@@ -114,13 +114,13 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
             'label' => 'Nom'
         ])
         ->add('facture.createdAt', null, [
-            'label' => 'payer le:'
+            'label' => 'Payée le'
         ])
         ->add('client.clientContact.contact_telmobile', null , [
-            'label' => 'Telephone'
+            'label' => 'Téléphone'
         ])
         ->add('client.user.email', null, [
-            'label' => 'email'
+            'label' => 'Email'
         ])
         ->addIdentifier('clientName', null, [
             'label' => 'Profil',
@@ -130,7 +130,7 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
             'label' => 'Immatriculation'
         ])
         ->addIdentifier('factureAvoir', null, [
-            'label' => 'facture / avoirs',
+            'label' => 'facture / avoir',
             'template' => 'CRUD/demande/factureAvoir.html.twig',
         ])
         ->add('statusDocStringDesigned', null, [

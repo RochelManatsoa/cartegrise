@@ -66,23 +66,27 @@ final class AvoirAdmin extends AbstractAdmin
         $listMapper
         ->addIdentifier('id')
         ->addIdentifier('commande.ceerLe', null, [
-            'label' => 'Date commande',
+            'label' => 'Créée le',
         ])
         ->addIdentifier('commande.demarche.nom', null, [
             'label' => 'Type de commande'
         ])
-        ->addIdentifier('commande.immatriculation')
+        ->addIdentifier('commande.immatriculation', null, [
+            'label' => 'Immatriculation'
+        ])
         ->addIdentifier('client.clientNom', null, [
             'label' => 'Nom'
         ])
         ->addIdentifier('commande.status', null, [
-            'label' => 'Status Commande'
+            'label' => 'Statut'
         ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoirs',
             'template' => 'CRUD/demande/factureAvoir.html.twig',
         ])
-        ->addIdentifier('commande.codePostal')
+        ->addIdentifier('commande.codePostal', null, [
+            'label' => 'Dép.'
+        ])
         ->addIdentifier('commande.taxes.taxeTotale', null, [
             'label' => 'Taxes'
         ])
