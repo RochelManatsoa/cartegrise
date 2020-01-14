@@ -661,62 +661,62 @@ class Demande
         switch($this->statusDoc){
             case $this::DOC_VALID :
                 $result = [
-                    'text' => 'Documents validés par mail',
-                    'class' => 'btn btn-success',
+                    'text' => 'Documents numériques validés',
+                    'class' => 'btn color-success',
                 ];
                 break;
             case $this::DOC_PENDING :
                 $result = [
                     'text' => 'Documents numérisés',
-                    'class' => 'btn btn-warning',
+                    'class' => 'btn color-warning',
                 ];
                 break;
             case $this::DOC_NONVALID :
                 $result = [
                     'text' => 'Documents reçus mais non validés',
-                    'class' => 'btn btn-warning',
+                    'class' => 'btn color-warning-light',
                 ];
                 break;
             case $this::DOC_RECEIVE_VALID :
                 $result = [
-                    'text' => 'Documents reçus',
-                    'class' => 'btn btn-primary',
+                    'text' => 'Docs courrier validés',
+                    'class' => 'btn color-primary',
                 ];
                 break;
             case $this::DOC_UNCOMPLETED :
                 $result = [
                     'text' => 'Documents incomplets',
-                    'class' => 'btn btn-warning',
+                    'class' => 'btn color-warning',
                 ];
                 break;
             case $this::DOC_VALID_SEND_TMS :
                 $result = [
                     'text' => 'Validée et envoyée à TMS',
-                    'class' => 'btn btn-success',
+                    'class' => 'btn color-success-dark',
                 ];
                 break;
             case $this::RETRACT_DEMAND :
                 $result = [
                     'text' => 'Retractée',
-                    'class' => 'btn btn-danger',
+                    'class' => 'btn color-danger-light',
                 ];
                 break;
             case $this::RETRACT_REFUND :
                 $result = [
                     'text' => 'Remboursée',
-                    'class' => 'btn btn-warning',
+                    'class' => 'btn color-info-dark',
                 ];
                 break;
             case $this::RETRACT_FORM_WAITTING :
                 $result = [
                     'text' => 'Attente formulaire de rétractation',
-                    'class' => 'btn btn-danger',
+                    'class' => 'btn color-danger',
                 ];
                 break;
             default: 
                 $result = [
                     'text' => 'Attente de documents',
-                    'class' => 'btn btn-info',
+                    'class' => 'btn color-info',
                 ];
                 break;
         }
