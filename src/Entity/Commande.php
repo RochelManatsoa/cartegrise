@@ -365,7 +365,9 @@ class Commande
 
     public function setClient(?Client $client): self
     {
-        $this->client = $client;
+        if ($this->client === null) {
+            $this->client = $client;
+        }
 
         return $this;
     }

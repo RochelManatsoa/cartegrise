@@ -4,7 +4,7 @@ namespace App\Manager;
 
 use Swift_Mailer;
 use Swift_Attachment;
-use App\Entity\Demande;
+use App\Entity\{Demande, Client};
 use App\Manager\Model\ParamDocumentAFournir;
 use App\Manager\{DemandeManager, NotificationEmailManager};
 use App\Entity\NotificationEmail;
@@ -40,11 +40,21 @@ class MailManager
     public function sendMailDocumentAFournir(Demande $demande, ParamDocumentAFournir $infos)
     {
         $daf = $this->demandeManager->getDossiersAFournir($demande);
-        $owner = $demande->getCommande()->getClient()->getUser();
         $now = (new \DateTime())->getTimestamp();
         $encoder = hash('sha256', $now);
-        $demande->setChecker($encoder)->setStatusDoc(Demande::DOC_PENDING);
+        $demande->setChecker($encoder);
+        if ($demande->getStatusDoc() != Demande::DOC_VALID_SEND_TMS) {
+            if ($demande->getStatusDoc() == Demande::WILL_BE_UNCOMPLETED) {
+                $demande->setStatusDoc(Demande::DOC_UNCOMPLETED);
+            } else {
+                $demande->setStatusDoc(Demande::DOC_PENDING);
+            }
+        }
+        
         $this->demandeManager->saveDemande($demande);
+        if (!$demande->getCommande()->getClient() instanceof Client)
+            return;
+        $owner = $demande->getCommande()->getClient()->getUser();
         $emailDests = $this->notificationManager->getAllEmailOf(NotificationEmail::FILE_NOTIF);
         if (\is_iterable($emailDests) && 0 < count($emailDests)){
             $message = (new \Swift_Message($infos->getName() . ' ' . $owner->getEmail()))

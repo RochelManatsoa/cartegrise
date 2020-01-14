@@ -12,7 +12,7 @@ use App\Form\Demande\DemandeChangementAdresseType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
-use App\Entity\User;
+use App\Entity\{User, Commande};
 use App\Repository\{TransactionRepository, HistoryTransactionRepository};
 use Twig_Environment as Twig;
 
@@ -103,5 +103,10 @@ class TransactionManager
                 }
             }
         }
+    }
+
+    public function findTransactionSuccessByCommand(Commande $commande)
+    {
+        return $this->repository->findOneBy(['commande' => $commande->getId(), 'status' => '00']);
     }
 }

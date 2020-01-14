@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\PaiementType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use App\Manager\CommandeManager;
+use App\Manager\{CommandeManager, TransactionManager};
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 use App\Entity\Commande;
@@ -56,6 +56,7 @@ class CommandeController extends AbstractController
      */
     public function recap(Commande $commande, Request $request, CommandeManager $commandeManager)
     {
+        $commandeManager->checkIfTransactionSuccess($commande);
         $formCGV = $this->createForm(PaiementType::class, $commande);
         $formCGV->handleRequest($request);
         if($formCGV->isSubmitted() && $formCGV->isValid()){

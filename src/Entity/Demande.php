@@ -36,6 +36,7 @@ class Demande
     const RETRACT_DEMAND = 7;
     const RETRACT_REFUND = 8;
     const RETRACT_FORM_WAITTING = 9;
+    const WILL_BE_UNCOMPLETED = 20;
     const DOC_INVALID_MESSAGE= "Ce lien n'est plus valide";
     /**
      * @ORM\Id()
@@ -660,61 +661,61 @@ class Demande
         switch($this->statusDoc){
             case $this::DOC_VALID :
                 $result = [
-                    'text' => 'document valide',
+                    'text' => 'Documents validés par mail',
                     'class' => 'btn btn-success',
                 ];
                 break;
             case $this::DOC_PENDING :
                 $result = [
-                    'text' => 'en cours',
+                    'text' => 'Documents numérisés',
                     'class' => 'btn btn-warning',
                 ];
                 break;
             case $this::DOC_NONVALID :
                 $result = [
-                    'text' => 'documents reçus mais non validés',
+                    'text' => 'Documents reçus mais non validés',
                     'class' => 'btn btn-warning',
                 ];
                 break;
             case $this::DOC_RECEIVE_VALID :
                 $result = [
-                    'text' => 'document reçus',
+                    'text' => 'Documents reçus',
                     'class' => 'btn btn-primary',
                 ];
                 break;
             case $this::DOC_UNCOMPLETED :
                 $result = [
-                    'text' => 'documents incomplets',
+                    'text' => 'Documents incomplets',
                     'class' => 'btn btn-warning',
                 ];
                 break;
             case $this::DOC_VALID_SEND_TMS :
                 $result = [
-                    'text' => 'validé et envoyé à TMS',
+                    'text' => 'Validée et envoyée à TMS',
                     'class' => 'btn btn-success',
                 ];
                 break;
             case $this::RETRACT_DEMAND :
                 $result = [
-                    'text' => 'retracté',
+                    'text' => 'Retractée',
                     'class' => 'btn btn-danger',
                 ];
                 break;
             case $this::RETRACT_REFUND :
                 $result = [
-                    'text' => 'remboursé',
+                    'text' => 'Remboursée',
                     'class' => 'btn btn-warning',
                 ];
                 break;
             case $this::RETRACT_FORM_WAITTING :
                 $result = [
-                    'text' => 'attente formulaire de rétractation',
+                    'text' => 'Attente formulaire de rétractation',
                     'class' => 'btn btn-danger',
                 ];
                 break;
             default: 
                 $result = [
-                    'text' => 'attente de document',
+                    'text' => 'Attente de documents',
                     'class' => 'btn btn-info',
                 ];
                 break;

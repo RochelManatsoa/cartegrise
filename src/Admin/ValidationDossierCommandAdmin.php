@@ -12,12 +12,13 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\CoreBundle\Form\Type\DateRangePickerType;
 use App\Entity\Demande;
 
-final class ValidationDossierAdmin extends AbstractAdmin
+final class ValidationDossierCommandAdmin extends AbstractAdmin
 {
-    protected $baseRoutePattern = 'dossier';
-    protected $baseRouteName = 'dossier';
+    protected $baseRoutePattern = 'dossier-estimation';
+    protected $baseRouteName = 'dossier-estimation';
     public function createQuery($context = 'list')
     {
         $query = parent::createQuery($context);
@@ -25,6 +26,9 @@ final class ValidationDossierAdmin extends AbstractAdmin
         $alias = $query->getRootAliases()[0];
         $qb
         ->orderBy($alias.'.id', 'desc')
+        ->leftJoin($alias.'.transaction', 'transaction')
+        ->andWhere('transaction.status = :success')
+        ->setParameter('success', '00')
         ;
 
         return $query;
@@ -38,6 +42,7 @@ final class ValidationDossierAdmin extends AbstractAdmin
         $collection->add('retracterWithDocument', $this->getRouterIdParameter().'/retracter');
         $collection->add('refund', $this->getRouterIdParameter().'/refund');
         $collection->add('facture', $this->getRouterIdParameter().'/facture');
+        $collection->add('factureCommande', $this->getRouterIdParameter().'/facture-commande');
         $collection->add('avoir', $this->getRouterIdParameter().'/avoir');
     }
 
@@ -52,17 +57,20 @@ final class ValidationDossierAdmin extends AbstractAdmin
     {
         $datagridMapper
         ->add('id')
-        ->add('reference')
-        ->add('commande.client.user.email', null, [
+        ->add('client.user.email', null, [
             'label' => 'email'
         ])
-        ->add('commande.client.clientNom', null, [
+        ->add('facture.createdAt', 'doctrine_orm_date_range', [
+            'field_type'=> DateRangePickerType::class,
+            'label' => 'payer le:'
+        ])
+        ->add('client.clientNom', null, [
             'label' => 'Nom'
         ])
-        ->add('commande.immatriculation', null, [
+        ->add('immatriculation', null, [
             'label' => 'Immatriculation'
         ])
-        ->add('statusDoc', 'doctrine_orm_choice' ,[
+        ->add('demande.statusDoc', 'doctrine_orm_choice' ,[
             'label' => 'Etat',
             'global_search' => true,
             'field_type' => ChoiceType::class,
@@ -81,6 +89,20 @@ final class ValidationDossierAdmin extends AbstractAdmin
                 ]
             ]
         ])
+        ->add('without_demande', 'doctrine_orm_callback', array(
+//                'callback'   => array($this, 'getWithOpenCommentFilter'),
+                'label' => 'En attente de demande',
+                'callback' => function($queryBuilder, $alias, $field, $value) {
+                    if (!$value) {
+                        return;
+                    }
+
+                    $queryBuilder->leftJoin(sprintf('%s.demande', $alias), 'd');
+                    $queryBuilder->andWhere('d.id IS NULL');
+                    return true;
+                },
+                'field_type' => CheckboxType::class
+        ))
         ;
     }
 
@@ -88,25 +110,27 @@ final class ValidationDossierAdmin extends AbstractAdmin
     {
         $listMapper
         ->add('id')
-        ->add('commande.client.clientNom', null, [
+        ->add('client.clientNom', null, [
             'label' => 'Nom'
         ])
-        ->add('commande.client.clientContact.contact_telmobile', null , [
-            'label' => 'Telephone'
+        ->add('facture.createdAt', null, [
+            'label' => 'Payée le'
         ])
-        ->add('dateDemande')
-        ->add('commande.client.user.email', null, [
-            'label' => 'email'
+        ->add('client.clientContact.contact_telmobile', null , [
+            'label' => 'Téléphone'
+        ])
+        ->add('client.user.email', null, [
+            'label' => 'Email'
         ])
         ->addIdentifier('clientName', null, [
             'label' => 'Profil',
             'template' => 'CRUD/client/ficheClientList.html.twig',
         ])
-        ->add('commande.immatriculation', null, [
+        ->add('immatriculation', null, [
             'label' => 'Immatriculation'
         ])
         ->addIdentifier('factureAvoir', null, [
-            'label' => 'facture / avoirs',
+            'label' => 'facture / avoir',
             'template' => 'CRUD/demande/factureAvoir.html.twig',
         ])
         ->add('statusDocStringDesigned', null, [

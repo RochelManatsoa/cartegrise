@@ -55,7 +55,7 @@
                                 <div class="alert alert-success">
                                     La demande est validée, attente des documents par courrier à l'adresse
                                 </div>
-                            {% elseif commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
+                            {% elseif commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') or commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_UNCOMPLETED')  %}
                                 <div class="alert alert-warning" role="alert">
                                     La demande est en cours de validation
                                 </div>

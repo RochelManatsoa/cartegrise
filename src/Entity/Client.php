@@ -318,9 +318,11 @@ class Client
 
     public function addCommande(Commande $commande): self
     {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes[] = $commande;
-            $commande->setClient($this);
+        if ($commande->getClient() === null){
+            if (!$this->commandes->contains($commande)) {
+                $this->commandes[] = $commande;
+                $commande->setClient($this);
+            }
         }
 
         return $this;

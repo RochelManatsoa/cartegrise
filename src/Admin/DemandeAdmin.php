@@ -68,7 +68,7 @@ final class DemandeAdmin extends AbstractAdmin
             'template' => 'CRUD/client/ficheClientList.html.twig',
         ])
         ->addIdentifier('status', null, [
-            'label' => 'Status Commande'
+            'label' => 'Statut Commande'
         ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoirs',
@@ -91,7 +91,7 @@ final class DemandeAdmin extends AbstractAdmin
             'template' => 'CRUD/remboursement/taxes.html.twig',
         ])
         ->addIdentifier('retracter', null, [
-            'label' => 'Proceder au retractation',
+            'label' => 'Procéder au retractation',
             'template' => 'CRUD/demande/ratractation.html.twig',
         ])
         ;

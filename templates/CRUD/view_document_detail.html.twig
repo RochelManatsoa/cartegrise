@@ -15,7 +15,7 @@
         <div class="alert alert-success">
             La demande est validée, attende des documents par courrier à l'adresse
         </div>
-    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
+    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') or demande.statusDoc == constant('App\\Entity\\Demande::DOC_UNCOMPLETED') %}
         <div class="alert alert-warning" role="alert">
             La demande est en cours de validation
         </div>
@@ -70,7 +70,7 @@
         {% endif %}
     {% endfor %}
 </div>
-{% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
+{% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') or demande.statusDoc == constant('App\\Entity\\Demande::DOC_UNCOMPLETED') %}
 <h3>
     Réponse:
 </h3>
@@ -96,7 +96,7 @@
     <input type="submit" class="btn btn-default" id="responseForm" value="Valider">
 </form>
 {% endif %}
-{% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
+{% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID_SEND_TMS') %}
 <h3>
     Réponse:
 </h3>
@@ -104,7 +104,7 @@
     <div>
         <label for="valid_doc_real">
             <input type="checkbox" name="valid_doc_real" id="valid_doc_real">
-            Valider les documents reçus par courriel
+            Valider les documents reçus par courrier
         </label>
     </div>
     <input type="submit" class="btn btn-default" id="responseForm" value="Valider">

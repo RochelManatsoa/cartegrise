@@ -50,6 +50,7 @@
                 <div class="col-md-12 px-0 col-lg-12 mx-auto d-flex my-flex-container pt-5 pb-5">
                     <div class="col-12 px-0 row">
                         <div class="col-6 mx-auto">
+                            {% if commande.client is not null %}
                             <h2 class="mb-4">Utilisateur</h2>
                             <div class="list-grid">
                                 <div class="list-grid__item">
@@ -69,6 +70,7 @@
                                     <div>{{ commande.client.clientContact.contactTelmobile }}</div>
                                 </div>
                             </div>
+                            {% endif %}
                         </div>
                         <div class="col-6 mx-auto">
                             <h2 class="mb-4">Transaction</h2>

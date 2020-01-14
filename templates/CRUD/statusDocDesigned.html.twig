@@ -1,7 +1,18 @@
 {% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
 
 {% block field %}
-{% set data = object.statusDocString %}
-
-<span class="{{ data.class }}">{{ data.text }}</span>
+{% if object.commande is defined %}
+    {% set data = object.statusDocString %}
+{% else %}
+    {% if object.demande is not null %}
+        {% set data = object.demande.statusDocString %}
+    {% else %}
+        {% set data = null %}
+    {% endif %}
+{% endif %}
+{% if data is not null %}
+    <span class="{{ data.class }}">{{ data.text }}</span>
+{% else %}
+    <span class="btn btn-primary">Formulaire non renseigné</span>
+{% endif %}
 {% endblock field %}

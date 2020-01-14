@@ -84,7 +84,7 @@ final class CommandeAdmin extends AbstractAdmin
             'template' => 'CRUD/client/ficheClientList.html.twig',
         ])
         ->addIdentifier('status', null, [
-            'label' => 'Status Commande'
+            'label' => 'Statut Commande'
         ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoirs',

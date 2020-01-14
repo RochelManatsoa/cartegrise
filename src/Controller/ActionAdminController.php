@@ -10,7 +10,7 @@ use App\Manager\DocumentAFournirManager;
 use App\Manager\{DemandeManager, CommandeManager, TMSSauverManager, ClientManager};
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
-use App\Entity\Demande;
+use App\Entity\{Demande, Commande, Facture};
 use App\Entity\Client;
 use App\Entity\Avoir;
 use App\Form\SaveAndValidateType;
@@ -18,6 +18,9 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ActionAdminController extends Controller
 {
+    public function __construct(DemandeManager $demandeManager){
+        $this->demandeManager = $demandeManager;
+    }
     /**
      * @param $id
      */
@@ -45,8 +48,11 @@ class ActionAdminController extends Controller
         if (!$object) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
         }
-
-        return new RedirectResponse($this->generateUrl('payment_facture_commande', ['commande'=> $object->getCommande()->getId()]));
+        if ($object instanceof Demande || $object instanceof Facture) {
+            return new RedirectResponse($this->generateUrl('payment_facture_commande', ['commande'=> $object->getCommande()->getId()]));
+        } elseif ($object instanceof Commande) {
+            return new RedirectResponse($this->generateUrl('payment_facture_commande', ['commande'=> $object->getId()]));
+        }
 
         // if you have a filtered list and want to keep your filters after the redirect
         // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
@@ -92,6 +98,8 @@ class ActionAdminController extends Controller
     {
         $object = $this->admin->getSubject();
 
+        $object = $this->getDemandeInObject($object);
+
         if (!$object && !$object instanceof Demande) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
         }
@@ -113,6 +121,7 @@ class ActionAdminController extends Controller
     public function retracterWithDocumentAction($id, DemandeManager $demandeManager)
     {
         $object = $this->admin->getSubject();
+        $object = $this->getDemandeInObject($object);
 
         if (!$object && !$object instanceof Demande) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
@@ -132,6 +141,7 @@ class ActionAdminController extends Controller
     public function refundAction($id, DemandeManager $demandeManager)
     {
         $object = $this->admin->getSubject();
+        $object = $this->getDemandeInObject($object);
 
         if (!$object && !$object instanceof Demande) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
@@ -206,7 +216,9 @@ class ActionAdminController extends Controller
         TMSSauverManager $tmsSauverManager
     )
     {
-        $demande = $this->admin->getSubject();
+        $object = $this->admin->getSubject();
+
+        $demande = $this->getDemandeInObject($object);
 
         if (!$demande) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
@@ -256,6 +268,16 @@ class ActionAdminController extends Controller
         // if you have a filtered list and want to keep your filters after the redirect
         // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
     }
+    private function getDemandeInObject($object){
+        $demande = null;
+        if ($object instanceof Demande){
+            $demande = $object;
+        } elseif($object instanceof Commande) {
+            $demande = $this->demandeManager->getRepository()->findOneBy(['commande'=>$object->getId()]);
+        }
+
+        return $demande;
+    }
     /**
      * @param $id
      */
@@ -266,7 +288,8 @@ class ActionAdminController extends Controller
         Request $request
     )
     {
-        $demande = $this->admin->getSubject();
+        $object = $this->admin->getSubject();
+        $demande = $this->getDemandeInObject($object);
 
         $pathCerfa = $demandeManager->generateCerfa($demande);
         $daf = $demandeManager->getDossiersAFournir($demande, $pathCerfa);

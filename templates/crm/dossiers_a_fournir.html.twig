@@ -16,44 +16,18 @@
     {% set currentTransaction = demande.commande.transaction %}
 {% endif %}
 <div class="col-md-12 col-lg-12 row">
-    {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
-        <div class="alert col-12 text-center alert-success">
-            Documents validés
-        </div>
-    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
-        <div class="alert col-12 text-center alert-warning" role="alert">
-            Documents en cours de validation
-        </div>
-    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
+{% if demande.statusDocString is not null %}
+    <div class="alert col-12 text-center alert-{{ demande.statusDocString.class }}">{{ demande.statusDocString.text }}</div>
+{% else %}
+    <div class="alert col-12 text-center alert-primary">Formulaire non renseigné</div>
+{% endif %}
+
+    {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
         <div class="alert col-12 text-center alert-danger">
-            Documents non valides, voici le retour:
+            Voici le retour:
             <p>
                 {{ demande.motifDeRejet|nl2br }}
             </p>
-        </div> 
-    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
-        <div class="alert col-12 text-center alert-secondary" role="alert">
-            Documents reçus et validés
-        </div> 
-    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_UNCOMPLETED') %}
-        <div class="alert col-12 text-center alert-info" role="alert">
-            Documents incomplets
-        </div>
-    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID_SEND_TMS') %}
-        <div class="alert col-12 text-center alert-primary" role="alert">
-            Demande validée et envoyée à TMS
-        </div>
-    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::RETRACT_REFUND') %}
-        <div class="alert col-12 text-center alert-dark" role="alert">
-            Demande retractée et remboursée
-        </div>
-    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::RETRACT_FORM_WAITTING') %}
-        <div class="alert col-12 text-center alert-dark" role="alert">
-            Demande retractée en attente du formulaire de retractation
-        </div>
-    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::RETRACT_DEMAND') %}
-        <div class="alert col-12 text-center alert-dark" role="alert">
-            Demande retractée
         </div>
     {% endif %}
 </div>
@@ -108,7 +82,7 @@
         <div class="list-grid">
             <div class="list-grid__item">
                 <div >Status Doc</div>
-                <div>{{demande.statusDoc}}</div>
+                <div>{{ demande.statusDocString.text }}</div>
             </div>
             <div  class="list-grid__item">
                 <div>Créée le</div>
@@ -172,10 +146,11 @@
             {% endfor %}
             </tr>
         </table>
-        <div class="jumbotron text-center">
+        <div class="jumbotron text-center blockquote">
             <br>CG Officiel
             <br>20 Impasse Camille Langlade
             <br>31100 Toulouse
+            <br>Tél: 09 77 42 31 30
             <br>Service client: <u>service.client@cgofficiel.fr</u>
         </div>
     </div>

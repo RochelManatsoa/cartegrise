@@ -54,7 +54,8 @@ final class AvoirAdmin extends AbstractAdmin
     {
         $datagridMapper
         ->add('commande.immatriculation')
-        ->add('commande.ceerLe', 'doctrine_orm_date_range',[
+        ->add('avoir.createdAt', 'doctrine_orm_date_range',[
+            'label' => 'Créé le:',
             'field_type'=> DateRangePickerType::class,
         ])
         ->add('id')
@@ -65,24 +66,28 @@ final class AvoirAdmin extends AbstractAdmin
     {
         $listMapper
         ->addIdentifier('id')
-        ->addIdentifier('commande.ceerLe', null, [
-            'label' => 'Date commande',
+        ->add('avoir.createdAt', null,[
+            'label' => 'Créé le',
         ])
         ->addIdentifier('commande.demarche.nom', null, [
             'label' => 'Type de commande'
         ])
-        ->addIdentifier('commande.immatriculation')
+        ->addIdentifier('commande.immatriculation', null, [
+            'label' => 'Immatriculation'
+        ])
         ->addIdentifier('client.clientNom', null, [
             'label' => 'Nom'
         ])
         ->addIdentifier('commande.status', null, [
-            'label' => 'Status Commande'
+            'label' => 'Statut'
         ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoirs',
             'template' => 'CRUD/demande/factureAvoir.html.twig',
         ])
-        ->addIdentifier('commande.codePostal')
+        ->addIdentifier('commande.codePostal', null, [
+            'label' => 'Dép.'
+        ])
         ->addIdentifier('commande.taxes.taxeTotale', null, [
             'label' => 'Taxes'
         ])
