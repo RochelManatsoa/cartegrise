@@ -119,6 +119,13 @@ class Commande
      * @ORM\Column(type="text", nullable=true)
      */
     private $tmsSaveResponse;
+    
+    /**
+     * comment about the command variable
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $comment;
 
     /**
      * @var \DateTime $deletedAt
@@ -509,6 +516,18 @@ class Commande
         if ($infosFacture->getCommande() !== $newCommande) {
             $infosFacture->setCommande($newCommande);
         }
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
 
         return $this;
     }
