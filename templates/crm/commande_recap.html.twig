@@ -2,6 +2,11 @@
 
 {% block page_content %}
 {% set taxe = commande.taxes %}
+{% if commande.transaction is not null %}
+{% set currentTransaction = commande.transaction %}
+{% else %}
+{% set currentTransaction = commande.demande.transaction %}
+{% endif %}
     {% if commande is defined %}
         <div class="row">
             <h2 class="col-12 text-center">RESUME DE LA COMMANDE</h2>
@@ -39,6 +44,55 @@
                                     </a>
                                 </div>
                             {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 px-0 col-lg-12 mx-auto d-flex my-flex-container pt-5 pb-5">
+                    <div class="col-12 px-0 row">
+                        <div class="col-6 mx-auto">
+                            {% if commande.client is not null %}
+                            <h2 class="mb-4">Utilisateur</h2>
+                            <div class="list-grid">
+                                <div class="list-grid__item">
+                                    <div >Nom</div>
+                                    <div>{{ commande.client.clientNom }}</div>
+                                </div>
+                                <div  class="list-grid__item">
+                                    <div>Prénom(s)</div>
+                                    <div>{{ commande.client.clientPrenom }}</div>
+                                </div>
+                                <div class="list-grid__item">
+                                    <div>Mail</div>
+                                    <div>{{ commande.client.user.email }}</div>
+                                </div>
+                                <div class="list-grid__item">
+                                    <div>Tél</div>
+                                    <div>{{ commande.client.clientContact.contactTelmobile }}</div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-6 mx-auto">
+                            <h2 class="mb-4">Transaction</h2>
+                            <div class="list-grid">
+                                <div class="list-grid__item">
+                                    <div >N°</div>
+                                    <div>{{currentTransaction.transactionId}}</div>
+                                </div>
+                                <div  class="list-grid__item">
+                                    <div>Status</div>
+                                    <div>{{currentTransaction.status}}</div>
+                                </div>
+                                <div class="list-grid__item">
+                                    <div>Payé le</div>
+                                    <div>{{currentTransaction.createAt | date('d M Y  h:i')}}</div>
+                                </div>
+                                <div class="list-grid__item">
+                                    <div>Montant</div>
+                                    <div>{{ fraisTotal(commande) }} €</div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

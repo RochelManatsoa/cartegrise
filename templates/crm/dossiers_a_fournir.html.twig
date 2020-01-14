@@ -10,81 +10,156 @@
 {% endblock %}
 
 {% block page_content %}
-<div class="col-md-12 row col-lg-12">
-        <div class="row col-md-12 col-lg-7 pt-5 pb-5">
-            {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
-                <div class="alert alert-success">
-                    Votre demande est en cours de validation, une fois validée, veuillez nous envoyer vos documents physiques à l'adresse
-                    suivante :
-                    <br>CG Officiel
-                    <br>20 Impasse Camille Langlade
-                    <br>31100 Toulouse
-                </div>
-            {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') or demande.statusDoc == constant('App\\Entity\\Demande::DOC_UNCOMPLETED') %}
-                <div class="alert alert-warning" role="alert">
-                    Votre demande est en cours de validation, une fois validée, veuillez nous envoyer vos documents physiques à l'adresse
-                    suivante : 
-                    <br>CG Officiel
-                    <br>20 Impasse Camille Langlade
-                    <br>31100 Toulouse
-                </div>
-            {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
-                <div class="alert alert-danger">
-                    Votre document n'est pas valide, Voici le retour:
-                    <p>
-                        {{ demande.motifDeRejet|nl2br }}
-                    </p>
-                </div> 
-            {% endif %}
-            <hr>
-            <h2 class="text-center">Résumé de la demande </h2>
-            <table class="table ">
-                <tr>
-                    <th class="text-right"><b>Type Demande : </b></th>
-                    <td>{{ demande.commande.demarche.nom }}</td>
-                </tr>
-                <tr>
-                    <th class="text-right"><b>Date : </b></th>
-                    <td>{{ demande.commande.ceerLe | date('d-m-Y') }}</td>
-                </tr>
-                <tr>
-                    <th class="text-right"><b>Département : </b></th>
-                    <td>{{ demande.commande.codePostal }}</td>
-                </tr>
-                <tr>
-                    <th class="text-right"><b>Immatriculation : </b> </th>
-                    <td>{{ demande.commande.immatriculation }}</td>
-                </tr>
-            </table>
-            <hr>
-            <h2 class="text-center">Dossiers à fournir </h2>
+{% if demande.commande.transaction is null %}
+    {% set currentTransaction = demande.transaction %}
+{% else %}
+    {% set currentTransaction = demande.commande.transaction %}
+{% endif %}
+<div class="col-md-12 col-lg-12 row">
+{% if demande.statusDocString is not null %}
+    <div class="alert col-12 text-center alert-{{ demande.statusDocString.class }}">{{ demande.statusDocString.text }}</div>
+{% else %}
+    <div class="alert col-12 text-center alert-primary">Formulaire non renseigné</div>
+{% endif %}
 
-            <div id="daf-list-wrapper">
-                {{ daf|raw }}
-            </div>
-            <div class="pl-4 mb-3 mb-md-0">
-                <a href="{{ path('route_crm_home') }}" class="btn btn-warning">
-                    <i class="fa fa-arrow-left"></i> Retour à la recherche
-                </a>
-            </div>
+    {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
+        <div class="alert col-12 text-center alert-danger">
+            Voici le retour:
+            <p>
+                {{ demande.motifDeRejet|nl2br }}
+            </p>
         </div>
-        <div class="row col-md-12 col-lg-5 resultat-estimation mx-auto pt-5 pb-5">
-
-        <h2 class="text-center">Dossiers envoyés </h2>
-            <table class="table">
-                {% for key,file in files %}
-                <tr>
-                    <th><b>{{ key }} </b> </th>
-                    {% if file is not null %}
-                        <td>
-                            <a href=" {{ asset(file) }}" target="_blank">{{ key }}</a>
-                        </td>
-                    {% else %}
-                    <td></td>
-                    {% endif %}
-                {% endfor %}
-                </tr>
-            </table>
+    {% endif %}
+</div>
+<div class="col-md-12 row col-lg-12">
+    <div class="col-md-12 col-lg-6">
+        <h3>Commande</h3>
+        <div class="list-grid">
+            <div class="list-grid__item">
+                <div >Type</div>
+                <div>{{demande.commande.demarche.type}}</div>
+            </div>
+            <div  class="list-grid__item">
+                <div>Création</div>
+                <div>{{demande.commande.ceerLe | date('d M Y  h:i')}}</div>
+            </div>
+            <div class="list-grid__item">
+                <div>Dép</div>
+                <div>{{demande.commande.codePostal}}</div>
+            </div>
+            <div class="list-grid__item">
+                <div>Immat</div>
+                <div>{{demande.commande.immatriculation}}</div>
+            </div>
         </div>
     </div>
+    <div class="col-md-12 col-lg-6">
+        <h3>Transaction</h3>
+        <div class="list-grid">
+            <div class="list-grid__item">
+                <div >Type</div>
+                <div>{{currentTransaction.transactionId}}</div>
+            </div>
+            <div  class="list-grid__item">
+                <div>Status</div>
+                <div>{{currentTransaction.status}}</div>
+            </div>
+            <div class="list-grid__item">
+                <div>Payé le</div>
+                <div>{{currentTransaction.createAt | date('d M Y  h:i')}}</div>
+            </div>
+            <div class="list-grid__item">
+                <div>Montant</div>
+                <div>{{ fraisTotal(demande.commande) }} €</div>
+            </div>
+        </div>
+    </div>  
+</div>
+<hr>
+<div class="col-md-12 row col-lg-12">
+    <div class="col-md-12 col-lg-6">
+        <h3>Demande</h3>
+        <div class="list-grid">
+            <div class="list-grid__item">
+                <div >Status Doc</div>
+                <div>{{ demande.statusDocString.text }}</div>
+            </div>
+            <div  class="list-grid__item">
+                <div>Créée le</div>
+                <div>{{demande.dateDemande | date('d M Y  h:i')}}</div>
+            </div>
+            <div class="list-grid__item">
+                <div>N° TMS</div>
+                <div>{{demande.TmsIdDemande}}</div>
+            </div>
+            <div class="list-grid__item">
+                <div>Réf</div>
+                <div>{{demande.reference}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-6">
+        {% if demande.commande.client is not null %}
+        <h3>Utilisateur</h3>
+        <div class="list-grid">
+            <div class="list-grid__item">
+                <div >Nom</div>
+                <div>{{demande.commande.client.clientNom}}</div>
+            </div>
+            <div  class="list-grid__item">
+                <div>Prénom(s)</div>
+                <div>{{demande.commande.client.ClientPrenom}}</div>
+            </div>
+            <div class="list-grid__item">
+                <div>Mail</div>
+                <div>{{demande.commande.client.user.email}}</div>
+            </div>
+            <div class="list-grid__item">
+                <div>Tél</div>
+                <div>{{demande.commande.client.clientContact.contactTelmobile}}</div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<hr>
+<div class="col-md-12 row col-lg-12">
+    <div class="col-md-12 col-lg-6">
+        <h3>Dossiers à fournir</h3>
+        <div id="daf-list-wrapper">
+            {{ daf|raw }}
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-6">
+        <h3>Dossiers envoyés</h3>
+        <table class="table">
+            {% for key,file in files %}
+            <tr>
+                <th><b>{{ key }} </b> </th>
+                {% if file is not null %}
+                    <td>
+                        <a href=" {{ asset(file) }}" target="_blank">{{ key }}</a>
+                    </td>
+                {% else %}
+                <td></td>
+                {% endif %}
+            {% endfor %}
+            </tr>
+        </table>
+        <div class="jumbotron text-center blockquote">
+            <br>CG Officiel
+            <br>20 Impasse Camille Langlade
+            <br>31100 Toulouse
+            <br>Tél: 09 77 42 31 30
+            <br>Service client: <u>service.client@cgofficiel.fr</u>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 row col-lg-6">
+    <div class="pl-4 mb-3 mb-md-0">
+        <a href="{{ path('route_crm_home') }}" class="btn btn-warning">
+            <i class="fa fa-arrow-left"></i> Retour à la recherche
+        </a>
+    </div>
+</div>
 {% endblock %}
