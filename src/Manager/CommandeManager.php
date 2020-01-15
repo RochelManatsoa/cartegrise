@@ -496,5 +496,12 @@ class CommandeManager
         // }
         
         return $file;
-    }
+	}
+	/**
+	 * this funciton allow you to get all command where demande is null
+	 */
+	public function getCommandeWhoDemandeIsNull()
+	{
+		return $this->repository->findBy(['demande' => null], ['id'=>'DESC']);
+	}
 }

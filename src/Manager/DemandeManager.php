@@ -655,4 +655,9 @@ class DemandeManager
         return "0897010800";
     }
 
+    public function getDemandeForCommande(Commande $commande)
+    {
+        return $this->repository->findOneBy(['commande'=>$commande->getId()]);
+    }
+
 }
