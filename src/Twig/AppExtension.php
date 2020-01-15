@@ -93,8 +93,15 @@ class AppExtension extends AbstractExtension
             new TwigFunction('decodeBody', [$this, 'decodeBody']),
             new TwigFunction('findNomPrenomOfTitulaire', [$this, 'findNomPrenomOfTitulaire']),
             new TwigFunction('displayServiceClient', [$this, 'displayServiceClient']),
-            new TwigFunction('findByTransactionId', [$this, 'findByTransactionId']) 
+            new TwigFunction('findByTransactionId', [$this, 'findByTransactionId']),
+            new TwigFunction('appExplode', [$this, 'appExplode'])
         ];
+    }
+
+    public function appExplode(String $string)
+    {
+        return explode(';', $string);
+
     }
 
     public function getFilters()

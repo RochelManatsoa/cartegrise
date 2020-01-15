@@ -184,6 +184,13 @@ class Demande
     private $deletedAt;
 
     /**
+     * @var \Text $docIncomplets
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $docIncomplets;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Avoir", mappedBy="demande", cascade={"persist", "remove"})
      */
     private $avoir;
@@ -722,5 +729,17 @@ class Demande
         }
 
         return $result;
+    }
+
+    public function getDocIncomplets()
+    {
+        return $this->docIncomplets;
+    }
+
+    public function setDocIncomplets($docIncomplets): self
+    {
+        $this->docIncomplets = $docIncomplets;
+
+        return $this;
     }
 }

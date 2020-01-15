@@ -3,15 +3,53 @@
 {% block field %}
 {% if object.commande is defined %}
     {% set data = object.statusDocString %}
+    {% set demande = object %}
 {% else %}
     {% if object.demande is not null %}
         {% set data = object.demande.statusDocString %}
+        {% set demande = object.demande %}
     {% else %}
         {% set data = null %}
     {% endif %}
 {% endif %}
 {% if data is not null %}
-    <span class="{{ data.class }}">{{ data.text }}</span>
+    {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_UNCOMPLETED') %}
+            <!-- Button trigger modal -->
+        <button type="button" class="{{ data.class }}" data-toggle="modal" data-target="#exampleModal{{ object.id }}">
+        {{ data.text }}
+        </button>
+            <!-- Modal -->
+        <div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">les documents incomplets sont : </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                {% set docIncompletsExplodes = appExplode(demande.docIncomplets) %}
+                    <ul class="list-group">
+                        {% for docIncomp in docIncompletsExplodes %}
+                            {% if docIncomp != "" %}
+                                <li class="list-group-item">
+                                {% set docLabel = 'label.demande.'~ docIncomp %}
+                                    {{ docLabel | trans }}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <span class="{{ data.class }}">{{ data.text }}</span>
+    {% endif %}
 {% else %}
     <span class="btn btn-primary">Formulaire non renseigné</span>
 {% endif %}

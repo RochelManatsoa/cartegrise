@@ -8,6 +8,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use App\Entity\Demande;
 use Symfony\Component\Form\SubmitButton;
 use App\Manager\Model\ParamDocumentAFournir;
+use Symfony\Component\Translation\Loader\ArrayLoader;
 use App\Entity\File\{DemandeDuplicata, DemandeIvn, DemandeCtvo, DemandeCession, DemandeChangementAdresse};
 use App\Form\DocumentDemande\{DemandeDuplicataType, DemandeCtvoType, DemandeIvnType, DemandeCessionType, DemandeChangementAdresseType};
 
@@ -137,7 +138,8 @@ class DocumentAFournirManager
         $data = $form->getData();
         $uow = $this->entityManager->getUnitOfWork();
         $oldData = $uow->getOriginalEntityData($data);
-
+        $demande = $data->getParent()->getDemande();
+        $docIncompleted = ""; // for initial
         foreach ($form as $value) {
             $file = $value->getData();
             $fineName = $value->getName();
@@ -151,17 +153,20 @@ class DocumentAFournirManager
                 $propertyAccessor->setValue($data, $fineName, $oldData[$fineName]);
             } elseif(null == $file) {
                 if (!$value instanceof SubmitButton) {
-                    $demande = $data->getParent()->getDemande();
+                    $docIncompleted = $docIncompleted.$value->getName().";";
                     if ($demande instanceof Demande) {
                         if ($demande->getStatusDoc() != Demande::DOC_VALID_SEND_TMS){
                             $demande->setStatusDoc(Demande::WILL_BE_UNCOMPLETED);
-                            $this->entityManager->persist($demande);
-                            $this->entityManager->flush();
                         }
                     }
                 }
             }
         }
+
+        // add document Incompleted
+        $demande->setDocIncomplets($docIncompleted);
+        $this->entityManager->persist($demande);
+        $this->entityManager->flush();
 
         return $this;
     }
