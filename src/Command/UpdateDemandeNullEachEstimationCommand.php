@@ -59,5 +59,6 @@ class UpdateDemandeNullEachEstimationCommand extends Command
         }
         $output->write('======= ===== ====');
         $output->write('update commande finished');
+        $output->write('');
     }
 }
