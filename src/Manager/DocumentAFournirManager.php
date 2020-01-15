@@ -138,6 +138,7 @@ class DocumentAFournirManager
         $data = $form->getData();
         $uow = $this->entityManager->getUnitOfWork();
         $oldData = $uow->getOriginalEntityData($data);
+        dump($data);
         dd($data->getParent());
         $demande = $data->getParent()->getDemande();
         $docIncompleted = ""; // for initial
