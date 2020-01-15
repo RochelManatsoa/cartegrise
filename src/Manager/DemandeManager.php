@@ -153,6 +153,10 @@ class DemandeManager
         $this->em->flush();
     }
 
+    public function persist(Demande $demande) {
+        $this->em->persist($demande);
+    }
+
     public function getView(Form $form)
     {
         $demande = $form->getData();

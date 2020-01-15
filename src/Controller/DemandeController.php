@@ -127,6 +127,12 @@ class DemandeController extends AbstractController
             $fileForm->handleRequest($request);
 
             if ($fileForm->isSubmitted() && $fileForm->isValid()) {
+                $parent = $fileForm->getData()->getParent();
+                if ($demande){
+                    $parent->setDemande($demande);
+                    $demandeManager->persist($demande);
+                }
+
                 $documentAFournirManager->handleForm($fileForm, $path)->save($fileForm);
             }
 

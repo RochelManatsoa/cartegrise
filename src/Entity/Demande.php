@@ -347,7 +347,9 @@ class Demande
     public function setCtvo(?Ctvo $ctvo): self
     {
         $this->ctvo = $ctvo;
-        //$ctvo->setDemande($this);
+        if ($this != $ctvo->getDemande()) {
+            $ctvo->setDemande($this);
+        }
 
         return $this;
     }
@@ -360,6 +362,10 @@ class Demande
     public function setDuplicata(?Duplicata $duplicata): self
     {
         $this->duplicata = $duplicata;
+
+        if ($this !== $duplicata->getDemande()) {
+            $duplicata->setDemande($this);
+        }
 
         return $this;
     }
