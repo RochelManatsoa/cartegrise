@@ -54,6 +54,7 @@ class UpdateDemandeNullEachEstimationCommand extends Command
             $demande = $this->demandeManager->getDemandeForCommande($commande);
             if($demande instanceof Demande){
                 $commande->setDemande($demande);
+                $commandeManager->save($commande);
             }   
         }
         $output->write('======= ===== ====');

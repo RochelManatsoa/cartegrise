@@ -164,9 +164,12 @@ class DocumentAFournirManager
         }
 
         // add document Incompleted
-        $demande->setDocIncomplets($docIncompleted);
-        $this->entityManager->persist($demande);
-        $this->entityManager->flush();
+        if ($demande instanceof Demande) {
+            $demande->setDocIncomplets($docIncompleted);
+            $this->entityManager->persist($demande);
+            $this->entityManager->flush();
+        }
+       
 
         return $this;
     }
