@@ -7,6 +7,7 @@
  */
 namespace App\Controller;
 
+use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,10 +41,17 @@ class FileDemarcheController extends AbstractController
      * @MailDocumentValidator(property="checker", entity="demande", invalidMessage="docInvalidMessage")
      * @Route("/validate/{demande}/document/{checker}", name="demande_document_validate")
      */
-    public function validerDocument(Demande $demande, $checker, DemandeManager $demandeManager)
+    public function validerDocument(
+        Demande $demande, $checker, 
+        MailManager $mailManager, 
+        Swift_Mailer $mailer,
+        DemandeManager $demandeManager
+    )
     {
+        $mail = $demande->getCommande()->getClient()->getUser()->getEmail();
         $demande->setStatusDoc(Demande::DOC_VALID);
         $demandeManager->saveDemande($demande);
+        $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 2);
 
         return new Response('success');
     }
@@ -52,13 +60,21 @@ class FileDemarcheController extends AbstractController
      * @MailDocumentValidator(property="checker", entity="demande", invalidMessage="docInvalidMessage")
      * @Route("/nonvalidate/{demande}/document/{checker}", name="demande_document_nonvalidate")
      */
-    public function nonValiderDocument(Demande $demande, $checker, DemandeManager $demandeManager, Request $request)
+    public function nonValiderDocument(
+        Demande $demande, $checker, 
+        MailManager $mailManager, 
+        Swift_Mailer $mailer,
+        DemandeManager $demandeManager, 
+        Request $request
+    )
     {
+        $mail = $demande->getCommande()->getClient()->getUser()->getEmail();
         $form = $demandeManager->generateFormDeniedFiles($demande);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $demande->setStatusDoc(Demande::DOC_NONVALID);
             $demandeManager->saveDemande($demande);
+            $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 3);
 
             return $this->redirect($this->generateUrl("notification_success"));
         }
