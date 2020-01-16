@@ -125,4 +125,24 @@ class MailManager
 
         return 'success';
     }
+
+
+    /**
+     * send email when admins change statusDoc
+     */
+    public function sendEmailStatusDoc($mailer, $mail, $responses, $index)
+    {
+        $message = (new \Swift_Message('Statut de vos dossiers sur CGOfficiel.fr'))
+        ->setFrom('no-reply@cgofficiel.fr');
+        $message->setTo($mail);
+        $message
+        ->setBody(
+            $this->template->render(
+                'email/status/doc'.$index.'.mail.twig',
+                array('demande' => $responses)
+            ),
+            'text/html'
+        );
+        $mailer->send($message);
+    }
 }
