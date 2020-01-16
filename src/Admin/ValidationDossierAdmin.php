@@ -44,7 +44,12 @@ final class ValidationDossierAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-        ->add('id')
+        ->add('id', null, [
+            'attr' => [
+                'readonly' => 'readonly'
+            ]
+        ])
+        ->add('commande.comment')
         ;
     }
 
@@ -87,7 +92,7 @@ final class ValidationDossierAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-        ->add('id')
+        ->addIdentifier('id')
         ->add('commande.client.clientNom', null, [
             'label' => 'Nom'
         ])
@@ -104,6 +109,9 @@ final class ValidationDossierAdmin extends AbstractAdmin
         ])
         ->add('commande.immatriculation', null, [
             'label' => 'Immatriculation'
+        ])
+        ->add('commande.comment', null, [
+            'label' => 'Commentaire'
         ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoirs',
