@@ -153,6 +153,10 @@ class DemandeManager
         $this->em->flush();
     }
 
+    public function persist(Demande $demande) {
+        $this->em->persist($demande);
+    }
+
     public function getView(Form $form)
     {
         $demande = $form->getData();
@@ -653,6 +657,11 @@ class DemandeManager
         }
 
         return "0897010800";
+    }
+
+    public function getDemandeForCommande(Commande $commande)
+    {
+        return $this->repository->findOneBy(['commande'=>$commande->getId()]);
     }
 
 }

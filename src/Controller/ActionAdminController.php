@@ -3,11 +3,12 @@
 
 namespace App\Controller;
 
+use Swift_Mailer;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Manager\DocumentAFournirManager;
-use App\Manager\{DemandeManager, CommandeManager, TMSSauverManager, ClientManager};
+use App\Manager\{DemandeManager, CommandeManager, TMSSauverManager, ClientManager, MailManager};
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Entity\{Demande, Commande, Facture};
@@ -212,6 +213,8 @@ class ActionAdminController extends Controller
         DocumentAFournirManager $documentAFournirManager,
         DemandeManager $demandeManager,
         CommandeManager $commandeManager,
+        MailManager $mailManager,
+        Swift_Mailer $mailer,
         Request $request,
         TMSSauverManager $tmsSauverManager
     )
@@ -224,6 +227,8 @@ class ActionAdminController extends Controller
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
         }
 
+        $mail = $demande->getCommande()->getClient()->getUser()->getEmail();
+
         $files = $documentAFournirManager->getDaf($demande);
         $fileType = $documentAFournirManager->getType($demande);
         $pathCerfa = $demandeManager->generateCerfa($demande);
@@ -235,6 +240,7 @@ class ActionAdminController extends Controller
             if ($request->request->get('valid_doc_simulate') === "on") {
                 $demande->setStatusDoc(Demande::DOC_VALID);
                 $demandeManager->saveDemande($demande);
+                $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 1);
             } elseif ($request->request->get('valid_doc_real') === "on") {
                 $tmsResponse = $commandeManager->tmsSauver($demande->getCommande());
                 if ($tmsResponse->isSuccessfull()) {
@@ -242,6 +248,7 @@ class ActionAdminController extends Controller
                     $demande->getCommande()->setSaved(true);
                     $demande->setStatusDoc(Demande::DOC_VALID_SEND_TMS);
                     $demandeManager->saveDemande($demande);
+                    $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 2);
                     $this->addFlash('success', 'La demande '.$demande->getCommande()->getId().' a bien été enregister sur TMS');
                 }
                 
@@ -249,6 +256,7 @@ class ActionAdminController extends Controller
                 $demande->setStatusDoc(Demande::DOC_NONVALID);
                 $demande->setMotifDeRejet($request->request->get('invalidate_doc_simulate'));
                 $demandeManager->saveDemande($demande);
+                $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 3);
             }
         }
 
@@ -302,6 +310,12 @@ class ActionAdminController extends Controller
             $fileForm->handleRequest($request);
 
             if ($fileForm->isSubmitted() && $fileForm->isValid()) {
+                $parent = $fileForm->getData()->getParent();
+                if ($demande){
+                    $parent->setDemande($demande);
+                    $demandeManager->persist($demande);
+                }
+                
                 $documentAFournirManager->handleForm($fileForm, $path)->save($fileForm);
             }
 

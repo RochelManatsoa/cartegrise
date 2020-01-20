@@ -49,7 +49,12 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-        ->add('id')
+        ->add('id', null, [
+            'attr' => [
+                'readonly' => 'readonly'
+            ]
+        ])
+        ->add('comment')
         ;
     }
 
@@ -67,6 +72,9 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
         ->add('client.clientNom', null, [
             'label' => 'Nom'
         ])
+        ->add('comment', null, [
+            'label' => 'Commentaire'
+        ])
         ->add('immatriculation', null, [
             'label' => 'Immatriculation'
         ])
@@ -76,16 +84,16 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
             'field_type' => ChoiceType::class,
             'field_options' => [
                 'choices' => [
-                        'attente de document' => Demande::DOC_WAITTING,
-                        'document valide' => Demande::DOC_VALID,
-                        'document numériser' => Demande::DOC_PENDING,
-                        'documents incomplets ' => Demande::DOC_UNCOMPLETED,
-                        'document reçus' => Demande::DOC_RECEIVE_VALID,
-                        'documents reçus mais non validés' => Demande::DOC_NONVALID,
-                        'validé et envoyé à TMS' => Demande::DOC_VALID_SEND_TMS,
-                        'retracté' => Demande::RETRACT_DEMAND,
-                        'remboursé' => Demande::RETRACT_REFUND,
-                        'attente formulaire de rétractation' => Demande::RETRACT_FORM_WAITTING,
+                        'Attente de documents' => Demande::DOC_WAITTING,
+                        'Documents numériques validés' => Demande::DOC_VALID,
+                        'Documents numérisés' => Demande::DOC_PENDING,
+                        'Documents incomplets' => Demande::DOC_UNCOMPLETED,
+                        'Docs courrier validés' => Demande::DOC_RECEIVE_VALID,
+                        'Documents reçus mais non validés' => Demande::DOC_NONVALID,
+                        'Validée et envoyée à TMS' => Demande::DOC_VALID_SEND_TMS,
+                        'Retractée' => Demande::RETRACT_DEMAND,
+                        'Remboursée' => Demande::RETRACT_REFUND,
+                        'Attente formulaire de rétractation' => Demande::RETRACT_FORM_WAITTING,
                 ]
             ]
         ])
@@ -109,7 +117,7 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-        ->add('id')
+        ->addIdentifier('id')
         ->add('client.clientNom', null, [
             'label' => 'Nom'
         ])
@@ -128,6 +136,9 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
         ])
         ->add('immatriculation', null, [
             'label' => 'Immatriculation'
+        ])
+        ->add('comment', null, [
+            'label' => 'Commentaire'
         ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoir',

@@ -184,6 +184,13 @@ class Demande
     private $deletedAt;
 
     /**
+     * @var \Text $docIncomplets
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $docIncomplets;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Avoir", mappedBy="demande", cascade={"persist", "remove"})
      */
     private $avoir;
@@ -340,7 +347,9 @@ class Demande
     public function setCtvo(?Ctvo $ctvo): self
     {
         $this->ctvo = $ctvo;
-        //$ctvo->setDemande($this);
+        if ($this != $ctvo->getDemande()) {
+            $ctvo->setDemande($this);
+        }
 
         return $this;
     }
@@ -353,6 +362,10 @@ class Demande
     public function setDuplicata(?Duplicata $duplicata): self
     {
         $this->duplicata = $duplicata;
+
+        if ($this !== $duplicata->getDemande()) {
+            $duplicata->setDemande($this);
+        }
 
         return $this;
     }
@@ -722,5 +735,17 @@ class Demande
         }
 
         return $result;
+    }
+
+    public function getDocIncomplets()
+    {
+        return $this->docIncomplets;
+    }
+
+    public function setDocIncomplets($docIncomplets): self
+    {
+        $this->docIncomplets = $docIncomplets;
+
+        return $this;
     }
 }
