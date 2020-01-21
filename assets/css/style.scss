@@ -5,6 +5,7 @@
 @import 'upload.scss';
 @import 'contact.scss';
 @import 'erreur.scss';
+@import 'boutons.scss';
 
 body {
 	font-family: "Open Sans" !important;
@@ -875,6 +876,10 @@ header {
 			}
 			.text_critair{
 				padding-top: 45px;
+				a {
+					color: $white;
+					text-decoration: underline;
+				}
 				@include md {
 					padding-top: 10px;
 				}
@@ -1024,6 +1029,10 @@ header {
 					}
 					&:last-child {
 						border-bottom: none;
+						em {
+							font-size: 12px;
+    						opacity: .7;
+						}
 					}
 					&:before {
 						counter-increment: compteListe 1;

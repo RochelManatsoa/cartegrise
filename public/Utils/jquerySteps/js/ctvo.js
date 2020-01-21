@@ -208,7 +208,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                             html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     }
                 });
-                resum.html(html.concat("<div><strong> Démarche </strong> <span>Changement Titulaire Véhicule d'Occasion Français</span> </div>"));
+                resum.html(html.concat("<div><strong> Démarche </strong> <span>Changement titulaire véhicule d'occasion français</span> </div>"));
             }
         },
         onFinishing: function (event, currentIndex) {
