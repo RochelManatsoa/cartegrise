@@ -59,8 +59,8 @@
                 <div class="col-5">
                     <p>
                         <strong>
-                            {{commande.infosFacture.name}} <br>
-                            {{commande.infosFacture.firstname}}
+                            {{commande.infosFacture.name | upper }} 
+                            {{commande.infosFacture.firstname | capitalize }}
                         </strong>
                         {% if adresse is not null %}
                             <br>
