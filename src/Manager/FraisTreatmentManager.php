@@ -39,8 +39,8 @@
      {
         $typeDemarche = $commande->getDemarche();
         $price = $this->tarifPrestationRepository->findOneBy(["commande" => $typeDemarche->getId()]);
-        if($commande->getDemande()->getFraisRembourser() !== null)
-            return $commande->getDemande()->getFraisRembourser();
+        if($commande->getDemande()->getFraisRembourser() !== null || $commande->getFraisRembourser() !== null)
+            return $commande->getDemande() === null ? $commande->getFraisRembourser() : $commande->getDemande()->getFraisRembourser();
         if($price == null){
             return 0;
         }
@@ -52,6 +52,11 @@
         $price = $this->tarifPrestationRepository->findOneBy(["commande" => $typeDemarche->getId()]);
         if($price == null){
             return 0;
+        } elseif (
+           $commande->getDemande() === null &&
+           $commande->getFraisRembourser() != null
+         ) {
+           return 0;
         }
         return $price->getTva();
      }
@@ -101,10 +106,18 @@
      public function fraisTotalTreatmentOfCommandeWithTvaAvoir(Commande $commande)
      {
         if (
+           $commande->getDemande() !== null &&
            $commande->getDemande()->getFraisRembourser() !== null &&
            is_numeric($commande->getDemande()->getFraisRembourser())
         ){
            return $commande->getDemande()->getFraisRembourser();
+        } elseif (
+           $commande->getDemande() === null &&
+           $commande->getFraisRembourser() !== null &&
+           is_numeric($commande->getFraisRembourser())
+        )
+        {
+            return $commande->getFraisRembourser();
         }
 
         return $this->fraisTotalTreatmentOfCommande($commande);
@@ -125,7 +138,9 @@
 
      public function tvaOfFraisTreatmentAvoir(Commande $commande)
      {
-        if ($commande->getDemande()->getFraisRembourser() !== null) {
+        if ($commande->getDemande() != null && $commande->getDemande()->getFraisRembourser() !== null) {
+           return 0;
+        } elseif ($commande->getDemande() === null && $commande->getFraisRembourser() !== null) {
            return 0;
         }
         $tva = $this->tvaTreatmentOfCommande($commande)/100;
@@ -147,8 +162,10 @@
 
      public function fraisTreatmentWithoutTaxesOfCommandeAvoir(Commande $commande)
      {
-        if ($commande->getDemande()->getFraisRembourser() !== null){
+        if ($commande->getDemande() != null && $commande->getDemande()->getFraisRembourser() !== null){
            return $commande->getDemande()->getFraisRembourser();
+        } elseif ($commande->getDemande() === null && $commande->getFraisRembourser() !== null){
+           return $commande->getFraisRembourser();
         }
         $tva = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
         return round(($this->fraisTotalTreatmentOfCommande($commande) / $tva),2 , PHP_ROUND_HALF_DOWN);

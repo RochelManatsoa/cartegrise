@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Avoir N°
+        {{ commande.avoir.numeroAvoirValue }}
+    </title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ pathToWeb ~ asset('css/style.css') }}">
+    <style type="text/css">
+        .logo-facture {
+            width: 100px;
+        }
+
+        body {
+            font-family: Roboto;
+            font-size: 14px;
+        }
+
+        .foot {
+            < !-- position: absolute;
+            top: 120%;
+            -->
+        }
+
+        h1 {
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="invoice">
+            <div class="row">
+                <div class="col-7">
+                    <img src="{{  pathToWeb ~ asset('asset/img/logo.png')}}" class="logo-facture">
+                </div>
+                <div class="col-5">
+                    <h1>AVOIR</h1>
+                    <p><strong>N°{{ commande.avoir.numeroAvoirValue }}</strong>
+                    </p>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-7">
+                    <p>
+                        <strong>CG Officiel</strong><br>
+                        20 Impasse Camille Langlade, <br>
+                        31000 TOULOUSE
+                    </p>
+                </div>
+                <div class="col-5">
+                    <p>
+                        <strong>
+                            {{commande.infosFacture.name}} <br>
+                            {{commande.infosFacture.firstname}}
+                        </strong>
+                        {% if adresse is not null %}
+                            <br>
+                            {{ adresse.numero }}
+                            {{ adresse.extension }}
+                            {{ adresse.typevoie | displayAdress}}
+                            {{ adresse.nom | upper }}
+                            {{ adresse.complement }}
+                            <br>
+                            {{ adresse.codePostal }}
+                            {{ adresse.ville | upper }}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            <br>
+            <br>
+
+            <table class="table table-bordered table-sm">
+                <thead class="table-active">
+                    <tr>
+                        <th>N° d'Avoir</th>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">Ref client</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ commande.avoir.numeroAvoirValue }}
+                        </td>
+                        <td class="text-center">{{commande.avoir.createdAt | date('d/m/Y')}}</td>
+                        {% set currentTransaction = commande.transaction %}
+                        {% if currentTransaction is not null %}
+                            <td class="text-center">{{currentTransaction.transactionId}}</td>
+                        {% endif %}
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <table class="table table-bordered table-sm">
+                <thead class="table-active">
+                    <tr>
+                        <th>Produit</th>
+                        <th class="text-center">Prix HT</th>
+                        <th class="text-center">Taux TVA</th>
+                        <th class="text-center">TVA</th>
+                        <th class="text-center">Prix TTC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>Taxes fiscales carte grise </strong>
+                            <br>Démarche : {{commande.demarche.nom}}
+                            <br>Département de résidence : {{commande.codePostal}}
+                            <br>Numéro d'immatriculation : {{commande.immatriculation}}
+                            <br>VIN : {{commande.taxes.VIN}}
+                            <br>Modèle : {{commande.carInfo.model}}
+                            <br>Marque : {{commande.carInfo.marque}}
+                            <br>Département plaque : {{commande.codePostal}}
+                        </td>
+                        <td class="text-center">
+                            <strong>{{(commande.taxes.taxeTotale)|number_format(2, '.', ',') }} €</strong></td>
+                        <td class="text-center">0%</td>
+                        <td class="text-center"><strong>0,00 €</strong></td>
+                        <td class="text-center">
+                            <strong>{{(commande.taxes.taxeTotale)|number_format(2, '.', ',') }} €</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Frais de dossier</strong></td>
+                        <td class="text-center">
+                            <strong>{{(fraisdossierWithoutTvaAvoir(commande))|number_format(2, '.', ',') }}
+                                €</strong></td>
+                        <td class="text-center">{{ tvaCommande(commande) }}</td>
+                        <td class="text-center">
+                            <strong>{{(tvaTraitementAvoir(commande))|number_format(2, '.', ',') }} €</strong></td>
+                        <td class="text-center">
+                            <strong>{{(fraisTraitementWhithTvaAvoir(commande))|number_format(2, '.', ',') }}
+                                €</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <div class="row">
+                <div class="col-7">
+                    <p> Somme à rembourser: </p>
+                </div>
+                <div class="col-5">
+                    <table class="table table-md text-right table-active">
+                        <tr>
+                            <td><strong>Total HT : </strong></td>
+                            <td class="text-right">
+                                <strong>{{(fraisTotalHTAvoir(commande)|number_format(2, '.', ','))}} €</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Base HT pour TVA :</strong></td>
+                            <td class="text-right">
+                                <strong>{{(fraisdossierWithoutTvaAvoir(commande)|number_format(2, '.', ','))}}
+                                    €</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>TVA {{ tvaCommande(commande) }} :</strong></td>
+                            <td class="text-right bg">
+                                <strong>{{(tvaTraitementAvoir(commande)|number_format(2, '.', ',') )}} €</strong>
+                            </td>
+                        </tr>
+                        <tr class="table-active">
+                            <td><strong>Total TTC :</strong></td>
+                            <td class="text-right"><strong>{{(totalAvoir(commande))|number_format(2, '.', ',') }}
+                                    €</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-12 foot">
+                    <hr>
+                    <p class="bottom-page text-right">
+                        <small>
+                            CG Officiel - N° SIRET 83897291700010 Toulouse<br>
+                            20 Impasse Camille Langlade, 31000 Toulouse 09 77 42 31 20 - www.cgofficiel.fr<br>
+                            IBAN FR76 3000 4003 3900 0102 24 95 637 - SWIFT CCBPFRPPMTZ
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

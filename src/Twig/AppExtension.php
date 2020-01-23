@@ -310,7 +310,6 @@ class AppExtension extends AbstractExtension
     }
     public function tvaTraitementAvoir(Commande $commande)
     {
-
         return $this->fraisTreatmentManager->tvaOfFraisTreatmentAvoir($commande);
     }
     public function tvaTraitementDailyTotal(array $demandes)

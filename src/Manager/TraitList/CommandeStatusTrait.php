@@ -116,6 +116,11 @@ trait CommandeStatusTrait
 
     public function getStatusOfCommande(Commande $commande)
     {
+        if ($commande->getStatusTmp() !== null)
+        {
+            return $commande->getStatusTmp();
+        }
+
         if (
             null !== $commande->getDemande() &&
             (null !== $commande->getDemande()->getTransaction() || null !== $commande->getTransaction())

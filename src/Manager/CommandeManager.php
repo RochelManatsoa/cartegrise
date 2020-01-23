@@ -504,4 +504,87 @@ class CommandeManager
 	{
 		return $this->repository->findBy(['demande' => null], ['id'=>'DESC']);
 	}
+	/**
+	 * function to retract with commande payed
+	 *
+	 * @param Commande $commande
+	 * @return void
+	 */
+	public function retracter(Commande $commande)
+    {
+        if (!$commande instanceof Commande)
+            return;
+        $commande->setStatusTmp(Commande::RETRACT_FORM_WAITTING);
+        $this->save($commande);
+    }
+	/**
+	 * function to retract with commande payed
+	 *
+	 * @param Commande $commande
+	 * @return void
+	 */
+	public function retracterSecond(Commande $commande)
+    {
+        if (!$commande instanceof Commande)
+            return;
+        $commande->setStatusTmp(Commande::RETRACT_DEMAND);
+        $this->save($commande);
+    }
+	/**
+	 * function to refund the command payed
+	 *
+	 * @param Commande $commande
+	 * @return void
+	 */
+    public function refund(Commande $commande)
+    {
+        if (!$commande instanceof Commande)
+            return;
+        $commande->setStatusTmp(Commande::RETRACT_REFUND);
+        $this->save($commande);
+	}
+
+	public function getTitulaireParams(Commande $commande)
+    {
+		return [
+			'adresse' => $commande->getInfosFacture()->getAdresse()
+		];
+	}
+	
+	public function generateAvoir(Commande &$commande)
+    {
+
+		
+		$commande->setStatusTmp(Commande::RETRACT_FORM_WAITTING);
+        $folder = $commande->getGeneratedAvoirCerfaPath();
+        $file = $commande->getGeneratedAvoirPathFile();
+        $params = $this->getTitulaireParams($commande);
+		$params = array_merge(['commande' => $commande], $params);
+        // create directory
+		if (!is_dir($folder)) mkdir($folder, 0777, true);
+		
+		
+        // // end create file 
+        // // save Avoir before generate number
+        if(
+            !is_null($commande->getAvoir()) &&
+            $commande->getAvoir()->getFullPath() != $file
+        ) {
+            $commande->getAvoir()->setFullPath($file);
+            $this->save($commande);
+        }
+        // // end sav Avoir before generate number
+        // // get facture if not exist
+        // if (!is_file($file)) { // attente de finalité du process
+            $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
+            $filename = "Facture";
+            $html = $this->twig->render("avoir/avoir.pdf.twig", $params);
+            $output = $snappy->getOutputFromHtml($html);
+            
+            $filefinal = file_put_contents($file, $output);
+		// }
+		
+        
+        return $file;
+    }
 }

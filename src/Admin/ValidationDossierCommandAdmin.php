@@ -14,6 +14,7 @@ use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\DateRangePickerType;
 use App\Entity\Demande;
+use App\Entity\Commande;
 
 final class ValidationDossierCommandAdmin extends AbstractAdmin
 {
@@ -40,10 +41,14 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
         $collection->add('uploadDossier', $this->getRouterIdParameter().'/upload_dossier');
         $collection->add('ficheClient', $this->getRouterIdParameter().'/fiche-client');
         $collection->add('retracterWithDocument', $this->getRouterIdParameter().'/retracter');
+        $collection->add('retracterCommande', $this->getRouterIdParameter().'/retracter-commande');
         $collection->add('refund', $this->getRouterIdParameter().'/refund');
         $collection->add('facture', $this->getRouterIdParameter().'/facture');
         $collection->add('factureCommande', $this->getRouterIdParameter().'/facture-commande');
         $collection->add('avoir', $this->getRouterIdParameter().'/avoir');
+        $collection->add('avoirCommande', $this->getRouterIdParameter().'/avoir-commande');
+        $collection->add('retracterCommandeSecond', $this->getRouterIdParameter().'/retracter-commande-second');
+        $collection->add('refundCommande', $this->getRouterIdParameter().'/refund-commande');
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -55,6 +60,7 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
             ]
         ])
         ->add('comment')
+        ->add('fraisRembourser')
         ;
     }
 
@@ -93,6 +99,18 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
                         'Validée et envoyée à TMS' => Demande::DOC_VALID_SEND_TMS,
                         'Retractée' => Demande::RETRACT_DEMAND,
                         'Remboursée' => Demande::RETRACT_REFUND,
+                        'Attente formulaire de rétractation' => Demande::RETRACT_FORM_WAITTING,
+                ]
+            ]
+        ])
+        ->add('statusTmp', 'doctrine_orm_choice' ,[
+            'label' => 'Etat du document payer',
+            'global_search' => true,
+            'field_type' => ChoiceType::class,
+            'field_options' => [
+                'choices' => [
+                        'Retractée' => Commande::RETRACT_DEMAND,
+                        'Remboursée' => Commande::RETRACT_REFUND,
                         'Attente formulaire de rétractation' => Demande::RETRACT_FORM_WAITTING,
                 ]
             ]
@@ -158,6 +176,9 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
                 ],
                 'retracter' => [
                     'template'=>'CRUD/list__demande_document_retracter.html.twig'
+                ],
+                'retracterCommande' => [
+                    'template'=>'CRUD/list__commande_document_retracter.html.twig'
                 ]
             ],
             

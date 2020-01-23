@@ -95,6 +95,23 @@ class ActionAdminController extends Controller
     /**
      * @param $id
      */
+    public function avoirCommandeAction($id)
+    {
+        $object = $this->admin->getSubject();
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+        }
+
+        return new RedirectResponse($this->generateUrl('payment_avoir_commande', ['commande'=> $object->getId()]));
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+
+    /**
+     * @param $id
+     */
     public function retracterAction($id, DemandeManager $demandeManager)
     {
         $object = $this->admin->getSubject();
@@ -129,6 +146,57 @@ class ActionAdminController extends Controller
         }
         
         $file = $demandeManager->retracter($object);
+
+        // return new RedirectResponse($this->generateUrl('payment_avoir', ['demande'=> $object->getId()]));
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+    /**
+     * @param $id
+     */
+    public function retracterCommandeAction($id, CommandeManager $commandeManager)
+    {
+        $object = $this->admin->getSubject();
+
+        if (!$object && !$object instanceof Commande) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+        }
+        // generate new Avoir
+        if (is_null($object->getAvoir())) {
+            $avoir = new Avoir();
+            $object->setAvoir($avoir);
+        }
+        $file = $commandeManager->generateAvoir($object);
+        $commandeManager->retracter($object);
+
+        // return new RedirectResponse($this->generateUrl('payment_avoir', ['demande'=> $object->getId()]));
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+    /**
+     * @param $id
+     */
+    public function retracterCommandeSecondAction($id, CommandeManager $commandeManager)
+    {
+        $object = $this->admin->getSubject();
+
+        $commandeManager->retracterSecond($object);
+
+        // return new RedirectResponse($this->generateUrl('payment_avoir', ['demande'=> $object->getId()]));
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+    /**
+     * @param $id
+     */
+    public function refundCommandeAction($id, CommandeManager $commandeManager)
+    {
+        $object = $this->admin->getSubject();
+
+        $commandeManager->refund($object);
 
         // return new RedirectResponse($this->generateUrl('payment_avoir', ['demande'=> $object->getId()]));
 

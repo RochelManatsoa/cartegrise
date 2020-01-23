@@ -35,6 +35,11 @@ class Avoir
     private $demande;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Commande", inversedBy="avoir", cascade={"persist", "remove"})
+     */
+    private $commande;
+
+    /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $paied;
@@ -80,6 +85,18 @@ class Avoir
         return $this;
     }
 
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): self
+    {
+        $this->commande = $commande;
+
+        return $this;
+    }
+
     public function getPaied(): ?bool
     {
         return $this->paied;
@@ -112,9 +129,13 @@ class Avoir
         }
         $num;
         $dateDemande = $this->getCreatedAt()->format('Ym');
-        $type = $this->getDemande()->getCommande()->getDemarche()->getType();
-        $demandeId = $this->getDemande()->getId();
+        $type = $this->getDemande() !== null ? 
+        $this->getDemande()->getCommande()->getDemarche()->getType():
+        $this->getCommande()->getDemarche()->getType();
+        $id = $this->getDemande() !== null ?
+        $this->getDemande()->getId():
+        $this->getCommande()->getId();
 
-        return 'A'.$num . $dateDemande . '/' . $type . $demandeId;
+        return 'A'.$num . $dateDemande . '/' . $type . $id;
     }
 }

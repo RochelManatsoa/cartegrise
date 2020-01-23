@@ -27,6 +27,9 @@ class Commande
     use \App\Manager\TraitList\CommandeStatusTrait;
 
     const DOC_DOWNLOAD = 'document/';
+    const RETRACT_DEMAND = 7;
+    const RETRACT_REFUND = 8;
+    const RETRACT_FORM_WAITTING = 9;
 
     /**
      * @ORM\Id()
@@ -160,6 +163,22 @@ class Commande
      * @ORM\Column(type="boolean", nullable=true,  options={"default" : false})
      */
     private $paymentOk;
+
+    /**
+     * @ORM\Column(nullable=true,  options={"default" : null})
+     */
+    private $statusTmp;
+
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Avoir", mappedBy="commande", cascade={"persist", "remove"})
+     */
+    private $avoir;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $fraisRembourser;
 
     /**
      * @ORM\PrePersist
@@ -528,6 +547,68 @@ class Commande
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getStatusTmp()
+    {
+        return $this->statusTmp ;
+    }
+
+    /**
+     * function setStatusTmp
+     *
+     * @param string $status
+     * @return void
+     */
+    public function setStatusTmp(string $status)
+    {
+        $this->statusTmp = $status;
+    }
+
+    public function getAvoir(): ?Avoir
+    {
+        return $this->avoir;
+    }
+
+    public function setAvoir(?Avoir $avoir): self
+    {
+        $this->avoir = $avoir;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCommande = null === $avoir ? null : $this;
+        if ($avoir->getCommande() !== $newCommande) {
+            $avoir->setCommande($newCommande);
+        }
+
+        return $this;
+    }
+
+    public function getGeneratedAvoirCerfaPath(): ?string
+    {
+        $path = $this::DOC_DOWNLOAD . $this->id ."commande/".
+            $this->getImmatriculation(). '-' .
+            $this->getCodePostal();
+
+        return $path;
+    }
+
+    public function getGeneratedAvoirPathFile(): ?string
+    {
+
+        return $this->getGeneratedAvoirCerfaPath().'/avoir.pdf';
+    }
+
+
+    public function getFraisRembourser()
+    {
+        return $this->fraisRembourser;
+    }
+
+    public function setFraisRembourser($fraisRembourser): self
+    {
+        $this->fraisRembourser = $fraisRembourser;
 
         return $this;
     }

@@ -191,6 +191,16 @@ class PaymentController extends AbstractController
         return new BinaryFileResponse($file);
     }
 
+    /**
+     * @Route("/payment/{commande}/command-avoir", name="payment_avoir_commande")
+     */
+    public function avoirCommande(Commande $commande, FraisTreatmentManager $fraisTreatmentManager, CommandeManager $commandeManager)
+    {
+        $file = $commandeManager->generateAvoir($commande);
+
+        return new BinaryFileResponse($file);
+    }
+
     // to get response
     private function getResponse($response, $paymentUtils, $parameterBag, $responseTreatment)
     {
