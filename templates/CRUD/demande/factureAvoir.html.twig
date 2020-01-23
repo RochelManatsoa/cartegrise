@@ -32,7 +32,7 @@
         {% else %}
         avoir
         {% endif %}
-    {% elseif object.demande is defined and object.demande is null and (object.statusTmp == constant('App\\Entity\\Commande::RETRACT_DEMAND') or object.statusTmp == constant('App\\Entity\\Commande::RETRACT_REFUND'))  %} 
+    {% elseif object.demande is defined and object.demande is null and (object.statusTmp == constant('App\\Entity\\Commande::RETRACT_DEMAND') or object.statusTmp == constant('App\\Entity\\Commande::RETRACT_REFUND') or or object.statusTmp == constant('App\\Entity\\Commande::RETRACT_FORM_WAITTING'))  %} 
     {% if object.avoir is not null and object.avoir.id is not null %}
         <a class="btn btn-sm btn-default view_link" target="_blank"
             href="{{ admin.generateObjectUrl('avoirCommande', object) }}" title="facture">
