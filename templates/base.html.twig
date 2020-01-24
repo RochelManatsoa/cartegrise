@@ -95,7 +95,8 @@
 	<script src="{{ asset('asset/libs/js/bootstrap.min.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('asset/libs/js/parallax.min.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('javascripts/home.js') }}"></script>
-	{% if (is_full_view() and (is_device('samsung') == false)) %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/UAParser.js/0.7.19/ua-parser.min.js"></script>
+	{% if (is_full_view() or is_not_mobile_view())%}
 		<script src="{{ asset('javascripts/tiretAuto.js') }}"></script>
 	{% endif %}
 	<script type="text/javascript">

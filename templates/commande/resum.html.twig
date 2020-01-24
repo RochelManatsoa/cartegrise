@@ -7,12 +7,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-12 resultat-estimation mx-auto">
-                    <h2 class="col-12 text-center">RESUME DE LA COMMANDE</h2>
+                    <h2 class="col-12 text-center">Récapitulatif de la commande</h2>
                     <div class="row recap-demande-wrapper  pt-5 pb-5">
                         <img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}"
                              class="rounded col-2 mx-auto d-block img-thumbnail mb-3" style="height:100px;" alt="">
                         <div class="col-10 mx-auto">
-                            <h2 class="col-12 mb-5 row mx-0">Récapitulatif de la demande</h2>
+                            <h2 class="col-12 mb-5 row mx-0"></h2>
                             {{ include('commande/_resum_recap_demande.html.twig') }}
 
                         </div>
