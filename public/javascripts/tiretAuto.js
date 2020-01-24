@@ -13,6 +13,7 @@ function valueTreatement(value) {
     
         return ""
     } else {
+        alert('Vous êtes sur samsung?!');
         return value;
     }
 }
