@@ -13,7 +13,7 @@ function valueTreatement(value) {
     
         return ""
     } else {
-        alert('Vous êtes sur samsung?!');
+        alert(result.device.vendor);
         return value;
     }
 }
