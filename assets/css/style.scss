@@ -1171,7 +1171,10 @@ header {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    border-top: 2px solid transparent;
+	border-top: 2px solid transparent;
+	@include xs {
+		display: $block;
+	}
     > div {
       font-family: 'Open Sans';
       color: $dark;
@@ -1181,7 +1184,10 @@ header {
       background-size: cover;
       padding: 10px 20px;
       border: 1px solid $light;
-      min-height: 50px;
+	  min-height: 50px;
+	  @include xs {
+		margin-top: 9px;
+	  }
       +div{
         font-weight: normal;
         background: $white;
