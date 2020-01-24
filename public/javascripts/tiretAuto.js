@@ -4,6 +4,8 @@ function valueTreatement(value) {
 	var result = ua.getResult();
     var valueArray = value.split("");
     if (result.device.vendor !== "Samsung"){
+        alert(result.device.vendor);
+        console.log(result.device.vendor);
         if (valueArray.length === 7) {
             return value.slice(0, 2) + "-" + value.slice(2, 5) + "-" + value.slice(5, 7);
         } else if (valueArray.length === 9) {
@@ -14,6 +16,7 @@ function valueTreatement(value) {
         return ""
     } else {
         alert(result.device.vendor);
+        console.log(result.device.vendor);
         return value;
     }
 }
