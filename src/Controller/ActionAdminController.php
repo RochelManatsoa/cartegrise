@@ -15,7 +15,10 @@ use App\Entity\{Demande, Commande, Facture};
 use App\Entity\Client;
 use App\Entity\Avoir;
 use App\Form\SaveAndValidateType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use App\Manager\Mercure\MercureManager;
+use App\Manager\NotificationManager;
 
 class ActionAdminController extends Controller
 {
@@ -255,6 +258,54 @@ class ActionAdminController extends Controller
 
         // if you have a filtered list and want to keep your filters after the redirect
         return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+    /**
+     * @param $id
+     */
+    public function newDemandeOfCommandeAction(
+        $id,
+        Request $request,
+        DemandeManager $demandeManager,
+        MercureManager  $mercureManager,
+        NotificationManager $notificationManager
+    )
+    {
+        $object = $this->admin->getSubject();
+        if (!$object instanceof Commande) {
+            throw new NotFoundHttpException(sprintf('unable to find the User with id: %s', $id));
+        }
+
+        $form = $demandeManager->generateForm($object);
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()){
+            $demande = $demandeManager->save($form);
+
+            $commande = $object;
+
+            // The Publisher service is an invokable object
+            $data =  [
+                'immat' => $commande->getImmatriculation(),
+                'department' => $commande->getCodePostal(),
+                'demarche' => $commande->getDemarche()->getType(),
+                'id' => $demande->getId(),
+            ];
+            $mercureManager->publish(
+                'http://cgofficiel.com/addNewSimulator',
+                'demande',
+                $data,
+                'nouvelle demande insérer'
+            );
+            $notificationManager->saveNotification([
+                "type" => 'demande', 
+                "data" => $data,
+            ]);
+            // end update
+            // redirect after save
+            return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+        }
+
+        return new Response($demandeManager->getAdminView($form));
     }
 
     /**

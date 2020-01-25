@@ -1,0 +1,228 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{% form_theme form 'demande/demande_custom_theme.html.twig'%}
+
+{% block stylesheets %} 
+    {{ parent()}} 
+    <link href="{{asset('Utils/jquerySteps/css/jquery.steps.css')}}" rel="stylesheet">
+    <link href="{{asset('Utils/jquerySteps/css/main.css')}}" rel="stylesheet">
+    <link href="{{asset('Utils/jquerySteps/css/normalize.css')}}" rel="stylesheet">
+    <style>
+        #daf-list-wrapper ol > li > ul {
+            color: #d9534f;
+        }
+    </style>
+{% endblock %}
+
+
+
+{% block sonata_admin_content %}
+<div class="rp_dmd">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 commander-firstview custom-form">
+                <h2 class="text-center mb-4 full-mobile">{{ commande.demarche.nom}}</h2>
+                <hr>
+                <div class="resultat-estimation mb-5 full-mobile">{% include "demande/caracteristicVehicle.html.twig" %}</div>
+                <hr>
+                {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
+                    <h3>Etape</h3>
+                    <section style="position: relative;width: 100%;">
+                            <legend>{{ form_label(form.ctvo.ancienTitulaire) }}</legend>
+                            <div class="ancientitulaire">
+                                {{ form_row(form.ctvo.ancienTitulaire.type)}}
+                                {{ form_row(form.ctvo.ancienTitulaire.raisonsociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                {{ form_row(form.ctvo.ancienTitulaire.nomprenom)}}
+                            </div>
+                            <div class="ciPresent">                                
+                                {{ form_row(form.ctvo.ciPresent)}}
+                                {{ form_row(form.ctvo.numeroFormule)}}
+                            </div>
+                    </section>
+
+                    <h3>Etape</h3>
+                    <section style="position: relative;width: 100%;">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <legend>{{ form_label(form.ctvo.acquerreur) }}</legend>
+                                    <div class="titulaire">
+                                        {{ form_row(form.ctvo.acquerreur.type)}}
+                                        {{ form_row(form.ctvo.acquerreur.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                        {{ form_row(form.ctvo.acquerreur.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                        {{ form_row(form.ctvo.acquerreur.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                        {{ form_row(form.ctvo.acquerreur.nomPrenomTitulaire)}}
+                                        {{ form_row(form.ctvo.acquerreur.prenomTitulaire)}}
+                                        {{ form_row(form.ctvo.acquerreur.genre)}}
+                                        {{ form_row(form.ctvo.acquerreur.dateN)}}
+                                        {{ form_row(form.ctvo.acquerreur.lieuN)}}
+                                        {{ form_row(form.ctvo.acquerreur.departementN)}}
+                                        {{ form_row(form.ctvo.acquerreur.paysN)}}
+                                        {{ form_row(form.ctvo.acquerreur.droitOpposition)}}
+                                    </div>
+                                </div>
+                                <div class="col-md-2 d-none d-lg-block"><div class="col-sep d-flex align-items-center justify-content-center"><span></span></div></div>
+                                <div class="col-md-5">
+                                    <legend>{{ form_label(form.ctvo.acquerreur.adresseNewTitulaire) }}</legend>
+                                    <div class="vehicule-neuf">
+                                    {% for addresseNewTitulaire in form.ctvo.acquerreur.adresseNewTitulaire %}
+                                        <div class="form-group">
+                                            {{ form_label(addresseNewTitulaire)}}
+                                            {{ form_errors(addresseNewTitulaire)}}
+                                            {{ form_widget(addresseNewTitulaire, {'attr': {'class': ''}})}}
+                                        </div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                    </section>
+                    <h3>Etape</h3>
+                    <section style="position: relative;width: 100%;">
+                        <div id="resum"></div>
+                        <div style="display:none;">
+                            {{form_rest(form)}}
+                        </div>
+                    </section>
+                    {# <h3>Etape</h3>
+                    <section>
+                        <h4><strong>Liste des dossiers à fournir</strong></h4>
+                        {% if daf is defined %}
+                        <div id="daf-list-wrapper">
+                                {{ daf|raw }}
+                            </div>
+                        {% endif %}
+                        <div class="col-12 text-center">
+                            
+                        </div> #}
+                        {# {% if formFile is defined %}
+                            {% if formFile is not null %}
+                                {% include 'demande/file/FormDossier.html.twig' %}
+                            {% endif %}
+                            {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
+                                <a href="{{ path("validate_file", {'demande': demande.id}) }}">
+                                    <button class="btn btn-info">
+                                        Valider
+                                    </button>
+                                </a>
+                            {% endif %}
+                        {% endif %} #}
+                    {# </section> #}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>
+<script src="{{ asset('Utils/js/jqueryUi.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/jquery.steps.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/jqueryValidate.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/ctvo.js')}}"></script>
+
+<script type="application/javascript">
+    $('.choice-type-cotitulaire').on('change', function(e) {
+        $(e.target).parent('.form-group').siblings().toggle();
+    })
+</script>
+<script type="application/javascript">
+    var $collectionHolder;
+
+    // setup an "add a tag" link
+    var $addTagButton = $('<center><button type="button" class="add_tag_link btn btn-outline-primary btn-md">Ajouter cotitulaire</button></center>');
+    var $newLinkLi = $('<p></p>').append($addTagButton);
+
+    jQuery(document).ready(function() {
+        // Get the ul that holds the collection of tags
+        $collectionHolder = $('ul.tags');
+        // add a delete link to all of the existing tag form li elements
+        $collectionHolder.find('li').each(function() {
+            addTagFormDeleteLink($(this));
+        });
+
+        // add the "add a tag" anchor and li to the tags ul
+        $collectionHolder.append($newLinkLi);
+
+        // count the current form inputs we have (e.g. 2), use that as the new
+        // tagindex when inserting a new item (e.g. 2)
+        $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+        $addTagButton.on('click', function(e) {
+            // add a new tag form (see next code block)
+            addTagForm($collectionHolder, $newLinkLi);
+        });
+    });
+
+    function addTagForm($collectionHolder, $newLinkLi) {
+        // Get the data-prototype explained earlier
+        var prototype = $collectionHolder.data('prototype');
+    
+        // get the new index
+        var index = $collectionHolder.data('index');
+    
+        var newForm = prototype;
+        // You need this only if you didn't set 'label' => false in your tags field in TaskType
+        // Replace '__name__label__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        // newForm = newForm.replace(/__name__label__/g, index);
+    
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        newForm = newForm.replace(/__name__/g, index);
+    
+        // increase the index with one for the next item
+        $collectionHolder.data('index', index + 1);
+    
+        // Display the form in the page in an li, before the "Add a tag" link li
+        var $newFormLi = $('<div class="cotitulaire"></div>').append(newForm);
+        addTagFormDeleteLink($newFormLi);
+        $newLinkLi.before($newFormLi);
+    }
+
+    function addTagFormDeleteLink($tagFormLi) {
+        var $removeFormButton = $('<center><button type="button" class="btn btn-outline-danger btn-md">Supprimer ce cotitulaire</button></center>');
+        $tagFormLi.append($removeFormButton);
+    
+        $removeFormButton.on('click', function(e) {
+            // remove the li for the tag form
+            $tagFormLi.remove();
+        });
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(
+        function(){
+            initFormStep(
+                $("#example-advanced-form"),
+                "h3",
+                "section",
+                "fade"
+            );
+        }
+    );
+
+    $(document).ready(
+        function(){
+            datePickerFunction(
+                $('.js-datepicker')
+            );
+        }
+    );
+    $(document).ready(
+        function(){
+            showElement(
+                $('.choice-type-ciPresent')
+            );
+            showElement(
+                $('.choice-type-ancientitulaire')
+            );
+            showElement(
+                $('.choice-type-personne')
+            );
+        }
+    );
+
+</script>
+<script src="{{ asset('asset/libs/js/jquery.sticky.js') }}" type="text/javascript"></script>
+<script src="{{ asset('javascripts/home.js') }}"></script> 
+{% endblock %}

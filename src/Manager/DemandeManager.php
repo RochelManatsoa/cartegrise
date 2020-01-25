@@ -160,27 +160,8 @@ class DemandeManager
     public function getView(Form $form)
     {
         $demande = $form->getData();
-        //dd($demande);
-        //$pathCerfa = $this->generateCerfa($demande);
-        // $daf = $this->getDossiersAFournir($demande /*, $pathCerfa*/);
-        // $files = $this->documentAFournirManager->getDaf($demande);
-        // $fileType = $this->documentAFournirManager->getType($demande);
-        // $path = $demande->getUploadPath();
-        // $fileForm = null;
-        // if (!null == $fileType) {
-        //     $fileForm = $this->createForm($fileType, $files);
-        //     $fileForm->handleRequest($request);
-
-        //     if ($fileForm->isSubmitted() && $fileForm->isValid()) {
-        //         $documentAFournirManager->handleForm($fileForm, $path)->save($fileForm);
-        //     }
-        // }
         $params = [
             'demande'   => $demande,
-            //'daf'       => $daf,
-            //'pathCerfa' => $pathCerfa,
-            //'formFile'      => is_null($fileForm) ? null :$fileForm->createView(),
-            //"files"     => $files,
             'form'     => $form->createView(),
             'commande' => $demande->getCommande()
         ];
@@ -662,6 +643,67 @@ class DemandeManager
     public function getDemandeForCommande(Commande $commande)
     {
         return $this->repository->findOneBy(['commande'=>$commande->getId()]);
+    }
+
+    public function getAdminView(Form $form)
+    {
+        $demande = $form->getData();
+        $params = [
+            'demande'   => $demande,
+            'form'     => $form->createView(),
+            'commande' => $demande->getCommande()
+        ];
+        switch($demande->getCommande()->getDemarche()->getType()) {
+            case "CTVO":
+            //dd($params);
+                $view = $this->twig->render(
+                        "CRUD/demande/ctvo.html.twig",
+                        $params
+                );
+            break;
+
+            case "DUP":
+                $view = $this->twig->render(
+                        "CRUD/demande/duplicata.html.twig",
+                        [
+                            'form'     => $form->createView(),
+                            'commande' => $demande->getCommande(),
+                        ]
+                );
+            break;
+
+            case "DIVN":
+                $view = $this->twig->render(
+                        "CRUD/demande/divn.html.twig",
+                        [
+                            'form'     => $form->createView(),
+                            'commande' => $demande->getCommande(),
+                        ]
+                );
+                break;
+            
+            case "DCA":
+                $view = $this->twig->render(
+                        "CRUD/demande/changementAdresse.html.twig",
+                        [
+                            'form'     => $form->createView(),
+                            'commande' => $demande->getCommande(),
+                        ]
+                );
+            break;
+
+            case "DC":
+                $view = $this->twig->render(
+                        "CRUD/demande/cession.html.twig",
+                        [
+                            'form'     => $form->createView(),
+                            'commande' => $demande->getCommande(),
+                        ]
+                );
+            break;
+        }
+
+        return $view;
     }
 
 }
