@@ -95,10 +95,11 @@
 	<script src="{{ asset('asset/libs/js/bootstrap.min.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('asset/libs/js/parallax.min.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('javascripts/home.js') }}"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/UAParser.js/0.7.19/ua-parser.min.js"></script>
-	{# {% if (is_full_view() or is_not_mobile_view())%}
+	{% if (is_full_view() or is_not_mobile_view())%}
 		<script src="{{ asset('javascripts/tiretAuto.js') }}"></script>
-	{% endif %} #}
+	{% else %}
+		<script src="{{ asset('javascripts/mobile.js') }}"></script>
+	{% endif %}
 	<script type="text/javascript">
         cookiesChecker.init();
         // or customize it a bit:
