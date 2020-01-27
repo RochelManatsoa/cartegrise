@@ -7,6 +7,7 @@
     <link href="{{asset('Utils/jquerySteps/css/jquery.steps.css')}}" rel="stylesheet">
     <link href="{{asset('Utils/jquerySteps/css/main.css')}}" rel="stylesheet">
     <link href="{{asset('Utils/jquerySteps/css/normalize.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('build/style.css') }}" />
     <style>
         #daf-list-wrapper ol > li > ul {
             color: #d9534f;
@@ -43,7 +44,7 @@
                     <h3>Etape</h3>
                     <section style="position: relative;width: 100%;">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <legend>{{ form_label(form.ctvo.acquerreur) }}</legend>
                                     <div class="titulaire">
                                         {{ form_row(form.ctvo.acquerreur.type)}}
@@ -60,8 +61,7 @@
                                         {{ form_row(form.ctvo.acquerreur.droitOpposition)}}
                                     </div>
                                 </div>
-                                <div class="col-md-2 d-none d-lg-block"><div class="col-sep d-flex align-items-center justify-content-center"><span></span></div></div>
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <legend>{{ form_label(form.ctvo.acquerreur.adresseNewTitulaire) }}</legend>
                                     <div class="vehicule-neuf">
                                     {% for addresseNewTitulaire in form.ctvo.acquerreur.adresseNewTitulaire %}
