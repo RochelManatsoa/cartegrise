@@ -97,8 +97,7 @@
 
 {% endblock %}
 {% block javascripts %}
-<script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>
-<script src="{{ asset('Utils/js/jqueryUi.js')}}"></script>
+{{ parent() }}
 <script src="{{asset('Utils/jquerySteps/js/jquery.steps.js')}}"></script>
 <script src="{{asset('Utils/jquerySteps/js/jqueryValidate.js')}}"></script>
 <script src="{{asset('Utils/jquerySteps/js/changementAddress.js')}}"></script>
