@@ -3314,3 +3314,15 @@ form {
 #valuePostalCode {
 	display: none;
 }
+
+.tooltip-inner {
+	width: 500px;
+	text-align: center;
+}
+.tooltips_block {
+	span {
+		width: 200px;
+		display: block;
+		margin: auto;
+	}
+}
