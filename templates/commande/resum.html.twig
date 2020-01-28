@@ -29,7 +29,7 @@
                                 {{ include('commande/_resum_taxe_car.html.twig') }}
                             </div>
                             <div class="col-12 mx-auto mt-5">
-                                <div class="block_form formRecap">
+                                <div class="block_form">
                                     {% if commande.transaction is not null and commande.transaction.status == "00" %}
                                         <div class="block_form--btn-actions">
                                             {% if commande.facture is not null %}
@@ -43,6 +43,7 @@
                                         </div>
                                     {% else %}
                                         {% if app.user %}
+                                            <div class="formRecap">
                                             {{ form_start(formCGV)}}
                                                 <div>
                                                     {{ form_row(formCGV.infosFacture)}}
@@ -55,6 +56,7 @@
                                                     {{ form_row(formCGV.enregistrer)}} <br>
                                                 </div>
                                             {{ form_end(formCGV)}}
+                                            </div>
                                         {% else %}
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn-validate-command d-flex align-items-center justify-content-between btn btn-blue"
