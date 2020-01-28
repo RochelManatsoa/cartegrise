@@ -454,10 +454,12 @@ function showElement(element){
     });
 }
 function datePickerFunction(element){
+    var currentDate = new Date();
     element.datepicker({
         dateFormat: 'dd/mm/yy',
         changeMonth: true,
         changeYear: true,
-        maxDate: (new Date(2003, 12 - 1, 26)),
+        minDate: "-100Y",
+        maxDate: "-18Y",
     });
 }

@@ -53,6 +53,6 @@ easy_admin:
                     - { property: 'auteur'}
                     - { type: 'section', label: 'Advanced Settings', icon: 'warning', help: 'Reserved for administrators use' }
                     - { property: 'publication', label: 'Published' }
-                    - { property: 'date' }
+                    - { property: 'date'}
                     - { type: 'group', css_class: 'col-sm-4', label: 'Attachments', icon: 'paperclip' }
                     - { property: 'imageFile', type: 'vich_image', type_options: { required: true } }

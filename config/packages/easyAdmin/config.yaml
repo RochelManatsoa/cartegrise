@@ -1,6 +1,9 @@
 easy_admin:
     site_name: 'Blog <em style="font-size:120%;">CGOfficiel</em>'
     design:
+        form_theme: 
+            - "@EasyAdmin/form/bootstrap_4.html.twig"
+            - "@FOSCKEditor/Form/ckeditor_widget.html.twig"
         assets:
             css:
                 - 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'
