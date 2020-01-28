@@ -3,37 +3,45 @@
         <h2>Caractéristiques du véhicule</h2>
         <div class="list-grid">
             <div class="list-grid__item">
-                <div >Marque</div>
-                <div>{{commande.carInfo.marque}}</div>
+                <div >{{ 'home.resum.mark'|trans }}</div>
+                <div>{{ commande.carInfo.marque }}</div>
             </div>
             <div  class="list-grid__item">
-                <div>Modèle</div>
-                <div>{{commande.carInfo.model}}</div>
+                <div>{{ 'home.resum.model'|trans }}</div>
+                <div>{{ commande.carInfo.model | displayValue }}</div>
             </div>
-            <div class="list-grid__item">
-                <div>VIN</div>
-                <div>{{ commande.taxes.VIN }}</div>
+            <div class="voir_plus_content_car" style="display: none;">
+                <div class="list-grid__item">
+                    <div>{{ 'home.resum.color'|trans }}</div>
+                    <div>{{ commande.carInfo.color | displayValue }}</div>
+                </div>
+                <div class="list-grid__item">
+                    <div>{{ 'home.resum.nbPlace'|trans }}</div>
+                    <div>{{ commande.carInfo.nbPlace | displayValue}}</div>
+                </div>
+                <div class="list-grid__item">
+                    <div>{{ 'home.resum.power'|trans }}</div>
+                    <div>{{ commande.carInfo.horsePower | displayValue}} ch</div>
+                </div>
+                <div class="list-grid__item">
+                    <div>{{ 'home.resum.powerFiscal'|trans }}</div>
+                    <div>{{ commande.carInfo.horsePowerFiscal | displayValue}}</div>
+                </div>
+                <div class="list-grid__item">
+                    <div>{{ 'home.resum.serialNum'|trans }}</div>
+                    <div>{{ commande.carInfo.serialNumber | displayValue}}</div>
+                </div>
+                <div class="list-grid__item">
+                    <div>{{ 'home.resum.vin'|trans }}</div>
+                    <div>{{ commande.carInfo.vin | displayValue}}</div>
+                </div>
             </div>
-            <div class="list-grid__item">
-                <div>CO2</div>
-                <div>{{ commande.taxes.CO2 }}</div>
-            </div>
-            <div class="list-grid__item">
-                <div>Genre</div>
-                <div>{{ commande.taxes.Genre }}</div>
-            </div>
-            <div class="list-grid__item">
-                <td></td>
-                <div>PTAC</div>
-                <div>{{ commande.taxes.PTAC }}</div>
-            </div>
-            <div class="list-grid__item">
-                <div>Energie</div>
-                <div>{{ commande.taxes.Energie }}</div>
-            </div>
-            <div class="list-grid__item">
-                <div>Mise en ciruclation</div>
-                <div>{{ commande.taxes.DateMEC | date('Y-m-d') }}</div>
+            <div  class="list-grid__item list-grid__item-button">
+                <div>
+                    <button class="collapsed btn btn-info d-flex align-items-center justify-content-between"  id="voir_plus_button">
+                        <span>voir plus</span><span class="moins">voir moins</span><i class="icon-arrow-down"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
