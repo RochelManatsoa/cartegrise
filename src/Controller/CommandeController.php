@@ -90,4 +90,14 @@ class CommandeController extends AbstractController
             : null;
         return $csrf;
     }
+
+    /**
+     * @Route("/suivi-demarche", name="suivi_commande")
+     */
+    public function suiviDemarche()
+    {
+        return $this->render('commande/suivi.html.twig', [
+            
+        ]);
+    }
 }

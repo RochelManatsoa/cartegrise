@@ -1,0 +1,77 @@
+{% extends "base.html.twig" %}
+
+{% block page_content %}
+<div class="suiviBlock">
+    <div class="container">
+        {# <div class="row">
+            <div class="column_5">
+                
+            </div>
+            <div class="column_5">
+                
+            </div>
+            <div class="column_5">
+                
+            </div>
+            <div class="column_5">
+            </div>
+        </div> #}
+        <div class="row justify-content-center">
+            <div class="column_5">
+                <span class="btn btn-green ok_btn">OK !</span>
+                <div>
+                    <button type="button" class="box_" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-trigger="hover click" data-content="J’ai effectué le paiement, il a été accepté.">
+                    J’ai payé
+                    </button>
+                </div>
+                
+            </div>
+            <div class="column_5">
+                <span class="btn btn-green ok_btn">OK !</span>
+                <div>
+                    <button type="button" class="box_" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-trigger="hover click" data-content="Après mon paiement, j’ai rempli le formulaire en rentrant les informations nécessaires à ma démarche.">
+                    J’ai rempli le formulaire
+                    </button>
+                </div>
+                
+            </div>
+            <div class="column_5">
+                <span class="arrowBig_"></span>
+                <div>
+                    <button type="button" class="box_" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-trigger="hover click" data-content="<div>J’ai numérisé les documents nécessaires à ma démarche, et je les ai transmis à CG Officiel depuis <a href='{{ path('espace_client') }}'>l’espace client</a></div>">
+                    J’ai numérisé mes documents
+                    </button>
+                </div>
+                
+            </div>
+            <div class="column_5">
+                <div>
+                    <button type="button" class="box_" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-trigger="hover click" data-content="J’ai envoyé mes documents par courrier, j’attends la validation de mon dossier ">
+                    J’envoie mes documents par courrier
+                    </button>
+                </div>
+                
+            </div>
+            <div class="column_5">
+                <div>
+                    <button type="button" class="box_" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-trigger="hover click" data-content="<img src='{{ asset('asset/img/cg.png') }}' style='width:50%; margin:auto'>">
+                    J’attends ma carte grise 
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('asset/libs/js/popper.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('asset/libs/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+{% endblock %}
