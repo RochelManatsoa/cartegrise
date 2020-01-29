@@ -40,7 +40,9 @@
                         {% if demande is not null %}
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="content-demarche tab-pane fade" id="pills-apercu" role="tabpanel" aria-labelledby="pills-apercu-tab">
-                                    <a href="{{ path('suivi_commande', {commande:demande.commande})}}" class="btn btn-aqua-blue btn-facture">Suivi <i class="icon-right-arrow"></i></a>
+                                    <a class="no-underline" href="{{path('suivi_commande', {commande:demande.commande})}}">
+                                        <button type="button" class="btn btn-aqua-blue btn-primary btn-sm ml-0 mb-5">Je veux suivre ma démarche<i class="icon-right-arrow"></i></button>
+                                    </a>
                                     <p>{% if demande.transaction.id is defined %}{{demande.transaction.id | number_format()}}{% else %}{{demande.commande.transaction.id | number_format()}}{% endif %}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}} :{{ demande.commande.demarche.nom }} </p>
                                     <p>Créée le {{ demande.commande.ceerLe | date('d.m.Y à H\\h:i')}}</p>
                                     <p>Immatriculation : {{ demande.commande.immatriculation | displayValue}}</p>

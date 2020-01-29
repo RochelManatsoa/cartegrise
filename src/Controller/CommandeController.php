@@ -93,7 +93,7 @@ class CommandeController extends AbstractController
 
     /**
      * @Route("/suivi-demarche/{commande}", name="suivi_commande")
-     * @IsGranted(\App\Security\Voter\SuiviVoter::VIEW, subject="commande", message="Vous avez déjà passé cette commande")
+     * @IsGranted(\App\Security\Voter\SuiviVoter::VIEW, subject="commande", message="Suivi de commande indisponible")
      */
     public function suiviDemarche(Commande $commande)
     {
