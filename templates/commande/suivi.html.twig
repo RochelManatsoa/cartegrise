@@ -1,31 +1,24 @@
 {% extends "base.html.twig" %}
 
 {% block page_content %}
+
+{# check if commande has transaction  #}
 {% if commande.transaction is not null %}
-{% set currentTransaction = commande.transaction %}
+    {% set currentTransaction = commande.transaction %}
 {% else %}
-{% set currentTransaction = commande.demande.transaction %}
+{# check if demande has been payed yet #}
+    {% set currentTransaction = commande.demande.transaction %}
 {% endif %}
+
+{# check if commande has already demande #}
 {% if commande.demande is not null %}
-{% set dem = commande.demande %}
+    {% set demande = commande.demande %}
 {% endif %}
 
 <div class="suiviBlock">
     <div class="container">
-        {# <div class="row">
-            <div class="column_5">
-                
-            </div>
-            <div class="column_5">
-                
-            </div>
-            <div class="column_5">
-                
-            </div>
-            <div class="column_5">
-            </div>
-        </div> #}
         <div class="row justify-content-center">
+            {# the status when client has payed his commande #}
             <div class="column_5">
                 {% if currentTransaction is not null %} 
                 <span class="btn btn-green ok_btn">OK !</span>
@@ -37,8 +30,8 @@
                     J’ai payé
                     </button>
                 </div>
-                
             </div>
+            {# the status when client has already fill the demande form #}
             <div class="column_5">
                 {% if commande.demande is not null %} 
                 <span class="btn btn-green ok_btn">OK !</span>
@@ -50,12 +43,12 @@
                     J’ai rempli le formulaire
                     </button>
                 </div>
-                
             </div>
+            {# the status when client has already upload his document #}
             <div class="column_5">
-                {% if dem is defined and dem.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %} 
+                {% if demande is defined and demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %} 
                 <span class="btn btn-green ok_btn">OK !</span>
-                {% elseif dem is defined and dem.statusDoc != constant('App\\Entity\\Demande::DOC_PENDING')%}
+                {% elseif demande is defined and demande.statusDoc != constant('App\\Entity\\Demande::DOC_PENDING')%}
                 <span class="arrowBig_"></span>
                 {% else %}
                 <span class=""></span>
@@ -65,12 +58,12 @@
                     J’ai numérisé mes documents
                     </button>
                 </div>
-                
             </div>
+            {# the status when client has already send his document in sent to the post #}
             <div class="column_5">
-                {% if dem is defined and dem.statusDoc == constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %} 
+                {% if demande is defined and demande.statusDoc == constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %} 
                 <span class="btn btn-green ok_btn">OK !</span>
-                {% elseif dem is defined and dem.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING')%}
+                {% elseif demande is defined and demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING')%}
                 <span class="arrowBig_"></span>
                 {% else %}
                 <span class=""></span>
@@ -80,12 +73,12 @@
                     J’envoie mes documents par courrier
                     </button>
                 </div>
-                
             </div>
+            {# status when client still waitting his car card #}
             <div class="column_5">
-                {% if dem is defined and dem.statusDoc == constant('App\\Entity\\Demande::DOC_VALID_SEND_TMS') %} 
+                {% if demande is defined and demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID_SEND_TMS') %} 
                 <span class="btn btn-green ok_btn">OK !</span>
-                {% elseif dem is defined and dem.statusDoc == constant('App\\Entity\\Demande::DOC_RECEIVE_VALID')%}
+                {% elseif demande is defined and demande.statusDoc == constant('App\\Entity\\Demande::DOC_RECEIVE_VALID')%}
                 <span class="arrowBig_"></span>
                 {% else %}
                 <span class=""></span>
@@ -95,7 +88,6 @@
                     J’attends ma carte grise 
                     </button>
                 </div>
-                
             </div>
         </div>
     </div>
