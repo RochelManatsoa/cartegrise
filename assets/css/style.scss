@@ -3326,3 +3326,101 @@ form {
 		margin: auto;
 	}
 }
+
+
+/*
+Suivi
+*/
+.suiviBlock {
+    padding: 60px 0;
+    background: #f1f1f1;
+	text-align: center;
+	.row {
+		margin-right: -5px;
+    	margin-left: -5px;
+	}
+	.column_5 {
+		-ms-flex: 0 0 20%;
+		flex: 0 0 20%;
+		max-width: 20%;
+		padding: 5px;
+		position: relative;
+		@include sm {
+			-ms-flex: 0 0 50%;
+			flex: 0 0 50%;
+			max-width: 50%;
+		}
+		@include xs {
+			-ms-flex: 0 0 100%;
+			flex: 0 0 100%;
+			max-width: 100%;
+		}
+		> span {
+			position: absolute;
+			left: 50%;
+    		transform: translateX(-50%);
+		}
+		> div {
+			height: 100%;
+			padding-top: 50px;
+		}
+	}
+	.box_ {
+		background: rgba(3, 52, 126, 0.14);
+		border: $bdr_solid_1 $royal-blue;
+		padding: $size_20 10px;
+		text-transform: uppercase;
+		line-height: $size_24;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		height: 100%;
+		font-size: 16px;
+		font-weight: 700;
+		color: $royal-blue;
+		&:focus {
+			outline: none;
+			box-shadow: none;
+		}
+	}
+	.arrowBig_ {
+		position: relative;
+		height: 51px;
+    	display: block;
+		&:before {
+			content: "";
+			width: 0; 
+			height: 0; 
+			border-left: 50px solid transparent;
+			border-right: 50px solid transparent;
+			position: absolute;
+			left: 50%;
+			transform: translate(-50%);
+			border-top: 50px solid $royal-blue;
+			top: -20px;
+			@include xs {
+				top: 0;
+			}
+		}
+	}
+}
+.popover-body {
+	text-align: center;
+}
+
+.btn-green {
+	&.ok_btn {
+		border: 1px solid green;
+		color: green;
+		margin-bottom: 15px;
+		border-radius: 25px;
+		padding: 5px 25px;
+		font-weight: 700;
+		&:hover {
+			color: green;
+		}
+		&:focus {
+			box-shadow: none;
+		}
+	}
+}
