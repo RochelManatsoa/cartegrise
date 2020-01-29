@@ -41,9 +41,10 @@
                                 {{ form_row(form.duplicata.datePerte)}}
                             </div>
                         {{ form_label(form.duplicata.numeroFormule)}}                              
-                        <span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
+                        <span class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
                             template='{% include "demande/tooltips/templateCessionNumFormulCarteGrise.html.twig" %}'
                             title="{% include 'demande/tooltips/cessionNumFormulCarteGrise.html.twig' %}">
+                            Indispensable pour une demande de duplicata
                         </span>
                         {{ form_errors(form.duplicata.numeroFormule)}}
                         {{ form_widget(form.duplicata.numeroFormule)}}
@@ -151,5 +152,4 @@
     })
 </script>
 <script src="{{ asset('asset/libs/js/jquery.sticky.js') }}" type="text/javascript"></script>
-<script src="{{ asset('javascripts/home.js') }}"></script>
 {% endblock %}
