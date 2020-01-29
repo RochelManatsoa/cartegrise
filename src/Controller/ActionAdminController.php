@@ -359,7 +359,7 @@ class ActionAdminController extends Controller
             if ($request->request->get('valid_doc_simulate') === "on") {
                 $demande->setStatusDoc(Demande::DOC_VALID);
                 $demandeManager->saveDemande($demande);
-                // $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 1);
+                $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 1);
             } elseif ($request->request->get('valid_doc_real') === "on") {
                 $tmsResponse = $commandeManager->tmsSauver($demande->getCommande());
                 if ($tmsResponse->isSuccessfull()) {
@@ -367,7 +367,7 @@ class ActionAdminController extends Controller
                     $demande->getCommande()->setSaved(true);
                     $demande->setStatusDoc(Demande::DOC_VALID_SEND_TMS);
                     $demandeManager->saveDemande($demande);
-                    // $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 2);
+                    $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 2);
                     $this->addFlash('success', 'La demande '.$demande->getCommande()->getId().' a bien été enregister sur TMS');
                 }
                 
@@ -375,7 +375,7 @@ class ActionAdminController extends Controller
                 $demande->setStatusDoc(Demande::DOC_NONVALID);
                 $demande->setMotifDeRejet($request->request->get('invalidate_doc_simulate'));
                 $demandeManager->saveDemande($demande);
-                // $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 3);
+                $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 3);
             }
         }
 
@@ -395,6 +395,7 @@ class ActionAdminController extends Controller
         // if you have a filtered list and want to keep your filters after the redirect
         // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
     }
+    
     private function getDemandeInObject($object){
         $demande = null;
         if ($object instanceof Demande){

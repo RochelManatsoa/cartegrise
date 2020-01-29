@@ -10,18 +10,10 @@
                                 <br>
                                 <br>
                                 <p>Nous avons bien reçu vos documents et nous vous remercions.</p>
-                                <p>Toutefois pour la validation complète de votre dossier il manque les pièces suivantes :</p>
-                                {% set docIncompletsExplodes = appExplode(demande.docIncomplets) %}
-                                    <ul class="list-group">
-                                        {% for docIncomp in docIncompletsExplodes %}
-                                            {% if docIncomp != "" %}
-                                                <li class="list-group-item">
-                                                {% set docLabel = 'label.demande.'~ docIncomp %}
-                                                    {{ docLabel | trans }}
-                                                </li>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </ul>
+                                <p>Toutefois pour la validation complète de votre dossier il y a ces retours à prendre en compte :</p>
+                                <div>
+                                    {{ demande.motifDeRejet | raw }}
+                                </div>
                                 <p>Notre service client reste à votre disposition pour toutes questons au numéro <br>09 77 42 31 30.</p>
                                 <p>Nous vous remercions de votre confiance.</p>
 

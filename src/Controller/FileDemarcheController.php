@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-05-09 21:15:58 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-06-20 14:38:52
+ * @Last Modified time: 2020-01-29 21:56:36
  */
 namespace App\Controller;
 
@@ -51,7 +51,6 @@ class FileDemarcheController extends AbstractController
         $mail = $demande->getCommande()->getClient()->getUser()->getEmail();
         $demande->setStatusDoc(Demande::DOC_VALID);
         $demandeManager->saveDemande($demande);
-        $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 2);
 
         return new Response('success');
     }
@@ -74,7 +73,6 @@ class FileDemarcheController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $demande->setStatusDoc(Demande::DOC_NONVALID);
             $demandeManager->saveDemande($demande);
-            $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 3);
 
             return $this->redirect($this->generateUrl("notification_success"));
         }
