@@ -295,6 +295,7 @@ label:
         demandeCertificatImmatriculation: Demande de certificat d'immatriculation
         justificatifDomicile: Justificatif de domicile récent
         copiePermisConduire: Copie du permis de conduire
+        permisDeConduireDuTitulaire: Copie du permis de conduire
         copieAttestationAssuranceValide: Copie d'attestation d'assurance valide
         recepisseDemandeAchat: Récépissé de demande d'achat
         pieceIdentiteValid: Pièce d'identité valide
