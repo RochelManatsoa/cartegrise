@@ -1,5 +1,80 @@
 {% extends "base.html.twig" %}
 
 {% block page_content %}
+{% if commande.transaction is not null %}
+{% set currentTransaction = commande.transaction %}
+{% else %}
+{% set currentTransaction = commande.demande.transaction %}
+{% endif %}
+{% if commande.demande is not null %}
+{% set dem = commande.demande %}
+{% endif %}
+
+<div class="esp_clientBlock content-wrapper" id="esp_clientBlock">
+    <div class="container">
+        <div class="row mx-auto">
+            <div class="col-lg-2">
+                {% if currentTransaction is null %} 
+                <span class="badge badge-primary">
+                    NON OK
+                </span>         
+                {% else %}  
+                <span class="badge badge-primary">
+                    OK
+                </span>              
+                {% endif %}
+                <p>J'ai payé</p>
+            </div>
+            <div class="col-lg-2">
+                {% if commande.demande is null %} 
+                <span class="badge badge-primary">
+                    NON OK
+                </span>         
+                {% else %}  
+                <span class="badge badge-primary">
+                    OK
+                </span>                        
+                {% endif %}
+                <p>J'ai rempli le formulaire</p>
+            </div>
+            <div class="col-lg-2">
+                {% if dem is defined and dem.statusDoc == "2" %} 
+                <span class="badge badge-primary">
+                    OK
+                </span>         
+                {% else %}        
+                <span class="badge badge-primary">
+                    NON OK
+                </span>                  
+                {% endif %}
+                <p>J'ai numérisé mes documents</p>
+            </div>
+            <div class="col-lg-2">
+                {% if dem is defined and dem.statusDoc == "4"%} 
+                <span class="badge badge-primary">
+                    OK
+                </span>         
+                {% else %}     
+                <span class="badge badge-primary">
+                    NON OK
+                </span>                     
+                {% endif %}
+                <p>J'envois mes documents par courrier</p>
+            </div>
+            <div class="col-lg-2">
+                {% if dem is defined and dem.statusDoc == "6" %} 
+                <span class="badge badge-primary">
+                    OK
+                </span>         
+                {% else %}  
+                <span class="badge badge-primary">
+                    NON OK
+                </span>                        
+                {% endif %}
+                <p>J'attends ma carte grise</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
