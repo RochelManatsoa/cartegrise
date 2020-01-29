@@ -327,8 +327,7 @@ class AppExtension extends AbstractExtension
 
     public function statusOfCommande(Commande $commande, string $need)
     {
-
-        return $this->statusManager->getStatusOfCommande($commande)[$need];
+        return isset($this->statusManager->getStatusOfCommande($commande)[$need]) ? $this->statusManager->getStatusOfCommande($commande)[$need] : "";
     }
 
     public function totalAvoir(Commande $commande)
