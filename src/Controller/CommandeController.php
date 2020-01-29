@@ -92,12 +92,13 @@ class CommandeController extends AbstractController
     }
 
     /**
-     * @Route("/suivi-demarche", name="suivi_commande")
+     * @Route("/suivi-demarche/{commande}", name="suivi_commande")
+     * @IsGranted(\App\Security\Voter\SuiviVoter::VIEW, subject="commande", message="Suivi de commande indisponible")
      */
-    public function suiviDemarche()
+    public function suiviDemarche(Commande $commande)
     {
         return $this->render('commande/suivi.html.twig', [
-            
+            'commande'=>$commande,
         ]);
     }
 }
