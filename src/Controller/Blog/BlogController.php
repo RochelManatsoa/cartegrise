@@ -3,8 +3,9 @@
 namespace App\Controller\Blog;
 
 use App\Entity\Blog\{Article, Categorie, Commentaire};
-use App\Form\Blog\CommentaireType;
-use App\Manager\Blog\BlogManager;
+use App\Form\Blog\{CommentaireType, BlogSearchType};
+use App\Manager\Blog\{BlogManager, SearchManager};
+use App\Manager\Blog\Modele\BlogSearch;
 use App\Repository\Blog\{ArticleRepository, CategorieRepository, FaqRepository};
 use Doctrine\Common\Persistence\ObjectManager;
 use http\Env\Response;
@@ -48,12 +49,15 @@ class BlogController extends Controller
     public function show(
         Article $article, 
         Request $request, 
-        BlogManager $blogManager
+        BlogManager $blogManager,
+        SearchManager $searchManager
     )
     {
         $post = $blogManager->findArticleSimilaire($article);
         $comment = new Commentaire();
         $form = $this->createForm(CommentaireType::class, $comment);
+        $search = new BlogSearch();
+        $formSearch = $this->createForm(BlogSearchType::class, $search);
 
         $params = $blogManager->getCatAndFaq();
         $params = array_merge(['prev'=>$blogManager->findPreviousPost($article)], $params);
@@ -62,6 +66,7 @@ class BlogController extends Controller
         $params = array_merge(['recentPost'=> 'recentPost'], $params);
         $params = array_merge(['article'=>$article], $params);
         $params = array_merge(['formComment'=>$form->createView()], $params);
+        $params = array_merge(['formSearch'=>$formSearch->createView()], $params);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -73,6 +78,14 @@ class BlogController extends Controller
             $params = array_merge(['slug'=>$article->getSlug()], $params);
 
             return $this->redirectToRoute('blog_show', ['slug'=>$article->getSlug()]);
+        }
+        $formSearch->handleRequest($request);
+        if($formSearch->isSubmitted() && $formSearch->isValid()){
+            $search = $formSearch->getData();
+            $results = $searchManager->search($search);
+            $params = array_merge(['results'=>$results], $params);
+
+            return $this->render('blog/result.html.twig', $params);
         }
         
         return $this->render('blog/show.html.twig', $params);

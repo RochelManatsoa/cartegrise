@@ -1,0 +1,197 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block seo %}
+    <base href="{{ path( 'blog_show', {slug : article.slug}) }}"/>
+    <meta name="keywords" content="{% for categorie in article.categories %}{{ categorie.nom | capitalize}}{% if not loop.last %} ,{% endif %}{% endfor %},{% for categorie in article.categories %}{{ categorie.slug }}{% if not loop.last %} ,{% endif %}{% endfor %}"/>
+    <meta name="x-ua-compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="{{ article.description }}"/>
+    <meta property="og:title" content="{{ article.titre }}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{ path( 'blog_show', {slug : article.slug}) }}">
+    <meta property="og:image" content="https://www.cgofficiel.fr{{ asset('uploads/' ~ article.image) }}">
+    <meta property="og:description" content="{{ article.description }}">
+    <meta property="og:author" content="{{ article.auteur }}">
+    <meta property="og:video" content="">
+    <meta property="og:locale" content="fr_FR">
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:url" content="{{ path( 'blog_show', {slug : article.slug}) }}"/>
+    <meta name="twitter:title" content="{{ article.titre }}"/>
+    <meta property="twitter:description" content="{{ article.description }}"/>
+{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-ccm{% endblock %}
+
+{% block page_content %}
+    <div class="content-wrapper blog blog-details">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-12 col-md-12 col-12">
+                    <div class="main-blog">
+                        <div class="row">
+                            <div class="col-8 col-lg-8 col-md-8">
+                            {% if results is empty %}
+                                <p class="text-center">Désolé, nous n'avons trouvé aucun résultat.</p>
+                                <p class="text-center">Vérifiez l'orthographe ou essayez une autre recherche.</p>
+                            {% else %}
+                                <p>{{ results | length }} articles trouvés. </p>
+                            {% endif %}
+
+                                {% for article in results %}
+
+                                    <div class="blog-post">
+                                        <div class="blog-post--informations">
+                                            {# <div class="blog-post--category">
+                                                {% for categorie in article.categories %}
+                                                        <a href="{{ path('show_cat', {'slug':categorie.slug}) }}" class="blog-post--category-item">
+                                                            {{ categorie.nom | capitalize}}
+                                                        </a>
+                                                    {% if not loop.last %}{% endif %}
+                                                {% endfor %}
+                                            </div> #}
+                                            <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="blog-post--titre">
+                                                <h3>{{ article.titre }}</h3>
+                                            </a>
+                                            <div class="blog-post--description">{{ article.description | truncate(70, true) | raw }}</div>
+
+                                            <div class="blog-post--action">
+                                                <div class="blog-post--date">Crée le {{ article.date | date('d M Y') }}</div>
+                                                <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="btn link-connexion-register more">Lire la suite</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+                            <div class="col-4 col-lg-4 col-md-4">
+                                {{ include("blog/layout/sidebar.html.twig") }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!---->
+            </div>
+        </div>
+    </div>
+{#<div class="col-11 mx-auto main-blog">
+		<div class="row blog">
+			<!-- <a href="{{ path('blog')}}">
+				<img class="rounded mx-auto d-block img-fluid" src="/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png" alt="logo">
+			</a> -->
+			<h1 class="col-10 col-md-10 mx-auto  show-article-titre mt-5">{{ article.titre }}</h1>
+			<p class="col-12 col-md-10 mx-auto show-article-categorie">
+				{% if article.categories.count > 0 %}
+					Catégories :
+					<strong>
+						{% for categorie in article.categories %}
+							<a href="{{ path('show_cat', {'slug':categorie.slug}) }}">
+								<span class="badge badge-pill badge-dark">{{ categorie.nom | capitalize}}</span>
+							</a>
+							{% if not loop.last %}{% endif %}
+						{% endfor %}
+					</strong>
+				{% endif %}
+			</p>
+			<blockquote class="col-10 col-md-10 mx-auto blockquote show-article-blockquote ">
+				<footer class="blockquote-footer">
+					Posté le
+					<cite title="Source Title">{{ article.date | date('d M Y') }}</cite>
+					à
+					<cite title="Source Title">{{ article.date | date('H:i') }}</cite>
+					
+				</footer>
+				<img src="{{ asset('uploads/' ~ article.image) }}" alt="{{ article.titre }}" class="rounded mx-auto d-block img-fluid p-4">
+				<p>{{ article.contenu | raw }}</p>
+				<div class="row">
+					<div class="col-6 text-left">
+						{% if next is defined %}
+							{% for nextPost in next %}	
+								<small><small><small><i class="fas fa-arrow-left"></i></small> <a href="{{ path('blog_show', {'slug':nextPost.slug}) }}">{{ nextPost.titre }}</a></small></small>	
+							{% endfor %}
+						{% endif %}
+					</div>
+					<div class="col-6 text-right">
+						{% if prev is defined %}
+							{% for prevPost in prev %}
+								<small><small> <a href="{{ path('blog_show', {'slug':prevPost.slug}) }}">{{ prevPost.titre }}</a> <small><i class="fas fa-arrow-right"></i></small></small></small>
+							{% endfor %}
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-12 social-btn mt-5 mb-5 d-flex flex-row justify-content-center my-flex-container">
+					<div class="col-12 social-btns mx-auto d-flex flex-row justify-content-center my-flex-container">
+						<a class="btn facebook" href="#">
+							<i class="fab fa-facebook-f"></i>
+						</a>
+						<a class="btn twitter" href="#">
+							<i class="fab fa-twitter"></i>
+						</a>
+						<a class="btn google" href="#">
+							<i class="fab fa-google"></i>
+						</a>
+					</div>
+				</div>
+			</blockquote>
+		<div class="col-12 col-md-10 mx-auto adsense-2 hidden-xl-down mt-5 mx-auto"></div>
+		{% if post %}
+			<div class="row col-10 col-md-10 mx-auto show-article-suggestion d-flex flex-row justify-content-between my-flex-container mt-5">
+				<h3 class="col-12 show-article-suggestion-titre">Vous aimeriez aussi lire:</h3>
+				{% for posts in post %}
+					<div class="row col-sm-10 col-lg-5 article-suggestion-card mt-2 mb-2">
+						<a class="row article-suggestion-card-box" href="{{ path('blog_show', {'slug':posts.slug}) }}">
+							<div class="col-4 article-suggestion-card-box-img">
+								<img class="img-rounded img-fluid" src="{{ asset('uploads/'~ posts.image) }}" alt="{{ posts.titre }}">
+							</div>
+							<div class="col-6 article-suggestion-card-box-titre d-flex flex-row justify-content-center my-flex-container align-items-center">
+								<h5 class="mx-auto ml-lg-4">{{ posts.titre | raw}}</h5>
+							</div>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+		<h5 class="col-10 col-md-10 mx-auto mt-3 show-article-commentaire mt-5">
+			<span class="badge badge-info badge-pill">{{ article.commentaires | length }}</span> commentaires
+			à " {{article.titre}} "
+		</h5>
+
+		<section class="commentaire col-10 col-md-10 mx-auto ">
+			{% for comment in article.commentaires %}
+				{% if comment.publication %}
+				<div class="alert alert-success" role="alert">
+					<p>{{ comment.contenu | raw }}</p>
+					<hr>
+					<p class="mb-0"><small><em>De {{ comment.auteur }}	le {{ comment.date | date('d/m/Y à H:i') }}</em></small></p>
+				</div>
+				<br>
+				{% endif %}
+			{% endfor %}
+			<h3>Laisser un commentaire </h3>
+			<br>
+			<p>Votre adresse de messagerie ne sera pas publiée. Les champs obligatoires sont indiqués avec *</p>
+			<br>
+			{{ form_start(formComment) }}
+			{% for comment in formComment %}
+				{% if loop.index < 5 %}
+					<div class="form-group">
+						{{ form_label(comment)}}
+						{{ form_errors(comment)}}
+						{{ form_widget(comment, {'attr': {'class': ''}})}}
+					</div>
+				{% endif %}
+			{% endfor %}
+			<input type="submit" value="Publier le commentaire" class="btn btn-info">
+			{{ form_end(formComment) }}
+		</section>
+	</div>
+#}
+
+{% endblock %}
+
+{% block javascripts %} 
+{{ parent() }}
+{% endblock %}

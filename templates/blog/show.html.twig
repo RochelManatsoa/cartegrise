@@ -31,99 +31,106 @@
             <div class="row">
                 <div class="col-12 col-lg-12 col-md-12 col-12">
                     <div class="main-blog">
-                        <!-- <a href="{{ path('blog')}}">
-                            <img class="rounded mx-auto d-block img-fluid" src="/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png" alt="logo">
-                        </a> -->
-                        <div class="blog-card--titre">
-                            <h2 class="page-title">{{ article.titre }}</h2>
-                            <hr>
-                        </div>
-                        <div class="blog-post--image">
-                            <figure>
-                                <img src="{{ asset('uploads/' ~ article.image) }}" alt="{{ article.titre }}" class="img-fluid">
-                            </figure>
-                        </div>
-                        <div class="container-category-post-on container-category-post-on align-items-md-center py-3 d-md-flex justify-content-md-between">
-                            <div class="blog-post--category">
-                                {% if article.categories.count > 0 %}
-                                    <strong>Catégories : </strong>
-                                    {% for categorie in article.categories %}
-                                        <a href="{{ path('show_cat', {'slug':categorie.slug}) }}" class="blog-post--category-item">
-                                            {{ categorie.nom | capitalize}}
-                                        </a>
-                                        {% if not loop.last %}{% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                            <div class="blog-post--date">Posté le {{ article.date | date('d M Y') }} à {{ article.date | date('H:i') }}</div>
-                        </div>
-                        <div class="blog-post--informations no-bg px-0 border-0">
-                            <div class="blog-post--description wysiwyg">{{ article.contenu | raw }}</div>
-                        </div>
-                        <div class="blog-post--navigation justify-content-between align-items-center mx-0 row ">
-                            <div class="col-12 col-md-5 blog-post--navigation-left">
-                                {% if next is defined %}
-                                    {% for nextPost in next %}
-                                        <a href="{{ path('blog_show', {'slug':nextPost.slug}) }}" class="blog-post--navigation-title"> <i class="fas fa-arrow-left"></i>{{ nextPost.titre }}</a>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                            <div class="col-12 col-md-5 blog-post--navigation-right">
-                                {% if prev is defined %}
-                                    {% for prevPost in prev %}
-                                        <a href="{{ path('blog_show', {'slug':prevPost.slug}) }}"  class="blog-post--navigation-title">{{ prevPost.titre }}<i class="fas fa-arrow-right"></i></a>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% if post %}
-                            <div class="related-blog col-md-12 col-xs-12 col-lg-12">
-                                <h4 class="related-blog--title text-uppercase mb-4">Vous aimeriez aussi lire:</h4>
-                                <div class="row related-blog--list">
-                                    {% for posts in post %}
-                                        <div class="col-md-3 col-xs-12 col-sm-6 col-lg-3 related-blog--post">
-                                            <div class="position-relative">
-                                                <a href="{{ path('blog_show', {'slug':posts.slug}) }}">
-                                                    <img class="related-blog--post-image" src="{{ asset('uploads/'~ posts.image) }}" alt="{{ posts.titre }}">
-                                                    <h5 class="related-blog--post-title">{{ posts.titre | raw}}</h5>
+                        <div class="row">
+                            <div class="col-8 col-lg-8 col-md-8">
+                                <!-- <a href="{{ path('blog')}}">
+                                    <img class="rounded mx-auto d-block img-fluid" src="/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png" alt="logo">
+                                </a> -->
+                                <div class="blog-card--titre">
+                                    <h2 class="page-title">{{ article.titre }}</h2>
+                                    <hr>
+                                </div>
+                                <div class="blog-post--image">
+                                    <figure>
+                                        <img src="{{ asset('uploads/' ~ article.image) }}" alt="{{ article.titre }}" class="img-fluid">
+                                    </figure>
+                                </div>
+                                <div class="container-category-post-on container-category-post-on align-items-md-center py-3 d-md-flex justify-content-md-between">
+                                    <div class="blog-post--category">
+                                        {% if article.categories.count > 0 %}
+                                            <strong>Catégories : </strong>
+                                            {% for categorie in article.categories %}
+                                                <a href="{{ path('show_cat', {'slug':categorie.slug}) }}" class="blog-post--category-item">
+                                                    {{ categorie.nom | capitalize}}
                                                 </a>
-                                            </div>
+                                                {% if not loop.last %}{% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="blog-post--date">Posté le {{ article.date | date('d M Y') }} à {{ article.date | date('H:i') }}</div>
+                                </div>
+                                <div class="blog-post--informations no-bg px-0 border-0">
+                                    <div class="blog-post--description wysiwyg">{{ article.contenu | raw }}</div>
+                                </div>
+                                <div class="blog-post--navigation justify-content-between align-items-center mx-0 row ">
+                                    <div class="col-12 col-md-5 blog-post--navigation-left">
+                                        {% if next is defined %}
+                                            {% for nextPost in next %}
+                                                <a href="{{ path('blog_show', {'slug':nextPost.slug}) }}" class="blog-post--navigation-title"> <i class="fas fa-arrow-left"></i>{{ nextPost.titre }}</a>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-12 col-md-5 blog-post--navigation-right">
+                                        {% if prev is defined %}
+                                            {% for prevPost in prev %}
+                                                <a href="{{ path('blog_show', {'slug':prevPost.slug}) }}"  class="blog-post--navigation-title">{{ prevPost.titre }}<i class="fas fa-arrow-right"></i></a>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% if post %}
+                                    <div class="related-blog col-md-12 col-xs-12 col-lg-12">
+                                        <h4 class="related-blog--title text-uppercase mb-4">Vous aimeriez aussi lire:</h4>
+                                        <div class="row related-blog--list">
+                                            {% for posts in post %}
+                                                <div class="col-md-3 col-xs-12 col-sm-6 col-lg-3 related-blog--post">
+                                                    <div class="position-relative">
+                                                        <a href="{{ path('blog_show', {'slug':posts.slug}) }}">
+                                                            <img class="related-blog--post-image" src="{{ asset('uploads/'~ posts.image) }}" alt="{{ posts.titre }}">
+                                                            <h5 class="related-blog--post-title">{{ posts.titre | raw}}</h5>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
                                         </div>
+                                    </div>
+                                {% endif %}
+                                <div class="blog-post--commentaire commentaire">
+                                    <div class="commentaire-subject pb-3 mb-4">
+                                        <span class="badge badge-info badge-pill">{{ article.commentaires | length }}</span>
+                                        commentaires
+                                        à <strong>" {{article.titre}} "</strong>
+                                    </div>
+                                    {% for comment in article.commentaires %}
+                                        {% if comment.publication %}
+                                            <div class="alert alert-success" role="alert">
+                                                <p>{{ comment.contenu | raw }}</p>
+                                                <hr>
+                                                <p class="mb-0"><small><em>De {{ comment.auteur }}	le {{ comment.date | date('d/m/Y à H:i') }}</em></small></p>
+                                            </div>
+                                            <br>
+                                        {% endif %}
                                     {% endfor %}
+                                    <h4 class="commentaire-form--title text-uppercase mb-4">Laisser un commentaire </h4>
+                                    <p class="note">Votre adresse de messagerie ne sera pas publiée. Les champs obligatoires sont indiqués avec *</p>
+                                    <div class="commentaire-form">
+                                        {{ form_start(formComment) }}
+                                        {% for comment in formComment %}
+                                            {% if loop.index < 5 %}
+                                                <div class="form-group">
+                                                    {{ form_label(comment)}}
+                                                    {{ form_errors(comment)}}
+                                                    {{ form_widget(comment, {'attr': {'class': ''}})}}
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <input type="submit" value="Publier le commentaire" class="btn-send btn btn-blue">
+                                        {{ form_end(formComment) }}
+                                    </div>
                                 </div>
                             </div>
-                        {% endif %}
-                        <div class="blog-post--commentaire commentaire">
-                            <div class="commentaire-subject pb-3 mb-4">
-                                <span class="badge badge-info badge-pill">{{ article.commentaires | length }}</span>
-                                commentaires
-                                à <strong>" {{article.titre}} "</strong>
-                            </div>
-                            {% for comment in article.commentaires %}
-                                {% if comment.publication %}
-                                    <div class="alert alert-success" role="alert">
-                                        <p>{{ comment.contenu | raw }}</p>
-                                        <hr>
-                                        <p class="mb-0"><small><em>De {{ comment.auteur }}	le {{ comment.date | date('d/m/Y à H:i') }}</em></small></p>
-                                    </div>
-                                    <br>
-                                {% endif %}
-                            {% endfor %}
-                            <h4 class="commentaire-form--title text-uppercase mb-4">Laisser un commentaire </h4>
-                            <p class="note">Votre adresse de messagerie ne sera pas publiée. Les champs obligatoires sont indiqués avec *</p>
-                            <div class="commentaire-form">
-                                {{ form_start(formComment) }}
-                                {% for comment in formComment %}
-                                    {% if loop.index < 5 %}
-                                        <div class="form-group">
-                                            {{ form_label(comment)}}
-                                            {{ form_errors(comment)}}
-                                            {{ form_widget(comment, {'attr': {'class': ''}})}}
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                                <input type="submit" value="Publier le commentaire" class="btn-send btn btn-blue">
-                                {{ form_end(formComment) }}
+                            <div class="col-4 col-lg-4 col-md-4">
+                                {{ include("blog/layout/sidebar.html.twig") }}
                             </div>
                         </div>
                     </div>
