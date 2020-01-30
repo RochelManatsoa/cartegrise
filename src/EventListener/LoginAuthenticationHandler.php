@@ -63,7 +63,10 @@ class LoginAuthenticationHandler implements AuthenticationSuccessHandlerInterfac
         if ($user->hasRole("ROLE_CRM")) {
 
             return new RedirectResponse($this->routerInterface->generate('route_crm_home'));
-        } elseif(!$user->hasRole("ROLE_CRM")) {
+        }elseif($user->hasRole("ROLE_ADMIN_BLOG")){
+
+            return new RedirectResponse($this->routerInterface->generate('easyadmin'));
+        }elseif(!$user->hasRole("ROLE_CRM") && !$user->hasRole("ROLE_ADMIN_BLOG")) {
             $this->userManager->checkCommandeInSession($user);
             $commandes = $user->getClient()->getCommandes();
             if (!is_null($commandes) && 0 < count($commandes)){
