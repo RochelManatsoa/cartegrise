@@ -255,7 +255,7 @@
                         padding: 0 20px;
                         transform: translateY(-50%);
                         .titre_file_ {
-                            margin-top: 15px;
+                            margin-top: 0;
                             text-align: center;
                             h4 {
                                 label {
@@ -347,10 +347,22 @@
                     letter-spacing: 0;
                     font-size: 12px !important;
                 }
+                @include xs {
+                    letter-spacing: 0;
+                    display: block;
+                    text-align: center;
+                }
             }
             .link-connexion-register {
                 padding: 10px 60px !important;
             }
         }
     }
+}
+
+/*
+erreur
+*/
+.form-error-message {
+    letter-spacing: -1px;
 }
