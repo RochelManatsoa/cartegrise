@@ -296,7 +296,9 @@ label:
         justificatifDomicile: Justificatif de domicile récent
         copiePermisConduire: Copie du permis de conduire
         permisDeConduireDuTitulaire: Copie du permis de conduire
+        copiePermisConduireTitulaire: Copie du permis de conduire
         copieAttestationAssuranceValide: Copie d'attestation d'assurance valide
+        copieAttestationAssurance: Copie d'attestation d'assurance valide
         recepisseDemandeAchat: Récépissé de demande d'achat
         pieceIdentiteValid: Pièce d'identité valide
         rectoVersoCarteGrise: Original de la CARTE GRISE
