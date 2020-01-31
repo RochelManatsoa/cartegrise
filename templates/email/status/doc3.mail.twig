@@ -9,15 +9,11 @@
                                 Bonjour {{ demande.commande.client|displayRelanceInfos }}
                                 <br>
                                 <br>
-                                <p>Nous avons bien reçu vos documents et nous vous remercions.</p>
-                                <p>Toutefois pour la validation complète de votre dossier il y a ces retours à prendre en compte :</p>
                                 <div>
-                                    {{ demande.motifDeRejet | raw }}
+                                    {{ demande.motifDeRejet | nl2br }}
                                 </div>
-                                <p>Notre service client reste à votre disposition pour toutes questons au numéro <br>09 77 42 31 30.</p>
-                                <p>Nous vous remercions de votre confiance.</p>
-
-                                <p style="text-align:center;"><a href="https://www.cgofficiel.fr" target="_blank">CG Officiel</a> vous remercie de votre attention.</p>
+                                
+                                <p >l'équipe <a href="https://www.cgofficiel.fr" target="_blank">CG Officiel</a> vous remercie de votre attention.</p>
                             </td>
                         </tr>
                         <tr>
