@@ -1306,6 +1306,9 @@ header {
 			border-bottom: $bdr_solid_1 $bbr_color;
 			padding-bottom: $size_15;
 			margin-bottom: $size_24;
+			@include sm {
+				font-size: 24px;;
+			}
 		}
 		.commande-container {
 			ul {
@@ -1481,6 +1484,9 @@ header {
   letter-spacing: 3px;
   text-transform: uppercase;
   float: right;
+  	@include xs {
+		float: none;
+	}
   i{
     margin-left: 10px;
     font-size: 21px;
@@ -1868,6 +1874,10 @@ header {
 			@include md {
 				font-size: 13px;
 			}
+			@include sm {
+				width: 75%;
+				margin-left: 15px;
+			}
 		}
 		.menu-commander--button---icon {
 			transition: .3s;
@@ -1875,6 +1885,9 @@ header {
 			vertical-align: middle;
 			.ccm-icon {
 				width: 80px;
+				@include sm {
+					width: 30px;
+				}
 				height: 49px;
 				display: inline-block;
 				background-repeat: no-repeat;
@@ -2269,7 +2282,10 @@ header {
     }
   }
   .tab-content {
-    padding: 1.5rem 5rem;
+	padding: 1.5rem 5rem;
+	@include sm {
+		padding: 20px;
+	}
     > div{
        p{
         text-transform: uppercase;
@@ -2281,7 +2297,15 @@ header {
 
       }
     }
-
+	.tab-pane {
+		.btn-aqua-blue {
+			@include xs {
+				margin-left: 0;
+				margin-bottom: 25px;
+				width: 100%;
+			}
+		}
+	}
   }
 }
 /**end**/
@@ -2510,7 +2534,10 @@ i.icon-pdf{
     line-height: normal;
     color: $white;
     transition: all .3s ease;
-    min-width: 130px;
+	min-width: 130px;
+	@include xs {
+		font-size: 12px;
+	}
   }
   .resume-btn{
     background: rgba(3,52,126,0.9);
