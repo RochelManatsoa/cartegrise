@@ -421,8 +421,8 @@ home:
         co2: CO2
         gender: Genre
         ptac: PTAC
-        energi: Enérgie
-        dateCirculationStarted: Mise en ciruclation
+        energi: Energie
+        dateCirculationStarted: Mise en circulation
     commandeType:
         dup: Demande de duplicata
         divn: Demande d'immatriculation de vehicule neuf
