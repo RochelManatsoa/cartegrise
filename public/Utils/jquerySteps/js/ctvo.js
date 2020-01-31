@@ -136,7 +136,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                         "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][ville]" : "Ville",
                         "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][isHosted]" : "Hébergé(e)",
                         "demande_ctvo[ctvo][ancienTitulaire][type]" : "Ancien Titulaire",
-                        "demande_ctvo[ctvo][ancienTitulaire][raisonSociale]" : "Raison sociale",
+                        "demande_ctvo[ctvo][ancienTitulaire][raisonsociale]" : "Raison sociale",
                         "demande_ctvo[ctvo][ciPresent]" : "Carte grise présente",
                         "demande_ctvo[ctvo][numeroFormule]" : "Numéro de formule",
                         "demande_ctvo[ctvo][ancienTitulaire][nomprenom]" : "Nom et prénom(s) de l'ancien titulaire",
