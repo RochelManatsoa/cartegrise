@@ -22,8 +22,6 @@
              <div class="col-12 commander-firstview mt-4 custom-form">
                 <h2 class="text-center mb-4 full-mobile">{{ commande.demarche.nom|upper }}</h2>
                 <hr>
-                <div class="resultat-estimation mb-5 full-mobile">{% include "demande/caracteristicVehicle.html.twig" %}</div>
-                <hr>
                  {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
                     <h3>Etape</h3>
                     <section style="position: relative;width: 100%;">
@@ -156,6 +154,11 @@
                     <section style="position: relative;width: 100%;">
                     </section> #}
                 {{ form_end(form) }}
+
+                <hr>
+                <div class="resultat-estimation mb-5 full-mobile">
+                    {% include "demande/caracteristicVehicle.html.twig" %}
+                </div>
             </div>
         </div>
     </div>

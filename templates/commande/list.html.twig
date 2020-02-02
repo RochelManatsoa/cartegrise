@@ -17,6 +17,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">Demande</th>
+                                <th scope="col">Date</th>
                                 <th scope="col">Département</th>
                                 <th scope="col">Immatriculation</th>
                                 <th scope="col">Statut</th>
@@ -25,9 +26,9 @@
                             </thead>
                             <tbody>
                             {% for commande in commandes %}
-                                {% if statusOfCommande(commande, "style") == "danger" %}
                                     <tr>
                                         <th class="responsive-toggle">Demande<span></span></th><td>{{ commande.demarche.nom }}</td>
+                                        <th class="responsive-toggle">Date<span></span></th><td>{{ commande.ceerLe|date('d-m-Y') }}</td>
                                         <th class="responsive-toggle">Département<span></span></th><td class="text-center">{{ commande.codePostal | displayValue}}</td>
                                         <th class="responsive-toggle">Immatriculation<span></span></th><td class="text-center">{{ commande.immatriculation | displayValue}}</td>
                                         <th class="responsive-toggle">Statut<span></span></th><td>
@@ -38,24 +39,39 @@
                                         <th class="responsive-toggle">Action<span></span></th><td>
                                             <div class="flex flex-column content-actions">
                                                 {% if is_granted(constant('\\App\\Security\\Voter\\CommandeVoter::PASSER'), commande) %}
-                                                    <a href="{{path('commande_recap', {'commande': commande.id })}}">
-                                                        <button type="button" class="btn resume-btn">Résumer</button>
-                                                    </a>
+                                                    {% if commande.demande is defined and commande.demande is null %}
+                                                        <a href="{{path('new_demande', {'commande': commande.id })}}">
+                                                            <button type="button" class="btn resume-btn">Remplir le formulaire</button>
+                                                        </a>
+                                                    {% endif %}
                                                     <button data-url="{{ path('commande_annuler', {id: commande.id, _token: csrf_token('delete' ~ commande.id)}) }}"
                                                             type="button" class="btn cancel-btn">annuler</button>
+                                                {% elseif 
+                                                    commande.demande is defined and
+                                                    commande.demande is not null and
+                                                    (
+                                                        commande.transaction is not null or 
+                                                        commande.demande.transaction is not null
+                                                    )
+                                                %}
+                                                    <a href="{{path('demande_dossiers_a_fournir', {'id': commande.demande.id })}}">
+                                                        <button type="button" class="btn resume-btn">Ajouter mes dossier</button>
+                                                    </a>
                                                 {% else %}
-                                                    <a href="{{path('demande_recap', {'demande': commande.demande.id })}}">
-                                                        <button type="button" class="btn resume-btn">Récapitulatif de la demande</button>
+                                                    <a href="{{path('commande_recap', {'commande': commande.id })}}">
+                                                        <button type="button" class="btn resume-btn">Résumer</button>
                                                     </a>
                                                 {% endif %}
                                             </div>
 
                                         </td>
                                     </tr>
-                                {% endif %}
-                            {% else %}
-                                <tr><td colspan="5">Aucune commande trouvée</td></tr>
                             {% endfor %}
+                            {% if commandes|length == 0 %}
+                                <tr>
+                                    <td colspan="5">Aucune commande trouvée</td>
+                                </tr>
+                            {% endif %}
                             </tbody>
                         </table>
                     </div>

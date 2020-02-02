@@ -16,7 +16,7 @@ use App\Services\Tms\Response as ResponseTms;
 use App\Entity\{Commande, Demande, Facture, DailyFacture, Avoir, Transaction};
 use App\Repository\{CommandeRepository, DailyFactureRepository};
 use App\Manager\SessionManager;
-use App\Manager\{StatusManager, TMSSauverManager, TransactionManager, TaxesManager};
+use App\Manager\{StatusManager, TMSSauverManager, TransactionManager, TaxesManager, MailManager};
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -38,7 +38,8 @@ class CommandeManager
 		DocumentTmsManager $documentTmsManager,
 		SerializerInterface $serializer,
 		TMSSauverManager $tmsSaveManager, 
-		TransactionManager $transactionManager
+		TransactionManager $transactionManager,
+		MailManager $mailManager
 	)
 	{
 		$this->tmsClient = $tmsClient;
@@ -54,6 +55,7 @@ class CommandeManager
         $this->twig = $twig;
 		$this->tmsSaveManager = $tmsSaveManager;
 		$this->transactionManager = $transactionManager;
+		$this->mailManager = $mailManager;
 	}
 
 	public function checkIfTransactionSuccess(Commande $commande)
@@ -586,5 +588,11 @@ class CommandeManager
 		
         
         return $file;
-    }
+	}
+	
+	public function sendEmailFormDemande(Commande $commande)
+	{
+		$user = $commande->getClient()->getUser();
+		$this->mailManager->sendEmail($emails=[$user->getEmail()], 'admin/email/demandeFormulaire.email.twig', "CG Officiel - Démarches Carte Grise en ligne", ['commande'=> $commande]);      
+	}
 }

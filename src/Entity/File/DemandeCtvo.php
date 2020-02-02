@@ -36,8 +36,8 @@ class DemandeCtvo
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
+    *     mimeTypesMessage = "Please upload a valid Image or"
     * )
     */
     protected $rectoVersoCarteGrise;
@@ -46,7 +46,7 @@ class DemandeCtvo
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
@@ -56,7 +56,7 @@ class DemandeCtvo
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
@@ -66,7 +66,7 @@ class DemandeCtvo
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
@@ -76,7 +76,7 @@ class DemandeCtvo
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
@@ -86,7 +86,7 @@ class DemandeCtvo
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
@@ -95,7 +95,7 @@ class DemandeCtvo
     * @ORM\Column(type="string", nullable=true)
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
@@ -105,7 +105,7 @@ class DemandeCtvo
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
@@ -115,7 +115,7 @@ class DemandeCtvo
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
@@ -125,7 +125,7 @@ class DemandeCtvo
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */

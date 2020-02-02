@@ -64,6 +64,7 @@ class FileType extends AbstractType
         $view->vars = array_replace($view->vars, [
             'type' => 'file',
             'value' => '',
+            'accept' => 'image/png, image/jpeg'
         ]);
     }
 

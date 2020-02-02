@@ -327,6 +327,22 @@ class ActionAdminController extends Controller
     /**
      * @param $id
      */
+    public function formulaireDemandeAction($id, CommandeManager $commandeManager)
+    {
+        $object = $this->admin->getSubject();
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+        }
+
+        $commandeManager->sendEmailFormDemande($object);
+        // if you have a filtered list and want to keep your filters after the redirect
+        return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+
+    /**
+     * @param $id
+     */
     public function dossierAction(
         $id,
         DocumentAFournirManager $documentAFournirManager,

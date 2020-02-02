@@ -7,15 +7,16 @@
         <div>Taxe > 35CV</div>
         <div>{{ taxe.Taxe35cv | displayValue }} €</div>
     </div>
-    <div class="list-grid__item">
-        <div>Taxe CO2</div>
-        <div>{{ taxe.TaxeCO2 | displayValue}} €</div>
-    </div>
-    <div class="list-grid__item">
-        <div>Taxe Malus</div>
-        <div>{{ taxe.TaxeMalus | displayValue}} €</div>
-    </div>
+    
     <div class="voir_plus_content_taxes" style="display:none;">
+        <div class="list-grid__item">
+            <div>Taxe CO2</div>
+            <div>{{ taxe.TaxeCO2 | displayValue}} €</div>
+        </div>
+        <div class="list-grid__item">
+            <div>Taxe Malus</div>
+            <div>{{ taxe.TaxeMalus | displayValue}} €</div>
+        </div>
         <div class="list-grid__item">
             <div>Taxe ParaFiscale</div>
             <div>{{ taxe.TaxeParafiscale | displayValue}} €</div>
