@@ -65,7 +65,7 @@
                                     <div>
                                         <h4>Finalisez votre démarche</h4>
                                         <a class="no-underline" href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
-                                            <button type="button" class="btn btn-aqua-blue btn-primary btn-sm">Pièce à fournir<i class="icon-right-arrow"></i></button>
+                                            <button type="button" class="btn btn-aqua-blue btn-primary btn-sm">Pièces à fournir<i class="icon-right-arrow"></i></button>
                                         </a>
                                         {% for col in form %}
                                             {% if col.vars.type is defined and col.vars.type == 'file' %}

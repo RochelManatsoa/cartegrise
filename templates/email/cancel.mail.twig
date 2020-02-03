@@ -3,7 +3,7 @@
                                 <br>
                                 <br>
                                 <br>
-                                Bonjour {{ responses.client|displayRelanceInfos }}
+                                Bonjour {{ commande.client|displayRelanceInfos }}
                                 <br>
                                 <br>
                                 <p>Votre paiement pour la commande n° {{responses.transaction_id}}/{{transaction.commande.demarche.type}} du {{ transaction.createAt | date('d/m/Y')}} n’a pas fonctionné. Pas d’inquiétude vous pouvez reprendre votre démarche ici en cliquant ce <a href="{{ url('home') }}commande/{{transaction.commande.id}}/recap" target="_blank">lien</a></p>

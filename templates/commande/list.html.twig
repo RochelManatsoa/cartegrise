@@ -45,7 +45,7 @@
                                                         </a>
                                                     {% endif %}
                                                     <button data-url="{{ path('commande_annuler', {id: commande.id, _token: csrf_token('delete' ~ commande.id)}) }}"
-                                                            type="button" class="btn cancel-btn">annuler</button>
+                                                            type="button" class="btn cancel-btn">Annuler</button>
                                                 {% elseif 
                                                     commande.demande is defined and
                                                     commande.demande is not null and
@@ -55,7 +55,7 @@
                                                     )
                                                 %}
                                                     <a href="{{path('demande_dossiers_a_fournir', {'id': commande.demande.id })}}">
-                                                        <button type="button" class="btn resume-btn">Ajouter mes dossier</button>
+                                                        <button type="button" class="btn resume-btn">Ajouter mes dossiers</button>
                                                     </a>
                                                 {% else %}
                                                     <a href="{{path('commande_recap', {'commande': commande.id })}}">

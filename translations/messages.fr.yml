@@ -68,7 +68,21 @@ type_demande:
                         <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>si votre véhicule a plus de 4 ans, preuve du contrôle technique en cours de validité, sauf si le véhicule est dispensé de contrôle technique </li>
+                <li>
+                    Si votre véhicule a plus de 4 ans le contrôle technique est obligatoire pour la plupart des véhicules particuliers (VP) ou utilitaires. Toutefois, les véhicules suivants en sont dispensés :
+                    <ul>
+                        <li>Voiture sans permis</li>
+                        <li>Voiture de collection dont le PTAC est inférieur ou égal à 3,5 tonnes et dont la mise en circulation est antérieure à 1960</li>
+                        <li>Voiture de collection dont le PTAC est supérieur à 3,5 tonnes</li>
+                        <li>Moto, 2 roues et 3 roues</li>
+                        <li>Quadricycle à moteur</li>
+                        <li>Caravane dont le PTAC est inférieur ou égal à 3,5 tonnes</li>
+                        <li>Remorque dont le PTAC est inférieur ou égal à 3,5 tonnes non utilisée pour le transport de marchandises dangereuses</li>
+                        <li>Voiture immatriculée dans les services diplomatiques ou assimilés</li>
+                        <li>Voiture immatriculée dans les séries FFECSA (Forces françaises et éléments civils stationnés en Allemagne)
+                        Tracteur agricole)</li>
+                    </ul>
+                </li>
                 <li>une pièce d'identité en cours de validité</li>
                 <li>l'attestation d'assurance du véhicule</li>
                 <li>le permis de conduire du titulaire du véhicule</li>
