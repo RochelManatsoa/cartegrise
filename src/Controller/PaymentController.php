@@ -107,9 +107,6 @@ class PaymentController extends AbstractController
                 $file = $commandeManager->generateFacture($commande);
                 $files = [$file];
             }
-            // no info about client in cancel.mail.twig
-            $responses = array_merge(['commande'=>$commande], $responses);
-            // end 
             $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails, $files);
         // end send mail
 
