@@ -58,6 +58,7 @@ security:
                 check_path: fos_user_security_check
                 csrf_token_generator: security.csrf.token_manager
                 success_handler: app.authentication_success_handler
+                use_referer: true
                 # if you are using Symfony < 2.8, use the following config instead:
                 # csrf_provider: form.csrf_provider
                 default_target_path: compte

@@ -23,6 +23,7 @@ use App\Manager\NotificationManager;
 
 /**
  * @Route("/demande")
+ * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
 class DemandeController extends AbstractController
 {
@@ -153,7 +154,6 @@ class DemandeController extends AbstractController
 
     /**
      * @route("/{id}/annuler", name="demande_annuler", methods={"DELETE"})
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
     public function annuler(Request $request, Demande $demande, DemandeManager $demandeManager, EntityManagerInterface $em)
     {

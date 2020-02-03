@@ -17,7 +17,7 @@
                                 <div>{{ form_errors(col) }}</div>
                                 <div class="custom-flex">
                                     <div class="row">
-                                        <div class="col-9 pr-0">{{ form_widget(col, { 'attr': {'accept': 'application/pdf'} }) }}</div>
+                                        <div class="col-9 pr-0">{{ form_widget(col) }}</div>
                                         <div class="col-3">
                                             {% if checkFile(files, col.vars.name) != "" %}
                                                 <a href="{{ asset(checkFile(files, col.vars.name)) }}" class="btn-bown" target="_blank"><i class="far fa-eye"></i></a>

@@ -10,11 +10,10 @@
                     <h2 class="col-12 text-center">Récapitulatif de la demande</h2>
                     <div class="row recap-demande-wrapper  pt-5 pb-5">
                         <img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}"
-                             class="rounded col-2 mx-auto d-block img-thumbnail mb-3" style="height:100px;" alt="">
+                             class="rounded col-2 mx-auto d-block img-thumbnail mb-3" style="height:70px;" alt="">
                         <div class="col-10 mx-auto">
-                            <h2 class="col-12 mb-5 row mx-0"></h2>
+                            <h2 class="col-12 mb-0 row mx-0"></h2>
                             {{ include('commande/_resum_recap_demande.html.twig') }}
-
                         </div>
                     </div>
 
@@ -46,7 +45,7 @@
                                             <div class="formRecap">
                                             {{ form_start(formCGV)}}
                                                 <div>
-                                                    {{ form_row(formCGV.infosFacture)}}
+                                                    {{ form_row(formCGV.infosFacture, {'label':'Informations de facturation'})}}
                                                     {{ form_row(formCGV.termsAccepted)}}
                                                     <br>
                                                     <br>

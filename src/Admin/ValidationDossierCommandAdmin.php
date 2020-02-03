@@ -49,6 +49,7 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
         $collection->add('avoirCommande', $this->getRouterIdParameter().'/avoir-commande');
         $collection->add('retracterCommandeSecond', $this->getRouterIdParameter().'/retracter-commande-second');
         $collection->add('refundCommande', $this->getRouterIdParameter().'/refund-commande');
+        $collection->add('formulaireDemande', $this->getRouterIdParameter().'/form-demande-commande');
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -179,6 +180,9 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
                 ],
                 'retracterCommande' => [
                     'template'=>'CRUD/list__commande_document_retracter.html.twig'
+                ],
+                'formDemande' => [
+                    'template'=>'CRUD/list__commande_form_demande.html.twig'
                 ]
             ],
             
