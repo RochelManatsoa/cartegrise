@@ -1165,6 +1165,25 @@ header {
 	}
 }
 
+/*
+AutoComplete
+*/
+.AutoComplete_CP .select-styled {
+	display: none;
+}
+.custom-combobox-toggle {
+	background-color: #767474;
+    color: #fff;
+    text-align: center;
+    line-height: 56px;
+    width: 60px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+	right: 0;
+	font-size: 14px;
+}
+
 /**List grid**/
 .list-grid{
   &__item{
