@@ -1,8 +1,9 @@
-{% form_theme form with [
+{# {% form_theme form with [
     'forms/my_custom_theme.html.twig'
-] %}
+] %} #}
 <hr>
 {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
+            <p> <span style="color:red">(*)</span> <em>format: pdf, x-pdf, image/jpeg, image/png , taille maximum: 4.9MB</em></p>
     {{ form_start(form, {'attr':{'id':'form-dossier'}}) }}
         <div class="row justify-content-center">
             {% for col in form %}
@@ -13,6 +14,7 @@
                             <div class="group-input-item_">
                                 <div class="titre_file_">
                                     <h4>{{ form_label(col)}}</h4>
+                                    <span style="color:red">(*)</span>
                                 </div>
                                 <div>{{ form_errors(col) }}</div>
                                 <div class="custom-flex">
