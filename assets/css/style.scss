@@ -3035,6 +3035,113 @@ h2.page-title{
 }
 /**end**/
 
+/** Blog sidebar **/
+.sidebar-titre {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    padding: 15px;
+    margin: 0;
+    background: $royal-blue;
+	color: $white;
+	margin-bottom: 2px;
+}
+#blog_search {
+	&:after {
+		content: "";
+		clear: both;
+		display: table;
+	}
+	label {
+		text-transform: uppercase;
+		border-bottom: $bdr_solid_1 $bbr_color;
+		letter-spacing: .5px;
+		font-weight: 700;
+		display: none;
+	}
+	.form-group {
+		float: left;
+		#blog_search_Chercher {
+			display: block;
+			font-family: 'Font Awesome 5 Free' !important;
+			width: 100%;
+			border-radius: 0 25px 25px 0;
+			text-transform: uppercase;
+			font-size: 14px;
+			letter-spacing: 2px;
+			background-color: $aqua-blue;
+			border-color: $aqua-blue;
+			height: 48px;
+			margin-left: -5px;
+			position: relative;
+			text-indent: -99999px;
+			font-weight: 900;
+			&:focus {
+				box-shadow: none;
+			}
+			&:before {
+				content: "\f002";
+				text-indent: 0;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+			}
+			
+		}
+		.form-control {
+			border-radius: 25px 0 0 25px;
+			&:focus {
+				box-shadow: none;
+				border-color: $aqua-blue;
+			}
+		}
+		&:first-child {
+			width: 75%;
+		}
+		&:nth-child(2) {
+			width: 25%;
+		}
+	}
+}
+.col-reverse-mobile {
+	@include md {
+		flex-direction: column-reverse;
+	}
+}
+.list-group {
+	margin-bottom: 20px !important;
+	&-item {
+		@extend %linear_anim;
+		margin-bottom: 2px !important;
+		a {
+			color: inherit;
+			font-size: 14px;
+			@extend %linear_anim;
+			&:hover,
+			&:focus {
+				text-decoration: none;
+				color: $royal-blue;
+			}
+		}
+		&:hover {
+			border-left: 3px solid $aqua-blue !important;
+		}
+		.badge-primary {
+			background-color: $royal-blue;
+		}
+		&:first-child {
+			border-top-left-radius: 0 !important;
+			border-top-right-radius: 0 !important;
+		}
+		&:last-child {
+			border-bottom-right-radius: 0 !important;
+			border-bottom-left-radius: 0 !important;
+		}
+	}
+}
+
 /**custom style**/
 body{
   header{
@@ -3470,3 +3577,5 @@ Suivi
 		}
 	}
 }
+
+

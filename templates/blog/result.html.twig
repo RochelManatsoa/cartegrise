@@ -29,16 +29,16 @@
     <div class="content-wrapper blog blog-details">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-lg-12 col-md-12 col-12">
+                <div class="col-12">
                     <div class="main-blog">
-                        <div class="row">
-                            <div class="col-8 col-lg-8 col-md-8">
-                            {% if results is empty %}
-                                <p class="text-center">Désolé, nous n'avons trouvé aucun résultat.</p>
-                                <p class="text-center">Vérifiez l'orthographe ou essayez une autre recherche.</p>
-                            {% else %}
-                                <p>{{ results | length }} articles trouvés. </p>
-                            {% endif %}
+                        <div class="row col-reverse-mobile">
+                            <div class="col-12 col-lg-8">
+								{% if results is empty %}
+									<p class="text-center">Désolé, nous n'avons trouvé aucun résultat.</p>
+									<p class="text-center">Vérifiez l'orthographe ou essayez une autre recherche.</p>
+								{% else %}
+									<p>{{ results | length }} articles trouvés. </p>
+								{% endif %}
 
                                 {% for article in results %}
 
@@ -67,7 +67,7 @@
                                 {% endfor %}
 
                             </div>
-                            <div class="col-4 col-lg-4 col-md-4">
+                            <div class="col-12 col-lg-4">
                                 {{ include("blog/layout/sidebar.html.twig") }}
                             </div>
                         </div>
