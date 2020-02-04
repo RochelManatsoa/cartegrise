@@ -50,11 +50,8 @@ type_demande:
                     </ul>
                 </li>
                 <li>L'ancien certificat d'immatriculation remis par le précédent propriétaire, revêtu de la mention "<em>vendu le ../../.... (date de cession)</em>", suivi de sa signature, la preuve d'un contrôle technique de moins de 6 mois remis par le vendeur.</li>
-                <li>Dans le cas de copropriétaires mariés (hors régime de la séparation des bien), si le demandeur agit seul, il doit présenter un livret de famille.<br>
-                Si l'un des époux effectue la demande d'immatriculation à son nom propre, il doit fournir une attestation signée par l'autre époux lorsqu'il n'y pas concordance entre l'acquéreur et le demandeur ud titre.</li>
                 <li>le permis de conduire du titulaire du véhicule</li>
                 <li>l'attestation d'assurance du véhicule</li>
-                <li>l'original de la <strong>"CARTE GRISE"</strong> avec la mention « <em>vendu le … /…/… (date de la cession)</em> », suivie de sa signature</li>
             </ol>
         dup: |
             <ol>
