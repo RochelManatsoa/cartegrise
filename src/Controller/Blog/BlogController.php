@@ -25,7 +25,8 @@ class BlogController extends Controller
     public function index(
             ArticleRepository $repository,
             Blogmanager $blogManager,
-            Request $request
+            Request $request,
+            SearchManager $searchManager
         )
     {
         $repo = $repository->findBy(
@@ -33,12 +34,23 @@ class BlogController extends Controller
                 ['date' => 'DESC']
             );
         // @var $paginator \Knp\Component\Pager\Paginator 
+        $search = new BlogSearch();
+        $formSearch = $this->createForm(BlogSearchType::class, $search);
         $paginator = $this->get('knp_paginator');
         $articles = $paginator->paginate(
             $repo, $request->query->getInt('page', 1), 6
             );
         $params = $blogManager->getCatAndFaq();
         $params = array_merge(['articles'=>$articles], $params);
+        $params = array_merge(['formSearch'=>$formSearch->createView()], $params);
+        $formSearch->handleRequest($request);
+        if($formSearch->isSubmitted() && $formSearch->isValid()){
+            $search = $formSearch->getData();
+            $results = $searchManager->search($search);
+            $params = array_merge(['results'=>$results], $params);
+
+            return $this->render('blog/result.html.twig', $params);
+        }
 
         return $this->render('blog/index.html.twig', $params);
     }
@@ -98,9 +110,12 @@ class BlogController extends Controller
         Categorie $categorie, 
         ArticleRepository $repository, 
         Request $request,
-        BlogManager $blogManager)
+        BlogManager $blogManager,
+        SearchManager $searchManager)
     {
         $repo = $repository->findByCatagories($categorie->getId());
+        $search = new BlogSearch();
+        $formSearch = $this->createForm(BlogSearchType::class, $search);
         /* @var $paginator \Knp\Component\Pager\Paginator */
         $paginator = $this->get('knp_paginator');
         $articles = $paginator->paginate(
@@ -109,6 +124,15 @@ class BlogController extends Controller
         $params = $blogManager->getCatAndFaq();
         $params = array_merge(['articles'=>$articles], $params);
         $params = array_merge(['categorie'=>$categorie], $params);
+        $params = array_merge(['formSearch'=>$formSearch->createView()], $params);
+        $formSearch->handleRequest($request);
+        if($formSearch->isSubmitted() && $formSearch->isValid()){
+            $search = $formSearch->getData();
+            $results = $searchManager->search($search);
+            $params = array_merge(['results'=>$results], $params);
+
+            return $this->render('blog/result.html.twig', $params);
+        }
         
         return $this->render('blog/categorie.html.twig', $params);
     }
