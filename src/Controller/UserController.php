@@ -64,4 +64,34 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/register_blog", name="user_register_blog")
+     */
+    public function registerBlog(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        UserRepository $repository,
+        UserManager $userManager
+        ) {
+        // 1) build the form
+        $user = new User();
+        $user->addRole("ROLE_ADMIN_BLOG");
+        $user->setEnabled(true);
+        $form = $this->createForm(UserType::class, $user);
+        // 2) handle the submit (will only happen on POST)
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+            $userManager->save($user);
+
+            return $this->redirectToRoute('easyadmin');
+        }
+        // $utilisateurs = $repository->findAll();
+        return $this->render('crm/register.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }

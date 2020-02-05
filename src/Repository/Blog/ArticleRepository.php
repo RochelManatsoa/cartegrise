@@ -4,6 +4,7 @@ namespace App\Repository\Blog;
 
 use App\Entity\Blog\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Manager\Blog\Modele\BlogSearch;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -63,4 +64,23 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * blog search
+     */
+    public function getBlogFilter(BlogSearch $blogSearch)
+    {
+        if (!$blogSearch->isFilterable())
+            return [];
+        /**
+         * search started
+         */
+        $builder = $this->createQueryBuilder('a')
+        ->where('a.titre like :titre')
+        ->andWhere('a.publication = true')
+        ->setParameter('titre', '%'.$blogSearch->getTitre().'%');
+
+        return $builder->getQuery()->getResult(); 
+    }
+
 }

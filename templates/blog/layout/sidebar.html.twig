@@ -1,0 +1,62 @@
+
+<div class="commentaire-form search_blog_">
+    {{ form_start(formSearch) }}
+    {{ form_widget(formSearch)}}
+    {{ form_end(formSearch) }}
+</div>
+<h4 class="sidebar-titre">Liste des catégories</h4>
+<ul class="list-group">
+    {% for category in cat %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{{ path('show_cat',{'slug':category.slug}) }}">{{ category.nom }}</a>
+        <span class="badge badge-primary badge-pill">{{ category.articles | length }}</span>
+    </li>
+    {% endfor %}
+</ul>
+<h4 class="sidebar-titre">FAQ</h4>
+<br>
+<div class="col-12 mx-auto ">
+    {# {{ include('blog/search.html.twig') }} #}
+    <br>
+    {% for faq in faqs %}
+        <!-- Button trigger modal -->
+        <div class="col-12 mx-auto blog-faq-list mb-2">
+            <div class="col-11 faq-item mx-auto">
+                <a href="#" class="col-10 mx-auto " data-toggle="modal" data-target="#exampleModalLong{{ faq.id }}">
+                    <strong>{{ faq.titre }}</strong>
+                </a>
+                <p class="col-10 mx-auto">{{ faq.contenu | slice(0,136) | raw }}...</p>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalLong{{ faq.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle{{ faq.id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle{{ faq.id }}">{{ faq.titre }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ faq.contenu | raw }}
+                    </div>
+                    <div class="modal-footer">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                        </div>
+                        {# {% if is_granted( 'ROLE_USER' ) %}
+                            <a class="btn btn-secondary" href="{{path('user_faq_edit',{'id':faq.id})}}">Modifier</a>
+                        {% endif %}
+                        {% if is_granted( 'ROLE_ADMIN' ) %}
+                            <a class="btn btn-secondary" href="{{path('user_faq_delete',{'id':faq.id})}}">Supprimer</a>
+                        {% endif %} #}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+                            
