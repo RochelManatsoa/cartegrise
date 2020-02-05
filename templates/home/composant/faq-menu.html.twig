@@ -219,7 +219,7 @@
             <div class="accordeon_">
                 <div class="row">
                     <button type="button" class="col-12 col-sm-6 col-md-7 menu-commander">
-                        <span class="menu-commander--button---text">Doit on immatriculer une remorque ?</span>
+                        <span class="menu-commander--button---text">Doit-on immatriculer une remorque ?</span>
                     </button>
                     <div class="toggle-content col-12" style="display: none;">
                         <div id="Changement-de-titulaire" class="row commander">
@@ -577,7 +577,30 @@
 									immatriculés, qu'ils appartiennent à un particulier ou qu'ils soient rattachés à une exploitation. Tous les matériels agricoles qui roulent, tels que le tracteur agricoles à roues ou à chenilles, la machine automotrice de type agricole, le véhicule
 									agricole remorqué dont le PTAC est supérieur à 1,5 tonnes, sont donc concernés par cette obligation.</p>
 
-								<p>Cependant, les obligations pour les véhicules appartenant à un particulier ne sont pas les mêmes que pour les véhicules rattachés à une exploitation agricole, forestière ou à une coopérative d'utilisation de matériel agricole.
+								<p>Cependa                    <div class="piece_fournir">
+                                        <div id="daf-list-wrapper" class="mb-5">
+                                            {{ daf|raw }}
+                                        </div>
+                                        <div class="hidden-lg-down hidden-md-down">
+                                            {% if form is not null %}
+                                                {% include 'demande/file/FormDossier.html.twig' %}
+                                            {% endif %}
+                                            <div class="text-center mb-5">
+                                            {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
+                                                <div class="form-group">
+                                                    <button type="button" onclick="saveAndValidate();" class="btn-validate-command d-flex align-items-center justify-content-between btn btn-blue btn">
+                                                        {{ 'label.saveAndValidate' | trans }}
+                                                    </button>
+                                                </div>
+                                            {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="pl-sm-4 mb-3 mb-md-0">
+                                            <a href="{{ path('demande_history') }}" class="back-retour">
+                                                <i class="fa fa-arrow-left"></i> Retour à la liste de vos demandes
+                                            </a>
+                                        </div>
+                                    </div>nt, les obligations pour les véhicules appartenant à un particulier ne sont pas les mêmes que pour les véhicules rattachés à une exploitation agricole, forestière ou à une coopérative d'utilisation de matériel agricole.
 								</p>
 
 								<p>En effet, elles diffèrent aussi suivant le PTAC du véhicule ou de la remorque.</p>

@@ -14,7 +14,7 @@
         <div class="container">
             <div class="commande_block">
                 <h2>Votre commande </h2>
-                <div class="commande-container mb-5 pb-5">
+                <div class="commande-container mb-3 pb-3">
                     {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
                         <div class="alert alert-success">
                             Votre demande est validée, veuillez nous envoyer vos documents par courrier à l'adresse
@@ -56,29 +56,54 @@
                         <li><strong>Immatriculation </strong> {{ demande.commande.immatriculation }}</li>
                     </ul>
                 </div>
-                <h2>Pièces à fournir pour votre demande</h2>
-                <div class="piece_fournir">
-                    <div id="daf-list-wrapper" class="mb-5">
-                        {{ daf|raw }}
-                    </div>
-                    <div class="hidden-lg-down hidden-md-down">
-                        {% if form is not null %}
-                            {% include 'demande/file/FormDossier.html.twig' %}
-                        {% endif %}
-                        <div class="text-center mb-5">
-                        {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
-                            <div class="form-group">
-                                <button type="button" onclick="saveAndValidate();" class="btn-validate-command d-flex align-items-center justify-content-between btn btn-blue btn">
-                                    {{ 'label.saveAndValidate' | trans }}
-                                </button>
+                <div class="block_CCM menu-faq">
+                    <div class="container">
+                        <h3 class="home-secondview--titre">Pièces à fournir pour votre demande</h3>
+                        <div class="comment-ca-marche-texte">
+                            <!--A quoi sert le certificat d’immatriculation ?-->
+                            <div class="accordeon_">
+                                <div class="row">
+                                    <button type="button" class="col-12 col-sm-6 col-md-7 menu-commander">
+                                        <span class="menu-commander--button---text">Voir plus de details</span>
+                                    </button>
+                                    <div class="toggle-content col-12" style="display: none;">
+                                        <div id="Changement-de-titulaire" class="row commander">
+                                            <div class="commander-box">
+                                                <div class="commander-box--section---description mt-3">
+                                                    <div class="piece_fournir">
+                                                        <div id="daf-list-wrapper" class="mb-2">
+                                                            {{ daf|raw }}
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
                             </div>
-                        {% endif %}
                         </div>
                     </div>
-                    <div class="pl-sm-4 mb-3 mb-md-0">
-                        <a href="{{ path('demande_history') }}" class="back-retour">
-                            <i class="fa fa-arrow-left"></i> Retour à la liste de vos demandes
-                        </a>
+                </div>
+                    <div class="piece_fournir">
+                        <div class="hidden-lg-down hidden-md-down">
+                            {% if form is not null %}
+                                {% include 'demande/file/FormDossier.html.twig' %}
+                            {% endif %}
+                            <div class="text-center mb-5">
+                            {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
+                                <div class="form-group">
+                                    <button type="button" onclick="saveAndValidate();" class="btn-validate-command d-flex align-items-center justify-content-between btn btn-blue btn">
+                                        {{ 'label.saveAndValidate' | trans }}
+                                    </button>
+                                </div>
+                            {% endif %}
+                            </div>
+                        </div>
+                        <div class="pl-sm-4 mb-3 mb-md-0">
+                            <a href="{{ path('demande_history') }}" class="back-retour">
+                                <i class="fa fa-arrow-left"></i> Retour à la liste de vos demandes
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -87,6 +112,23 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript">
+        $(".menu-commander").on("click", function() {
+            if ($(this).hasClass("active")) {
+                $(this).removeClass("active");
+                $(this)
+                        .siblings(".toggle-content")
+                        .slideUp(200);
+            } else {
+                $(".menu-commander").removeClass("active");
+                $(this).addClass("active");
+                $(".toggle-content").slideUp(200);
+                $(this)
+                        .siblings(".toggle-content")
+                        .slideDown(200);
+            }
+        });
+    </script>
     <script type="application/javascript">
         $('input.custom-file-input[type="file"]').change(function (e) {
             let name = e.target.files[0].name;

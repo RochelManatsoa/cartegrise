@@ -115,7 +115,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     let value = element.value;
 
                     let label = {
-                        "demande_ctvo[ctvo][acquerreur][type]" : "Nouveau Titulaire",
+                        "demande_ctvo[ctvo][acquerreur][type]" : "Nouveau titulaire",
                         "demande_ctvo[ctvo][acquerreur][raisonSociale]" : "Raison sociale",
                         "demande_ctvo[ctvo][acquerreur][siren]" : "SIREN",
                         "demande_ctvo[ctvo][acquerreur][societeCommerciale]" : "Société commerciale",
@@ -135,7 +135,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                         "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][codepostal]" : "Code postal",
                         "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][ville]" : "Ville",
                         "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][isHosted]" : "Hébergé(e)",
-                        "demande_ctvo[ctvo][ancienTitulaire][type]" : "Ancien Titulaire",
+                        "demande_ctvo[ctvo][ancienTitulaire][type]" : "Ancien titulaire",
                         "demande_ctvo[ctvo][ancienTitulaire][raisonsociale]" : "Raison sociale",
                         "demande_ctvo[ctvo][ciPresent]" : "Carte grise présente",
                         "demande_ctvo[ctvo][numeroFormule]" : "Numéro de formule",
