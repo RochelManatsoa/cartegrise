@@ -387,4 +387,60 @@ class HomeController extends AbstractController
         return $this->render('home/mentionsLegales.html.twig');
     }
 
+    /**
+     * @Route("/demande-duplicata-certificat-immatriculation", name="dup")
+     */
+    public function dup(
+        Request $request,
+        TypeDemandeRepository $demarche,
+        ObjectManager $manager,
+        TaxesRepository $taxesRepository,
+        TarifsPrestationsRepository $prestation,
+        CommandeRepository $commandeRepository,
+        SessionManager $sessionManager,
+        TmsClient $tmsClient,
+        CommandeManager $commandeManager,
+        CarInfoManager $carInfoManager,
+        TaxesManager $taxesManager,
+        DivnInitManager $divnInitManager,
+        MercureManager $mercureManager,
+        NotificationManager $notificationManager
+        )
+    {
+        $type = $demarche->findOneBy(['type' => "DUP"]);
+        $commande = $commandeManager->createCommande();
+        $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$type, 'departement'=>$commande->DEPARTMENTS]);
+
+        $form->handleRequest($request);
+        $homeParams = [
+            'form' => $form->createView(),
+            'database' => false,
+        ];
+
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $client = $this->getUser()->getClient();
+
+            $homeParams['genre'] = $client->getClientGenre();
+            $homeParams['client'] = $client;
+        }
+
+        return $this->render('home/demarche/accueil.html.twig', $homeParams );
+    }
+
+    /**
+     * @Route("/changement-titulaire-vehicule-doccasion", name="ctvo")
+     */
+    public function ctvo()
+    {
+        return $this->render('home/demarche/ctvo.html.twig');
+    }
+
+    /**
+     * @Route("/changement-adresse-certificat-immatriculation", name="dca")
+     */
+    public function dca()
+    {
+        return $this->render('home/demarche/dca.html.twig');
+    }
+
 }
