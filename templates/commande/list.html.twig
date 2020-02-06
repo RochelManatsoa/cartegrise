@@ -57,8 +57,8 @@
                                                     commande.demande is defined and
                                                     commande.demande is not null and
                                                     (
-                                                        commande.transaction is not null or 
-                                                        commande.demande.transaction is not null
+                                                        commande.transaction is defined and commande.transaction is not null and commande.transaction.status == '00' or 
+                                                        commande.demande.transaction is defined and commande.demande.transaction is not null and commande.demande.transaction == "00"
                                                     )
                                                 %}
                                                     <a href="{{path('demande_dossiers_a_fournir', {'id': commande.demande.id })}}">
