@@ -19,7 +19,15 @@
 
                     <div class="col-md-12 px-0 col-lg-12 mx-auto d-flex my-flex-container">
                         <div class="col-12 px-0 row">
-                            <div class="col-12 mx-auto mt-3">
+                            <div class="col-6 mx-auto">
+                                <h2 class="mb-4">CARACTÉRISTIQUES DU VÉHICULE</h2>
+                                {{ include('commande/_resum_caracteristics_car.html.twig') }}
+                            </div>
+                            <div class="col-6 mx-auto">
+                                <h2 class="mb-4">DÉTAIL DES TAXES</h2>
+                                {{ include('commande/_resum_taxe_car.html.twig') }}
+                            </div>
+                            <div class="col-12 mx-auto mt-5">
                                 <div class="block_form">
                                     {% if commande.transaction is not null and commande.transaction.status == "00" %}
                                         <div class="block_form--btn-actions">
@@ -89,14 +97,6 @@
                                         {% endif %}
                                     {% endif %}
                                 </div>
-                            </div>
-                            <div class="col-6 mx-auto mt-5">
-                                <h2 class="mb-4">CARACTÉRISTIQUES DU VÉHICULE</h2>
-                                {{ include('commande/_resum_caracteristics_car.html.twig') }}
-                            </div>
-                            <div class="col-6 mx-auto mt-5">
-                                <h2 class="mb-4">DÉTAIL DES TAXES</h2>
-                                {{ include('commande/_resum_taxe_car.html.twig') }}
                             </div>
                         </div>
                     </div>
