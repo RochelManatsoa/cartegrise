@@ -626,7 +626,7 @@ class DemandeManager
             $demandes = $this->getDemandeOfUser($this->tokenStorage->getToken()->getUser());
             $status = false;
             foreach($demandes as $demande){
-                $tmpStatus = $demande->getTransaction() != null ? $demande->getTransaction()->getStatus() : $demande->getCommande()->getTransaction()->getStatus();
+                $tmpStatus = $demande->getTransaction() != null ? $demande->getTransaction()->getStatus() : ($demande->getCommande()->getTransaction() != null ) ? $demande->getCommande()->getTransaction()->getStatus(): "";
                 if ($tmpStatus == '00') {
                     $status = true;
                     break;

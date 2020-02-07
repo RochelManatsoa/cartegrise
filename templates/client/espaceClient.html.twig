@@ -44,7 +44,12 @@
                                 <div class="content-demarche tab-pane fade" id="pills-apercu" role="tabpanel" aria-labelledby="pills-apercu-tab">
                                     {{ include('demande/suivi.html.twig') }}
                                     <hr>
-                                    <p>{% if demande.transaction.id is defined %}{{demande.transaction.id | number_format()}}{% else %}{{demande.commande.transaction.id | number_format()}}{% endif %}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}} :{{ demande.commande.demarche.nom }} </p>
+                                    <p>{% if demande.transaction is not null and demande.transaction.id is defined %}
+                                            {{demande.transaction.id | number_format()}}
+                                        {% elseif demande.commande.transaction is not null and demande.commande.transaction.id is defined %}
+                                            {{demande.commande.transaction.id | number_format()}}
+                                        {% endif %}
+                                        {{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}} :{{ demande.commande.demarche.nom }} </p>
                                     <p>Créée le {{ demande.commande.ceerLe | date('d.m.Y à H\\h:i')}}</p>
                                     <p>Immatriculation : {{ demande.commande.immatriculation | displayValue}}</p>
                                     <p>Département : {{ demande.commande.codePostal | displayValue}}</p>
