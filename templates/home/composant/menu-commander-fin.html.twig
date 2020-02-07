@@ -201,7 +201,19 @@
 					<div class="demarche_block_item">
 						<div id="Demarche" class="title_dermarche text-center">
 							<p>Bienvenue sur le service d’immatriculation de véhicule en ligne, rapide, sécurisé et agréé</p>
-							<h2>Choisissez votre démarche</h2>
+							<h1>
+								{% if defaultDemarche is defined and defaultDemarche is not null %}
+									{% if defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_CTVO') %}
+										Achat d'un véhicule d'occasion: commandez votre certificat d'immatriculation
+									{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DUP') %}
+										Commandez un duplicata de votre certificat d'immatriculation
+									{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DCA') %}
+										Certificat d'immatriculation: Effectuer un changement d'adresse
+									{% endif %}
+								{% else %}
+									Choisissez votre démarche
+								{% endif %}
+							</h1>
 						</div>
 						<div class="block_form">
 							<div class="row justify-content-center">

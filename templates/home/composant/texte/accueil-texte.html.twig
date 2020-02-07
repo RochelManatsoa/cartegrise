@@ -3,7 +3,17 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-12 col-xl-10">
+				{% if defaultDemarche is defined and defaultDemarche is not null %}
+					{% if defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_CTVO') %}
+						{{ include('home/demarche/ctvo.html.twig') }}
+					{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DUP') %}
+						{{ include('home/demarche/dup.html.twig') }}
+					{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DCA')%}
+						{{ include('home/demarche/dca.html.twig') }}
+					{% endif %}
+				{% else %}
 					<strong>Le certificat d’immatriculation ou carte grise</strong> est un document officiel et obligatoire pour l'identification d’un véhicule et est valable pendant toute la durée d'utilisation du véhicule. Il contient le nom du propriétaire du véhicule, son adresse, le numéro d'immatriculation du véhicule. Le certificat d’immatriculation ou carte grise doit être renouvelé lors d’un changement d’adresse, de titulaire,en cas de perte ou vol.
+				{% endif %}
 					<div class="autocollant_block">
 						<a class="critairLink" href="http://www.certificat-air.gouv.fr" target="_blank">
 							<span><img src='{{ asset("asset/img/vert.png")}}' alt=''></span>
@@ -32,14 +42,14 @@
 					<div class="col-md-12 col-xl-10">
 						<ul class="link-form">
 							<li onclick="$('#formulaire_demarche').val('2').change();" >
-								<a href="#Demarche">
+								<a href="{{path('dup')}}">
 									<span>
 										<span><i class="icomoon icon-duplicate"></i> Duplicata</span>
 									</span>
 								</a>
 							</li>
 							<li onclick="$('#formulaire_demarche').val('1').change();" >
-								<a href="#Demarche">
+								<a href="{{path('ctvo')}}">
 									<span>
 										<span><i class="icomoon icon-exchange"></i> Changement de titulaire</span>
 									</span>
@@ -53,7 +63,7 @@
 								</a>
 							</li>
 							<li onclick="$('#formulaire_demarche').val('4').change();" >
-								<a href="#Demarche">
+								<a href="{{path('dca')}}">
 									<span>
 										<span><i class="icomoon icon-adress-location"></i> Changement d’adresse</span>
 									</span>

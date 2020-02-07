@@ -163,8 +163,8 @@
 {% block javascripts %}
 	{{ parent() }}
 	<script type="application/javascript">
-		{% if defaultDepartment is defined and defaultDepartment is not null %}
-			$("#formulaire_codePostal").parent('div').find('ul.select-options').find('li[rel="{{defaultDepartment}}"]').click();
+		{% if defaultDemarche is defined and defaultDemarche is not null %}
+			$("#commande_demarche").parent('div').find('ul.select-options').find('li[rel="{{defaultDemarche.id}}"]').click();
 		{% endif %}
 	</script>
 	<script type="application/javascript">
