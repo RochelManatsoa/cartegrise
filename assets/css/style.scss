@@ -93,6 +93,64 @@ a {
 			background-color: #838383;
 		}
 	}
+	//new style demarche Iary
+	.icon_demarche_text {
+		.icomoon {
+			font-size: 60px;
+			margin-bottom: $size_24;
+			display: inline-block;
+			color: $aqua-blue;
+		}
+		h2 {
+			font-weight: 700;
+			color: $aqua-blue;
+			@include sm {
+				font-size: $size_24;
+			}
+			em {
+				font-size: $size_24;
+				display: $block;
+				line-height: $size_30;
+				font-weight: normal;
+				color: $royal-blue;
+				@include sm {
+					font-size: $size_18;
+				}
+			}
+			&:after {
+				content: "";
+				width: 83px;
+				border-bottom: $bdr_solid_1 $light-2;
+				display: inline-block;
+				margin: $size_30 auto;
+			}
+		}
+	}
+	.box_demarche {
+		border: 1px dashed #ddd;
+		padding: $size_30;
+		background: $select-bg;
+		border-radius: $size_15;
+		margin: 50px auto;
+		@include sm {
+			padding: $size_15;
+		}
+		&:hover {
+			box-shadow: 0 $size_15 $size_30 rgba(0,0,0,0.1);
+		}
+		h3 {
+			font-size: 20px;
+			font-weight: 700;
+			max-width: 70%;
+			margin: $size_30 auto;
+			@include sm {
+				max-width: 100%;
+			}
+		}
+		.list {
+			padding-left: 0;
+		}
+	}
 }
 header {
 	background-color: $royal-blue;

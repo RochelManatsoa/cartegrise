@@ -2,8 +2,8 @@
 	<div class="detail_carteG text-md-center">
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-md-12 col-xl-10">
 				{% if defaultDemarche is defined and defaultDemarche is not null %}
+				<div class="col-12">
 					{% if defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_CTVO') %}
 						{{ include('home/demarche/ctvo.html.twig') }}
 					{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DUP') %}
@@ -12,6 +12,7 @@
 						{{ include('home/demarche/dca.html.twig') }}
 					{% endif %}
 				{% else %}
+				<div class="col-md-12 col-xl-10">
 					<strong>Le certificat d’immatriculation ou carte grise</strong> est un document officiel et obligatoire pour l'identification d’un véhicule et est valable pendant toute la durée d'utilisation du véhicule. Il contient le nom du propriétaire du véhicule, son adresse, le numéro d'immatriculation du véhicule. Le certificat d’immatriculation ou carte grise doit être renouvelé lors d’un changement d’adresse, de titulaire,en cas de perte ou vol.
 				{% endif %}
 					<div class="autocollant_block">
