@@ -129,4 +129,41 @@ class UserRepository extends ServiceEntityRepository
 
         return $date;
     }
+
+    public function findUserAfterSuccessPaiment($level)
+    {
+        $date = $this->relanceDateAfterSuccess($level);
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.client','cl')
+            ->leftJoin('cl.commandes','com')
+            ->leftJoin('com.transaction','t')
+            ->leftJoin('com.demande','d')
+            ->where('t.status = :success')
+            ->andWhere('d IS NOT NULL')
+            ->andWhere('t.createAt <= :date')
+            ->andWhere('cl.relanceLevel =:level')
+            ->setParameter('success', Transaction::STATUS_SUCCESS)
+            ->setParameter('level', $level)
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    private function relanceDateAfterSuccess($level)
+    {
+        $date = new \DateTime();
+        switch($level){
+            case 9:
+                $date->modify('-1hour');
+                break;
+            case 10:
+                $date->modify('-1day');
+                break;
+            default:
+                break;
+        }
+
+        return $date;
+    }
 }
