@@ -219,45 +219,86 @@
 							<div class="row justify-content-center">
 								<div class="col-md-10">
 									{% if formulaire is defined %}
-									{{ form_start(formulaire, {'attr': {'id': 'form_demarche'}})}}
-									<div class="demarche">
-										{{ form_row(formulaire.demarche, {
-											'attr':{
-												'class': 'form-control-plaque'
-											},
-											'label_attr': {
-												'class': 'text-uppercase resultat-estimation-p'}
-											})
-										}}
-										<div class="row">
-											<div class="col-md-6">
-												{{ form_row(formulaire.immatriculation, {
+										{% if is_mobile() and is_device('samsung') %}
+											{{ form_start(formulaire, {'attr': {'id': 'form_demarche'}})}}
+											<div class="demarche">
+												{{ form_row(formulaire.demarche, {
 													'attr':{
-														'onkeyup':'this.value = this.value.toUpperCase()',
-														'class': 'form-control-plaque ',
-														'onblur': 'this.value = valueTreatement(this.value)',
-														'maxlength': '9',
-														'minlength': '5',
-														'placeholder': 'BB-321-BB'
+														'class': 'form-control-plaque'
 													},
 													'label_attr': {
 														'class': 'text-uppercase resultat-estimation-p'}
-													}
-												)}}
+													})
+												}}
+												<div class="row">
+													<div class="col-md-6">
+														{{ form_row(formulaire.immatriculation, {
+															'attr':{
+																'class': 'form-control-plaque ',
+																'maxlength': '9',
+																'minlength': '5',
+																'placeholder': 'AA-123-AA'
+															},
+															'label_attr': {
+																'class': 'text-uppercase resultat-estimation-p'}
+															}
+														)}}
+													</div>
+													<div class="col-md-6 AutoComplete_CP">
+													{{ form_row(formulaire.codePostal, {
+														'attr':{'class':'mx-auto form-control--dep'},
+														'label_attr': {'class': 'text-uppercase resultat-estimation-p'}
+														}
+													)}}
+													</div>
+												</div>
+											</div>	
+											<div class="text-md-right mx-auto search-box" id="calcul">
+												<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>
 											</div>
-											<div class="col-md-6 AutoComplete_CP">
-											{{ form_row(formulaire.codePostal, {
-												'attr':{'class':'mx-auto form-control--dep'},
-												'label_attr': {'class': 'text-uppercase resultat-estimation-p'}
-												}
-											)}}
+											{{ form_end(formulaire)}}
+										{% else %}
+											{{ form_start(formulaire, {'attr': {'id': 'form_demarche'}})}}
+											<div class="demarche">
+												{{ form_row(formulaire.demarche, {
+													'attr':{
+														'class': 'form-control-plaque'
+													},
+													'label_attr': {
+														'class': 'text-uppercase resultat-estimation-p'}
+													})
+												}}
+												<div class="row">
+													<div class="col-md-6">
+														{{ form_row(formulaire.immatriculation, {
+															'attr':{
+																'onkeyup':'this.value = this.value.toUpperCase()',
+																'class': 'form-control-plaque ',
+																'onblur': 'this.value = valueTreatement(this.value)',
+																'maxlength': '9',
+																'minlength': '5',
+																'placeholder': 'BB-321-BB'
+															},
+															'label_attr': {
+																'class': 'text-uppercase resultat-estimation-p'}
+															}
+														)}}
+													</div>
+													<div class="col-md-6 AutoComplete_CP">
+													{{ form_row(formulaire.codePostal, {
+														'attr':{'class':'mx-auto form-control--dep'},
+														'label_attr': {'class': 'text-uppercase resultat-estimation-p'}
+														}
+													)}}
+													</div>
+												</div>
+											</div>	
+											<div class="text-md-right mx-auto search-box" id="calcul">
+												<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>
 											</div>
-										</div>
-									</div>	
-									<div class="text-md-right mx-auto search-box" id="calcul">
-										<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>
-									</div>
-									{{ form_end(formulaire)}}
+											{{ form_end(formulaire)}}
+										{% endif %}
+									
 									<div id="formVN" style="display:none;">
 										<div class="d-flex justify-content-start">
 											<div onclick="$('#formulaire_demarche').val('1').change();" id='backButton' class='back-retour'><i class="icomoon icon-right-arrow"></i> Retour</div>
