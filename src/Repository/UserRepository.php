@@ -139,7 +139,7 @@ class UserRepository extends ServiceEntityRepository
             ->leftJoin('com.demande','d')
             ->where('t.status = :success')
             ->andWhere('d IS NULL')
-            ->andWhere('t.createAt >= :date')
+            ->andWhere('t.createAt = :date')
             ->andWhere('cl.relanceLevel =:level')
             ->setParameter('success', Transaction::STATUS_SUCCESS)
             ->setParameter('level', $level)
