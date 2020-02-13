@@ -416,6 +416,7 @@ class DemandeManager
     public function getUserWithoutSendDocumentInDay(int $day, MailManager $mailManager){
         $relanceLevel = $this->getRelanceLevel($day);
         $responses = $this->repository->getUserWithoutSendDocumentInDay($day, $relanceLevel);
+        dd($responses);
         if ($day === 27)
         {
             $object = "Attention plus que 3 jours pour envoyer les documents !";
@@ -435,6 +436,7 @@ class DemandeManager
     public function getUserWithSendDocumentButNotValidInDay(int $day, MailManager $mailManager){
         $relanceLevel = $this->getRelanceLevelDocNonValid($day);
         $responses = $this->repository->getUserWithSendDocumentButNotValidInDay($day, $relanceLevel);
+        dd($responses);
         $restDay = 30 - $day;
         if ($day === 27)
         {
@@ -462,11 +464,8 @@ class DemandeManager
             case 14:
                 $return = 6;
                 break;
-            case 20:
-                $return = 7;
-                break;
             case 27:
-                $return = 8;
+                $return = 7;
                 break;
             default:
                 $return = 4;
@@ -479,19 +478,16 @@ class DemandeManager
     {
         switch($day){
             case 7:
-                $return = 9;
+                $return = 8;
                 break;
             case 14:
-                $return = 10;
-                break;
-            case 20:
-                $return = 11;
+                $return = 9;
                 break;
             case 27:
-                $return = 12;
+                $return = 10;
                 break;
             default:
-                $return = 8;
+                $return = 7;
                 break;
         }
 

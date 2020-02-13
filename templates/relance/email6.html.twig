@@ -10,7 +10,14 @@
                                 Bonjour {{ responses.client|displayRelanceInfos }}
                                 <br>
                                 <br>      
-                                <p>Nous vous remercions de votre commande, pour finaliser votre démarche merci de renseigner le <a href="" target="_blank">formulaire</a> et d'envoyer vos documents.</p>
+                                <p>Nous vous remercions de votre commande, pour finaliser votre démarche merci de renseigner le formulaire et d'envoyer vos documents.</p>
+                                {% set commandes = responses.client.commandes %}
+                                {% for commande in commandes %}
+                                    {% if commande.demande is defined and commande.demande is not null
+                                        and (commande.transaction is not null and commande.transaction.status == "00") %}
+                                        <a href="{{ url('new_demande', {'commande': commande.id }) }}" target="_blank" rel="noopener noreferrer">{{ commande.immatriculation }}</a><br>
+                                    {% endif %}
+                                {% endfor %}
                                 <p>Notre équipe reste disponible au numéro 09 77 42 31 30 pour vous venir en aide. Nous vous remercions de votre confiance.</p>
                                 <p style="text-align:center;"><a href="https://www.cgofficiel.fr" target="_blank">CG Officiel</a> vous remercie.</p>
                             </td>

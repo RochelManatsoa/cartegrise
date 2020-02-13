@@ -139,6 +139,7 @@ class UserManager
     public function sendUserForRelance($level = 0)
     {
         $users = $this->repository->findUserForRelance($level);
+        // dd($users);
         $template = 'relance/email1.html.twig';
         $emails = [];
         foreach ($users as $user)
@@ -152,16 +153,16 @@ class UserManager
         return 'sended';
     }
 
-    public function sendUserForRelanceAfterpaimentSucces($level)
+    public function sendUserForRelanceAfterpaimentSucces($level = 0)
     {
-        $relanceLevel = $this->getRelanceLevel($level);
-        $users = $this->repository->findUserAfterSuccessPaiment($relanceLevel);
+        $users = $this->repository->findUserAfterSuccessPaiment($level);
+        // dd($users);
         $template = 'relance/email6.html.twig';
         $emails = [];
         foreach ($users as $user)
         {
             $this->mailManager->sendEmail($emails=[$user->getEmail()], $template, "CG Officiel - Démarches Carte Grise en ligne", ['responses'=> $user]);
-            $user->getClient()->setRelanceLevel($relanceLevel+1);
+            $user->getClient()->setRelanceLevel($level+1);
             $this->em->persist($user);
         }
         $this->em->flush();
@@ -177,22 +178,5 @@ class UserManager
     public function getRepository() :UserRepository
     {
         return $this->repository;
-    }
-
-    private function getRelanceLevel(int $level)
-    {
-        switch($level){
-            case 1:
-                $return = 9;
-                break;
-            case 2:
-                $return = 10;
-                break;
-            default:
-                $return = 8;
-                break;
-        }
-
-        return $return;
     }
 }

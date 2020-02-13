@@ -98,8 +98,10 @@ class UserRepository extends ServiceEntityRepository
         $date = $this->relanceDate($level);
         return $this->createQueryBuilder('u')
             ->leftJoin('u.client','cl')
+            ->leftJoin('cl.commandes','com')
             ->where('cl.countDemande = :zero')
             ->andWhere('cl IS NOT NULL')
+            ->andWhere('com.transaction IS NULL')
             ->andWhere('u.registerDate <= :date')
             ->andWhere('cl.relanceLevel =:level')
             ->setParameter('zero', 0)
@@ -115,13 +117,10 @@ class UserRepository extends ServiceEntityRepository
         $date = new \DateTime();
         switch($level){
             case 0:
-                $date->modify('-1hour');
+                $date->modify('-1day');
                 break;
             case 1:
                 $date->modify('-3day');
-                break;
-            case 2:
-                $date->modify('-7day');
                 break;
             default:
                 break;
@@ -130,7 +129,7 @@ class UserRepository extends ServiceEntityRepository
         return $date;
     }
 
-    public function findUserAfterSuccessPaiment($level)
+    public function findUserAfterSuccessPaiment($level = 0)
     {
         $date = $this->relanceDateAfterSuccess($level);
         return $this->createQueryBuilder('u')
@@ -139,8 +138,8 @@ class UserRepository extends ServiceEntityRepository
             ->leftJoin('com.transaction','t')
             ->leftJoin('com.demande','d')
             ->where('t.status = :success')
-            ->andWhere('d IS NOT NULL')
-            ->andWhere('t.createAt <= :date')
+            ->andWhere('d IS NULL')
+            ->andWhere('t.createAt >= :date')
             ->andWhere('cl.relanceLevel =:level')
             ->setParameter('success', Transaction::STATUS_SUCCESS)
             ->setParameter('level', $level)
@@ -154,10 +153,10 @@ class UserRepository extends ServiceEntityRepository
     {
         $date = new \DateTime();
         switch($level){
-            case 9:
+            case 0:
                 $date->modify('-1hour');
                 break;
-            case 10:
+            case 1:
                 $date->modify('-1day');
                 break;
             default:
