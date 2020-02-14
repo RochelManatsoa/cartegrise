@@ -595,4 +595,22 @@ class CommandeManager
 		$user = $commande->getClient()->getUser();
 		$this->mailManager->sendEmail($emails=[$user->getEmail()], 'admin/email/demandeFormulaire.email.twig', "CG Officiel - Démarches Carte Grise en ligne", ['commande'=> $commande]);      
 	}
+
+    public function sendUserForRelanceAfterpaimentSucces($level = 0)
+    {
+        $commandes = $this->repository->getCommandesPaidedWithoutDemande($level);
+        // dd($commandes);
+        $template = 'relance/email6.html.twig';
+        $emails = [];
+        foreach ($commandes as $commande)
+        {
+			$user = $commande->getClient()->getUser();
+            $this->mailManager->sendEmail($emails=[$user->getEmail()], $template, "CG Officiel - Démarches Carte Grise en ligne", ['responses'=> $commande]);
+            $user->getClient()->setRelanceLevel($level+1);
+            $this->em->persist($user);
+        }
+        $this->em->flush();
+        
+        return 'sended';
+    }
 }
