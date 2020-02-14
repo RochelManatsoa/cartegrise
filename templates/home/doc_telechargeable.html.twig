@@ -3,8 +3,8 @@
 {% block page_content %}
 <div class="block_CCM">
 	<div class="container">
-		<div class="row">
-            <div class="col-md-12 col-xs-12 col-lg-12 doc-telechargeable">
+		<div class="row reverse-col_">
+            <div class="col-12 col-lg-7 doc-telechargeable">
                 <h3 class="home-secondview--titre">Documents téléchargeables</h3>
                 <div class="text-head">
                     <p>Documents nécessaires pour une demande concernant un certificat d'immatriculation <b>(carte grise)</b>:</p>
@@ -14,7 +14,7 @@
                 <p>Les pièces nécessaires à fournir lors:</p>
                 <hr class="border--light-2">
                 <h4 class="mb-4 mt-5">1- D'une demande de changement d’adresse :</h4>
-                <ul class="list col-lg-10">
+                <ul class="list col-12">
                     <li>Un justificatif de domicile (copie)</li>
                     <li>La procuration par Mandat <strong>(autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)</strong>
                         <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
@@ -38,7 +38,7 @@
                 </ul>
                
                 <h4 class="mb-4 mt-5">2- D'une demande de duplicata :</h4>
-                <ul class="list col-lg-10">
+                <ul class="list col-12">
                     <li>Un justificatif de domicile (copie)</li>
                     <li>L'attestation d'assurance </li>
                     <li>La déclaration de perte ou de vol CERFA n° 13753*01 <b>(original)</b>,
@@ -64,7 +64,7 @@
                 </ul>
 
                 <h4 class="mb-4 mt-5">3- D'une demande de changement du titulaire de véhicule d’occasion :</h4>
-                <ul class="list col-lg-10">
+                <ul class="list col-12">
                     <li>L'original de l’ancien certificat d’immatriculation ( carte grise) , </li>
                     <li>La déclaration de cession CERFA n° 15776*01, 
                     <a href="/../download/cgofficiel_cerfa-15776-01.pdf" target="blank">
@@ -93,6 +93,177 @@
                 <h5 class="mb-4 mt-4 important-title"> Pour un véhicule neuf</h5>
                 <p>Les pièces nécessaires pour établir votre certificat d’immatriculation <b>(carte grise)</b> sont : la déclaration de cession ou la facture d’achat, le quitus fiscal fourni par le Trésor Public attestant la régularité du véhicule pour <b>la TVA</b>, le certificat de conformité fourni par le constructeur,un justificatif de domicile daté de moins de 6 mois (copie).</p>
             </div>
+            <!-- Demarche formulaire /Iary  -->
+			<div class="col-lg-5">
+				<div id="aside_right" class="aside_right">
+					<div class="sectionTop_">
+						<div class="form_demarche">
+							<div class="demarche_block">
+								<div class="demarche_block_item">
+									<div id="Demarche" class="title_dermarche text-center">
+										<p>Bienvenue sur le service d’immatriculation de véhicule en ligne, rapide, sécurisé et agréé</p>
+										<h1>
+											{% if defaultDemarche is defined and defaultDemarche is not null %}
+												{% if defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_CTVO') %}
+													Achat d'un véhicule d'occasion: commandez votre certificat d'immatriculation
+												{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DUP') %}
+													Commandez un duplicata de votre certificat d'immatriculation
+												{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DCA') %}
+													Certificat d'immatriculation: Effectuer un changement d'adresse
+												{% endif %}
+											{% else %}
+												Choisissez votre démarche
+											{% endif %}
+										</h1>
+									</div>
+									<div class="block_form">
+										<div class="row justify-content-center">
+											<div class="col-md-10">
+												{% if formulaire is defined %}
+													{% if is_mobile() and is_device('samsung') %}
+														{{ form_start(formulaire, {'attr': {'id': 'form_demarche'}})}}
+														<div class="demarche">
+															{{ form_row(formulaire.demarche, {
+																'attr':{
+																	'class': 'form-control-plaque'
+																},
+																'label_attr': {
+																	'class': 'text-uppercase resultat-estimation-p'}
+																})
+															}}
+															<div class="row">
+																<div class="col-md-6">
+																	{{ form_row(formulaire.immatriculation, {
+																		'attr':{
+																			'class': 'form-control-plaque ',
+																			'maxlength': '9',
+																			'minlength': '5',
+																			'placeholder': 'AA-123-AA'
+																		},
+																		'label_attr': {
+																			'class': 'text-uppercase resultat-estimation-p'}
+																		}
+																	)}}
+																</div>
+																<div class="col-md-6 AutoComplete_CP">
+																{{ form_row(formulaire.codePostal, {
+																	'attr':{'class':'mx-auto form-control--dep'},
+																	'label_attr': {'class': 'text-uppercase resultat-estimation-p'}
+																	}
+																)}}
+																</div>
+															</div>
+														</div>	
+														<div class="text-md-right mx-auto search-box" id="calcul">
+															<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>
+														</div>
+														{{ form_end(formulaire)}}
+													{% else %}
+														{{ form_start(formulaire, {'attr': {'id': 'form_demarche'}})}}
+														<div class="demarche">
+															{{ form_row(formulaire.demarche, {
+																'attr':{
+																	'class': 'form-control-plaque'
+																},
+																'label_attr': {
+																	'class': 'text-uppercase resultat-estimation-p'}
+																})
+															}}
+															<div class="row">
+																<div class="col-md-6">
+																	{{ form_row(formulaire.immatriculation, {
+																		'attr':{
+																			'onkeyup':'this.value = this.value.toUpperCase()',
+																			'class': 'form-control-plaque ',
+																			'onblur': 'this.value = valueTreatement(this.value)',
+																			'maxlength': '9',
+																			'minlength': '5',
+																			'placeholder': 'BB-321-BB'
+																		},
+																		'label_attr': {
+																			'class': 'text-uppercase resultat-estimation-p'}
+																		}
+																	)}}
+																</div>
+																<div class="col-md-6 AutoComplete_CP">
+																{{ form_row(formulaire.codePostal, {
+																	'attr':{'class':'mx-auto form-control--dep'},
+																	'label_attr': {'class': 'text-uppercase resultat-estimation-p'}
+																	}
+																)}}
+																</div>
+															</div>
+														</div>	
+														<div class="text-md-right mx-auto search-box" id="calcul">
+															<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>
+														</div>
+														{{ form_end(formulaire)}}
+													{% endif %}
+												
+												<div id="formVN" style="display:none;">
+													<div class="d-flex justify-content-start">
+														<div onclick="$('#formulaire_demarche').val('1').change();" id='backButton' class='back-retour'><i class="icomoon icon-right-arrow"></i> Retour</div>
+													</div>
+													{% set formDivn = tab[3] %}
+													{{ form_start(formDivn)}}
+														{{ form_row(formDivn.department, {'attr':{'class':'mx-auto form-control--dep'},
+																'label_attr': {'class': 'text-uppercase resultat-estimation-p'}})}}
+														{{ form_row(formDivn.genre, {'attr':{'class':'mx-auto form-control--dep'},
+																'label_attr': {'class': 'text-uppercase resultat-estimation-p'}})}}
+														{{ form_row(formDivn.puissanceFiscale, {'attr':{'class':'mx-auto form-control--dep'},
+																'label_attr': {'class': 'text-uppercase resultat-estimation-p'}})}}
+														{{ form_row(formDivn.energie, {'attr':{'class':'mx-auto form-control--dep'},
+																'label_attr': {'class': 'text-uppercase resultat-estimation-p'}})}}
+														<div class="row">
+															<div class="col-md-6">
+																{{ form_row(formDivn.tauxDeCo2, {'attr':{'class':'mx-auto form-control--dep'},
+																	'label_attr': {'class': 'text-uppercase resultat-estimation-p'}})}}
+															</div>
+															<div class="col-md-6">
+																{{ form_row(formDivn.Marque, {'attr':{'class':'mx-auto form-control--dep'},
+																	'label_attr': {'class': 'text-uppercase resultat-estimation-p'}})}}
+															</div>
+														</div>
+														<div class="col-md-6 mx-auto search-box">
+															<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>
+														</div>
+													{{ form_end(formDivn)}}
+												</div>
+												<div id="formDC" style="display:none;">
+													<div class="d-flex justify-content-start">
+														<div onclick="$('#formulaire_demarche').val('1').change();" id='backButton' class='back-retour'><i class="icomoon icon-right-arrow"></i> Retour</div>
+													</div>
+													<div class="title_dermarche text-center">
+														<h3>Téléchargez le formulaire
+															<br>CERFA n° 15776*01</h3>
+													</div>
+													<div class="title_dermarche text-center">
+														<p>
+															Le formulaire CERFA n° 15776*01 doit être rempli par le vendeur et signé par l'acheteur. Ce dernier est nécessaire au nouveau détenteur du véhicule pour l'immatriculer (carte grise) à son nom.
+														</p>
+													</div>
+													<div class="title_dermarche text-center"> 
+														<p><strong>(à remplir par l’ancien propriétaire et le nouveau proprietaire)</strong></p>
+														<div class="col-md-6 mx-auto search-box">
+															<a href="/../download/cgofficiel_cerfa-15776-01.pdf" target="blank">
+																<button type="submit" class="btn-calcuer btn btn-blue">{{ "Télécharger" | upper}} <i class="icon-pdf"></i></button>
+															</a>
+														</div>
+													</div>
+												</div>
+												{% else %}
+												<a href="{{ path('formulaire')}}">Formulaire</a>
+												{% endif %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Demarche formulaire /Iary  -->
 		</div>
 	</div>
 </div>

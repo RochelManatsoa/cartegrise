@@ -347,3 +347,10 @@ $( function() {
     $( "#formulaire_codePostal" ).combobox();
     
 } );
+
+
+//aside_right
+$("#aside_right").sticky({
+    topSpacing: 200, 
+    bottomSpacing: 1100
+});

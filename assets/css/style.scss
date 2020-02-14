@@ -2052,6 +2052,12 @@ AutoComplete
 			}
 			.img_pcs {
 				position: relative;
+				height: 100%;
+				background-size: cover;
+				background-repeat: no-repeat;
+				@include sm {
+					height: 150px;
+				}
 				img {
 					max-width: 100%;
 					@include sm {
@@ -3637,3 +3643,30 @@ Suivi
 }
 
 
+
+//style aside_right
+.reverse-col_ {
+	@include md {
+		flex-direction: column-reverse;
+	}
+}
+#aside_right-sticky-wrapper {
+	@include md {
+		height: inherit !important;
+	}
+}
+.aside_right {
+	@include md {
+		position: static !important;
+	}
+	.sectionTop_ {
+		.form_demarche {
+			.demarche_block {
+				margin-top: 0;
+				@include sm {
+					margin-bottom: 50px !important;
+				}
+			}
+		}
+	}
+}
