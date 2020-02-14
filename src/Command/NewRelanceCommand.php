@@ -8,9 +8,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use App\Manager\UserManager;
 
-class RelanceCommand extends Command
+class NewRelanceCommand extends Command
 {
-    protected static $defaultName = "app:email:relance";
+    protected static $defaultName = "app:email-relance";
     protected $userManager;
 
     protected function configure()
@@ -20,8 +20,8 @@ class RelanceCommand extends Command
         ->setDescription('Creates a notification relace.')
 
         // all command is :
-        // php bin/console app:email:relance ==> tout les heures
-        // php bin/console app:email:relance --option=1 ==> tout les jours à 10h le matin
+        // php bin/console app:email-relance ==> tout les heures
+        // php bin/console app:email-relance --option=1 ==> tout les jours à 10h le matin
 
         // the full command description shown when running the command with
         // the "--help" option
@@ -62,7 +62,7 @@ class RelanceCommand extends Command
 
         // outputs a message followed by a "\n"
         // $output->writeln('Whoa!');
-        $this->userManager->sendUserForRelance($option);
+        $this->userManager->sendUserForRelanceAfterpaimentSucces($option);
         // outputs a message without adding a "\n" at the end of the line
         $output->write('You are about to ');
         $output->write('create a email relance.');
