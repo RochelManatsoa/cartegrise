@@ -228,7 +228,7 @@ class Commande
 
     public function setImmatriculation(string $immatriculation): self
     {
-        $this->immatriculation = $immatriculation;
+        $this->immatriculation = strtoupper($immatriculation);
 
         return $this;
     }

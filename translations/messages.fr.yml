@@ -2,9 +2,9 @@ type_demande:
     daf:
         ctvo: |
             <ol>
-                <li>une pièce d'identité en cours de validité</li>
+                <li>Une pièce d'identité en cours de validité</li>
                 <li>
-                    un justificatif de domicile de moins de 6 mois (au choix) :
+                    Un justificatif de domicile de moins de 6 mois (au choix) :
                     <ul>
                         <li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
                         <li>Dernier avis d'imposition ou de non imposition</li>
@@ -16,19 +16,19 @@ type_demande:
                         <li>Attestation d'assurance habitation</li>
                     </ul>
                 </li>
-                <li>la demande de certificat d'immatriculation <strong>(cerfa 13750*05)</strong>
+                <li>La demande de certificat d'immatriculation <strong>(cerfa 13750*05)</strong>
                     <br/>
                     <a href="/../$cerfa" target="blank">
                         <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>la déclaration de cession <strong>(cerfa 15776*01)</strong>, à remplir conjointement par l'ancien propriétaire ou une facture établie par le vendeur
+                <li>La déclaration de cession <strong>(cerfa 15776*01)</strong>, à remplir conjointement par l'ancien propriétaire ou une facture établie par le vendeur
                     <br/>
                     <a href="/../download/cgofficiel_cerfa-15776-01.pdf" target="blank">
                         <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>la procuration par Mandat <strong>(autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)</strong>
+                <li>La procuration par Mandat <strong>(autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)</strong>
                     <br/>
                     <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
                         <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
@@ -50,13 +50,13 @@ type_demande:
                     </ul>
                 </li>
                 <li>L'ancien certificat d'immatriculation remis par le précédent propriétaire, revêtu de la mention "<em>vendu le ../../.... (date de cession)</em>", suivi de sa signature, la preuve d'un contrôle technique de moins de 6 mois remis par le vendeur.</li>
-                <li>le permis de conduire du titulaire du véhicule</li>
-                <li>l'attestation d'assurance du véhicule</li>
+                <li>Le permis de conduire du titulaire du véhicule</li>
+                <li>L'attestation d'assurance du véhicule</li>
             </ol>
         dup: |
             <ol>
                 <li>
-                    un justificatif de domicile de moins de 6 mois (au choix) :
+                    Un justificatif de domicile de moins de 6 mois (au choix) :
                     <ul>
                         <li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
                         <li>Dernier avis d'imposition ou de non imposition</li>
@@ -68,13 +68,13 @@ type_demande:
                         <li>Attestation d'assurance habitation</li>
                     </ul>
                 </li>
-                <li>la demande de certificat d'immatriculation (cerfa 13750*05)
+                <li>La demande de certificat d'immatriculation (cerfa 13750*05)
                     <br/>
                     <a href="/../$cerfa" target="blank">
                         <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>la déclaration originale de perte ou vol (la déclaration de vol doit être enregistrée et tamponnée par la police)
+                <li>La déclaration originale de perte ou vol (la déclaration de vol doit être enregistrée et tamponnée par la police)
                     <br/>
                     <a href="/../download/cgofficiel_cerfa-13753-01.pdf" target="blank">
                         <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
@@ -95,10 +95,10 @@ type_demande:
                         Tracteur agricole)</li>
                     </ul>
                 </li>
-                <li>une pièce d'identité en cours de validité</li>
-                <li>l'attestation d'assurance du véhicule</li>
-                <li>le permis de conduire du titulaire du véhicule</li>
-                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)
+                <li>Une pièce d'identité en cours de validité</li>
+                <li>L'attestation d'assurance du véhicule</li>
+                <li>Le permis de conduire du titulaire du véhicule</li>
+                <li>La procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)
                     <br/>
                     <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
                         <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
@@ -107,30 +107,30 @@ type_demande:
             </ol>
         divn: |
             <ol>
-                <li>l'original du certificat de conformité Européen (COC)</li>
-                <li>le certificat de vente ORIGINAL ou facture d'achat du véhicule (cerfa 15776*01)
+                <li>L'original du certificat de conformité Européen (COC)</li>
+                <li>Le certificat de vente ORIGINAL ou facture d'achat du véhicule (cerfa 15776*01)
                     <br/>
                     <a href="/../download/cgofficiel_cerfa-15776-01.pdf" target="blank">
                         <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>une pièce d'identité en cours de validité</li>
-                <li>l'attestation d'assurance du véhicule</li>
-                <li>le permis de conduire du titulaire du véhicule</li>
-                <li>la demande de certificat d'immatriculation (cerfa 13750*05)
+                <li>Une pièce d'identité en cours de validité</li>
+                <li>L'attestation d'assurance du véhicule</li>
+                <li>Le permis de conduire du titulaire du véhicule</li>
+                <li>La demande de certificat d'immatriculation (cerfa 13750*05)
                     <br/>
                     <a href="/../$cerfa" target="blank">
                         <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)
+                <li>La procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)
                     <br/>
                     <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
                         <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
                 <li>
-                    un justificatif de domicile de moins de 6 mois (au choix) :
+                    Un justificatif de domicile de moins de 6 mois (au choix) :
                     <ul>
                         <li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
                         <li>Dernier avis d'imposition ou de non imposition</li>
@@ -145,18 +145,18 @@ type_demande:
             </ol>
         dca: |
             <ol>
-                <li>une copie recto/verso de la Carte Grise </li>
-                <li>la demande de certificat d'immatriculation (cerfa 13750*05)
+                <li>Une copie recto/verso de la Carte Grise </li>
+                <li>La demande de certificat d'immatriculation (cerfa 13750*05)
                     <br/>
                     <a href="/../$cerfa" target="blank">
                         <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>une pièce d'identité en cours de validité</li>
-                <li>l'attestation d'assurance du véhicule</li>
-                <li>le permis de conduire du titulaire du véhicule</li>
+                <li>Une pièce d'identité en cours de validité</li>
+                <li>L'attestation d'assurance du véhicule</li>
+                <li>Le permis de conduire du titulaire du véhicule</li>
                 <li>
-                    un justificatif de domicile de moins de 6 mois (au choix) :
+                    Un justificatif de domicile de moins de 6 mois (au choix) :
                     <ul>
                         <li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
                         <li>Dernier avis d'imposition ou de non imposition</li>
@@ -168,7 +168,7 @@ type_demande:
                         <li>Attestation d'assurance habitation</li>
                     </ul>
                 </li>
-                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)
+                <li>La procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)
                     <br/>
                     <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
                         <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
@@ -187,26 +187,26 @@ type_demande:
             </div>
         dcs: |
             <ol>
-                <li>une copie recto/verso de la Carte Grise </li>
-                <li>la demande de certificat d'immatriculation (cerfa 13750*05)
+                <li>Une copie recto/verso de la Carte Grise </li>
+                <li>La demande de certificat d'immatriculation (cerfa 13750*05)
                     <br/>
                     <a href="/../$cerfa" target="blank">
                         <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
                 <li>Extrait d'Acte de mariage / jugement de divorce / livret de famille</li>
-                <li>une copie du contrôle technique en cours de validité pour les véhicules de plus de 4 ans</li>
-                <li>une pièce d'identité en cours de validité</li>
-                <li>la procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)
+                <li>Une copie du contrôle technique en cours de validité pour les véhicules de plus de 4 ans</li>
+                <li>Une pièce d'identité en cours de validité</li>
+                <li>La procuration par Mandat (autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)
                     <br/>
                     <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
                         <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
                     </a>
                 </li>
-                <li>l'attestation d'assurance du véhicule</li>
-                <li>le permis de conduire du titulaire du véhicule</li>
+                <li>L'attestation d'assurance du véhicule</li>
+                <li>Le permis de conduire du titulaire du véhicule</li>
                 <li>
-                    un justificatif de domicile de moins de 6 mois (au choix) :
+                    Un justificatif de domicile de moins de 6 mois (au choix) :
                     <ul>
                         <li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
                         <li>Dernier avis d'imposition ou de non imposition</li>

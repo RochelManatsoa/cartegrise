@@ -6,12 +6,12 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use App\Manager\UserManager;
+use App\Manager\CommandeManager;
 
-class RelanceCommand extends Command
+class NewRelanceCommand extends Command
 {
-    protected static $defaultName = "app:email:relance";
-    protected $userManager;
+    protected static $defaultName = "app:email-relance";
+    protected $commandeManager;
 
     protected function configure()
     {
@@ -20,8 +20,8 @@ class RelanceCommand extends Command
         ->setDescription('Creates a notification relace.')
 
         // all command is :
-        // php bin/console app:email:relance ==> tout les heures
-        // php bin/console app:email:relance --option=1 ==> tout les jours à 10h le matin
+        // php bin/console app:email-relance ==> tout les heures
+        // php bin/console app:email-relance --option=1 ==> tout les jours à 10h le matin
 
         // the full command description shown when running the command with
         // the "--help" option
@@ -36,13 +36,13 @@ class RelanceCommand extends Command
         ;
     }
 
-    public function __construct(bool $requirePassword = false, UserManager $userManager)
+    public function __construct(bool $requirePassword = false, CommandeManager $commandeManager)
     {
         // best practices recommend to call the parent constructor first and
         // then set your own properties. That wouldn't work in this case
         // because configure() needs the properties set in this constructor
         $this->requirePassword = $requirePassword;
-        $this->userManager = $userManager;
+        $this->commandeManager = $commandeManager;
 
         parent::__construct();
     }
@@ -62,7 +62,7 @@ class RelanceCommand extends Command
 
         // outputs a message followed by a "\n"
         // $output->writeln('Whoa!');
-        $this->userManager->sendUserForRelance($option);
+        $this->commandeManager->sendUserForRelanceAfterpaimentSucces($option);
         // outputs a message without adding a "\n" at the end of the line
         $output->write('You are about to ');
         $output->write('create a email relance.');
