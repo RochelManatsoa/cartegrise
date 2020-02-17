@@ -1,6 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block page_content %}
+<style>
+    .js-toggle {
+        text-decoration: underline;
+    }
+    .js-toggle:hover, .js-toggle:focus{
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .toggle-content{
+        padding: 25px;
+    }
+    .toggle-content h4{
+        color: red;
+        margin-bottom: 1.5rem;
+        text-transform: none;
+    }
+    .toggle-content li:before{
+        display:none;
+    }
+    .toggle-content li{
+        padding-left: 15px !important;
+        color: #219de4;
+        list-style-type: disc;
+    }
+</style>
 <div class="block_CCM">
 	<div class="container">
 		<div class="row">
@@ -72,7 +97,22 @@
                     </a>
                     </li>
                     <li>Un justificatif de domicile de moins de 6 mois (copie)</li>
-                    <li>Le procès-verbal du contrôle technique, à jour (copie)</li>
+                    <li>Le procès-verbal du contrôle technique, à jour (copie) <span class="js-toggle">(cas particuliers de dispense)</span></li>
+                    <div class="toggle-content part-dispense"  style="display: none;">
+                        <h4>Cas particuliers de dispense</h4>
+                        <p>Si votre véhicule a plus de 4 ans le contrôle technique est obligatoire pour la plupart des véhicules particuliers (VP) ou utilitaires. Toutefois, les véhicules suivants en sont dispensés :</p>
+                        <ul>
+                            <li>Voiture sans permis</li>
+                            <li>Voiture de collection dont le PTAC est inférieur ou égal à 3,5 tonnes et dont la mise en circulation est antérieure à 1960</li>
+                            <li>Voiture de collection dont le PTAC est supérieur à 3,5 tonnes</li>
+                            <li>Moto, 2 roues et 3 roues</li>
+                            <li>Quadricycle à moteur</li>
+                            <li>Caravane dont le PTAC est inférieur ou égal à 3,5 tonnes</li>
+                            <li>Remorque dont le PTAC est inférieur ou égal à 3,5 tonnes non utilisée pour le transport de marchandises dangereuses</li>
+                            <li>Voiture immatriculée dans les services diplomatiques ou assimilés</li>
+                            <li>Voiture immatriculée dans les séries FFECSA (Forces françaises et éléments civils stationnés en Allemagne) Tracteur agricole)</li>
+                        </ul>
+                    </div>
                     <li>La procuration par Mandat <strong>(autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)</strong>
                         <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
                             <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
@@ -96,4 +136,14 @@
 		</div>
 	</div>
 </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".js-toggle").on("click", function () {
+                $(this).parent().next(".toggle-content").toggle();
+            });
+        });
+    </script>
 {% endblock %}
