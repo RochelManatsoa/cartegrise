@@ -1241,6 +1241,10 @@ AutoComplete
 	right: 0;
 	font-size: 14px;
 }
+.ui-autocomplete {
+	max-height: 175px;
+    overflow-y: scroll;
+}
 
 /**List grid**/
 .list-grid{
@@ -3668,5 +3672,26 @@ Suivi
 				}
 			}
 		}
+	}
+	.form-group {
+		margin-bottom: 10px;
+		.form-control {
+			height: 40px !important;
+		}
+		.select-styled {
+			line-height: 22px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow-x: hidden;
+			padding-right: 58px;
+			&:after {
+				line-height: 41px;
+    			width: 47px;
+			}
+		}
+	}
+	.custom-combobox-toggle {
+		line-height: 41px;
+		width: 47px;
 	}
 }
