@@ -2,13 +2,12 @@
 
 {% form_theme form 'demande/demande_custom_theme.html.twig'%}
 
-{% block title %}{% endblock %}
-
-{% block body_id %}{% endblock %}
-
 {% block class %}body-ccm{% endblock %}
 {% block stylesheets %}
     {{ parent()}}
+    <link href="{{asset('Utils/jquerySteps/css/jquery.steps.css')}}" rel="stylesheet">
+    <link href="{{asset('Utils/jquerySteps/css/main.css')}}" rel="stylesheet">
+    <link href="{{asset('Utils/jquerySteps/css/normalize.css')}}" rel="stylesheet">
     <style>
         .tooltip-inner {
             min-width: 100px;
@@ -19,29 +18,16 @@
 
 
 {% block page_content %}
-<div class="col-sm-10 col-lg-12 d-flex flex-row justify-content-center my-flex-container align-items-center mobile-center">
-	<div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
-        <div class="col-12 commander-firstview mt-4 custom-form">
-            <h2 class="col-md-10 mx-auto full-mobile"> {{ commande.demarche.nom|upper }}</h2>
-            <div class="row">
+<div class="rp_dmd">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 commander-firstview custom-form">
+                <h2 class="text-center mb-4 full-mobile"> {{ commande.demarche.nom }}</h2>
                 <hr>
-                {{ form_start(form, {'attr': {'class': 'row'}}) }}
-                    <div class="col-5 mx-auto full-mobile">
-                        {% include "demande/caracteristicVehicle.html.twig" %}
-                    </div>
-                    <div class="col-5 mx-auto form-row full-mobile">
-                        <div class="col-12">
-                                {{ form_label(form.duplicata.numeroFormule)}}
-                                <span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
-                                    template='{% include "demande/tooltips/templateCessionNumFormulCarteGrise.html.twig" %}'
-                                    title="{% include 'demande/tooltips/cessionNumFormulCarteGrise.html.twig' %}">
-                                </span>
-                                {{ form_errors(form.duplicata.numeroFormule)}}
-                                {{ form_widget(form.duplicata.numeroFormule)}}
-                                <br>
-                        </div>
-                        <div class="col-12">
-                            <h3 class="test-center">{{ form_label(form.duplicata.titulaire)}}</h3>
+                {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
+                <h3>Etape</h3>
+                <section style="position: relative;width: 100%;">
+                        <legend>{{ form_label(form.duplicata.titulaire)}}</legend>
                             <div class="form-titulaire">
                                 {{ form_row(form.duplicata.titulaire.type)}}
                                 {{ form_row(form.duplicata.titulaire.raisonsociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
@@ -52,50 +38,121 @@
                                 {{ form_row(form.duplicata.motifDemande)}}
                                 {{ form_row(form.duplicata.datePerte)}}
                             </div>
+                        {{ form_label(form.duplicata.numeroFormule)}}                              
+                        <span class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
+                            template='{% include "demande/tooltips/templateCessionNumFormulCarteGrise.html.twig" %}'
+                            title="{% include 'demande/tooltips/cessionNumFormulCarteGrise.html.twig' %}">
+                            Indispensable pour une demande de duplicata
+                        </span>
+                        {{ form_errors(form.duplicata.numeroFormule)}}
+                        {{ form_widget(form.duplicata.numeroFormule)}}
+                </section>
 
-                            {# <div class="">
-                                {{ form_row(form.duplicata.demandeChangementTitulaire)}}
-                            </div> #}
-
-                            {{ form_rest(form) }}
-                            <div class="col-12 text-center mb-5">
-                                <br>
-                                <input type="submit" class="btn btn-lg btn-success" value="Valider">
-                            </div>
+                <h3>Etape</h3>
+                <section style="position: relative;width: 100%;">
+                        <legend>{{ form_label(form.duplicata.adresse)}}</legend>
+                        {% for adresse in form.duplicata.adresse %}
+                        <div class="form-group">
+                            {{ form_label(adresse)}}
+                            {{ form_errors(adresse)}}
+                            {{ form_widget(adresse, {'attr': {'class': ''}})}}
                         </div>
+                        {% endfor %}
+                </section>
+                <h3>Etape</h3>
+                <section style="position: relative;width: 100%;">
+                    <legend>Récapitulatif des informations liées à la demande</legend>
+                    <div id="resum"></div>
+                    <div style="display:none;">
+                        {{form_rest(form)}}
                     </div>
-                {{ form_end(form) }}
+                </section style="position: relative;width: 100%;">
+                {# <h3>Etape</h3>
+                <section>
+                    <h4><strong>Liste des dossiers à fournir</strong></h4>
+                    {% if daf is defined %}
+                    <div id="daf-list-wrapper">
+                            {{ daf|raw }}
+                        </div>
+                    {% endif %}
+                    <div class="col-12 text-center">
+                        
+                    </div> #}
+                    {# {% if formFile is defined %}
+                        {% if formFile is not null %}
+                            {% include 'demande/file/FormDossier.html.twig' %}
+                        {% endif %}
+                        {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
+                            <a href="{{ path("validate_file", {'demande': demande.id}) }}">
+                                <button class="btn btn-info">
+                                    Valider
+                                </button>
+                            </a>
+                        {% endif %}
+                    {% endif %} #}
+                {# </section> #}
+            {{ form_end(form) }}
+
+            <hr>
+            <div class="resultat-estimation mb-5 full-mobile">
+                {% include "demande/caracteristicVehicle.html.twig" %}
+            </div>
             </div>
         </div>
-	</div>
+    </div>
 </div>
 {% endblock %}
 
 {% block javascripts %}
 {{ parent() }}
+<script src="{{asset('Utils/jquerySteps/js/jquery.steps.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/jqueryValidate.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/duplicata.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(
+        function(){
+            initFormStep(
+                $("#example-advanced-form"),
+                "h3",
+                "section",
+                "fade"
+            );
+        }
+    );
+
+    $(document).ready(
+        function(){
+            showDatePerte(
+                $('#demande_duplicata_duplicata_motifDemande')
+            );
+        }
+    );
+
+    $(document).ready(
+        function(){
+            datePickerFunction(
+                $('.js-datepicker')
+            );
+        }
+    );
+    $(document).ready(
+        function(){
+            showElement(
+                $('.choice-type-ancientitulaire')
+            );
+            showElement(
+                $('.choice-type-personne')
+            );
+        }
+    );
+
+</script>
 <script type="application/javascript">
-    $('.choice-type-ancientitulaire').on('change', function(e) {
-        $(e.target).parent().siblings().toggle();
-    });
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip({
+            html:true
+        });
     })
 </script>
-<script type="application/javascript">
-    $('#demande_duplicata_duplicata_motifDemande').on('change', function (e) {
-        var Value = $(".motifDemande").find(":selected").text();
-        if (Value === "Perte") {
-            $(e.target).parent().siblings().show();
-        } else {
-            $(e.target).parent().siblings().hide();
-        }
-    });
-</script>
-<script type="text/javascript">
-    $('.js-datepicker').datepicker({
-        dateFormat: 'dd/mm/yy',
-        changeMonth: true,
-        changeYear: true
-    });
-</script>
+<script src="{{ asset('asset/libs/js/jquery.sticky.js') }}" type="text/javascript"></script>
 {% endblock %}

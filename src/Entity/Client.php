@@ -54,7 +54,7 @@ class Client
     private $clientNomUsage;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      * @Groups({"info_user", "register"})
      */
     private $clientDateNaissance;
@@ -84,7 +84,7 @@ class Client
     private $commandes;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"write"})
      */
     private $clientLieuNaissance;
@@ -318,9 +318,11 @@ class Client
 
     public function addCommande(Commande $commande): self
     {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes[] = $commande;
-            $commande->setClient($this);
+        if ($commande->getClient() === null){
+            if (!$this->commandes->contains($commande)) {
+                $this->commandes[] = $commande;
+                $commande->setClient($this);
+            }
         }
 
         return $this;

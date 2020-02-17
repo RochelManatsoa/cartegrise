@@ -1,14 +1,14 @@
-<table class="table table-striped">
-    <tr>
-        <th>Démarche</th>
-        <td>{{ commande.demarche | displayValue}}</td>
-    </tr>
-    <tr>
-        <th>Immatriculation</th>
-        <td>{{ commande.immatriculation | displayValue}}</td>
-    </tr>
-    <tr>
-        <th>Département</th>
-        <td>{{ commande.codePostal | displayValue}}</td>
-    </tr>
-</table>
+<div class="col-md-12 col-lg-12 recap-demande mx-0 row">
+    <div class="col-4">
+        <h6>Démarche</h6>
+        <div  class="mt-2">{{ commande.demarche | displayValue}}</div>
+    </div>
+    <div class="col-4">
+        <h6>Immatriculation</h6>
+        <div class="mt-2">{{ commande.immatriculation | displayValue}}</div>
+    </div>
+    <div class="col-4">
+        <h6>Département</h6>
+        <div class="mt-2">{{ commande.codePostal | displayValue}}</div>
+    </div>
+</div>

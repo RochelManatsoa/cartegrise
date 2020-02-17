@@ -1,0 +1,39 @@
+                            <td class="bodyEmail" bgcolor="#ffffff">
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                Bonjour {{ responses.client|displayRelanceInfos }}
+                                <br>
+                                <br>
+                                <p>Votre paiement pour la commande n° {{responses.transaction_id}}/{{transaction.commande.demarche.type}} du {{ transaction.createAt | date('d/m/Y')}} n’a pas fonctionné. Pas d’inquiétude vous pouvez reprendre votre démarche ici en cliquant ce <a href="{{ url('home') }}commande/{{transaction.commande.id}}/recap" target="_blank">lien</a></p>
+                                <p>Pour toute question n’hésitez pas à contacter notre service client du lundi au samedi, de 8h à 18h, au : 09 77 42 31 30 </p>
+                                <p style="text-align:center;"><a href="https://www.cgofficiel.fr" target="_blank">CG Officiel</a> vous remercie.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; padding: 0 10px 0 10px;" class="bodyEmail" bgcolor="#ffffff">
+                                <br>
+                                    <img src="https://www.cgofficiel.fr/asset/img/0977423130.png" alt="" border="0" style="max-width: 300px;background:fff" />
+                                <br>
+                                <br>
+                                <br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="footer" bgcolor="#03347e">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td align="center" class="footercopy">
+                                            Agrément du Trésor Public N° 55337 <br>Habilitation du Ministère de l'Interieur N° 222442
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" class="footercopy">
+                                            <br>
+                                            <br>
+                                            Ce mail est envoyé automatiquement, veuillez ne pas y répondre
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>

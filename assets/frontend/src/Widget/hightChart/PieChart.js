@@ -41,11 +41,11 @@ class RechartPie extends PureComponent
                 break;
             case 'commandType':
                 datas = [
-                    { name: "Demande de Duplicata", value: 0 },
-                    { name: "Demande d'Immatriculation Véhicule Neuf", value: 0 },
-                    { name: "Changement Titulaire Véhicule d'Occasion Français", value: 0 },
+                    { name: "Demande de duplicata", value: 0 },
+                    { name: "Demande d'immatriculation véhicule neuf", value: 0 },
+                    { name: "Changement titulaire véhicule d'occasion français", value: 0 },
                     { name: "Demande de changement d'adresse", value: 0 },
-                    { name: "Déclaration de Cession", value: 0 }
+                    { name: "Déclaration de cession", value: 0 }
                 ];
                 nextProps.datas.map((item, key) => {
                     config.dataManagerComandeType(item, datas)

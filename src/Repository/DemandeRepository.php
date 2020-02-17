@@ -50,6 +50,19 @@ class DemandeRepository extends ServiceEntityRepository
     }
     */
 
+    public function getLastDemande(User $user)
+    {
+        return $this->createQueryBuilder('d')
+        ->join('d.commande','com')
+        ->join('com.client','c')
+        ->join('c.user','u')
+        ->where('u =:user')
+        ->orderBy('d.id', 'DESC')
+        ->setMaxResults(1)
+        ->setParameter('user', $user)->getQuery()->getOneOrNullResult();
+
+    }
+
     public function getDemandeForUser(User $user)
     {
         return $this->createQueryBuilder('d')
@@ -57,6 +70,7 @@ class DemandeRepository extends ServiceEntityRepository
         ->join('com.client','c')
         ->join('c.user','u')
         ->where('u =:user')
+        ->orderBy('d.dateDemande', 'DESC')
         ->setParameter('user', $user)->getQuery()->getResult();
 
     }
@@ -205,8 +219,8 @@ class DemandeRepository extends ServiceEntityRepository
                 ->join('d.commande', 'comm');
             }
             $builder
-            ->andWhere('comm.immatriculation = :immatriculation')
-            ->setParameter('immatriculation', $crmSearch->getImmatriculation());
+            ->andWhere('comm.immatriculation like :immatriculation')
+            ->setParameter('immatriculation', '%'.$crmSearch->getImmatriculation().'%');
         }
 
         return $builder->getQuery()->getResult();        

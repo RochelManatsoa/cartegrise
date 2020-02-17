@@ -48,7 +48,7 @@ class VehiculeNeuf
     private $d2Version;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $kNumRecepCe;
 

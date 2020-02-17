@@ -21,6 +21,28 @@ use ApiPlatform\Core\Annotation\ApiResource;
  */
 class Adresse
 {
+    const ROAD_NAME = [
+        "SANS" => '...',
+        "RUE" => 'Rue',
+        "BLVD" => 'Boulevard',
+        "AVN" => 'Avenue',
+        "ALL" => 'Allée',
+        "PLC" => 'Place',
+        "IMP" => 'Impasse',
+        "CHM" => 'Chemin',
+        "QUAI" => 'Quai',
+        "FORT" => 'Fort',
+        "RTE" => 'Route',
+        "PASS" => 'Passage',
+        "COUR" => 'Cour',
+        "CHAU" => 'Chaussée',
+        "PARC" => 'Parc',
+        "FBG" => 'Faubourg',
+        "LDIT" => 'Lieu-Dit',
+        "SQUA" => 'Square',
+        "SENT" => 'Sente',
+    ];
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -114,6 +136,11 @@ class Adresse
      * @ORM\ManyToOne(targetEntity="App\Entity\Vehicule", inversedBy="adresse")
      */
     private $vehicules;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isHosted;
 
     /**
      * @var \DateTime $deletedAt
@@ -315,6 +342,18 @@ class Adresse
     public function setDeletedAt(?\DateTimeInterface $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getIsHosted(): ?bool
+    {
+        return $this->isHosted;
+    }
+
+    public function setIsHosted(?bool $isHosted): self
+    {
+        $this->isHosted = $isHosted;
 
         return $this;
     }

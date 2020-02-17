@@ -9,7 +9,185 @@
 {% endblock %}
 {% block body_html %}
 {% autoescape false %}
-<div dir="ltr" style="display: block; width: 100%; background: #ffffff">
+        <style type="text/css">
+            body {
+                margin: 0; 
+                padding: 0; 
+                min-width: 100%!important;
+                font-family: sans-serif; 
+                font-size: 14px;
+            }
+            .content {
+                width: 100%;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                overflow: hidden;
+            }  
+            img {
+                width: 100%;
+            }
+            @media only screen and (min-device-width: 601px) {
+                .content {
+                    width: 600px !important;
+                }
+            }
+            .header {
+                padding: 10px 20px;
+                text-align: center;
+            }
+            .subhead {
+                font-size: 15px; 
+                color: #ffffff; 
+                font-family: sans-serif; 
+                letter-spacing: 10px;
+            }
+            .h1 {
+                font-size: 26px; 
+                line-height: 38px; 
+                font-weight: bold;
+                color: white;
+                padding:15px;
+            }
+            .h1, .h2, .bodycopy {
+                font-family: sans-serif;
+            }
+            .bodyEmail {
+                padding: 20px;
+            }
+            .bodyEmail strong {
+                color: #03347e;
+                display: block;
+            }
+            .col35 {
+                width: 35%;
+            }
+            @media(max-width: 767px) {
+                .col35 {
+                    width: 50%;
+                }
+            }
+            .col50 {
+                width: 50%;
+            }
+            .col35 span {
+                float: right;
+                padding-right: 35px;
+            }
+            tr.recapDemande td {
+                padding: 10px 0;
+                border-bottom: 1px dotted #dddddd;
+            }
+            tr.recapDemande:last-child td {
+                border-bottom: none;
+            }
+            td.bodyTransa {
+                padding: 0 20px 20px;
+            }
+            .transaB .transaItem > strong {
+                display: block;
+                color: #03347e;
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            a {
+                color: #219de4;
+            }
+            .transaB .transaItem {
+                border: 3px solid #03347e;
+                padding: 15px;
+                text-align: center;
+            }
+            .recapTransa td {
+                text-align: left;
+                padding: 10px;
+                background: #f7f7f7;
+            }
+            .footer {
+                padding: 20px 30px 15px 30px;
+            }
+            .footercopy {
+                font-family: sans-serif; 
+                font-size: 14px; 
+                color: #ffffff;
+                line-height: 24px;
+            }
+            .footercopy a {
+                color: #ffffff; 
+                text-decoration: underline;
+            }
+
+        </style>
+    </head>
+    <body bgcolor="#f6f8f1">
+        <table width="100%" bgcolor="#f6f8f1" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                  <table class="content" align="center" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                          <td class="header" bgcolor="#03347e">
+                              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                      <td class="subhead" style="padding: 0 0 0 3px;">
+                                          <img src="https://www.cgofficiel.fr/asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png" style="width: 80px" border="0" alt="" / >
+                                      </td>
+                                      <td class="h1">
+                                          Service de carte grise en ligne
+                                      </td>
+                                  </tr>
+                              </table>
+                          </td>
+                      </tr>
+                      <tr>
+					  		<td class="bodyEmail" bgcolor="#ffffff">
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                Bonjour,
+                                <br>
+                                <br>
+                                <p>Merci d'avoir créé votre compte sur CGOfficiel.fr</p>
+                                <p>Pour valider votre compte utilisateur, merci de vous rendre sur ce <a href="{{confirmationUrl}}" class="">lien</a> <a href="{{confirmationUrl}}" class="">{{confirmationUrl}}</a>. Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.</p>
+                                <p>Pour vous connecter lors de vos prochaines visites, cliquez sur MON COMPTE en haut de toutes les pages du site <a href="https://www.cgofficiel.fr/login" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://www.cgofficiel.fr&amp;source=gmail&amp;ust=1554281054107000&amp;usg=AFQjCNH7-I0PHyH2I5ZeG_yox4fgdziOSg">www.cgofficiel.fr</a> , puis saisissez votre e-mail et votre mot de passe.</p>
+                                <p>Email : {{user.email}}<br>Mot de passe : le mot de passe que vous avez entré </p>
+								<p>Si vous avez des questions au sujet de votre commande, n'hésitez pas à nous contacter sur notre formulaire de contact ou par téléphone.</p>
+								<p>Contactez nous au 0897 010 800 pour toute demande. Merci de l'intérêt porté à notre service et de votre confiance,<br>le service Client CGofficiel.fr.</p>
+
+                                <p style="text-align:center;"><a href="https://www.cgofficiel.fr" target="_blank">CG Officiel</a> vous remercie de votre attention.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; padding: 0 10px 0 10px;" class="bodyEmail" bgcolor="#ffffff">
+                            <br>
+                                <img src="https://www.cgofficiel.fr/asset/img/0897010800.png" alt="" border="0" style="max-width: 300px;background:fff" />
+                            <br>
+                            <br>
+                            <br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="footer" bgcolor="#03347e">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td align="center" class="footercopy">
+                                            Agrément du Trésor Public N° 55337 <br>Habilitation du Ministère de l'Interieur N° 222442
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" class="footercopy">
+                                            <br>
+                                            <br>
+                                            Ce mail est envoyé automatiquement, veuillez ne pas y répondre
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td> 
+                      	</tr>
+                    </table> 
+                </td>
+            </tr>
+        </table>
+{# <div dir="ltr" style="display: block; width: 100%; background: #ffffff">
 		<div style='width: 100%; border: none;background-color: #ffffff'>			
 			<center><img style="height:150px;width:auto;margin:auto;" src="https://ci4.googleusercontent.com/proxy/mJemm3T_DymwQsex1-Y_ypC4igpKrD0RAbH94SkU5yZVbwVwBd0NvY6UCn96c5Sh4sRzuUjtPLPm4v-57JTf=s0-d-e1-ft#https://www.cgofficiel.fr/asset/img/logo.png" alt="logo" class="CToWUd a6T" tabindex="0"> </center>
 			<div style="text-align:center;padding-top:15px;padding-bottom:15px;background-color:#002a6a;font-family:Raleway;color:white;padding-left:15px;padding-right:15px">
@@ -73,7 +251,7 @@
 			
 			</div></div>              
 		</div>
-	</div>
+	</div> #}
 
 {% endautoescape %}
 {% endblock %}

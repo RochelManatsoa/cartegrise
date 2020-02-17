@@ -75,7 +75,7 @@ class NewtitulaireType extends AbstractType
                         'required' => false,
                         'attr' => ['value' => "France"]
                     ));
-            if ($options['label'] === "label.ctvo.titulaire")
+            if ($options['label'] === "label.ctvo.titulaire" || $options['label'] === "label.divn.titulaire")
                 $builder
                     ->add('departementN', ChoiceType::class, [
                         'label' => 'label.ctvo.departementN',

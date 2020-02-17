@@ -1,39 +1,168 @@
-<div class="row home-texte">
-	<div id="cadre" class="col-11  mx-auto">
-		<div class="col-12 mx-auto home-texte home-texte1 mb-5 ">
-			<h3>
-			Avec CG Officiel, obtenez rapidement et facilement votre Certificat d'immatriculation / carte grise</h3>
-		<div>
-			<p>Effectuer une demande de certificat d’immatriculation (carte grise) en ligne est désormais chose simple grâce à notre service d’immatriculation des véhicules en ligne.</p>
-			<p>Simplifiez-vous donc la vie ; Il n’est plus nécessaire de se déplacer pour obtenir un nouveau certificat d’immatriculation (carte grise). <a href="#" class="link-hp-texte"> Obtenez rapidement votre carte grise</a>, tout en économisant du temps pour vos démarches ; nous réceptionnons vos documents via notre service d’immatriculation de carte grise en ligne, accessible à l’adresse
-				<a href="#" class="link-hp-texte">www.cgofficiel.fr</a>.
-			</p>
-			<p>
-				<strong>Tout dossier complet sera traité dans les 24 heures</strong>
-			</p>
-			<p>Dès réception de votre nouvelle carte grise, pensez à vous procurer sur le site officiel du Certificat qualité de l'air, une
-				<strong><a href="http://www.certificat-air.gouv.fr" target="_blank">vignette Crit'Air</a></strong>, l'autocollant sécurisé obligatoire dans certaines grandes villes de France.</p>
+<section class="sectionTop_">
+	<div class="detail_carteG text-md-center">
+		<div class="container">
+			<div class="row justify-content-center">
+				{% if defaultDemarche is defined and defaultDemarche is not null %}
+				<div class="col-12">
+					{% if defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_CTVO') %}
+						{{ include('home/demarche/ctvo.html.twig') }}
+					{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DUP') %}
+						{{ include('home/demarche/dup.html.twig') }}
+					{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DCA')%}
+						{{ include('home/demarche/dca.html.twig') }}
+					{% endif %}
+				{% else %}
+				<div class="col-md-12 col-xl-10">
+					<strong>Le certificat d’immatriculation ou carte grise</strong> est un document officiel et obligatoire pour l'identification d’un véhicule et est valable pendant toute la durée d'utilisation du véhicule. Il contient le nom du propriétaire du véhicule, son adresse, le numéro d'immatriculation du véhicule. Le certificat d’immatriculation ou carte grise doit être renouvelé lors d’un changement d’adresse, de titulaire,en cas de perte ou vol.
+				{% endif %}
+					<div class="autocollant_block">
+						<a class="critairLink" href="http://www.certificat-air.gouv.fr" target="_blank">
+							<span><img src='{{ asset("asset/img/vert.png")}}' alt=''></span>
+							<span><img src='{{ asset("asset/img/violet.png")}}' alt=''></span>
+							<span><img src='{{ asset("asset/img/jaune.png")}}' alt=''></span>
+							<span><img src='{{ asset("asset/img/orange.png")}}' alt=''></span>
+							<span><img src='{{ asset("asset/img/grenat.png")}}' alt=''></span>
+							<span><img src='{{ asset("asset/img/gris.png")}}' alt=''></span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bg_gray">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-md-11">
+						<div class="text_critair">
+							Le certificat qualité de l'air est un autocollant rond qui s'achète auprès de <a href="https://www.certificat-air.gouv.fr" target="_blank">www.certificat-air.gouv.fr</a>. <br/>
+							Il est délivré en fonction des émissions de CO2 et des émissions polluantes des véhicules. Il se présente sous la forme d'un autocollant rond à coller sur le pare-brise. Il classe les véhicules et permet leur circulation dans certaines villes lors de pics de pollution et est obligatoire dans certaines zones. Son coût est environ de 3.62 €, il vous est envoyé après commande par voie postale.<br/>
+							Certaines collectivités offrent des avantages aux véhicules affichant cet autocollant.
+						</div>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-md-12 col-xl-10">
+						<ul class="link-form">
+							<li onclick="$('#formulaire_demarche').val('2').change();" >
+								<a href="{{path('dup')}}">
+									<span>
+										<span><i class="icomoon icon-duplicate"></i> Duplicata</span>
+									</span>
+								</a>
+							</li>
+							<li onclick="$('#formulaire_demarche').val('1').change();" >
+								<a href="{{path('ctvo')}}">
+									<span>
+										<span><i class="icomoon icon-exchange"></i> Changement de titulaire</span>
+									</span>
+								</a>
+							</li>
+							<li onclick="$('#formulaire_demarche').val('3').change();" >
+								<a href="#Demarche">
+									<span>
+										<span><i class="icomoon icon-neuf"></i> Immatriculation véhicule neuf</span>
+									</span>
+								</a>
+							</li>
+							<li onclick="$('#formulaire_demarche').val('4').change();" >
+								<a href="{{path('dca')}}">
+									<span>
+										<span><i class="icomoon icon-adress-location"></i> Changement d’adresse</span>
+									</span>
+								</a>
+							</li>
+							<li onclick="$('#formulaire_demarche').val('5').change();" >
+								<a href="#Demarche">
+									<span>
+										<span><i class="icomoon icon-declaration-cession"></i> Déclaration de cession</span>
+									</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
-<div class="dual-hp-container d-flex col-11  mx-auto">
+<section class="sectionbot_">
+	<div class="home_texte" data-parallax="scroll" data-image-src="{{ asset('asset/img/bg_CGOff.jpg')}}">
+		<div class="container">
+			<div class="row justify-content-center text-md-center">
+				<div class="col-md-12 col-xl-10 p-md-0">
+					<div class="titre_home_texte">
+						<h3>Avec CG Officiel, <span>obtenez rapidement et facilement votre certificat d'immatriculation / carte grise</span></h3>
+					</div>
+					<div class="content_home_texte">
+						<p>Effectuer une demande de certificat d’immatriculation (carte grise) en ligne est désormais chose simple grâce à notre service d’immatriculation des véhicules en ligne.</p>
+						<p>Simplifiez-vous donc la vie: il n’est plus nécessaire de se déplacer pour obtenir un nouveau certificat d’immatriculation (carte grise). <a href="#" class="link-hp-texte"> Obtenez rapidement votre carte grise</a>, tout en économisant du temps pour vos démarches. Nous réceptionnons vos documents via notre service d’immatriculation de carte grise en ligne, accessible à l’adresse
+							<a href="#" class="link-hp-texte">www.cgofficiel.fr</a>.
+						</p>
+						<br/>
+						<h4>Tout dossier complet sera traité dans les 24 heures</h4>
+						<p>Dès réception de votre nouvelle carte grise, pensez à vous procurer sur le site officiel du Certificat qualité de l'air, une <a href="http://www.certificat-air.gouv.fr" target="_blank">vignette Crit'Air</a>, l'autocollant sécurisé obligatoire dans certaines grandes villes de France.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bg_blue">
+		<div class="container">
+			<div class="row justify-content-between">
+				<div class="col-md-5">
+					<div class="block_simple">
+						<h3>Démarche Simplifiée :</h3>
+						<ol>
+							<li>Créez votre compte</li>
+							<li>Renseignez votre plaque d’immatriculation et les informations nécessaires à l’établissement du certificat d’immatriculation (carte grise) pour votre véhicule et validez votre commande en procédant au règlement.</li>
+							<li>Votre commande est traitée en 24 h! <sup style="color:red">*</sup> <br> <span style="color:red">*</span> <em>après réception de votre dossier complet</em></li>
+						</ol>
+					</div>
+				</div>
+				<div class="col-md-7 col-xl-6">
+					<div class="block_avantage">
+						<h3>Les avantages de CG Officiel</h3>
+						<div class="item-avantage">
+							<div class="row align-items-center">
+								<div class="col-md-4 text-md-center">
+									<i class="icomoon icon-speed"></i>
+								</div>
+								<div class="col-md-8">
+									<span>Gagnez du temps :</span>
+									Simplifiez vos démarches en accédant au service d'immatriculation de véhicules en ligne de CG Officiel. Économisez du temps et de l’argent sur vos frais de déplacement et stationnement.
+								</div>
+							</div>
+						</div>
+						<div class="item-avantage">
+							<div class="row align-items-center">
+								<div class="col-md-4 text-md-center">
+									<i class="icomoon icon-simpicity"></i>
+								</div>
+								<div class="col-md-8">
+									<span>Simplicité :</span>
+									Fini les files d’attente et le parcours du combattant en préfecture. Grâce au service de demande de certificat d’immatriculation (carte grise) de CG Officiel, vous effectuez vos démarches et passez commande depuis votre domicile.
+								</div>
+							</div>
+						</div>
+						<div class="item-avantage">
+							<div class="row align-items-center">
+								<div class="col-md-4 text-md-center">
+									<i class="icomoon icon-fast-delivery"></i>
+								</div>
+								<div class="col-md-8">
+									<span>Livraison rapide :</span>
+									Recevez rapidement votre certificat d’immatriculation (carte grise) directement chez vous.
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="dual-hp-container d-flex col-11 mx-auto">
 	<div class="dual-hp-left">
 		<div id="cadre2" class="col-12 home-back mx-auto home-texte">
-			<h3>Démarche Simplifiée :</h3>
-			<ol class="col-12" style="margin-left:10px !important">
-				<li>
-					<span class="li-texte3">Créez votre compte
-					</span>
-				</li>
-				<li>
-					<span class="li-texte3">
-					</span>
-					Renseignez votre plaque d’immatriculation et les informations nécessaires à l’établissement du certificat d’immatriculation (carte grise) pour votre véhicule et validez votre commande en procédant au règlement.</li>
-				<li>
-					<span class="li-texte3">
-					</span>Envoyez vos documents et dès réception de votre dossier complet, votre commande sera traitée dans les 24h.</li>
-			</ol>
-
 			{# <div class="col-12 row home-texte2">
 				<div class="col-12 mx-auto home-texte2--titre">
 					<p>1. Créez votre compte</p>
@@ -42,7 +171,7 @@
 				</div>
 			</div> #}
 		</div>
-		<div id="cadre3" class="col-12 col-md-12 mx-auto">
+		<!--div id="cadre3" class="col-12 col-md-12 mx-auto">
 			<div class="home-texte">
 				<h3>Les avantages de CG Officiel</h3>
 				<ol class="col-12" style="margin-left:10px !important">
@@ -56,60 +185,13 @@
 						</span>fini les files d’attente et le parcours du combattant en préfecture ; grâce au service de demande de certificat d’immatriculation (carte grise) de CG Officiel, vous effectuez vos démarches et passez commande depuis votre domicile.</li>
 					<li>
 						<span class="li-texte3">Livraison rapide :
-						</span>recevez rapidement votre certificat d’immatriculation (carte grise) directement à l’adresse de votre domicile.</li>
+						</span>recevez rapidement votre certificat d’immatriculation (carte grise) directement chez vous.</li>
 				</ol>
 			</div>
-		</div>
-	</div>
-	<div class="dual-hp-right">
-		<div class="bloc-txt-sidebar mt-4 text-center">
-			{% if formulaire is defined %}
-				{{ form_start(formulaire)}}
-				<div class="demarche">
-				{{ form_row(formulaire.demarche, {
-					'attr':{
-						'class': 'col-12 form-control-plaque '
-					},
-					'label_attr': {
-						'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
-					})
-				}}
-				{{ form_row(formulaire.immatriculation, {
-					'attr':{
-						'onkeyup':'this.value = this.value.toUpperCase()',
-						'class': 'col-12 form-control-plaque ',
-						'onblur': 'this.value = valueTreatement(this.value)',
-						'maxlength': '9',
-						'minlength': '5',
-						'placeholder': 'BB-321-BB'
-					},
-					'label_attr': {
-						'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
-					}
-						)}}
-				{{ form_row(formulaire.codePostal, {
-					'attr':{'maxlength':'3','minlength':'2', 'class':'col-12 mx-auto text-center form-control--dep'},
-					'label_attr': {'class': 'col-12 text-center text-uppercase resultat-estimation-p'}
-				}
-				)}}
-				</div>	
-				<div class="col-12 col-md-6 mx-auto text-center search-box" id="calcul">
-					<button type="submit" class="btn btn-primary btn-sm mx-auto">CALCULER</button>
-				</div>
-				{{ form_end(formulaire)}}
-			{% else %}
-			<a href="{{ path('formulaire')}}">Formulaire</a>
-			{% endif %}
-		</div>
-		<div class="bloc-txt-sidebar mt-4">
-			<p>Le certificat qualité de l’air est un autocollant rond qui s’achète auprès de <a href="http://www.certificat-air.gouv.fr" target="_blank">www.certificat-air.gouv.fr</a>. Il est délivré en fonction des émissions de CO2, émissions polluantes des véhicules. Il se présente sous forme d’autocollant rond à coller sur le parebrise. Il classe les véhicules et permet la circulation dans certaines villes lors de pics de pollution et est obligatoire dans certaines zones. Son coût est environ de 3,62 euros et est envoyé par voie postale. Certaines collectivités offrent des avantages aux véhicules affichant cet autocollant.</p>
-		</div>
-		<div class="bloc-txt-sidebar mt-4 text-center">
-			<a href="{{ path('faq')}}">FAQ</a>
-		</div>
+		</div-->
 	</div>
 </div>
-<div class="col-11  mx-auto home-texte d-flex">
+{# <div class="col-11  mx-auto home-texte d-flex">
 	<div class="downloadCERFA hidden-md-down">
 		<div class="downloadCERFA-element">
 			<span>CERFA 13751*01</span>
@@ -132,8 +214,8 @@
 		<h4>Pour un véhicule d’occasion</h4>
 		<p>Les pièces nécessaires pour établir votre certificat d’immatriculation / carte grise sont :</p>
 		<p>
-			<strong>1- Demander un changement d’adresse :</strong> un justificatif de domicile(copie), une pièce d’identité en cours de validité (copie), 
-			le certificat d’immatriculation /carte grise, et <a href="#" class="linkCERFA">le CERFA n°13750*05</a>, le mandat <a href="{{ asset('download/cgofficiel_cerfa_13757-03.pdf') }}" targer="_blank" class="linkCERFA">CERFA N° 13757*03</a>. 
+			<strong>1- Demander un changement d’adresse :</strong> un justificatif de domicile(copie), une pièce d’identité en cours de validité (copie),
+			le certificat d’immatriculation /carte grise, et <a href="#" class="linkCERFA">le CERFA n°13750*05</a>, le mandat <a href="{{ asset('download/cgofficiel_cerfa_13757-03.pdf') }}" targer="_blank" class="linkCERFA">CERFA N° 13757*03</a>.
 			Pour les véhicules dont la plaque d’immatriculation est sous la forme 1234 AA 12, vous recevrez un nouveau certificat d’immatriculation ( carte grise).
 			Pour les véhicules dont l’immatriculation se présente sous la forme AA 123 AA, vous recevrez une étiquette à coller sur votre certificat d’immatriculation (carte grise). Au bout du 4ème changement
 			d’adresse pour un même véhicule, vous recevrez un nouveau certificat d’immatriculation (carte grise).
@@ -145,7 +227,7 @@
 			que le numéro de formule figurant sur les certificats d’immatriculation (carte grise) à demander à son assurance si vous vous ne l’avez plus.
 		</p>
 		<p>
-			<strong>3- Demande de changement du titulaire de véhicule d’occasion :</strong> original de l’ancien certificat d’immatriculation ( carte grise) , la déclaration de cession (original) <a href="{{ asset('download/cgofficiel_cerfa-15776-01.pdf') }}" target="_blank" class="linkCERFA">Cerfa n° 15776*01</a>, 
+			<strong>3- Demande de changement du titulaire de véhicule d’occasion :</strong> original de l’ancien certificat d’immatriculation ( carte grise) , la déclaration de cession (original) <a href="{{ asset('download/cgofficiel_cerfa-15776-01.pdf') }}" target="_blank" class="linkCERFA">Cerfa n° 15776*01</a>,
 			un justificatif de domicile de moins de 6 mois (copie),le procès-verbal du contrôle technique, à jour (copie), pour les véhicules de plus de quatre ans (copie), demande d’immatriculation
 			<a href="#" class="linkCERFA">CERFA N° 13750*05</a> , mandat <a href="{{ asset('download/cgofficiel_cerfa_13757-03.pdf') }}" targer="_blank" class="linkCERFA">CERFA N°13757*03</a>, permis de conduire (copie), pièce d’identité (copie), attestation assurance,
 			<span class="block"><strong>Important :le vendeur doit impérativement vous remettre l’ancien certificat d’immatriculation, barré, daté et signé par ses soins, avec la date et l’heure de la vente. Pour
@@ -158,8 +240,8 @@
 			attestant la régularité du véhicule pour la TVA (original), le certificat de conformité fourni par le constructeur (original),un justificatif de domicile daté de moins de 6 mois (copie).
 		</p>
 	</div>
-</div>
-<div class="col-11  mx-auto home-texte mb-4 mt-4">
+</div> #}
+{# <div class="col-11  mx-auto home-texte mb-4 mt-4">
 	<h3>Pièces à fournir</h3>
 	<div class="dossier d-flex justify-content-center flex-wrap">
 		<a data-toggle="modal" data-target="#dossier-1" class="dossier-element d-flex align-items-center justify-content-center">
@@ -218,7 +300,7 @@
 				<span class="title-dossier">Certificat d'Immatriculation / Carte grise</span>
 				<div class="desc-dossier">
 					<p class="text-center mx-auto col-lg-8 col-sm-10">
-						Copie recto/verso du certificat d'immatriculation (carte grise) barré, daté et signé par le vendeur ou l'original du certificat d'immatriculation pour les changements de titulaire de véhicules d'occasion . L'article 4 du décret n° 2017-1278 du 9 août 2017 modifie l'article R. 322-5 du code de la route et instaure que le nouveau propriétaire d'un véhicule doit pouvoir justifier sur demande de l'ancien certificat d'immatriculation barré, daté et signé. 
+						Copie recto/verso du certificat d'immatriculation (carte grise) barré, daté et signé par le vendeur ou l'original du certificat d'immatriculation pour les changements de titulaire de véhicules d'occasion . L'article 4 du décret n° 2017-1278 du 9 août 2017 modifie l'article R. 322-5 du code de la route et instaure que le nouveau propriétaire d'un véhicule doit pouvoir justifier sur demande de l'ancien certificat d'immatriculation barré, daté et signé.
 					</p>
 					<img src="{{ asset('asset/img/dossier/dossier-2.jpg') }}" class="img-thumbnail" alt="img-document-2">
 				</div>
@@ -274,7 +356,7 @@
 			<div class="modal-content text-center padd-10">
 				<span class="title-dossier">Copie pièce d'identité valide</span>
 				<div class="desc-dossier">
-					<p class="text-center mx-auto col-lg-8 col-sm-10">						
+					<p class="text-center mx-auto col-lg-8 col-sm-10">
 						Copie recto/verso d'une carte d'identité (ou passeport) en cours de validité, ou d'un titre de séjour (dans ce cas, même adresse que la carte grise).
 						Pour un nom marital qui n'apparaît pas sur la pièce d'identité, fournir en plus une copie du livret de famille mis à jour.
 						Pour un passeport établi hors UE, si l'adresse du passeport est en France, fournir en plus une copie de la carte de séjour ou du permis de conduire français, si l'adresse du passeport est hors de France, fournir une copie du visa.
@@ -320,8 +402,8 @@
 			</div>
 		</div>
 	</div>
-</div>
-<div id="cadre4" class="col-11  mx-auto">
+</div> #}
+{# <div id="cadre4" class="col-11  mx-auto">
 	<div class="col-12 home-texte4">
 		<p>
 			<strong>
@@ -333,7 +415,7 @@
 
 	<div class="col-12 mx-auto home-texte5">
 		<p>
-			<strong>Si vous préférez envoyer votre demande à l’ANTS, l’Agence nationale des Titres Sécurisés, prenez en compte la possibilité du délai de traitement des demandes d’immatriculation plus importantes, 
+			<strong>Si vous préférez envoyer votre demande à l’ANTS, l’Agence nationale des Titres Sécurisés, prenez en compte la possibilité du délai de traitement des demandes d’immatriculation plus importantes,
 				avec son système automatisé de demandes de cartes grises mis en place le 6 novembre 2017 .</strong>
 		</p>
 	</div>
@@ -343,5 +425,5 @@
 			<span class="arrowup">Retour</span>
 		</a>
 	</div>
-</div>
+</div> #}
 </div>

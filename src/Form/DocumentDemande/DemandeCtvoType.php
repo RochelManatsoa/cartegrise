@@ -9,7 +9,7 @@ namespace App\Form\DocumentDemande;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use App\Form\CustomType\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\File\DemandeCtvo;
@@ -54,11 +54,11 @@ class DemandeCtvoType extends AbstractType
             "required" => false,
             "data_class" => null,
         ])
-        ->add('recepisseDemandeAchat', FileType::class, [
-            'label' => 'label.demande.recepisseDemandeAchat',
-            "required" => false,
-            "data_class" => null,
-        ])
+        // ->add('recepisseDemandeAchat', FileType::class, [
+        //     'label' => 'label.demande.recepisseDemandeAchat',
+        //     "required" => false,
+        //     "data_class" => null,
+        // ])
         ->add('copiePermisConduireTitulaire', FileType::class, [
             'label' => 'label.demande.copiePermisConduire',
             "required" => false,

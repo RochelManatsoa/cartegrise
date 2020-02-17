@@ -2,7 +2,82 @@
 
 
 {% block body %}
-<table width="100%" summary="" border="0" cellpadding="0" cellspacing="0" align="left" bgcolor="#FFFFFF" style="margin:0 auto">
+  {% if demande.transaction is not null %}
+    {% set currentTransaction = demande.transaction %}
+  {% else %}
+    {% set currentTransaction = demande.commande.transaction %}
+  {% endif %}
+                            <td class="bodyEmail" bgcolor="#ffffff">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr class="recapDemande">
+                                        <td class="col35">
+                                            <strong>Type demande <span>:</span></strong>
+                                        </td>
+                                        <td>{{ demande.commande.demarche.nom }}</td>
+                                    </tr>
+                                    <tr class="recapDemande">
+                                        <td class="col35">
+                                            <strong>Date <span>:</span></strong>
+                                        </td>
+                                        <td>{{ currentTransaction.createAt | date('d/m/Y')}}</td>
+                                    </tr>
+                                    <tr class="recapDemande">
+                                        <td class="col35">
+                                            <strong>Nom et prénom(s) <span>:</span></strong>
+                                        </td>
+                                        <td>{{ client.clientNom }} {{ client.clientPrenom }}</td>
+                                    </tr>
+                                    <tr class="recapDemande">
+                                        <td class="col35">
+                                            <strong>Département <span>:</span></strong>
+                                        </td>
+                                        <td>{{ demande.commande.codePostal }}</td>
+                                    </tr>
+                                    <tr class="recapDemande">
+                                        <td class="col35">
+                                            <strong>Immatriculation <span>:</span></strong>
+                                        </td>
+                                        <td>{{ demande.commande.immatriculation }}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bodyTransa" bgcolor="#ffffff">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr class="transaB">
+                                        <td class="transaItem">
+                                            <strong>Dossiers à valider sont en pièce joint et doivent comporter :</strong>
+                                            Historique de la transaction effectuée par <a href="mailto:{{ client.user.email }}">{{ client.user.email }}</a>
+                                            <hr>
+                                            {{ daf|raw }}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="footer" bgcolor="#03347e">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td align="center" class="footercopy">
+                                            Si vous trouvez que les documents sont valides , veuillez cliquer sur ce lien pour valider : 
+                                            <a style="color:#1a3f78;" href="{{ absolute_url(path("demande_document_validate", {"demande": demande.id, "checker": demande.checker})) }}">
+                                                <b>valider</b>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" class="footercopy">
+                                            Si vous pensez que ces documents ne sont pas valide, veuillez mettre les raisons dans le champs text du lien suivant :
+                                            <a style="color:#1a3f78;" href="{{ absolute_url(path("demande_document_nonvalidate", {"demande": demande.id, "checker": demande.checker})) }}">
+                                                <b>non valider</b>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+{# <table width="100%" summary="" border="0" cellpadding="0" cellspacing="0" align="left" bgcolor="#FFFFFF" style="margin:0 auto">
     <tr>
         <td width="130" height="20"><b style="color:#1a3f78;">Type Demande </b></td>
         <td>: {{ demande.commande.demarche.nom }}</td>
@@ -56,5 +131,5 @@
             </div>
         </td>
     </tr>
-</table>
+</table> #}
 {% endblock %}

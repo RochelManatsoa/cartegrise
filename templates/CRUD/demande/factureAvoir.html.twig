@@ -1,0 +1,49 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+{% if object.commande is defined %}
+    <a class="btn btn-sm btn-default view_link" target="_blank" href="{{ admin.generateObjectUrl('facture', object) }}"
+        title="facture">
+        <i class="fa fa-file" aria-hidden="true"></i>
+        facture
+    </a> /
+    {% if object.avoir is not null and object.avoir == true %}
+        <a class="btn btn-sm btn-default view_link" target="_blank" href="{{ admin.generateObjectUrl('avoir', object) }}"
+            title="facture">
+            <i class="fa fa-file" aria-hidden="true"></i>
+            avoir
+        </a>
+        {% else %}
+        avoir
+    {% endif %}
+{% else %}
+    <a class="btn btn-sm btn-default view_link" target="_blank"
+        href="{{ admin.generateObjectUrl('factureCommande', object) }}" title="facture">
+        <i class="fa fa-file" aria-hidden="true"></i>
+        facture
+    </a> /
+    {% if object.demande is defined and object.demande is not null %}
+        {% if object.demande.avoir is not null and object.demande.avoir == true %}
+        <a class="btn btn-sm btn-default view_link" target="_blank"
+            href="{{ admin.generateObjectUrl('avoir', object.demande) }}" title="facture">
+            <i class="fa fa-file" aria-hidden="true"></i>
+            avoir
+        </a>
+        {% else %}
+        avoir
+        {% endif %}
+    {% elseif object.demande is defined and object.demande is null and (object.statusTmp == constant('App\\Entity\\Commande::RETRACT_DEMAND') or object.statusTmp == constant('App\\Entity\\Commande::RETRACT_REFUND') or object.statusTmp == constant('App\\Entity\\Commande::RETRACT_FORM_WAITTING'))  %} 
+    {% if object.avoir is not null and object.avoir.id is not null %}
+        <a class="btn btn-sm btn-default view_link" target="_blank"
+            href="{{ admin.generateObjectUrl('avoirCommande', object) }}" title="facture">
+            <i class="fa fa-file" aria-hidden="true"></i>
+            avoir
+        </a>
+        {% else %}
+        avoir
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{# {{ fraisTotalTraitement(object) }} #}
+{% endblock %}

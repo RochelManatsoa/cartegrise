@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% from 'shared/macro.html.twig' import delete_form %}
+
+{% set confirmMessage = "Etes-vous sûr de vouloir annuler cette demande ?" %}
+
+{% block page_content %}
+    <div class="esp_clientBlock">
+        <div class="container">
+            {{ include('client/layout/menu.html.twig') }}
+            <h4 class="mt-5">Historique</h4>
+            <div class="demarche-container no-bg p-0">
+                <table class="table table-striped border-0  custom-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Commande</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Dép.</th>
+                            <th scope="col">Immatriculation</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for demande in demandes %}
+                        <tr>
+                            <th class="responsive-toggle">Commande<span></span></th><td>{{ demande.commande.demarche.nom | displayValue}}</td>
+                            <th class="responsive-toggle">Date<span></span></th><td>{{ demande.commande.ceerLe | date('d/m/Y')}}</td>
+                            <th class="responsive-toggle">Dép.<span></span></th><td class="text-center">{{ demande.commande.codePostal | displayValue}}</td>
+                            <th class="responsive-toggle">Immatriculation<span></span></th><td class="text-center">{{ demande.commande.immatriculation | displayValue}}</td>
+                            <th class="responsive-toggle">Action<span></span></th><td>
+                                <div class="content-actions">
+                                    <a href="{{path('espace_client', {'demande': demande.id })}}">
+                                        <button type="button" class="btn resume-btn">Aperçu</button>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="8">Aucune demande trouvée</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>                 
+{% endblock %}

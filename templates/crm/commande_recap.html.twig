@@ -1,0 +1,102 @@
+{% extends 'crm_base.html.twig' %}
+
+{% block page_content %}
+{% set taxe = commande.taxes %}
+{% if commande.transaction is not null %}
+{% set currentTransaction = commande.transaction %}
+{% else %}
+{% set currentTransaction = commande.demande.transaction %}
+{% endif %}
+    {% if commande is defined %}
+        <div class="row">
+            <h2 class="col-12 text-center">RESUME DE LA COMMANDE</h2>
+            <div class="col-md-12 col-lg-12 resultat-estimation mx-auto">
+                <div class="d-flex align-items-center recap-demande-wrapper pt-5 pb-3">
+                    <img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}"
+                    class="rounded col-2 mx-auto d-block img-thumbnail mb-3 src_img" alt="">
+                    <div class="col-10 mx-auto">
+                        <h2 class="col-12 mb-3 mx-0">Récapitulatif de la demande</h2>
+                        {{ include('commande/_resum_recap_commande.html.twig') }}
+                    </div>
+                </div>
+                <hr>
+                <div class="col-md-12 px-0 col-lg-12 mx-auto d-flex my-flex-container pt-5 pb-5">
+                    <div class="col-12 px-0 row">
+                        <div class="col-6 mx-auto">
+                            <h2 class="mb-4">Caractéristique du véhicule</h2>
+                            {{ include('commande/_resum_caracteristics_car.html.twig') }}
+                        </div>
+                        <div class="col-6 mx-auto">
+                            <h2 class="mb-4">Détail des taxes</h2>
+                            {{ include('commande/_resum_taxe_car.html.twig') }}
+                        </div>
+                        <div class="col-12 mx-auto mt-5">
+                            {% if commande.demande is not null and commande.demande.transaction is not null and commande.demande.transaction.status == "00" %}
+                                <div class="text-center">
+                                    <a href="{{path('route_crm_payment_facture_demande', {'demande': commande.demande.id })}}" target="_blank">
+                                        <button type="button" class="btn link-connexion-register ">Facture</button>
+                                    </a>
+                                </div>
+                            {% elseif commande.facture is defined and commande.facture is not null %}
+                                <div class="text-center">
+                                    <a href="{{path('route_crm_payment_facture_commande', {'commande': commande.id })}}" target="_blank">
+                                        <button type="button" class="btn link-connexion-register ">Facture</button>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 px-0 col-lg-12 mx-auto d-flex my-flex-container pt-5 pb-5">
+                    <div class="col-12 px-0 row">
+                        <div class="col-6 mx-auto">
+                            {% if commande.client is not null %}
+                            <h2 class="mb-4">Utilisateur</h2>
+                            <div class="list-grid">
+                                <div class="list-grid__item">
+                                    <div >Nom</div>
+                                    <div>{{ commande.client.clientNom }}</div>
+                                </div>
+                                <div  class="list-grid__item">
+                                    <div>Prénom(s)</div>
+                                    <div>{{ commande.client.clientPrenom }}</div>
+                                </div>
+                                <div class="list-grid__item">
+                                    <div>Mail</div>
+                                    <div>{{ commande.client.user.email }}</div>
+                                </div>
+                                <div class="list-grid__item">
+                                    <div>Tél</div>
+                                    <div>{{ commande.client.clientContact.contactTelmobile }}</div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-6 mx-auto">
+                            <h2 class="mb-4">Transaction</h2>
+                            <div class="list-grid">
+                                <div class="list-grid__item">
+                                    <div >N°</div>
+                                    <div>{{currentTransaction.transactionId}}</div>
+                                </div>
+                                <div  class="list-grid__item">
+                                    <div>Status</div>
+                                    <div>{{currentTransaction.status}}</div>
+                                </div>
+                                <div class="list-grid__item">
+                                    <div>Payé le</div>
+                                    <div>{{currentTransaction.createAt | date('d M Y  h:i')}}</div>
+                                </div>
+                                <div class="list-grid__item">
+                                    <div>Montant</div>
+                                    <div>{{ fraisTotal(commande) }} €</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

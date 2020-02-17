@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-29 12:14:35 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-05-27 12:37:22
+ * @Last Modified time: 2019-10-26 12:01:03
  */
 namespace App\Entity\File;
                                                                            
@@ -36,101 +36,100 @@ class DemandeCtvo
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
+    *     mimeTypesMessage = "Please upload a valid Image or"
     * )
     */
-    private $rectoVersoCarteGrise;
+    protected $rectoVersoCarteGrise;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $declatationCession;
+    protected $declatationCession;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $demandeCertificat;
+    protected $demandeCertificat;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $procurationMandat;
+    protected $procurationMandat;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $pieceIdentite;
+    protected $pieceIdentite;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $copieControleTechnique;
+    protected $copieControleTechnique;
+    /**
+    * @ORM\Column(type="string", nullable=true)
+    * @Assert\File(
+    *     maxSize = "5120k",
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
+    *     mimeTypesMessage = "Please upload a valid PDF"
+    * )
+    */
+    protected $recepisseDemandeAchat;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $recepisseDemandeAchat;
+    protected $copieAttestationAssurance;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $copieAttestationAssurance;
+    protected $copiePermisConduireTitulaire;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $copiePermisConduireTitulaire;
-    /**
-    * @ORM\Column(type="string", nullable=true)
-    * @Groups({"file"})
-    * @Assert\File(
-    *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
-    *     mimeTypesMessage = "Please upload a valid PDF"
-    * )
-    */
-    private $justificatifDomicile;
+    protected $justificatifDomicile;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Ctvo", mappedBy="file")

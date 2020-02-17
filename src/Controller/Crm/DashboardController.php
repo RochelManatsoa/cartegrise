@@ -9,9 +9,13 @@ use App\Form\Crm\CrmSearchType;
 use App\Manager\Crm\Modele\CrmSearch;
 use App\Manager\Crm\SearchManager;
 use App\Entity\Demande;
+use App\Entity\Commande;
 use App\Manager\DemandeManager;
 use App\Manager\DocumentAFournirManager;
 use Symfony\Component\Serializer\SerializerInterface;
+use App\Manager\{CommandeManager};
+use App\Manager\FraisTreatmentManager;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DashboardController extends AbstractController
 {
@@ -35,7 +39,7 @@ class DashboardController extends AbstractController
             'crm/dashboard.html.twig',
             [
                 'form' => $form->createView(),
-                'demandes' => $results,
+                'commandes' => $results,
             ]
         );
     }
@@ -73,5 +77,35 @@ class DashboardController extends AbstractController
     {
 
         return $this->render('crm/demande_recap.html.twig', ['demande'=>$demande]);
+    }
+
+    /**
+     * @Route("dasboard/crm/{commande}/commande-recap", name="route_crm_commande_recap")
+     * @IsGranted("ROLE_CRM")
+     */
+    public function crmCommandeRecap(Commande $commande)
+    {
+
+        return $this->render('crm/commande_recap.html.twig', ['commande'=>$commande]);
+    }
+    /**
+     * @Route("/payment-commande-crm/{commande}/facture", name="route_crm_payment_facture_commande")
+     * @IsGranted("ROLE_CRM")
+     */
+    public function factureCommande(Commande $commande, FraisTreatmentManager $fraisTreatmentManager, CommandeManager $commandeManager)
+    {
+        $file = $commandeManager->generateFacture($commande);
+
+        return new BinaryFileResponse($file);
+    }
+    /**
+     * @Route("/payment-demande-crm/{demande}/facture", name="route_crm_payment_facture_demande")
+     * @IsGranted("ROLE_CRM")
+     */
+    public function factureDemande(Demande $demande, FraisTreatmentManager $fraisTreatmentManager, DemandeManager $demandeManager)
+    {
+        $file = $demandeManager->generateFacture($demande);
+
+        return new BinaryFileResponse($file);
     }
 }

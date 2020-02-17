@@ -23,16 +23,15 @@ final class FactureAdmin extends AbstractAdmin
         $query = parent::createQuery($context);
         $qb = $query->getQueryBuilder();
         $alias = $query->getRootAliases()[0];
-        $qb->leftJoin($alias.'.transaction', 'trans')
-        ->andWhere('trans.status =:status')
-        ->setParameter('status', '00');
+        $qb
+        ->orderBy($alias.'.id', 'DESC');
 
         return $query;
     }
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('facture', $this->getRouterIdParameter().'/facture');
+        $collection->add('factureCommande', $this->getRouterIdParameter().'/facture');
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -57,14 +56,14 @@ final class FactureAdmin extends AbstractAdmin
     {
         $listMapper
         ->add('id')
-        ->add('dateDemande')
+        ->add('commande.ceerLe')
         ->add('commande.immatriculation')
         ->add('commande.status')
-        ->add('transaction.transactionId')
+        ->add('commande.transaction.transactionId')
         ->add('_action', null, [
             'actions' => [
                 'facture' => [
-                    'template' => 'CRUD/list__action_clone.html.twig'
+                    'template' => 'CRUD/list__action_facture.html.twig'
                 ]
             ],
             

@@ -5,13 +5,14 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Utils\{PaymentUtils, PaymentResponseTreatment, StatusTreatment};
+use App\Entity\Commande;
 use App\Entity\Demande;
 use App\Entity\NotificationEmail;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Manager\SessionManager;
-use App\Manager\DemandeManager;
+use App\Manager\{DemandeManager, CommandeManager};
 use App\Manager\FraisTreatmentManager;
 use App\Manager\TransactionManager;
 use App\Manager\HistoryTransactionManager;
@@ -22,35 +23,40 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class PaymentController extends AbstractController
 {
+    // private $transactionManager;
+
+    // public function __construct(TransactionManager $transactionManager)
+    // {
+    //     $this->transactionManager = $transactionManager;
+    // }
     /**
-     * @Route("/demande/{demande}/payment", name="payment_demande")
+     * @Route("/commande/{commande}/payment", name="payment_commande")
      */
-    public function index(Demande $demande)
+    public function index(Commande $commande)
     {
         
         return $this->render(
             "payment/index.html.twig", 
-            ['demande' => $demande]
+            ['commande' => $commande]
         );
     }
 
     /**
-     * @Route("/payment/request/{demande}", name="payment_request")
+     * @Route("/payment/request/{commande}", name="payment_request")
      */
     public function request(
-        Demande $demande, 
+        Commande $commande, 
         PaymentUtils $paymentUtils, 
         ParameterBagInterface $parameterBag, 
-        DemandeManager $demandeManager, 
+        CommandeManager $commandeManager, 
         TransactionManager $transactionManager,
         FraisTreatmentManager $fraisTreatmentManager
     )
     {
-        $amount = $fraisTreatmentManager->fraisTotalOfCommande($demande->getCommande());
+        $amount = $fraisTreatmentManager->fraisTotalOfCommande($commande);
         $email = $this->getUser()->getEmail();
-        $demandeManager->checkPayment($demande);
-        $idTransaction = $transactionManager->generateIdTransaction($demande->getTransaction());
-        $facture = $transactionManager->generateNumFacture($demande->getTransaction());
+        $commandeManager->checkPayment($commande);
+        $idTransaction = $transactionManager->generateIdTransaction($commande->getTransaction());
         $amount *=100;
         $paramDynamical = [
             'amount' => $amount,
@@ -60,8 +66,8 @@ class PaymentController extends AbstractController
         $bin   = $parameterBag->get('payment_binary');
         $param = array_merge($param, $paramDynamical);
         $response = $paymentUtils->request($param, $bin);
-        $demande->getTransaction()->setTransactionId($response['transactionId']);
-        $transactionManager->save($demande->getTransaction());
+        $commande->getTransaction()->setTransactionId($response['transactionId']);
+        $transactionManager->save($commande->getTransaction());
         
         return new Response($response['template']);
     }
@@ -80,7 +86,8 @@ class PaymentController extends AbstractController
         HistoryTransactionManager $historyTransactionManager,
         TransactionManager $transactionManager,
         DemandeManager $demandeManager,
-        NotificationEmailManager $notificationManager
+        NotificationEmailManager $notificationManager,
+        CommandeManager $commandeManager
     )
     {
         $response = $request->request->get('DATA');
@@ -89,9 +96,15 @@ class PaymentController extends AbstractController
         // send mail
             $this->addHistoryTransaction($responses, $historyTransactionManager);
             $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
+            $commande = $transaction->getCommande() == null ? $transaction->getDemande()->getCommande() : $transaction->getCommande();
             $files = [];
-            if ($transaction->getStatus() === 00) {
-                $file = $demandeManager->generateFacture($transaction->getDemande());
+            if ($transaction->getStatus() === '00') {
+                $commande->setPaymentOk(true);
+                $commandeManager->migrateFacture($commande);
+                $commandeManager->save($commande);
+                $transaction->setFacture($transactionManager->generateNumFacture());
+                $transactionManager->save($transaction);
+                $file = $commandeManager->generateFacture($commande);
                 $files = [$file];
             }
             $this->sendMail($mailer, $responses, $responses["customer_email"], $adminEmails, $files);
@@ -115,8 +128,6 @@ class PaymentController extends AbstractController
         // dd($response);
         $responses = $this->getResponse($response, $paymentUtils, $parameterBag, $responseTreatment);
         $transaction = $transactionManager->findByTransactionId($responses["transaction_id"]);
-        $facture = $transactionManager->generateNumFacture($transaction);
-        $transaction->setFacture($facture);
         $transactionManager->save($transaction);
 
         return $this->render(
@@ -160,16 +171,34 @@ class PaymentController extends AbstractController
         return new BinaryFileResponse($file);
     }
 
-    // price with TVA
-    private function calculateTOTAL($prix)
+    /**
+     * @Route("/payment-commande/{commande}/facture", name="payment_facture_commande")
+     */
+    public function factureCommande(Commande $commande, FraisTreatmentManager $fraisTreatmentManager, CommandeManager $commandeManager)
     {
-        return ($prix) + ($prix * 20 / 100);
+        $file = $commandeManager->generateFacture($commande);
+
+        return new BinaryFileResponse($file);
     }
 
-    // calculate TVA 20%
-    private function calculateTVA($prix)
+    /**
+     * @Route("/payment/{demande}/avoir", name="payment_avoir")
+     */
+    public function avoir(Demande $demande, FraisTreatmentManager $fraisTreatmentManager, DemandeManager $demandeManager)
     {
-        return $prix * 20 / 100;
+        $file = $demandeManager->generateAvoir($demande);
+
+        return new BinaryFileResponse($file);
+    }
+
+    /**
+     * @Route("/payment/{commande}/command-avoir", name="payment_avoir_commande")
+     */
+    public function avoirCommande(Commande $commande, FraisTreatmentManager $fraisTreatmentManager, CommandeManager $commandeManager)
+    {
+        $file = $commandeManager->generateAvoir($commande);
+
+        return new BinaryFileResponse($file);
     }
 
     // to get response
@@ -191,26 +220,28 @@ class PaymentController extends AbstractController
     //function to send email unit
     public function send($mailer, $mail, $responses, $adminPrepend='', $attachments)
     {
-            $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["transaction_id"]. ' de ' . $responses["customer_email"] ))
-            ->setFrom('no-reply@cgofficiel.fr');
-            if ($adminPrepend != '' && is_iterable($mail) && count($mail)>0) {
-                $message->setTo(array_shift($mail))
-                ->setBcc($mail);
-            } else {
-                $message->setTo($mail);
-            }
-            $message
-            ->setBody(
-                $this->renderView(
-                    'email/registration.mail.twig',
-                    array('responses' => $responses)
-                ),
-                'text/html'
-            );
-            foreach ($attachments as $attachment){
-                $message->attach(\Swift_Attachment::fromPath($attachment));
-            }
-            $mailer->send($message);
+        $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["transaction_id"]. ' de ' . $responses["customer_email"] ))
+        ->setFrom('no-reply@cgofficiel.fr');
+        if ($adminPrepend != '' && is_iterable($mail) && count($mail)>0) {
+            $message->setTo(array_shift($mail))
+            ->setBcc($mail);
+        } else {
+            $message->setTo($mail);
+        }
+        $message
+        ->setBody(
+            $this->renderView(
+                'email/registration.mail.twig',[
+                    'responses' => $responses,
+                    // 'transaction' => $this->transactionManager->findByTransactionId($responses["transaction_id"])
+                ]
+            ),
+            'text/html'
+        );
+        foreach ($attachments as $attachment){
+            $message->attach(\Swift_Attachment::fromPath($attachment));
+        }
+        $mailer->send($message);
     }
 
     public function addHistoryTransaction($responses, HistoryTransactionManager $historyTransactionManager)

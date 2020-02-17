@@ -2,7 +2,21 @@
 
 {% form_theme form 'demande/demande_custom_theme.html.twig'%}
 
-{% block stylesheets %} {{ parent()}} {% endblock %}
+{% block stylesheets %} 
+    {{ parent()}} 
+    <link href="{{asset('Utils/jquerySteps/css/jquery.steps.css')}}" rel="stylesheet">
+    <link href="{{asset('Utils/jquerySteps/css/main.css')}}" rel="stylesheet">
+    <link href="{{asset('Utils/jquerySteps/css/normalize.css')}}" rel="stylesheet">
+    <style>
+        .tooltip-inner {
+            min-width: 100px;
+            max-width: 50%;
+        }
+        #daf-list-wrapper ol > li > ul {
+            color: #d9534f;
+        }
+    </style>
+{% endblock %}
 
 {% block title %}{% endblock %}
 
@@ -11,20 +25,17 @@
 {% block class %}body-ccm{% endblock %}
 
 {% block page_content %}
-<div class="col-sm-10 col-lg-12 d-flex flex-row justify-content-center my-flex-container align-items-center mobile-center">
-	<div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
-        <div class="col-12 commander-firstview mt-4 custom-form">
-            <h2 class="col-md-10 mx-auto full-mobile">{{ commande.demarche.nom|upper }}</h2>
-            <div class="row col-12 ">
+<div class="rp_dmd">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 commander-firstview custom-form">
+                <h2 class="text-center mb-4 full-mobile">{{ commande.demarche.nom}}</h2>
+
                 <hr>
-                {{ form_start(form, {'attr': {'class': 'row'}}) }}
-                    <div class="col-4 col-md-10 mx-auto full-mobile">
-                        {% include "demande/caracteristicVehicle.html.twig" %}
-                    </div>
-                    <div class="col-3 col-md-5 mx-auto form-row full-mobile">
-                        <div class="col-10 col-sm-12 mx-auto">
-                                <h3 class="text-center">{{ form_label(form.ctvo.ancienTitulaire) }}</h3>
-                                <hr>
+                {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
+                    <h3>Etape</h3>
+                    <section style="position: relative;width: 100%;">
+                            <legend>{{ form_label(form.ctvo.ancienTitulaire) }}</legend>
                             <div class="ancientitulaire">
                                 {{ form_row(form.ctvo.ancienTitulaire.type)}}
                                 {{ form_row(form.ctvo.ancienTitulaire.raisonsociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
@@ -32,88 +43,100 @@
                             </div>
                             <div class="ciPresent">                                
                                 {{ form_row(form.ctvo.ciPresent)}}
-                                {{ form_row(form.ctvo.numeroFormule, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_label(form.ctvo.numeroFormule)}}                              
+                                    <span type="button" class="fa fa-question-circle" data-html="true" data-toggle="tooltip" data-placement="top"
+                                        template='{% include "demande/tooltips/templateCessionNumFormulCarteGrise.html.twig" %}'
+                                        title="{% include 'demande/tooltips/cessionNumFormulCarteGrise.html.twig' %}">
+                                    </span>
+                                    {{ form_errors(form.ctvo.numeroFormule)}}
+                                    {{ form_widget(form.ctvo.numeroFormule)}}
+                            </div>
+                    </section>
+
+                    <h3>Etape</h3>
+                    <section style="position: relative;width: 100%;">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <legend>{{ form_label(form.ctvo.acquerreur) }}</legend>
+                                    <div class="titulaire">
+                                        {{ form_row(form.ctvo.acquerreur.type)}}
+                                        {{ form_row(form.ctvo.acquerreur.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                        {{ form_row(form.ctvo.acquerreur.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                        {{ form_row(form.ctvo.acquerreur.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                        {{ form_row(form.ctvo.acquerreur.nomPrenomTitulaire)}}
+                                        {{ form_row(form.ctvo.acquerreur.prenomTitulaire)}}
+                                        {{ form_row(form.ctvo.acquerreur.genre)}}
+                                        {{ form_row(form.ctvo.acquerreur.dateN)}}
+                                        {{ form_row(form.ctvo.acquerreur.lieuN)}}
+                                        {{ form_row(form.ctvo.acquerreur.departementN)}}
+                                        {{ form_row(form.ctvo.acquerreur.paysN)}}
+                                        {{ form_row(form.ctvo.acquerreur.droitOpposition)}}
+                                    </div>
+                                </div>
+                                <div class="col-md-2 d-none d-lg-block"><div class="col-sep d-flex align-items-center justify-content-center"><span></span></div></div>
+                                <div class="col-md-5">
+                                    <legend>{{ form_label(form.ctvo.acquerreur.adresseNewTitulaire) }}</legend>
+                                    <div class="vehicule-neuf">
+                                    {% for addresseNewTitulaire in form.ctvo.acquerreur.adresseNewTitulaire %}
+                                        <div class="form-group">
+                                            {{ form_label(addresseNewTitulaire)}}
+                                            {{ form_errors(addresseNewTitulaire)}}
+                                            {{ form_widget(addresseNewTitulaire, {'attr': {'class': ''}})}}
+                                        </div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
                             </div>
 
-                                <h3 class="text-center">{{ form_label(form.ctvo.acquerreur) }}</h3>
-                                <hr>
-                                <div class="titulaire">
-                                    {{ form_row(form.ctvo.acquerreur.type)}}
-                                    {{ form_row(form.ctvo.acquerreur.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.ctvo.acquerreur.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.ctvo.acquerreur.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.ctvo.acquerreur.nomPrenomTitulaire)}}
-                                    {{ form_row(form.ctvo.acquerreur.prenomTitulaire)}}
-                                    {{ form_row(form.ctvo.acquerreur.genre)}}
-                                    {{ form_row(form.ctvo.acquerreur.dateN)}}
-                                    {{ form_row(form.ctvo.acquerreur.lieuN)}}
-                                    {{ form_row(form.ctvo.acquerreur.departementN)}}
-                                    {{ form_row(form.ctvo.acquerreur.paysN)}}
-                                    {{ form_row(form.ctvo.acquerreur.droitOpposition)}}
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col-3 col-md-5 mx-auto form-row full-mobile">
-                        <div class="col-10 col-sm-12 mx-auto">
-                            <h3 class="text-center"> {{ form_label(form.ctvo.acquerreur.adresseNewTitulaire) }} </h3>
-                            <hr>
-                            <div class="vehicule-neuf">
-                            {% for addresseNewTitulaire in form.ctvo.acquerreur.adresseNewTitulaire %}
-                                <div class="form-group">
-                                    {{ form_label(addresseNewTitulaire)}}
-                                    {{ form_errors(addresseNewTitulaire)}}
-                                    {{ form_widget(addresseNewTitulaire, {'attr': {'class': ''}})}}
-                                </div>
-                            {% endfor %}
-                            </div>
-                            <h3 class="text-center">{{ form_label(form.ctvo.cotitulaire) }}</h3>
-                            <hr>
-                            
-                                <ul class="tags" data-prototype="{{ form_widget(form.ctvo.cotitulaire.vars.prototype)|e('html_attr') }}">
-                                    {% for tag in form.ctvo.cotitulaire %}
-                                        {% if loop.index < 5 %}
-                                        <li>
-                                            {{ form_label(tag.vars.prototype)|e  }}
-                                            {{ form_errors(tag.vars.prototype)|e  }}
-                                            {{ form_widget(tag.vars.prototype, {'attr': {'class': ''}})|e  }}
-                                        </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                        </div>
-                    </div>
-                    <div class="col-12 text-center">
+                    </section>
+                    <h3>Etape</h3>
+                    <section style="position: relative;width: 100%;">
+                        <div id="resum"></div>
                         <div style="display:none;">
                             {{form_rest(form)}}
                         </div>
-                    </div>
-                    <div class="col-12 text-center mb-5">
-                        <br>
-                        <input type="submit" class="btn btn-md btn-success" value="Valider">
-                    </div>
+                    </section>
+                    {# <h3>Etape</h3>
+                    <section>
+                        <h4><strong>Liste des dossiers à fournir</strong></h4>
+                        {% if daf is defined %}
+                        <div id="daf-list-wrapper">
+                                {{ daf|raw }}
+                            </div>
+                        {% endif %}
+                        <div class="col-12 text-center">
+                            
+                        </div> #}
+                        {# {% if formFile is defined %}
+                            {% if formFile is not null %}
+                                {% include 'demande/file/FormDossier.html.twig' %}
+                            {% endif %}
+                            {% if demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_RECEIVE_VALID') %}
+                                <a href="{{ path("validate_file", {'demande': demande.id}) }}">
+                                    <button class="btn btn-info">
+                                        Valider
+                                    </button>
+                                </a>
+                            {% endif %}
+                        {% endif %} #}
+                    {# </section> #}
                 {{ form_end(form) }}
+
+                <hr>
+                <div class="resultat-estimation mb-5 full-mobile">
+                    {% include "demande/caracteristicVehicle.html.twig" %}
+                </div>
             </div>
         </div>
-	</div>
+    </div>
 </div>
 {% endblock %}
-{% block javascripts %} 
+{% block javascripts %}
 {{ parent() }}
-<script type="application/javascript">
-    $('.choice-type-ciPresent').on('change', function(e) {
-        $(e.target).parent('.form-group').siblings().toggle();
-    })
-</script>
-<script type="application/javascript">
-    $('.choice-type-ancientitulaire').on('change', function(e) {
-        $(e.target).parent('.form-group').siblings().toggle();
-    })
-</script>
-<script type="application/javascript">
-    $('.choice-type-personne').on('change', function(e) {
-        $(e.target).parent('.form-group').siblings().toggle();
-    })
-</script>
+<script src="{{asset('Utils/jquerySteps/js/jquery.steps.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/jqueryValidate.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/ctvo.js')}}"></script>
+
 <script type="application/javascript">
     $('.choice-type-cotitulaire').on('change', function(e) {
         $(e.target).parent('.form-group').siblings().toggle();
@@ -184,11 +207,45 @@
     }
 </script>
 <script type="text/javascript">
-    $('.js-datepicker').datepicker({
-        dateFormat: 'dd/mm/yy',
-        changeMonth: true,
-        changeYear: true
-    });
+    $(document).ready(
+        function(){
+            initFormStep(
+                $("#example-advanced-form"),
+                "h3",
+                "section",
+                "fade"
+            );
+        }
+    );
+
+    $(document).ready(
+        function(){
+            datePickerFunction(
+                $('.js-datepicker')
+            );
+        }
+    );
+    $(document).ready(
+        function(){
+            showElement(
+                $('.choice-type-ciPresent')
+            );
+            showElement(
+                $('.choice-type-ancientitulaire')
+            );
+            showElement(
+                $('.choice-type-personne')
+            );
+        }
+    );
+
 </script>
-    
+<script type="application/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({
+            html:true
+        });
+    })
+</script>
+<script src="{{ asset('asset/libs/js/jquery.sticky.js') }}" type="text/javascript"></script>
 {% endblock %}

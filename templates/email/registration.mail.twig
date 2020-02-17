@@ -2,39 +2,10 @@
 
 
 {% block body %}
-    <div style="font-family:Raleway;color:#7296ce;font-size:35px;padding-top:50px;text-align:center">
-        {{ "#{responses.response_code}" | statusMessage }}
-    </div>
-    
-    <div style="font-family:Raleway;color:#002a6a;font-size:22px;padding-top:20px;padding-bottom:15px;text-align:center;border:1px solid #002a6a;border-radius:5px;width:fit-content;padding-left:20px;padding-right:20px;margin-right:auto;margin-left:auto">        
-        <div>
-            Historique de la transaction effectuée par {{ responses.customer_email }} 
-            <br> <hr>
-        </div>
-        <table class="table-striped">
-            <tbody>
-                <tr>
-                    <td class="text-left">Référence de la transaction </td>
-                    <td class="text-left">{{ responses.transaction_id }}</td>
-                </tr>
-                <tr>
-                    <td class="text-left">Montant de la transaction </td>
-                    <td class="text-left">{{ responses.amount | amount(2) }}</td>
-                </tr>
-                <tr>
-                    <td class="text-left">Numéro de la carte </td>
-                    <td class="text-left">{{ responses.card_number | cardNumber(responses.card_validity) }}</td>
-                </tr>
-                <tr>
-                    <td class="text-left">Autorisation </td>
-                    <td class="text-left">{{ responses.authorisation_id }}</td>
-                </tr>
-                <tr>
-                    <td class="text-left">Certificat de la transaction </td>
-                    <td class="text-left">{{ responses.payment_certificate }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <hr>
-    </div>
+    {% set transaction = findByTransactionId(responses.transaction_id) %}
+        {% if responses.response_code == '00' %}
+            {{ include('email/success.mail.twig') }}
+        {% else %}
+            {{ include('email/cancel.mail.twig') }}
+        {% endif %}
 {% endblock %}

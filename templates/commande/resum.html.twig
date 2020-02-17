@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block page_content %}
+{% set taxe = commande.taxes %}
+{% if commande is defined %}
+    <div class="rp_dmd">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 resultat-estimation mx-auto">
+                    <h2 class="col-12 text-center">Récapitulatif de la demande</h2>
+                    <div class="row recap-demande-wrapper  pt-5 pb-5">
+                        <img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}"
+                             class="rounded col-2 mx-auto d-block img-thumbnail mb-3" style="height:70px;" alt="">
+                        <div class="col-10 mx-auto">
+                            <h2 class="col-12 mb-0 row mx-0"></h2>
+                            {{ include('commande/_resum_recap_demande.html.twig') }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 px-0 col-lg-12 mx-auto d-flex my-flex-container">
+                        <div class="col-12 px-0 row">
+                            <div class="col-6 mx-auto">
+                                <h2 class="mb-4">CARACTÉRISTIQUES DU VÉHICULE</h2>
+                                {{ include('commande/_resum_caracteristics_car.html.twig') }}
+                            </div>
+                            <div class="col-6 mx-auto">
+                                <h2 class="mb-4">DÉTAIL DES TAXES</h2>
+                                {{ include('commande/_resum_taxe_car.html.twig') }}
+                            </div>
+                            <div class="col-12 mx-auto mt-5">
+                                <div class="block_form">
+                                    {% if commande.transaction is not null and commande.transaction.status == "00" %}
+                                        <div class="block_form--btn-actions">
+                                            {% if commande.facture is not null %}
+                                                <a href="{{path('payment_facture_commande', {'commande': commande.id })}}" target="_blank">
+                                                    <button type="button" class="btn link-connexion-register ">Facture</button>
+                                                </a>
+                                            {% endif %}
+                                            <a href="{{path('new_demande', {'commande': commande.id })}}">
+                                                <button type="button" class="btn btn-blue ">Faire la Demande</button>
+                                            </a>
+                                        </div>
+                                    {% else %}
+                                        {% if app.user %}
+                                            <div class="formRecap">
+                                            {{ form_start(formCGV)}}
+                                                <div>
+                                                    {{ form_row(formCGV.infosFacture, {'label':'Informations de facturation'})}}
+                                                    {{ form_row(formCGV.termsAccepted)}}
+                                                    <br>
+                                                    <br>
+                                                    <a class="link-cgv" href="{{ path('cgv')}}" target="_blank" class="">
+                                                        <span class="menu-commander--button---text">Conditions générales de ventes CG Officiel</span>
+                                                    </a>
+                                                    {{ form_row(formCGV.enregistrer)}} <br>
+                                                </div>
+                                            {{ form_end(formCGV)}}
+                                            </div>
+                                        {% else %}
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn-validate-command d-flex align-items-center justify-content-between btn btn-blue"
+                                            data-toggle="modal" data-target="#exampleModalCenter">
+                                            {{ 'home.validateComand'|trans}}<i class="icon-right-arrow"></i>
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade mx-auto custom-mobile-modal" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title" id="exampleModalCenterTitle">Connectez-vous <span>pour valider et suivre votre
+                                                                commande</span></h3>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <i class="icomoon icon-close"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-12 col-lg-10 mx-auto">
+                                                                <div class="custom-container-flex  text-center">
+                                                                    <p class="mb-1">{{ 'home.noAcount'|trans}}</p>
+                                                                    <a class="btn link-connexion link-connexion-register"
+                                                                        href="{{ path('fos_user_registration_register') }}">
+                                                                        {{ 'home.createAcountButton'|trans}} <i class="icomoon icon-modifier"></i>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="custom-container-flex bdr-sep mt-3">
+                                                                    <p class="se-connecter">{{ 'home.loginConnnex'|trans}}</p>
+                                                                    {% include "bundles/FOSUserBundle/Security/login_content.html.twig" %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endif %}
+{% endblock %}

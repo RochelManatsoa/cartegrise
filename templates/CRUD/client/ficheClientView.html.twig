@@ -1,0 +1,138 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/style.css') }}" />
+{% endblock %}
+
+{% block sonata_admin_content %}
+{% for message in app.flashes('success') %}
+<div class="alert alert-success">
+    {{ message }}
+</div>
+{% endfor %}
+ {# {{ dump(client) }} #}
+<div class="esp_clientBlock AdminFicheC">
+    <h1 class="title-client">FICHE CLIENT</h1>
+            <h2 class="title-client">{{ client.clientNom |upper}} {{ client.clientPrenom}}</h2>
+    <div class="nav-client">
+        <ul class="row text-center align-items-center" id="pills-tab" role="tablist">
+            <li class="col-md-3"><a id="pills-apercu-tab" data-toggle="pill" href="#pills-apercu" role="tab" aria-controls="pills-apercu" aria-selected="true" class="nav-client-item home-item"><i class="icomoon icon-home"></i></a></li>
+            <li class="col-md-3"><a id="pills-document-tab" data-toggle="pill" href="#pills-status" role="tab" aria-controls="pills-status" aria-selected="false" class="nav-client-item">Panier</a></li>
+            <li class="col-md-3"><a id="pills-document-tab" data-toggle="pill" href="#pills-date" role="tab" aria-controls="pills-date" aria-selected="false" class="nav-client-item">Mails reçus</a></li>
+        </ul>
+    </div>
+    <div id="pills-tabContent" class="tab-content">
+        <div class="content-demarche tab-pane active" id="pills-apercu" role="tabpanel" aria-labelledby="pills-apercu-tab">
+            <div class="recapInfos">
+            <p>Inscrit le {{ client.user.registerDate |date('d/m/Y')}}</p>
+            <p>Tél :
+                {% if client.clientContact is not null %}
+                    {{ client.clientContact.contactTelmobile}}
+                {% else %}
+                    --
+                {% endif %}
+            </p>
+            <p>Mail : {{ client.user.email}}</p>
+            <p>{{ countDemande(client.user)}} Démarche en cours </p>
+            </div>
+        </div>
+        <div class="content-demarche tab-pane" id="pills-status" role="tabpanel" aria-labelledby="pills-status-tab">
+            <table class="table table-striped border-0 custom-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for commande in client.commandes %}
+                {% if commande.demande is not null %}
+                    <tr>
+                        <th class="responsive-toggle">Objet<span></span></th><td><a href="{{path('dossier_dossier', {'id': commande.demande.id})}}" target=_blank>{{commande.demarche.nom}} </a></td>
+                        <th class="responsive-toggle">Date<span></span></th><td>
+                            {% if commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
+                                <div class="alert alert-success">
+                                    La demande est validée, attente des documents par courrier à l'adresse
+                                </div>
+                            {% elseif commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') or commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_UNCOMPLETED')  %}
+                                <div class="alert alert-warning" role="alert">
+                                    La demande est en cours de validation
+                                </div>
+                            {% elseif commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
+                                <div class="alert alert-danger">
+                                    Un ou plusieurs documents non valides
+                                </div>
+                            {% elseif commande.demande.commande.saved %}
+                                <div class="alert alert-success">
+                                    La demande est validée et a été envoyée
+                                </div>
+                            {% else %}
+                                <div class="alert alert-info">
+                                    Attente de documents
+                                </div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="content-demarche tab-pane" id="pills-date" role="tabpanel" aria-labelledby="pills-date-tab">
+            <table class="table table-striped border-0 custom-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Objet</th>
+                        <th scope="col">Date</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for mail in client.user.emailHistories %}
+                    <tr>
+                        <th class="responsive-toggle">Objet<span></span></th><td>{{mail.subject}}</td>
+                        <th class="responsive-toggle">Date<span></span></th><td>{{mail.createdAt |date('d/m/Y')}}</td>
+                        <th class="responsive-toggle"><span></span></th>
+                            <td class="text-center">
+                                <div class="content-actions">
+                                    <button type="button" class="btn resume-btn" data-toggle="modal" data-target="#{{mail.id}}">
+                                        Ouvrir le mail
+                                    </button>
+                                </div>
+                            </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {# <div class="navigation">
+                {{ knp_pagination_render(client.user.emailHistories) }}
+            </div> #}
+            <!-- end display navigation -->
+        </div>
+    </div>
+</div>
+
+{% for mail in client.user.emailHistories %}
+    <!-- Modal -->
+    <div class="mailModal modal fade" id="{{mail.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Objet : {{ mail.subject }}<br>
+                        Date : {{ mail.createdAt | date('d M Y')}}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ decodeBody(mail) | raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

@@ -7,11 +7,15 @@
         </div>
     {% endfor %}
 <div>
-    {% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
+    {% if demande.commande is defined and demande.commande is not null and demande.commande.saved %}
+        <div class="alert alert-success">
+            la demande est validée et a été envoyée à TMS
+        </div>
+    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
         <div class="alert alert-success">
             La demande est validée, attende des documents par courrier à l'adresse
         </div>
-    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
+    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') or demande.statusDoc == constant('App\\Entity\\Demande::DOC_UNCOMPLETED') %}
         <div class="alert alert-warning" role="alert">
             La demande est en cours de validation
         </div>
@@ -66,7 +70,7 @@
         {% endif %}
     {% endfor %}
 </div>
-{% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') %}
+{% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') or demande.statusDoc == constant('App\\Entity\\Demande::DOC_UNCOMPLETED') %}
 <h3>
     Réponse:
 </h3>
@@ -86,13 +90,13 @@
     <div>
         <label for="valid_doc_simulate">
             <input type="checkbox" name="valid_doc_simulate" id="valid_doc_simulate">
-            Valier les documents à envoyer
+            Valider les documents à envoyer
         </label>
     </div>
     <input type="submit" class="btn btn-default" id="responseForm" value="Valider">
 </form>
 {% endif %}
-{% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
+{% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') and demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID_SEND_TMS') %}
 <h3>
     Réponse:
 </h3>
@@ -100,7 +104,7 @@
     <div>
         <label for="valid_doc_real">
             <input type="checkbox" name="valid_doc_real" id="valid_doc_real">
-            Valier les documents reçus par couriel
+            Valider les documents reçus par courrier
         </label>
     </div>
     <input type="submit" class="btn btn-default" id="responseForm" value="Valider">

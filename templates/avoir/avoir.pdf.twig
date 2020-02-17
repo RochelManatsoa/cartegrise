@@ -1,0 +1,6 @@
+
+    {% if demande is defined and demande is not null %}
+        {% include "avoir/demande/avoir.pdf.twig" %}
+    {% elseif commande is defined and commande is not null %}
+        {% include "avoir/commande/avoir.pdf.twig" %}
+    {% endif %}

@@ -1,0 +1,46 @@
+.body-erreur {
+    header, footer { display: none;}
+    .erreur-block {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: $royal-blue;
+        color: $white;
+        .error-container {
+            position: absolute;
+            max-width: 700px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            text-align: center;
+            h1 {
+                font-size: 24px;
+                font-weight: 700;
+                margin: 0;
+            }
+            .btn-erreur {
+                color: $white;
+                border-bottom: 1px solid;
+                border-radius: 0;
+                padding: 0;
+                margin-left: 15px;
+                &:hover {
+                    color: $aqua-blue;
+                }
+                &:focus {
+                    outline: none;
+                    box-shadow: none;
+                }
+            }
+            .erreur {
+                font-size: 220px;
+                line-height: 100%;
+                font-weight: bold;
+                color: $aqua-blue;
+                @include sm {
+                    font-size: 200px
+                }
+            }
+        }
+    }
+}

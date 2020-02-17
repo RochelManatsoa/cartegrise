@@ -139,6 +139,7 @@ class UserManager
     public function sendUserForRelance($level = 0)
     {
         $users = $this->repository->findUserForRelance($level);
+        // dd($users);
         $template = 'relance/email1.html.twig';
         $emails = [];
         foreach ($users as $user)
@@ -150,5 +151,15 @@ class UserManager
         $this->em->flush();
         
         return 'sended';
+    }
+
+    public function getUserByEmail(string $email) :?User
+    {
+        return $this->repository->findOneBy(['email'=>$email]);
+    }
+
+    public function getRepository() :UserRepository
+    {
+        return $this->repository;
     }
 }

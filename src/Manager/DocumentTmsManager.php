@@ -51,8 +51,9 @@
 
     public function getParamDup(Commande $commande, $type = "Cerfa")
     {
-        $client = $this->tokenStorage->getToken()->getUser()->getClient();
-        $adresse = $client->getClientAdresse();
+		$dup = $commande->getDemande()->getDuplicata();
+		$adresse = $dup->getAdresse();
+		$titulaire = $dup->getTitulaire();
 		$carInfo = $commande->getCarInfo();
 		$now = new \DateTime();
         return [
@@ -64,7 +65,7 @@
 					"DateDemarche" => $now->format('Y-m-d H:i:s'),
 					"Titulaire" => [
 						"DroitOpposition" => true,
-						"NomPrenom" => $client->getClientNomPrenom(),
+						"NomPrenom" => $titulaire->getNomPrenom(),
 					],
 					"Acquereur" => [
 						"Adresse" => [
@@ -91,8 +92,9 @@
 
     public function getParamDivn(Commande $commande, $type = "Cerfa")
     {
-        $client = $this->tokenStorage->getToken()->getUser()->getClient();
-        $adresse = $client->getClientAdresse();
+		$divn = $commande->getDemande()->getDivn();
+		$titulaire = $divn->getAcquerreur();
+        $adresse = $titulaire->getAdresseNewTitulaire();
         $carInfo = $commande->getCarInfo();
 
         // check if persone moral or not: 
@@ -139,7 +141,7 @@
 					'TypeDemarche' => $commande->getDemarche()->getType(),
 					"Titulaire" => [
 						"DroitOpposition" => true,
-                        "NomPrenom" => $client->getClientNomPrenom(),
+                        "NomPrenom" => $titulaire->getNomPrenomTitulaire().' '.$titulaire->getPrenomTitulaire(),
 					],
 					"Acquereur" => $acquerreur,
 					"Vehicule" => [
@@ -156,11 +158,12 @@
 	
 	public function getParamCtvo(Commande $commande, $type = "Cerfa")
     {
-        $client = $commande->getFirstClient();
-        $adresse = $client->getClientAdresse();
-        $carInfo = $commande->getCarInfo();
+	    $ctvo = $commande->getDemande()->getCtvo();
 		$now = new \DateTime();
-		$ctvo = $commande->getDemande()->getCtvo();
+		$newAdresse = $ctvo->getAcquerreur();
+		$adresse = $newAdresse->getAdresseNewTitulaire();
+        $client = $commande->getFirstClient();
+        $carInfo = $commande->getCarInfo();
 
         // check if persone moral or not: 
             if (
@@ -225,13 +228,90 @@
 	
 	public function getParamDca(Commande $commande, $type = "Cerfa")
     {
-        $client = $this->tokenStorage->getToken()->getUser()->getClient();
-        $adresse = $client->getClientAdresse();
         $carInfo = $commande->getCarInfo();
 		$now = new \DateTime();
 		$dca = $commande->getDemande()->getChangementAdresse();
 		$ancienAdresse = $dca->getAncienAdresse();
 		$nouvelleAdresse = $dca->getNouveauxTitulaire()->getAdresseNewTitulaire();
+		$nouveauxTitulaire = $commande->getDemande()->getChangementAdresse()->getNouveauxTitulaire();
+		$adresse = $nouveauxTitulaire->getAdresseNewTitulaire();
+		
+		if ( "phy" === $dca->getNouveauxTitulaire()->getType() ) {
+            $titulaire = [
+                "PersonnePhysique" => [
+                    "NomPrenom" => $dca->getNouveauxTitulaire()->getNomPrenomTitulaire(),
+                    "NomNaissance" => $dca->getNouveauxTitulaire()->getBirthName(),
+                    "Prenom" => $dca->getNouveauxTitulaire()->getPrenomTitulaire(),
+                    "Sexe" => $dca->getNouveauxTitulaire()->getGenre(),
+                    "NomUsage" => null,
+                    "DateNaissance" => $dca->getNouveauxTitulaire()->getDateN()->format('d-m-Y'),
+                    "LieuNaissance" => $dca->getNouveauxTitulaire()->getLieuN(),
+                    "DepNaissance" => $dca->getNouveauxTitulaire()->getDepartementN(),
+                    "PaysNaissance" => $dca->getNouveauxTitulaire()->getPaysN(),
+                    "DroitOpposition" => $dca->getNouveauxTitulaire()->getDroitOpposition()
+                ],
+                "AncienneAdresse" => [
+                    "Numero" => $dca->getAncienAdresse()->getNumero(),
+                    "ExtensionIndice" => $dca->getAncienAdresse()->getExtension(),
+                    "TypeVoie" => $dca->getAncienAdresse()->getTypevoie(),
+                    "NomVoie" => $dca->getAncienAdresse()->getNom(),
+                    "LieuDit" => $dca->getAncienAdresse()->getLieudit(),
+                    "EtageEscAppt" => $dca->getAncienAdresse()->getAdprecision(),
+                    "Complement" => $dca->getAncienAdresse()->getComplement(),
+                    "BoitePostale" => null,
+                    "CodePostal" => $dca->getAncienAdresse()->getCodepostal(),
+                    "Ville" => $dca->getAncienAdresse()->getVille(),
+                    "Pays" => $dca->getAncienAdresse()->getPays() === null ? "France" : $dca->getAncienAdresse()->getPays(),
+                ],
+                "NouvelleAdresse" => [
+                    "Numero" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getNumero(),
+                    "ExtensionIndice" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getExtension(),
+                    "TypeVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getTypevoie(),
+                    "NomVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getNom(),
+                    "LieuDit" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getLieudit(),
+                    "EtageEscAppt" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getAdprecision(),
+                    "Complement" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getComplement(),
+                    "BoitePostale" => null,
+                    "CodePostal" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getCodepostal(),
+                    "Ville" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getVille(),
+                    "Pays" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getPays() === null ? "France" : $dca->getAncienAdresse()->getPays(),                        
+                ],
+            ];
+        } elseif ( "mor" === $dca->getNouveauxTitulaire()->getType()) {
+            $titulaire = [
+                "PersonneMorale" =>[
+                    "RaisonSociale" => $dca->getNouveauxTitulaire()->getRaisonSociale(),
+                    "SocieteCommerciale" => $dca->getNouveauxTitulaire()->getSocieteCommerciale(),
+                    "SIREN" => $dca->getNouveauxTitulaire()->getSiren()
+                ],
+                "AncienneAdresse" => [
+                    "Numero" => $dca->getAncienAdresse()->getNumero(),
+                    "ExtensionIndice" => $dca->getAncienAdresse()->getExtension(),
+                    "TypeVoie" => $dca->getAncienAdresse()->getTypevoie(),
+                    "NomVoie" => $dca->getAncienAdresse()->getNom(),
+                    "LieuDit" => $dca->getAncienAdresse()->getLieudit(),
+                    "EtageEscAppt" => $dca->getAncienAdresse()->getAdprecision(),
+                    "Complement" => $dca->getAncienAdresse()->getComplement(),
+                    "BoitePostale" => null,
+                    "CodePostal" => $dca->getAncienAdresse()->getCodepostal(),
+                    "Ville" => $dca->getAncienAdresse()->getVille(),
+                    "Pays" => $dca->getAncienAdresse()->getPays() === null ? "France" : $dca->getAncienAdresse()->getPays(),
+                ],
+                "NouvelleAdresse" => [
+                    "Numero" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getNumero(),
+                    "ExtensionIndice" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getExtension(),
+                    "TypeVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getTypevoie(),
+                    "NomVoie" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getNom(),
+                    "LieuDit" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getLieudit(),
+                    "EtageEscAppt" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getAdprecision(),
+                    "Complement" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getComplement(),
+                    "BoitePostale" => null,
+                    "CodePostal" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getCodepostal(),
+                    "Ville" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getVille(),
+                    "Pays" => $dca->getNouveauxTitulaire()->getAdresseNewTitulaire()->getPays() === null ? "France" : $dca->getAncienAdresse()->getPays(),                        
+                ],
+            ];
+        }
 
         return [
 			"Type"     => $type,
@@ -240,30 +320,7 @@
                     'ID' => '',
 					'TypeDemarche' => $commande->getDemarche()->getType(),
 					"DateDemarche" => $now->format('Y-m-d H:i:s'),
-					"Titulaire" => [
-						"PersonnePhysique" => [
-							"SocieteCommerciale" =>true,
-							"DroitOpposition" => true,
-							"NomPrenom" => $client->getClientNomPrenom(),
-							"NomNaissance" => $client->getClientNom(),
-							"Prenom" => $client->getClientPrenom(),
-							"Sexe" => "M",
-							"DateNaissance" => $client->getClientDateNaissance()->format('dm-Y'),
-							"LieuNaissance" => $client->getClientLieuNaissance(),
-						],
-						"AncienneAdresse" => [
-							"TypeVoie" => $ancienAdresse->getComplement(),
-							"NomVoie" => $ancienAdresse->getNom(),
-							"CodePostal" => $ancienAdresse->getCodepostal(),
-							"Ville" => $ancienAdresse->getVille(),
-						],
-						"NouvelleAdresse" => [
-							"TypeVoie" => $nouvelleAdresse->getComplement(),
-							"NomVoie" => $nouvelleAdresse->getNom(),
-							"CodePostal" => $nouvelleAdresse->getCodepostal(),
-							"Ville" => $nouvelleAdresse->getVille(),
-						]
-					],
+					"Titulaire" => $titulaire,
 					"Vehicule" => [
 						"VIN" => $carInfo->getVin(),
 						"Immatriculation" => $commande->getImmatriculation(),

@@ -2,10 +2,11 @@
 
 namespace App\Repository;
 
-use App\Entity\Commande;
+use App\Entity\{Commande, Transaction, User};
 use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\Manager\Crm\Modele\CrmSearch;
 
 /**
  * @method Commande|null find($id, $lockMode = null, $lockVersion = null)
@@ -57,6 +58,128 @@ class CommandeRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function getDailyCommandeFacture($begin, \DateTime $now)
+    {
+        $qb = $this->createQueryBuilder('c')
+        ->join('c.facture','fact')
+        // ->join('c.client','cli')
+        // ->join('cli.user','u')
+        ->distinct()
+        // ->where('trans.status =:paramSuccess')
+        ->where('fact.createdAt <= :now');
+        // ->andWhere('trans.amount IS NOT NULL')
+        // ->andWhere('trans.createAt <= :now');
+
+        $qb
+        // ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
+        ->setParameter('now', $now);
+        // dd($qb->getQuery()->getResult());
+
+        return $qb->getQuery()->getResult();
+    }
+    public function getDailyCommandeFactureLimitate(\DateTime $start, \DateTime $end)
+    {
+        // $now->modify('- 40day');
+        $qb = $this->createQueryBuilder('c')
+        // ->select('u.email, c.clientNom, c.clientPrenom, c.id as idClient, c.clientGenre')
+        ->join('c.facture','fact')
+        // ->join('c.client','cli')
+        // ->join('cli.user','u')
+        ->distinct()
+        // ->where('trans.status =:paramSuccess')
+        // ->andWhere('trans.amount IS NOT NULL')
+        // ->andWhere('trans.createAt <= :end')
+        ->where('fact.createdAt <= :end')
+        ->andWhere('fact.createdAt > :start');
+
+        $qb
+        // ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
+        ->setParameter('start', $start)
+        ->setParameter('end', $end);
+        // dd($qb->getQuery()->getResult());
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getCrmFilter(CrmSearch $crmSearch)
+    {
+        if (!$crmSearch->isFilterable())
+            return [];
+        /**
+         * search started
+         */
+        $builder = $this->createQueryBuilder('c')
+        ->leftJoin('c.facture', 'facture')
+        ->leftJoin('c.demande', 'demande')
+        ->leftJoin('demande.transaction', 'transaction')
+        ->where('facture IS NOT NULL or (demande IS NOT NULL and transaction IS NOT NULL and transaction.status = :successTransactionStatus)')
+        ->setParameter('successTransactionStatus', '00');
+        #filter email
+        if (null != $crmSearch->getEmail()) {
+            $builder
+            ->join('c.client', 'client')
+            ->join('client.user', 'user')
+            ->andWhere('user.email like :email')
+            ->setParameter('email', '%'.$crmSearch->getEmail().'%');
+        }
+        #filter nom
+        if (null != $crmSearch->getNom()) {
+            if (null == $crmSearch->getEmail()) {
+                $builder
+                ->join('c.client', 'client');
+            }
+            $builder
+            ->andWhere('client.clientNom like :nom OR client.clientPrenom like :nom')
+            ->setParameter('nom', '%'.$crmSearch->getNom().'%');
+        }
+        #filter immatriculation
+        if (null != $crmSearch->getImmatriculation()) {
+            $builder
+            ->andWhere('c.immatriculation like :immatriculation')
+            ->setParameter('immatriculation', '%'.$crmSearch->getImmatriculation().'%');
+        }
+
+        return $builder->getQuery()->getResult();        
+    }
+
+    public function getCommandesPaidedWithoutDemande($level = 0)
+    {
+        $date = $this->relanceDateAfterSuccess($level);
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.client','cl')
+            ->leftJoin('cl.user','u')
+            ->leftJoin('c.transaction','t')
+            ->leftJoin('c.demande','d')
+            ->where('t.status = :success')
+            ->andWhere('d IS NULL')
+            ->andWhere('u IS NOT NULL')
+            ->andWhere('t.createAt = :date')
+            ->andWhere('cl.relanceLevel =:level')
+            ->setParameter('success', Transaction::STATUS_SUCCESS)
+            ->setParameter('level', $level)
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    private function relanceDateAfterSuccess($level)
+    {
+        $date = new \DateTime();
+        switch($level){
+            case 0:
+                $date->modify('-1hour');
+                break;
+            case 1:
+                $date->modify('-1day');
+                break;
+            default:
+                break;
+        }
+
+        return $date;
     }
     
 }

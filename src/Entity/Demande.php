@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
 
 /**
@@ -19,14 +21,22 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
  * )
+ * @ApiFilter(DateFilter::class, properties={"dateDemande"})
  */
 class Demande
 {
     const DOC_DOWNLOAD = 'document/';
+    const DOC_WAITTING = 0;
     const DOC_VALID = 1;
     const DOC_PENDING = 2;
     const DOC_NONVALID = 3;
     const DOC_RECEIVE_VALID = 4;
+    const DOC_UNCOMPLETED = 5;
+    const DOC_VALID_SEND_TMS = 6;
+    const RETRACT_DEMAND = 7;
+    const RETRACT_REFUND = 8;
+    const RETRACT_FORM_WAITTING = 9;
+    const WILL_BE_UNCOMPLETED = 20;
     const DOC_INVALID_MESSAGE= "Ce lien n'est plus valide";
     /**
      * @ORM\Id()
@@ -69,6 +79,7 @@ class Demande
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
+     * @Groups({"read"})
      */
     private $dateDemande;
 
@@ -134,6 +145,11 @@ class Demande
      */
     private $cerfa_path;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $fraisRembourser;
+
     
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -156,16 +172,39 @@ class Demande
     private $motifDeRejet;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $retractation;
+
+    /**
      * @var \DateTime $deletedAt
      *
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     private $deletedAt;
 
+    /**
+     * @var \Text $docIncomplets
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $docIncomplets;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Avoir", mappedBy="demande", cascade={"persist", "remove"})
+     */
+    private $avoir;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Notification", mappedBy="demande", cascade={"persist", "remove"})
+     */
+    private $notification;
+
     public function __construct()
     {
         $this->fichiers = new ArrayCollection();
         $this->dateDemande = new \Datetime();
+        $this->statusDoc = $this::DOC_WAITTING;
     }
 
     public function getId(): ?int
@@ -308,7 +347,9 @@ class Demande
     public function setCtvo(?Ctvo $ctvo): self
     {
         $this->ctvo = $ctvo;
-        //$ctvo->setDemande($this);
+        if ($this != $ctvo->getDemande()) {
+            $ctvo->setDemande($this);
+        }
 
         return $this;
     }
@@ -321,6 +362,10 @@ class Demande
     public function setDuplicata(?Duplicata $duplicata): self
     {
         $this->duplicata = $duplicata;
+
+        if ($this !== $duplicata->getDemande()) {
+            $duplicata->setDemande($this);
+        }
 
         return $this;
     }
@@ -392,6 +437,12 @@ class Demande
     {
 
         return $this->getGeneratedCerfaPath().'/facture.pdf';
+    }
+
+    public function getGeneratedAvoirPathFile(): ?string
+    {
+
+        return $this->getGeneratedCerfaPath().'/avoir.pdf';
     }
 
     public function getUploadPath()
@@ -519,8 +570,8 @@ class Demande
     public function preupdate()
     {
         if ($this->statusDoc === "1"){
-            $ref = $this->getTransaction()->getTransactionId() . '-' . $this->id;
-            $this->reference = $ref;
+            $ref = $this->getTransaction() ? $this->getTransaction()->getTransactionId() : $this->getCommande()->getTransaction()->getTransactionId();
+            $this->reference = $ref . '-' . $this->id;
         }
     }
 
@@ -553,6 +604,147 @@ class Demande
     public function setDeletedAt(?\DateTimeInterface $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getRetractation(): ?bool
+    {
+        return $this->retractation;
+    }
+
+    public function setRetractation(?bool $retractation): self
+    {
+        $this->retractation = $retractation;
+
+        return $this;
+    }
+
+    public function getAvoir(): ?Avoir
+    {
+        return $this->avoir;
+    }
+
+    public function setAvoir(?Avoir $avoir): self
+    {
+        $this->avoir = $avoir;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newDemande = null === $avoir ? null : $this;
+        if ($avoir->getDemande() !== $newDemande) {
+            $avoir->setDemande($newDemande);
+        }
+
+        return $this;
+    }
+
+    public function getNotification(): ?Notification
+    {
+        return $this->notification;
+    }
+
+    public function setNotification(?Notification $notification): self
+    {
+        $this->notification = $notification;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newDemande = null === $notification ? null : $this;
+        if ($notification->getDemande() !== $newDemande) {
+            $notification->setDemande($newDemande);
+        }
+
+        return $this;
+    }
+
+    public function getFraisRembourser()
+    {
+        return $this->fraisRembourser;
+    }
+
+    public function setFraisRembourser($fraisRembourser): self
+    {
+        $this->fraisRembourser = $fraisRembourser;
+
+        return $this;
+    }
+
+    public function getStatusDocString()
+    {
+        $result = '';
+        switch($this->statusDoc){
+            case $this::DOC_VALID :
+                $result = [
+                    'text' => 'Documents numériques validés',
+                    'class' => 'btn color-success',
+                ];
+                break;
+            case $this::DOC_PENDING :
+                $result = [
+                    'text' => 'Documents numérisés',
+                    'class' => 'btn color-warning',
+                ];
+                break;
+            case $this::DOC_NONVALID :
+                $result = [
+                    'text' => 'Documents reçus mais non validés',
+                    'class' => 'btn color-warning-light',
+                ];
+                break;
+            case $this::DOC_RECEIVE_VALID :
+                $result = [
+                    'text' => 'Docs courrier validés',
+                    'class' => 'btn color-primary',
+                ];
+                break;
+            case $this::DOC_UNCOMPLETED :
+                $result = [
+                    'text' => 'Documents incomplets',
+                    'class' => 'btn color-warning',
+                ];
+                break;
+            case $this::DOC_VALID_SEND_TMS :
+                $result = [
+                    'text' => 'Validée et envoyée à TMS',
+                    'class' => 'btn color-success-dark',
+                ];
+                break;
+            case $this::RETRACT_DEMAND :
+                $result = [
+                    'text' => 'Retractée',
+                    'class' => 'btn color-danger-light',
+                ];
+                break;
+            case $this::RETRACT_REFUND :
+                $result = [
+                    'text' => 'Remboursée',
+                    'class' => 'btn color-info-dark',
+                ];
+                break;
+            case $this::RETRACT_FORM_WAITTING :
+                $result = [
+                    'text' => 'Attente formulaire de rétractation',
+                    'class' => 'btn color-danger',
+                ];
+                break;
+            default: 
+                $result = [
+                    'text' => 'Attente de documents',
+                    'class' => 'btn color-info',
+                ];
+                break;
+        }
+
+        return $result;
+    }
+
+    public function getDocIncomplets()
+    {
+        return $this->docIncomplets;
+    }
+
+    public function setDocIncomplets($docIncomplets): self
+    {
+        $this->docIncomplets = $docIncomplets;
 
         return $this;
     }

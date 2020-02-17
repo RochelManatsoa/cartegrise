@@ -1,114 +1,238 @@
+//Footer
 footer {
-	.footer-reseau {
-		background-color: #7296ce;
-		font-family: Raleway;
-		z-index: 999999 !important;
-
-		h6{
-			font-family: Raleway;
-			font-weight: bold;
-			color: white;
-		}
-
-		a i {
-			color: white;
-			transition: color 1s ease;
-		}
-
-		.fb-ic {
-			:hover {
-				color: #3b5998;
-				cursor: pointer !important;
-			}
-		}
-
-		.tw-ic {
-			:hover {
-				color: #0084b4;
-				cursor: pointer !important;
-			}
-		}
-
-		.gplus-ic {
-			:hover {
-				color: #dd4b39;
-				cursor: pointer !important;
-			}
-		}
-
-		.ins-ic {
-			:hover {
-				color: #c32aa3;
-				cursor: pointer !important;
-			}
-		}
-	}
-
-	.footer {
-		z-index: 999;
-		background-color: rgb(26, 63, 120);
-		background-position: center;
-		background-size: cover;
-	}
-	@media screen and (min-width: 0px) and (max-width: 996px) {
-		.footer {
-			height: 100% !important;
-		}
-	}
-
-	.footer {
-		a {
-			&:hover {
-				text-decoration: none !important;
-			}
-		}
-
-		.footer-bottom {
-			h6 {
-				font-family: Raleway;
-				font-weight: bold !important;
-				margin-top: 1vh;
-				text-transform: uppercase;
-				-webkit-transition: color 1s ease-in;
-				-moz-transition: color 1s ease-in;
-				-o-transition: color 1s ease-in;
-				transition: color 1s ease-in;
-				font-weight: normal;
-				color: white;
-				text-decoration: none !important;
-				transition: color 1s ease;
-
+	.pre-footer {
+		padding: 60px 0 35px;
+		.faq-block {
+			margin-bottom: 35px;
+			.faQ {
+				color: $inherit;
+				font-size: 22px;
+				line-height: $size_24;
+				display: $block;
+				border: $bdr_solid_1 $royal-blue;
+				padding: 20px;
+				@include lg {
+					font-size: 20px;
+				}
+				@include md {
+					font-size: 15px;
+				}
+				@include sm {
+					display: -ms-flexbox;
+    				display: flex;
+				}
+				img {
+					width: 90px;
+					margin-bottom: 15px;
+					@include md {
+						-ms-flex: 0 0 60px;
+    					flex: 0 0 60px;
+						width: 60px;
+						margin-bottom: 5px;
+					}
+					@include sm {
+						-ms-flex: 0 0 60px;
+    					flex: 0 0 60px;
+					}
+				}
+				> span {
+					@include sm {
+						padding-left: 15px;
+					}
+					> span {
+						display: block;
+						font-size: 18px;
+						@include lg {
+							font-size: 16px;
+						}
+						@include md {
+							font-size: 14px;
+							line-height: 130%;
+						}
+					}
+				}
 				&:hover {
-					text-decoration: none !important;
-					color: #7296ce;
+					text-decoration: none;
+					color: $royal-blue;
+				}
+			}	
+			.remorque-icon {
+				img {
+					width: inherit;
+					height: 70px;
+					@include md {
+						-ms-flex: 0 0 60px;
+    					flex: 0 0 60px;
+						width: 60px;
+						height: inherit;
+					}
+					@include sm {
+						-ms-flex: 0 0 60px;
+						flex: 0 0 60px;
+						height: inherit;
+					}
 				}
 			}
 		}
-
-		.footer-menu-item:hover .footer-menu-line-span {
-			font-size: 10px;
+		.infos-inner {
+			border: $bdr_solid_1 $royal-blue;
+			padding: 20px;
+			.info_docs {
+				color: $inherit;
+				font-weight: bold;
+				text-transform: uppercase;
+				display: $block;
+				margin: 10px 0;
+				position: relative;
+				padding-left: 40px;
+				@include lg {
+					font-size: 14px;
+				}
+				@include md {
+					line-height: 20px;
+				}
+				@include sm {
+					padding-left: 28px;
+				}
+				&:before {
+					content: "\e903";
+					position: absolute;
+					font-family: 'icomoon' !important;
+					left: 0;
+					font-size: 29px;
+					color: $green;
+					@include sm {
+						font-size: 20px;
+					}
+				}
+				&:hover {
+					text-decoration: none;
+					color: $green;
+				}
+				em {
+					text-transform: none;
+					font-weight: 400;
+					display: $block;
+				}
+			}
 		}
-
-		li {
-			list-style: none !important;
-		}
-
-		.footer-menu-item:hover .footer-menu-line {
-			height: 5vh;
-		}
-
-		.footer-menu-item {
-			text-align: center;
+		.CG_Off_Footer {
+			background-color: $aqua-blue;
+			color: $white;
+			font-size: 14px;
+			font-style: italic;
+			line-height: $size_24;
+			margin-top: $size_24;
+			margin-bottom: 30px;
+			.logo-footer {
+				background-color: $royal-blue;
+				display: $block;
+				text-align: center;
+				padding: $size_24 0;
+				@include md {
+					height: 100%;
+					display: flex;
+					-ms-flex-align: center;
+					align-items: center;
+					-ms-flex-pack: center;
+					justify-content: center;
+				}
+				img {
+					width: 172px;
+					@include md {
+						width: 130px;
+					}
+				}
+			}
+			.texte_footer {
+				padding: 0 20px 0 0;
+				@include md {
+					padding: 10px 20px 10px 0;
+				}
+				@include sm {
+					padding-left: 20px;
+				}
+				p {
+					margin-bottom: 5px;
+				}
+			}
 		}
 	}
-	.footer-link{
-		h4{
-			font-family: Raleway;
-			color: white;
+	.habillitation-footer {
+		.habill_item {
+			span {
+				display: $block;
+				font-size: 12px;
+				line-height: 130%;
+				margin-bottom: 7px;
+				em {
+					display: $block;
+				}
+			}
+			img {
+				border: $bdr_solid_1 #e6e5e5;
+				padding: 3px;
+				&#Rep_fr {
+					width: 192px;
+				}
+				&#Tresr_plc {
+					width: 293px;
+					@include md {
+						width: 260px;
+    					margin-top: 7px;
+					}
+				}
+			}
 		}
-		h6{
-			font-family: Raleway;
-			color: white;
+	}
+	.menu-footer {
+		background: $gray;
+		margin-bottom: 20px;
+		padding: 27px 0;
+		ul {
+			@extend %list-style;
+			li {
+				display: inline-block;
+				margin: 0 10px;
+				@include md {
+					margin: 0 5px;
+				}
+				a {
+					color: $white;
+					&:hover {
+						text-decoration: none;
+						color: $royal-blue;
+					}
+				}
+			}
+		}
+	}
+	.copyright {
+		border-top: $bdr_solid_1 $gray;
+		padding: 20px 0;
+		font-size: 14px;
+		.txt-d {
+			font-style: italic;
+			display: inline-block;
+			color: #afafaf;
+			font-size: 12px;
+			line-height: 130%;
+		}
+		p {
+			margin-bottom: 0;
+			a {
+				color: $inherit;
+				margin: 0 10px;
+			}	
+		}
+		.social_block {
+			a {
+				color: $inherit;
+				i {
+					font-size: 20px;
+					margin-left: 15px;
+				}
+			}
 		}
 	}
 }

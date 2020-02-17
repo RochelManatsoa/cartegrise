@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% from 'shared/macro.html.twig' import delete_form %}
+
+{% set confirmMessage = "Etes-vous sûr de vouloir annuler cette demande ?" %}
+
+{% block page_content %}
+    <div class="esp_clientBlock">
+        <div class="container">
+            {{ include('client/layout/menu.html.twig') }}
+            <h4 class="mt-5">Mes mails</h4>
+            <div class="demarche-container no-bg p-0">
+                <table class="table table-striped border-0 custom-table">
+                    <thead>
+                        <tr>
+                            <th  scope="col">Objet</th>
+                            <th scope="col">Date</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for email in emailsHistory %}
+                        <tr>
+                            <th class="responsive-toggle">Objet<span></span></th><td>{{ email.subject}}</td>
+                            <th class="responsive-toggle">Date<span></span></th><td>{{ email.createdAt | date('d/m/Y')}}</td>
+                            <th class="responsive-toggle">Action<span></span></th>
+                            <td class="text-center">
+                                <div class="content-actions">
+                                    <button type="button" class="btn resume-btn" data-toggle="modal" data-target="#{{email.id}}">
+                                        Ouvrir le mail
+                                    </button>
+                                </div>
+                            </td>
+                        <!-- Button trigger modal -->
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                    {# display navigation #}
+                    <div class="navigation">
+                        {{ knp_pagination_render(emailsHistory) }}
+                    </div>
+                    <!-- end display navigation -->
+            </div>
+        </div>
+    </div> 
+
+{% for email in emailsHistory %}
+    <!-- Modal -->
+    <div class="mailModal modal fade" id="{{email.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Objet : {{ email.subject }}<br>
+                        Date : {{ email.createdAt | date('d M Y')}}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ decodeBody(email) | raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

@@ -4,7 +4,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-04-17 13:14:01 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-22 16:03:48
+ * @Last Modified time: 2019-12-31 08:13:12
  */
 namespace App\Manager;
 
@@ -12,6 +12,7 @@ use App\Entity\Commande;
 use App\Entity\Demande;
 use App\Entity\Transaction;
 use App\Entity\TypeDemande;
+use App\Entity\Adresse;
 use App\Entity\User;
 use App\Form\Demande\DemandeCtvoType;
 use App\Form\Demande\DemandeDivnType;
@@ -19,7 +20,7 @@ use App\Form\Demande\DemandeCessionType;
 use App\Form\Demande\DemandeDuplicataType;
 use App\Form\Demande\DemandeChangementAdresseType;
 use App\Form\DocumentDemande\DemandeNonValidateType;
-use App\Manager\{TransactionManager, MailManager};
+use App\Manager\{TransactionManager, MailManager, DocumentAFournirManager};
 use App\Repository\{DemandeRepository, DailyFactureRepository};
 use App\Manager\ClientManager;
 use App\Manager\TaxesManager;
@@ -28,6 +29,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Knp\Snappy\Pdf;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Entity\DailyFacture;
@@ -55,6 +57,7 @@ class DemandeManager
         DemandeRepository      $repository,
         DailyFactureRepository $dailyFactureRepository,
         TransactionManager     $transactionManager,
+        DocumentAFournirManager     $documentAFournirManager,
         TranslatorInterface    $translator,
         CommandeManager        $commandeManager,
         TokenStorageInterface  $tokenStorage,
@@ -68,6 +71,7 @@ class DemandeManager
         $this->repository         = $repository;
         $this->dailyFactureRepository   = $dailyFactureRepository;
         $this->transactionManager = $transactionManager;
+        $this->documentAFournirManager = $documentAFournirManager;
         $this->commandeManager    = $commandeManager;
         $this->translator         = $translator;
         $this->tokenStorage       = $tokenStorage;
@@ -84,6 +88,7 @@ class DemandeManager
     {
         $demande = $this->init();
         $commande->setDemande($demande);
+        $demande->setCommande($commande);
         switch ($commande->getDemarche()->getType()) {
             case "CTVO":
                 $form = $this->formFactory->create(DemandeCtvoType::class, $demande);
@@ -124,6 +129,22 @@ class DemandeManager
 
     }
 
+    public function retracter(Demande $demande)
+    {
+        if (!$demande instanceof Demande)
+            return;
+        $demande->setStatusDoc(Demande::RETRACT_DEMAND);
+        $this->saveDemande($demande);
+    }
+
+    public function refund(Demande $demande)
+    {
+        if (!$demande instanceof Demande)
+            return;
+        $demande->setStatusDoc(Demande::RETRACT_REFUND);
+        $this->saveDemande($demande);
+    }
+
     public function saveDemande(Demande $demande)
     {
         if (!$demande instanceof Demande)
@@ -132,17 +153,24 @@ class DemandeManager
         $this->em->flush();
     }
 
+    public function persist(Demande $demande) {
+        $this->em->persist($demande);
+    }
+
     public function getView(Form $form)
     {
         $demande = $form->getData();
+        $params = [
+            'demande'   => $demande,
+            'form'     => $form->createView(),
+            'commande' => $demande->getCommande()
+        ];
         switch($demande->getCommande()->getDemarche()->getType()) {
             case "CTVO":
+            //dd($params);
                 $view = $this->twig->render(
                         "demande/ctvo.html.twig",
-                        [
-                            'form'     => $form->createView(),
-                            'commande' => $demande->getCommande(),
-                        ]
+                        $params
                 );
             break;
 
@@ -282,6 +310,8 @@ class DemandeManager
     {
         $folder = $demande->getGeneratedCerfaPath();
         $file = $demande->getGeneratedFacturePathFile();
+        $params = $this->getTitulaireParams($demande);
+        $params = array_merge(['demande' => $demande], $params);
         // create directory
         if (!is_dir($folder)) mkdir($folder, 0777, true);
         // end create file 
@@ -289,13 +319,46 @@ class DemandeManager
         if (!is_file($file)) { // attente de finalité du process
             $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
             $filename = "Facture";
-            $html = $this->twig->render("payment/facture.html.twig", array(
-                "demande"=> $demande,
-            ));
+            $html = $this->twig->render("payment/facture.html.twig", $params);
             $output = $snappy->getOutputFromHtml($html);
             
             $filefinal = file_put_contents($file, $output);
         }
+        
+        return $file;
+    }
+
+    public function generateAvoir(Demande &$demande)
+    {
+        if (is_null($demande->getAvoir())){
+            Throw new Exception("La demande n'a pas encore été retracter");
+        }
+        $demande->setStatusDoc(Demande::RETRACT_FORM_WAITTING);
+        $folder = $demande->getGeneratedCerfaPath();
+        $file = $demande->getGeneratedAvoirPathFile();
+        $params = $this->getTitulaireParams($demande);
+        $params = array_merge(['demande' => $demande], $params);
+        // create directory
+        if (!is_dir($folder)) mkdir($folder, 0777, true);
+        // end create file 
+        // save Avoir before generate number
+        if(
+            !is_null($demande->getAvoir()) &&
+            $demande->getAvoir()->getFullPath() != $file
+        ) {
+            $demande->getAvoir()->setFullPath($file);
+            $this->saveDemande($demande);
+        }
+        // end sav Avoir before generate number
+        // get facture if not exist
+        // if (!is_file($file)) { // attente de finalité du process
+            $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
+            $filename = "Facture";
+            $html = $this->twig->render("avoir/avoir.pdf.twig", $params);
+            $output = $snappy->getOutputFromHtml($html);
+            
+            $filefinal = file_put_contents($file, $output);
+        // }
         
         return $file;
     }
@@ -345,9 +408,15 @@ class DemandeManager
         return $this->repository->find($id);
     }
 
+    public function getRepository()
+    {
+        return $this->repository;
+    }
+
     public function getUserWithoutSendDocumentInDay(int $day, MailManager $mailManager){
         $relanceLevel = $this->getRelanceLevel($day);
         $responses = $this->repository->getUserWithoutSendDocumentInDay($day, $relanceLevel);
+        // dd($responses);
         if ($day === 27)
         {
             $object = "Attention plus que 3 jours pour envoyer les documents !";
@@ -367,6 +436,7 @@ class DemandeManager
     public function getUserWithSendDocumentButNotValidInDay(int $day, MailManager $mailManager){
         $relanceLevel = $this->getRelanceLevelDocNonValid($day);
         $responses = $this->repository->getUserWithSendDocumentButNotValidInDay($day, $relanceLevel);
+        // dd($responses);
         $restDay = 30 - $day;
         if ($day === 27)
         {
@@ -394,11 +464,8 @@ class DemandeManager
             case 14:
                 $return = 6;
                 break;
-            case 20:
-                $return = 7;
-                break;
             case 27:
-                $return = 8;
+                $return = 7;
                 break;
             default:
                 $return = 4;
@@ -411,19 +478,16 @@ class DemandeManager
     {
         switch($day){
             case 7:
-                $return = 9;
+                $return = 8;
                 break;
             case 14:
-                $return = 10;
-                break;
-            case 20:
-                $return = 11;
+                $return = 9;
                 break;
             case 27:
-                $return = 12;
+                $return = 10;
                 break;
             default:
-                $return = 8;
+                $return = 7;
                 break;
         }
 
@@ -479,4 +543,163 @@ class DemandeManager
         
         return 'sended';
     }
+
+    public function getHerLastDemande()
+    {
+       $user = $this->tokenStorage->getToken()->getUser();
+
+       return $this->repository->getLastDemande($user);
+    }
+
+    public function getTitulaireParams(Demande $demande)
+    {
+        switch($demande->getCommande()->getDemarche()->getType()){
+            case "CTVO":
+                $titulaire = $demande->getCtvo()->getAcquerreur();
+                $adresseFacture = $titulaire->getAdresseNewTitulaire();
+            break;
+            case "DUP":
+                if ($demande->getDuplicata()->getAdresse() instanceof Adresse) {
+                    $adresseFacture = $demande->getDuplicata()->getAdresse();
+                } else if ($demande->getCommande()->getClient() !== null) {
+                    $adresseFacture = $demande->getCommande()->getClient()->getClientAdresse();
+                } else {
+                    $adresseFacture = null;
+                }
+                
+            break;
+            case "DIVN":
+                $titulaire = $demande->getDivn()->getAcquerreur();
+                $adresseFacture = $titulaire->getAdresseNewTitulaire();
+            break;
+            case "DCA":
+                $adresseFacture = $demande->getChangementAdresse()->getNouveauxTitulaire()->getAdresseNewTitulaire();
+            break;
+        }
+        return [
+            'adresse' => $adresseFacture,
+        ];
+    }
+
+    public function findValueNomPrenomOfTitulaire(Demande $demande, $nomPrenom)
+    {
+       $type = $demande->getCommande()->getDemarche()->getType();
+       $realNomPrenom = $this->getNomPrenomOfTitulaire($demande, $type);
+       $propertyAccessor = PropertyAccess::createPropertyAccessor();
+       if ($propertyAccessor->isReadable($realNomPrenom, $nomPrenom)) {
+           if ($propertyAccessor->getValue($realNomPrenom, $nomPrenom) != null)
+            {
+                return $propertyAccessor->getValue($realNomPrenom, $nomPrenom);
+            }
+       }
+
+       return "";
+    }
+
+    private function getNomPrenomOfTitulaire(Demande $demande, $type)
+    {
+        switch($type) {
+            case "CTVO":
+                return $demande->getCtvo()->getAcquerreur();
+                break;
+            case "DUP":
+                return $demande->getDuplicata()->getTitulaire();
+                break;
+            case "DIVN":
+                return $demande->getDivn()->getAcquerreur();
+                break;
+            case "DCA":
+                return $demande->getChangementAdresse()->getNouveauxTitulaire();
+                break;
+            default:
+                return null;
+        }
+    }
+
+    public function checkServiceClient()
+    {
+        if ($this->tokenStorage->getToken()->getUser() instanceof User) {
+            $demandes = $this->getDemandeOfUser($this->tokenStorage->getToken()->getUser());
+            $status = false;
+            foreach($demandes as $demande){
+                $tmpStatus = $demande->getTransaction() != null ? $demande->getTransaction()->getStatus() : ($demande->getCommande()->getTransaction() != null ) ? $demande->getCommande()->getTransaction()->getStatus(): "";
+                if ($tmpStatus == '00') {
+                    $status = true;
+                    break;
+                } 
+            }
+            if($status){
+                return "0977423130";
+            }
+        }
+
+        return "0897010800";
+    }
+
+    public function getDemandeForCommande(Commande $commande)
+    {
+        return $this->repository->findOneBy(['commande'=>$commande->getId()]);
+    }
+
+    public function getAdminView(Form $form)
+    {
+        $demande = $form->getData();
+        $params = [
+            'demande'   => $demande,
+            'form'     => $form->createView(),
+            'commande' => $demande->getCommande()
+        ];
+        switch($demande->getCommande()->getDemarche()->getType()) {
+            case "CTVO":
+            //dd($params);
+                $view = $this->twig->render(
+                        "CRUD/demande/ctvo.html.twig",
+                        $params
+                );
+            break;
+
+            case "DUP":
+                $view = $this->twig->render(
+                        "CRUD/demande/duplicata.html.twig",
+                        [
+                            'form'     => $form->createView(),
+                            'commande' => $demande->getCommande(),
+                        ]
+                );
+            break;
+
+            case "DIVN":
+                $view = $this->twig->render(
+                        "CRUD/demande/divn.html.twig",
+                        [
+                            'form'     => $form->createView(),
+                            'commande' => $demande->getCommande(),
+                        ]
+                );
+                break;
+            
+            case "DCA":
+                $view = $this->twig->render(
+                        "CRUD/demande/changementAdresse.html.twig",
+                        [
+                            'form'     => $form->createView(),
+                            'commande' => $demande->getCommande(),
+                        ]
+                );
+            break;
+
+            case "DC":
+                $view = $this->twig->render(
+                        "CRUD/demande/cession.html.twig",
+                        [
+                            'form'     => $form->createView(),
+                            'commande' => $demande->getCommande(),
+                        ]
+                );
+            break;
+        }
+
+        return $view;
+    }
+
 }

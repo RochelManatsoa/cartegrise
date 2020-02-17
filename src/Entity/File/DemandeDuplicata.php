@@ -32,92 +32,92 @@ class DemandeDuplicata
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $justificatifDomicile;
+    protected $justificatifDomicile;
 
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $certificatImmatriculation;
+    protected $certificatImmatriculation;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $declarationdePerteOuVol;
+    protected $declarationdePerteOuVol;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $copieControleTechniqueEnCoursValidite;
+    protected $copieControleTechniqueEnCoursValidite;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $pieceIdentiteValid;
+    protected $pieceIdentiteValid;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $copieAttestationAssuranceValide;
+    protected $copieAttestationAssuranceValide;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $cerfaDeclarationPerteVol;
+    protected $cerfaDeclarationPerteVol;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $permisDeConduireDuTitulaire;
+    protected $permisDeConduireDuTitulaire;
     /**
     * @ORM\Column(type="string", nullable=true)
     * @Groups({"file"})
     * @Assert\File(
     *     maxSize = "5120k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf"},
+    *     mimeTypes = {"application/pdf", "application/x-pdf", "image/jpeg", "image/png"},
     *     mimeTypesMessage = "Please upload a valid PDF"
     * )
     */
-    private $procurationMandat;
+    protected $procurationMandat;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Duplicata", mappedBy="file")

@@ -2,77 +2,85 @@
 
 
 {% block page_content %}
-<div class="col-10 mx-auto">
-    <div>
-        <br>
-        <h3>
-            {% if responses.response_code == "00" %}
-                    Félicitations ! <br>
-                    {{ "#{responses.response_code}" | statusMessage }}
+    <div class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
+        <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container w-100 mx-md-3 mx-lg-4">
+            <div class="col-12">
+                <div class="px-md-2">
+                    <h2>
+                        {% if responses.response_code == "00" %}
+                                Félicitations ! <br>
+                                {{ "#{responses.response_code}" | statusMessage }}
+                            {% else %}
+                                Désolé ! Votre transaction n'a pas abouti. <br>
+                        {% endif %}
+                    </h2>
+                    <hr>
+                    <p>Voici le récapitulatif de votre transaction : </p>
+                    <div class="col-md-8 mx-auto">
+                        <div class="list-grid">
+                            <div class="list-grid__item">
+                                <div >Référence de la transaction</div>
+                                <div>{{ responses.transaction_id }}</div>
+                            </div>
+                            <div  class="list-grid__item">
+                                <div>Montant de la transaction</div>
+                                <div>{{ responses.amount }}</div>
+                            </div>
+                            <div class="list-grid__item">
+                                <div>Numéro de la carte</div>
+                                <div>{{ responses.card_number | cardNumber(responses.card_validity) }}</div>
+                            </div>
+                            <div class="list-grid__item">
+                                <div>Autorisation</div>
+                                <div>{{ responses.authorisation_id }}</div>
+                            </div>
+                            <div class="list-grid__item">
+                                <div>Certificat de la transaction </div>
+                                <div>{{ responses.payment_certificate }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if transaction is not null and transaction.commande is not null %}
+                    <div class="no-underline ">
+                        <a href="{{path('new_demande', {'commande': transaction.commande.id })}}" class="no-underline " >
+                            <button class="btn btn-aqua-blue mb-4 mx-auto mt-5">
+                                Finaliser ma commande
+                            </button>
+                        </a>
+                    </div>
                 {% else %}
-                    Désolé ! Votre transaction n'a pas abouti. <br>
-            {% endif %}
-        </h3>
-    </div>
-    <div><br>
-        Voici le récapitulatif de votre transaction : 
-        <br><br>
-        <table class="table-striped">
-            <tbody>
-                <tr>
-                    <td>Référence de la transaction </td>
-                    <td>{{ responses.transaction_id }}</td>
-                </tr>
-                <tr>
-                    <td>Montant de la transaction </td>
-                    <td>{{ responses.amount | amount(2) }}</td>
-                </tr>
-                <tr>
-                    <td>Numéro de la carte </td>
-                    <td>{{ responses.card_number | cardNumber(responses.card_validity) }}</td>
-                </tr>
-                <tr>
-                    <td>Autorisation </td>
-                    <td>{{ responses.authorisation_id }}</td>
-                </tr>
-                <tr>
-                    <td>Certificat de la transaction </td>
-                    <td>{{ responses.payment_certificate }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <br>
-    {% if transaction is not null and transaction.demande is not null %}
-        {% if transaction.demande.divn is defined and transaction.demande.divn is not null %}
-        <div>
-            <a href="{{path('divn_demande', {divn: transaction.demande.divn.id })}}" >
-                <button class="btn btn-primary">
-                    Finaliser ma commande
-                </button>
-            </a>
-        </div>
-        {% else %}
-        <div>
-            <a href="{{path('demande_dossiers_a_fournir', {id: transaction.demande.id })}}" >
-                <button class="btn btn-primary">
-                    Finaliser ma commande
-                </button>
-            </a>
-        </div>
-        {% endif %}
-    {% else %}
-        <div>
-            <a href="{{path('home')}}">
-                <button class="btn btn-primary">
-                    Retour
-                </button>
-            </a>
-        </div>
-    {% endif %}
+                    <div class="no-underline">
+                        <a href="{{path('home')}}">
+                            <button class="btn btn-aqua-blue mb-4" class="no-underline ">
+                                Retour
+                            </button>
+                        </a>
+                    </div>
+                {% endif %}
 
-</div>
-</body>
-
-</html>
+            </div>
+        </div>
+    </div>
+<!-- DEBUT Marque blanche MASS -->
+{# 
+<div id="assurance">
+	<div class="popup-content">
+		<div id="erreurLCA"></div>
+		<div id="divLCA">
+			<iframe id="FrnLCA" frameborder="0" scrolling="no" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"></iframe>
+		</div>
+	</div>
+</div> 
+#}
+{% block javascripts %}
+{# 
+<script src="https://forms.lecomparateurassurance.com/MarqueBlanche/MarqueBlancheJs" type="text/javascript" ></script>
+<script type="text/javascript">
+       CreateFrame("CGauto","9999");
+</script> 
+#}
+{% endblock %}
+<!-- FIN Marque blanche MASS -->
+    
 {% endblock %}

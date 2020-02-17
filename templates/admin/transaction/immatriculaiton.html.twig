@@ -1,0 +1,11 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+    {% if object.commande is defined and object.commande is not null %}
+                {{object.commande.immatriculation}}
+    {% elseif object.demande is defined and object.demande is not null %}
+                {{object.demande.commande.immatriculation}}
+    {% else %}
+    /
+    {% endif %}
+{% endblock %}

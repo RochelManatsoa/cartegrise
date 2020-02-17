@@ -13,6 +13,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Manager\SessionManager;
 use App\Manager\UserManager;
+use App\Manager\Mercure\MercureManager;
 
 /**
  * Listener responsible to change the redirection at the end of the password resetting
@@ -24,13 +25,15 @@ class RegisterListener implements EventSubscriberInterface
     private $em;
     private $sessionManager;
     private $userManager;
+    private $mercureManager;
 
     public function __construct(
         UrlGeneratorInterface $router, 
         CommandeRepository $commandeRepository, 
         EntityManagerInterface $em,
         SessionManager $sessionManager,
-        UserManager $userManager
+        UserManager $userManager,
+        MercureManager $mercureManager
     )
     {
         $this->router             = $router;
@@ -38,6 +41,7 @@ class RegisterListener implements EventSubscriberInterface
         $this->em                 = $em;
         $this->sessionManager     = $sessionManager;
         $this->userManager     = $userManager;
+        $this->mercureManager     = $mercureManager;
     }
 
     /**
@@ -56,6 +60,15 @@ class RegisterListener implements EventSubscriberInterface
         if (!$user instanceof User)
             return;
         $this->userManager->checkCommandeInSession($user);
+        // The Publisher service is an invokable object
+        $this->mercureManager->publish(
+        'http://cgofficiel.com/addNewSimulator',
+        'utilisateur',
+        [
+            'id' => $user->getId(),
+        ],
+        'nouvelle Utilisateur insérer'
+        );
         
         return;
     }

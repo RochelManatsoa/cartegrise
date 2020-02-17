@@ -9,7 +9,6 @@
         <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container w-100 mx-3 mx-lg-4">
             <div class="col-12">
                 <div class="px-2">
-                    <br>
                     <h3>Commandes effectuées​</h3>
                     <hr>
                     <div class="table-responsive">
@@ -36,23 +35,26 @@
                                     <td class="text-center">{{ demande.commande.codePostal | displayValue}}</td>
                                     <td class="text-center">{{ demande.commande.immatriculation | displayValue}}</td>
                                     <td>
-                                        <span class="badge badge-{{ statusOfCommande(demande.commande, "style") }}">{{ statusOfCommande(demande.commande, "text") }}</span>                                        
+                                        <span
+                                            class="badge badge-{{ statusOfCommande(demande.commande, "style") }}">{{ statusOfCommande(demande.commande, "text") }}</span>
                                     </td>
                                     <td>
                                         <a href="{{path('demande_recap', {'demande': demande.id })}}">
                                             <button type="button" class="btn btn-primary btn-sm">Résumé</button>
                                         </a>
-                                        {% if demande.transaction is not null and demande.transaction.status == "00" %}
-                                            <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
-                                                <button type="button" class="btn btn-primary btn-sm">Documents à fournir</button>
-                                            </a>                                            
+                                        {% if demande.commande.transaction is not null and demande.commande.transaction.status == "00" %}
+                                        <a href="{{path('demande_dossiers_a_fournir', {id: demande.id })}}">
+                                            <button type="button" class="btn btn-primary btn-sm">Documents à fournir</button>
+                                        </a>
                                         {% else %}
-                                            {{ delete_form('demande_annuler', {id: demande.id}, 'demande' ~ demande.id, confirmMessage, 'Annuler', null, 'btn btn-danger btn-sm mb-1') }}
+                                        {{ delete_form('demande_annuler', {id: demande.id}, 'demande' ~ demande.id, confirmMessage, 'Annuler', null, 'btn btn-danger btn-sm mb-1') }}
                                         {% endif %}
                                     </td>
                                 </tr>
                             {% else %}
-                                <tr><td colspan="8">Aucune demande trouvé</td></tr>
+                                <tr>
+                                    <td colspan="8">Aucune demande trouvé</td>
+                                </tr>
                             {% endfor %}
                             </tbody>
                         </table>

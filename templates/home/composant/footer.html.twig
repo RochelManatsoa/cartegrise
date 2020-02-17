@@ -1,108 +1,103 @@
-<footer>
-	<div class="col-12 row footer d-flex flex-row align-items-center my-flex-container ">
-		<div class="col-12 footer-reseau">
-			<div class="col-12">
-
-				<!-- Grid row-->
-				<div class="row col-10 mx-auto py-2 d-flex align-items-center">
-
-					<!-- Grid column -->
-					<div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-						<h6 class="mb-0">Suivez nous sur les réseaux sociaux !</h6>
+<footer id="footer">
+	<div class="pre-footer">
+		<div class="container">
+			<div class="faq-block">
+				<div class="row">
+					<div class="col-md-4">
+						<a href="{{ path('faq')}}" class="faQ">
+							<img src="{{ asset('asset/img/certificat-icon.svg') }}">
+							<span><span>A quoi sert le</span> certiﬁcat d’immatriculation ?</span>
+						</a>
 					</div>
-					<!-- Grid column -->
-
-					<!-- Grid column -->
-					<div class="col-md-6 col-lg-7 text-center text-md-right">
-
-						<!-- Facebook -->
-						<a class="fb-ic" href="https://www.facebook.com/CG-Officiel-2101234933265302/" target="_blank">
-							<i class="fab fa-2x fa-facebook-f white-text mr-4"></i>
+					<div class="col-md-4">
+						<a href="{{ path('faq')}}" class="faQ remorque-icon">
+							<img src="{{ asset('asset/img/remorque-icon.png') }}">
+							<span><span>Doit-on</span> immatriculer une remorque ?</span>
 						</a>
-						{# <!-- Twitter -->
-						<a class="tw-ic">
-							<i class="fab fa-2x fa-twitter white-text mr-4"></i>
-						</a>
-						<!-- Google +-->
-						<a class="gplus-ic">
-							<i class="fab fa-2x fa-google-plus-g white-text mr-4"></i>
-						</a>
-						<!--Instagram-->
-						<a class="ins-ic">
-							<i class="fab fa-2x fa-instagram white-text"></i>
-						</a> #}
-
 					</div>
-					<!-- Grid column -->
-
+					<div class="col-md-4">
+						<a href="{{ path('faq')}}" class="faQ">
+							<img src="{{ asset('asset/img/tractor-icon.svg') }}">
+							<span><span>Doit-on</span> immatriculer un tracteur ?</span>
+						</a>
+					</div>
 				</div>
-				<!-- Grid row-->
-
+			</div>
+			<div class="infos-inner">
+				<div class="row">
+					<div class="col-md-4">
+						<a href="#" class="info_docs">Entrez vos informations</a>
+						<a href="#" class="info_docs">Envoyez nous vos documents</a>
+					</div>
+					<div class="col-md-4">
+						<a href="#" class="info_docs">Traitement 24h *<em>(<sup>*</sup> Après réception de votre dossier)</em></a>
+					</div>
+					<div class="col-md-4">
+						<a href="#" class="info_docs">Recevez directement votre nouvelle carte grise chez vous!</a>
+					</div>
+				</div>
+			</div>
+			<div class="CG_Off_Footer">
+				<div class="row align-items-center">
+					<div class="col-md-3">
+						<a class="logo-footer" href="{{ path('Accueil') }}">
+							<img src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="">
+						</a>
+					</div>
+					<div class="col-md-9">
+						<div class="texte_footer">
+							<p>En tant que professionnel de l'automobile, CG Officiel est habilité par la Préfecture, au Système d'Immatriculation des Véhicules (SIV). Non affilié au gouvernement, CG Officiel est également agréé par le Ministère de l'Intérieur (n° 222442), et habilité par le Trésor Public (n° 55337) afin de vous proposer ce service d'immatriculation de véhicule en ligne et vous épargner ainsi tout déplacement pour vos démarches.</p>
+							<p>Si vous préférez envoyer votre demande à l'ANTS, l'Agence Nationale des Titres Sécurisés, prenez en compte la possibilité du délai de traitement des demandes d'immatriculation plus importante, avec son système automatisé de demandes de cartes grises mis en place le 6 novembre 2017.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="habillitation-footer text-center">
+				<div class="row justify-content-center">
+					<div class="col-12 col-md-10 col-lg-8">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="habill_item">
+									<span>Habilitation >Ministère de L'intérieur <em>N° 222442</em></span>
+									<img id="Rep_fr" src="{{ asset('asset/img/rep_Francaise.png')}}" alt="République Fr">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="habill_item">
+									<span>Agrément du Trésor Public <em>N° 55337</em></span>
+									<img id="Tresr_plc" src="{{ asset('asset/img/tresor_public.png')}}" alt="Trésor publique">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="col-10 row mx-auto">
-			<div class="col-12 col-lg-3 row d-flex flex-row align-items-center my-flex-container head-logo  mt-5 mb-5">
-				<a class="col-12 d-flex flex-row align-items-center my-flex-container  text-left" href="{{ path('Accueil') }}">
-					<img class="rounded mx-auto d-block img-fluid" src="{{ asset('asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png')}}" alt="">
-				</a>
-			</div>
-
-			<div class="col-12 col-lg-3 footer-link mt-5">
-				<div class="col-12 row">
-					<h4 class="text-center col-12">Pages</h4>
-					<a href="{{ path('Accueil') }}" class="col-12 footer-menu-item">
-						<li>
-							<h6>Accueil</h6>
-						</li>
-					</a>
-					<a href="{{ path('CommentCaMarche') }}" class="col-12 footer-menu-item">
-						<li>
-							<h6>Comment ça marche ?</h6>
-						</li>
-					</a>
-					<a href="http://blog.cgofficiel.fr" class="col-12 footer-menu-item">
-						<li>
-							<h6>Actualités</h6>
-						</li>
-					</a>
+	</div>
+	<div class="menu-footer">
+		<div class="container">
+			<ul class="text-center">
+				<li><a href="{{ path('Accueil') }}" class="footer-menu-item">Accueil</a></li>
+				<li><a href="{{ path('CommentCaMarche') }}" class="footer-menu-item">Comment ça marche ?</a></li>
+				<li><a href="{{ path('blog')}}" class="footer-menu-item">Actualités</a></li>
+				<li><a href="{{ path('prix_carte_grise') }}" class="footer-menu-item">Prix de votre carte grise</a></li>
+				<li><a href="{{ path('faq') }}" class="footer-menu-item">FAQ</a></li>
+				<li><a href="{{ path('contact') }}" class="footer-menu-item">Contact</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="copyright">
+		<div class="container">
+			<div class="d-md-flex align-items-center justify-content-between">
+				<p>
+				<span class="txt-d">Ces démarches sont également possibles via le service public sans majoration de frais.</span><br>
+				© CG Officiel 2020 | tous droits réservés&nbsp;&nbsp;&nbsp;&nbsp;-<a href="{{ path('mentions') }}">Mentions légales</a>-<a href="{{ path('cgv') }}">CGV</a>-<a href="{{ path('retractation') }}">Rétractation</a>
+				</p>
+				<div class="social_block">
+					Suivez nous sur les réseaux sociaux ! 
+					<a class="fb-ic" href="https://www.facebook.com/CG-Officiel-2101234933265302/" target="_blank"><i class="fab fa-2x fa-facebook-f"></i></a>
 				</div>
 			</div>
-
-			<div class="col-12 col-lg-3 footer-link mt-5">
-				<div class="col-12 row">
-					<h4 class="text-center col-12">Annexe</h4>
-					<a href="{{ path('faq') }}" class="col-12 footer-menu-item">
-						<li>
-							<h6>FAQ</h6>
-						</li>
-					</a>
-
-					<a href="{{ path('contact') }}" class="col-12 footer-menu-item">
-						<li>
-							<h6>Contact</h6>
-						</li>
-					</a>
-
-					<a href="{{ path('cgv') }}" class="col-12 footer-menu-item">
-						<li>
-							<h6>CGV</h6>
-						</li>
-					</a>
-
-					<a href="{{ path('retractation') }}" class="col-12 footer-menu-item">
-						<li>
-							<h6>Rétractation</h6>
-						</li>
-					</a>
-				</div>
-			</div>
-
-			<div class="col-12 col-lg-3 footer-link d-flex flex-row align-items-center flex-row-reverse my-flex-container">
-				<div class="col-12 mt-5 mb-5 text-center">
-					<img class="col-12 mx-auto rounded max-250" src="asset/img/agrement-cgofficiel-carte-grise-certificat-immatriculation.png" alt="agrément CGofficiel carte grise certificat immatriculation">
-				</div>
-			</div>
-
 		</div>
 	</div>
 </footer>

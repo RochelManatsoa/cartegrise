@@ -14,13 +14,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\DocumentDemande\DemandeDuplicataType;
-use App\Form\PaiementType;
+use App\Form\{PaiementType, SaveAndValidateType};
 use App\Form\VehiculeNeufInfoType;
 use App\Entity\File\DemandeDuplicata;
 use App\Entity\File\Files;
+use App\Manager\Mercure\MercureManager;
+use App\Manager\NotificationManager;
 
 /**
  * @Route("/demande")
+ * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
 class DemandeController extends AbstractController
 {
@@ -31,7 +34,9 @@ class DemandeController extends AbstractController
     public function new(
         Commande        $commande,
         Request         $request,
-        DemandeManager  $demandeManager
+        DemandeManager  $demandeManager,
+        MercureManager  $mercureManager,
+        NotificationManager $notificationManager
     )
     {
         $form = $demandeManager->generateForm($commande);
@@ -39,12 +44,28 @@ class DemandeController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $demande = $demandeManager->save($form);
+
+            // The Publisher service is an invokable object
+            $data =  [
+                'immat' => $commande->getImmatriculation(),
+                'department' => $commande->getCodePostal(),
+                'demarche' => $commande->getDemarche()->getType(),
+                'id' => $demande->getId(),
+            ];
+            $mercureManager->publish(
+                'http://cgofficiel.com/addNewSimulator',
+                'demande',
+                $data,
+                'nouvelle demande insérer'
+            );
+            $notificationManager->saveNotification([
+                "type" => 'demande', 
+                "data" => $data,
+            ]);
+            // end update
             // redirect after save
             return $this->redirectToRoute(
-                'demande_recap', 
-                [
-                    'demande' => $demande->getId()
-                ]
+                'espace_client'
             );
         }
 
@@ -107,7 +128,17 @@ class DemandeController extends AbstractController
             $fileForm->handleRequest($request);
 
             if ($fileForm->isSubmitted() && $fileForm->isValid()) {
+                $parent = $fileForm->getData()->getParent();
+                if ($demande){
+                    $parent->setDemande($demande);
+                    $demandeManager->persist($demande);
+                }
+
                 $documentAFournirManager->handleForm($fileForm, $path)->save($fileForm);
+            }
+
+            if($request->request->get('validate') === 'on') {
+                return $this->redirectToRoute('validate_file', ['demande' => $demande->getId()]);
             }
         }
 
@@ -123,7 +154,6 @@ class DemandeController extends AbstractController
 
     /**
      * @route("/{id}/annuler", name="demande_annuler", methods={"DELETE"})
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
     public function annuler(Request $request, Demande $demande, DemandeManager $demandeManager, EntityManagerInterface $em)
     {

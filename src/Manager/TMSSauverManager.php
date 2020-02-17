@@ -215,10 +215,10 @@ class TMSSauverManager
     public function getParamsForCTVO(Commande $commande)
     {
         $client = $commande->getFirstClient();
-        $adresse = $client->getClientAdresse();
         $carInfo = $commande->getCarInfo();
 		$now = new \DateTime();
-		$ctvo = $commande->getDemande()->getCtvo();
+        $ctvo = $commande->getDemande()->getCtvo();
+        $adresse = $ctvo->getAcquerreur()->getAdresseNewTitulaire();
         $cotitulaireParams ["Cotitulaire"]= [];
 
         // check if persone moral or not: 
@@ -255,7 +255,7 @@ class TMSSauverManager
                         "DateNaissance" => $ctvo->getAcquerreur()->getDateN()->format('Y-m-d'),
                         "LieuNaissance" => $ctvo->getAcquerreur()->getLieuN(),
                         "DepNaissance" => $ctvo->getAcquerreur()->getDepartementN(),
-                        "PaysNaissance" => $ctvo->getAcquerreur()->getPaysN()!== null ? $adresse->getPays() : "France",
+                        "PaysNaissance" => $ctvo->getAcquerreur()->getPaysN()!== null ? $ctvo->getAcquerreur()->getPaysN() : "France",
                     ],
                     "Adresse" => [
                         "Numero" => $adresse->getNumero(),

@@ -12,8 +12,8 @@ use App\Form\Demande\DemandeChangementAdresseType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormFactoryInterface;
-use App\Entity\User;
-use App\Repository\TransactionRepository;
+use App\Entity\{User, Commande};
+use App\Repository\{TransactionRepository, HistoryTransactionRepository};
 use Twig_Environment as Twig;
 
 class TransactionManager
@@ -22,14 +22,17 @@ class TransactionManager
     private $formFactory;
     private $twig;
     private $repository;
+    private $historyTransactionManager;
     public function __construct
     (
         EntityManagerInterface $em,
-        TransactionRepository      $repository
+        TransactionRepository      $repository,
+        HistoryTransactionRepository $historyTransactionRepository
     )
     {
         $this->em =          $em;
         $this->repository =  $repository;
+        $this->historyTransactionRepository =  $historyTransactionRepository;
     }
 
     public function init()
@@ -56,7 +59,7 @@ class TransactionManager
 
     public function findByTransactionId($transactionId)
     {
-        $transaction = $this->repository->findOneBy(['transactionId' => $transactionId]);
+        $transaction = $this->repository->findOneByTransactionId($transactionId);
         if (!$transaction instanceof Transaction) {
             return null;
         }
@@ -64,15 +67,46 @@ class TransactionManager
         return $transaction;
     }
 
-    public function generateNumFacture(Transaction $transaction)
+    public function generateNumFacture()
     {
-        $lastInserted = $this->repository->findOneBy([], ['facture' => 'desc']);
-        if (!$lastInserted instanceof Transaction) {
-            return null;
-        }
-        $numFacture = $lastInserted->getFacture();
-        $facture = $numFacture + 1;
+        $numFacture = $this->repository->numFacture();
+        $facture = $numFacture[0][1];
 
-        return $facture;
+        return $facture + 1;
+    }
+
+    public function generateDateCreateForTransaction()
+    {
+        $transactions = $this->repository->findByCreateAt(null);
+        foreach($transactions as $transaction){
+            if ($transaction->getTransactionId()){
+                $historyTransaction = $this->historyTransactionRepository->findOneByTransactionId($transaction->getTransactionId());
+                if ($historyTransaction !== null){
+                    $data = json_decode($historyTransaction->getData());
+                    $dateString = $data->transmission_date; 
+                    $string = '-'; 
+                    $position = '4';
+                    $dateString = substr_replace($dateString, $string, $position, 0 );
+                    $position = '7';
+                    $dateString = substr_replace($dateString, $string, $position, 0 );
+                    $string = ' ';
+                    $position = '10';
+                    $dateString = substr_replace($dateString, $string, $position, 0 );
+                    $string = ':';
+                    $position = '13';
+                    $dateString = substr_replace($dateString, $string, $position, 0 );
+                    $position = '16';
+                    $dateString = substr_replace($dateString, $string, $position, 0 );
+                    $dateCreate = new \DateTime($dateString);
+                    $transaction->setCreateAt($dateCreate);
+                    $this->save($transaction);
+                }
+            }
+        }
+    }
+
+    public function findTransactionSuccessByCommand(Commande $commande)
+    {
+        return $this->repository->findOneBy(['commande' => $commande->getId(), 'status' => '00']);
     }
 }

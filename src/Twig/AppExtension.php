@@ -5,14 +5,13 @@ namespace App\Twig;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigFilter;
-use App\Entity\User;
-use App\Entity\Taxes;
-use App\Entity\TypeDemande;
-use App\Entity\Commande;
+use App\Entity\{User, Taxes, TypeDemande, Commande, Demande, Adresse, EmailHistory};
 use App\Repository\TarifsPrestationsRepository;
-use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager};
+use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager, DemandeManager, TransactionManager};
 use App\Utils\StatusTreatment;
 use App\Manager\DocumentAFournirManager;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Symfony\Component\Validator\Constraints\File;
 
 class AppExtension extends AbstractExtension
 {
@@ -23,6 +22,7 @@ class AppExtension extends AbstractExtension
     private $fraisTreatmentManager;
     private $statusManager;
     private $documentAFournirManager;
+    private $transactionManager;
     public function __construct(
         UserManager $userManager, 
         StatusTreatment $statusTreatment,
@@ -30,7 +30,9 @@ class AppExtension extends AbstractExtension
         TaxesManager $taxManager, 
         FraisTreatmentManager $fraisTreatmentManager,
         StatusManager $statusManager,
-        DocumentAFournirManager $documentAFournirManager
+        DocumentAFournirManager $documentAFournirManager,
+        DemandeManager $demandeManager,
+        TransactionManager $transactionManager
     )
     {
         $this->userManager     = $userManager;
@@ -40,6 +42,8 @@ class AppExtension extends AbstractExtension
         $this->fraisTreatmentManager = $fraisTreatmentManager;
         $this->statusManager = $statusManager;
         $this->documentAFournirManager = $documentAFournirManager;
+        $this->demandeManager = $demandeManager;
+        $this->transactionManager = $transactionManager;
     }
     public function getFunctions()
     {
@@ -50,11 +54,15 @@ class AppExtension extends AbstractExtension
             new TwigFunction('fraisTraitement', [$this, 'fraisTraitement']),
             new TwigFunction('fraisTotalTraitement', [$this, 'fraisTotalTraitement']),
             new TwigFunction('tvaTraitement', [$this, 'tvaTraitement']),
+            new TwigFunction('tvaTraitementAvoir', [$this, 'tvaTraitementAvoir']),
             new TwigFunction('tvaTraitementDailyTotal', [$this, 'tvaTraitementDailyTotal']),
             new TwigFunction('fraisTotal', [$this, 'fraisTotal']),
             new TwigFunction('fraisTotalHT', [$this, 'fraisTotalHT']),
+            new TwigFunction('fraisTotalHTAvoir', [$this, 'fraisTotalHTAvoir']),
             new TwigFunction('total', [$this, 'total']),
+            new TwigFunction('totalAvoir', [$this, 'totalAvoir']),
             new TwigFunction('fraisTraitementWhithTva', [$this, 'fraisTraitementWhithTva']),
+            new TwigFunction('fraisTraitementWhithTvaAvoir', [$this, 'fraisTraitementWhithTvaAvoir']),
             new TwigFunction('fraisTraitementWhithTvaTotal', [$this, 'fraisTraitementWhithTvaTotal']),
             new TwigFunction('statusOfCommande', [$this, 'statusOfCommande']),
             new TwigFunction('checkFile', [$this, 'checkFile']),
@@ -74,13 +82,26 @@ class AppExtension extends AbstractExtension
             new TwigFunction('just20tvaTotal', [$this, 'just20tvaTotal']),
             new TwigFunction('tvaTreatmentOfCommandeTotal', [$this, 'tvaTreatmentOfCommandeTotal']),
             new TwigFunction('fraisdossierWithoutTva', [$this, 'fraisdossierWithoutTva']),
+            new TwigFunction('fraisdossierWithoutTvaAvoir', [$this, 'fraisdossierWithoutTvaAvoir']),
             new TwigFunction('fraisdossierWithoutTvaDailyFacture', [$this, 'fraisdossierWithoutTvaDailyFacture']),
             new TwigFunction('fraisdossierWithoutTvaTotal', [$this, 'fraisdossierWithoutTvaTotal']),
             new TwigFunction('getTarifPresentation', [$this, 'getTarifPresentation']),
             new TwigFunction('totalPrestationMajorationWithoutTaxeDaily', [$this, 'totalPrestationMajorationWithoutTaxeDaily']),
             new TwigFunction('totalPrestationMajorationTaxeDaily', [$this, 'totalPrestationMajorationTaxeDaily']),
             new TwigFunction('totalPrestationMajorationTTC', [$this, 'totalPrestationMajorationTTC']),
+            new TwigFunction('displayAccepted', [$this, 'displayAccepted']),
+            new TwigFunction('decodeBody', [$this, 'decodeBody']),
+            new TwigFunction('findNomPrenomOfTitulaire', [$this, 'findNomPrenomOfTitulaire']),
+            new TwigFunction('displayServiceClient', [$this, 'displayServiceClient']),
+            new TwigFunction('findByTransactionId', [$this, 'findByTransactionId']),
+            new TwigFunction('appExplode', [$this, 'appExplode'])
         ];
+    }
+
+    public function appExplode(String $string)
+    {
+        return explode(';', $string);
+
     }
 
     public function getFilters()
@@ -94,6 +115,7 @@ class AppExtension extends AbstractExtension
             new TwigFilter('displayRelanceInfos', [$this, 'displayRelanceInfos']),
             new TwigFilter('displayEnergy', [$this, 'displayEnergy']),
             new TwigFilter('formatFacture', [$this, 'formatFacture']),
+            new TwigFilter('displayAdress', [$this, 'displayAdress']),
         ];
     }
 
@@ -153,7 +175,7 @@ class AppExtension extends AbstractExtension
     }
     public function displayGender($value, $default = null)
     {
-        return $value === "M" ? "Mr" : 'Mme';
+        return $value === "M" ? "M." : 'Mme';
     }
     public function displayRelanceInfos($value, $default = null)
     {
@@ -213,6 +235,7 @@ class AppExtension extends AbstractExtension
     {
 
         return $this->fraisTreatmentManager->fraisTotalTreatmentOfCommande($commande);
+        
     }
 
     public function fraisTraitementWhithTva(Commande $commande)
@@ -220,11 +243,21 @@ class AppExtension extends AbstractExtension
 
         return $this->fraisTreatmentManager->fraisTotalTreatmentOfCommandeWithTva($commande);
     }
+
+    public function fraisTraitementWhithTvaAvoir(Commande $commande)
+    {
+
+        return $this->fraisTreatmentManager->fraisTotalTreatmentOfCommandeWithTvaAvoir($commande);
+    }
+
     public function fraisTraitementWhithTvaTotal(array $demandes)
     {
         $result = 0;
         foreach ($demandes as $demande) {
-            $result += $this->fraisTreatmentManager->fraisTotalTreatmentOfCommandeWithTvaDaily($demande->getCommande());
+            if($demande instanceof Demande){
+                $demande = $demande->getCommande();
+            }
+            $result += $this->fraisTreatmentManager->fraisTotalTreatmentOfCommandeWithTvaDaily($demande);
         }
 
         return $result;
@@ -233,7 +266,10 @@ class AppExtension extends AbstractExtension
     {
         $result = 0;
         foreach ($demandes as $demande) {
-            $result += $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommandeDaily($demande->getCommande());
+            if($demande instanceof Demande){
+                $demande = $demande->getCommande();
+            }
+            $result += $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommandeDaily($demande);
         }
 
         return $result;
@@ -242,7 +278,10 @@ class AppExtension extends AbstractExtension
     {
         $result = 0;
         foreach ($demandes as $demande) {
-            $result += $this->fraisTreatmentManager->tvaOfFraisTreatmentDaily($demande->getCommande());
+            if($demande instanceof Demande){
+                $demande = $demande->getCommande();
+            }
+            $result += $this->fraisTreatmentManager->tvaOfFraisTreatmentDaily($demande);
         }
 
         return $result;
@@ -258,16 +297,29 @@ class AppExtension extends AbstractExtension
         return $this->fraisTreatmentManager->fraisTotalHtOfCommande($commande);
     }
 
+    public function fraisTotalHTAvoir(Commande $commande)
+    {
+
+        return $this->fraisTreatmentManager->fraisTotalHtOfCommandeAvoir($commande);
+    }
+
     public function tvaTraitement(Commande $commande)
     {
 
         return $this->fraisTreatmentManager->tvaOfFraisTreatment($commande);
     }
+    public function tvaTraitementAvoir(Commande $commande)
+    {
+        return $this->fraisTreatmentManager->tvaOfFraisTreatmentAvoir($commande);
+    }
     public function tvaTraitementDailyTotal(array $demandes)
     {
         $result = 0;
         foreach ($demandes as $demande){
-            $result += $this->fraisTreatmentManager->tvaOfFraisTreatmentDaily($demande->getCommande());
+            if($demande instanceof Demande){
+                $demande = $demande->getCommande();
+            }
+            $result += $this->fraisTreatmentManager->tvaOfFraisTreatmentDaily($demande);
         }
 
         return $result;
@@ -275,8 +327,13 @@ class AppExtension extends AbstractExtension
 
     public function statusOfCommande(Commande $commande, string $need)
     {
+        return isset($this->statusManager->getStatusOfCommande($commande)[$need]) ? $this->statusManager->getStatusOfCommande($commande)[$need] : "";
+    }
 
-        return $this->statusManager->getStatusOfCommande($commande)[$need];
+    public function totalAvoir(Commande $commande)
+    {
+
+        return $this->fraisTreatmentManager->totalAvoir($commande);
     }
 
     public function total(Commande $commande)
@@ -299,6 +356,10 @@ class AppExtension extends AbstractExtension
     {
         return $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommande($commande);
     }
+    public function fraisdossierWithoutTvaAvoir(Commande $commande)
+    {
+        return $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommandeAvoir($commande);
+    }
     public function fraisdossierWithoutTvaDailyFacture(Commande $commande)
     {
         return $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommandeDaily($commande);
@@ -306,7 +367,7 @@ class AppExtension extends AbstractExtension
 
     public function fraisdossierWithoutTvaTotal(array $demandes)
     {
-        return $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommandeDaily($demandes[0]->getCommande()) * count($demandes);
+        return $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommandeDaily(($demandes[0] instanceof Demande)? $demandes[0]->getCommande(): $demandes[0]) * count($demandes);
     }
 
     public function tvaTreatmentOfCommandeTotal(array $demandes)
@@ -430,9 +491,94 @@ class AppExtension extends AbstractExtension
         $taxesTotal = 0;
         foreach($demandes as $key=>$demande)
         {
-            $taxesTotal += $demande->getCommande()->getTaxes()->getTaxeTotale();
+            if($demande instanceof Demande){
+                $demande = $demande->getCommande();
+            }
+            $taxesTotal += $demande->getTaxes()->getTaxeTotale();
         }
 
         return $taxesTotal;
     }
+    public function displayAccepted(object $object, string $argument): string
+    {
+        $annotations = $this->getProperty($object, $argument);
+        foreach ($annotations as $annotation) {
+            if ($annotation instanceof File) {
+                $annotationFile = $annotation;
+            }
+        }
+        
+        if (isset($annotationFile->mimeTypes) && is_array($annotationFile->mimeTypes)) {
+            $typeFile = '<br> <small>( format: ';
+            foreach ($annotationFile->mimeTypes as $key => $value) {
+                $typeFile .=  ($value == end($annotationFile->mimeTypes)) ? $this->getTypeOfMimeType($value).' ' : $this->getTypeOfMimeType($value) . ', ' ; 
+            }
+
+            if (isset($annotationFile->maxSize)) {
+                $typeFile.=', taille maximum: '. $this->convertToReadableSize($annotationFile->maxSize) . ')</small>';
+            } else {
+                $typeFile.=')</small>';
+            }
+        } else {
+            return '';
+        }
+
+        return $typeFile;
+    }
+
+    private function getTypeOfMimeType($value){
+        return str_replace('application/', '', $value);
+    }
+
+    private function convertToReadableSize($size){
+        $base = log($size) / log(1024);
+        $suffix = array("", "KB", "MB", "GB", "TB");
+        $f_base = floor($base);
+
+        return round(pow(1024, $base - floor($base)), 1) . $suffix[$f_base];
+    }
+    /**
+     * @param $class
+     * @param $property
+     * @return array
+     */
+    private function getProperty($class, $property)
+    {
+        $reader = new AnnotationReader;
+        $reflector = new \ReflectionProperty($class, $property);
+
+        return $reader->getPropertyAnnotations($reflector);
+    }
+
+    public function decodeBody(EmailHistory $emailHistory){
+        $email = \base64_decode($emailHistory->getBody());
+
+        return $email;
+    }
+    public function displayAdress($value, $default = null)
+    {
+        $value = $this->displayValue($value, $default);
+        if (isset(Adresse::ROAD_NAME[$value])) {
+            return Adresse::ROAD_NAME[$value];
+        } elseif (!is_null($value) && $value != "") {
+            return $value;
+        }
+        return $default? $default : "--";
+    }
+
+    public function findNomPrenomOfTitulaire(Demande $demande, $nomPrenom)
+    {
+        return $this->demandeManager->findValueNomPrenomOfTitulaire($demande, $nomPrenom);
+    }
+
+    public function displayServiceClient()
+    {
+        return $this->demandeManager->checkServiceClient();
+    }
+
+    public function findByTransactionId(string $responseId)
+    {
+        return $this->transactionManager->findByTransactionId($responseId);
+    }
+
 }

@@ -3,10 +3,11 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-05-09 21:15:58 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-06-20 14:38:52
+ * @Last Modified time: 2020-01-29 21:56:36
  */
 namespace App\Controller;
 
+use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,17 +35,20 @@ class FileDemarcheController extends AbstractController
         $referer = $request->headers->get('referer');
 
         return $this->redirect($referer);
-
-        
-        // return $this->redirect($this->generateUrl('demande_dossiers_a_fournir', ["id" => $demande->getId()]));
     }
 
     /**
      * @MailDocumentValidator(property="checker", entity="demande", invalidMessage="docInvalidMessage")
      * @Route("/validate/{demande}/document/{checker}", name="demande_document_validate")
      */
-    public function validerDocument(Demande $demande, $checker, DemandeManager $demandeManager)
+    public function validerDocument(
+        Demande $demande, $checker, 
+        MailManager $mailManager, 
+        Swift_Mailer $mailer,
+        DemandeManager $demandeManager
+    )
     {
+        $mail = $demande->getCommande()->getClient()->getUser()->getEmail();
         $demande->setStatusDoc(Demande::DOC_VALID);
         $demandeManager->saveDemande($demande);
 
@@ -55,8 +59,15 @@ class FileDemarcheController extends AbstractController
      * @MailDocumentValidator(property="checker", entity="demande", invalidMessage="docInvalidMessage")
      * @Route("/nonvalidate/{demande}/document/{checker}", name="demande_document_nonvalidate")
      */
-    public function nonValiderDocument(Demande $demande, $checker, DemandeManager $demandeManager, Request $request)
+    public function nonValiderDocument(
+        Demande $demande, $checker, 
+        MailManager $mailManager, 
+        Swift_Mailer $mailer,
+        DemandeManager $demandeManager, 
+        Request $request
+    )
     {
+        $mail = $demande->getCommande()->getClient()->getUser()->getEmail();
         $form = $demandeManager->generateFormDeniedFiles($demande);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

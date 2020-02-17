@@ -6,7 +6,7 @@
     {% if commande is defined %}
         <div class="col-md-12 row col-lg-10 mx-auto">
             <hr>
-            <h2 class="col-12 text-center">RESUME DE LA DEMANDE</h2>
+            <h2 class="col-12 text-center">Résumé de la demande</h2>
             <div class="row col-md-12 col-lg-6 resultat-estimation mx-auto pt-5 pb-5">
                 <img src="{{ asset('asset/CarLogos/Logos/'~commande.carInfo.marque | lower~'.jpg') }}"
                     class="rounded mx-auto d-block img-fluid mb-3" alt="">
@@ -23,10 +23,10 @@
                     <h2 class="col-12">DÉTAIL DES TAXES</h2>
                     {{ include('commande/_resum_taxe_car.html.twig') }}
                     <br>
-                    {% if demande.transaction is not null and demande.transaction.status == "00" %}
+                    {% if demande.commande.transaction is not null and demande.commande.transaction.status == "00" %}
                         <div class="text-center">
                             <a href="{{path('payment_facture', {'demande': demande.id })}}" target="_blank">
-                                <button type="button" class="btn btn-info ">Facture</button>
+                                <button type="button" class="btn link-connexion-register btn-facture">Facture <i class="icon-pdf"></i></button>
                             </a>
                         </div>
                     {% else %}

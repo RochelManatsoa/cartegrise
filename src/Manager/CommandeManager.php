@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-30 10:57:15
+ * @Last Modified time: 2019-12-30 19:19:01
  */
 
 namespace App\Manager;
@@ -13,12 +13,15 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use App\Services\Tms\TmsClient;
 use App\Services\Tms\Response as ResponseTms;
-use App\Entity\Commande;
+use App\Entity\{Commande, Demande, Facture, DailyFacture, Avoir, Transaction};
+use App\Repository\{CommandeRepository, DailyFactureRepository};
 use App\Manager\SessionManager;
-use App\Manager\{StatusManager, TMSSauverManager};
+use App\Manager\{StatusManager, TMSSauverManager, TransactionManager, TaxesManager, MailManager};
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Twig_Environment as Twig;
 
 class CommandeManager
 {
@@ -26,27 +29,80 @@ class CommandeManager
 		TmsClient $tmsClient, 
 		EntityManagerInterface $em, 
 		SessionManager $sessionManager,
+        Twig $twig,
+        CommandeRepository $repository,
+        TaxesManager $taxesManager,
+        DailyFactureRepository $dailyFactureRepository,
 		StatusManager $statusManager,
 		TokenStorageInterface $tokenStorage,
 		DocumentTmsManager $documentTmsManager,
 		SerializerInterface $serializer,
-		TMSSauverManager $tmsSaveManager
+		TMSSauverManager $tmsSaveManager, 
+		TransactionManager $transactionManager,
+		MailManager $mailManager
 	)
 	{
 		$this->tmsClient = $tmsClient;
 		$this->em = $em;
+		$this->repository = $repository;
+		$this->taxesManager = $taxesManager;
+		$this->dailyFactureRepository = $dailyFactureRepository;
 		$this->sessionManager = $sessionManager;
 		$this->statusManager = $statusManager;
 		$this->tokenStorage = $tokenStorage;
 		$this->documentTmsManager = $documentTmsManager;
 		$this->serializer = $serializer;
+        $this->twig = $twig;
 		$this->tmsSaveManager = $tmsSaveManager;
+		$this->transactionManager = $transactionManager;
+		$this->mailManager = $mailManager;
+	}
+
+	public function checkIfTransactionSuccess(Commande $commande)
+    {
+        $transaction = $this->transactionManager->findTransactionSuccessByCommand($commande);
+        if (!$transaction instanceof Transaction) {
+
+			return false;
+		}
+
+		$commande->setTransaction($transaction);
+		$this->save($commande);
+
+		return true;
+    }
+
+	public function updateEtatDemande()
+	{
+		$commandes = $this->repository->findAll();
+		foreach ($commandes as $commande) {
+			if ($commande->getDemande() instanceof Demande) {
+				$demande = $commande->getDemande();
+				if ($commande->getSaved()){
+					$demande->setStatusDoc(Demande::DOC_VALID_SEND_TMS);
+					$this->saveDemande($demande);
+				} elseif (($demande->getAvoir() instanceof Avoir) && ($demande->getStatusDoc() !== Demande::DOC_VALID_SEND_TMS)) {
+					$demande->setStatusDoc(Demande::RETRACT_FORM_WAITTING);
+					$this->saveDemande($demande);
+				} elseif ($demande->getStatusDoc() === null) {
+					$demande->setStatusDoc(Demande::DOC_WAITTING);
+					$this->saveDemande($demande);
+				}
+			}
+		}
 	}
 
 	public function save(Commande $commande)
 	{
 		// hydrage sql
 		$this->persist($commande);
+		// save in database
+		$this->flush();
+	}
+	public function saveDemande(Demande $demande)
+	{
+		// hydrage sql
+		$this->em->persist($demande);
 		// save in database
 		$this->flush();
 	}
@@ -344,4 +400,217 @@ class CommandeManager
 	{
 		return $this->statusManager->getStatusOfCommande($commande);
 	}
+
+	public function checkPayment(Commande $commande)
+    {
+        // if (!$demande->getTransaction() instanceof Transaction) {
+            $transaction = $this->transactionManager->init();
+            $commande->setTransaction($transaction);
+            $transaction->setCommande($commande);
+            $this->save($commande);
+        // } 
+	}
+
+	public function migrateFacture(Commande $commande)
+    {
+		$facture = is_null($commande->getFacture()) ? new Facture() : $commande->getFacture();
+		$infosFacture = $commande->getInfosFacture();
+		$facture->setName($infosFacture->getName());
+		$facture->setFirstName($infosFacture->getFirstName());
+		$facture->setAdresse($infosFacture->getAdresse());
+		$commande->setFacture($facture);
+		$this->save($commande);
+    }
+
+    public function generateFacture(Commande $commande)
+    {
+		$this->checkIfTransactionSuccess($commande);
+        $folder = $commande->getGeneratedCerfaPath();
+        $file = $commande->getGeneratedFacturePathFile();
+        // create directory
+        if (!is_dir($folder)) mkdir($folder, 0777, true);
+        // end create file 
+        // get facture if not exist
+        // if (!is_file($file)) { // attente de finalité du process
+            $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
+            $filename = "Facture";
+            $html = $this->twig->render("payment/facture.pdf.twig", ['commande' => $commande]);
+            $output = $snappy->getOutputFromHtml($html);
+            
+            $filefinal = file_put_contents($file, $output);
+        // }
+        
+        return $file;
+	}
+
+    public function getDailyCommandeFacture(\DateTime $now)
+    {
+        $dailyFacture = $this->dailyFactureRepository->findOneBy([], ['id' => 'DESC']);
+        if (is_object($dailyFacture))
+            $commandes = $this->repository->getDailyCommandeFacture($dailyFacture->getDateCreate(),$now);
+        else 
+            $commandes = $this->repository->getDailyCommandeFacture(null,$now);
+
+        return $commandes;
+    }
+
+    public function getDailyCommandeFactureLimitate(\DateTime $start, \DateTime $end)
+    {
+        $demandes = $this->repository->getDailyCommandeFactureLimitate($start,$end);
+
+        return $demandes;
+    }
+
+    public function generateDailyFacture(array $commandes, \DateTime $now)
+    {
+        $results = [];
+        $majorations = [];
+        foreach($commandes as $commande) {
+            $results[$commande->getDemarche()->getNom()][] = $commande;
+            $majorations[$this->taxesManager->getMajoration($commande->getTaxes())][] = $commande->getTaxes();
+        }
+        ksort($majorations);
+        $dailyFacture = new DailyFacture();
+
+        $folder = $dailyFacture->getDailyFacturePath();
+        $file = $dailyFacture->getDailyFacturePathFile($now);
+
+        // create directory
+        if (!is_dir($folder)) mkdir($folder, 0777, true);
+        // end create file 
+        // get facture if not exist
+        $origin = '/Users/rapaelec/Downloads/partage/cgoff/cartegrise/public/';
+        // dd(__DIR__.'/../../'.$file);
+        // dd(!is_file(__DIR__.'/../../'.$file));
+        // if (!is_file($file)) { // attente de finalité du process
+            $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
+            $filename = "Facture";
+            $html = $this->twig->render('payment/facture_journalier.pdf.twig',
+            [
+                'results' => $results,
+                'date' => $now,
+                'majorations' => $majorations,
+                'demandes' => $commandes,
+            ]);
+            $output = $snappy->getOutputFromHtml($html);
+            
+            $filefinal = file_put_contents($file, $output);
+        // }
+        
+        return $file;
+	}
+	/**
+	 * this funciton allow you to get all command where demande is null
+	 */
+	public function getCommandeWhoDemandeIsNull()
+	{
+		return $this->repository->findBy(['demande' => null], ['id'=>'DESC']);
+	}
+	/**
+	 * function to retract with commande payed
+	 *
+	 * @param Commande $commande
+	 * @return void
+	 */
+	public function retracter(Commande $commande)
+    {
+        if (!$commande instanceof Commande)
+            return;
+        $commande->setStatusTmp(Commande::RETRACT_FORM_WAITTING);
+        $this->save($commande);
+    }
+	/**
+	 * function to retract with commande payed
+	 *
+	 * @param Commande $commande
+	 * @return void
+	 */
+	public function retracterSecond(Commande $commande)
+    {
+        if (!$commande instanceof Commande)
+            return;
+        $commande->setStatusTmp(Commande::RETRACT_DEMAND);
+        $this->save($commande);
+    }
+	/**
+	 * function to refund the command payed
+	 *
+	 * @param Commande $commande
+	 * @return void
+	 */
+    public function refund(Commande $commande)
+    {
+        if (!$commande instanceof Commande)
+            return;
+        $commande->setStatusTmp(Commande::RETRACT_REFUND);
+        $this->save($commande);
+	}
+
+	public function getTitulaireParams(Commande $commande)
+    {
+		return [
+			'adresse' => $commande->getInfosFacture()->getAdresse()
+		];
+	}
+	
+	public function generateAvoir(Commande &$commande)
+    {
+
+		
+		$commande->setStatusTmp(Commande::RETRACT_FORM_WAITTING);
+        $folder = $commande->getGeneratedAvoirCerfaPath();
+        $file = $commande->getGeneratedAvoirPathFile();
+        $params = $this->getTitulaireParams($commande);
+		$params = array_merge(['commande' => $commande], $params);
+        // create directory
+		if (!is_dir($folder)) mkdir($folder, 0777, true);
+		
+		
+        // // end create file 
+        // // save Avoir before generate number
+        if(
+            !is_null($commande->getAvoir()) &&
+            $commande->getAvoir()->getFullPath() != $file
+        ) {
+            $commande->getAvoir()->setFullPath($file);
+            $this->save($commande);
+        }
+        // // end sav Avoir before generate number
+        // // get facture if not exist
+        // if (!is_file($file)) { // attente de finalité du process
+            $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
+            $filename = "Facture";
+            $html = $this->twig->render("avoir/avoir.pdf.twig", $params);
+            $output = $snappy->getOutputFromHtml($html);
+            
+            $filefinal = file_put_contents($file, $output);
+		// }
+		
+        
+        return $file;
+	}
+	
+	public function sendEmailFormDemande(Commande $commande)
+	{
+		$user = $commande->getClient()->getUser();
+		$this->mailManager->sendEmail($emails=[$user->getEmail()], 'admin/email/demandeFormulaire.email.twig', "CG Officiel - Démarches Carte Grise en ligne", ['commande'=> $commande]);      
+	}
+
+    public function sendUserForRelanceAfterpaimentSucces($level = 0)
+    {
+        $commandes = $this->repository->getCommandesPaidedWithoutDemande($level);
+        // dd($commandes);
+        $template = 'relance/email6.html.twig';
+        $emails = [];
+        foreach ($commandes as $commande)
+        {
+			$user = $commande->getClient()->getUser();
+            $this->mailManager->sendEmail($emails=[$user->getEmail()], $template, "CG Officiel - Démarches Carte Grise en ligne", ['responses'=> $commande]);
+            $user->getClient()->setRelanceLevel($level+1);
+            $this->em->persist($user);
+        }
+        $this->em->flush();
+        
+        return 'sended';
+    }
 }

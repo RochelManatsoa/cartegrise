@@ -1,4 +1,15 @@
-<a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('uploadDossier', object) }}" title="uploadDossier">
-<i class="fa fa-file" aria-hidden="true"></i>
-upload dossier
+{% if object.commande is defined %}
+<a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('uploadDossier', object) }}"
+    title="uploadDossier">
+    <i class="fa fa-file" aria-hidden="true"></i>
+    upload
 </a>
+{% else %}
+    {% if object.demande is defined and object.demande is not null %}
+        <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('uploadDossier', object) }}"
+            title="uploadDossier">
+            <i class="fa fa-file" aria-hidden="true"></i>
+            upload
+        </a>
+    {% endif %}
+{% endif %}

@@ -52,18 +52,18 @@ class RegistrationFormType extends AbstractType
                 'label' => 'form.password', 
                 'translation_domain' => 'FOSUserBundle'
                 ))
-            // ->add('plainPassword', RepeatedType::class, array(
-            //     'type' => PasswordType::class,
-            //     'options' => array(
-            //         'translation_domain' => 'FOSUserBundle',
-            //         'attr' => array(
-            //             'autocomplete' => 'new-password',
-            //         ),
-            //     ),
-            //     'first_options' => array('label' => 'form.password'),
-            //     'second_options' => array('label' => 'form.password_confirmation'),
-            //     'invalid_message' => 'fos_user.password.mismatch',
-            // ))
+            ->add('plainPassword', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'options' => array(
+                    'translation_domain' => 'FOSUserBundle',
+                    'attr' => array(
+                        'autocomplete' => 'new-password',
+                    ),
+                ),
+                'first_options' => array('label' => 'form.password'),
+                'second_options' => array('label' => 'form.password_confirmation'),
+                'invalid_message' => 'fos_user.password.mismatch',
+            ))
         ;
     }
 

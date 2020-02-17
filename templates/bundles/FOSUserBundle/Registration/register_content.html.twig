@@ -3,201 +3,69 @@
 {% set inputAttrs = {class: 'registrer-form'} %}
 {% set inputAttrsDate = {class: 'registrer-form js-datepicker'} %}
 {% set labelAttrs = {class: 'register-form--label'} %}
-{% set wrapperClassName = 'col-11 col-sm-10' %}
+{% set labelAttrsc = {class: 'register-form--client--label'} %}
+{% set wrapperClassName = 'col-12 col-sm-10' %}
 {% set smallWrapperClassName = 'col-12 col-sm-6' %}
 
-<style>
-	.form-control {
-		box-sizing: border-box !important;
-	}
-	.with-mp.col, .with-mp .col,
-	.with-mp.col-1, .with-mp .col-3,
-	.with-mp.col-10, .with-mp .col-12,
-	.with-mp.col-11, .with-mp .col-13,
-	.with-mp.col-12, .with-mp .col-14,
-	.with-mp.col-2, .with-mp .col-4,
-	.with-mp.col-3, .with-mp .col-5,
-	.with-mp.col-4, .with-mp .col-6,
-	.with-mp.col-5, .with-mp .col-7,
-	.with-mp.col-6, .with-mp .col-8,
-	.with-mp.col-7, .with-mp .col-9,
-	.with-mp.col-8, .with-mp .col-10,
-	.with-mp.col-9, .with-mp .col-11,
-	.with-mp.col-lg, .with-mp .col-lg,
-	.with-mp.col-lg-1, .with-mp .col-lg-3,
-	.with-mp.col-lg-10, .with-mp .col-lg-12,
-	.with-mp.col-lg-11, .with-mp .col-lg-13,
-	.with-mp.col-lg-12, .with-mp .col-lg-14,
-	.with-mp.col-lg-2, .with-mp .col-lg-4,
-	.with-mp.col-lg-3, .with-mp .col-lg-5,
-	.with-mp.col-lg-4, .with-mp .col-lg-6,
-	.with-mp.col-lg-5, .with-mp .col-lg-7,
-	.with-mp.col-lg-6, .with-mp .col-lg-8,
-	.with-mp.col-lg-7, .with-mp .col-lg-9,
-	.with-mp.col-lg-8, .with-mp .col-lg-10,
-	.with-mp.col-lg-9, .with-mp .col-lg-11,
-	.with-mp.col-md, .with-mp .col-md,
-	.with-mp.col-md-1, .with-mp .col-md-3,
-	.with-mp.col-md-10, .with-mp .col-md-12,
-	.with-mp.col-md-11, .with-mp .col-md-13,
-	.with-mp.col-md-12, .with-mp .col-md-14,
-	.with-mp.col-md-2, .with-mp .col-md-4,
-	.with-mp.col-md-3, .with-mp .col-md-5,
-	.with-mp.col-md-4, .with-mp .col-md-6,
-	.with-mp.col-md-5, .with-mp .col-md-7,
-	.with-mp.col-md-6, .with-mp .col-md-8,
-	.with-mp.col-md-7, .with-mp .col-md-9,
-	.with-mp.col-md-8, .with-mp .col-md-10,
-	.with-mp.col-md-9, .with-mp .col-md-11,
-	.with-mp.col-sm, .with-mp .col-sm,
-	.with-mp.col-sm-1, .with-mp .col-sm-3,
-	.with-mp.col-sm-10, .with-mp .col-sm-12,
-	.with-mp.col-sm-11, .with-mp .col-sm-13,
-	.with-mp.col-sm-12, .with-mp .col-sm-14,
-	.with-mp.col-sm-2, .with-mp .col-sm-4,
-	.with-mp.col-sm-3, .with-mp .col-sm-5,
-	.with-mp.col-sm-4, .with-mp .col-sm-6,
-	.with-mp.col-sm-5, .with-mp .col-sm-7,
-	.with-mp.col-sm-6, .with-mp .col-sm-8,
-	.with-mp.col-sm-7, .with-mp .col-sm-9,
-	.with-mp.col-sm-8, .with-mp .col-sm-10,
-	.with-mp.col-sm-9, .with-mp .col-sm-11,
-	.with-mp.col-xl, .with-mp .col-xl,
-	.with-mp.col-xl-1, .with-mp .col-xl-3,
-	.with-mp.col-xl-10, .with-mp .col-xl-12,
-	.with-mp.col-xl-11, .with-mp .col-xl-13,
-	.with-mp.col-xl-12, .with-mp .col-xl-14,
-	.with-mp.col-xl-2, .with-mp .col-xl-4,
-	.with-mp.col-xl-3, .with-mp .col-xl-5,
-	.with-mp.col-xl-4, .with-mp .col-xl-6,
-	.with-mp.col-xl-5, .with-mp .col-xl-7,
-	.with-mp.col-xl-6, .with-mp .col-xl-8,
-	.with-mp.col-xl-7, .with-mp .col-xl-9,
-	.with-mp.col-xl-8, .with-mp .col-xl-10,
-	.with-mp.col-xl-9, .with-mp .col-xl-11 {
-		position: relative !important;
-	    width: 100% !important;
-	    min-height: 1px !important;
-	    padding-right: 15px !important;
-	    padding-left: 15px !important;
-		box-sizing: border-box !important;
-	}
-	.with-mp.row , .with-mp .row {
-		margin-right: -15px !important;
-		margin-left: -15px !important;
-	}
-</style>
+<div class="register-block" data-parallax="scroll" data-image-src="{{ asset('asset/img/bg_inscription.jpg')}}">
+	<div class="container">
+		<div class="block_form">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}, 'label_attr': labelAttrs} )}}
+					<div class="heading_form text-center"><h2>Créez votre compte et identifiez-vous en quelques clics, pour valider et suivre votre commande</h2></div>
+					<div class="row justify-content-center with-mp">
+						<div class="{{ wrapperClassName }}">
+							{{ form_row(form.client.clientGenre, {'attr': inputAttrs, 'label_attr': labelAttrsc} )}}
+							<div class="row">
+								<div class="{{ smallWrapperClassName }}">
+									{{ form_row(form.client.clientNom, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+								</div>
 
-{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register col-md-12 col-lg-10 mx-auto row '}, 'label_attr': labelAttrs} )}}
+								<div class="{{ smallWrapperClassName }}">
+									{{ form_row(form.client.clientPrenom, {'attr': inputAttrs, 'label_attr': labelAttrs}) }}
+								</div>
+							</div>
+							<div class="row">
+								<div class="{{ smallWrapperClassName }}">
+									{{ form_row(form.client.clientContact.contact_telmobile, {'attr': inputAttrs, 'label_attr': labelAttrs}) }}
+								</div>
+								<div class="{{ smallWrapperClassName }}">
+									{{ form_row(form.client.clientContact.contact_telfixe, {'attr': inputAttrs, 'label_attr': labelAttrs})
+									}}
+								</div>
+							</div>
+							{{ form_row(form.email, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+							{{ form_row(form.username, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+							{{ form_row(form.plainPassword, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+							<div class="row">
+								{% for passwordForm in form.plainPassword %}
+									<div class="{{ smallWrapperClassName }}">
+										{{ form_row(passwordForm, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+									</div>
+								{% endfor %}
+							</div>
+							<div class="retractation mb-5">
 
-	<div class="row justify-content-center with-mp">
-
-		<div class="{{ wrapperClassName }}"><h2>Identité du demandeur de la carte grise</h2></div>
-
-		<div class="{{ wrapperClassName }}">
-			{{ form_row(form.client.clientGenre, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-		</div>
-
-		<div class="{{ wrapperClassName }}">
-			<div class="row">
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientNom, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-				</div>
-
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientPrenom, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-				</div>
-			</div>
-		</div>
-
-		<div class="{{ wrapperClassName }}">
-			<div class="row">
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientDateNaissance, {'attr': inputAttrsDate, 'label_attr': labelAttrs} )}}
-				</div>
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientLieuNaissance, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-				</div>
-			</div>
-		</div>
-
-		<div class="{{ wrapperClassName }}">
-			<div class="row">
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientContact.contact_telmobile, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-				</div>
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientContact.contact_telfixe, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-				</div>
-			</div>
-		</div>
-
-		<div class="{{ wrapperClassName }}">
-			{{ form_row(form.email, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-		</div>
-
-		<div class="{{ wrapperClassName }}">
-			{{ form_row(form.username, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-		</div>
-
-		<div class="{{ wrapperClassName }}">
-			{{ form_row(form.plainPassword, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-		</div>
-
-		<div class="{{ wrapperClassName }}">
-			<div class="row">
-				{% for passwordForm in form.plainPassword %}
-					<div class="{{ smallWrapperClassName }}">
-						{{ form_row(passwordForm, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+							{{ form_row(form.client.cgv, {'attr': inputAttrs} )}}
+							{# {{ form_row(form.client.retractation, {'attr': inputAttrs} )}} #}
+								<br>
+								<a href="{{ path('cgv')}}" target="_blank" class="">
+									<span class="menu-commander--button---text">Conditions générales de ventes CG Officiel</span>
+								</a>
+							</div>
+							<div class="col-12">
+								<div class="text-center mb-5">
+									<input type="submit" class="btn-calcuer btn btn-blue" value="{{ 'registration.submit'|trans }}" />
+								</div>
+							</div>
+						</div>
 					</div>
-				{% endfor %}
-			</div>
-		</div>
-
-		<div class="{{ wrapperClassName }}"><h2>Merci de renseigner votre adresse</h2></div>
-		
-		<div class="{{ wrapperClassName }}">
-			<div class="row">
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientAdresse.numero, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-				</div>
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientAdresse.typevoie, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+					{{ form_end(form )}}
 				</div>
 			</div>
 		</div>
-
-		<div class="{{ wrapperClassName }}">
-			{{ form_row(form.client.clientAdresse.extension, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-		</div>
-
-		<div class="{{ wrapperClassName }}">
-			{{ form_row(form.client.clientAdresse.nom, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-		</div>
-
-		<div class="{{ wrapperClassName }}">
-			{{ form_row(form.client.clientAdresse.complement, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-		</div>
-
-		<div class="{{ wrapperClassName }}">
-			<div class="row">
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientAdresse.codepostal, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-				</div>
-				<div class="{{ smallWrapperClassName }}">
-					{{ form_row(form.client.clientAdresse.ville, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-				</div>
-			</div>
-		</div>
-		
-		<div class="{{ wrapperClassName }}">
-			<div class="col-12">
-				<div class="text-center mb-5">
-					<input type="submit" class="btn btn-success" value="{{ 'registration.submit'|trans }}" />
-				</div>
-			</div>
-		</div>
-
 	</div>
+</div>
 
-{{ form_end(form )}}
+	

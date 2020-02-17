@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Facture N°{{demande.transaction.id | number_format()}}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}</title>
+  <title>Facture N° {% if demande.transaction is not null %}{{demande.transaction.id | number_format()}}{% elseif demande.commande.transaction is not null %}{{demande.commande.transaction.id | number_format()}}{% endif %}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ pathToWeb ~ asset('css/style.css') }}">
@@ -28,6 +28,14 @@
 </head>
 
 <body>
+  {% if demande.transaction is not null %}
+    {% set currentTransaction = demande.transaction %}
+  {% else %}
+    {% set currentTransaction = demande.commande.transaction %}
+  {% endif %}
+  <br>
+  <br>
+  <br>
   <div class="container">
   <div class="invoice">
     <div class="row">
@@ -36,7 +44,7 @@
       </div>
       <div class="col-5">
         <h1>FACTURE</h1>
-        <p><strong>N°{{demande.transaction.facture | formatFacture }}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}{{demande.transaction.id}}</strong></p>
+        <p><strong>N°{% if demande.transaction is not null %}{{demande.transaction.facture | formatFacture}}{% elseif demande.commande.transaction is not null %}{{demande.commande.transaction.facture | formatFacture}}{% endif %}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}{% if demande.transaction is not null %}{{demande.transaction.id }}{% elseif demande.commande.transaction is not null %}{{demande.commande.transaction.id}}{% endif %}</strong></p>
       </div>
     </div>
     <br>
@@ -50,24 +58,41 @@
       </div>
       <div class="col-5">
         <p>
-          <strong>
-            {% if demande.commande.clientFacture.clientgenre starts with 'F' %}
-             Madame 
-            {% else %}
-             Monsieur 
+          <strong>              
+            {% if (demande.commande.transaction is defined and demande.commande.transaction is not null) or (demande.transaction is defined and demande.transaction is not null)%}
+              {% if  findNomPrenomOfTitulaire(demande, "type") == "phy" %}
+                {% if  findNomPrenomOfTitulaire(demande, "genre") == "F"%}
+                Madame
+                {% elseif findNomPrenomOfTitulaire(demande, "genre") == "M"%}
+                Monsieur
+                {% else %}
+                Madame/Monsieur
+                {% endif %}
+              {% else %}
+                Société
+              {% endif %}
+              {% if demande.commande.demarche.type == "DCA" %}
+                {{ findNomPrenomOfTitulaire(demande, "birthName") | upper }}
+              {% elseif demande.commande.demarche.type == "DUP" %}
+                {{ findNomPrenomOfTitulaire(demande, "nomPrenom")}}
+              {% else %}
+                {{ findNomPrenomOfTitulaire(demande, "nomPrenomTitulaire") | upper }}
+              {% endif %}
+              {{ findNomPrenomOfTitulaire(demande, "prenomTitulaire") | capitalize }}
+              {{ findNomPrenomOfTitulaire(demande, "raisonSociale") | upper }}
             {% endif %}
-            {{ demande.commande.clientFacture.clientPrenom | capitalize }} 
-            {{ demande.commande.clientFacture.clientNom | upper}}
           </strong>
-          <br>
-            {{ demande.commande.clientFacture.clientAdresse.numero }} 
-            {{ demande.commande.clientFacture.clientAdresse.typevoie }} 
-            {{ demande.commande.clientFacture.clientAdresse.nom }} 
-            {{ demande.commande.clientFacture.clientAdresse.complement }} 
-            {{ demande.commande.clientFacture.clientAdresse.extension }} 
-          <br>
-            {{ demande.commande.clientFacture.clientAdresse.codePostal }} 
-            {{ demande.commande.clientFacture.clientAdresse.ville | upper }} 
+          {% if adresse is not null %}
+            <br>
+              {{ adresse.numero }} 
+              {{ adresse.extension }} 
+              {{ adresse.typevoie | displayAdress}} 
+              {{ adresse.nom | upper }} 
+              {{ adresse.complement }} 
+            <br> 
+              {{ adresse.codePostal }} 
+              {{ adresse.ville | upper }}
+          {% endif %}
         </p>
       </div>
     </div>
@@ -84,9 +109,9 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{demande.transaction.facture | formatFacture }}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}{{demande.transaction.id}}</td>
+          <td>{% if demande.transaction.facture is defined %}{{demande.transaction.facture | formatFacture}}{% else %}{{demande.commande.transaction.facture | formatFacture}}{% endif %}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}{% if demande.transaction.id is defined %}{{demande.transaction.id }}{% else %}{{demande.commande.transaction.id}}{% endif %}</td>
           <td class="text-center">{{demande.dateDemande | date('d/m/Y')}}</td>
-          <td class="text-center">{{demande.transaction.transactionId}}</td>
+          <td class="text-center">{{currentTransaction.transactionId}}</td>
         </tr>
       </tbody>
     </table>

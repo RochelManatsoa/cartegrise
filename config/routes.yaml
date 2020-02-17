@@ -13,6 +13,25 @@ _sonata_admin:
     resource: .
     type: sonata_admin
     prefix: /admin
+
+blog:
+    resource: App\Controller\Blog\BlogController
+    type: annotation
+    prefix: /actualites
+
+easy_admin_bundle:
+    resource: '@EasyAdminBundle/Controller/EasyAdminController.php'
+    prefix: /admin_actualites
+    type: annotation
+ckfinder_connector:
+    resource: "@CKSourceCKFinderBundle/Resources/config/routing.yml"
+    prefix:   /
 authentication_token:
     path: /authentication_token
     methods: ['POST']
+fos_user_registration_confirmed:
+    path: /register/confirmed
+    defaults:
+        _controller: App\Controller\RegistrationController::redirectAction
+        route: redirection_route
+        permanent: true

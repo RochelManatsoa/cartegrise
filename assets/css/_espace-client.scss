@@ -1,0 +1,41 @@
+.title-client {
+    color: #1f3864;
+}
+.nav-client {
+    img {
+        max-width: 40px;
+    }
+    .nav-client-item {
+        color: #1f3864;
+        border: 1px solid #1f3864;
+        padding: 5px 10px;
+        margin-right: 10px;
+        text-decoration: none;
+        font-size: 18px;
+        &:hover {
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        &.home-item {
+            border: none;
+        }
+    }
+}
+.demarche-container {
+    position: relative;
+    margin: 20px;
+    border: solid #f7f7f9;
+    padding: 1.5rem;
+    margin-right: 0;
+    margin-left: 0;
+    border-width: .2rem;
+    .content-demarche {
+        background: #eeeeee;
+        padding: 10px;
+        height: 400px;
+        p {
+            color: #1f3864;
+            font-size: 18px;
+        }
+    }
+}

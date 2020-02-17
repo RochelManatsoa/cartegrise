@@ -1,37 +1,65 @@
-.contact-content--titre {
-  color: #012a6a;
-  font-family: textr;
-}
+// .contact-content--titre {
+//   color: #012a6a;
+//   font-family: "Orkney";
+// }
 
-.contact-content--texte {
-  padding-top: 20px;
-  font-family: textr;
-}
+// .contact-content--texte {
+//   padding-top: 20px;
+//   font-family: "Orkney";
+// }
 
-.contact-content--texte {
-  p {
-    font-family: textr;
-    font-size: 20px;
+// .contact-content--texte {
+//   p {
+//     font-family: "Orkney";
+//     font-size: 20px;
+//   }
+// }
+
+// .contact-content {
+//   .card-header {
+//     font-family: "Orkney";
+//     font-weight: bold;
+//     font-size: 25px;
+//     color: #012a6a;
+//   }
+
+//   .form-control-label {
+//     font-family: "Orkney";
+//   }
+
+//   .form-control {
+//     border: 1px solid #012a6a;
+//   }
+
+//   .card {
+//     border: 1px solid #012a6a;
+//   }
+// }
+
+
+.block_page {
+  padding: 30px 0;
+  h1 {
+    text-transform: uppercase;
+    font-weight: 600;
   }
-}
-
-.contact-content {
-  .card-header {
-    font-family: textr;
-    font-weight: bold;
-    font-size: 25px;
-    color: #012a6a;
+  .contact-title {
+    font-size: 24px;
+    font-weight: 600;
   }
-
-  .form-control-label {
-    font-family: textr;
+  .form_contact_ {
+    background: $select-bg;
+    border: $bdr_solid_1 #eee;
+    padding: $size_24;
   }
-
-  .form-control {
-    border: 1px solid #012a6a;
+  .editeur_ {
+    padding: $size_20;
+    background: $select-bg;
+    margin-top: $size_15;
   }
-
-  .card {
-    border: 1px solid #012a6a;
+  .form-group {
+    label {
+      text-transform: uppercase;
+    }
   }
 }

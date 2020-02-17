@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit};
+use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit, User};
 use App\Form\{DemandeType, CommandeType, ContactUsType, FormulaireType};
 use App\Repository\{CommandeRepository, TaxesRepository, TarifsPrestationsRepository, DemandeRepository, TypeDemandeRepository};
 use Doctrine\Common\Persistence\ObjectManager;
@@ -11,15 +11,26 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Tms\TmsClient;
-use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager, DivnInitManager, ContactUsManager};
+use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager, DivnInitManager, ContactUsManager, NotificationManager};
 use App\Form\DivnInitType;
+use App\Manager\Mercure\MercureManager;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 
 class HomeController extends AbstractController
 {
+    public function __construct(
+        CsrfTokenManagerInterface $tokenManager = null
+    )
+    {
+        $this->tokenManager = $tokenManager;
+    }
     /**
      * @Route("/", name="Accueil")
      * @Route("/", name="home")
+     * @Route("/demande-duplicata-certificat-immatriculation", name="dup")
+     * @Route("/changement-titulaire-vehicule-doccasion", name="ctvo")
+     * @Route("/changement-adresse-certificat-immatriculation", name="dca")
      */
     public function accueil(
         Request $request,
@@ -33,11 +44,21 @@ class HomeController extends AbstractController
         CommandeManager $commandeManager,
         CarInfoManager $carInfoManager,
         TaxesManager $taxesManager,
-        DivnInitManager $divnInitManager
+        DivnInitManager $divnInitManager,
+        MercureManager $mercureManager,
+        NotificationManager $notificationManager
         )
-    {   
-        
+    {
+        $routeName = $request->attributes->get('_route');
         $type = $demarche->findAll();
+        $department = null;
+        if ($request->query->has('department')) {
+            $department = $request->query->get('department');
+        }
+        $defaultDemarche = null;
+        if($routeName !== "Accueil" || $routeName !== "home"){
+            $defaultDemarche = $demarche->findOneBy(['type' => strtoupper($routeName)]);
+        }
         $commande = $commandeManager->createCommande();
         foreach($type as $typeId) {
             $defaultType = $demarche->find($typeId->getId());
@@ -74,6 +95,7 @@ class HomeController extends AbstractController
                 'codePostal' => $commande->getCodePostal(),
                 'demarche' => $commande->getDemarche(),
             ]);
+
             if($commande->getDemarche()->getType() === 'DIVN'){
 
                 return $this->redirectToRoute('Accueil');
@@ -84,7 +106,7 @@ class HomeController extends AbstractController
 
             //     return $this->render('home/accueil.html.twig', $param);
             // } else {
-  
+
                 $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
                 if (!$tmsInfoImmat->isSuccessfull()) {
                     throw new \Exception('Veuillez Réessayer plus tard');
@@ -100,11 +122,33 @@ class HomeController extends AbstractController
                     $commande->setCarInfo($carInfo);
                     $manager->persist($commande);
                     $manager->persist($taxe);
-                    
-                    $manager->flush();
-                    $param = $this->getParamHome($commande, $sessionManager, $tabForm);
 
-                    return $this->render('home/accueil.html.twig', $param);
+                    $manager->flush();
+
+                    // The Publisher service is an invokable object
+                    $data = [
+                            'immat' => $commande->getImmatriculation(),
+                            'department' => $commande->getCodePostal(),
+                            'demarche' => $commande->getDemarche()->getType(),
+                            'id' => $commande->getId(),
+                    ];
+                    $mercureManager->publish(
+                        'http://cgofficiel.com/addNewSimulator',
+                        'commande',
+                        $data,
+                        'new Simulation is insert'
+                    );
+
+                    $notificationManager->saveNotification([
+                        "type" => 'commande', 
+                        "data" => $data,
+                    ]);
+                    $this->saveToSession($commande, $sessionManager, $tabForm);
+                    return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
+
+                    // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
+
+                    // return $this->render('home/accueil.html.twig', $param);
                 }
             // }
         }
@@ -114,6 +158,8 @@ class HomeController extends AbstractController
             'tab' => $tabForm,
             'formulaire' => $formulaire->createView(),
             'database' => false,
+            'defaultDepartment' => $department,
+            'defaultDemarche' => $defaultDemarche,
         ];
 
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -134,6 +180,7 @@ class HomeController extends AbstractController
         $param = [
             'commande' => $commande, 'recap' => $commande,
             'taxe' => $taxe,        'database' => true,   'majoration' => $majoration,
+            'user_csrf' => $this->getTokenAction()
         ];
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             $param = array_merge([
@@ -145,12 +192,30 @@ class HomeController extends AbstractController
             $manager->flush();
         } else {
             $param = array_merge(['tab' => $tabForm], $param);
-            // set and get session attributes 
+            // set and get session attributes
             $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
             // end treatment session
         }
 
         return $param;
+    }
+    private function saveToSession(Commande $commande, SessionManager $sessionManager, $tabForm)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $taxe = $commande->getTaxes();
+        $majoration = 0;
+        
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $this->getUser()->getClient()->addCommande($commande);
+            $manager->persist($this->getUser()->getClient());
+            $manager->flush();
+        } else {
+            
+            $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
+            // end treatment session
+        }
+
+        return "ok";
     }
 
     /**
@@ -175,6 +240,13 @@ class HomeController extends AbstractController
 	public function cgv()
 	{
 		return $this->render('home/cgv.html.twig');
+    }
+    /**
+	 * @Route("/mentions", name="mentions")
+	 */
+	public function mentions()
+	{
+		return $this->render('home/mentions.html.twig');
 	}
 
 	/**
@@ -210,10 +282,9 @@ class HomeController extends AbstractController
      * @Route("/prix-carte-grise", name="prix_carte_grise")
      */
     public function accueilSimulator()
-    {   
+    {
         return $this->render('home/prix.html.twig');
     }
-
 
     /**
      * @Route("/formulaire", name="formulaire")
@@ -231,7 +302,7 @@ class HomeController extends AbstractController
         TaxesManager $taxesManager,
         DivnInitManager $divnInitManager
         )
-    {   
+    {
         $commande = $commandeManager->createCommande();
         $form = $this->createForm(FormulaireType::class, $commande , ['departement'=>$commande->DEPARTMENTS]);
 
@@ -253,7 +324,7 @@ class HomeController extends AbstractController
 
             //     return $this->render('home/accueil.html.twig', $param);
             // } else {
-  
+
                 $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
                 if (!$tmsInfoImmat->isSuccessfull()) {
                     throw new \Exception('Veuillez Réessayer plus tard');
@@ -269,7 +340,7 @@ class HomeController extends AbstractController
                     $commande->setCarInfo($carInfo);
                     $manager->persist($commande);
                     $manager->persist($taxe);
-                    
+
                     $manager->flush();
                     $param = $this->getParamHome($commande, $sessionManager, $form);
 
@@ -292,4 +363,93 @@ class HomeController extends AbstractController
 
         return $this->render('home/formulaire.html.twig', $homeParams);
     }
+
+    /**
+     * @Route("/documents-telechargeables", name="doc_telechargeable")
+     */
+    public function doc_telechargeableAction()
+    {
+        return $this->render('home/doc_telechargeable.html.twig');
+    }
+    /**
+     * @Route("/piece-a-fournir", name="piece_a_fournir")
+     */
+    public function pieceAFournirAction()
+    {
+        return $this->render('home/pieceAFournir.html.twig');
+    }
+
+    public function getTokenAction()  
+    {
+        $csrf = $this->tokenManager
+            ? $this->tokenManager->getToken('authenticate')->getValue()
+            : null;
+        return $csrf;
+    }
+
+    /**
+     * @Route("/mentions-legales", name="mentions_legales")
+     */
+    public function mentionsLegales()
+    {
+        return $this->render('home/mentionsLegales.html.twig');
+    }
+
+    // /**
+    //  * @Route("/demande-duplicata-certificat-immatriculation", name="dup")
+    //  */
+    // public function dup(
+    //     Request $request,
+    //     TypeDemandeRepository $demarche,
+    //     ObjectManager $manager,
+    //     TaxesRepository $taxesRepository,
+    //     TarifsPrestationsRepository $prestation,
+    //     CommandeRepository $commandeRepository,
+    //     SessionManager $sessionManager,
+    //     TmsClient $tmsClient,
+    //     CommandeManager $commandeManager,
+    //     CarInfoManager $carInfoManager,
+    //     TaxesManager $taxesManager,
+    //     DivnInitManager $divnInitManager,
+    //     MercureManager $mercureManager,
+    //     NotificationManager $notificationManager
+    //     )
+    // {
+    //     $type = $demarche->findOneBy(['type' => "DUP"]);
+    //     $commande = $commandeManager->createCommande();
+    //     $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$type->getId(), 'departement'=>$commande->DEPARTMENTS]);
+
+    //     $form->handleRequest($request);
+    //     $homeParams = [
+    //         'form' => $form->createView(),
+    //         'database' => false,
+    //         'defaultDemarche' => $type,
+    //     ];
+
+    //     if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+    //         $client = $this->getUser()->getClient();
+
+    //         $homeParams['genre'] = $client->getClientGenre();
+    //         $homeParams['client'] = $client;
+    //     }
+
+    //     return $this->render('home/demarche/accueil.html.twig', $homeParams );
+    // }
+
+    // /**
+    //  * @Route("/changement-titulaire-vehicule-doccasion", name="ctvo")
+    //  */
+    // public function ctvo()
+    // {
+    //     return $this->render('home/demarche/ctvo.html.twig');
+    // }
+
+    // /**
+    //  * @Route("/changement-adresse-certificat-immatriculation", name="dca")
+    //  */
+    // public function dca()
+    // {
+    //     return $this->render('home/demarche/dca.html.twig');
+    // }
+
 }

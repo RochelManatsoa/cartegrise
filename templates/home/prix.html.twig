@@ -22,62 +22,65 @@
 
 {% block body_id %}{% endblock %}
 
-{% block class %}body-accueil{% endblock %}
-
 {% block page_content %}
-<div class="col-md-11 home-texte col-lg-11 d-flex flex-row justify-content-center my-flex-container align-items-center mx-auto">
-    <div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
-        <h2 class="col-12 col-sm-12 home-prix--titre">Quel est le coût d'une Carte Grise?</h2>
-        
-        <div class="col-12 ">
-            <h3>Prix de votre carte grise par département</h3>
-            <p>Cliquez sur la carte pour sélectionner votre département.</p>
-            <div class="map-container d-flex mx-auto text-center">
-                {% if is_mobile_view() %}
-                    <div id="francemap" style="margin:auto;  min-width: 250px; height: 300px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249);"></div>
-                {% elseif is_tablet_view() %}
-                    <div id="francemap"
-                        style="margin:auto;  min-width: 350px; height: 400px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249);">
+<input type="text" id="valuePostalCode">
+<div class="prix_CG">
+    <div class="container">
+        <h2 class="home-prix--titre">Quel est le coût d'une Carte Grise?</h2>
+        <div class="CG_item">
+            <div class="text-center">
+                <h3>Prix de votre carte grise par département</h3>
+                <p>Cliquez sur la carte pour sélectionner votre département.</p>
+            </div>
+            <div class="row align-items-center mt-5">
+                <div class="col-md-6 col-lg-7">
+                    <div class="map-container d-flex mx-auto text-center">
+                        {% if is_mobile_view() %}
+                            <div id="francemap" style="margin:auto;  min-width: 250px; height: 200px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249);"></div>
+                        {% elseif is_tablet_view() %}
+                            <div id="francemap"
+                                style="margin:auto;  min-width: 325px; height: 300px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249);">
+                            </div>
+                        {% elseif is_full_view() %}
+                            <div id="francemap"
+                                style="margin:auto;  min-width: 550px; height: 500px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249);">
+                            </div>
+                        {% endif %}
+                        <div class="info-map">
+                        </div>
                     </div>
-                {% elseif is_full_view() %}
-                    <div id="francemap"
-                        style="margin:auto;  min-width: 550px; height: 600px; position: relative; overflow: hidden; background-color: rgb(249, 249, 249);">
-                    </div>
-                {% endif %}
-                <div class="info-map">
+                </div>
+                <div class="col-md-6 col-lg-5">
+                    <div class="foot_PrixCG">
+                        <h3 class="text-center">Prix de la Carte Grise dans <span class="departement_selectione"> votre département</span></h3>
+                        <a href="#" class="lien_pref target_blank mb-3" target="_self">
+                            <img src="{{ asset('asset/img/logo.png')}}" style="height:75px;" class="img-thumbnail src_img" alt="...">
+                        </a>
+                        <table class="col-12 text-center">
+                            <tr>
+                                <td class="head-prix">Tarif cheval fiscal</td>
+                                <td class="head-prix">Tarif exoneration</td>
+                            </tr>
+                            <tr>
+                                <td class="departement_tarif"> -- €</td>
+                                <td class="departement_exoneration"> -- %</td>
+                            </tr>
+                        </table>
+                        <div class="text-center mt-4">
+                            <a class="btn btn-blue btn-blue-outline lien_pref target_blank"  target="_self" href="#" >En savoir plus sur cette préfécture</a>
+                            <a id="passerCommande" class="btn btn-blue" data-href="{{url('Accueil')}}">Passer ma commande <i class="icon-right-arrow"></i></a>
+                        </div>
+                    </centdiver>
                 </div>
             </div>
-            <h3 class="mt-5">Prix de la Carte Grise dans <span class="departement_selectione"> votre département</span></h3>
-            <center>
-                <table class="col-6 text-center">
-                    <tr class="text-center">
-                        <td>Tarif cheval fiscal</td>
-                        <td>Tarif exoneration</td>
-                    </tr>
-                    <tr class="text-center">
-                        <td class="departement_tarif"> -- €</td>
-                        <td class="departement_exoneration"> -- %</td>
-                    </tr>
-                </table>
-                <a href="#" class="lien_pref target_blank" target="_self">
-                    <img src="{{ asset('asset/img/logo.png')}}" style="height:50px;" class="img-thumbnail src_img" alt="...">
-                </a>
-                <br>
-                <a class="btn btn-outline-success mt-3 lien_pref target_blank"  target="_self" href="#" >
-                    En savoir plus sur cette préfécture 
-                </a><br>
-                <a class="btn btn-success mt-3 " href="{{path('Accueil')}}">
-                    PASSER MA COMMANDE 
-                </a>
-            </center>
         </div>
     </div>
 </div>
 {% endblock %}
 
-{% block pagetext_content %}
+{# {% block pagetext_content %}
 	{{ include('home/composant/texte/accueil-texte.html.twig') }}
-{% endblock %}
+{% endblock %} #}
 
 {% block javascripts %}
     {{ parent() }}
@@ -95,4 +98,12 @@
 
     </script>
     <script src="{{ asset('javascripts/card/card.js') }}"></script>
+    <script>
+        $('#passerCommande').on('click', function(){
+            let aceuil = $(this).data('href');
+            let valuePostal = $('#valuePostalCode').val();
+            let realUrl = aceuil + '?department=' + valuePostal;
+            window.location.href = realUrl;
+        });
+    </script>
 {% endblock %}

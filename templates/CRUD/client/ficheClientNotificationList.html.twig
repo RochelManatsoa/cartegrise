@@ -1,0 +1,17 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+{% if object.commande is defined and object.commande is not null and object.commande.client is not null %}
+    {% set client = object.commande.client %}
+    <a class="view_link" href="{{ admin.generateObjectUrl('ficheClient', client) }}" title="ficheClient">
+        <i class="fa fa-user" aria-hidden="true"></i>
+        {{client.clientNom}}
+    </a>
+{% elseif object.demande is defined and object.demande is not null and object.demande.commande.client is not null %}
+    {% set client = object.demande.commande.client %}
+    <a class="view_link" href="{{ admin.generateObjectUrl('ficheClient', client) }}" title="ficheClient">
+        <i class="fa fa-user" aria-hidden="true"></i>
+        {{client.clientNom}}
+    </a>
+{% endif %}
+{% endblock %}

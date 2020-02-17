@@ -3,16 +3,21 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Controller\API\UserApi;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
- *  @ApiResource(
+ * @ApiResource(
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"register"}},
  *     forceEager= false,
@@ -28,6 +33,7 @@ use App\Controller\API\UserApi;
  *     }
  *     }
  * )
+ * @ApiFilter(DateFilter::class, properties={"registerDate"})
  */
 class User extends BaseUser
 {
@@ -66,7 +72,7 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string", nullable=true)
-    * @Groups({"write", "register"})
+     * @Groups({"write", "register"})
      */
     private $franceConnectId;
 
@@ -76,6 +82,14 @@ class User extends BaseUser
      */
     private $client;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EmailHistory", mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"createdAt" = "DESC"})
+     */
+    private $emailHistories;
+
+
+
 
     public function __construct()
     {
@@ -84,6 +98,8 @@ class User extends BaseUser
         if (empty($this->registerDate)) {
             $this->registerDate = new \DateTime();
         }
+        $this->mailHistorys = new ArrayCollection();
+        $this->emailHistories = new ArrayCollection();
     }
 
     public function getClient(): ?Client
@@ -127,4 +143,34 @@ class User extends BaseUser
         return $this;
     }
 
+    /**
+     * @return Collection|EmailHistory[]
+     */
+    public function getEmailHistories(): Collection
+    {
+        return $this->emailHistories;
+    }
+
+    public function addEmailHistory(EmailHistory $emailHistory): self
+    {
+        if (!$this->emailHistories->contains($emailHistory)) {
+            $this->emailHistories[] = $emailHistory;
+            $emailHistory->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmailHistory(EmailHistory $emailHistory): self
+    {
+        if ($this->emailHistories->contains($emailHistory)) {
+            $this->emailHistories->removeElement($emailHistory);
+            // set the owning side to null (unless already changed)
+            if ($emailHistory->getUser() === $this) {
+                $emailHistory->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 }

@@ -20,8 +20,8 @@ DirectoryIndex index.php
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    RewriteRule ^actualite http://blog.cgofficiel.fr [L]
-    RewriteRule ^actualite/$1 http://blog.cgofficiel.fr/$1 [L]
+    # RewriteRule ^actualite http://blog.cgofficiel.fr [L]
+    # RewriteRule ^actualite/$1 http://blog.cgofficiel.fr/$1 [L]
 
     # Determine the RewriteBase automatically and set it as environment variable.
     # If you are using Apache aliases to do mass virtual hosting or installed the

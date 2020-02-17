@@ -1,0 +1,35 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+{% if object.facture is not null %}
+    <a class="btn btn-sm btn-default view_link" target="_blank"
+        href="{{ admin.generateObjectUrl('commandeFacture', object) }}" title="facture">
+        <i class="fa fa-file" aria-hidden="true"></i>
+        facture
+    </a>
+{% elseif object.demande is defined and object.demande is not null %}
+    <a class="btn btn-sm btn-default view_link" target="_blank"
+        href="{{ admin.generateObjectUrl('facture', object.demande) }}" title="facture">
+        <i class="fa fa-file" aria-hidden="true"></i>
+        facture
+    </a>
+{% else %}
+<a target="">
+    facture
+</a>
+{% endif %}
+/
+
+{% if object.demande is defined and object.demande is not null and object.demande.avoir is not null and object.demande.avoir == true %}
+<a class="btn btn-sm btn-default view_link" target="_blank"
+    href="{{ admin.generateObjectUrl('avoir', object.demande) }}" title="facture">
+    <i class="fa fa-file" aria-hidden="true"></i>
+    avoir
+</a>
+{% else %}
+<a target="">
+    avoir
+</a>
+{% endif %}
+{# {{ fraisTotalTraitement(object) }} #}
+{% endblock %}

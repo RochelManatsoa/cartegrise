@@ -3,7 +3,17 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-<p>
-{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}
-</p>
+<div class="register-block" data-parallax="scroll" data-image-src="{{ asset('asset/img/bg_inscription.jpg')}}">
+	<div class="container">
+		<div class="block_form">
+            <div class="col-lg-6 mx-auto">
+                <div class="formContent-bc pt-5 pb-5">
+                    <div class="container">
+                        <p class="text-md-center mb-0">{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

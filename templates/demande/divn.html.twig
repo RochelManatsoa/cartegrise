@@ -4,167 +4,173 @@
 
 {% block title %}{% endblock %}
 
-{% block stylesheets %} {{ parent()}} {% endblock %}
+{% block stylesheets %} 
+{{ parent()}}
+<link href="{{asset('Utils/jquerySteps/css/jquery.steps.css')}}" rel="stylesheet">
+<link href="{{asset('Utils/jquerySteps/css/main.css')}}" rel="stylesheet">
+<link href="{{asset('Utils/jquerySteps/css/normalize.css')}}" rel="stylesheet">
+ {% endblock %}
 
 {% block body_id %}{% endblock %}
 
 {% block class %}body-ccm{% endblock %}
 
 {% block page_content %}
-<div class="col-sm-10 col-lg-12 d-flex flex-row justify-content-center my-flex-container align-items-center mobile-center">
-	<div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container">
-        <div class="col-12 commander-firstview mt-4 custom-form">
-            <h2 class="col-md-10 mx-auto full-mobile text-center">{{ commande.demarche.nom|upper }}</h2>
-            <div class="row">
+<div class="rp_dmd">
+    <div class="container">
+        <div class="row">
+             <div class="col-12 commander-firstview mt-4 custom-form">
+                <h2 class="text-center mb-4 full-mobile">{{ commande.demarche.nom|upper }}</h2>
                 <hr>
-                {{ form_start(form, {'attr': {'class': 'row'}}) }}
-                    <div class="col-4 col-md-10 mx-auto full-mobile">
-                        {% include "demande/caracteristicVehicle.html.twig" %}
-                    </div>
-                    <div class="col-3 col-md-5 mx-auto form-row full-mobile">
-                        <div class="col-10 col-sm-12 mx-auto">
-                            <h3 class="text-center"> {{ form_label(form.divn.acquerreur) }} </h3>
-                            <hr>
-                            <div class="titulaire">
-                                {{ form_row(form.divn.acquerreur.type)}}
-                                {{ form_row(form.divn.acquerreur.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                {{ form_row(form.divn.acquerreur.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                {{ form_row(form.divn.acquerreur.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                {{ form_row(form.divn.acquerreur.nomPrenomTitulaire)}}
-                                {{ form_row(form.divn.acquerreur.prenomTitulaire)}}
-                                {{ form_row(form.divn.acquerreur.genre)}}
-                                {{ form_row(form.divn.acquerreur.dateN)}}
-                                {{ form_row(form.divn.acquerreur.lieuN)}}
-                                {{ form_row(form.divn.acquerreur.departementN)}}
-                                {{ form_row(form.divn.acquerreur.paysN)}}
-                                {{ form_row(form.divn.acquerreur.droitOpposition)}}
+                 {{ form_start(form, {'attr': {'id': 'example-advanced-form'}}) }}
+                    <h3>Etape</h3>
+                    <section style="position: relative;width: 100%;">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <legend>{{ form_label(form.divn.acquerreur) }}</legend>
+                                <div class="titulaire">
+                                    {{ form_row(form.divn.acquerreur.type)}}
+                                    {{ form_row(form.divn.acquerreur.raisonSociale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.acquerreur.siren, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.acquerreur.societeCommerciale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                    {{ form_row(form.divn.acquerreur.nomPrenomTitulaire)}}
+                                    {{ form_row(form.divn.acquerreur.prenomTitulaire)}}
+                                    {{ form_row(form.divn.acquerreur.genre)}}
+                                    {{ form_row(form.divn.acquerreur.dateN)}}
+                                    {{ form_row(form.divn.acquerreur.lieuN)}}
+                                    {#{{ form_row(form.divn.acquerreur.departementN)}}
+                                    {{ form_row(form.divn.acquerreur.paysN)}}#}
+                                    {{ form_row(form.divn.acquerreur.droitOpposition)}}
+                                </div>
                             </div>
-                            {# <h3 class="text-center"> {{ form_label(form.divn.vehicule) }} </h3>
-                            <hr>
-                            <div class="form-info">
-                                {{ form_row(form.divn.vehicule.vin)}}
-                                {{ form_row(form.divn.vehicule.d1Marque)}}
-                                {{ form_row(form.divn.vehicule.d2Version)}}
-                                {{ form_row(form.divn.vehicule.z1Mention1)}}
-                                {{ form_row(form.divn.vehicule.z1Value)}}                    
-                                <div class="form-vehicule">            
-                                    {{ form_row(form.divn.vehicule.type)}}
-                                    {{ form_row(form.divn.vehicule.kNumRecepCe)}}
-                                    {{ form_row(form.divn.vehicule.dateReception)}}
-                                    {{ form_row(form.divn.vehicule.d21Cenit)}}
-                                    {{ form_row(form.divn.vehicule.derivVp)}}
-                                    {{ form_row(form.divn.vehicule.d3Denomination, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.f2MmaxTechAdm, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.f2MmaxAdmServ, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.f3MmaxAdmEns, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.gMmaxAvecAttelage, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.g1PoidsVide, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.jCategorieCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.j1Genre, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.j2CarrosserieCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.j3Carrosserie, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.p1Cyl, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.p2PuissKw, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.p3Energie, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.p6PuissFiscale, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.qRapportPuissMasse, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.s1NbPlaceAssise, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.s2NbPlaceDebout, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.u1NiveauSonore, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.u2NbTours, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.v7Co2, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.vehicule.v9ClasseEnvCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                </div>
-                            </div> #}
+                            <div class="col-md-2 d-none d-lg-block"><div class="col-sep d-flex align-items-center justify-content-center"><span></span></div></div>
+                            <div class="col-md-5">
+                                <legend>{{ form_label(form.divn.acquerreur.adresseNewTitulaire) }}</legend>
+                                {% for addresseNewTitulaire in form.divn.acquerreur.adresseNewTitulaire %}
+                                    <div class="form-group">
+                                        {{ form_label(addresseNewTitulaire)}}
+                                        {{ form_errors(addresseNewTitulaire)}}
+                                        {{ form_widget(addresseNewTitulaire, {'attr': {'class': ''}})}}
+                                    </div>
+                                {% endfor %} 
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-3 col-md-5 mx-auto form-row full-mobile">
-                            <h3 class="text-center"> {{ form_label(form.divn.acquerreur.adresseNewTitulaire) }} </h3>
-                            <hr>
-                        <div class="col-10 col-sm-12 mx-auto">
-                            {% for addresseNewTitulaire in form.divn.acquerreur.adresseNewTitulaire %}
-                                <div class="form-group">
-                                    {{ form_label(addresseNewTitulaire)}}
-                                    {{ form_errors(addresseNewTitulaire)}}
-                                    {{ form_widget(addresseNewTitulaire, {'attr': {'class': ''}})}}
-                                </div>
-                            {% endfor %}   
-                            <h3 class="text-center">{{ form_label(form.divn.cotitulaire) }}</h3>
-                            <hr>
-                            <ul class="tags" data-prototype="{{ form_widget(form.divn.cotitulaire.vars.prototype)|e('html_attr') }}">
-                                {% for tag in form.divn.cotitulaire %}
-                                    {% if loop.index < 5 %}
-                                    <li>
-                                        {{ form_label(tag.vars.prototype)|e  }}
-                                        {{ form_errors(tag.vars.prototype)|e  }}
-                                        {{ form_widget(tag.vars.prototype, {'attr': {'class': ''}})|e  }}
-                                    </li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul> 
-                            {# <h3 class="text-center"> {{ form_label(form.divn.carrosier) }} </h3>
-                            <hr>
-                            <div class="col-10 col-sm-12 mx-auto">
-                                <div class="carrossier">
-                                    {{ form_row(form.divn.carrosier.typeCarrossier)}}
-                                    {{ form_row(form.divn.carrosier.raisonSocialCarrossier, {'attr': {'data-row-style': 'display:none !important;'} })}}
-                                    {{ form_row(form.divn.carrosier.nomCarrosssier)}}
-                                    {{ form_row(form.divn.carrosier.prenomCarrossier)}}
-                                </div>
-                                    {{ form_row(form.divn.carrosier.agrement)}}
-                                    {{ form_row(form.divn.carrosier.justificatifs)}}
-                            <h3 class="text-center">{{ form_label(form.divn.caracteristiqueTechniquePart) }}</h3>
-                            <hr> 
-                            <div id="caract" data-prototype="{{ form_widget(form.divn.caracteristiqueTechniquePart.vars.prototype)|e('html_attr') }}">
-                                {% for row in form.divn.cotitulaire %}
-                                    {% if loop.index < 3 %}
-                                    <div class="panel panel-warning">
-                                        <div class="panel-heading">
-                                        </div>
-                                        <div class="panel-body">
-                                            {{ form_label(row.vars.prototype)|e  }}
-                                            {{ form_errors(row.vars.prototype)|e  }}
-                                            {{ form_widget(row.vars.prototype, {'attr': {'class': ''}})|e  }}
+                        <legend>{{ form_label(form.divn.cotitulaire) }}</legend>
+                        <ul class="tags" data-prototype="{{ form_widget(form.divn.cotitulaire.vars.prototype)|e('html_attr') }}">
+                            {% for tag in form.divn.cotitulaire %}
+                                {% if loop.index < 5 %}
+                                <li>
+                                    {{ form_label(tag.vars.prototype)|e  }}
+                                    {{ form_errors(tag.vars.prototype)|e  }}
+                                    {{ form_widget(tag.vars.prototype, {'attr': {'class': ''}})|e  }}
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul> 
+                    </section>
+
+                    <h3>Etape</h3>
+                    <section style="position: relative;width: 100%;">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <legend>{{ form_label(form.divn.vehicule) }}</legend>
+                                    <div class="form-info">
+                                        {{ form_row(form.divn.vehicule.vin)}}
+                                        {{ form_row(form.divn.vehicule.d1Marque)}}
+                                        {{ form_row(form.divn.vehicule.d2Version)}}
+                                        {{ form_row(form.divn.vehicule.z1Mention1)}}
+                                        {{ form_row(form.divn.vehicule.z1Value)}}    
+                                        {{ form_row(form.divn.vehicule.g1PoidsVide)}}
+                                        {{ form_row(form.divn.vehicule.f2MmaxTechAdm)}}
+                                        {{ form_row(form.divn.vehicule.gMmaxAvecAttelage)}}
+                                        {{ form_row(form.divn.vehicule.f2MmaxAdmServ)}} 
+                                        {{ form_row(form.divn.vehicule.derivVp)}}
+                                        {{ form_row(form.divn.vehicule.j3Carrosserie)}}
+                                        {{ form_row(form.divn.vehicule.s1NbPlaceAssise)}}
+                                        {{ form_row(form.divn.vehicule.j1Genre)}}
+                                        <div class="form-vehicule">            
+                                            {{ form_row(form.divn.vehicule.type)}}
+                                            {{ form_row(form.divn.vehicule.kNumRecepCe)}}
+                                            {{ form_row(form.divn.vehicule.dateReception)}}
+                                            {{ form_row(form.divn.vehicule.d21Cenit)}}
+                                            {{ form_row(form.divn.vehicule.d3Denomination, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                            {{ form_row(form.divn.vehicule.f3MmaxAdmEns, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                            {{ form_row(form.divn.vehicule.jCategorieCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                            {{ form_row(form.divn.vehicule.j2CarrosserieCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                            {{ form_row(form.divn.vehicule.p1Cyl, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                            {{ form_row(form.divn.vehicule.p2PuissKw, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                            {{ form_row(form.divn.vehicule.p3Energie, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                            {{ form_row(form.divn.vehicule.p6PuissFiscale, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                            {{ form_row(form.divn.vehicule.qRapportPuissMasse, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                            {{ form_row(form.divn.vehicule.s2NbPlaceDebout, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                            {{ form_row(form.divn.vehicule.u1NiveauSonore, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                            {{ form_row(form.divn.vehicule.u2NbTours, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                            {{ form_row(form.divn.vehicule.v7Co2, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                            {{ form_row(form.divn.vehicule.v9ClasseEnvCe, {'attr': {'data-row-style': 'display:none !important;'} })}}
                                         </div>
                                     </div>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>  #}
+                                </div>
+                                <div class="col-md-2 d-none d-lg-block"><div class="col-sep d-flex align-items-center justify-content-center"><span></span></div></div>
+                                <div class="col-md-5">
+                                    <legend>{{ form_label(form.divn.carrosier) }}</legend>
+                                    <div class="carrossier">
+                                        {{ form_row(form.divn.carrosier.typeCarrossier)}}
+                                        {{ form_row(form.divn.carrosier.raisonSocialCarrossier, {'attr': {'data-row-style': 'display:none !important;'} })}}
+                                        {{ form_row(form.divn.carrosier.nomCarrosssier)}}
+                                        {{ form_row(form.divn.carrosier.prenomCarrossier)}}
+                                    </div>
+                                        {{ form_row(form.divn.carrosier.agrement)}}
+                                        {{ form_row(form.divn.carrosier.justificatifs)}}
+                                    <legend>{{ form_label(form.divn.caracteristiqueTechniquePart) }}</legend>
+                                    <div id="caract" data-prototype="{{ form_widget(form.divn.caracteristiqueTechniquePart.vars.prototype)|e('html_attr') }}">
+                                        {% for row in form.divn.cotitulaire %}
+                                            {% if loop.index < 3 %}
+                                            <div class="panel panel-warning">
+                                                <div class="panel-heading">
+                                                </div>
+                                                <div class="panel-body">
+                                                    {{ form_label(row.vars.prototype)|e  }}
+                                                    {{ form_errors(row.vars.prototype)|e  }}
+                                                    {{ form_widget(row.vars.prototype, {'attr': {'class': ''}})|e  }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
                             </div>
-                    </div>
-                    </div>
-                    <div class="col-12 text-center">
+                    </section>
+
+                    <h3>Etape</h3>
+                    <section style="position: relative;width: 100%;">
+                        <legend>Récapitulatif des informations liées à la demande</legend>
+                        <div id="resum"></div>
                         <div style="display:none;">
                             {{form_rest(form)}}
                         </div>
-                    </div>
-                    <div class="col-12 text-center mb-5">
-                        <br>
-                        <input type="submit" class="btn btn-md btn-success" value="Valider">
-                    </div>
+                    </section>
+
+                    {# <h3>Etape</h3>
+                    <section style="position: relative;width: 100%;">
+                    </section> #}
                 {{ form_end(form) }}
+
+                <hr>
+                <div class="resultat-estimation mb-5 full-mobile">
+                    {% include "demande/caracteristicVehicle.html.twig" %}
+                </div>
             </div>
         </div>
-	</div>
+    </div>
 </div>
+
 {% endblock %}
 {% block javascripts %} 
-{{ parent() }}
-<script type="application/javascript">
-    $('.choice-type-reception').on('change', function(e) {
-        $(e.target).parent().siblings().toggle();
-    })
-</script>
-<script type="application/javascript">
-    $('.choice-type-personne').on('change', function(e) {
-        $(e.target).parent('.form-group').siblings().toggle();
-    })
-</script>
-<script type="application/javascript">
-    $('.choice-type-carrossier').on('change', function(e) {
-        $(e.target).parent('.form-group').siblings().toggle();
-    })
-</script>
+<script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>
+<script src="{{ asset('Utils/js/jqueryUi.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/jquery.steps.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/jqueryValidate.js')}}"></script>
+<script src="{{asset('Utils/jquerySteps/js/divn.js')}}"></script>
 <script type="application/javascript">
     var $collection;
     var $addNewItems = $('<center><button type="button" class="btn btn-outline-info">Ajouter caractéristique</button></center>');
@@ -269,10 +275,41 @@
     }
 </script>
 <script type="text/javascript">
-    $('.js-datepicker').datepicker({
-        dateFormat: 'dd/mm/yy',
-        changeMonth: true,
-        changeYear: true
-    });
-</script>    
+
+    $(document).ready(
+        function(){
+            initFormStep(
+                $("#example-advanced-form"),
+                "h3",
+                "section",
+                "fade"
+            );
+        }
+    );
+
+    $(document).ready(
+        function(){
+            showElement(
+                $('.choice-type-carrossier')
+            );
+            showElement(
+                $('.choice-type-personne')
+            );
+            showElement(
+                $('.choice-type-reception')
+            );
+        }
+    );
+
+    $(document).ready(
+        function(){
+            datePickerFunction(
+                $('.js-datepicker')
+            );
+        }
+    );
+
+</script>
+</script>   
+<script src="{{ asset('asset/libs/js/jquery.sticky.js') }}" type="text/javascript"></script>
 {% endblock %}

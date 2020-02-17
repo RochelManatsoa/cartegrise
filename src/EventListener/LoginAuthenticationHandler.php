@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-05-21 10:55:09 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-05-21 16:53:53
+ * @Last Modified time: 2019-12-31 08:46:38
  */
 namespace App\EventListener;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -61,11 +61,28 @@ class LoginAuthenticationHandler implements AuthenticationSuccessHandlerInterfac
     {
         $user = $token->getUser();
         if ($user->hasRole("ROLE_CRM")) {
-
             return new RedirectResponse($this->routerInterface->generate('route_crm_home'));
+        }elseif($user->hasRole("ROLE_ADMIN_BLOG")){
+
+            return new RedirectResponse($this->routerInterface->generate('easyadmin'));
+        }elseif(!$user->hasRole("ROLE_CRM") && !$user->hasRole("ROLE_ADMIN_BLOG")) {
+            $this->userManager->checkCommandeInSession($user);
+            $commandes = $user->getClient()->getCommandes();
+            if (!is_null($commandes) && 0 < count($commandes)){
+                $lastCommande = $commandes->last();
+                // add condition when user went to recap before
+                if ( 
+                    null === $lastCommande->getTransaction() ||
+                        (null !== $lastCommande->getTransaction() &&
+                        $lastCommande->getTransaction()->getStatus() != '00')
+                ) {
+                    return new RedirectResponse($this->routerInterface->generate('commande_recap', ["commande" => $lastCommande->getId()]));
+                }
+            }
+
         }
         $this->userManager->checkCommandeInSession($user);
 
-        return new RedirectResponse($this->routerInterface->generate('Accueil'));
+        return new RedirectResponse($this->routerInterface->generate('espace_client'));
     }
 }

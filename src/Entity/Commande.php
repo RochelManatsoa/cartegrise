@@ -9,6 +9,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommandeRepository")
@@ -18,10 +20,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
  * )
+ * @ApiFilter(DateFilter::class, properties={"ceerLe"})
  */
 class Commande
 {
     use \App\Manager\TraitList\CommandeStatusTrait;
+
+    const DOC_DOWNLOAD = 'document/';
+    const RETRACT_DEMAND = 7;
+    const RETRACT_REFUND = 8;
+    const RETRACT_FORM_WAITTING = 9;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -62,6 +71,7 @@ class Commande
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("read")
      */
     private $ceerLe;
 
@@ -72,6 +82,7 @@ class Commande
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="commandes")
+     * @ORM\JoinColumn()
      */
     private $client;
 
@@ -111,6 +122,13 @@ class Commande
      * @ORM\Column(type="text", nullable=true)
      */
     private $tmsSaveResponse;
+    
+    /**
+     * comment about the command variable
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $comment;
 
     /**
      * @var \DateTime $deletedAt
@@ -118,6 +136,57 @@ class Commande
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     private $deletedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Transaction", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
+     * @Groups({"read"})
+     */
+    private $transaction;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Notification", mappedBy="commande", cascade={"persist", "remove"})
+     */
+    private $notification;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Facture", mappedBy="commande", cascade={"persist", "remove"})
+     */
+    private $facture;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\InfosFacture", mappedBy="commande", cascade={"persist", "remove"})
+     */
+    private $infosFacture;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true,  options={"default" : false})
+     */
+    private $paymentOk;
+
+    /**
+     * @ORM\Column(nullable=true,  options={"default" : null})
+     */
+    private $statusTmp;
+
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Avoir", mappedBy="commande", cascade={"persist", "remove"})
+     */
+    private $avoir;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $fraisRembourser;
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->ceerLe = new \DateTime();
+    }
 
 
     public function __construct()
@@ -159,7 +228,7 @@ class Commande
 
     public function setImmatriculation(string $immatriculation): self
     {
-        $this->immatriculation = $immatriculation;
+        $this->immatriculation = strtoupper($immatriculation);
 
         return $this;
     }
@@ -322,7 +391,9 @@ class Commande
 
     public function setClient(?Client $client): self
     {
-        $this->client = $client;
+        if ($this->client === null) {
+            $this->client = $client;
+        }
 
         return $this;
     }
@@ -371,6 +442,173 @@ class Commande
     public function setDeletedAt(?\DateTimeInterface $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getTransaction(): ?Transaction
+    {
+        return $this->transaction;
+    }
+
+    public function setTransaction(?Transaction $transaction): self
+    {
+        $this->transaction = $transaction;
+
+        return $this;
+    }
+
+    public function getNotification(): ?Notification
+    {
+        return $this->notification;
+    }
+
+    public function setNotification(?Notification $notification): self
+    {
+        $this->notification = $notification;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCommande = null === $notification ? null : $this;
+        if ($notification->getCommande() !== $newCommande) {
+            $notification->setCommande($newCommande);
+        }
+
+        return $this;
+    }
+
+    public function getFacture(): ?Facture
+    {
+        return $this->facture;
+    }
+
+    public function setFacture(?Facture $facture): self
+    {
+        $this->facture = $facture;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCommande = null === $facture ? null : $this;
+        if ($facture->getCommande() !== $newCommande) {
+            $facture->setCommande($newCommande);
+        }
+
+        return $this;
+    }
+
+    public function getPaymentOk(): ?bool
+    {
+        return $this->paymentOk;
+    }
+
+    public function setPaymentOk(?bool $paymentOk): self
+    {
+        $this->paymentOk = $paymentOk;
+
+        return $this;
+    }
+
+    public function getGeneratedCerfaPath(): ?string
+    {
+        $path = $this::DOC_DOWNLOAD . $this->id ."/".
+            $this->immatriculation. '-' .
+            $this->codePostal;
+
+        return $path;
+    }
+
+    public function getGeneratedFacturePathFile(): ?string
+    {
+
+        return $this->getGeneratedCerfaPath().'/facture.pdf';
+    }
+
+    public function getInfosFacture(): ?InfosFacture
+    {
+        return $this->infosFacture;
+    }
+
+    public function setInfosFacture(?InfosFacture $infosFacture): self
+    {
+        $this->infosFacture = $infosFacture;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCommande = null === $infosFacture ? null : $this;
+        if ($infosFacture->getCommande() !== $newCommande) {
+            $infosFacture->setCommande($newCommande);
+        }
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getStatusTmp()
+    {
+        return $this->statusTmp ;
+    }
+
+    /**
+     * function setStatusTmp
+     *
+     * @param string $status
+     * @return void
+     */
+    public function setStatusTmp(string $status)
+    {
+        $this->statusTmp = $status;
+    }
+
+    public function getAvoir(): ?Avoir
+    {
+        return $this->avoir;
+    }
+
+    public function setAvoir(?Avoir $avoir): self
+    {
+        $this->avoir = $avoir;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCommande = null === $avoir ? null : $this;
+        if ($avoir->getCommande() !== $newCommande) {
+            $avoir->setCommande($newCommande);
+        }
+
+        return $this;
+    }
+
+    public function getGeneratedAvoirCerfaPath(): ?string
+    {
+        $path = $this::DOC_DOWNLOAD . $this->id ."commande/".
+            $this->getImmatriculation(). '-' .
+            $this->getCodePostal();
+
+        return $path;
+    }
+
+    public function getGeneratedAvoirPathFile(): ?string
+    {
+
+        return $this->getGeneratedAvoirCerfaPath().'/avoir.pdf';
+    }
+
+
+    public function getFraisRembourser()
+    {
+        return $this->fraisRembourser;
+    }
+
+    public function setFraisRembourser($fraisRembourser): self
+    {
+        $this->fraisRembourser = $fraisRembourser;
 
         return $this;
     }
