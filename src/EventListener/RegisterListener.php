@@ -59,6 +59,7 @@ class RegisterListener implements EventSubscriberInterface
         $user = $event->getUser();
         if (!$user instanceof User)
             return;
+        $this->userManager->sendEmailOnRegistration($user);
         $this->userManager->checkCommandeInSession($user);
         // The Publisher service is an invokable object
         $this->mercureManager->publish(
