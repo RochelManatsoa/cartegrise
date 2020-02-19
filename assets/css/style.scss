@@ -3645,9 +3645,6 @@ Suivi
 		}
 	}
 }
-<<<<<<< HEAD
-
-
 
 //style aside_right
 .reverse-col_ {
@@ -3696,7 +3693,6 @@ Suivi
 		width: 47px;
 	}
 }
-=======
 //Style for department select list
 ul#ui-id-1 {
   max-width: 260px;
@@ -3722,4 +3718,12 @@ ul#ui-id-1 {
     }
   }
 }
->>>>>>> ddb3cb01e76b764b0f58d70d227a9ea8f1644505
+.ui-state-active, 
+.ui-widget-content .ui-state-active, 
+.ui-widget-header .ui-state-active, 
+a.ui-button:active, 
+.ui-button:active, 
+.ui-button.ui-state-active:hover {
+    border: none !important;
+    background: none !important;
+}
