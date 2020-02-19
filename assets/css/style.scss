@@ -3695,3 +3695,28 @@ Suivi
 		width: 47px;
 	}
 }
+//Style for department select list
+ul#ui-id-1 {
+  max-width: 260px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: $white;
+  border: 1px solid $gray;
+  max-height: 275px;
+  overflow-y: scroll;
+  li{
+    &.ui-menu-item {
+      margin: 0;
+      padding: 5px 12px;
+      border-bottom: 1px solid #ececec;
+      transition: all 0.15s ease-in;
+      font-size: 14px;
+      &:hover {
+        color: $white;
+        background: $royal-blue;
+        cursor: pointer;
+      }
+    }
+  }
+}
