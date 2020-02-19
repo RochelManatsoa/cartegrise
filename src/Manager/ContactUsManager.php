@@ -25,10 +25,10 @@ class ContactUsManager
         $this->entityManager = $entityManager;
     }
 
-    private function save(Entity $entity)
+    public function save(Entity $entity)
     {
-        $this->EntityManager->persist($entity);
-        $this->EntityManager->flush();
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
     }
     
 }
