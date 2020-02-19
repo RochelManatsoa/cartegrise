@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit, User};
+use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit, User, NotificationEmail};
 use App\Form\{DemandeType, CommandeType, ContactUsType, FormulaireType};
 use App\Repository\{CommandeRepository, TaxesRepository, TarifsPrestationsRepository, DemandeRepository, TypeDemandeRepository};
 use Doctrine\Common\Persistence\ObjectManager;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Tms\TmsClient;
-use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager, DivnInitManager, ContactUsManager, NotificationManager};
+use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager, DivnInitManager, ContactUsManager, NotificationManager, NotificationEmailManager, MailManager};
 use App\Form\DivnInitType;
 use App\Manager\Mercure\MercureManager;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -260,7 +260,12 @@ class HomeController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      */
-    public function contact(Request $request, ContactUsManager $contactUsManger)
+    public function contact(
+        Request $request, 
+        ContactUsManager $contactUsManger,
+        MailManager $mailManager,
+        NotificationEmailManager $notificationManager
+        )
     {
         $contactU = new ContactUs();
         $form = $this->createForm(ContactUsType::class, $contactU);
@@ -268,7 +273,11 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
+            $template = 'email/contact/contactUs.mail.twig';
+            $object = 'Nouvelle entrée: Formulaire de contact';
             $contactUsManger->save($data);
+            $mailManager->sendEmail($emails = $adminEmails, $template, $object, [ 'responses'=>$data]);
 
             return $this->redirectToRoute('home');
         }
