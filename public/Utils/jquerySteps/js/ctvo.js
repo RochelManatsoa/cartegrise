@@ -459,7 +459,8 @@ function datePickerFunction(element){
         dateFormat: 'dd/mm/yy',
         changeMonth: true,
         changeYear: true,
-        minDate: "-100Y",
-        maxDate: "-18Y",
+        //minDate: "-100Y",
+        //maxDate: "-18Y"
+        yearRange : '-100:-18'
     });
 }

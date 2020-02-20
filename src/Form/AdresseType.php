@@ -19,6 +19,7 @@ class AdresseType extends AbstractType
             ->add('numero', IntegerType::class, array(
                 'label' => 'label.numerovoie', 
                 'required'=>true,
+                'attr' => array('min' => 1)
                 ))
             ->add('extension', null, array(
                 'required' => false, 
