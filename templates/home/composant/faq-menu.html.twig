@@ -3,7 +3,7 @@
         <h3 class="home-secondview--titre">FAQ</h3>
         <div class="comment-ca-marche-texte">
             <!--A quoi sert le certificat d’immatriculation ?-->
-            <div class="accordeon_">
+            <div class="accordeon_" id="certificat">
                 <div class="row">
                     <button type="button" class="col-12 col-sm-6 col-md-7 menu-commander">
                         <span class="menu-commander--button---text">A quoi sert le certificat d’immatriculation ?</span>
@@ -32,7 +32,7 @@
             </div>
 
             <!--Doit-on immatriculer un tracteur ?-->
-            <div class="accordeon_">
+            <div class="accordeon_" id="tracteur">
                 <div class="row">
                     <button type="button" class="col-12 col-sm-6 col-md-7 menu-commander">
                         <span class="menu-commander--button---text">Doit-on immatriculer un tracteur ?</span>
@@ -216,7 +216,7 @@
             </div>
 
             <!--Doit on immatriculer une remorque ?-->
-            <div class="accordeon_">
+            <div class="accordeon_" id="remorque">
                 <div class="row">
                     <button type="button" class="col-12 col-sm-6 col-md-7 menu-commander">
                         <span class="menu-commander--button---text">Doit-on immatriculer une remorque ?</span>
@@ -1046,6 +1046,27 @@
                 $(this)
                         .siblings(".toggle-content")
                         .slideDown(200);
+        }
+        });
+        var jump=function(e)
+        {
+            if (e){
+                e.preventDefault();
+                var target = $(this).attr("href");
+            }else{
+                var target = window.location.hash;
+            }
+            $(target).find('button').trigger('click');
+            $('html,body').animate({scrollTop: $(target).offset().top-130},2000);
+        }
+        $(document).ready(function(){
+            var hash= window.location.hash;
+            $('a[href^="#"]').bind("click", jump);
+            if(hash.length > 0){
+                setTimeout(function() {
+                    $('html, body').scrollTop(0).show();
+                    jump();
+                }, 0);
             }
         });
     </script>
