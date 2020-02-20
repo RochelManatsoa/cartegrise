@@ -1241,6 +1241,10 @@ AutoComplete
 	right: 0;
 	font-size: 14px;
 }
+.ui-autocomplete {
+	max-height: 175px;
+    overflow-y: scroll;
+}
 
 /**List grid**/
 .list-grid{
@@ -2052,6 +2056,12 @@ AutoComplete
 			}
 			.img_pcs {
 				position: relative;
+				height: 100%;
+				background-size: cover;
+				background-repeat: no-repeat;
+				@include sm {
+					height: 150px;
+				}
 				img {
 					max-width: 100%;
 					@include sm {
@@ -3633,6 +3643,56 @@ Suivi
 		&:focus {
 			box-shadow: none;
 		}
+	}
+}
+
+
+
+//style aside_right
+.reverse-col_ {
+	@include md {
+		flex-direction: column-reverse;
+	}
+}
+#aside_right-sticky-wrapper {
+	@include md {
+		height: inherit !important;
+	}
+}
+.aside_right {
+	@include md {
+		position: static !important;
+	}
+	.sectionTop_ {
+		.form_demarche {
+			.demarche_block {
+				margin-top: 0;
+				@include sm {
+					margin-bottom: 50px !important;
+				}
+			}
+		}
+	}
+	.form-group {
+		margin-bottom: 10px;
+		.form-control {
+			height: 40px !important;
+		}
+		.select-styled {
+			line-height: 22px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow-x: hidden;
+			padding-right: 58px;
+			&:after {
+				line-height: 41px;
+    			width: 47px;
+			}
+		}
+	}
+	.custom-combobox-toggle {
+		line-height: 41px;
+		width: 47px;
 	}
 }
 //Style for department select list
