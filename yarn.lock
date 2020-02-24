@@ -3715,6 +3715,8 @@ gulp-sass@^4.0.2:
     through2 "^2.0.0"
     vinyl-sourcemaps-apply "^0.2.0"
 
+<<<<<<< HEAD
+=======
 gulp-util@^3.0.5:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/gulp-util/-/gulp-util-3.0.8.tgz#0054e1e744502e27c04c187c3ecc505dd54bbb4f"
@@ -3739,6 +3741,7 @@ gulp-util@^3.0.5:
     through2 "^2.0.0"
     vinyl "^0.5.0"
 
+>>>>>>> 1642155fc067b34e40fc99742eb1c2acdc08af77
 gulp@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/gulp/-/gulp-4.0.2.tgz#543651070fd0f6ab0a0650c6a3e6ff5a7cb09caa"
