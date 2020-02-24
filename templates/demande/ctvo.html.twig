@@ -15,6 +15,10 @@
         #daf-list-wrapper ol > li > ul {
             color: #d9534f;
         }
+        h4{
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
     </style>
 {% endblock %}
 
@@ -91,7 +95,10 @@
                     </section>
                     <h3>Etape</h3>
                     <section style="position: relative;width: 100%;">
-                        <div id="resum"></div>
+                        <h4 class="mb-4 mt-5">1. Ancien titulaire</h4>
+                        <div id="resum" class="resum"></div>
+                        <h4 class="mb-4 mt-5">1. Nouveau titulaire</h4>
+                        <div id="resum" class="resum2"></div>
                         <div style="display:none;">
                             {{form_rest(form)}}
                         </div>

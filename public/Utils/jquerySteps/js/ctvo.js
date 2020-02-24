@@ -60,8 +60,10 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             // Used to skip the "Warning" step if the user is old enough.
             if (currentIndex === 2) {
                 let data = $('#example-advanced-form').serializeArray();
-                let resum = $('#resum');
+                let resum = $('.resum');
+                let resum2 = $('.resum2');
                 let html = "";
+                let html2 = "";
                 let typeAncienTitulaire = "";
                 let typeNewTitulaire = "";
                 let otherNewTitulaireArray = [
@@ -195,20 +197,24 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     }else{
                         value;
                     };
-                    
+
+
                     if (typeAncienTitulaire === "mor" && 0 <= $.inArray(name, societyAncienTitulaireArray)) {
                             html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (typeAncienTitulaire === "phy" && 0 <= $.inArray(name, physicAncientitulaireArray)) {
                             html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
-                    } else if (typeNewTitulaire === "mor" && 0 <= $.inArray(name, societyNouveauxTitulaireArray)) {
-                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
+                    }
+
+                    if (typeNewTitulaire === "mor" && 0 <= $.inArray(name, societyNouveauxTitulaireArray)) {
+                            html2 = html2.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (typeNewTitulaire === "phy" && 0 <= $.inArray(name, physicNouveauxTitulaireArray)) {
-                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
+                            html2 = html2.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (0 <= $.inArray(name, otherNewTitulaireArray)) {
-                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
+                            html2 = html2.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     }
                 });
-                resum.html(html.concat("<div><strong> Démarche </strong> <span>Changement titulaire véhicule d'occasion français</span> </div>"));
+                resum.html(html);
+                resum2.html(html2.concat("<div><strong> Démarche </strong> <span>Changement titulaire véhicule d'occasion français</span> </div>"));
             }
         },
         onFinishing: function (event, currentIndex) {
