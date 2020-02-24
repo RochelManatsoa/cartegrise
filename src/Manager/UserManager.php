@@ -162,4 +162,11 @@ class UserManager
     {
         return $this->repository;
     }
+
+    public function sendEmailOnRegistration($user)
+    {
+        $template = 'email/register.mail.twig';
+        $this->mailManager->sendEmail([$user->getEmail()], $template, "Bienvenu sur CG Officiel - Démarches Carte Grise en ligne", ['responses'=> $user]);
+        return 'success';
+    }
 }
