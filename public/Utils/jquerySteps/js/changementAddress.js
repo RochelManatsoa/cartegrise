@@ -438,6 +438,9 @@ function datePickerFunction(element){
         dateFormat: 'dd/mm/yy',
         changeMonth: true,
         changeYear: true,
-        maxDate: (new Date(2003, 12 - 1, 26)),
+        minDate: "-80Y",
+        maxDate: "-18Y",
+        yearRange: '-80y:-18y'
+        // maxDate: (new Date(2003, 12 - 1, 26)),
     });
 }
