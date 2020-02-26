@@ -9,6 +9,7 @@ use App\Entity\Commande;
 use App\Entity\Demande;
 use App\Entity\NotificationEmail;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Manager\SessionManager;
@@ -19,16 +20,17 @@ use App\Manager\HistoryTransactionManager;
 use App\Manager\NotificationEmailManager;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Tlconseil\SystempayBundle\Service\SystemPay;
 
 
 class PaymentController extends AbstractController
 {
-    // private $transactionManager;
+    private $systempay;
 
-    // public function __construct(TransactionManager $transactionManager)
-    // {
-    //     $this->transactionManager = $transactionManager;
-    // }
+    public function __construct(SystemPay $systempay)
+    {
+        $this->systempay = $systempay;
+    }
     /**
      * @Route("/commande/{commande}/payment", name="payment_commande")
      */
@@ -247,6 +249,44 @@ class PaymentController extends AbstractController
     public function addHistoryTransaction($responses, HistoryTransactionManager $historyTransactionManager)
     {
         $historyTransactionManager->saveResponseTransaction($responses);
+    }
+
+    /**
+     * @Route("/initiate-payment", name="pay_online")
+     */
+    public function payOnlineAction()
+    {
+        // ...
+        $fields = [
+            'payment_config' => 'MULTI:first=10000;count=4;period=30'
+        ];
+
+        $systempay = $this->systempay
+            ->init($currency = 978, $amount = 20000)
+            ->setOptionnalFields($fields)
+        ;
+
+        return $this->render('payment/systempay.html.twig',[
+                'paymentUrl' => $systempay->getPaymentUrl(),
+                'fields' => $systempay->getResponse(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/payment/verification")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function paymentVerificationAction(Request $request)
+    {
+        dd($request->request->all(), $request->query->all());
+        // ...
+        $this->systempay
+            ->responseHandler($request)
+        ;
+
+        return new Response('manaona');
     }
 }
 

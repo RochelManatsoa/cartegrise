@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.2",
+        "baptiste-dulac/systempay-bundle": "^0.3.2",
         "ckfinder/ckfinder-symfony-bundle": "^3.5",
         "easycorp/easyadmin-bundle": "^2.3",
         "friendsofsymfony/ckeditor-bundle": "^2.1",

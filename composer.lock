@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "30a10838e3c78f2d153cd4a19abfcd4d",
+    "content-hash": "5ab3adbbc2d939731cd1e727cdaef2b2",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -271,6 +271,33 @@
                 "sdk"
             ],
             "time": "2019-11-08T19:17:23+00:00"
+        },
+        {
+            "name": "baptiste-dulac/systempay-bundle",
+            "version": "v0.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/baptiste-dulac/SystempayBundle.git",
+                "reference": "83c2492687f1e46f3c744380921ebe6c98e2c668"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/baptiste-dulac/SystempayBundle/zipball/83c2492687f1e46f3c744380921ebe6c98e2c668",
+                "reference": "83c2492687f1e46f3c744380921ebe6c98e2c668",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Tlconseil\\SystempayBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Payment gateway for Banque Populaire and Caisse d'épargne.",
+            "time": "2019-04-11T04:12:21+00:00"
         },
         {
             "name": "behat/transliterator",
