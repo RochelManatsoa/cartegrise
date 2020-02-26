@@ -1241,6 +1241,10 @@ AutoComplete
 	right: 0;
 	font-size: 14px;
 }
+.ui-autocomplete {
+	max-height: 175px;
+    overflow-y: scroll;
+}
 
 /**List grid**/
 .list-grid{
@@ -3642,8 +3646,6 @@ Suivi
 	}
 }
 
-
-
 //style aside_right
 .reverse-col_ {
 	@include md {
@@ -3669,6 +3671,61 @@ Suivi
 			}
 		}
 	}
+	.form-group {
+		margin-bottom: 10px;
+		.form-control {
+			height: 40px !important;
+		}
+		.select-styled {
+			line-height: 22px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow-x: hidden;
+			padding-right: 58px;
+			&:after {
+				line-height: 41px;
+    			width: 47px;
+			}
+		}
+	}
+	.custom-combobox-toggle {
+		line-height: 41px;
+		width: 47px;
+	}
+}
+//Style for department select list
+ul#ui-id-1 {
+  max-width: 260px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: $white;
+  border: 1px solid $gray;
+  max-height: 275px;
+  overflow-y: scroll;
+  li{
+    &.ui-menu-item {
+      margin: 0;
+      padding: 5px 12px;
+      border-bottom: 1px solid #ececec;
+      transition: all 0.15s ease-in;
+      font-size: 14px;
+      &:hover {
+        color: $white;
+        background: $royal-blue;
+        cursor: pointer;
+      }
+    }
+  }
+}
+.ui-state-active, 
+.ui-widget-content .ui-state-active, 
+.ui-widget-header .ui-state-active, 
+a.ui-button:active, 
+.ui-button:active, 
+.ui-button.ui-state-active:hover {
+    border: none !important;
+    background: none !important;
 }
 
 

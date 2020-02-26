@@ -1,6 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block page_content %}
+<style>
+    .js-toggle {
+        text-decoration: underline;
+    }
+    .js-toggle:hover, .js-toggle:focus{
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .toggle-content{
+        padding: 25px;
+    }
+    .toggle-content h4{
+        color: red;
+        margin-bottom: 1.5rem;
+        text-transform: none;
+    }
+    .toggle-content li:before{
+        display:none;
+    }
+    .toggle-content li{
+        padding-left: 15px !important;
+        color: #219de4;
+        list-style-type: disc;
+    }
+</style>
 <div class="block_CCM">
 	<div class="container">
 		<div class="row reverse-col_">
@@ -72,7 +97,22 @@
                     </a>
                     </li>
                     <li>Un justificatif de domicile de moins de 6 mois (copie)</li>
-                    <li>Le procès-verbal du contrôle technique, à jour (copie)</li>
+                    <li>Le procès-verbal du contrôle technique, à jour (copie) <span class="js-toggle">(cas particuliers de dispense)</span></li>
+                    <div class="toggle-content part-dispense"  style="display: none;">
+                        <h4>Cas particuliers de dispense</h4>
+                        <p>Si votre véhicule a plus de 4 ans le contrôle technique est obligatoire pour la plupart des véhicules particuliers (VP) ou utilitaires. Toutefois, les véhicules suivants en sont dispensés :</p>
+                        <ul>
+                            <li>Voiture sans permis</li>
+                            <li>Voiture de collection dont le PTAC est inférieur ou égal à 3,5 tonnes et dont la mise en circulation est antérieure à 1960</li>
+                            <li>Voiture de collection dont le PTAC est supérieur à 3,5 tonnes</li>
+                            <li>Moto, 2 roues et 3 roues</li>
+                            <li>Quadricycle à moteur</li>
+                            <li>Caravane dont le PTAC est inférieur ou égal à 3,5 tonnes</li>
+                            <li>Remorque dont le PTAC est inférieur ou égal à 3,5 tonnes non utilisée pour le transport de marchandises dangereuses</li>
+                            <li>Voiture immatriculée dans les services diplomatiques ou assimilés</li>
+                            <li>Voiture immatriculée dans les séries FFECSA (Forces françaises et éléments civils stationnés en Allemagne) Tracteur agricole)</li>
+                        </ul>
+                    </div>
                     <li>La procuration par Mandat <strong>(autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)</strong>
                         <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
                             <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
@@ -99,165 +139,7 @@
 					<div class="sectionTop_">
 						<div class="form_demarche">
 							<div class="demarche_block">
-								<div class="demarche_block_item">
-									<div id="Demarche" class="title_dermarche text-center">
-										<p>Bienvenue sur le service d’immatriculation de véhicule en ligne, rapide, sécurisé et agréé</p>
-										<h1>
-											{% if defaultDemarche is defined and defaultDemarche is not null %}
-												{% if defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_CTVO') %}
-													Achat d'un véhicule d'occasion: commandez votre certificat d'immatriculation
-												{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DUP') %}
-													Commandez un duplicata de votre certificat d'immatriculation
-												{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DCA') %}
-													Certificat d'immatriculation: Effectuer un changement d'adresse
-												{% endif %}
-											{% else %}
-												Choisissez votre démarche
-											{% endif %}
-										</h1>
-									</div>
-									<div class="block_form">
-										<div class="row justify-content-center">
-											<div class="col-md-10">
-												{% if formulaire is defined %}
-													{% if is_mobile() and is_device('samsung') %}
-														{{ form_start(formulaire, {'attr': {'id': 'form_demarche'}})}}
-														<div class="demarche">
-															{{ form_row(formulaire.demarche, {
-																'attr':{
-																	'class': 'form-control-plaque'
-																},
-																'label_attr': {
-																	'class': 'text-uppercase resultat-estimation-p'}
-																})
-															}}
-															<div class="row">
-																<div class="col-md-6">
-																	{{ form_row(formulaire.immatriculation, {
-																		'attr':{
-																			'class': 'form-control-plaque ',
-																			'maxlength': '9',
-																			'minlength': '5',
-																			'placeholder': 'AA-123-AA'
-																		},
-																		'label_attr': {
-																			'class': 'text-uppercase resultat-estimation-p'}
-																		}
-																	)}}
-																</div>
-																<div class="col-md-6 AutoComplete_CP">
-																{{ form_row(formulaire.codePostal, {
-																	'attr':{'class':'mx-auto form-control--dep'},
-																	'label_attr': {'class': 'text-uppercase resultat-estimation-p'}
-																	}
-																)}}
-																</div>
-															</div>
-														</div>	
-														<div class="text-md-right mx-auto search-box" id="calcul">
-															<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>
-														</div>
-														{{ form_end(formulaire)}}
-													{% else %}
-														{{ form_start(formulaire, {'attr': {'id': 'form_demarche'}})}}
-														<div class="demarche">
-															{{ form_row(formulaire.demarche, {
-																'attr':{
-																	'class': 'form-control-plaque'
-																},
-																'label_attr': {
-																	'class': 'text-uppercase resultat-estimation-p'}
-																})
-															}}
-															<div class="row">
-																<div class="col-md-6">
-																	{{ form_row(formulaire.immatriculation, {
-																		'attr':{
-																			'onkeyup':'this.value = this.value.toUpperCase()',
-																			'class': 'form-control-plaque ',
-																			'onblur': 'this.value = valueTreatement(this.value)',
-																			'maxlength': '9',
-																			'minlength': '5',
-																			'placeholder': 'BB-321-BB'
-																		},
-																		'label_attr': {
-																			'class': 'text-uppercase resultat-estimation-p'}
-																		}
-																	)}}
-																</div>
-																<div class="col-md-6 AutoComplete_CP">
-																{{ form_row(formulaire.codePostal, {
-																	'attr':{'class':'mx-auto form-control--dep'},
-																	'label_attr': {'class': 'text-uppercase resultat-estimation-p'}
-																	}
-																)}}
-																</div>
-															</div>
-														</div>	
-														<div class="text-md-right mx-auto search-box" id="calcul">
-															<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>
-														</div>
-														{{ form_end(formulaire)}}
-													{% endif %}
-												
-												<div id="formVN" style="display:none;">
-													<div class="d-flex justify-content-start">
-														<div onclick="$('#formulaire_demarche').val('1').change();" id='backButton' class='back-retour'><i class="icomoon icon-right-arrow"></i> Retour</div>
-													</div>
-													{% set formDivn = tab[3] %}
-													{{ form_start(formDivn)}}
-														{{ form_row(formDivn.department, {'attr':{'class':'mx-auto form-control--dep'},
-																'label_attr': {'class': 'text-uppercase resultat-estimation-p'}})}}
-														{{ form_row(formDivn.genre, {'attr':{'class':'mx-auto form-control--dep'},
-																'label_attr': {'class': 'text-uppercase resultat-estimation-p'}})}}
-														{{ form_row(formDivn.puissanceFiscale, {'attr':{'class':'mx-auto form-control--dep'},
-																'label_attr': {'class': 'text-uppercase resultat-estimation-p'}})}}
-														{{ form_row(formDivn.energie, {'attr':{'class':'mx-auto form-control--dep'},
-																'label_attr': {'class': 'text-uppercase resultat-estimation-p'}})}}
-														<div class="row">
-															<div class="col-md-6">
-																{{ form_row(formDivn.tauxDeCo2, {'attr':{'class':'mx-auto form-control--dep'},
-																	'label_attr': {'class': 'text-uppercase resultat-estimation-p'}})}}
-															</div>
-															<div class="col-md-6">
-																{{ form_row(formDivn.Marque, {'attr':{'class':'mx-auto form-control--dep'},
-																	'label_attr': {'class': 'text-uppercase resultat-estimation-p'}})}}
-															</div>
-														</div>
-														<div class="col-md-6 mx-auto search-box">
-															<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>
-														</div>
-													{{ form_end(formDivn)}}
-												</div>
-												<div id="formDC" style="display:none;">
-													<div class="d-flex justify-content-start">
-														<div onclick="$('#formulaire_demarche').val('1').change();" id='backButton' class='back-retour'><i class="icomoon icon-right-arrow"></i> Retour</div>
-													</div>
-													<div class="title_dermarche text-center">
-														<h3>Téléchargez le formulaire
-															<br>CERFA n° 15776*01</h3>
-													</div>
-													<div class="title_dermarche text-center">
-														<p>
-															Le formulaire CERFA n° 15776*01 doit être rempli par le vendeur et signé par l'acheteur. Ce dernier est nécessaire au nouveau détenteur du véhicule pour l'immatriculer (carte grise) à son nom.
-														</p>
-													</div>
-													<div class="title_dermarche text-center"> 
-														<p><strong>(à remplir par l’ancien propriétaire et le nouveau proprietaire)</strong></p>
-														<div class="col-md-6 mx-auto search-box">
-															<a href="/../download/cgofficiel_cerfa-15776-01.pdf" target="blank">
-																<button type="submit" class="btn-calcuer btn btn-blue">{{ "Télécharger" | upper}} <i class="icon-pdf"></i></button>
-															</a>
-														</div>
-													</div>
-												</div>
-												{% else %}
-												<a href="{{ path('formulaire')}}">Formulaire</a>
-												{% endif %}
-											</div>
-										</div>
-									</div>
-								</div>
+								{% include "home/composant/formSidebar.html.twig" %}
 							</div>
 						</div>
 					</div>
@@ -267,4 +149,14 @@
 		</div>
 	</div>
 </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".js-toggle").on("click", function () {
+                $(this).parent().next(".toggle-content").toggle();
+            });
+        });
+    </script>
 {% endblock %}

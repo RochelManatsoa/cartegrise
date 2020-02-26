@@ -8,9 +8,11 @@ trait CommandeStatusTrait
     public $FIRST_STEP="Attente de demande";
     public $SECOND_STEP="Attente de paiement";
     public $THIRD_STEP="Attente de document(s)";
+    public $FORTH_STEP="Annulée";
     public $FIRST_STEP_STYLE="danger";
     public $SECOND_STEP_STYLE="warning";
     public $THIRD_STEP_STYLE="info";
+    public $FORTH_STEP_STYLE="dark";
     public $DEPARTMENTS = [
         "01 - Ain" => "01",
         "02 - Aisne" => "02",
@@ -144,6 +146,15 @@ trait CommandeStatusTrait
             [
                 "text" => $this->SECOND_STEP,
                 "style" => $this->SECOND_STEP_STYLE,
+            ];
+        }
+        elseif (
+            null !== $commande->getDeletedAt()
+        ){
+            return 
+            [
+                "text" => $this->FORTH_STEP,
+                "style" => $this->FORTH_STEP_STYLE,
             ];
         }
         else {
