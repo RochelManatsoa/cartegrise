@@ -28,8 +28,8 @@
 </style>
 <div class="block_CCM">
 	<div class="container">
-		<div class="row">
-            <div class="col-md-12 col-xs-12 col-lg-12 doc-telechargeable">
+		<div class="row reverse-col_">
+            <div class="col-12 col-lg-7 doc-telechargeable">
                 <h3 class="home-secondview--titre">Documents téléchargeables</h3>
                 <div class="text-head">
                     <p>Documents nécessaires pour une demande concernant un certificat d'immatriculation <b>(carte grise)</b>:</p>
@@ -51,7 +51,7 @@
                 <p>Les pièces nécessaires à fournir lors:</p>
                 <hr class="border--light-2">
                 <h4 class="mb-4 mt-5">1- D'une demande de changement d’adresse :</h4>
-                <ul class="list col-lg-10">
+                <ul class="list col-12">
                     <li>Un justificatif de domicile (copie)</li>
                     <li>La procuration par Mandat <strong>(autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)</strong>
                         <a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
@@ -75,7 +75,7 @@
                 </ul>
                
                 <h4 class="mb-4 mt-5">2- D'une demande de duplicata :</h4>
-                <ul class="list col-lg-10">
+                <ul class="list col-12">
                     <li>Un justificatif de domicile (copie)</li>
                     <li>L'attestation d'assurance </li>
                     <li>La déclaration de perte ou de vol CERFA n° 13753*01 <b>(original)</b>,
@@ -101,7 +101,7 @@
                 </ul>
 
                 <h4 class="mb-4 mt-5">3- D'une demande de changement du titulaire de véhicule d’occasion :</h4>
-                <ul class="list col-lg-10">
+                <ul class="list col-12">
                     <li>L'original de l’ancien certificat d’immatriculation ( carte grise) , </li>
                     <li>La déclaration de cession CERFA n° 15776*01, 
                     <a href="/../download/cgofficiel_cerfa-15776-01.pdf" target="blank">
@@ -145,6 +145,19 @@
                 <h5 class="mb-4 mt-4 important-title"> Pour un véhicule neuf</h5>
                 <p>Les pièces nécessaires pour établir votre certificat d’immatriculation <b>(carte grise)</b> sont : la déclaration de cession ou la facture d’achat, le quitus fiscal fourni par le Trésor Public attestant la régularité du véhicule pour <b>la TVA</b>, le certificat de conformité fourni par le constructeur,un justificatif de domicile daté de moins de 6 mois (copie).</p>
             </div>
+            <!-- Demarche formulaire /Iary  -->
+			<div class="col-lg-5">
+				<div id="aside_right" class="aside_right">
+					<div class="sectionTop_">
+						<div class="form_demarche">
+							<div class="demarche_block">
+								{% include "home/composant/formSidebar.html.twig" %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Demarche formulaire /Iary  -->
 		</div>
 	</div>
 </div>

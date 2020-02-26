@@ -2,3 +2,4 @@ stof_doctrine_extensions:
     orm:
         default:
             softdeleteable: true
+            sluggable : true
