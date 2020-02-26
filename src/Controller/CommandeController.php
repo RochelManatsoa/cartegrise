@@ -43,7 +43,10 @@ class CommandeController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$commande->getId(), $request->query->get('_token'))) {
             $client = $this->getUser()->getClient();
-            $client->removeCommande($commande);
+            $commande->setDeletedAt(new \ DateTime());
+            // $client->removeCommande($commande);
+            // $em->remove($commande);
+            $em->persist($commande);
             $em->flush();
             $this->addFlash('success', "Commande annulée avec succès !");
         }
