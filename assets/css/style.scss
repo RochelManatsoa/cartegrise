@@ -3645,7 +3645,6 @@ Suivi
 		}
 	}
 }
-
 //style aside_right
 .reverse-col_ {
 	@include md {
@@ -3726,4 +3725,12 @@ a.ui-button:active,
 .ui-button.ui-state-active:hover {
     border: none !important;
     background: none !important;
+}
+
+
+//transaction
+.block_transc {
+	.btn.btn-aqua-blue {
+		min-width: 190px;
+	}
 }
