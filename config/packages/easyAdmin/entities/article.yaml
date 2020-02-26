@@ -37,7 +37,7 @@ easy_admin:
                     - { property: 'titre', css_class: 'large' }
                     - description
                     - { property: 'publication', label: 'Published' }
-                    - date
+                    - date 
                     - auteur
                     - { property: 'image', type: 'image', base_path: '%app.path.article_images%' }
                     - categories
@@ -45,7 +45,6 @@ easy_admin:
                 fields:
                     - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
                     - { property: 'titre', css_class: 'large' }
-                    - { property: 'slug', css_class: 'large' }
                     - { property: 'contenu', type: 'fos_ckeditor' }
                     - { property: 'description' }
                     - { property: 'categories'}
@@ -53,6 +52,6 @@ easy_admin:
                     - { property: 'auteur'}
                     - { type: 'section', label: 'Advanced Settings', icon: 'warning', help: 'Reserved for administrators use' }
                     - { property: 'publication', label: 'Published' }
-                    - { property: 'date'}
+                    - { property: 'date'} 
                     - { type: 'group', css_class: 'col-sm-4', label: 'Attachments', icon: 'paperclip' }
                     - { property: 'imageFile', type: 'vich_image', type_options: { required: true } }
