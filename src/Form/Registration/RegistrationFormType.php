@@ -45,8 +45,8 @@ class RegistrationFormType extends AbstractType
                 'translation_domain' => 'FOSUserBundle'
                 ))
             ->add('username', EmailType::class, array(
-                'label' => "Confirmer adresse mail", 
-                'translation_domain' => 'FOSUserBundle'
+                'label' => "Confirmer adresse e-mail", 
+                'translation_domain' => 'local'
                 ))
             ->add('plainPassword', PasswordType::class, array(
                 'label' => 'form.password', 

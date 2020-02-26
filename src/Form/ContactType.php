@@ -13,7 +13,7 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('contact_telmobile', null, array('label' => 'label.contactMobile', 'required' => true))
-            ->add('contact_telfixe', null, array('label' => 'label.contactFixe', 'required' => false))
+            //->add('contact_telfixe', null, array('label' => 'label.contactFixe', 'required' => false))
         ;
     }
 
