@@ -10,7 +10,7 @@ tlconseil_systempay:
     # Debug values : ON / OFF
     debug: ON
     # Return mode
-    return_mode: POST
+    return_mode: GET
     # Possible values for ctx_mode : TEST / PRODUCTION
     ctx_mode: TEST
     # Language
