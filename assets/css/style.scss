@@ -3670,7 +3670,7 @@ Suivi
 				.demarche_block_item {
 					.title_dermarche {
 						h1 {
-							font-size: 16px;
+							font-size: 14px;
 						}
 						p {
 							line-height: 16px;
@@ -3775,8 +3775,11 @@ a.ui-button:active,
 	}
 }
 #right_formulaireFx {
-    width: 350px;
+    width: 300px;
     position: fixed;
     right: 45px;
-    top: 250px;
+	top: 250px;
+	.demarche_block_item {
+		padding: 8px !important;
+	}
 }
