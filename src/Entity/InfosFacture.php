@@ -55,6 +55,16 @@ class InfosFacture
      */
     private $firstName;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $typePerson;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $socialReason;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -152,6 +162,30 @@ class InfosFacture
     public function setCreatedAtValue()
     {
         $this->createdAt = new \DateTime();
+    }
+
+    public function getTypePerson(): ?bool
+    {
+        return $this->typePerson;
+    }
+
+    public function setTypePerson(?bool $typePerson): self
+    {
+        $this->typePerson = $typePerson;
+
+        return $this;
+    }
+
+    public function getSocialReason(): ?string
+    {
+        return $this->socialReason;
+    }
+
+    public function setSocialReason(string $socialReason): self
+    {
+        $this->socialReason = $socialReason;
+
+        return $this;
     }
 
 }
