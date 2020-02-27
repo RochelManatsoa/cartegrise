@@ -3759,11 +3759,11 @@ a.ui-button:active,
 
 
 //style formulaire droite
-@media (min-width: 1900px) {
+@media (min-width: 1500px) {
 	.col-xll-12 {
-		-ms-flex: 0 0 100%!important;
-		flex: 0 0 100%!important;
-		max-width: 100%!important;
+		-ms-flex: 0 0 83.333333% !important;
+		flex: 0 0 83.333333% !important;
+		max-width: 83.333333% !important;
 	}
 	.d-xll-none {
 		display: none !important;
@@ -3774,11 +3774,26 @@ a.ui-button:active,
 		}
 	}
 }
+@media (min-width: 1650px) {
+	.col-xll-12 {
+		-ms-flex: 0 0 91.666667%!important;
+		flex: 0 0 91.666667%!important;
+		max-width: 91.666667%!important;
+	}
+}
+@media (min-width: 1870px) {
+	.col-xll-12 {
+		-ms-flex: 0 0 100%!important;
+		flex: 0 0 100%!important;
+		max-width: 100%!important;
+	}
+}
 #right_formulaireFx {
     width: 300px;
     position: fixed;
     right: 45px;
 	top: 250px;
+	z-index: 9000;
 	.demarche_block_item {
 		padding: 8px !important;
 	}
