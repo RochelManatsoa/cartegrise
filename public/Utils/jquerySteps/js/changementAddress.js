@@ -86,7 +86,7 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                         let label = {
                             "demande_changement_adresse[changementAdresse][nouveauxTitulaire][type]" : "Titulaire",
                             "demande_changement_adresse[changementAdresse][nouveauxTitulaire][raisonSociale]" : "Raison sociale",
-                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][siren]" : "SIREN",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][siren]" : "SIRET",
                             "demande_changement_adresse[changementAdresse][nouveauxTitulaire][societeCommerciale]" : "Société commerciale",
                             "demande_changement_adresse[changementAdresse][nouveauxTitulaire][nomPrenomTitulaire]" : "Nom de naissance",
                             "demande_changement_adresse[changementAdresse][nouveauxTitulaire][prenomTitulaire]" : "Prénom(s)",
@@ -391,6 +391,7 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][siren]": {
                     required: "Champs obligatoire",
+                    digits: 'Merci de n\'entrer que des chiffres.',
                     minlength: 'Le numéro doit être à 9 chiffres',
                     maxlength: 'Le numéro doit être à 9 chiffres',
                 },

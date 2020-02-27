@@ -96,6 +96,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                 let societyAncienTitulaireArray = [
                     "demande_ctvo[ctvo][ancienTitulaire][type]",
                     "demande_ctvo[ctvo][ancienTitulaire][raisonsociale]",
+                    "demande_ctvo[ctvo][ancienTitulaire][siren]",
                     "demande_ctvo[ctvo][ciPresent]",
                     "demande_ctvo[ctvo][numeroFormule]",
                 ];
@@ -119,7 +120,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     let label = {
                         "demande_ctvo[ctvo][acquerreur][type]" : "Nouveau titulaire",
                         "demande_ctvo[ctvo][acquerreur][raisonSociale]" : "Raison sociale",
-                        "demande_ctvo[ctvo][acquerreur][siren]" : "SIREN",
+                        "demande_ctvo[ctvo][acquerreur][siren]" : "SIRET",
                         "demande_ctvo[ctvo][acquerreur][societeCommerciale]" : "Société commerciale",
                         "demande_ctvo[ctvo][acquerreur][nomPrenomTitulaire]" : "Nom de naissance",
                         "demande_ctvo[ctvo][acquerreur][prenomTitulaire]" : "Prénom(s)",
@@ -139,6 +140,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                         "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][isHosted]" : "Hébergé(e)",
                         "demande_ctvo[ctvo][ancienTitulaire][type]" : "Ancien titulaire",
                         "demande_ctvo[ctvo][ancienTitulaire][raisonsociale]" : "Raison sociale",
+                        "demande_ctvo[ctvo][ancienTitulaire][siren]" : "SIRET",
                         "demande_ctvo[ctvo][ciPresent]" : "Carte grise présente",
                         "demande_ctvo[ctvo][numeroFormule]" : "Numéro de formule",
                         "demande_ctvo[ctvo][ancienTitulaire][nomprenom]" : "Nom et prénom(s) de l'ancien titulaire",
@@ -241,6 +243,39 @@ function initFormStep(form, title, bodyTag, transitionEffect)
 
                     }
                 }
+            },
+            "demande_ctvo[ctvo][ancienTitulaire][raisonsociale]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+
+                        if (persone == 'mor') {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
+            "demande_ctvo[ctvo][ancienTitulaire][siren]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+
+                        if (persone == 'mor') {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                },
+                digits: true,
+                minlength: 9,
+                maxlength: 9,
             },
             "demande_ctvo[ctvo][numeroFormule]": {
                 required: {
@@ -403,6 +438,15 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             "demande_ctvo[ctvo][ancienTitulaire][nomprenom]": {
                 required: 'Champs obligatoire',
             },
+            "demande_ctvo[ctvo][ancienTitulaire][raisonsociale]": {
+                required: 'Champs obligatoire',
+            },
+            "demande_ctvo[ctvo][ancienTitulaire][siren]": {
+                required: 'Champs obligatoire',
+                digits: 'Merci de n\'entrer que des chiffres.',
+                minlength: 'Le numéro doit être à 9 chiffres',
+                maxlength: 'Le numéro doit être à 9 chiffres'
+            },
             "demande_ctvo[ctvo][numeroFormule]": {
                 required: 'Champs obligatoire',
             },
@@ -429,6 +473,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             },
             "demande_ctvo[ctvo][acquerreur][siren]": {
                 required: 'Champs obligatoire',
+                digits: 'Merci de n\'entrer que des chiffres.',
                 minlength: 'Le numéro doit être à 9 chiffres',
                 maxlength: 'Le numéro doit être à 9 chiffres'
             },
@@ -440,6 +485,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             },
             "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][codepostal]": {
                 required: 'Champs obligatoire',
+                digits: 'Merci de n\'entrer que des chiffres.',
                 minlength: 'Le code postal doit être à 5 chiffres',
                 maxlength: 'Le code postal doit être à 5 chiffres'
             },
