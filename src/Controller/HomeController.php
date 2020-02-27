@@ -26,11 +26,11 @@ class HomeController extends AbstractController
         $this->tokenManager = $tokenManager;
     }
     /**
-     * @Route("/", name="Accueil")
-     * @Route("/", name="home")
-     * @Route("/demande-duplicata-certificat-immatriculation", name="dup")
-     * @Route("/changement-titulaire-vehicule-doccasion", name="ctvo")
-     * @Route("/changement-adresse-certificat-immatriculation", name="dca")
+     * @Route("/", name="Accueil",  options={"sitemap" = true})
+     * @Route("/", name="home",  options={"sitemap" = true})
+     * @Route("/demande-duplicata-certificat-immatriculation", name="dup",  options={"sitemap" = true})
+     * @Route("/changement-titulaire-vehicule-doccasion", name="ctvo",  options={"sitemap" = true})
+     * @Route("/changement-adresse-certificat-immatriculation", name="dca",  options={"sitemap" = true})
      */
     public function accueil(
         Request $request,
@@ -219,7 +219,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/comment-ca-marche", name="CommentCaMarche")
+     * @Route("/comment-ca-marche", name="CommentCaMarche",  options={"sitemap" = true})
      */
     public function CommentCaMarche(
         Request $request,
@@ -351,7 +351,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/foire-aux-questions", name="faq")
+     * @Route("/foire-aux-questions", name="faq", options={"sitemap" = true})
      */
     public function faq()
     {
@@ -359,14 +359,14 @@ class HomeController extends AbstractController
     }
 
 	/**
-	 * @Route("/conditions-generale-de-vente", name="cgv")
+	 * @Route("/conditions-generale-de-vente", name="cgv", options={"sitemap" = true})
 	 */
 	public function cgv()
 	{
 		return $this->render('home/cgv.html.twig');
     }
     /**
-	 * @Route("/mentions", name="mentions")
+	 * @Route("/mentions", name="mentions", options={"sitemap" = true})
 	 */
 	public function mentions()
 	{
@@ -374,7 +374,7 @@ class HomeController extends AbstractController
 	}
 
 	/**
-	 * @Route("/retractation", name="retractation")
+	 * @Route("/retractation", name="retractation", options={"sitemap" = true})
 	 */
 	public function retractation()
 	{
@@ -382,7 +382,7 @@ class HomeController extends AbstractController
 	}
 
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/contact", name="contact", options={"sitemap" = true})
      */
     public function contact(
         Request $request, 
@@ -412,7 +412,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/prix-carte-grise", name="prix_carte_grise")
+     * @Route("/prix-carte-grise", name="prix_carte_grise", options={"sitemap" = true})
      */
     public function accueilSimulator()
     {
@@ -498,7 +498,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/documents-telechargeables", name="doc_telechargeable")
+     * @Route("/documents-telechargeables", name="doc_telechargeable", options={"sitemap" = true})
      */
     public function doc_telechargeableAction(
         Request $request,
@@ -629,7 +629,7 @@ class HomeController extends AbstractController
         return $this->render('home/doc_telechargeable.html.twig', $homeParams);
     }
     /**
-     * @Route("/piece-a-fournir", name="piece_a_fournir")
+     * @Route("/piece-a-fournir", name="piece_a_fournir", options={"sitemap" = true})
      */
     public function pieceAFournirAction(
         Request $request,
@@ -769,7 +769,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/mentions-legales", name="mentions_legales")
+     * @Route("/mentions-legales", name="mentions_legales", options={"sitemap" = true})
      */
     public function mentionsLegales()
     {

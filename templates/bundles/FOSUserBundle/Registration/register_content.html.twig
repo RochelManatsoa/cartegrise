@@ -26,7 +26,7 @@
 									{{ form_row(form.client.clientPrenom, {'attr': inputAttrs, 'label_attr': labelAttrs}) }}
 								</div>
 							</div>
-							<div class="row">
+							{#<div class="row">
 								<div class="{{ smallWrapperClassName }}">
 									{{ form_row(form.client.clientContact.contact_telmobile, {'attr': inputAttrs, 'label_attr': labelAttrs}) }}
 								</div>
@@ -34,7 +34,8 @@
 									{{ form_row(form.client.clientContact.contact_telfixe, {'attr': inputAttrs, 'label_attr': labelAttrs})
 									}}
 								</div>
-							</div>
+							</div>#}
+                            {{ form_row(form.client.clientContact.contact_telmobile, {'attr': inputAttrs, 'label_attr': labelAttrs}) }}
 							{{ form_row(form.email, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
 							{{ form_row(form.username, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
 							{{ form_row(form.plainPassword, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
