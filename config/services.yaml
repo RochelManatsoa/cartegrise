@@ -25,6 +25,8 @@ parameters:
         #response: '/var/www/html/cgofficiel/src/Utils/bin/response'  # IN ENV PROD
     admin_mail: ['rapaelec@gmail.com', 'technique@cgofficiel.fr', 'rapaelec@gmail.com', 'nirinarochelmiandrisoa@gmail.com', 'rochel2fnclm@gmail.com']
     admin_doc_validator: ["rapaelec@gmail.com", "test@gmail.com", "rakoto@gmail.com"]
+    router.request_context.host:   cgofficiel.fr
+    router.request_context.scheme: https
 
 services:
     # default configuration for services in *this* file
@@ -160,3 +162,9 @@ services:
     App\Manager\Mercure\MercureManager:
         public: true
         arguments: ['@mercure.hub.default.publisher']
+    App\EventListener\SitemapSubscriber:
+        arguments: 
+            - '@router'
+            - '@App\Repository\Blog\ArticleRepository'
+        tags:
+            - { name: "kernel.event_subscriber", priority: 100 }

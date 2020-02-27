@@ -288,6 +288,7 @@ label:
     paid: Procéder au paiement
     motifDeRejet: Motif du rejet
     raisonsocial: Raison sociale
+    siret: Siret
     societeCommerciale: Société commerciale
     nomprenom: Nom et prénom(s) *
     clientContact: Contacts

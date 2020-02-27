@@ -17,6 +17,7 @@
         "knplabs/knp-snappy-bundle": "^1.6",
         "league/csv": "^9.3",
         "lexik/jwt-authentication-bundle": "^2.6",
+        "presta/sitemap-bundle": "^2.0",
         "sensio/framework-extra-bundle": "^5.2",
         "sonata-project/admin-bundle": "^3.49",
         "sonata-project/doctrine-orm-admin-bundle": "^3.10",

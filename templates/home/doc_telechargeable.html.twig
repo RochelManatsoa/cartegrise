@@ -34,6 +34,18 @@
                 <div class="text-head">
                     <p>Documents nécessaires pour une demande concernant un certificat d'immatriculation <b>(carte grise)</b>:</p>
                 </div>
+                <ul class="list col-lg-10">
+                    <li>Le formulaire de demande de certificat d’immatriculation <b>(carte grise)</b> CERFA n° 13750*05
+                        <a href="/../download/cgofficiel_cerfa_13750-05.pdf" target="blank">
+                            <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        </a>
+                    </li>
+                    <li>La déclaration de cession CERFA n° 15776*01,
+                        <a href="/../download/cgofficiel_cerfa-15776-01.pdf" target="blank">
+                            <button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+                        </a>
+                    </li>
+                </ul>
                 <h5 class="mb-4 mt-4 important-title"> Pour un véhicule d’occasion</h5>
                 <!--p>Les pièces nécessaires à fournir lors:</p-->
                 <p>Les pièces nécessaires à fournir lors:</p>
@@ -156,4 +168,14 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".js-toggle").on("click", function () {
+                $(this).parent().next(".toggle-content").toggle();
+            });
+        });
+    </script>
 {% endblock %}
