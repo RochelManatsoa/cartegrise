@@ -347,17 +347,19 @@ $( function() {
     $( "#formulaire_codePostal" ).combobox();
     $('#AutoCompleteCP').find('.select').prepend($('ul#ui-id-1'));
 } );
-
 //fixed
 if (window.matchMedia("(min-width: 1900px)").matches) {
     $('#right_formulaireFx').find('.form_demarche').append($('.demarche_block'));
 } else {
     $('#col_formulaireFx').find('.form_demarche').append($('.demarche_block'));
 }
-
-
 //aside_right
 $("#aside_right").sticky({
     topSpacing: 200, 
     bottomSpacing: 1100
+});
+
+//doc-telechargeable
+$(".js-toggle").on("click", function () {
+    $(this).parent().next(".toggle-content").toggle();
 });
