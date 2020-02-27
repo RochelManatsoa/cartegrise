@@ -3667,11 +3667,27 @@ Suivi
 				@include sm {
 					margin-bottom: 50px !important;
 				}
+				.demarche_block_item {
+					.title_dermarche {
+						h1 {
+							font-size: 14px;
+						}
+						p {
+							line-height: 16px;
+							font-size: 10px;
+						}
+					}
+				}
 			}
 		}
 	}
 	.form-group {
-		margin-bottom: 10px;
+		margin-bottom: 5px;
+		label {
+			font-size: 11px;
+			letter-spacing: 0;
+			margin-bottom: 0px;
+		}
 		.form-control {
 			height: 40px !important;
 		}
@@ -3686,6 +3702,12 @@ Suivi
     			width: 47px;
 			}
 		}
+	}
+	.btn-calcuer {
+		padding: 9px 33px !important;
+		margin-right: 0 !important;
+		width: 100% !important;
+		margin-top: 10px !important;
 	}
 	.custom-combobox-toggle {
 		line-height: 41px;
@@ -3732,5 +3754,32 @@ a.ui-button:active,
 .block_transc {
 	.btn.btn-aqua-blue {
 		min-width: 190px;
+	}
+}
+
+
+//style formulaire droite
+@media (min-width: 1900px) {
+	.col-xll-12 {
+		-ms-flex: 0 0 100%!important;
+		flex: 0 0 100%!important;
+		max-width: 100%!important;
+	}
+	.d-xll-none {
+		display: none !important;
+	}
+	.sectionTop_ {
+		.d-xll-block {
+			display: block!important;
+		}
+	}
+}
+#right_formulaireFx {
+    width: 300px;
+    position: fixed;
+    right: 45px;
+	top: 250px;
+	.demarche_block_item {
+		padding: 8px !important;
 	}
 }
