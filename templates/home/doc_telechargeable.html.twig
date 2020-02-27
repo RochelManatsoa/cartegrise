@@ -29,7 +29,7 @@
 <div class="block_CCM">
 	<div class="container">
 		<div class="row reverse-col_">
-            <div class="col-12 col-lg-7 doc-telechargeable">
+            <div class="col-12 col-lg-8 col-xll-12 doc-telechargeable">
                 <h3 class="home-secondview--titre">Documents téléchargeables</h3>
                 <div class="text-head">
                     <p>Documents nécessaires pour une demande concernant un certificat d'immatriculation <b>(carte grise)</b>:</p>
@@ -134,12 +134,12 @@
                 <p>Les pièces nécessaires pour établir votre certificat d’immatriculation <b>(carte grise)</b> sont : la déclaration de cession ou la facture d’achat, le quitus fiscal fourni par le Trésor Public attestant la régularité du véhicule pour <b>la TVA</b>, le certificat de conformité fourni par le constructeur,un justificatif de domicile daté de moins de 6 mois (copie).</p>
             </div>
             <!-- Demarche formulaire /Iary  -->
-			<div class="col-lg-5">
+			<div class="col-lg-4 d-xll-none">
 				<div id="aside_right" class="aside_right">
 					<div class="sectionTop_">
 						<div class="form_demarche">
 							<div class="demarche_block">
-								{% include "home/composant/formSidebar.html.twig" %}
+								{% include "home/composant/formSidebarBlog.html.twig" %}
 							</div>
 						</div>
 					</div>
@@ -148,6 +148,17 @@
 			<!-- End Demarche formulaire /Iary  -->
 		</div>
 	</div>
+</div>
+<div class="d-none d-xll-block">
+    <div id="aside_right" class="aside_right">
+        <div id="right_formulaireFx" class="sectionTop_">
+            <div class="form_demarche">
+                <div class="demarche_block">
+                    {% include "home/composant/formSidebarBlog.html.twig" %}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 {% block javascripts %}

@@ -349,7 +349,7 @@ $( function() {
 } );
 
 //aside_right
-// $("#aside_right").sticky({
-//     topSpacing: 200, 
-//     bottomSpacing: 1100
-// });
+$("#aside_right").sticky({
+    topSpacing: 200, 
+    bottomSpacing: 1100
+});

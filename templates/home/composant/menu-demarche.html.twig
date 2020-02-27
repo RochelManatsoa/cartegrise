@@ -1,7 +1,7 @@
 <div class="block_CCM">
 	<div class="container">
 		<div class="row reverse-col_">
-			<div class="col-lg-7 pr-md-5">
+			<div class="col-lg-8 col-xll-12 pr-md-5">
 				<h3 class="home-secondview--titre">Les démarches et conseils <br/>pour Certificat d'immatriculation</h3>
 				<div class="comment-ca-marche-texte">
 					<div class="accordeon_">
@@ -382,12 +382,12 @@
 				</div>
 			</div>
 			<!-- Demarche formulaire /Iary  -->
-			<div class="col-lg-5">
+			<div class="col-lg-4 d-xll-none">
 				<div id="aside_right" class="aside_right">
 					<div class="sectionTop_">
 						<div class="form_demarche">
 							<div class="demarche_block">
-								{% include "home/composant/formSidebar.html.twig" %}
+								{% include "home/composant/formSidebarBlog.html.twig" %}
 							</div>
 						</div>
 					</div>
@@ -397,7 +397,17 @@
 		</div>
 	</div>
 </div>
-
+<div class="d-none d-xll-block">
+    <div id="aside_right" class="aside_right">
+        <div id="right_formulaireFx" class="sectionTop_">
+            <div class="form_demarche">
+                <div class="demarche_block">
+                    {% include "home/composant/formSidebarBlog.html.twig" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% block javascripts %} 
 <script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>

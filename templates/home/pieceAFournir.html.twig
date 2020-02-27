@@ -4,7 +4,7 @@
 <div class="block_CCM">
 	<div class="container">
 		<div class="row reverse-col_">
-            <div class="col-lg-7 doc-telechargeable">
+            <div class="col-lg-8 col-xll-12 doc-telechargeable">
                 <h3 class="home-secondview--titre">Pièces à Fournir</h3>
 				<div class="block_pcs_a_fournir">
 					<div class="item_pcs_a_fournir">
@@ -145,12 +145,12 @@
 				</div>
             </div>
 			<!-- Demarche formulaire /Iary  -->
-			<div class="col-lg-5">
+			<div class="col-lg-4 d-xll-none">
 				<div id="aside_right" class="aside_right">
 					<div class="sectionTop_">
 						<div class="form_demarche">
 							<div class="demarche_block">
-								{% include "home/composant/formSidebar.html.twig" %}
+								{% include "home/composant/formSidebarBlog.html.twig" %}
 							</div>
 						</div>
 					</div>
@@ -159,5 +159,16 @@
 			<!-- End Demarche formulaire /Iary  -->
 		</div>
 	</div>
+</div>
+<div class="d-none d-xll-block">
+    <div id="aside_right" class="aside_right">
+        <div id="right_formulaireFx" class="sectionTop_">
+            <div class="form_demarche">
+                <div class="demarche_block">
+                    {% include "home/composant/formSidebarBlog.html.twig" %}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
