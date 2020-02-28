@@ -3742,9 +3742,9 @@ a.ui-button:active,
       display :none;
     }
   }
-  #paiement_infosFacture_person{
+  #paiement_infosFacture_typePerson{
     display: flex;
-    >div{
+    > div{
       &:not(:last-child){
         margin-right: 4em;
       }

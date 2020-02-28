@@ -19,10 +19,12 @@ class InfosFactureType extends AbstractType
                 'label' => ' ' ,
                 'label_attr' => array('class' => 'type-person'),
                 'choices'  => [
-                    'label.person.type.physical' => true,
-                    'label.person.type.corporation' => false,
+                    'label.person.type.physical' => false,
+                    'label.person.type.corporation' => true,
                 ],
                 'expanded' => true,
+                'required' => true,
+                'data'     => 0
             ])
             ->add('socialReason', TextType::class,[
                 'attr'  => array( 'class' => 'text-uppercase' ),
