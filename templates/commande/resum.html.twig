@@ -104,3 +104,24 @@
             </div>
 {% endif %}
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript">
+        $(document).ready(function() {
+            $('#paiement_infosFacture_socialReason').parent().hide();
+            $('#paiement_infosFacture_typePerson input').on('change', function(){
+                let $value = $(this).val();
+                if($value == '1'){
+                    $('#paiement_infosFacture_socialReason').parent().show();
+                    $('#paiement_infosFacture_name').parent().hide();
+                    $('#paiement_infosFacture_firstName').parent().hide();
+                }else{
+                    $('#paiement_infosFacture_socialReason').parent().hide();
+                    $('#paiement_infosFacture_name').parent().show();
+                    $('#paiement_infosFacture_firstName').parent().show();
+                }
+
+            });
+        });
+    </script>
+{% endblock %}

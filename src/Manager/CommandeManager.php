@@ -415,6 +415,8 @@ class CommandeManager
     {
 		$facture = is_null($commande->getFacture()) ? new Facture() : $commande->getFacture();
 		$infosFacture = $commande->getInfosFacture();
+        $facture->setTypePerson($infosFacture->getTypePerson());
+        $facture->setSocialReason($infosFacture->getSocialReason());
 		$facture->setName($infosFacture->getName());
 		$facture->setFirstName($infosFacture->getFirstName());
 		$facture->setAdresse($infosFacture->getAdresse());
