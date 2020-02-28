@@ -3798,3 +3798,54 @@ a.ui-button:active,
 		padding: 8px !important;
 	}
 }
+
+//Infos facturation style
+#paiement_infosFacture{
+  .form-group{
+    legend.type-person{
+      display :none;
+    }
+  }
+  #paiement_infosFacture_typePerson{
+    display: flex;
+    > div{
+      &:not(:last-child){
+        margin-right: 4em;
+      }
+    }
+  }
+}
+.block_form .form-check {
+  .form-check-input[type="radio"]{
+    &:checked{
+      &+label{
+        &:before, &:after{
+          background: #03347e;
+          border-color: #03347e;
+        }
+      }
+    }
+    &+label{
+      font-size: 14px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      display: block;
+      text-decoration: none;
+      color: #212529;
+      &:before,&:after{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        width: 18px;
+        height: 18px;
+        margin-top: 5px;
+        content: "";
+        border: 1px solid #b7b7b7;
+        border-radius: 50%;
+        -webkit-transition: .2s;
+        transition: .2s;
+      }
+    }
+  }
+}
