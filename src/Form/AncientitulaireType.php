@@ -29,6 +29,11 @@ class AncientitulaireType extends AbstractType
                 'required' => false,
                 ]
             )
+            ->add('siren', TextType::class, [
+                'label'=> 'label.siret',
+                'required' => false,
+                ]
+            )
             ->add('nomprenom', TextType::class, array(
                 'label'=> 'label.nomprenom',
                 'required' => false,
