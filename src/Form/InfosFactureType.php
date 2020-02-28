@@ -28,14 +28,17 @@ class InfosFactureType extends AbstractType
             ])
             ->add('socialReason', TextType::class,[
                 'attr'  => array( 'class' => 'text-uppercase' ),
-                'label' => 'label.socialReason.client'
+                'label' => 'label.socialReason.client',
+                'required' => false,
             ])
             ->add('name', TextType::class,[
                 'attr'  => array( 'class' => 'text-uppercase' ),
-                'label' => 'label.nom.client'
+                'label' => 'label.nom.client',
+                'required' => false,
             ])
             ->add('firstName', TextType::class,[
-                'label' => 'label.prenom.client'
+                'label' => 'label.prenom.client',
+                'required' => false,
             ])
             ->add('adresse', AdresseType::class, [
                 'label' => 'label.clientAdresse'

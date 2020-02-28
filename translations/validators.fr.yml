@@ -1,6 +1,6 @@
 fos_user:
     username:
-        already_used: 'L''adresse e-mail est déjà utilisé.'
+        already_used: 'L''adresse e-mail est déjà utilisée.'
         blank: 'Entrez un nom d''utilisateur s''il vous plait.'
         short: 'L''adresse e-mail est trop court.'
         long: 'L''adresse e-mail est trop long.'
