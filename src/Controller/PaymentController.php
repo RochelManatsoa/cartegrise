@@ -314,7 +314,7 @@ class PaymentController extends AbstractController
      */
     public function paymentVerificationAction(Request $request)
     {
-        dd($request->request->all(), $request->query->all());
+        // dd($request->request->all(), $request->query->all());
         // ...
         $this->systempay
             ->responseHandler($request)
