@@ -314,13 +314,13 @@ class PaymentController extends AbstractController
      */
     public function paymentVerificationAction(Request $request)
     {
-        // dd($request->request->all(), $request->query->all());ls
+        dd($request->request->all(), $request->query->all());
         // ...
         $this->systempay
             ->responseHandler($request)
         ;
 
-        return new Response('manaona');
+        return new Response('paiement ok ');
     }
 }
 
