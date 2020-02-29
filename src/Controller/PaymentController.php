@@ -20,26 +20,31 @@ use App\Manager\HistoryTransactionManager;
 use App\Manager\NotificationEmailManager;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Tlconseil\SystempayBundle\Service\SystemPay;
+use App\Manager\Systempay\SystemPayManager;
+use App\Entity\Systempay\Transaction as SystempayTransaction;
 
 
 class PaymentController extends AbstractController
 {
     private $systempay;
 
-    public function __construct(SystemPay $systempay)
+    public function __construct(SystemPayManager $systempay)
     {
         $this->systempay = $systempay;
     }
     /**
      * @Route("/commande/{commande}/payment", name="payment_commande")
      */
-    public function index(Commande $commande)
+    public function index(Commande $commande, FraisTreatmentManager $fraisTreatmentManager)
     {
+        $amount = (integer) 100 * $fraisTreatmentManager->fraisTotalOfCommande($commande);
         
         return $this->render(
             "payment/index.html.twig", 
-            ['commande' => $commande]
+            [
+                'commande' => $commande,
+                'amount' => $amount
+            ]
         );
     }
 
@@ -252,19 +257,47 @@ class PaymentController extends AbstractController
     }
 
     /**
-     * @Route("/initiate-payment", name="pay_online")
+     * @Route("{commande}/initiate-payment/{multiple?}", name="pay_online")
      */
-    public function payOnlineAction()
+    public function payOnlineAction(Commande $commande, $multiple = null, CommandeManager $commandeManager, FraisTreatmentManager $fraisTreatmentManager)
     {
-        // ...
+        
+
+        $amount = (integer) 100 * $fraisTreatmentManager->fraisTotalOfCommande($commande);
+        
+        $email = $this->getUser()->getEmail();
+
+
         $fields = [
-            'payment_config' => 'MULTI:first=10000;count=4;period=30'
+            'cust_email' => $email,
+            'cust_first_name' => $this->getUser()->getClient()->getClientNom(),
+            'cust_last_name' => $this->getUser()->getClient()->getClientPrenom(),
+            'cust_phone' => $this->getUser()->getClient()->getClientContact()->getContactTelmobile(),
         ];
+        if ($multiple == 3){
+            $amount = ceil($amount * 1.03 );
+            $montant = $amount / 3;
+        } elseif ($multiple == 4) {
+            $amount = ceil($amount * 1.035 );
+            $montant = $amount / 4;
+        }
+
+
+        if (SystempayTransaction::MULTI_PROPOSE_UP < $amount){
+            if ($multiple !== null){
+                $fields['payment_config'] = 'MULTI:first='.ceil($montant).';count='.$multiple.';period=30';
+            }
+        }
+        
 
         $systempay = $this->systempay
-            ->init($currency = 978, $amount = 20000)
+            ->init($currency = 978, $amount)
             ->setOptionnalFields($fields)
         ;
+
+        $commandeManager->saveSystempay($commande, $systempay->getTransaction());
+        
+        
 
         return $this->render('payment/systempay.html.twig',[
                 'paymentUrl' => $systempay->getPaymentUrl(),
@@ -280,7 +313,7 @@ class PaymentController extends AbstractController
      */
     public function paymentVerificationAction(Request $request)
     {
-        // dd($request->request->all(), $request->query->all());
+        // dd($request->request->all(), $request->query->all());ls
         // ...
         $this->systempay
             ->responseHandler($request)

@@ -21,6 +21,7 @@ use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use App\Entity\Systempay\Transaction as SystempayTransaction;
 use Twig_Environment as Twig;
 
 class CommandeManager
@@ -594,5 +595,17 @@ class CommandeManager
 	{
 		$user = $commande->getClient()->getUser();
 		$this->mailManager->sendEmail($emails=[$user->getEmail()], 'admin/email/demandeFormulaire.email.twig', "CG Officiel - Démarches Carte Grise en ligne", ['commande'=> $commande]);      
+	}
+
+	public function saveSystempay(Commande $commande, SystempayTransaction $transaction)
+	{
+		if ($commande->getSystempayTransaction() !== null && $commande->getSystempayTransaction() instanceof SystempayTransaction) {
+			$prevTransaction = $commande->getSystempayTransaction();
+			$prevTransaction->setCommande(null);
+			$this->em->persist($prevTransaction);
+			$this->em->flush();
+		}
+		$commande->setSystempayTransaction($transaction);
+		$this->save($commande);
 	}
 }

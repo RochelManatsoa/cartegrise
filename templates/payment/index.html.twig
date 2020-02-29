@@ -3,7 +3,15 @@
 {% block title %}Paiement {% endblock %}
 
 {% block page_content %}
+    {% if constant('App\\Entity\\Systempay\\Transaction::MULTI_PROPOSE_UP') < amount %}
+        <div>
+            <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 3})}}">plusieurs 3 fois</a>
+        </div>
+        <div>
+            <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 4})}}">plusieurs 4 fois</a>
+        </div>
+    {% endif %}
     <div>
-        {{ render(controller('App\\Controller\\PaymentController::request', {'commande': commande})) }}
+        <a href="{{path('pay_online', {'commande': commande.id})}}">une seule fois</a>
     </div>
 {% endblock %}

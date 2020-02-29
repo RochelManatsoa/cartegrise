@@ -25,6 +25,32 @@ parameters:
         #response: '/var/www/html/cgofficiel/src/Utils/bin/response'  # IN ENV PROD
     admin_mail: ['rapaelec@gmail.com', 'technique@cgofficiel.fr', 'rapaelec@gmail.com', 'nirinarochelmiandrisoa@gmail.com', 'rochel2fnclm@gmail.com']
     admin_doc_validator: ["rapaelec@gmail.com", "test@gmail.com", "rakoto@gmail.com"]
+    tlconseil_systempay:
+        # Credentials
+        site_id: 21275319
+        # Keys
+        key_dev: DQt3GlS3jxxhtRzO
+        action_mode: INTERACTIVE
+        payment_config: SINGLE
+        # key_prod: XXXXX
+        version: V2
+        page_action: PAYMENT
+        # Return
+        url_return: http://dev2.cgofficiel.fr/payment/verification
+        # Debug values : ON / OFF
+        debug: ON
+        # Return mode
+        return_mode: GET
+        # Possible values for ctx_mode : TEST / PRODUCTION
+        ctx_mode: TEST
+        # Language
+        language: fr
+        # Success
+        redirect_success_timeout: 1
+        redirect_success_message: http://dev2.cgofficiel.fr/payment/verification
+        # Error
+        redirect_error_timeout: 1
+        redirect_error_message: http://dev2.cgofficiel.fr/payment/verification
 
 services:
     # default configuration for services in *this* file
@@ -161,4 +187,8 @@ services:
         public: true
         arguments: ['@mercure.hub.default.publisher']
     App\Controller\PaymentController:
-        arguments: ['@tlconseil.systempay']
+        arguments: ['@app.tlconseil.systempay']
+
+    app.tlconseil.systempay:
+        class: App\Manager\Systempay\SystempayManager
+        arguments: ['@doctrine.orm.entity_manager', '@service_container']

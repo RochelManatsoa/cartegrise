@@ -35,5 +35,5 @@ return [
     SunCat\MobileDetectBundle\MobileDetectBundle::class => ['all' => true],
     Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle::class => ['all' => true],
     Symfony\Bundle\MercureBundle\MercureBundle::class => ['all' => true],
-    Tlconseil\SystempayBundle\TlconseilSystempayBundle::class =>['all' => true],
+    // Tlconseil\SystempayBundle\TlconseilSystempayBundle::class =>['all' => true],
 ];

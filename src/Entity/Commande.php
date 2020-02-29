@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Systempay\Transaction as SystempayTransaction;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -136,6 +137,13 @@ class Commande
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     private $deletedAt;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Systempay\Transaction", inversedBy="commande", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
+     * @Groups({"read"})
+     */
+    private $systempayTransaction;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Transaction", cascade={"persist", "remove"})
@@ -609,6 +617,23 @@ class Commande
     public function setFraisRembourser($fraisRembourser): self
     {
         $this->fraisRembourser = $fraisRembourser;
+
+        return $this;
+    }
+
+    public function getSystempayTransaction(): ?SystempayTransaction
+    {
+        return $this->systempayTransaction;
+    }
+
+    public function setSystempayTransaction(?SystempayTransaction $systempayTransaction): self
+    {
+        $this->systempayTransaction = $systempayTransaction;
+
+        if ($systempayTransaction->getCommande() === null) {
+            $systempayTransaction->setCommande($this);
+            $systempayTransaction->setCommandeStringId($this->getId());
+        }
 
         return $this;
     }
