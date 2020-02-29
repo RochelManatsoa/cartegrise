@@ -267,13 +267,14 @@ class PaymentController extends AbstractController
         
         $email = $this->getUser()->getEmail();
 
-
+        // additional feld 
         $fields = [
             'cust_email' => $email,
             'cust_first_name' => $this->getUser()->getClient()->getClientNom(),
             'cust_last_name' => $this->getUser()->getClient()->getClientPrenom(),
             'cust_phone' => $this->getUser()->getClient()->getClientContact()->getContactTelmobile(),
         ];
+        // for multiple paiement
         if ($multiple == 3){
             $amount = ceil($amount * 1.03 );
             $montant = $amount / 3;
