@@ -44,12 +44,12 @@
             <li class="mb-3">
                 <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 3})}}" class="btn btn-lg btn-outline-info"
                     style="width: 100%">
-                    Paiement en 3 fois ({{ amount * 103 / 3 | round(2, 'ceil') }} x 3)
+                    Paiement en 3 fois ({{ amount * 0.0103 / 3 | round(2, 'ceil') }} x 3 soit {{ amount * 0.0103 }})
                 </a>
             </li>
             <li class="mb-3">
                 <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 4})}}" class="btn btn-lg btn-outline-info" style="width: 100%">
-                    Paiement en 4 fois ({{ amount * 103.5 / 4 | round(2, 'ceil') }} x 4)
+                    Paiement en 4 fois ({{ amount * 0.0103.5 / 4 | round(2, 'ceil') }} x 4 soit {{ amount * 0.01035 }})
                 </a>
             </li>
         </ul>
