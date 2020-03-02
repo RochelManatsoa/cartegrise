@@ -169,13 +169,3 @@
     </div>
 </div>
 {% endblock %}
-{% block javascripts %}
-    <script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(".js-toggle").on("click", function () {
-                $(this).parent().next(".toggle-content").toggle();
-            });
-        });
-    </script>
-{% endblock %}
