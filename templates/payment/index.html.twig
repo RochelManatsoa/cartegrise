@@ -41,7 +41,7 @@
                     Paiement en une seule fois
                 </a>
             </li>
-            {% if constant('App\\Entity\\Systempay\\Transaction::MULTI_PROPOSE_UP') < amount %}
+            {% if constant('App\\Entity\\Systempay\\Transaction::MULTI_PROPOSE_UP') < (amount / 100) %}
                 <li class="mb-3">
                     <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 3})}}" class="btn btn-lg btn-outline-info"
                         style="width: 100%">
