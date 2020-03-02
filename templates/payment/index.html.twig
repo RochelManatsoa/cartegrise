@@ -4,7 +4,7 @@
 
 {% block page_content %}
 
-    {% if constant('App\\Entity\\Systempay\\Transaction::MULTI_PROPOSE_UP') > amount %}
+    {% if constant('App\\Entity\\Systempay\\Transaction::MULTI_PROPOSE_UP') < amount %}
         <div>
             <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 3})}}">plusieurs 3 fois</a>
         </div>
