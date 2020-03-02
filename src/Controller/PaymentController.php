@@ -38,7 +38,8 @@ class PaymentController extends AbstractController
     public function index(Commande $commande, FraisTreatmentManager $fraisTreatmentManager)
     {
         $amount = (integer) $fraisTreatmentManager->fraisTotalOfCommande($commande);
-        dd(round(($amount . 1.03), 2)/3);
+        $amount103 = ($amount . 1.03);
+        dd($amount103/3);
         
         return $this->render(
             "payment/index.html.twig", 
