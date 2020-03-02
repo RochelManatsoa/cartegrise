@@ -74,6 +74,20 @@ class DemandeRepository extends ServiceEntityRepository
         ->setParameter('user', $user)->getQuery()->getResult();
 
     }
+
+    public function getQueryDemandeForUser(User $user)
+    {
+        return $this->createQueryBuilder('d')
+        ->join('d.commande','com')
+        ->join('com.client','c')
+        ->join('c.user','u')
+        ->where('u =:user')
+        ->orderBy('d.dateDemande', 'DESC')
+        ->setParameter('user', $user)
+        ->getQuery();
+
+    }
+
     public function getUserWithoutSendDocumentInDay(int $day, int $relanceLevel)
     {
         $qb = $this->createQueryBuilder('d')
