@@ -59,6 +59,17 @@ class CommandeRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    
+    public function queryAllCommandeByClient(Client $client)
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.client', 'client')
+            ->andWhere('client = :val')
+            ->orderBy('c.ceerLe', 'DESC')
+            ->setParameter('val', $client)
+            ->getQuery()
+        ;
+    }
 
     public function getDailyCommandeFacture($begin, \DateTime $now)
     {

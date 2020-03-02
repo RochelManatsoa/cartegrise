@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\{User, Demande};
-use App\Repository\{EmailHistoryRepository};
+use App\Repository\{EmailHistoryRepository, DemandeRepository};
 use App\Form\UpdateUserType;
 use App\Form\Registration\PasswordFormType;
 use App\Manager\{UserManager, DemandeManager, DocumentAFournirManager, TMSSauverManager};
@@ -164,12 +164,19 @@ class AccountController extends AbstractController
     /**
      * @Route("/demande/history", name="demande_history")
      */
-    public function history(DemandeManager $demandeManager)
+    public function history(DemandeRepository $demandeRepository, Request $request, PaginatorInterface $paginator)
     {
+        $user = $this->getUser();
+        $demandesOfUserQuery = $demandeRepository->getQueryDemandeForUser($user);
+        $pagination = $paginator->paginate(
+            $demandesOfUserQuery,
+            $request->query->getInt('page', 1),
+            8
+        );
         return $this->render(
             'client/account/demandeHistory.html.twig',
             [
-                'demandes' => $demandeManager->getDemandeOfUser($this->getUser()),
+                'demandes' => $pagination,
                 'client' => $this->getUser()->getClient(),
             ]
         );
