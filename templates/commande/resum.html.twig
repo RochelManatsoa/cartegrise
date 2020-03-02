@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block page_content %}
-{% set taxe = commande.taxes %}
+
 {% if commande is defined %}
+    {% set taxe = commande.taxes %}
     <div class="rp_dmd">
         <div class="container">
             <div class="row">

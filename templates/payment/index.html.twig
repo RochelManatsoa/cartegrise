@@ -3,16 +3,55 @@
 {% block title %}Paiement {% endblock %}
 
 {% block page_content %}
+{% if commande is defined %}
+{% set taxe = commande.taxes %}
+<div class="rp_dmd">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 resultat-estimation mx-auto">
+                <h2 class="col-12 text-center">Récapitulatif de la demande</h2>
+                <div class="row recap-demande-wrapper  pt-5 pb-5">
+                    <div class="col-10 mx-auto">
+                        <h2 class="col-12 mb-0 row mx-0"></h2>
+                        {{ include('commande/_resum_recap_demande.html.twig') }}
+                    </div>
+                </div>
 
-    {% if constant('App\\Entity\\Systempay\\Transaction::MULTI_PROPOSE_UP') < amount %}
-        <div>
-            <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 3})}}">plusieurs 3 fois</a>
-        </div>
-        <div>
-            <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 4})}}">plusieurs 4 fois</a>
+                <div class="col-md-12 px-0 col-lg-12 mx-auto d-flex my-flex-container">
+                    <div class="col-12 px-0 row">
+                        <div class="col-6 mx-auto">
+                            <h2 class="mb-4">CARACTÉRISTIQUES DU VÉHICULE</h2>
+                            {{ include('commande/_resum_caracteristics_car.html.twig') }}
+                        </div>
+                        <div class="col-6 mx-auto">
+                            <h2 class="mb-4">DÉTAIL DES TAXES</h2>
+                            {{ include('commande/_resum_taxe_car.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     {% endif %}
-    <div>
-        <a href="{{path('pay_online', {'commande': commande.id})}}">une seule fois</a>
+
+    <div class="col-12">
+        <h4 class="mb-4">CHOISISSEZ VOTRE MODE DE PAIEMENT</h4>
+        <ul style="list-style: none;">
+            <li class="mb-3">
+                <a href="{{path('pay_online', {'commande': commande.id})}}" class="btn btn-lg btn-outline-info" style="width: 100%">
+                    Paiement en une seule fois
+                </a>
+            </li>
+            <li class="mb-3">
+                <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 3})}}" class="btn btn-lg btn-outline-info"
+                    style="width: 100%">
+                    Paiement en 3 fois ({{ amount * 1.03 }})
+                </a>
+            </li>
+            <li class="mb-3">
+                <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 4})}}" class="btn btn-lg btn-outline-info" style="width: 100%">
+                    Paiement en 4 fois ({{ amount * 1.035 }})
+                </a>
+            </li>
+        </ul>
     </div>
 {% endblock %}
