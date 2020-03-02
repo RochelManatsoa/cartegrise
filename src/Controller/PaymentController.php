@@ -38,8 +38,7 @@ class PaymentController extends AbstractController
     public function index(Commande $commande, FraisTreatmentManager $fraisTreatmentManager)
     {
         $amount = (integer) $fraisTreatmentManager->fraisTotalOfCommande($commande);
-        dd($amount);
-        $amount103 = ($amount . 1.03);
+        $amount103 = (($amount . 103)/100);
         dd($amount103/3);
         
         return $this->render(
