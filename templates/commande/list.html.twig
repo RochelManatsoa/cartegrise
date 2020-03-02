@@ -28,7 +28,7 @@
                             {% for commande in commandes %}
                                     <tr>
                                         <th class="responsive-toggle">Demande<span></span></th><td>{{ commande.demarche.nom }}</td>
-                                        <th class="responsive-toggle">Date<span></span></th><td>{{ commande.ceerLe|date('d-m-Y') }}</td>
+                                        <th class="responsive-toggle">Date<span></span></th><td>{{ commande.ceerLe|date('d/m/Y') }}</td>
                                         <th class="responsive-toggle">Département<span></span></th><td class="text-center">{{ commande.codePostal | displayValue}}</td>
                                         <th class="responsive-toggle">Immatriculation<span></span></th><td class="text-center">{{ commande.immatriculation | displayValue}}</td>
                                         <th class="responsive-toggle">Statut<span></span></th><td>
@@ -83,6 +83,11 @@
                             {% endif %}
                             </tbody>
                         </table>
+                    {# display navigation #}
+                    <div class="navigation">
+                        {{ knp_pagination_render(commandes) }}
+                    </div>
+                    <!-- end display navigation -->
                     </div>
                 </div>
             </div>

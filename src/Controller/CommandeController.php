@@ -9,7 +9,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Form\PaiementType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Manager\{CommandeManager, TransactionManager};
+use App\Repository\CommandeRepository;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 use App\Entity\Commande;
 
@@ -27,11 +29,17 @@ class CommandeController extends AbstractController
     /**
      * @Route("/list", name="commande_list")
      */
-    public function listAction(Request $request)
+    public function listAction(Request $request, CommandeRepository $repository, PaginatorInterface $paginator)
     {
-        $commandes = $this->getUser()->getClient()->getCommandes();
+        $client = $this->getUser()->getClient();
+        $commandesOfUserQuery = $repository->queryAllCommandeByClient($client);
+        $pagination = $paginator->paginate(
+            $commandesOfUserQuery,
+            $request->query->getInt('page', 1),
+            8
+        );
         return $this->render('commande/list.html.twig', [
-            "commandes" => $commandes,
+            "commandes" => $pagination,
         ]);
     }
 
