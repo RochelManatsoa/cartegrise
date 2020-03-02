@@ -43,7 +43,9 @@ class PaymentController extends AbstractController
             "payment/index.html.twig", 
             [
                 'commande' => $commande,
-                'amount' => $amount
+                'amount' => $amount,
+                'amount3fois' => ($amount . 1.03) / 3,
+                'amount4fois' => ($amount . 1.035) / 4
             ]
         );
     }
