@@ -75,7 +75,7 @@ class User extends BaseUser
      * @var string
      * @Assert\Regex(
      *     pattern="#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}$#",
-     *     message="Vous devez entrer un mot de passe minimun 8 caracteres : minuscule, majuscule,chiffre,caractere spéciaux"
+     *     message="fos_user.password.regex"
      * )
      * 
      */
