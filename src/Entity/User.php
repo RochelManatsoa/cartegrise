@@ -70,6 +70,18 @@ class User extends BaseUser
     protected $password;
 
     /**
+     * Plain password. Used for model validation. Must not be persisted.
+     *
+     * @var string
+     * @Assert\Regex(
+     *     pattern="#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}$#",
+     *     message="fos_user.password.regex"
+     * )
+     * 
+     */
+    protected $plainPassword;
+
+    /**
     * @ORM\Column(type="datetime", nullable=true)
     * @Groups({"read", "write", "register"})
     */

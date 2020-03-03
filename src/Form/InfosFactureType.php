@@ -27,7 +27,7 @@ class InfosFactureType extends AbstractType
                 'data'     => 0
             ])
             ->add('socialReason', TextType::class,[
-                'attr'  => array( 'class' => 'text-uppercase' ),
+                'attr'  => array( 'class' => 'text-uppercase', 'placeholder' => "Nom de la société" ),
                 'label' => 'label.socialReason.client',
                 'required' => false,
             ])
