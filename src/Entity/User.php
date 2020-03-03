@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Controller\API\UserApi;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
@@ -59,7 +60,11 @@ class User extends BaseUser
 
     /**
      * @var string The email of the user.
-     *
+     *@Assert\Length(
+     *     min=8,
+     *     max=4096,
+     *     minMessage="fos_user.password.short",
+     *     groups={"Profile", "ResetPassword", "Registration", "ChangePassword"})
      * @Groups({"register"})
      */
     protected $password;

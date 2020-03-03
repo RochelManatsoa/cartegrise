@@ -1,0 +1,18 @@
+FOS\UserBundle\Model\User:
+    properties:
+        plainPassword:
+            - NotBlank:
+                groups: [register]
+            - Length:
+                min: 6
+                minMessage: fos_user.password.short
+                groups: [register]
+App\Entity\User:
+    properties:
+        password:
+            - NotBlank:
+                groups: [register]
+            - Length:
+                min: 6
+                minMessage: fos_user.password.short
+                groups: [register]
