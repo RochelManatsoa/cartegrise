@@ -297,7 +297,7 @@ label:
     titulaire: Titulaire
     dca:
         titulaire: Titulaire
-    genre: Civilité *
+    genre: Civilité
     dep: Département
     immatriculation: Immatriculation
     contactMobile: Téléphone mobile
@@ -309,14 +309,14 @@ label:
         cotitulaire: Nom du Cotitulaire
         titulaire: Nom de l'Acquéreur *
         dcaNomPrenom: Nom et prénom séparés par un espace *
-        client: Nom *
+        client: Nom
         content: Nom
         dcaBirthName: Nom du titulaire *
         usage: Nom usage
     prenom:
         titulaire: Prénom(s) de l'Acquéreur *
         cotitulaire: Prénom(s) du Cotitulaire
-        client: Prénom(s) *
+        client: Prénom(s)
     person:
         type:
             corporation: Personne morale

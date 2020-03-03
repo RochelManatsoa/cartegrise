@@ -12,20 +12,29 @@
 		<div class="block_form">
 			<div class="row justify-content-center">
 				<div class="col-lg-8">
-					{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}, 'label_attr': labelAttrs} )}}
+					{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'form_register fos_user_registration_register', 'novalidate':'novalidate', 'id':'form_register'}, 'label_attr': labelAttrs} )}}
 					<div class="heading_form text-center"><h2>Créez votre compte et identifiez-vous en quelques clics, pour valider et suivre votre commande</h2></div>
 					<div class="row justify-content-center with-mp">
 						<div class="{{ wrapperClassName }}">
-							{{ form_row(form.client.clientGenre, {'attr': inputAttrs, 'label_attr': labelAttrsc} )}}
+                            <div class="input-group">
+                                {{ form_row(form.client.clientGenre, {'attr': inputAttrs, 'label_attr': labelAttrsc} )}}
+                            </div>
 							<div class="row">
-								<div class="{{ smallWrapperClassName }}">
+								<div class="input-group {{ smallWrapperClassName }}">
 									{{ form_row(form.client.clientNom, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-								</div>
-
-								<div class="{{ smallWrapperClassName }}">
+                                    <span class="invalid-feedback">
+                                        <span class="form-error-icon badge badge-danger text-uppercase">Erreur</span>
+                                        <span class="form-error-message">Champ obligatoire</span>
+                                    </span>
+                                </div>
+								<div class="input-group  {{ smallWrapperClassName }}">
 									{{ form_row(form.client.clientPrenom, {'attr': inputAttrs, 'label_attr': labelAttrs}) }}
+                                    <span class="invalid-feedback">
+                                        <span class="form-error-icon badge badge-danger text-uppercase">Erreur</span>
+                                        <span class="form-error-message">Champ obligatoire</span>
+                                    </span>
 								</div>
-							</div>
+                            </div>
 							{#<div class="row">
 								<div class="{{ smallWrapperClassName }}">
 									{{ form_row(form.client.clientContact.contact_telmobile, {'attr': inputAttrs, 'label_attr': labelAttrs}) }}
@@ -35,10 +44,35 @@
 									}}
 								</div>
 							</div>#}
-                            {{ form_row(form.client.clientContact.contact_telmobile, {'attr': inputAttrs, 'label_attr': labelAttrs}) }}
-							{{ form_row(form.email, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-							{{ form_row(form.username, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
-							{{ form_row(form.plainPassword, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+                            <div class="input-group">
+                                {{ form_row(form.client.clientContact.contact_telmobile, {'attr': inputAttrs, 'label_attr': labelAttrs}) }}
+                                <span class="invalid-feedback">
+                                        <span class="form-error-icon badge badge-danger text-uppercase">Erreur</span>
+                                        <span class="form-error-message">Champ obligatoire</span>
+                                    </span>
+                            </div>
+                            <div class="input-group">
+                                {{ form_row(form.email, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+                                <span class="invalid-feedback">
+                                    <span class="form-error-icon badge badge-danger text-uppercase">Erreur</span>
+                                    <span class="form-error-message">Champ obligatoire</span>
+                                </span>
+                            </div>
+                            <div class="input-group">
+                                {{ form_row(form.username, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+                                <span class="invalid-feedback">
+                                    <span class="form-error-icon badge badge-danger text-uppercase">Erreur</span>
+                                    <span class="form-error-message">Champ obligatoire</span>
+                                </span>
+                            </div>
+
+                            <div class="input-group">
+                                {{ form_row(form.plainPassword, {'attr': inputAttrs, 'label_attr': labelAttrs} )}}
+                                <span class="invalid-feedback">
+                                    <span class="form-error-icon badge badge-danger text-uppercase">Erreur</span>
+                                    <span class="form-error-message">Champ obligatoire</span>
+                                </span>
+                            </div>
 							<div class="row">
 								{% for passwordForm in form.plainPassword %}
 									<div class="{{ smallWrapperClassName }}">
@@ -68,5 +102,39 @@
 		</div>
 	</div>
 </div>
+{% block javascripts %}
+    <script src="{{ asset('asset/libs/js/jquery-3.3.1.min.js') }}" type="text/javascript"></script>
+<script type="application/javascript">
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('form_register');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        setTimeout(function(){
+                            $('.was-validated .form-control:invalid').parents('.input-group').find('.invalid-feedback').show();
+                        }, 50);
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+    $('input').on('blur', function(){
+        if($(this).val() !== ""){
+            $(this).parents('.input-group').find('.invalid-feedback').hide();
+        }else{
+            $(this).parents('.input-group').find('.invalid-feedback').show();
+        }
+    });
+
+</script>
+
+{% endblock %}
 
 	
