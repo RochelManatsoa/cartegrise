@@ -363,3 +363,7 @@ $("#aside_right").sticky({
 $(".js-toggle").on("click", function () {
     $(this).parent().next(".toggle-content").toggle();
 });
+
+
+//flash block
+$(".flash_block").delay(5000).fadeOut(400);

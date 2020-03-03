@@ -186,9 +186,20 @@ header {
 						&:before, &:after {
 							display: none;
 						}
+						.nav-list {
+							.nav-item {
+								> a,
+								> strong {
+									padding: 19px 0;
+									&:after {
+										bottom: 10px;
+									}
+								}
+							}
+						}
 						.nav-sub-menu {
 							//padding-top: $size_18;
-                            margin-top: $size_18;
+                            // margin-top: $size_18;
                             border: 1px solid #03347e;
                             padding-top: 0;
 						}
@@ -400,6 +411,7 @@ header {
 							letter-spacing: 1px;
 							position: relative;
 							cursor: pointer;
+							padding: 34px 0;
 							@include md {
 								color: #212529;
 								padding: $size_15;
@@ -415,7 +427,7 @@ header {
 								border-bottom: 4px solid;
 								position: absolute;
 								right: 4px;
-								bottom: -7px;
+								bottom: 28px;
 								transition: all .3s ease;
 								-webkit-transition: all .3s ease;
 								@include md {
@@ -445,7 +457,7 @@ header {
 							transition: top 0.3s ease 0s, visibility 0.2s ease 0.2s, opacity 0.2s ease 0.1s;
 							opacity: 0;
 							visibility: hidden;
-                            margin-top: $size_18;
+                            // margin-top: $size_18;
                             border: 1px solid #03347e;
                             padding-top: 0;
 							@include md {
@@ -3848,4 +3860,14 @@ a.ui-button:active,
       }
     }
   }
+}
+
+// Flash style
+.flash_block {
+    width: 350px;
+    position: fixed;
+    bottom: 15%;
+    left: 15%;
+	transform: translate(-50%, -50%);
+	z-index: 10000;
 }
