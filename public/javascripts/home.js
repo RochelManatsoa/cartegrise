@@ -60,9 +60,9 @@ $('#formulaire_demarche').on('change', function(e) {
 });
 $(function() {
     /*$('a[href*=\\#]').on('click', function(e) {
-        e.preventDefault();
-        $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top }, 500, 'linear');
-    });*/
+     e.preventDefault();
+     $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top }, 500, 'linear');
+     });*/
     var jump=function(e)
     {
         if (e){
@@ -73,14 +73,14 @@ $(function() {
         }
 
         $('html,body').animate({
-            scrollTop: $(target).offset().top
-        },2000,function(){
+            scrollTop: $(target).offset().top -  130
+        },700,function(){
             location.hash = target;
         });
 
     }
 
-    $('a[href^=#]').bind("click", jump);
+    $('a[href*=\\#]').bind("click", jump);
 
     if (location.hash){
         setTimeout(function(){
