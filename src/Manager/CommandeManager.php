@@ -615,4 +615,24 @@ class CommandeManager
         
         return 'sended';
     }
+
+    public function checkServiceClient()
+    {
+        if ($this->tokenStorage->getToken()->getUser()->getClient()) {
+			$commandes = $this->repository->findByCommandeByClient($this->tokenStorage->getToken()->getUser()->getClient());
+            $status = false;
+            foreach($commandes as $commande){
+                $tmpStatus = $commande->getTransaction() != null ? $commande->getTransaction()->getStatus() : "";
+				if ($tmpStatus == '00') {
+                    $status = true;
+                    break;
+                } 
+			}
+            if($status){
+                return "0977423130";
+            }
+        }
+
+        return "0897010800";
+    }
 }

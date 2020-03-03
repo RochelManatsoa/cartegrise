@@ -616,26 +616,6 @@ class DemandeManager
         }
     }
 
-    public function checkServiceClient()
-    {
-        if ($this->tokenStorage->getToken()->getUser() instanceof User) {
-            $demandes = $this->getDemandeOfUser($this->tokenStorage->getToken()->getUser());
-            $status = false;
-            foreach($demandes as $demande){
-                $tmpStatus = $demande->getTransaction() != null ? $demande->getTransaction()->getStatus() : ($demande->getCommande()->getTransaction() != null ) ? $demande->getCommande()->getTransaction()->getStatus(): "";
-                if ($tmpStatus == '00') {
-                    $status = true;
-                    break;
-                } 
-            }
-            if($status){
-                return "0977423130";
-            }
-        }
-
-        return "0897010800";
-    }
-
     public function getDemandeForCommande(Commande $commande)
     {
         return $this->repository->findOneBy(['commande'=>$commande->getId()]);

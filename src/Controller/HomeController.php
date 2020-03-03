@@ -397,11 +397,12 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
+            // $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
+            $adminEmails = ["service.client@cgofficiel.fr"];
             $template = 'email/contact/contactUs.mail.twig';
             $object = 'Nouvelle entrée: Formulaire de contact';
             $contactUsManger->save($data);
-            $mailManager->sendEmail($emails = $adminEmails, $template, $object, [ 'responses'=>$data]);
+            $mailManager->sendEmail($adminEmails, $template, $object, [ 'responses'=>$data]);
 
             return $this->redirectToRoute('home');
         }
