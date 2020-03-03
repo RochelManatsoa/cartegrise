@@ -4,7 +4,7 @@
 			<div class="faq-block">
 				<div class="row">
 					<div class="col-md-4">
-						<a href="{{ path('faq')}}#certificat" class="faQ">
+						<a href="{{ path('faq', {'_fragment': 'certificat'}) }}" class="faQ">
 							<img src="{{ asset('asset/img/certificat-icon.svg') }}">
 							<span><span>A quoi sert le</span> certiﬁcat d’immatriculation ?</span>
 						</a>
@@ -101,3 +101,17 @@
 		</div>
 	</div>
 </footer>
+{% block javascripts %}
+    <script src="{{ asset('asset/libs/js/jquery-3.3.1.min.js') }}" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(
+
+        function() {
+            $(".faq-block a").click(function() {
+                var go_to_url = $(this).attr('href');
+                document.location.href = go_to_url;
+            });
+        });
+    </script>
+{% endblock %}
+

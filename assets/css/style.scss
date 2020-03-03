@@ -3871,3 +3871,37 @@ a.ui-button:active,
 	transform: translate(-50%, -50%);
 	z-index: 10000;
 }
+
+//Form register
+.form_register{
+  .form-group{
+    margin-bottom: 0;
+  }
+  .input-group {
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+}
+
+//Puce et numerotation style
+#Changement-de-titulaire{
+  .piece_fournir{
+    ol {
+      list-style: none;
+      counter-reset: li;
+      > li{
+        counter-increment: li;
+        &:before {
+          content: '.'counter(li);
+          display: inline-block;
+          width: 2em;
+          margin-left: -1.5em;
+          margin-right: 0.5em;
+          text-align: right;
+          direction: rtl;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
