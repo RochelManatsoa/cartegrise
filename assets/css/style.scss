@@ -3849,3 +3849,13 @@ a.ui-button:active,
     }
   }
 }
+
+// Flash style
+.flash_block {
+    width: 350px;
+    position: fixed;
+    bottom: 15%;
+    left: 15%;
+	transform: translate(-50%, -50%);
+	z-index: 10000;
+}
