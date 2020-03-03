@@ -7,7 +7,7 @@ use Twig\TwigFunction;
 use Twig\TwigFilter;
 use App\Entity\{User, Taxes, TypeDemande, Commande, Demande, Adresse, EmailHistory};
 use App\Repository\TarifsPrestationsRepository;
-use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager, DemandeManager, TransactionManager};
+use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager, CommandeManager, DemandeManager, TransactionManager};
 use App\Utils\StatusTreatment;
 use App\Manager\DocumentAFournirManager;
 use Doctrine\Common\Annotations\AnnotationReader;
@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints\File;
 class AppExtension extends AbstractExtension
 {
     private $demandeManager;
+    private $commandeManager;
     private $prestation;
     private $statusTreatment;
     private $taxManager;
@@ -32,6 +33,7 @@ class AppExtension extends AbstractExtension
         StatusManager $statusManager,
         DocumentAFournirManager $documentAFournirManager,
         DemandeManager $demandeManager,
+        CommandeManager $commandeManager,
         TransactionManager $transactionManager
     )
     {
@@ -43,6 +45,7 @@ class AppExtension extends AbstractExtension
         $this->statusManager = $statusManager;
         $this->documentAFournirManager = $documentAFournirManager;
         $this->demandeManager = $demandeManager;
+        $this->commandeManager = $commandeManager;
         $this->transactionManager = $transactionManager;
     }
     public function getFunctions()
@@ -573,7 +576,7 @@ class AppExtension extends AbstractExtension
 
     public function displayServiceClient()
     {
-        return $this->demandeManager->checkServiceClient();
+        return $this->commandeManager->checkServiceClient();
     }
 
     public function findByTransactionId(string $responseId)
