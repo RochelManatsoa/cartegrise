@@ -300,7 +300,7 @@ label:
     genre: Civilité
     dep: Département
     immatriculation: Immatriculation
-    contactMobile: Téléphone mobile
+    contactMobile: Téléphone
     contactFixe: Téléphone fixe
     demandeChangementTitulaire: Demander un changement de titulaire
     motifDemande: Motif de la demande
@@ -319,10 +319,10 @@ label:
         client: Prénom(s)
     person:
         type:
-            corporation: Personne morale
+            corporation: Personne morale (Société)
             physical: Personne physique
     socialReason:
-        client: Raison sociale
+        client: Nom
     demande:
         formulaireCerfaRemplis: Formulaire de cerfa rempli
         demandeCertificatImmatriculation: Demande de certificat d'immatriculation
