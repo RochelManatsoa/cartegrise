@@ -331,8 +331,8 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                         }
                     },
                     digits: true,
-                    minlength: 9,
-                    maxlength: 9,
+                    minlength: 14,
+                    maxlength: 14,
                 },
                 /**PARTIE 02 ANCIENNE ADRESSE */
                 "demande_changement_adresse[changementAdresse][ancienAdresse][numero]": {
@@ -392,8 +392,8 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][siren]": {
                     required: "Champs obligatoire",
                     digits: 'Merci de n\'entrer que des chiffres.',
-                    minlength: 'Le numéro doit être à 9 chiffres',
-                    maxlength: 'Le numéro doit être à 9 chiffres',
+                    minlength: 'Le numéro doit être à 14 chiffres',
+                    maxlength: 'Le numéro doit être à 14 chiffres',
                 },
                 /**PARTIE 02 ANCIENNE ADRESSE */
                 "demande_changement_adresse[changementAdresse][ancienAdresse][numero]": {

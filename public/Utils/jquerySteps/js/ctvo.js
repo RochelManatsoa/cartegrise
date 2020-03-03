@@ -274,8 +274,8 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     }
                 },
                 digits: true,
-                minlength: 9,
-                maxlength: 9,
+                minlength: 14,
+                maxlength: 14,
             },
             "demande_ctvo[ctvo][numeroFormule]": {
                 required: {
@@ -412,8 +412,8 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     }
                 },
                 digits: true,
-                minlength: 9,
-                maxlength: 9,
+                minlength: 14,
+                maxlength: 14,
             },
             "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][numero]": {
                 required: true
@@ -444,8 +444,8 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             "demande_ctvo[ctvo][ancienTitulaire][siren]": {
                 required: 'Champs obligatoire',
                 digits: 'Merci de n\'entrer que des chiffres.',
-                minlength: 'Le numéro doit être à 9 chiffres',
-                maxlength: 'Le numéro doit être à 9 chiffres'
+                minlength: 'Le numéro doit être à 14 chiffres',
+                maxlength: 'Le numéro doit être à 14 chiffres'
             },
             "demande_ctvo[ctvo][numeroFormule]": {
                 required: 'Champs obligatoire',
@@ -474,8 +474,8 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             "demande_ctvo[ctvo][acquerreur][siren]": {
                 required: 'Champs obligatoire',
                 digits: 'Merci de n\'entrer que des chiffres.',
-                minlength: 'Le numéro doit être à 9 chiffres',
-                maxlength: 'Le numéro doit être à 9 chiffres'
+                minlength: 'Le numéro doit être à 14 chiffres',
+                maxlength: 'Le numéro doit être à 14 chiffres'
             },
             "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][typevoie]": {
                 required: 'Champs obligatoire',
