@@ -175,7 +175,8 @@ class AppExtension extends AbstractExtension
     }
     public function displayGender($value, $default = null)
     {
-        return $value === "M" ? "M." : 'Mme';
+        // return $value === "M" ? "M." : 'Mme';
+        return $value = "";
     }
     public function displayRelanceInfos($value, $default = null)
     {

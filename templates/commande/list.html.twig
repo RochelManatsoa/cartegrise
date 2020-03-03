@@ -52,8 +52,8 @@
                                                                 <button type="button" class="btn resume-btn">Résumer</button>
                                                             </a>
                                                         {% endif %}
-                                                        <button data-url="{{ path('commande_annuler', {id: commande.id, _token: csrf_token('delete' ~ commande.id)}) }}"
-                                                                type="button" class="btn cancel-btn">Annuler</button>
+                                                        {# <button data-url="{{ path('commande_annuler', {id: commande.id, _token: csrf_token('delete' ~ commande.id)}) }}"
+                                                                type="button" class="btn cancel-btn">Annuler</button> #}
                                                     {% endif %}
                                                 {% elseif 
                                                     commande.demande is defined and
