@@ -420,6 +420,7 @@ class CommandeManager
 		$facture->setName($infosFacture->getName());
 		$facture->setFirstName($infosFacture->getFirstName());
 		$facture->setAdresse($infosFacture->getAdresse());
+		dd($facture);
 		$commande->setFacture($facture);
 		$this->save($commande);
     }
