@@ -9,6 +9,15 @@
 {% endblock %}
 {% block body_html %}
 {% autoescape false %}
+<!DOCTYPE html>
+<html dir="ltr" lang="fr-FR">
+    <head>
+      {% block head %}
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name=viewport content="width=device-width, initial-scale=1.0, minimum-scale=1.0 maximum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      {% endblock head %}
+      {% block style %}{% endblock %}
         <style type="text/css">
             body {
                 margin: 0; 
@@ -122,22 +131,22 @@
         <table width="100%" bgcolor="#f6f8f1" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
-                  <table class="content" align="center" cellpadding="0" cellspacing="0" border="0">
-                      <tr>
-                          <td class="header" bgcolor="#03347e">
-                              <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                  <tr>
-                                      <td class="subhead" style="padding: 0 0 0 3px;">
-                                          <img src="https://www.cgofficiel.fr/asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png" style="width: 80px" border="0" alt="" / >
-                                      </td>
-                                      <td class="h1">
-                                          Service de carte grise en ligne
-                                      </td>
-                                  </tr>
-                              </table>
-                          </td>
-                      </tr>
-                      <tr>
+                    <table class="content" align="center" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td class="header" bgcolor="#03347e">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td class="subhead" style="padding: 0 0 0 3px;">
+                                            <img src="https://www.cgofficiel.fr/asset/img/logo-CGofficiel-carte-grise-certificat-immatriculation.png" style="width: 80px" border="0" alt="" / >
+                                        </td>
+                                        <td class="h1">
+                                            Service de carte grise en ligne
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
 					  		<td class="bodyEmail" bgcolor="#ffffff">
                                 <br>
                                 <br>
@@ -185,6 +194,8 @@
                 </td>
             </tr>
         </table>
+    </body>
+</html>
 {# <div dir="ltr" style="display: block; width: 100%; background: #ffffff">
 		<div style='width: 100%; border: none;background-color: #ffffff'>			
 			<center><img style="height:150px;width:auto;margin:auto;" src="https://ci4.googleusercontent.com/proxy/mJemm3T_DymwQsex1-Y_ypC4igpKrD0RAbH94SkU5yZVbwVwBd0NvY6UCn96c5Sh4sRzuUjtPLPm4v-57JTf=s0-d-e1-ft#{{ url('home') }}/asset/img/logo.png" alt="logo" class="CToWUd a6T" tabindex="0"> </center>
