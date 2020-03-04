@@ -1380,6 +1380,26 @@ AutoComplete
   }
 }
 
+
+/** profil form **/
+#profilForm {
+	.list-grid{
+		&__item{
+			> div {
+				-ms-flex: 0 0 50%;
+				flex: 0 0 50%;
+				max-width: 50%;
+				text-overflow: ellipsis;
+				overflow-x: hidden;
+				@include sm {
+					-ms-flex: 0 0 100%;
+					flex: 0 0 100%;
+					max-width: 100%;
+				}
+			}
+		}
+	}
+}
 /**Resultat estimation**/
 .rp_dmd {
 	padding: 30px 0;
