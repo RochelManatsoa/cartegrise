@@ -189,7 +189,7 @@ class Facture
         return $this->typePerson;
     }
 
-    public function setTypePerson(?bool $typePerson): self
+    public function setTypePerson(bool $typePerson): self
     {
         $this->typePerson = $typePerson;
 
@@ -201,7 +201,7 @@ class Facture
         return $this->socialReason;
     }
 
-    public function setSocialReason(string $socialReason): self
+    public function setSocialReason(?string $socialReason): self
     {
         $this->socialReason = $socialReason;
 
