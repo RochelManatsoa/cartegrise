@@ -375,7 +375,7 @@ $( function() {
     $('#AutoCompleteCP').find('.select').prepend($('ul#ui-id-1'));
 } );
 //fixed
-if (window.matchMedia("(min-width: 1500px)").matches) {
+if (window.matchMedia("(min-width: 1750px)").matches) {
     $('#right_formulaireFx').find('.form_demarche').append($('.demarche_block'));
 } else {
     $('#col_formulaireFx').find('.form_demarche').append($('.demarche_block'));
