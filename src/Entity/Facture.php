@@ -49,6 +49,16 @@ class Facture
     private $adresse;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $typePerson;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $socialReason;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -172,5 +182,29 @@ class Facture
         $commandeId = $this->getCommande()->getId();
 
         return $num . $dateCommande . '/' . $type . $commandeId;
+    }
+
+    public function getTypePerson(): ?bool
+    {
+        return $this->typePerson;
+    }
+
+    public function setTypePerson(?bool $typePerson): self
+    {
+        $this->typePerson = $typePerson;
+
+        return $this;
+    }
+
+    public function getSocialReason(): ?string
+    {
+        return $this->socialReason;
+    }
+
+    public function setSocialReason(string $socialReason): self
+    {
+        $this->socialReason = $socialReason;
+
+        return $this;
     }
 }
