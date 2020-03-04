@@ -39,7 +39,6 @@
                                         <th class="responsive-toggle">Action<span></span></th><td>
                                             <div class="flex flex-column content-actions">
                                                 {% if is_granted(constant('\\App\\Security\\Voter\\CommandeVoter::PASSER'), commande) %}
-                                                    {% if commande.deletedAt is null %}
                                                         {% if commande.demande is defined and commande.demande is null and commande.transaction is defined and commande.transaction is not null and commande.transaction.status == '00' %}
                                                             <a href="{{path('new_demande', {'commande': commande.id })}}">
                                                                 <button type="button" class="btn resume-btn">Remplir le formulaire</button>
@@ -54,7 +53,6 @@
                                                         {% endif %}
                                                         {# <button data-url="{{ path('commande_annuler', {id: commande.id, _token: csrf_token('delete' ~ commande.id)}) }}"
                                                                 type="button" class="btn cancel-btn">Annuler</button> #}
-                                                    {% endif %}
                                                 {% elseif 
                                                     commande.demande is defined and
                                                     commande.demande is not null and

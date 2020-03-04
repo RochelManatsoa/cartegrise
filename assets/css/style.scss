@@ -1380,6 +1380,26 @@ AutoComplete
   }
 }
 
+
+/** profil form **/
+#profilForm {
+	.list-grid{
+		&__item{
+			> div {
+				-ms-flex: 0 0 50%;
+				flex: 0 0 50%;
+				max-width: 50%;
+				text-overflow: ellipsis;
+				overflow-x: hidden;
+				@include sm {
+					-ms-flex: 0 0 100%;
+					flex: 0 0 100%;
+					max-width: 100%;
+				}
+			}
+		}
+	}
+}
 /**Resultat estimation**/
 .rp_dmd {
 	padding: 30px 0;
@@ -3771,11 +3791,11 @@ a.ui-button:active,
 
 
 //style formulaire droite
-@media (min-width: 1500px) {
+@media (min-width: 1750px) {
 	.col-xll-12 {
-		-ms-flex: 0 0 83.333333% !important;
-		flex: 0 0 83.333333% !important;
-		max-width: 83.333333% !important;
+		-ms-flex: 0 0 91.666667%!important;
+		flex: 0 0 91.666667%!important;
+		max-width: 91.666667%!important;
 	}
 	.d-xll-none {
 		display: none !important;
@@ -3786,14 +3806,7 @@ a.ui-button:active,
 		}
 	}
 }
-@media (min-width: 1650px) {
-	.col-xll-12 {
-		-ms-flex: 0 0 91.666667%!important;
-		flex: 0 0 91.666667%!important;
-		max-width: 91.666667%!important;
-	}
-}
-@media (min-width: 1870px) {
+@media (min-width: 1835px) {
 	.col-xll-12 {
 		-ms-flex: 0 0 100%!important;
 		flex: 0 0 100%!important;
@@ -3810,7 +3823,11 @@ a.ui-button:active,
 		padding: 8px !important;
 	}
 }
-
+@media (max-width: 1835px) {
+	#right_formulaireFx {
+		right: 15px;
+	}
+}
 //Infos facturation style
 #paiement_infosFacture{
   .form-group{
