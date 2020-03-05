@@ -33,25 +33,24 @@
         </div>
     {% endif %}
 
-    <div class="col-12">
-        <h4 class="mb-4">CHOISISSEZ VOTRE MODE DE PAIEMENT</h4>
-        <ul style="list-style: none;">
+    <div class="systempay col-12">
+        <h4>CHOISISSEZ VOTRE MODE DE PAIEMENT</h4>
+        <ul>
             <li class="mb-3">
-                <a href="{{path('pay_online', {'commande': commande.id})}}" class="btn btn-lg btn-outline-info" style="width: 100%">
-                    Paiement en une seule fois
-                </a>
+                <div class="txt">Paiement en une seule fois</div>
+                <span class="line"></span>
+                <a href="{{path('pay_online', {'commande': commande.id})}}" class="btn btn-lg btn-outline-info">Sélectionner</a>
             </li>
             {% if constant('App\\Entity\\Systempay\\Transaction::MULTI_PROPOSE_UP') < (amount / 100) %}
-                <li class="mb-3">
-                    <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 3})}}" class="btn btn-lg btn-outline-info"
-                        style="width: 100%">
-                        Paiement en 3 fois ({{ amount * 0.0103 / 3 | round(2, 'ceil') }} x 3 soit {{ amount * 0.0103 }})
-                    </a>
+                <li class="mb-3 active">
+                    <div class="txt">Paiement en 3 fois<span>({{ amount * 0.0103 / 3 | round(2, 'ceil') }} x 3 soit {{ amount * 0.0103 }})</span></div>
+                    <span class="line"></span>
+                    <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 3})}}" class="btn btn-lg btn-outline-info">Sélectionner</a>
                 </li>
                 <li class="mb-3">
-                    <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 4})}}" class="btn btn-lg btn-outline-info" style="width: 100%">
-                        Paiement en 4 fois ({{ amount * 0.01035 / 4 | round(2, 'ceil') }} x 4 soit {{ amount * 0.01035 }})
-                    </a>
+                    <div class="txt">Paiement en 4 fois<span>({{ amount * 0.01035 / 4 | round(2, 'ceil') }} x 4 soit {{ amount * 0.01035 }})</span></div>
+                    <span class="line"></span>
+                    <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 4})}}" class="btn btn-lg btn-outline-info">Sélectionner</a>
                 </li>
             {% endif %}
         </ul>
