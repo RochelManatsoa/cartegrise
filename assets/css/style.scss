@@ -3579,3 +3579,117 @@ Suivi
 }
 
 
+//Systeme de pay
+.systempay{
+  border-top: 1px solid $white;
+  margin-top: 3em;
+  h4 {
+    text-transform: uppercase;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 24px;
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+  ul{
+    list-style: none;
+    display: flex;
+    padding: 0;
+    li{
+      background: $white;
+      padding: 1em 2.5em;
+      border-radius: 1em;
+      text-align: center;
+      flex: 1;
+      position: relative;
+      .txt{
+        position: relative;
+        min-height: 4.3em;
+        margin-bottom: .7em;
+        line-height: normal;
+        span{
+          display: inline-block;
+          width: 100%;
+          font-weight: bold;
+        }
+      }
+      span{
+        &.line {
+          height: 2px;
+          background: $light-3;
+          position: absolute;
+          width: calc(100% - 2.5em);
+          bottom: 4rem;
+          display: inline-block;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+      a.btn{
+        border-radius: 2em;
+        font-weight: normal;
+        background: $aqua-blue;
+        color: $white;
+        padding: .5em 2em;
+        font-size: 0.875em;
+        position: relative;
+        margin-top: .8em;
+        &:hover,&:focus{
+          background: $royal-blue;
+          border-color: $royal-blue;
+        }
+      }
+      &:not(:last-child){
+        margin-right: 2em;
+      }
+      &.active{
+        background: $aqua-blue;
+        .txt{
+          color: $white;
+        }
+        span{
+          &.line {
+            background: $white;
+            opacity: .2;
+            height: 1px;
+          }
+        }
+        a.btn{
+          color: transparent;
+          position: relative;
+          border: 0;
+          &:before{
+            content: "\e911";
+            color: $royal-blue;
+            font-family: 'icomoon' !important;
+            speak: none;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: absolute;
+            top: 50%;
+            font-size: 2.5em;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: $screen-sm-max){
+    ul{
+      flex-direction: column;
+      li{
+        margin: 0 0 2em 0 !important;
+        .txt{
+          font-size: .89em;
+        }
+      }
+    }
+  }
+}
