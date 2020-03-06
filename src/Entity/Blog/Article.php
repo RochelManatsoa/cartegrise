@@ -135,6 +135,7 @@ class Article
     {
         $this->categories = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->date = new \Datetime();
     }
 
     public function getId(): ?int

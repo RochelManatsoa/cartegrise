@@ -1,5 +1,7 @@
 easy_admin:
-    site_name: 'Blog <em style="font-size:120%;">CGOfficiel</em>'
+    site_name: '<a href="https://www.cgofficiel.fr/actualites/" class="logo"><img style="width:100px;" src="https://www.cgofficiel.fr/img/logo.png" alt="logo"></a>'
+    user:
+        name_property_path: 'username'
     design:
         form_theme: 
             - "@EasyAdmin/form/bootstrap_4.html.twig"

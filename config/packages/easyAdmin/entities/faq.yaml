@@ -1,0 +1,18 @@
+easy_admin:
+    entities:
+        Faq:
+            class: App\Entity\Blog\Faq
+            list:
+                actions: 
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-outline-primary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-outline-danger'}
+                fields:
+                    - id
+                    - titre
+            form:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
+                    - { property: 'titre', css_class: 'large' }
+                    - { property: 'contenu', type: 'fos_ckeditor' }
+                    - { type: 'group', css_class: 'col-sm-4', label: 'Product Details', icon: 'cube' }
+                    - { property: 'createdAt'} 

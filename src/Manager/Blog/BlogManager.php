@@ -30,7 +30,8 @@ class BlogManager
     {
         $recent = $this->article->findBy([], ['id'=>'DESC'], 5);
         $categories = $this->categorie->findAll();
-        $faqs = $this->faq->findBy([], ['id'=>'DESC'], 3,rand(0,5));
+        $faqs = $this->faq->findBy([], ['id'=>'DESC'], 5);
+        // $faqs = $this->faq->findAll();
 
         return [
             'recent'=>$recent,
