@@ -6,7 +6,7 @@
                                 Bonjour {{ responses.client|displayRelanceInfos }}
                                 <br>
                                 <br>
-                                <p>Votre paiement pour la commande n° {{responses.transaction_id}}/{{transaction.commande.demarche.type}} du {{ transaction.createAt | date('d/m/Y')}} n’a pas fonctionné. Pas d’inquiétude vous pouvez reprendre votre démarche ici en cliquant ce <a href="{{ url('home') }}commande/{{transaction.commande.id}}/recap" target="_blank">lien</a></p>
+                                <p>Votre paiement pour la commande n° {{responses.transaction_id}}/{{transaction.commande.demarche.type}} du {{ transaction.createAt | date('d/m/Y')}} n’a pas fonctionné. Pas d’inquiétude vous pouvez reprendre votre démarche ici en cliquant sur ce <a href="{{ url('home') }}commande/{{transaction.commande.id}}/recap" target="_blank">lien</a></p>
                                 <p>Pour toute question n’hésitez pas à contacter notre service client du lundi au samedi, de 8h à 18h, au : 09 77 42 31 30 </p>
                                 <p style="text-align:center;"><a href="https://www.cgofficiel.fr" target="_blank">CG Officiel</a> vous remercie.</p>
                             </td>
