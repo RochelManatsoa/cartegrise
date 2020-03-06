@@ -18,10 +18,10 @@ blog:
     resource: App\Controller\Blog\BlogController
     type: annotation
     prefix: /actualites
-
+    
 easy_admin_bundle:
     resource: '@EasyAdminBundle/Controller/EasyAdminController.php'
-    prefix: /admin_actualites
+    prefix: /easy_admin
     type: annotation
 ckfinder_connector:
     resource: "@CKSourceCKFinderBundle/Resources/config/routing.yml"
