@@ -9,7 +9,6 @@
                     <h2>
                         {% if transaction.status == "AUTHORISED" %}
                                 Félicitations ! <br>
-                                {{ "#{responses.response_code}" | statusMessage }}
                             {% else %}
                                 Désolé ! Votre transaction n'a pas abouti. <br>
                         {% endif %}
