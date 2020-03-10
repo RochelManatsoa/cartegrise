@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use App\Manager\Systempay\SystemPayManager;
 use App\Entity\Systempay\Transaction as SystempayTransaction;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 class PaymentController extends AbstractController
@@ -38,12 +39,18 @@ class PaymentController extends AbstractController
     public function index(Commande $commande, FraisTreatmentManager $fraisTreatmentManager)
     {
         $amount = (integer) 100 * $fraisTreatmentManager->fraisTotalOfCommande($commande);
+        $amount3fois = round($amount * 1.03);
+        $amount3fois = $amount3fois/100;
+        $amount4fois = round($amount * 1.035);
+        $amount4fois = $amount4fois/100;
         
         return $this->render(
             "payment/index.html.twig", 
             [
                 'commande' => $commande,
                 'amount' => $amount,
+                'amount3fois' => $amount3fois,
+                'amount4fois' => $amount4fois,
             ]
         );
     }
@@ -269,6 +276,7 @@ class PaymentController extends AbstractController
 
         // additional feld 
         $fields = [
+            'order_id' => $commande->getId(),
             'cust_email' => $email,
             'cust_first_name' => $this->getUser()->getClient()->getClientNom(),
             'cust_last_name' => $this->getUser()->getClient()->getClientPrenom(),
@@ -312,13 +320,24 @@ class PaymentController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function paymentVerificationAction(Request $request)
+    public function paymentVerificationAction(Request $request, CommandeManager $commandeManager)
     {
-        // dd($request->request->all(), $request->query->all());
-        // ...
+        $requestCollection = new ArrayCollection($request->request->all());
+        if ($requestCollection->get('signature')){
+            if ($requestCollection->get('vads_trans_status') == "AUTHORISED"){
+                $id = $requestCollection->get('vads_order_id');
+                $commande = $commandeManager->find($id);
+                $commande->setPaymentOk(true);
+                $commandeManager->migrateFacture($commande);
+                $commandeManager->simulateTransaction($commande);
+                $commandeManager->save($commande);
+            }
+        }
         $this->systempay
             ->responseHandler($request)
         ;
+        
+
 
         return new Response('paiement ok ');
     }

@@ -39,20 +39,44 @@
             <li class="mb-3">
                 <div class="txt">Paiement en une seule fois</div>
                 <span class="line"></span>
-                <a href="{{path('pay_online', {'commande': commande.id})}}" class="btn btn-lg btn-outline-info">Sélectionner</a>
+                <a data-href="{{path('pay_online', {'commande': commande.id})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
             </li>
             {% if constant('App\\Entity\\Systempay\\Transaction::MULTI_PROPOSE_UP') < (amount / 100) %}
-                <li class="mb-3 active">
-                    <div class="txt">Paiement en 3 fois<span>({{ amount * 0.0103 / 3 | round(2, 'ceil') }} x 3 soit {{ amount * 0.0103 }})</span></div>
+                <li class="mb-3">
+                    <div class="txt">Paiement en 3 fois<span>( &asymp; {{ (amount3fois / 3) | round(2, 'common') }} x 3 soit {{ amount3fois }})</span></div>
                     <span class="line"></span>
-                    <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 3})}}" class="btn btn-lg btn-outline-info">Sélectionner</a>
+                    <a data-href="{{path('pay_online', {'commande': commande.id, 'multiple': 3})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
                 </li>
                 <li class="mb-3">
-                    <div class="txt">Paiement en 4 fois<span>({{ amount * 0.01035 / 4 | round(2, 'ceil') }} x 4 soit {{ amount * 0.01035 }})</span></div>
+                    <div class="txt">Paiement en 4 fois<span>(&asymp; {{ (amount4fois / 4) | round(2, 'common') }} x 4 soit {{ amount3fois }})</span></div>
                     <span class="line"></span>
-                    <a href="{{path('pay_online', {'commande': commande.id, 'multiple': 4})}}" class="btn btn-lg btn-outline-info">Sélectionner</a>
+                    <a data-href="{{path('pay_online', {'commande': commande.id, 'multiple': 4})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
                 </li>
             {% endif %}
         </ul>
+        <div class="btn btn-lg btn-outline-info btn-payment-submit">Payer</div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            alert('manaona');
+            $('.btn-payment').on('click',function(){
+                let parent = $(this).parent('li.mb-3');
+                parent.siblings('li.mb-3').removeClass('active');
+                parent.addClass('active');
+            });
+            $('.btn-payment-submit').click(function () {
+                let active = $('li.mb-3.active');
+                if (active.length !== 1) {
+                    alert('veuillez selectioner le type de paiement');
+                } else if (active.length === 1) {
+                    let link = active.find('a.btn-payment');
+                    let url = link.data('href');
+                    window.location.href = url;
+                }
+            });
+        });
+    </script>
 {% endblock %}

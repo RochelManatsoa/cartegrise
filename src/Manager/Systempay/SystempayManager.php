@@ -144,8 +144,9 @@ class SystempayManager
             {
                 $transaction = $this->findTransaction($request);
                 $transaction->setStatus($query['vads_trans_status']);
-                if ($query['vads_trans_status'] == "AUTHORISED")
+                if ($query['vads_trans_status'] == "AUTHORISED") {
                     $transaction->setPaid(true);
+                }  
                 $transaction->setUpdatedAt(new \DateTime());
                 $transaction->setLogResponse(json_encode($query));
                 $this->entityManager->flush();

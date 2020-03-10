@@ -47,10 +47,10 @@ parameters:
         language: fr
         # Success
         redirect_success_timeout: 1
-        redirect_success_message: http://dev2.cgofficiel.fr/payment/verification
+        redirect_success_message: http://dev2.cgofficiel.fr/payment/success
         # Error
         redirect_error_timeout: 1
-        redirect_error_message: http://dev2.cgofficiel.fr/payment/verification
+        redirect_error_message: http://dev2.cgofficiel.fr/payment/cancel
 
 services:
     # default configuration for services in *this* file

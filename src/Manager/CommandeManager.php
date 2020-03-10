@@ -423,6 +423,15 @@ class CommandeManager
 		$this->save($commande);
     }
 
+	public function simulateTransaction(Commande $commande)
+    {
+		$transaction = new Transaction();
+		$commande->setTransaction($transaction);
+		$transaction->setCommande($commande);
+		$transaction->setStatus('00');
+		$this->save($commande);
+    }
+
     public function generateFacture(Commande $commande)
     {
 		$this->checkIfTransactionSuccess($commande);
