@@ -3,6 +3,7 @@
 namespace App\Entity\Systempay;
 
 use App\Entity\Commande;
+use App\Entity\User;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -84,6 +85,12 @@ class Transaction
      * @Groups({"read"})
      */
     private $commandeStringId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="emailHistories")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $user;
 
     /**
      * @return int
@@ -259,6 +266,18 @@ class Transaction
     public function setCommande(?Commande $commande): self
     {
         $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

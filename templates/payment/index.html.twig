@@ -61,7 +61,6 @@
     {{ parent() }}
     <script>
         $(document).ready(function () {
-            alert('manaona');
             $('.btn-payment').on('click',function(){
                 let parent = $(this).parent('li.mb-3');
                 parent.siblings('li.mb-3').removeClass('active');

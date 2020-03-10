@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+
+{% block page_content %}
+    <div class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
+        <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container w-100 mx-md-3 mx-lg-4">
+            <div class="col-12">
+                <div class="px-md-2">
+                    <h2>
+                        {% if transaction.status == "AUTHORISED" %}
+                                Félicitations ! <br>
+                                {{ "#{responses.response_code}" | statusMessage }}
+                            {% else %}
+                                Désolé ! Votre transaction n'a pas abouti. <br>
+                        {% endif %}
+                    </h2>
+                    <hr>
+                    <p>Voici le récapitulatif de votre transaction : </p>
+                    <div class="col-md-8 mx-auto">
+                        <div class="list-grid">
+                            <div class="list-grid__item">
+                                <div >Référence de la transaction</div>
+                                <div>{{ transaction.id }}</div>
+                            </div>
+                            <div  class="list-grid__item">
+                                <div>Montant de la transaction</div>
+                                <div>{{ transaction.amount / 100 }}</div>
+                            </div>
+                            <div class="list-grid__item">
+                                <div>Numéro de la carte</div>
+                                <div>XXX</div>
+                            </div>
+                            <div class="list-grid__item">
+                                <div>Autorisation</div>
+                                <div>XXX</div>
+                            </div>
+                            <div class="list-grid__item">
+                                <div>Certificat de la transaction </div>
+                                <div>XXX</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if transaction is not null and transaction.status == "AUTHORISED" and transaction.commande is not null %}
+                    <div class="no-underline ">
+                        <a href="{{path('new_demande', {'commande': transaction.commande.id })}}" class="no-underline " >
+                            <button class="btn btn-aqua-blue mb-4 mx-auto mt-5">
+                                Finaliser ma commande
+                            </button>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="no-underline">
+                        <a href="{{path('home')}}">
+                            <button class="btn btn-aqua-blue mb-4" class="no-underline ">
+                                Retour
+                            </button>
+                        </a>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+<!-- DEBUT Marque blanche MASS -->
+{# 
+<div id="assurance">
+	<div class="popup-content">
+		<div id="erreurLCA"></div>
+		<div id="divLCA">
+			<iframe id="FrnLCA" frameborder="0" scrolling="no" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"></iframe>
+		</div>
+	</div>
+</div> 
+#}
+{% block javascripts %}
+{# 
+<script src="https://forms.lecomparateurassurance.com/MarqueBlanche/MarqueBlancheJs" type="text/javascript" ></script>
+<script type="text/javascript">
+       CreateFrame("CGauto","9999");
+</script> 
+#}
+{% endblock %}
+<!-- FIN Marque blanche MASS -->
+    
+{% endblock %}

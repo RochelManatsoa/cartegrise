@@ -272,7 +272,8 @@ class PaymentController extends AbstractController
 
         $amount = (integer) 100 * $fraisTreatmentManager->fraisTotalOfCommande($commande);
         
-        $email = $this->getUser()->getEmail();
+        $user = $this->getUser();
+        $email = $user->getEmail();
 
         // additional feld 
         $fields = [
@@ -303,8 +304,11 @@ class PaymentController extends AbstractController
             ->init($currency = 978, $amount)
             ->setOptionnalFields($fields)
         ;
+        $transaction = $systempay->getTransaction();
+        $transaction->setUser($user);
+        $user->addTransaction($transaction);
 
-        $commandeManager->saveSystempay($commande, $systempay->getTransaction());
+        $commandeManager->saveSystempay($commande, $transaction);
         
         
 
@@ -340,6 +344,25 @@ class PaymentController extends AbstractController
 
 
         return new Response('paiement ok ');
+    }
+
+    /**
+     * @Route("/payment/return")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function paymentReturn()
+    {
+        $user = $this->getUser();
+        $transaction = $user->getTransactions()->last();
+
+
+        return $this->render(
+                'transaction/transactionResponseSystempay.html.twig',
+                [
+                    'transaction' => $transaction,
+                ]
+        );
     }
 }
 
