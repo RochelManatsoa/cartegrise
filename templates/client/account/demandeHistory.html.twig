@@ -36,10 +36,15 @@
                             </td>
                         </tr>
                     {% else %}
-                        <tr><td colspan="8">Aucune demande trouvé</td></tr>
+                        <tr><td colspan="8">Aucune demande trouvée</td></tr>
                     {% endfor %}
                     </tbody>
                 </table>
+                    {# display navigation #}
+                    <div class="navigation">
+                        {{ knp_pagination_render(demandes) }}
+                    </div>
+                    <!-- end display navigation -->
             </div>
         </div>
     </div>                 

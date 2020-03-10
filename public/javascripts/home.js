@@ -59,10 +59,37 @@ $('#formulaire_demarche').on('change', function(e) {
     // .val();
 });
 $(function() {
-    $('a[href*=\\#]').on('click', function(e) {
-        e.preventDefault();
-        $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top }, 500, 'linear');
-    });
+    /*$('a[href*=\\#]').on('click', function(e) {
+     e.preventDefault();
+     $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top }, 500, 'linear');
+     });*/
+    var jump=function(e)
+    {
+        if (e){
+            e.preventDefault();
+            var target = $(this).attr("href");
+        }else{
+            var target = location.hash;
+        }
+
+        $('html,body').animate({
+            scrollTop: $(target).offset().top -  130
+        },700,function(){
+            location.hash = target;
+        });
+
+    }
+
+    $('a[href*=\\#]').bind("click", jump);
+
+    if (location.hash){
+        setTimeout(function(){
+            $('html, body').scrollTop(0).show();
+            jump();
+        }, 0);
+    }else{
+        $('html, body').show();
+    }
 });
 
 function h2over(x) {
@@ -345,5 +372,25 @@ $( function() {
     });
 
     $( "#formulaire_codePostal" ).combobox();
-    
+    $('#AutoCompleteCP').find('.select').prepend($('ul#ui-id-1'));
 } );
+//fixed
+if (window.matchMedia("(min-width: 1750px)").matches) {
+    $('#right_formulaireFx').find('.form_demarche').append($('.demarche_block'));
+} else {
+    $('#col_formulaireFx').find('.form_demarche').append($('.demarche_block'));
+}
+//aside_right
+$("#aside_right").sticky({
+    topSpacing: 200, 
+    bottomSpacing: 1100
+});
+
+//doc-telechargeable
+$(".js-toggle").on("click", function () {
+    $(this).parent().next(".toggle-content").toggle();
+});
+
+
+//flash block
+$(".flash_block").delay(5000).fadeOut(400);

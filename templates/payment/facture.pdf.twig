@@ -58,8 +58,12 @@
       </div>
       <div class="col-5">
         <p>
-          <strong>     
+          <strong>
+          {% if commande.facture.typePerson == 1 %}
+            Société {{commande.facture.socialReason}}
+          {% else %}
             {{commande.facture.name}} {{commande.facture.firstName}}
+          {% endif %}
           </strong>
           <br>
             {{ commande.facture.adresse.numero }} 

@@ -93,6 +93,64 @@ a {
 			background-color: #838383;
 		}
 	}
+	//new style demarche Iary
+	.icon_demarche_text {
+		.icomoon {
+			font-size: 60px;
+			margin-bottom: $size_24;
+			display: inline-block;
+			color: $aqua-blue;
+		}
+		h2 {
+			font-weight: 700;
+			color: $aqua-blue;
+			@include sm {
+				font-size: $size_24;
+			}
+			em {
+				font-size: $size_24;
+				display: $block;
+				line-height: $size_30;
+				font-weight: normal;
+				color: $royal-blue;
+				@include sm {
+					font-size: $size_18;
+				}
+			}
+			&:after {
+				content: "";
+				width: 83px;
+				border-bottom: $bdr_solid_1 $light-2;
+				display: inline-block;
+				margin: $size_30 auto;
+			}
+		}
+	}
+	.box_demarche {
+		border: 1px dashed #ddd;
+		padding: $size_30;
+		background: $select-bg;
+		border-radius: $size_15;
+		margin: 50px auto;
+		@include sm {
+			padding: $size_15;
+		}
+		&:hover {
+			box-shadow: 0 $size_15 $size_30 rgba(0,0,0,0.1);
+		}
+		h3 {
+			font-size: 20px;
+			font-weight: 700;
+			max-width: 70%;
+			margin: $size_30 auto;
+			@include sm {
+				max-width: 100%;
+			}
+		}
+		.list {
+			padding-left: 0;
+		}
+	}
 }
 header {
 	background-color: $royal-blue;
@@ -128,9 +186,20 @@ header {
 						&:before, &:after {
 							display: none;
 						}
+						.nav-list {
+							.nav-item {
+								> a,
+								> strong {
+									padding: 19px 0;
+									&:after {
+										bottom: 10px;
+									}
+								}
+							}
+						}
 						.nav-sub-menu {
 							//padding-top: $size_18;
-                            margin-top: $size_18;
+                            // margin-top: $size_18;
                             border: 1px solid #03347e;
                             padding-top: 0;
 						}
@@ -342,6 +411,7 @@ header {
 							letter-spacing: 1px;
 							position: relative;
 							cursor: pointer;
+							padding: 34px 0;
 							@include md {
 								color: #212529;
 								padding: $size_15;
@@ -357,7 +427,7 @@ header {
 								border-bottom: 4px solid;
 								position: absolute;
 								right: 4px;
-								bottom: -7px;
+								bottom: 28px;
 								transition: all .3s ease;
 								-webkit-transition: all .3s ease;
 								@include md {
@@ -387,7 +457,7 @@ header {
 							transition: top 0.3s ease 0s, visibility 0.2s ease 0.2s, opacity 0.2s ease 0.1s;
 							opacity: 0;
 							visibility: hidden;
-                            margin-top: $size_18;
+                            // margin-top: $size_18;
                             border: 1px solid #03347e;
                             padding-top: 0;
 							@include md {
@@ -799,7 +869,7 @@ header {
     						font-size: 12px;
 						}
 					}
-					> h2 {
+					> h1 {
 						font-size: $size_24;
 						font-weight: 600;
 						text-transform: uppercase;
@@ -1183,6 +1253,10 @@ AutoComplete
 	right: 0;
 	font-size: 14px;
 }
+.ui-autocomplete {
+	max-height: 175px;
+    overflow-y: scroll;
+}
 
 /**List grid**/
 .list-grid{
@@ -1306,6 +1380,26 @@ AutoComplete
   }
 }
 
+
+/** profil form **/
+#profilForm {
+	.list-grid{
+		&__item{
+			> div {
+				-ms-flex: 0 0 50%;
+				flex: 0 0 50%;
+				max-width: 50%;
+				text-overflow: ellipsis;
+				overflow-x: hidden;
+				@include sm {
+					-ms-flex: 0 0 100%;
+					flex: 0 0 100%;
+					max-width: 100%;
+				}
+			}
+		}
+	}
+}
 /**Resultat estimation**/
 .rp_dmd {
 	padding: 30px 0;
@@ -1994,6 +2088,12 @@ AutoComplete
 			}
 			.img_pcs {
 				position: relative;
+				height: 100%;
+				background-size: cover;
+				background-repeat: no-repeat;
+				@include sm {
+					height: 150px;
+				}
 				img {
 					max-width: 100%;
 					@include sm {
@@ -3577,8 +3677,112 @@ Suivi
 		}
 	}
 }
+//style aside_right
+.reverse-col_ {
+	@include md {
+		flex-direction: column-reverse;
+	}
+}
+#aside_right-sticky-wrapper {
+	@include md {
+		height: inherit !important;
+	}
+}
+.aside_right {
+	@include md {
+		position: static !important;
+	}
+	.sectionTop_ {
+		.form_demarche {
+			.demarche_block {
+				margin-top: 0;
+				@include sm {
+					margin-bottom: 50px !important;
+				}
+				.demarche_block_item {
+					.title_dermarche {
+						h1 {
+							font-size: 14px;
+						}
+						p {
+							line-height: 16px;
+							font-size: 10px;
+						}
+					}
+				}
+			}
+		}
+	}
+	.form-group {
+		margin-bottom: 5px;
+		label {
+			font-size: 11px;
+			letter-spacing: 0;
+			margin-bottom: 0px;
+		}
+		.form-control {
+			height: 40px !important;
+		}
+		.select-styled {
+			line-height: 22px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow-x: hidden;
+			padding-right: 58px;
+			&:after {
+				line-height: 41px;
+    			width: 47px;
+			}
+		}
+	}
+	.btn-calcuer {
+		padding: 9px 33px !important;
+		margin-right: 0 !important;
+		width: 100% !important;
+		margin-top: 10px !important;
+	}
+	.custom-combobox-toggle {
+		line-height: 41px;
+		width: 47px;
+	}
+}
+//Style for department select list
+ul#ui-id-1 {
+  max-width: 260px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: $white;
+  border: 1px solid $gray;
+  max-height: 275px;
+  overflow-y: scroll;
+  li{
+    &.ui-menu-item {
+      margin: 0;
+      padding: 5px 12px;
+      border-bottom: 1px solid #ececec;
+      transition: all 0.15s ease-in;
+      font-size: 14px;
+      &:hover {
+        color: $white;
+        background: $royal-blue;
+        cursor: pointer;
+      }
+    }
+  }
+}
+.ui-state-active, 
+.ui-widget-content .ui-state-active, 
+.ui-widget-header .ui-state-active, 
+a.ui-button:active, 
+.ui-button:active, 
+.ui-button.ui-state-active:hover {
+    border: none !important;
+    background: none !important;
+}
 
 
+<<<<<<< HEAD
 //Systeme de pay
 .systempay{
   border-top: 1px solid $white;
@@ -3687,7 +3891,136 @@ Suivi
       li{
         margin: 0 0 2em 0 !important;
         .txt{
-          font-size: .89em;
+		  font-size: .89em;
+		}
+		}
+	}
+  
+//transaction
+.block_transc {
+	.btn.btn-aqua-blue {
+		min-width: 190px;
+	}
+}
+
+
+//style formulaire droite
+@media (min-width: 1750px) {
+	.col-xll-12 {
+		-ms-flex: 0 0 91.666667%!important;
+		flex: 0 0 91.666667%!important;
+		max-width: 91.666667%!important;
+	}
+	.d-xll-none {
+		display: none !important;
+	}
+	.sectionTop_ {
+		.d-xll-block {
+			display: block!important;
+		}
+	}
+}
+@media (min-width: 1835px) {
+	.col-xll-12 {
+		-ms-flex: 0 0 100%!important;
+		flex: 0 0 100%!important;
+		max-width: 100%!important;
+	}
+}
+#right_formulaireFx {
+    width: 300px;
+    position: fixed;
+    right: 45px;
+	top: 250px;
+	z-index: 9000;
+	.demarche_block_item {
+		padding: 8px !important;
+	}
+}
+@media (max-width: 1835px) {
+	#right_formulaireFx {
+		right: 15px;
+	}
+}
+//Infos facturation style
+#paiement_infosFacture{
+  .form-group{
+    legend.type-person{
+      display :none;
+    }
+  }
+  #paiement_infosFacture_typePerson{
+    display: flex;
+    > div{
+      &:not(:last-child){
+        margin-right: 4em;
+      }
+    }
+  }
+}
+.block_form .form-check {
+  .form-check-input[type="radio"]{
+    &:checked{
+      &+label{
+        &:before, &:after{
+          background: #03347e;
+          border-color: #03347e;
+        }
+      }
+    }
+    &+label{
+      font-size: 14px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      display: block;
+      text-decoration: none;
+      color: #212529;
+      &:before,&:after{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        width: 18px;
+        height: 18px;
+        margin-top: 5px;
+        content: "";
+        border: 1px solid #b7b7b7;
+        border-radius: 50%;
+        -webkit-transition: .2s;
+        transition: .2s;
+      }
+    }
+  }
+}
+
+//Form register
+.form_register{
+  .form-group{
+    margin-bottom: 0;
+  }
+  .input-group {
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+}
+
+//Puce et numerotation style
+#Changement-de-titulaire{
+  .piece_fournir{
+    ol {
+      list-style: none;
+      counter-reset: li;
+      > li{
+        counter-increment: li;
+        &:before {
+          content: '.'counter(li);
+          display: inline-block;
+          width: 2em;
+          margin-left: -1.5em;
+          margin-right: 0.5em;
+          text-align: right;
+          direction: rtl;
+          font-weight: bold;
         }
       }
     }

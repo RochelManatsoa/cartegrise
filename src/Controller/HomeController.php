@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit, User};
+use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit, User, NotificationEmail};
 use App\Form\{DemandeType, CommandeType, ContactUsType, FormulaireType};
 use App\Repository\{CommandeRepository, TaxesRepository, TarifsPrestationsRepository, DemandeRepository, TypeDemandeRepository};
 use Doctrine\Common\Persistence\ObjectManager;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Tms\TmsClient;
-use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager, DivnInitManager, ContactUsManager, NotificationManager};
+use App\Manager\{SessionManager, CommandeManager, TaxesManager, CarInfoManager, DivnInitManager, ContactUsManager, NotificationManager, NotificationEmailManager, MailManager};
 use App\Form\DivnInitType;
 use App\Manager\Mercure\MercureManager;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -26,8 +26,11 @@ class HomeController extends AbstractController
         $this->tokenManager = $tokenManager;
     }
     /**
-     * @Route("/", name="Accueil")
-     * @Route("/", name="home")
+     * @Route("/", name="Accueil",  options={"sitemap" = true})
+     * @Route("/", name="home",  options={"sitemap" = true})
+     * @Route("/demande-duplicata-certificat-immatriculation", name="dup",  options={"sitemap" = true})
+     * @Route("/changement-titulaire-vehicule-doccasion", name="ctvo",  options={"sitemap" = true})
+     * @Route("/changement-adresse-certificat-immatriculation", name="dca",  options={"sitemap" = true})
      */
     public function accueil(
         Request $request,
@@ -46,11 +49,15 @@ class HomeController extends AbstractController
         NotificationManager $notificationManager
         )
     {
-
+        $routeName = $request->attributes->get('_route');
         $type = $demarche->findAll();
         $department = null;
         if ($request->query->has('department')) {
             $department = $request->query->get('department');
+        }
+        $defaultDemarche = null;
+        if($routeName !== "Accueil" || $routeName !== "home"){
+            $defaultDemarche = $demarche->findOneBy(['type' => strtoupper($routeName)]);
         }
         $commande = $commandeManager->createCommande();
         foreach($type as $typeId) {
@@ -152,6 +159,7 @@ class HomeController extends AbstractController
             'formulaire' => $formulaire->createView(),
             'database' => false,
             'defaultDepartment' => $department,
+            'defaultDemarche' => $defaultDemarche,
         ];
 
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -211,15 +219,139 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/comment-ca-marche", name="CommentCaMarche")
+     * @Route("/comment-ca-marche", name="CommentCaMarche",  options={"sitemap" = true})
      */
-    public function CommentCaMarche()
+    public function CommentCaMarche(
+        Request $request,
+        TypeDemandeRepository $demarche,
+        ObjectManager $manager,
+        TaxesRepository $taxesRepository,
+        TarifsPrestationsRepository $prestation,
+        CommandeRepository $commandeRepository,
+        SessionManager $sessionManager,
+        TmsClient $tmsClient,
+        CommandeManager $commandeManager,
+        CarInfoManager $carInfoManager,
+        TaxesManager $taxesManager,
+        DivnInitManager $divnInitManager,
+        MercureManager $mercureManager,
+        NotificationManager $notificationManager
+        )
     {
-        return $this->render('home/CommentCaMarche.html.twig');
+        $type = $demarche->findAll();
+        $commande = $commandeManager->createCommande();
+        foreach($type as $typeId) {
+            $defaultType = $demarche->find($typeId->getId());
+            if ($typeId->getType() === "DIVN")
+            {
+                $divnInit = new DivnInit();
+                $formDivn = $this->createForm(DivnInitType::class, $divnInit, ['departement'=>$commande->DEPARTMENTS]);
+                $num = $typeId->getId();
+                $tabForm[$num] = $formDivn->createView();
+            } else {
+                $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType, 'departement'=>$commande->DEPARTMENTS]);
+                $num = $typeId->getId();
+                $tabForm[$num] = $form->createView();
+            }
+        }
+        $formulaire = $this->createForm(FormulaireType::class, $commande , ['departement'=>$commande->DEPARTMENTS]);
+
+        $form->handleRequest($request);
+        $formDivn->handleRequest($request);
+        $formulaire->handleRequest($request);
+
+        if ($formDivn->isSubmitted() && $formDivn->isValid()) {
+            $divnInit = $formDivn->getData();
+            $divnInitManager->manageSubmit($divnInit);
+            $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
+
+            return $this->render('home/accueil.html.twig', $param);
+        }
+
+
+        if ($form->isSubmitted() && $form->isValid() || $formulaire->isSubmitted() && $formulaire->isValid()) {
+            $ifCommande = $commandeRepository->findOneBy([
+                'immatriculation' => $commande->getImmatriculation(),
+                'codePostal' => $commande->getCodePostal(),
+                'demarche' => $commande->getDemarche(),
+            ]);
+
+            if($commande->getDemarche()->getType() === 'DIVN'){
+
+                return $this->redirectToRoute('Accueil');
+            }
+            $sessionManager->initSession();
+            // if (!is_null($ifCommande)) {
+            //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+
+            //     return $this->render('home/accueil.html.twig', $param);
+            // } else {
+
+                $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
+                if (!$tmsInfoImmat->isSuccessfull()) {
+                    throw new \Exception('Veuillez Réessayer plus tard');
+                }
+                $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
+
+                if (!$tmsResponse->isSuccessfull()) {
+                    return new Response($tmsResponse->getErrorMessage());
+                } else {
+                    $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande, $tmsInfoImmat);
+                    $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
+                    $commande->setTaxes($taxe);
+                    $commande->setCarInfo($carInfo);
+                    $manager->persist($commande);
+                    $manager->persist($taxe);
+
+                    $manager->flush();
+
+                    // The Publisher service is an invokable object
+                    $data = [
+                            'immat' => $commande->getImmatriculation(),
+                            'department' => $commande->getCodePostal(),
+                            'demarche' => $commande->getDemarche()->getType(),
+                            'id' => $commande->getId(),
+                    ];
+                    $mercureManager->publish(
+                        'http://cgofficiel.com/addNewSimulator',
+                        'commande',
+                        $data,
+                        'new Simulation is insert'
+                    );
+
+                    $notificationManager->saveNotification([
+                        "type" => 'commande', 
+                        "data" => $data,
+                    ]);
+                    $this->saveToSession($commande, $sessionManager, $tabForm);
+                    return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
+
+                    // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
+
+                    // return $this->render('home/accueil.html.twig', $param);
+                }
+            // }
+        }
+
+        $homeParams = [
+            'demarches' => $type,
+            'tab' => $tabForm,
+            'formulaire' => $formulaire->createView(),
+            'database' => false,
+        ];
+
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $client = $this->getUser()->getClient();
+
+            $homeParams['genre'] = $client->getClientGenre();
+            $homeParams['client'] = $client;
+        }
+
+        return $this->render('home/CommentCaMarche.html.twig', $homeParams);
     }
 
     /**
-     * @Route("/foire-aux-questions", name="faq")
+     * @Route("/foire-aux-questions", name="faq", options={"sitemap" = true})
      */
     public function faq()
     {
@@ -227,14 +359,14 @@ class HomeController extends AbstractController
     }
 
 	/**
-	 * @Route("/conditions-generale-de-vente", name="cgv")
+	 * @Route("/conditions-generale-de-vente", name="cgv", options={"sitemap" = true})
 	 */
 	public function cgv()
 	{
 		return $this->render('home/cgv.html.twig');
     }
     /**
-	 * @Route("/mentions", name="mentions")
+	 * @Route("/mentions", name="mentions", options={"sitemap" = true})
 	 */
 	public function mentions()
 	{
@@ -242,7 +374,7 @@ class HomeController extends AbstractController
 	}
 
 	/**
-	 * @Route("/retractation", name="retractation")
+	 * @Route("/retractation", name="retractation", options={"sitemap" = true})
 	 */
 	public function retractation()
 	{
@@ -250,9 +382,14 @@ class HomeController extends AbstractController
 	}
 
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/contact", name="contact", options={"sitemap" = true})
      */
-    public function contact(Request $request, ContactUsManager $contactUsManger)
+    public function contact(
+        Request $request, 
+        ContactUsManager $contactUsManger,
+        MailManager $mailManager,
+        NotificationEmailManager $notificationManager
+        )
     {
         $contactU = new ContactUs();
         $form = $this->createForm(ContactUsType::class, $contactU);
@@ -260,7 +397,12 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            // $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
+            $adminEmails = ["service.client@cgofficiel.fr"];
+            $template = 'email/contact/contactUs.mail.twig';
+            $object = 'Nouvelle entrée: Formulaire de contact';
             $contactUsManger->save($data);
+            $mailManager->sendEmail($adminEmails, $template, $object, [ 'responses'=>$data]);
 
             return $this->redirectToRoute('home');
         }
@@ -271,7 +413,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/prix-carte-grise", name="prix_carte_grise")
+     * @Route("/prix-carte-grise", name="prix_carte_grise", options={"sitemap" = true})
      */
     public function accueilSimulator()
     {
@@ -357,18 +499,266 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/documents-telechargeables", name="doc_telechargeable")
+     * @Route("/documents-telechargeables", name="doc_telechargeable", options={"sitemap" = true})
      */
-    public function doc_telechargeableAction()
+    public function doc_telechargeableAction(
+        Request $request,
+        TypeDemandeRepository $demarche,
+        ObjectManager $manager,
+        TaxesRepository $taxesRepository,
+        TarifsPrestationsRepository $prestation,
+        CommandeRepository $commandeRepository,
+        SessionManager $sessionManager,
+        TmsClient $tmsClient,
+        CommandeManager $commandeManager,
+        CarInfoManager $carInfoManager,
+        TaxesManager $taxesManager,
+        DivnInitManager $divnInitManager,
+        MercureManager $mercureManager,
+        NotificationManager $notificationManager
+        )
     {
-        return $this->render('home/doc_telechargeable.html.twig');
+        $type = $demarche->findAll();
+        $commande = $commandeManager->createCommande();
+        foreach($type as $typeId) {
+            $defaultType = $demarche->find($typeId->getId());
+            if ($typeId->getType() === "DIVN")
+            {
+                $divnInit = new DivnInit();
+                $formDivn = $this->createForm(DivnInitType::class, $divnInit, ['departement'=>$commande->DEPARTMENTS]);
+                $num = $typeId->getId();
+                $tabForm[$num] = $formDivn->createView();
+            } else {
+                $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType, 'departement'=>$commande->DEPARTMENTS]);
+                $num = $typeId->getId();
+                $tabForm[$num] = $form->createView();
+            }
+        }
+        $formulaire = $this->createForm(FormulaireType::class, $commande , ['departement'=>$commande->DEPARTMENTS]);
+
+        $form->handleRequest($request);
+        $formDivn->handleRequest($request);
+        $formulaire->handleRequest($request);
+
+        if ($formDivn->isSubmitted() && $formDivn->isValid()) {
+            $divnInit = $formDivn->getData();
+            $divnInitManager->manageSubmit($divnInit);
+            $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
+
+            return $this->render('home/accueil.html.twig', $param);
+        }
+
+
+        if ($form->isSubmitted() && $form->isValid() || $formulaire->isSubmitted() && $formulaire->isValid()) {
+            $ifCommande = $commandeRepository->findOneBy([
+                'immatriculation' => $commande->getImmatriculation(),
+                'codePostal' => $commande->getCodePostal(),
+                'demarche' => $commande->getDemarche(),
+            ]);
+
+            if($commande->getDemarche()->getType() === 'DIVN'){
+
+                return $this->redirectToRoute('Accueil');
+            }
+            $sessionManager->initSession();
+            // if (!is_null($ifCommande)) {
+            //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+
+            //     return $this->render('home/accueil.html.twig', $param);
+            // } else {
+
+                $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
+                if (!$tmsInfoImmat->isSuccessfull()) {
+                    throw new \Exception('Veuillez Réessayer plus tard');
+                }
+                $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
+
+                if (!$tmsResponse->isSuccessfull()) {
+                    return new Response($tmsResponse->getErrorMessage());
+                } else {
+                    $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande, $tmsInfoImmat);
+                    $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
+                    $commande->setTaxes($taxe);
+                    $commande->setCarInfo($carInfo);
+                    $manager->persist($commande);
+                    $manager->persist($taxe);
+
+                    $manager->flush();
+
+                    // The Publisher service is an invokable object
+                    $data = [
+                            'immat' => $commande->getImmatriculation(),
+                            'department' => $commande->getCodePostal(),
+                            'demarche' => $commande->getDemarche()->getType(),
+                            'id' => $commande->getId(),
+                    ];
+                    $mercureManager->publish(
+                        'http://cgofficiel.com/addNewSimulator',
+                        'commande',
+                        $data,
+                        'new Simulation is insert'
+                    );
+
+                    $notificationManager->saveNotification([
+                        "type" => 'commande', 
+                        "data" => $data,
+                    ]);
+                    $this->saveToSession($commande, $sessionManager, $tabForm);
+                    return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
+
+                    // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
+
+                    // return $this->render('home/accueil.html.twig', $param);
+                }
+            // }
+        }
+
+        $homeParams = [
+            'demarches' => $type,
+            'tab' => $tabForm,
+            'formulaire' => $formulaire->createView(),
+            'database' => false,
+        ];
+
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $client = $this->getUser()->getClient();
+
+            $homeParams['genre'] = $client->getClientGenre();
+            $homeParams['client'] = $client;
+        }
+
+        return $this->render('home/doc_telechargeable.html.twig', $homeParams);
     }
     /**
-     * @Route("/piece-a-fournir", name="piece_a_fournir")
+     * @Route("/piece-a-fournir", name="piece_a_fournir", options={"sitemap" = true})
      */
-    public function pieceAFournirAction()
+    public function pieceAFournirAction(
+        Request $request,
+        TypeDemandeRepository $demarche,
+        ObjectManager $manager,
+        TaxesRepository $taxesRepository,
+        TarifsPrestationsRepository $prestation,
+        CommandeRepository $commandeRepository,
+        SessionManager $sessionManager,
+        TmsClient $tmsClient,
+        CommandeManager $commandeManager,
+        CarInfoManager $carInfoManager,
+        TaxesManager $taxesManager,
+        DivnInitManager $divnInitManager,
+        MercureManager $mercureManager,
+        NotificationManager $notificationManager
+        )
     {
-        return $this->render('home/pieceAFournir.html.twig');
+        $type = $demarche->findAll();
+        $commande = $commandeManager->createCommande();
+        foreach($type as $typeId) {
+            $defaultType = $demarche->find($typeId->getId());
+            if ($typeId->getType() === "DIVN")
+            {
+                $divnInit = new DivnInit();
+                $formDivn = $this->createForm(DivnInitType::class, $divnInit, ['departement'=>$commande->DEPARTMENTS]);
+                $num = $typeId->getId();
+                $tabForm[$num] = $formDivn->createView();
+            } else {
+                $form = $this->createForm(CommandeType::class, $commande , ['defaultType'=>$defaultType, 'departement'=>$commande->DEPARTMENTS]);
+                $num = $typeId->getId();
+                $tabForm[$num] = $form->createView();
+            }
+        }
+        $formulaire = $this->createForm(FormulaireType::class, $commande , ['departement'=>$commande->DEPARTMENTS]);
+
+        $form->handleRequest($request);
+        $formDivn->handleRequest($request);
+        $formulaire->handleRequest($request);
+
+        if ($formDivn->isSubmitted() && $formDivn->isValid()) {
+            $divnInit = $formDivn->getData();
+            $divnInitManager->manageSubmit($divnInit);
+            $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
+
+            return $this->render('home/accueil.html.twig', $param);
+        }
+
+
+        if ($form->isSubmitted() && $form->isValid() || $formulaire->isSubmitted() && $formulaire->isValid()) {
+            $ifCommande = $commandeRepository->findOneBy([
+                'immatriculation' => $commande->getImmatriculation(),
+                'codePostal' => $commande->getCodePostal(),
+                'demarche' => $commande->getDemarche(),
+            ]);
+
+            if($commande->getDemarche()->getType() === 'DIVN'){
+
+                return $this->redirectToRoute('Accueil');
+            }
+            $sessionManager->initSession();
+            // if (!is_null($ifCommande)) {
+            //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+
+            //     return $this->render('home/accueil.html.twig', $param);
+            // } else {
+
+                $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
+                if (!$tmsInfoImmat->isSuccessfull()) {
+                    throw new \Exception('Veuillez Réessayer plus tard');
+                }
+                $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
+
+                if (!$tmsResponse->isSuccessfull()) {
+                    return new Response($tmsResponse->getErrorMessage());
+                } else {
+                    $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande, $tmsInfoImmat);
+                    $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
+                    $commande->setTaxes($taxe);
+                    $commande->setCarInfo($carInfo);
+                    $manager->persist($commande);
+                    $manager->persist($taxe);
+
+                    $manager->flush();
+
+                    // The Publisher service is an invokable object
+                    $data = [
+                            'immat' => $commande->getImmatriculation(),
+                            'department' => $commande->getCodePostal(),
+                            'demarche' => $commande->getDemarche()->getType(),
+                            'id' => $commande->getId(),
+                    ];
+                    $mercureManager->publish(
+                        'http://cgofficiel.com/addNewSimulator',
+                        'commande',
+                        $data,
+                        'new Simulation is insert'
+                    );
+
+                    $notificationManager->saveNotification([
+                        "type" => 'commande', 
+                        "data" => $data,
+                    ]);
+                    $this->saveToSession($commande, $sessionManager, $tabForm);
+                    return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
+
+                    // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
+
+                    // return $this->render('home/accueil.html.twig', $param);
+                }
+            // }
+        }
+
+        $homeParams = [
+            'demarches' => $type,
+            'tab' => $tabForm,
+            'formulaire' => $formulaire->createView(),
+            'database' => false,
+        ];
+
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $client = $this->getUser()->getClient();
+
+            $homeParams['genre'] = $client->getClientGenre();
+            $homeParams['client'] = $client;
+        }
+
+        return $this->render('home/pieceAFournir.html.twig', $homeParams);
     }
 
     public function getTokenAction()  
@@ -380,11 +770,10 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/mentions-legales", name="mentions_legales")
+     * @Route("/mentions-legales", name="mentions_legales", options={"sitemap" = true})
      */
     public function mentionsLegales()
     {
         return $this->render('home/mentionsLegales.html.twig');
     }
-
 }

@@ -1,0 +1,8 @@
+presta_sitemap:
+    defaults:
+        priority: 1
+        changefreq: weekly
+        lastmod: now
+    route_annotation_listener: true
+    generator: presta_sitemap.generator_default
+    dumper: presta_sitemap.dumper_default

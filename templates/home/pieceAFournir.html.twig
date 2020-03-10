@@ -3,15 +3,14 @@
 {% block page_content %}
 <div class="block_CCM">
 	<div class="container">
-		<div class="row">
-            <div class="col-md-12 col-xs-12 col-lg-12 doc-telechargeable">
+		<div class="row reverse-col_">
+            <div class="col-lg-8 col-xll-12 doc-telechargeable">
                 <h3 class="home-secondview--titre">Pièces à Fournir</h3>
 				<div class="block_pcs_a_fournir">
 					<div class="item_pcs_a_fournir">
-						<div class="row align-items-center">
+						<div class="row">
 							<div class="col-md-4">
-								<div class="img_pcs">
-									<img src="{{ asset('asset/img/peace_fournir/mandat.jpg')}}" alt="">
+								<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/mandat.jpg')}})">
 									<div class="numbr"><span>1</span></div>
 								</div>
 							</div>
@@ -26,10 +25,9 @@
 						</div>
 					</div><!--Mandats-->
 					<div class="item_pcs_a_fournir">
-						<div class="row align-items-center">
+						<div class="row">
 							<div class="col-md-4">
-								<div class="img_pcs">
-									<img src="{{ asset('asset/img/peace_fournir/carte-grise.jpg')}}" alt="">
+								<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/carte-grise.jpg')}})">
 									<div class="numbr"><span>2</span></div>
 								</div>
 							</div>
@@ -47,10 +45,9 @@
 						</div>
 					</div><!--carte grise-->
 					<div class="item_pcs_a_fournir">
-						<div class="row align-items-center">
+						<div class="row">
 							<div class="col-md-4">
-								<div class="img_pcs">
-									<img src="{{ asset('asset/img/peace_fournir/just_domicile.jpg')}}" alt="">
+								<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/just_domicile.jpg')}})">
 									<div class="numbr"><span>3</span></div>
 								</div>
 							</div>
@@ -72,10 +69,9 @@
 						</div>
 					</div><!--justificatif de domicilee-->
 					<div class="item_pcs_a_fournir">
-						<div class="row align-items-center">
+						<div class="row">
 							<div class="col-md-4">
-								<div class="img_pcs">
-									<img src="{{ asset('asset/img/peace_fournir/premis_c.jpg')}}" alt="">
+								<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/premis_c.jpg')}})">
 									<div class="numbr"><span>4</span></div>
 								</div>
 							</div>
@@ -91,10 +87,9 @@
 						</div>
 					</div><!--permis de conduire-->
 					<div class="item_pcs_a_fournir">
-						<div class="row align-items-center">
+						<div class="row">
 							<div class="col-md-4">
-								<div class="img_pcs">
-									<img src="{{ asset('asset/img/peace_fournir/pcs_identite.jpg')}}" alt="">
+								<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/pcs_identite.jpg')}})">
 									<div class="numbr"><span>5</span></div>
 								</div>
 							</div>
@@ -112,10 +107,9 @@
 						</div>
 					</div><!--pièce d’identité valide-->
 					<div class="item_pcs_a_fournir">
-						<div class="row align-items-center">
+						<div class="row">
 							<div class="col-md-4">
-								<div class="img_pcs">
-									<img src="{{ asset('asset/img/peace_fournir/controle_tech.jpg')}}" alt="">
+								<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/controle_tech.jpg')}})">
 									<div class="numbr"><span>6</span></div>
 								</div>
 							</div>
@@ -132,10 +126,9 @@
 						</div>
 					</div><!--copie du contrôle technique-->
 					<div class="item_pcs_a_fournir">
-						<div class="row align-items-center">
+						<div class="row">
 							<div class="col-md-4">
-								<div class="img_pcs">
-									<img src="{{ asset('asset/img/peace_fournir/demande-originale.jpg')}}" alt="">
+								<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/demande-originale.jpg')}})">
 									<div class="numbr"><span>7</span></div>
 								</div>
 							</div>
@@ -151,7 +144,27 @@
 					</div><!--demande originale-->
 				</div>
             </div>
+			<!-- Demarche formulaire /Iary  -->
+			<div class="col-lg-4 d-xll-none">
+				<div id="aside_right" class="aside_right">
+					<div id="col_formulaireFx"  class="sectionTop_">
+						<div class="form_demarche">
+							<div class="demarche_block">
+								{% include "home/composant/formSidebarBlog.html.twig" %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Demarche formulaire /Iary  -->
 		</div>
 	</div>
+</div>
+<div class="d-none d-xll-block">
+    <div id="aside_right" class="aside_right">
+        <div id="right_formulaireFx" class="sectionTop_">
+            <div class="form_demarche"></div>
+        </div>
+    </div>
 </div>
 {% endblock %}
