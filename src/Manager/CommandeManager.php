@@ -617,4 +617,8 @@ class CommandeManager
 		$commande->setSystempayTransaction($transaction);
 		$this->save($commande);
 	}
+
+	public function find(int $id) {
+		return $this->repository->find($id);
+	}
 }
