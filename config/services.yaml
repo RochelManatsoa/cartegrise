@@ -36,7 +36,7 @@ parameters:
         version: V2
         page_action: PAYMENT
         # Return
-        url_return: http://dev2.cgofficiel.fr/payment/verification
+        url_return: http://dev2.cgofficiel.fr/payment/return
         # Debug values : ON / OFF
         debug: ON
         # Return mode
