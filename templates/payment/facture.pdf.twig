@@ -131,6 +131,19 @@
           <td class="text-center"><strong>{{(tvaTraitement(commande))|number_format(2, '.', ',') }} €</strong></td>
           <td class="text-center"><strong>{{(fraisTraitementWhithTva(commande))|number_format(2, '.', ',') }} €</strong></td>
         </tr>
+        {% if commande.systempayTransaction.multiple is not null and commande.systempayTransaction.multiple > 0 %}
+        <tr>
+          <td><strong>Frais gestion paiement plusieurs fois</strong></td>
+          <td class="text-center"><strong>{{(fraisdossierWithoutTvaMultiple(commande))|number_format(2, '.', ',') }}
+              €</strong>
+          </td>
+          <td class="text-center">{{ tvaCommande(commande) }}</td>
+          <td class="text-center"><strong>{{(tvaTraitementMultiple(commande))|number_format(2, '.', ',') }} €</strong>
+          </td>
+          <td class="text-center"><strong>{{(totalMultiple(commande))|number_format(2, '.', ',') }} €</strong>
+          </td>
+        </tr>
+        {% endif %}
       </tbody>
     </table>
     <br>
@@ -143,11 +156,11 @@
         <table class="table table-md text-right table-active">
             <tr>
               <td><strong>Total HT : </strong></td>
-              <td class="text-right"><strong>{{(fraisTotalHT(commande)|number_format(2, '.', ','))}} €</strong></td>
+              <td class="text-right"><strong>{{(fraisTotalHTMultipleResult(commande)|number_format(2, '.', ','))}} €</strong></td>
             </tr>
             <tr>
               <td><strong>Base HT pour TVA :</strong></td>
-              <td class="text-right"><strong>{{(fraisdossierWithoutTva(commande)|number_format(2, '.', ','))}} €</strong></td>
+              <td class="text-right"><strong>{{(fraisdossierWithoutTvaMultipleResult(commande)|number_format(2, '.', ','))}} €</strong></td>
             </tr>
           <tr>
             <td><strong>TVA {{ tvaCommande(commande) }} :</strong></td>
@@ -155,7 +168,7 @@
           </tr>
           <tr class="table-active">
             <td><strong>Total TTC :</strong></td>
-            <td class="text-right"><strong>{{(total(commande))|number_format(2, '.', ',') }} €</strong></td>
+            <td class="text-right"><strong>{{(totalMultipleResult(commande))|number_format(2, '.', ',') }} €</strong></td>
           </tr>
         </table>
       </div>

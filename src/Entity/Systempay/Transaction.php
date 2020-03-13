@@ -87,6 +87,12 @@ class Transaction
     private $commandeStringId;
 
     /**
+     * @ORM\Column(nullable=true, type="integer")
+     * @Groups({"read"})
+     */
+    private $multiple;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="emailHistories")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -278,6 +284,18 @@ class Transaction
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getMultiple()
+    {
+        return $this->multiple;
+    }
+
+    public function setMultiple(?int $multiple): self
+    {
+        $this->multiple = $multiple;
 
         return $this;
     }
