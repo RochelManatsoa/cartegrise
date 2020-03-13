@@ -40,31 +40,31 @@
                                                     <td class="col50">
                                                         <strong>Référence de la transaction</strong>
                                                     </td>
-                                                    <td>{{ responses.transaction_id }}</td>
+                                                    <td>{{ responses.vads_trans_id }}</td>
                                                 </tr>
                                                 <tr class="recapTransa">
                                                     <td class="col50">
                                                         <strong>Montant de la transaction</strong>
                                                     </td>
-                                                    <td>{{ responses.amount | amount(2) }} </td>
+                                                    <td>{{ responses.vads_amount | amount(2) }} </td>
                                                 </tr>
                                                 <tr class="recapTransa">
                                                     <td class="col50">
                                                         <strong>Numéro de la carte</strong>
                                                     </td>
-                                                    <td>{{ responses.card_number | cardNumber(responses.card_validity) }}</td>
+                                                    <td>{{ responses.vads_card_number }}</td>
                                                 </tr>
                                                 <tr class="recapTransa">
                                                     <td class="col50">
                                                         <strong>Autorisation</strong>
                                                     </td>
-                                                    <td>{{ responses.authorisation_id }}</td>
+                                                    <td>{{ responses.vads_auth_number }}</td>
                                                 </tr>
                                                 <tr class="recapTransa">
                                                     <td class="col50">
                                                         <strong>Certificat de la transaction</strong>
                                                     </td>
-                                                    <td>{{ responses.payment_certificate }}</td>
+                                                    <td>{{ responses.vads_payment_certificate }}</td>
                                                 </tr>
                                             </table>
                                         </td>

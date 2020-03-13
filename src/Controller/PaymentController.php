@@ -320,13 +320,17 @@ class PaymentController extends AbstractController
     }
 
     /**
-     * @Route("/payment/verification")
+     * @Route("/payment/verification", name="paiement_systempay_verification")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function paymentVerificationAction(Request $request, CommandeManager $commandeManager, \Swift_Mailer $mailer)
     {
         $requestCollection = new ArrayCollection($request->request->all());
+        $requestCollection = clone $requestCollection;
+        $this->systempay
+            ->responseHandler($request)
+        ;
         $id = $requestCollection->get('vads_order_id');
         $commande = $commandeManager->find($id);
         if ($requestCollection->get('signature')){
@@ -343,9 +347,7 @@ class PaymentController extends AbstractController
             }
             $this->sendMail($mailer, $request->request->all(), $responses["vads_cust_email"], $adminEmails, $files, $commande);
         }
-        $this->systempay
-            ->responseHandler($request)
-        ;
+        
         
 
 
