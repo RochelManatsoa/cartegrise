@@ -324,10 +324,17 @@ class PaymentController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function paymentVerificationAction(Request $request, CommandeManager $commandeManager, \Swift_Mailer $mailer)
+    public function paymentVerificationAction(
+        Request $request,
+        CommandeManager $commandeManager,
+        \Swift_Mailer $mailer,
+        NotificationEmailManager $notificationManager,
+        )
     {
+        $responses = $request->request->all(),
         $requestCollection = new ArrayCollection($request->request->all());
         $requestCollection = clone $requestCollection;
+        $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
         $this->systempay
             ->responseHandler($request)
         ;
@@ -345,7 +352,7 @@ class PaymentController extends AbstractController
                 $file = $commandeManager->generateFacture($commande);
                 $files = [$file];
             }
-            $this->sendMail($mailer, $request->request->all(), $responses["vads_cust_email"], $adminEmails, $files, $commande);
+            $this->sendMail($mailer, $responses, $responses["vads_cust_email"], $adminEmails, $files, $commande);
         }
         
         
