@@ -24,14 +24,12 @@
     {% endfor %}
 </ul>
 <a href={{ path('faq')}}><h4 class="sidebar-titre">FAQ</h4></a>
-<br>
-<l class="col-12 mx-auto ">
-<ul class="list">
+<ul class="list-group">
     {# {{ include('blog/search.html.twig') }} #}
     {% for faq in faqs %}
         <!-- Button trigger modal -->
-            <li class="d-flex justify-content-between align-items-center">
-                <a href="#" class="col-12 mx-auto " data-toggle="modal" data-target="#exampleModalLong{{ faq.id }}">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="#" data-toggle="modal" data-target="#exampleModalLong{{ faq.id }}">
                     <strong>{{ faq.titre }}</strong>
                 </a>
             </li>
@@ -50,7 +48,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                            <button type="button" class="btn btn-blue" data-dismiss="modal">Fermer</button>
                         </div>
                         {# {% if is_granted( 'ROLE_USER' ) %}
                             <a class="btn btn-secondary" href="{{path('user_faq_edit',{'id':faq.id})}}">Modifier</a>
