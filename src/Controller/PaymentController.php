@@ -328,10 +328,10 @@ class PaymentController extends AbstractController
         Request $request,
         CommandeManager $commandeManager,
         \Swift_Mailer $mailer,
-        NotificationEmailManager $notificationManager,
+        NotificationEmailManager $notificationManager
         )
     {
-        $responses = $request->request->all(),
+        $responses = $request->request->all();
         $requestCollection = new ArrayCollection($request->request->all());
         $requestCollection = clone $requestCollection;
         $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
