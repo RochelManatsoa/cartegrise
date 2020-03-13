@@ -188,18 +188,15 @@ services:
     App\Manager\Mercure\MercureManager:
         public: true
         arguments: ['@mercure.hub.default.publisher']
-<<<<<<< HEAD
     App\Controller\PaymentController:
         arguments: ['@app.tlconseil.systempay']
 
     app.tlconseil.systempay:
         class: App\Manager\Systempay\SystempayManager
         arguments: ['@doctrine.orm.entity_manager', '@service_container']
-=======
     App\EventListener\SitemapSubscriber:
         arguments: 
             - '@router'
             - '@App\Repository\Blog\ArticleRepository'
         tags:
             - { name: "kernel.event_subscriber", priority: 100 }
->>>>>>> 5ac72dbe9d339553a2b4d50c2fe3e371aed03cc6

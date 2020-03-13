@@ -39,9 +39,9 @@ class PaymentController extends AbstractController
     public function index(Commande $commande, FraisTreatmentManager $fraisTreatmentManager)
     {
         $amount = (integer) 100 * $fraisTreatmentManager->fraisTotalOfCommande($commande);
-        $amount3fois = round($amount * 1.03);
+        $amount3fois = round($amount * 1.036);
         $amount3fois = $amount3fois/100;
-        $amount4fois = round($amount * 1.035);
+        $amount4fois = round($amount * 1.042);
         $amount4fois = $amount4fois/100;
         
         return $this->render(
@@ -226,13 +226,13 @@ class PaymentController extends AbstractController
     }
 
     //function to send email with response in sherlock treatment
-    public function sendMail($mailer, $responses, $mail , $admins = [], $attachments=[])
+    public function sendMail($mailer, $responses, $mail , $admins = [], $attachments=[], $commande=null)
     {
-        $this->send($mailer, $mail, $responses, '', $attachments);
-        $this->send($mailer, $admins, $responses, "chère Admin, ", $attachments);
+        $this->send($mailer, $mail, $responses, '', $attachments, $commande);
+        $this->send($mailer, $admins, $responses, "chère Admin, ", $attachments, $commande);
     }
     //function to send email unit
-    public function send($mailer, $mail, $responses, $adminPrepend='', $attachments)
+    public function send($mailer, $mail, $responses, $adminPrepend='', $attachments, $commande)
     {
         $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["transaction_id"]. ' de ' . $responses["customer_email"] ))
         ->setFrom('no-reply@cgofficiel.fr');
@@ -247,7 +247,7 @@ class PaymentController extends AbstractController
             $this->renderView(
                 'email/registration.mail.twig',[
                     'responses' => $responses,
-                    // 'transaction' => $this->transactionManager->findByTransactionId($responses["transaction_id"])
+                    'commande' => $commande
                 ]
             ),
             'text/html'
@@ -285,10 +285,10 @@ class PaymentController extends AbstractController
         ];
         // for multiple paiement
         if ($multiple == 3){
-            $amount = ceil($amount * 1.03 );
+            $amount = round($amount * 1.036 );
             $montant = $amount / 3;
         } elseif ($multiple == 4) {
-            $amount = ceil($amount * 1.035 );
+            $amount = round($amount * 1.042 );
             $montant = $amount / 4;
         }
 
@@ -324,18 +324,24 @@ class PaymentController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function paymentVerificationAction(Request $request, CommandeManager $commandeManager)
+    public function paymentVerificationAction(Request $request, CommandeManager $commandeManager, \Swift_Mailer $mailer)
     {
         $requestCollection = new ArrayCollection($request->request->all());
+        $id = $requestCollection->get('vads_order_id');
+        $commande = $commandeManager->find($id);
         if ($requestCollection->get('signature')){
             if ($requestCollection->get('vads_trans_status') == "AUTHORISED"){
-                $id = $requestCollection->get('vads_order_id');
-                $commande = $commandeManager->find($id);
                 $commande->setPaymentOk(true);
                 $commandeManager->migrateFacture($commande);
                 $commandeManager->simulateTransaction($commande);
                 $commandeManager->save($commande);
             }
+            $files = [];
+            if ($requestCollection->get('vads_trans_status') == "AUTHORISED") {
+                $file = $commandeManager->generateFacture($commande);
+                $files = [$file];
+            }
+            $this->sendMail($mailer, $request->request->all(), $responses["vads_cust_email"], $adminEmails, $files, $commande);
         }
         $this->systempay
             ->responseHandler($request)
