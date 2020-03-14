@@ -2,8 +2,7 @@
 
 
 {% block body %}
-    {% set transaction = findByTransactionId(responses.transaction_id) %}
-        {% if responses.response_code == '00' %}
+        {% if responses.vads_trans_status == 'AUTHORISED' %}
             {{ include('email/success.mail.twig') }}
         {% else %}
             {{ include('email/cancel.mail.twig') }}

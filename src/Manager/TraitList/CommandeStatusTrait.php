@@ -2,15 +2,18 @@
 
 namespace App\Manager\TraitList;
 use App\Entity\Commande;
+use App\Entity\Demande;
 
 trait CommandeStatusTrait
 {
     public $FIRST_STEP="Attente de demande";
     public $SECOND_STEP="Attente de paiement";
     public $THIRD_STEP="Attente de document(s)";
+    public $FORTH_STEP="Attente de validation";
     public $FIRST_STEP_STYLE="danger";
     public $SECOND_STEP_STYLE="warning";
     public $THIRD_STEP_STYLE="info";
+    public $FORTH_STEP_STYLE="dark";
     public $DEPARTMENTS = [
         "01 - Ain" => "01",
         "02 - Aisne" => "02",
@@ -123,14 +126,48 @@ trait CommandeStatusTrait
 
         if (
             null !== $commande->getDemande() &&
-            (null !== $commande->getDemande()->getTransaction() || null !== $commande->getTransaction())
+            (null !== $commande->getDemande()->getTransaction() || null !== $commande->getTransaction() || null !== $commande->getSystempayTransaction())
             &&
             (
-               ( !is_null($commande->getDemande()->getTransaction()) &&  $commande->getDemande()->getTransaction()->getStatus() == "00" )
-            || 
-                ( !is_null($commande->getTransaction()) && $commande->getTransaction()->getStatus() == "00")
+                (
+                    ( !is_null($commande->getDemande()->getTransaction()) &&  $commande->getDemande()->getTransaction()->getStatus() == "00" )
+                || 
+                    ( !is_null($commande->getTransaction()) && $commande->getTransaction()->getStatus() == "00" )
+                )
+                ||
+                (
+                    ( !is_null($commande->getSystempayTransaction()) && $commande->getSystempayTransaction()->getStatus() == "AUTHORISED")
+                )
             )
-            ) {
+            && 
+            (
+                $commande->getDemande()->getStatusDoc() == Demande::DOC_PENDING
+                || $commande->getDemande()->getStatusDoc() == Demande::DOC_NONVALID 
+                || $commande->getDemande()->getStatusDoc() == Demande::DOC_UNCOMPLETED 
+            )
+        ){
+            return 
+            [
+                "text" => $this->FORTH_STEP,
+                "style" => $this->FORTH_STEP_STYLE,
+            ];
+        }
+        elseif (
+            null !== $commande->getDemande() &&
+            (null !== $commande->getDemande()->getTransaction() || null !== $commande->getTransaction() || null !== $commande->getSystempayTransaction())
+            &&
+            (
+                (
+                    ( !is_null($commande->getDemande()->getTransaction()) &&  $commande->getDemande()->getTransaction()->getStatus() == "00" )
+                || 
+                    ( !is_null($commande->getTransaction()) && $commande->getTransaction()->getStatus() == "00" )
+                )
+                ||
+                (
+                    ( !is_null($commande->getSystempayTransaction()) && $commande->getSystempayTransaction()->getStatus() == "AUTHORISED")
+                )
+            )
+        ){
                 return 
                 [
                     "text" => $this->THIRD_STEP,
@@ -144,6 +181,15 @@ trait CommandeStatusTrait
             [
                 "text" => $this->SECOND_STEP,
                 "style" => $this->SECOND_STEP_STYLE,
+            ];
+        }
+        elseif (
+            null !== $commande->getDeletedAt()
+        ){
+            return 
+            [
+                "text" => $this->FORTH_STEP,
+                "style" => $this->FORTH_STEP_STYLE,
             ];
         }
         else {

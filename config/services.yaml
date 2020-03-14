@@ -51,6 +51,8 @@ parameters:
         # Error
         redirect_error_timeout: 1
         redirect_error_message: http://dev2.cgofficiel.fr/payment/cancel
+    router.request_context.host:   cgofficiel.fr
+    router.request_context.scheme: https
 
 services:
     # default configuration for services in *this* file
@@ -192,3 +194,9 @@ services:
     app.tlconseil.systempay:
         class: App\Manager\Systempay\SystempayManager
         arguments: ['@doctrine.orm.entity_manager', '@service_container']
+    App\EventListener\SitemapSubscriber:
+        arguments: 
+            - '@router'
+            - '@App\Repository\Blog\ArticleRepository'
+        tags:
+            - { name: "kernel.event_subscriber", priority: 100 }

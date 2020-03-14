@@ -416,6 +416,8 @@ class CommandeManager
     {
 		$facture = is_null($commande->getFacture()) ? new Facture() : $commande->getFacture();
 		$infosFacture = $commande->getInfosFacture();
+        $facture->setTypePerson($infosFacture->getTypePerson());
+        $facture->setSocialReason($infosFacture->getSocialReason());
 		$facture->setName($infosFacture->getName());
 		$facture->setFirstName($infosFacture->getFirstName());
 		$facture->setAdresse($infosFacture->getAdresse());
@@ -621,4 +623,42 @@ class CommandeManager
 	public function find(int $id) {
 		return $this->repository->find($id);
 	}
+
+    public function sendUserForRelanceAfterpaimentSucces($level = 0)
+    {
+        $commandes = $this->repository->getCommandesPaidedWithoutDemande($level);
+        // dd($commandes);
+        $template = 'relance/email6.html.twig';
+        $emails = [];
+        foreach ($commandes as $commande)
+        {
+			$user = $commande->getClient()->getUser();
+            $this->mailManager->sendEmail($emails=[$user->getEmail()], $template, "CG Officiel - Démarches Carte Grise en ligne", ['responses'=> $commande]);
+            $user->getClient()->setRelanceLevel($level+1);
+            $this->em->persist($user);
+        }
+        $this->em->flush();
+        
+        return 'sended';
+    }
+
+    public function checkServiceClient()
+    {
+        if ($this->tokenStorage->getToken()->getUser()->getClient()) {
+			$commandes = $this->repository->findByCommandeByClient($this->tokenStorage->getToken()->getUser()->getClient());
+            $status = false;
+            foreach($commandes as $commande){
+                $tmpStatus = $commande->getTransaction() != null ? $commande->getTransaction()->getStatus() : "";
+				if ($tmpStatus == '00') {
+                    $status = true;
+                    break;
+                } 
+			}
+            if($status){
+                return "0977423130";
+            }
+        }
+
+        return "0897010800";
+    }
 }

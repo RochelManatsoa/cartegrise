@@ -134,6 +134,7 @@ class SystempayManager
     public function responseHandler(Request $request)
     {
         $query = $request->request->all();
+        
 
         // Check signature
         if (!empty($query['signature']))

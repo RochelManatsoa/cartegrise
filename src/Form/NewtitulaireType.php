@@ -55,7 +55,7 @@ class NewtitulaireType extends AbstractType
                 ))
             ->add('raisonSociale')
             ->add('societeCommerciale', null, array('label'=> 'label.societeCommerciale'))
-            ->add('siren')
+            ->add('siren', null, array('label'=> 'label.siret'))
             ->add('droitOpposition', null, array('label'=> 'label.droitOpposition'))
             ->add('adresseNewTitulaire', AdresseType::class, [
                     'label'=> $options['label'] === "label.dca.titulaire" ? 'label.nouvelAdresse' : 'label.adresseNewTitulaire',

@@ -86,7 +86,7 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                         let label = {
                             "demande_changement_adresse[changementAdresse][nouveauxTitulaire][type]" : "Titulaire",
                             "demande_changement_adresse[changementAdresse][nouveauxTitulaire][raisonSociale]" : "Raison sociale",
-                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][siren]" : "SIREN",
+                            "demande_changement_adresse[changementAdresse][nouveauxTitulaire][siren]" : "SIRET",
                             "demande_changement_adresse[changementAdresse][nouveauxTitulaire][societeCommerciale]" : "Société commerciale",
                             "demande_changement_adresse[changementAdresse][nouveauxTitulaire][nomPrenomTitulaire]" : "Nom de naissance",
                             "demande_changement_adresse[changementAdresse][nouveauxTitulaire][prenomTitulaire]" : "Prénom(s)",
@@ -331,8 +331,8 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                         }
                     },
                     digits: true,
-                    minlength: 9,
-                    maxlength: 9,
+                    minlength: 14,
+                    maxlength: 14,
                 },
                 /**PARTIE 02 ANCIENNE ADRESSE */
                 "demande_changement_adresse[changementAdresse][ancienAdresse][numero]": {
@@ -391,8 +391,9 @@ function initFormStep(form, title, bodyTag, transitionEffect) {
                 },
                 "demande_changement_adresse[changementAdresse][nouveauxTitulaire][siren]": {
                     required: "Champs obligatoire",
-                    minlength: 'Le numéro doit être à 9 chiffres',
-                    maxlength: 'Le numéro doit être à 9 chiffres',
+                    digits: 'Merci de n\'entrer que des chiffres.',
+                    minlength: 'Le numéro doit être à 14 chiffres',
+                    maxlength: 'Le numéro doit être à 14 chiffres',
                 },
                 /**PARTIE 02 ANCIENNE ADRESSE */
                 "demande_changement_adresse[changementAdresse][ancienAdresse][numero]": {
@@ -438,6 +439,9 @@ function datePickerFunction(element){
         dateFormat: 'dd/mm/yy',
         changeMonth: true,
         changeYear: true,
-        maxDate: (new Date(2003, 12 - 1, 26)),
+        minDate: "-120Y",
+        maxDate: "Y",
+        yearRange: '-120y:y'
+        // maxDate: (new Date(2003, 12 - 1, 26)),
     });
 }

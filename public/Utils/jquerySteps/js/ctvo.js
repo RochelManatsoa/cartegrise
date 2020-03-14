@@ -60,8 +60,10 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             // Used to skip the "Warning" step if the user is old enough.
             if (currentIndex === 2) {
                 let data = $('#example-advanced-form').serializeArray();
-                let resum = $('#resum');
+                let resum = $('.resum');
+                let resum2 = $('.resum2');
                 let html = "";
+                let html2 = "";
                 let typeAncienTitulaire = "";
                 let typeNewTitulaire = "";
                 let otherNewTitulaireArray = [
@@ -94,6 +96,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                 let societyAncienTitulaireArray = [
                     "demande_ctvo[ctvo][ancienTitulaire][type]",
                     "demande_ctvo[ctvo][ancienTitulaire][raisonsociale]",
+                    "demande_ctvo[ctvo][ancienTitulaire][siren]",
                     "demande_ctvo[ctvo][ciPresent]",
                     "demande_ctvo[ctvo][numeroFormule]",
                 ];
@@ -117,7 +120,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     let label = {
                         "demande_ctvo[ctvo][acquerreur][type]" : "Nouveau titulaire",
                         "demande_ctvo[ctvo][acquerreur][raisonSociale]" : "Raison sociale",
-                        "demande_ctvo[ctvo][acquerreur][siren]" : "SIREN",
+                        "demande_ctvo[ctvo][acquerreur][siren]" : "SIRET",
                         "demande_ctvo[ctvo][acquerreur][societeCommerciale]" : "Société commerciale",
                         "demande_ctvo[ctvo][acquerreur][nomPrenomTitulaire]" : "Nom de naissance",
                         "demande_ctvo[ctvo][acquerreur][prenomTitulaire]" : "Prénom(s)",
@@ -137,6 +140,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                         "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][isHosted]" : "Hébergé(e)",
                         "demande_ctvo[ctvo][ancienTitulaire][type]" : "Ancien titulaire",
                         "demande_ctvo[ctvo][ancienTitulaire][raisonsociale]" : "Raison sociale",
+                        "demande_ctvo[ctvo][ancienTitulaire][siren]" : "SIRET",
                         "demande_ctvo[ctvo][ciPresent]" : "Carte grise présente",
                         "demande_ctvo[ctvo][numeroFormule]" : "Numéro de formule",
                         "demande_ctvo[ctvo][ancienTitulaire][nomprenom]" : "Nom et prénom(s) de l'ancien titulaire",
@@ -195,20 +199,24 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     }else{
                         value;
                     };
-                    
+
+
                     if (typeAncienTitulaire === "mor" && 0 <= $.inArray(name, societyAncienTitulaireArray)) {
                             html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (typeAncienTitulaire === "phy" && 0 <= $.inArray(name, physicAncientitulaireArray)) {
                             html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
-                    } else if (typeNewTitulaire === "mor" && 0 <= $.inArray(name, societyNouveauxTitulaireArray)) {
-                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
+                    }
+
+                    if (typeNewTitulaire === "mor" && 0 <= $.inArray(name, societyNouveauxTitulaireArray)) {
+                            html2 = html2.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (typeNewTitulaire === "phy" && 0 <= $.inArray(name, physicNouveauxTitulaireArray)) {
-                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
+                            html2 = html2.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     } else if (0 <= $.inArray(name, otherNewTitulaireArray)) {
-                            html = html.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
+                            html2 = html2.concat("<div>" + "<strong>" + label[element.name] + "</strong><span>" + value + "</span></div>");
                     }
                 });
-                resum.html(html.concat("<div><strong> Démarche </strong> <span>Changement titulaire véhicule d'occasion français</span> </div>"));
+                resum.html(html);
+                resum2.html(html2.concat("<div><strong> Démarche </strong> <span>Changement titulaire véhicule d'occasion français</span> </div>"));
             }
         },
         onFinishing: function (event, currentIndex) {
@@ -235,6 +243,39 @@ function initFormStep(form, title, bodyTag, transitionEffect)
 
                     }
                 }
+            },
+            "demande_ctvo[ctvo][ancienTitulaire][raisonsociale]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+
+                        if (persone == 'mor') {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                }
+            },
+            "demande_ctvo[ctvo][ancienTitulaire][siren]": {
+                required: {
+                    depends: function () {
+                        let persone = $('#demande_ctvo_ctvo_ancienTitulaire_type').val();
+
+                        if (persone == 'mor') {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                },
+                digits: true,
+                minlength: 14,
+                maxlength: 14,
             },
             "demande_ctvo[ctvo][numeroFormule]": {
                 required: {
@@ -371,8 +412,8 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     }
                 },
                 digits: true,
-                minlength: 9,
-                maxlength: 9,
+                minlength: 14,
+                maxlength: 14,
             },
             "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][numero]": {
                 required: true
@@ -396,6 +437,15 @@ function initFormStep(form, title, bodyTag, transitionEffect)
         messages:{
             "demande_ctvo[ctvo][ancienTitulaire][nomprenom]": {
                 required: 'Champs obligatoire',
+            },
+            "demande_ctvo[ctvo][ancienTitulaire][raisonsociale]": {
+                required: 'Champs obligatoire',
+            },
+            "demande_ctvo[ctvo][ancienTitulaire][siren]": {
+                required: 'Champs obligatoire',
+                digits: 'Merci de n\'entrer que des chiffres.',
+                minlength: 'Le numéro doit être à 14 chiffres',
+                maxlength: 'Le numéro doit être à 14 chiffres'
             },
             "demande_ctvo[ctvo][numeroFormule]": {
                 required: 'Champs obligatoire',
@@ -423,8 +473,9 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             },
             "demande_ctvo[ctvo][acquerreur][siren]": {
                 required: 'Champs obligatoire',
-                minlength: 'Le numéro doit être à 9 chiffres',
-                maxlength: 'Le numéro doit être à 9 chiffres'
+                digits: 'Merci de n\'entrer que des chiffres.',
+                minlength: 'Le numéro doit être à 14 chiffres',
+                maxlength: 'Le numéro doit être à 14 chiffres'
             },
             "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][typevoie]": {
                 required: 'Champs obligatoire',
@@ -434,6 +485,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
             },
             "demande_ctvo[ctvo][acquerreur][adresseNewTitulaire][codepostal]": {
                 required: 'Champs obligatoire',
+                digits: 'Merci de n\'entrer que des chiffres.',
                 minlength: 'Le code postal doit être à 5 chiffres',
                 maxlength: 'Le code postal doit être à 5 chiffres'
             },
@@ -459,7 +511,8 @@ function datePickerFunction(element){
         dateFormat: 'dd/mm/yy',
         changeMonth: true,
         changeYear: true,
-        minDate: "-100Y",
-        maxDate: "-18Y",
+        minDate: "-120Y",
+        maxDate: "Y",
+        yearRange: '-120y:y'
     });
 }

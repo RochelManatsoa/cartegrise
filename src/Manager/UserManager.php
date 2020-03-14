@@ -139,6 +139,7 @@ class UserManager
     public function sendUserForRelance($level = 0)
     {
         $users = $this->repository->findUserForRelance($level);
+        // dd($users);
         $template = 'relance/email1.html.twig';
         $emails = [];
         foreach ($users as $user)
@@ -160,5 +161,12 @@ class UserManager
     public function getRepository() :UserRepository
     {
         return $this->repository;
+    }
+
+    public function sendEmailOnRegistration($user)
+    {
+        $template = 'email/register.mail.twig';
+        $this->mailManager->sendEmail([$user->getEmail()], $template, "Bienvenue sur CG Officiel - Démarches Carte Grise en ligne", ['responses'=> $user]);
+        return 'success';
     }
 }

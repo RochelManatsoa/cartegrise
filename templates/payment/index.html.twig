@@ -24,7 +24,7 @@
                         <a data-href="{{path('pay_online', {'commande': commande.id, 'multiple': 3})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
                     </li>
                     <li class="mb-3">
-                        <div class="txt">Paiement en 4 fois<span>(&asymp; {{ (amount4fois / 4) | round(2, 'common') }} x 4 soit {{ amount3fois }})</span></div>
+                        <div class="txt">Paiement en 4 fois<span>(&asymp; {{ (amount4fois / 4) | round(2, 'common') }} x 4 soit {{ amount4fois }})</span></div>
                         <span class="line"></span>
                         <a data-href="{{path('pay_online', {'commande': commande.id, 'multiple': 4})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
                     </li>
@@ -58,6 +58,7 @@
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
