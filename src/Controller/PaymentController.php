@@ -49,6 +49,7 @@ class PaymentController extends AbstractController
             [
                 'commande' => $commande,
                 'amount' => $amount,
+                'amount1fois' => round($amount/100),
                 'amount3fois' => $amount3fois,
                 'amount4fois' => $amount4fois,
             ]
