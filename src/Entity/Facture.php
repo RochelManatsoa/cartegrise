@@ -49,12 +49,22 @@ class Facture
     private $adresse;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean")
+     */
+    private $typePerson;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $socialReason;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $firstName;
 
@@ -123,30 +133,6 @@ class Facture
         return $this;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
     /**
      * Undocumented function
      *
@@ -172,5 +158,53 @@ class Facture
         $commandeId = $this->getCommande()->getId();
 
         return $num . $dateCommande . '/' . $type . $commandeId;
+    }
+
+    public function getTypePerson(): ?bool
+    {
+        return $this->typePerson;
+    }
+
+    public function setTypePerson(bool $typePerson): self
+    {
+        $this->typePerson = $typePerson;
+
+        return $this;
+    }
+
+    public function getSocialReason(): ?string
+    {
+        return $this->socialReason;
+    }
+
+    public function setSocialReason(?string $socialReason): self
+    {
+        $this->socialReason = $socialReason;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(?string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
     }
 }

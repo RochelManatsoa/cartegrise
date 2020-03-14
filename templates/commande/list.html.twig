@@ -28,7 +28,7 @@
                             {% for commande in commandes %}
                                     <tr>
                                         <th class="responsive-toggle">Demande<span></span></th><td>{{ commande.demarche.nom }}</td>
-                                        <th class="responsive-toggle">Date<span></span></th><td>{{ commande.ceerLe|date('d-m-Y') }}</td>
+                                        <th class="responsive-toggle">Date<span></span></th><td>{{ commande.ceerLe|date('d/m/Y') }}</td>
                                         <th class="responsive-toggle">Département<span></span></th><td class="text-center">{{ commande.codePostal | displayValue}}</td>
                                         <th class="responsive-toggle">Immatriculation<span></span></th><td class="text-center">{{ commande.immatriculation | displayValue}}</td>
                                         <th class="responsive-toggle">Statut<span></span></th><td>
@@ -39,20 +39,20 @@
                                         <th class="responsive-toggle">Action<span></span></th><td>
                                             <div class="flex flex-column content-actions">
                                                 {% if is_granted(constant('\\App\\Security\\Voter\\CommandeVoter::PASSER'), commande) %}
-                                                    {% if commande.demande is defined and commande.demande is null and commande.transaction is defined and commande.transaction is not null and commande.transaction.status == '00' %}
-                                                        <a href="{{path('new_demande', {'commande': commande.id })}}">
-                                                            <button type="button" class="btn resume-btn">Remplir le formulaire</button>
-                                                        </a>
-                                                    {% elseif 
-                                                        commande.transaction is defined and commande.transaction is null or
-                                                        (commande.demande.transaction is defined and commande.demande.transaction is null)
-                                                    %}
-                                                        <a href="{{path('commande_recap', {'commande': commande.id })}}">
-                                                            <button type="button" class="btn resume-btn">Résumer</button>
-                                                        </a>
-                                                    {% endif %}
-                                                    <button data-url="{{ path('commande_annuler', {id: commande.id, _token: csrf_token('delete' ~ commande.id)}) }}"
-                                                            type="button" class="btn cancel-btn">Annuler</button>
+                                                        {% if commande.demande is defined and commande.demande is null and commande.transaction is defined and commande.transaction is not null and commande.transaction.status == '00' %}
+                                                            <a href="{{path('new_demande', {'commande': commande.id })}}">
+                                                                <button type="button" class="btn resume-btn">Remplir le formulaire</button>
+                                                            </a>
+                                                        {% elseif 
+                                                            commande.transaction is defined and commande.transaction is null or
+                                                            (commande.demande.transaction is defined and commande.demande.transaction is null)
+                                                        %}
+                                                            <a href="{{path('commande_recap', {'commande': commande.id })}}">
+                                                                <button type="button" class="btn resume-btn">Résumer</button>
+                                                            </a>
+                                                        {% endif %}
+                                                        {# <button data-url="{{ path('commande_annuler', {id: commande.id, _token: csrf_token('delete' ~ commande.id)}) }}"
+                                                                type="button" class="btn cancel-btn">Annuler</button> #}
                                                 {% elseif 
                                                     commande.demande is defined and
                                                     commande.demande is not null and
@@ -81,6 +81,11 @@
                             {% endif %}
                             </tbody>
                         </table>
+                    {# display navigation #}
+                    <div class="navigation">
+                        {{ knp_pagination_render(commandes) }}
+                    </div>
+                    <!-- end display navigation -->
                     </div>
                 </div>
             </div>

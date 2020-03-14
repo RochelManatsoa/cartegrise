@@ -292,6 +292,9 @@ function datePickerFunction(element){
         dateFormat: 'dd/mm/yy',
         changeMonth: true,
         changeYear: true,
+        minDate: "-120Y",
+        maxDate: "Y",
+        yearRange: '-120y:y'
     });
 }
 

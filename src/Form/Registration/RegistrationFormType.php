@@ -45,12 +45,12 @@ class RegistrationFormType extends AbstractType
                 'translation_domain' => 'FOSUserBundle'
                 ))
             ->add('username', EmailType::class, array(
-                'label' => "Confirmer adresse mail", 
+                'label' => "Confirmer adresse e-mail", 
                 'translation_domain' => 'FOSUserBundle'
                 ))
             ->add('plainPassword', PasswordType::class, array(
-                'label' => 'form.password', 
-                'translation_domain' => 'FOSUserBundle'
+                'label' => "Mot de passe", 
+                'translation_domain' => 'FOSUserBundle',
                 ))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
@@ -58,7 +58,7 @@ class RegistrationFormType extends AbstractType
                     'translation_domain' => 'FOSUserBundle',
                     'attr' => array(
                         'autocomplete' => 'new-password',
-                    ),
+                ),
                 ),
                 'first_options' => array('label' => 'form.password'),
                 'second_options' => array('label' => 'form.password_confirmation'),

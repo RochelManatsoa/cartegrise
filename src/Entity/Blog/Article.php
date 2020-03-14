@@ -38,7 +38,7 @@ class Article
 
     /**
      * @Gedmo\Slug(fields={"titre"})
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $slug;
 
@@ -135,6 +135,7 @@ class Article
     {
         $this->categories = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->date = new \Datetime();
     }
 
     public function getId(): ?int

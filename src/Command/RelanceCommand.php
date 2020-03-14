@@ -22,7 +22,6 @@ class RelanceCommand extends Command
         // all command is :
         // php bin/console app:email:relance ==> tout les heures
         // php bin/console app:email:relance --option=1 ==> tout les jours à 10h le matin
-        // php bin/console app:email:relance --option=2 ==> tout les jours à 10h le matin
 
         // the full command description shown when running the command with
         // the "--help" option

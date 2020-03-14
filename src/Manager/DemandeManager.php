@@ -316,14 +316,15 @@ class DemandeManager
         if (!is_dir($folder)) mkdir($folder, 0777, true);
         // end create file 
         // get facture if not exist
-        if (!is_file($file)) { // attente de finalité du process
+        // dd($demande->getCommande()->getSystempayTransaction()->getAmount());
+        // if (!is_file($file)) { // attente de finalité du process
             $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
             $filename = "Facture";
             $html = $this->twig->render("payment/facture.html.twig", $params);
             $output = $snappy->getOutputFromHtml($html);
             
             $filefinal = file_put_contents($file, $output);
-        }
+        // }
         
         return $file;
     }
@@ -416,6 +417,7 @@ class DemandeManager
     public function getUserWithoutSendDocumentInDay(int $day, MailManager $mailManager){
         $relanceLevel = $this->getRelanceLevel($day);
         $responses = $this->repository->getUserWithoutSendDocumentInDay($day, $relanceLevel);
+        // dd($responses);
         if ($day === 27)
         {
             $object = "Attention plus que 3 jours pour envoyer les documents !";
@@ -435,6 +437,7 @@ class DemandeManager
     public function getUserWithSendDocumentButNotValidInDay(int $day, MailManager $mailManager){
         $relanceLevel = $this->getRelanceLevelDocNonValid($day);
         $responses = $this->repository->getUserWithSendDocumentButNotValidInDay($day, $relanceLevel);
+        // dd($responses);
         $restDay = 30 - $day;
         if ($day === 27)
         {
@@ -462,11 +465,8 @@ class DemandeManager
             case 14:
                 $return = 6;
                 break;
-            case 20:
-                $return = 7;
-                break;
             case 27:
-                $return = 8;
+                $return = 7;
                 break;
             default:
                 $return = 4;
@@ -479,19 +479,16 @@ class DemandeManager
     {
         switch($day){
             case 7:
-                $return = 9;
+                $return = 8;
                 break;
             case 14:
-                $return = 10;
-                break;
-            case 20:
-                $return = 11;
+                $return = 9;
                 break;
             case 27:
-                $return = 12;
+                $return = 10;
                 break;
             default:
-                $return = 8;
+                $return = 7;
                 break;
         }
 
@@ -644,7 +641,6 @@ class DemandeManager
 
         return "0897010800";
     }
-
     public function getDemandeForCommande(Commande $commande)
     {
         return $this->repository->findOneBy(['commande'=>$commande->getId()]);

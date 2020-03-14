@@ -183,6 +183,15 @@ trait CommandeStatusTrait
                 "style" => $this->SECOND_STEP_STYLE,
             ];
         }
+        elseif (
+            null !== $commande->getDeletedAt()
+        ){
+            return 
+            [
+                "text" => $this->FORTH_STEP,
+                "style" => $this->FORTH_STEP_STYLE,
+            ];
+        }
         else {
             return 
             [

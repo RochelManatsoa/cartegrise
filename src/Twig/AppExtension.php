@@ -7,7 +7,7 @@ use Twig\TwigFunction;
 use Twig\TwigFilter;
 use App\Entity\{User, Taxes, TypeDemande, Commande, Demande, Adresse, EmailHistory};
 use App\Repository\TarifsPrestationsRepository;
-use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager, DemandeManager, TransactionManager};
+use App\Manager\{UserManager, TaxesManager, FraisTreatmentManager, StatusManager, CommandeManager, DemandeManager, TransactionManager};
 use App\Utils\StatusTreatment;
 use App\Manager\DocumentAFournirManager;
 use Doctrine\Common\Annotations\AnnotationReader;
@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints\File;
 class AppExtension extends AbstractExtension
 {
     private $demandeManager;
+    private $commandeManager;
     private $prestation;
     private $statusTreatment;
     private $taxManager;
@@ -32,6 +33,7 @@ class AppExtension extends AbstractExtension
         StatusManager $statusManager,
         DocumentAFournirManager $documentAFournirManager,
         DemandeManager $demandeManager,
+        CommandeManager $commandeManager,
         TransactionManager $transactionManager
     )
     {
@@ -43,6 +45,7 @@ class AppExtension extends AbstractExtension
         $this->statusManager = $statusManager;
         $this->documentAFournirManager = $documentAFournirManager;
         $this->demandeManager = $demandeManager;
+        $this->commandeManager = $commandeManager;
         $this->transactionManager = $transactionManager;
     }
     public function getFunctions()
@@ -54,12 +57,16 @@ class AppExtension extends AbstractExtension
             new TwigFunction('fraisTraitement', [$this, 'fraisTraitement']),
             new TwigFunction('fraisTotalTraitement', [$this, 'fraisTotalTraitement']),
             new TwigFunction('tvaTraitement', [$this, 'tvaTraitement']),
+            new TwigFunction('tvaTraitementMultiple', [$this, 'tvaTraitementMultiple']),
             new TwigFunction('tvaTraitementAvoir', [$this, 'tvaTraitementAvoir']),
             new TwigFunction('tvaTraitementDailyTotal', [$this, 'tvaTraitementDailyTotal']),
             new TwigFunction('fraisTotal', [$this, 'fraisTotal']),
             new TwigFunction('fraisTotalHT', [$this, 'fraisTotalHT']),
+            new TwigFunction('fraisTotalHTMultipleResult', [$this, 'fraisTotalHTMultipleResult']),
             new TwigFunction('fraisTotalHTAvoir', [$this, 'fraisTotalHTAvoir']),
             new TwigFunction('total', [$this, 'total']),
+            new TwigFunction('totalMultiple', [$this, 'totalMultiple']),
+            new TwigFunction('totalMultipleResult', [$this, 'totalMultipleResult']),
             new TwigFunction('totalAvoir', [$this, 'totalAvoir']),
             new TwigFunction('fraisTraitementWhithTva', [$this, 'fraisTraitementWhithTva']),
             new TwigFunction('fraisTraitementWhithTvaAvoir', [$this, 'fraisTraitementWhithTvaAvoir']),
@@ -82,6 +89,8 @@ class AppExtension extends AbstractExtension
             new TwigFunction('just20tvaTotal', [$this, 'just20tvaTotal']),
             new TwigFunction('tvaTreatmentOfCommandeTotal', [$this, 'tvaTreatmentOfCommandeTotal']),
             new TwigFunction('fraisdossierWithoutTva', [$this, 'fraisdossierWithoutTva']),
+            new TwigFunction('fraisdossierWithoutTvaMultipleResult', [$this, 'fraisdossierWithoutTvaMultipleResult']),
+            new TwigFunction('fraisdossierWithoutTvaMultiple', [$this, 'fraisdossierWithoutTvaMultiple']),
             new TwigFunction('fraisdossierWithoutTvaAvoir', [$this, 'fraisdossierWithoutTvaAvoir']),
             new TwigFunction('fraisdossierWithoutTvaDailyFacture', [$this, 'fraisdossierWithoutTvaDailyFacture']),
             new TwigFunction('fraisdossierWithoutTvaTotal', [$this, 'fraisdossierWithoutTvaTotal']),
@@ -175,7 +184,8 @@ class AppExtension extends AbstractExtension
     }
     public function displayGender($value, $default = null)
     {
-        return $value === "M" ? "M." : 'Mme';
+        // return $value === "M" ? "M." : 'Mme';
+        return $value = "";
     }
     public function displayRelanceInfos($value, $default = null)
     {
@@ -297,6 +307,12 @@ class AppExtension extends AbstractExtension
         return $this->fraisTreatmentManager->fraisTotalHtOfCommande($commande);
     }
 
+    public function fraisTotalHTMultipleResult(Commande $commande)
+    {
+
+        return ($this->fraisTreatmentManager->fraisTotalHtOfCommande($commande) + $this->fraisdossierWithoutTvaMultiple($commande));
+    }
+
     public function fraisTotalHTAvoir(Commande $commande)
     {
 
@@ -307,6 +323,17 @@ class AppExtension extends AbstractExtension
     {
 
         return $this->fraisTreatmentManager->tvaOfFraisTreatment($commande);
+    }
+    public function tvaTraitementMultiple(Commande $commande)
+    {
+        $multiple = $commande->getSystempayTransaction()->getMultiple();
+        if ($multiple == 3) {
+            return ($this->fraisTotal($commande) * 0.2) * 0.03;
+        } elseif ($multiple == 4) {
+            return ($this->fraisTotal($commande) * 0.2) * 0.035;
+        }
+
+        return 0;
     }
     public function tvaTraitementAvoir(Commande $commande)
     {
@@ -342,6 +369,22 @@ class AppExtension extends AbstractExtension
         return $this->fraisTreatmentManager->total($commande);
     }
 
+    public function totalMultipleResult(Commande $commande)
+    {
+
+        return ($this->fraisTreatmentManager->total($commande) + $this->totalMultiple($commande));
+    }
+
+    public function totalMultiple(Commande $commande)
+    {
+        $multiple = $commande->getSystempayTransaction()->getMultiple();
+        if ($multiple == 3 || $multiple == 4) {
+            return ($this->fraisdossierWithoutTvaMultiple($commande) + $this->tvaTraitementMultiple($commande));
+        }
+        
+        return 0;
+    }
+
     public function checkFile($entity, $name)
     {
         return $this->documentAFournirManager->checkFile($entity, $name);
@@ -355,6 +398,21 @@ class AppExtension extends AbstractExtension
     public function fraisdossierWithoutTva(Commande $commande)
     {
         return $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommande($commande);
+    }
+    public function fraisdossierWithoutTvaMultipleResult(Commande $commande)
+    {
+        return ($this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommande($commande) + $this->fraisdossierWithoutTvaMultiple($commande));
+    }
+    public function fraisdossierWithoutTvaMultiple(Commande $commande)
+    {
+        $multiple = $commande->getSystempayTransaction()->getMultiple();
+        if ($multiple == 3) {
+            return ($this->fraisTotal($commande)) * 0.03;
+        } elseif ($multiple == 4) {
+            return ($this->fraisTotal($commande)) * 0.035;
+        }
+        return 0;
+        
     }
     public function fraisdossierWithoutTvaAvoir(Commande $commande)
     {
@@ -573,7 +631,7 @@ class AppExtension extends AbstractExtension
 
     public function displayServiceClient()
     {
-        return $this->demandeManager->checkServiceClient();
+        return $this->commandeManager->checkServiceClient();
     }
 
     public function findByTransactionId(string $responseId)

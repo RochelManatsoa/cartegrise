@@ -32,6 +32,11 @@ class Ancientitulaire
     private $raisonsociale;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $siren;
+
+    /**
      * Opposé à la réutilisation des données à des fins d’enquête et de prospection commerciale
      * ORM\Column(type="boolean", nullable=true)
      */
@@ -121,6 +126,18 @@ class Ancientitulaire
     public function setDeletedAt(?\DateTimeInterface $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getSiren(): ?string
+    {
+        return $this->siren;
+    }
+
+    public function setSiren(?string $siren): self
+    {
+        $this->siren = $siren;
 
         return $this;
     }

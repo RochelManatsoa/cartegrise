@@ -56,34 +56,34 @@
                         <li><strong>Immatriculation </strong> {{ demande.commande.immatriculation }}</li>
                     </ul>
                 </div>
-                <div class="block_CCM menu-faq">
-                    <div class="container">
-                        <h3 class="home-secondview--titre">Pièces à fournir pour votre demande</h3>
-                        <div class="comment-ca-marche-texte">
-                            <!--A quoi sert le certificat d’immatriculation ?-->
-                            <div class="accordeon_">
-                                <div class="row">
-                                    <button type="button" class="col-12 col-sm-6 col-md-7 menu-commander">
-                                        <span class="menu-commander--button---text">Voir plus de details</span>
-                                    </button>
-                                    <div class="toggle-content col-12" style="display: none;">
-                                        <div id="Changement-de-titulaire" class="row commander">
-                                            <div class="commander-box">
-                                                <div class="commander-box--section---description mt-3">
-                                                    <div class="piece_fournir">
-                                                        <div id="daf-list-wrapper" class="mb-2">
-                                                            {{ daf|raw }}
-                                                        </div>
-                                                </div>
+                {# Modifs by iary #}
+                <div class="block_CCM menu-faq pt-2 pb-1">
+                    <h3 class="home-secondview--titre mb-1">Pièces à fournir pour votre demande</h3>
+                    <div class="comment-ca-marche-texte">
+                        <!--A quoi sert le certificat d’immatriculation ?-->
+                        <div class="accordeon_ ml-md-3">
+                            <div class="row">
+                                <button type="button" class="col-12 col-sm-6 col-md-7 menu-commander">
+                                    <span class="menu-commander--button---text">Voir plus de details</span>
+                                </button>
+                                <div class="toggle-content col-12" style="display: none;">
+                                    <div id="Changement-de-titulaire" class="row commander">
+                                        <div class="commander-box">
+                                            <div class="commander-box--section---description mt-3">
+                                                <div class="piece_fournir">
+                                                    <div id="daf-list-wrapper" class="mb-2">
+                                                        {{ daf|raw }}
+                                                    </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {# end Modifs by iary #}
                     <div class="piece_fournir">
                         <div class="hidden-lg-down hidden-md-down">
                             {% if form is not null %}

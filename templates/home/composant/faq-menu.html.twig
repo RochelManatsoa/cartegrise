@@ -3,7 +3,7 @@
         <h3 class="home-secondview--titre">FAQ</h3>
         <div class="comment-ca-marche-texte">
             <!--A quoi sert le certificat d’immatriculation ?-->
-            <div class="accordeon_">
+            <div class="accordeon_" id="certificat">
                 <div class="row">
                     <button type="button" class="col-12 col-sm-6 col-md-7 menu-commander">
                         <span class="menu-commander--button---text">A quoi sert le certificat d’immatriculation ?</span>
@@ -32,7 +32,7 @@
             </div>
 
             <!--Doit-on immatriculer un tracteur ?-->
-            <div class="accordeon_">
+            <div class="accordeon_" id="tracteur">
                 <div class="row">
                     <button type="button" class="col-12 col-sm-6 col-md-7 menu-commander">
                         <span class="menu-commander--button---text">Doit-on immatriculer un tracteur ?</span>
@@ -41,7 +41,7 @@
                         <div id="Changement-de-titulaire" class="row commander">
                             <div class="commander-box">
                                 <div class="commander-box--section---description mt-3">
-                                    <p>Un tracteur est un véhicule. Même si elle n’est pas motorisée, une remorque est considérée comme un véhicule. C’est pourquoi les tracteurs ont une double immatriculation. En effet, tous les véhicules agricoles doivent être
+                                    <p>Un tracteur est un véhicule. C’est pourquoi les tracteurs ont une double immatriculation. En effet, tous les véhicules agricoles doivent être
                                         immatriculés, qu'ils appartiennent à un particulier ou qu'ils soient rattachés à une exploitation. Tous les matériels agricoles qui roulent, tels que le tracteur agricole à roues ou à chenilles, la machine automotrice de type agricole, le véhicule
                                         agricole remorqué dont le PTAC est supérieur à 1,5 tonnes, sont donc concernés par cette obligation.</p>
 
@@ -216,7 +216,7 @@
             </div>
 
             <!--Doit on immatriculer une remorque ?-->
-            <div class="accordeon_">
+            <div class="accordeon_" id="remorque">
                 <div class="row">
                     <button type="button" class="col-12 col-sm-6 col-md-7 menu-commander">
                         <span class="menu-commander--button---text">Doit-on immatriculer une remorque ?</span>
@@ -1046,6 +1046,27 @@
                 $(this)
                         .siblings(".toggle-content")
                         .slideDown(200);
+        }
+        });
+        var jump=function(e)
+        {
+            if (e){
+                e.preventDefault();
+                var target = $(this).attr("href");
+            }else{
+                var target = window.location.hash;
+            }
+            $(target).find('button').trigger('click');
+            $('html,body').animate({scrollTop: $(target).offset().top-130},2000);
+        }
+        $(document).ready(function(){
+            var hash= window.location.hash;
+            $('a[href^="#"]').bind("click", jump);
+            if(hash.length > 0){
+                setTimeout(function() {
+                    $('html, body').scrollTop(0).show();
+                    jump();
+                }, 0);
             }
         });
     </script>

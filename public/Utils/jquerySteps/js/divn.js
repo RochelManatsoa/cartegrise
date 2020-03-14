@@ -136,7 +136,7 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     let label = {
                         "demande_divn[divn][acquerreur][type]" : "Titulaire",
                         "demande_divn[divn][acquerreur][raisonSociale]" : "Raison sociale",
-                        "demande_divn[divn][acquerreur][siren]" : "SIREN",
+                        "demande_divn[divn][acquerreur][siren]" : "SIRET",
                         "demande_divn[divn][acquerreur][societeCommerciale]" : "Société commerciale",
                         "demande_divn[divn][acquerreur][nomPrenomTitulaire]" : "Nom",
                         "demande_divn[divn][acquerreur][prenomTitulaire]" : "Prénom(s)",
@@ -365,8 +365,8 @@ function initFormStep(form, title, bodyTag, transitionEffect)
                     }
                 },
                 digits: true,
-                minlength: 9,
-                maxlength: 9,
+                minlength: 14,
+                maxlength: 14,
             },
             "demande_divn[divn][vehicule][kNumRecepCe]": {
                 required: {
@@ -543,8 +543,8 @@ function initFormStep(form, title, bodyTag, transitionEffect)
           },
           "demande_divn[divn][acquerreur][siren]": {
               required: 'Champs obligatoire',
-              minlength: 'Le numéro doit être à 9 chiffres',
-              maxlength: 'Le numéro doit être à 9 chiffres'
+              minlength: 'Le numéro doit être à 14 chiffres',
+              maxlength: 'Le numéro doit être à 14 chiffres'
           },
           "demande_divn[divn][acquerreur][adresseNewTitulaire][codepostal]":{
             required: "Champs obligatoire",
@@ -630,6 +630,9 @@ function datePickerFunction(element){
         dateFormat: 'dd/mm/yy',
         changeMonth: true,
         changeYear: true,
-        maxDate: (new Date(2003, 12 - 1, 26)),
+        minDate: "-120Y",
+        maxDate: "Y",
+        yearRange: '-120y:y'
+        // maxDate: (new Date(2003, 12 - 1, 26)),
     });
 }

@@ -150,6 +150,17 @@
           <td class="text-center"><strong>{{(tvaTraitement(demande.commande))|number_format(2, '.', ',') }} €</strong></td>
           <td class="text-center"><strong>{{(fraisTraitementWhithTva(demande.commande))|number_format(2, '.', ',') }} €</strong></td>
         </tr>
+        {% if demande.commande.systempayTransaction.multiple is not null and demande.commande.systempayTransaction.multiple > 0 %}
+          <tr>
+            <td><strong>Frais gestion paiement plusieurs fois</strong></td>
+            <td class="text-center"><strong>{{(fraisdossierWithoutTvaMultiple(demande.commande))|number_format(2, '.', ',') }} €</strong>
+            </td>
+            <td class="text-center">{{ tvaCommande(demande.commande) }}</td>
+            <td class="text-center"><strong>{{(tvaTraitementMultiple(demande.commande))|number_format(2, '.', ',') }} €</strong></td>
+            <td class="text-center"><strong>{{(totalMultiple(demande.commande))|number_format(2, '.', ',') }} €</strong>
+            </td>
+          </tr>
+        {% endif %}
       </tbody>
     </table>
     <br>
@@ -162,11 +173,11 @@
         <table class="table table-md text-right table-active">
             <tr>
               <td><strong>Total HT : </strong></td>
-              <td class="text-right"><strong>{{(fraisTotalHT(demande.commande)|number_format(2, '.', ','))}} €</strong></td>
+              <td class="text-right"><strong>{{(fraisTotalHTMultipleResult(demande.commande)|number_format(2, '.', ','))}} €</strong></td>
             </tr>
             <tr>
               <td><strong>Base HT pour TVA :</strong></td>
-              <td class="text-right"><strong>{{(fraisdossierWithoutTva(demande.commande)|number_format(2, '.', ','))}} €</strong></td>
+              <td class="text-right"><strong>{{(fraisdossierWithoutTvaMultipleResult(demande.commande)|number_format(2, '.', ','))}} €</strong></td>
             </tr>
           <tr>
             <td><strong>TVA {{ tvaCommande(demande.commande) }} :</strong></td>
@@ -174,7 +185,7 @@
           </tr>
           <tr class="table-active">
             <td><strong>Total TTC :</strong></td>
-            <td class="text-right"><strong>{{(total(demande.commande))|number_format(2, '.', ',') }} €</strong></td>
+            <td class="text-right"><strong>{{(totalMultipleResult(demande.commande))|number_format(2, '.', ',') }} €</strong></td>
           </tr>
         </table>
       </div>

@@ -6,7 +6,7 @@
         <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container w-100 mx-md-3 mx-lg-4">
             <div class="col-12">
                 <div class="px-md-2">
-                    <h2>
+                    <h2 class="text-center">
                         {% if transaction.status == "AUTHORISED" %}
                                 Félicitations ! <br>
                             {% else %}
@@ -14,28 +14,28 @@
                         {% endif %}
                     </h2>
                     <hr>
-                    <p>Voici le récapitulatif de votre transaction : </p>
+                    <p class="text-center">Voici le récapitulatif de votre transaction : </p>
                     <div class="col-md-8 mx-auto">
                         <div class="list-grid">
                             <div class="list-grid__item">
                                 <div >Référence de la transaction</div>
-                                <div>{{ transaction.id }}</div>
+                                <div>{{ logs.vads_trans_id }}</div>
                             </div>
                             <div  class="list-grid__item">
                                 <div>Montant de la transaction</div>
-                                <div>{{ transaction.amount / 100 }}</div>
+                                <div>{{ logs.vads_amount / 100 }}</div>
                             </div>
                             <div class="list-grid__item">
                                 <div>Numéro de la carte</div>
-                                <div>XXX</div>
+                                <div>{{ logs.vads_card_number }}</div>
                             </div>
                             <div class="list-grid__item">
                                 <div>Autorisation</div>
-                                <div>XXX</div>
+                                <div>{{ logs.vads_auth_number }}</div>
                             </div>
                             <div class="list-grid__item">
                                 <div>Certificat de la transaction </div>
-                                <div>XXX</div>
+                                <div>{{ logs.vads_payment_certificate|truncate(32) }}</div>
                             </div>
                         </div>
                     </div>

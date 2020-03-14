@@ -2,10 +2,10 @@
 
 
 {% block page_content %}
-    <div class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
+    <div class="container">
         <div class="row d-flex comment-ca-marche-texte flex-row-reverse my-flex-container w-100 mx-md-3 mx-lg-4">
             <div class="col-12">
-                <div class="px-md-2">
+                <div class="block_transc pt-5">
                     <h2>
                         {% if responses.response_code == "00" %}
                                 Félicitations ! <br>
@@ -16,49 +16,51 @@
                     </h2>
                     <hr>
                     <p>Voici le récapitulatif de votre transaction : </p>
-                    <div class="col-md-8 mx-auto">
-                        <div class="list-grid">
-                            <div class="list-grid__item">
-                                <div >Référence de la transaction</div>
-                                <div>{{ responses.transaction_id }}</div>
-                            </div>
-                            <div  class="list-grid__item">
-                                <div>Montant de la transaction</div>
-                                <div>{{ responses.amount }}</div>
-                            </div>
-                            <div class="list-grid__item">
-                                <div>Numéro de la carte</div>
-                                <div>{{ responses.card_number | cardNumber(responses.card_validity) }}</div>
-                            </div>
-                            <div class="list-grid__item">
-                                <div>Autorisation</div>
-                                <div>{{ responses.authorisation_id }}</div>
-                            </div>
-                            <div class="list-grid__item">
-                                <div>Certificat de la transaction </div>
-                                <div>{{ responses.payment_certificate }}</div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="list-grid">
+                                <div class="list-grid__item">
+                                    <div >Référence de la transaction</div>
+                                    <div>{{ responses.transaction_id }}</div>
+                                </div>
+                                <div  class="list-grid__item">
+                                    <div>Montant de la transaction</div>
+                                    <div>{{ responses.amount }}</div>
+                                </div>
+                                <div class="list-grid__item">
+                                    <div>Numéro de la carte</div>
+                                    <div>{{ responses.card_number | cardNumber(responses.card_validity) }}</div>
+                                </div>
+                                <div class="list-grid__item">
+                                    <div>Autorisation</div>
+                                    <div>{{ responses.authorisation_id }}</div>
+                                </div>
+                                <div class="list-grid__item">
+                                    <div>Certificat de la transaction </div>
+                                    <div>{{ responses.payment_certificate }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    {% if transaction is not null and transaction.commande is not null %}
+                        <div class="no-underline text-right">
+                            <a href="{{path('new_demande', {'commande': transaction.commande.id })}}" class="no-underline " >
+                                <button class="btn btn-aqua-blue mb-4 mt-5">
+                                    Suivant <i class="icomoon icon-right-arrow"></i>
+                                </button>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="no-underline">
+                            <a href="{{path('home')}}">
+                                <button class="btn btn-aqua-blue mb-4" class="no-underline ">
+                                    Retour
+                                </button>
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
-                {% if transaction is not null and transaction.commande is not null %}
-                    <div class="no-underline ">
-                        <a href="{{path('new_demande', {'commande': transaction.commande.id })}}" class="no-underline " >
-                            <button class="btn btn-aqua-blue mb-4 mx-auto mt-5">
-                                Finaliser ma commande
-                            </button>
-                        </a>
-                    </div>
-                {% else %}
-                    <div class="no-underline">
-                        <a href="{{path('home')}}">
-                            <button class="btn btn-aqua-blue mb-4" class="no-underline ">
-                                Retour
-                            </button>
-                        </a>
-                    </div>
-                {% endif %}
-
+                <hr>
             </div>
         </div>
     </div>

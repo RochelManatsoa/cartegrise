@@ -59,6 +59,17 @@ class CommandeRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    
+    public function queryAllCommandeByClient(Client $client)
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.client', 'client')
+            ->andWhere('client = :val')
+            ->orderBy('c.ceerLe', 'DESC')
+            ->setParameter('val', $client)
+            ->getQuery()
+        ;
+    }
 
     public function getDailyCommandeFacture($begin, \DateTime $now)
     {
@@ -142,6 +153,44 @@ class CommandeRepository extends ServiceEntityRepository
         }
 
         return $builder->getQuery()->getResult();        
+    }
+
+    public function getCommandesPaidedWithoutDemande($level = 0)
+    {
+        $date = $this->relanceDateAfterSuccess($level);
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.client','cl')
+            ->leftJoin('cl.user','u')
+            ->leftJoin('c.transaction','t')
+            ->leftJoin('c.demande','d')
+            ->where('t.status = :success')
+            ->andWhere('d IS NULL')
+            ->andWhere('u IS NOT NULL')
+            ->andWhere('t.createAt = :date')
+            ->andWhere('cl.relanceLevel =:level')
+            ->setParameter('success', Transaction::STATUS_SUCCESS)
+            ->setParameter('level', $level)
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    private function relanceDateAfterSuccess($level)
+    {
+        $date = new \DateTime();
+        switch($level){
+            case 0:
+                $date->modify('-1hour');
+                break;
+            case 1:
+                $date->modify('-1day');
+                break;
+            default:
+                break;
+        }
+
+        return $date;
     }
     
 }
