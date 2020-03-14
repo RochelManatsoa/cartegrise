@@ -5,8 +5,34 @@
 {% block page_content %}
 {% if commande is defined %}
 {% set taxe = commande.taxes %}
+{% endif %}
 <div class="rp_dmd">
     <div class="container">
+
+        <div class="systempay col-12">
+            <h4>CHOISISSEZ VOTRE MODE DE PAIEMENT</h4>
+            <ul>
+                <li class="mb-3">
+                    <div class="txt">Paiement en une fois</div>
+                    <span class="line"></span>
+                    <a data-href="{{path('pay_online', {'commande': commande.id})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
+                </li>
+                {% if constant('App\\Entity\\Systempay\\Transaction::MULTI_PROPOSE_UP') < (amount / 100) %}
+                    <li class="mb-3">
+                        <div class="txt">Paiement en 3 fois<span>( &asymp; {{ (amount3fois / 3) | round(2, 'common') }} x 3 soit {{ amount3fois }})</span></div>
+                        <span class="line"></span>
+                        <a data-href="{{path('pay_online', {'commande': commande.id, 'multiple': 3})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
+                    </li>
+                    <li class="mb-3">
+                        <div class="txt">Paiement en 4 fois<span>(&asymp; {{ (amount4fois / 4) | round(2, 'common') }} x 4 soit {{ amount4fois }})</span></div>
+                        <span class="line"></span>
+                        <a data-href="{{path('pay_online', {'commande': commande.id, 'multiple': 4})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <div class="btn btn-lg btn-outline-info btn-payment-submit">Payer</div>
+        </div>
+        
         <div class="row">
             <div class="col-md-12 col-lg-12 resultat-estimation mx-auto">
                 <h2 class="col-12 text-center">Récapitulatif de la demande</h2>
@@ -31,31 +57,8 @@
                 </div>
             </div>
         </div>
-    {% endif %}
-
-    <div class="systempay col-12">
-        <h4>CHOISISSEZ VOTRE MODE DE PAIEMENT</h4>
-        <ul>
-            <li class="mb-3">
-                <div class="txt">Paiement en une seule fois</div>
-                <span class="line"></span>
-                <a data-href="{{path('pay_online', {'commande': commande.id})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
-            </li>
-            {% if constant('App\\Entity\\Systempay\\Transaction::MULTI_PROPOSE_UP') < (amount / 100) %}
-                <li class="mb-3">
-                    <div class="txt">Paiement en 3 fois<span>( &asymp; {{ (amount3fois / 3) | round(2, 'common') }} x 3 soit {{ amount3fois }})</span></div>
-                    <span class="line"></span>
-                    <a data-href="{{path('pay_online', {'commande': commande.id, 'multiple': 3})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
-                </li>
-                <li class="mb-3">
-                    <div class="txt">Paiement en 4 fois<span>(&asymp; {{ (amount4fois / 4) | round(2, 'common') }} x 4 soit {{ amount4fois }})</span></div>
-                    <span class="line"></span>
-                    <a data-href="{{path('pay_online', {'commande': commande.id, 'multiple': 4})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
-                </li>
-            {% endif %}
-        </ul>
-        <div class="btn btn-lg btn-outline-info btn-payment-submit">Payer</div>
     </div>
+</div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

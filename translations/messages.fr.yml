@@ -224,7 +224,7 @@ label:
     numeroFormule: Numéro de formule présent sur la carte grise
     fourthChange: 4ème changement d'adresse ? S'il s'agit de votre 4ème changement d'adresse une taxe de 2,76€ vous sera facturé pour l'acheminement de la nouvelle carte grise à votre domicile
     acquerreur: Acquéreur
-    dateN: Date de naissance *
+    dateN: Date de naissance 
     lieuN: Lieu de naissance
     adresseNewTitulaire: Adresse de l'Acquéreur
     ancienAdresseTitulaire: Adresse du Titulaire
@@ -234,12 +234,12 @@ label:
     ancienAdresse: Ancienne adresse
     adresse: Votre adresse
     nouvelAdresse: Nouvelle adresse
-    typevoie: Type de Voie *
-    numerovoie: Numéro de la Voie *
+    typevoie: Type de Voie 
+    numerovoie: Numéro de la Voie 
     extension: Extension au numéro de rue
     complement: Complément d'adresse
-    codepostal: Code Postal *
-    ville: Ville *
+    codepostal: Code Postal 
+    ville: Ville 
     heberge: Êtes-vous hébergé?
     droitOpposition: Je m'oppose à la diffusion de mes données personnelles
     caracteristiqueTechniquePart: Caractéristiques techniques particulières
@@ -254,7 +254,7 @@ label:
     cgv: J'ai pris connaissance des Conditions Générales de Vente
     retractation: Je renonce à mon droit de retractation
     type:
-        personne: Personne *
+        personne: Personne ou société
         fichier: Type de fichier
         demande: Type de demande
         content:
@@ -290,14 +290,14 @@ label:
     raisonsocial: Raison sociale
     siret: Siret
     societeCommerciale: Société commerciale
-    nomprenom: Nom et prénom(s) *
+    nomprenom: Nom et prénom(s) 
     clientContact: Contacts
     clientAdresse: Adresse
     clientEmail: Adresse électronique
     titulaire: Titulaire
     dca:
         titulaire: Titulaire
-    genre: Civilité
+    genre: Civilité 
     dep: Département
     immatriculation: Immatriculation
     contactMobile: Téléphone
@@ -305,18 +305,18 @@ label:
     demandeChangementTitulaire: Demander un changement de titulaire
     motifDemande: Motif de la demande
     nom:
-        voie: Nom de la voie *
+        voie: Nom de la voie 
         cotitulaire: Nom du Cotitulaire
-        titulaire: Nom de l'Acquéreur *
-        dcaNomPrenom: Nom et prénom séparés par un espace *
-        client: Nom
+        titulaire: Nom de l'Acquéreur 
+        dcaNomPrenom: Nom et prénom séparés par un espace 
+        client: Nom 
         content: Nom
-        dcaBirthName: Nom du titulaire *
+        dcaBirthName: Nom du titulaire 
         usage: Nom usage
     prenom:
-        titulaire: Prénom(s) de l'Acquéreur *
+        titulaire: Prénom(s) de l'Acquéreur 
         cotitulaire: Prénom(s) du Cotitulaire
-        client: Prénom(s)
+        client: Prénom(s) 
     person:
         type:
             corporation: Personne morale (Société)
@@ -352,12 +352,12 @@ label:
     termsAccepted: J'ai lu et j'accepte les Conditions Générales de Vente. La politique de confidentialité et la liste des documents à retourner. Et je renonce expressément à mon droit de rétractation afin que la prestation débute immédiatement
     numformule: Numéro de la formule
     vin: VIN
-    datecg: Date de la Carte Grise *
+    datecg: Date de la Carte Grise 
     numeroDeLaFormulCarteGrise: Numéro de la Formule Carte Grise
     vendeur: Vendeur
     acheteur: Acheteur
-    dateVente: Date de la vente *
-    heureVente: Heure de la vente *
+    dateVente: Date de la vente 
+    heureVente: Heure de la vente 
     messages: Votre message
     updateUser: Informations vous concernant
     infoUser: Informations vous concernant
@@ -388,10 +388,10 @@ label:
     vehicule:
         info: Informations du véhicule
         typeRecep: Type de réception
-        vin: VIN du véhicule *
-        d1Marque: Marque du véhicule *
-        d2Version: Type - Variant - Version *
-        kNumRecepCe: Numéro de réception par type *
+        vin: VIN du véhicule 
+        d1Marque: Marque du véhicule 
+        d2Version: Type - Variant - Version 
+        kNumRecepCe: Numéro de réception par type 
         dateRecep: Date de réception du véhicule
         d21Cenit: Code National d’Identification du Type
         derivVp: Avec une carrosserie DERIV VP
@@ -421,9 +421,9 @@ label:
         nbMentions: Nombre de caractéristiques techniques particulières
 
     blog:
-        comment: Commentaire *
-        auteurComment: Votre prénom *
-        email: Votre adresse de messagerie *
+        comment: Commentaire 
+        auteurComment: Votre prénom 
+        email: Votre adresse de messagerie 
         website: Site Web
 home:
     carSkills: CARACTÉRISTIQUES DU VÉHICULE
