@@ -459,7 +459,7 @@ class PaymentController extends AbstractController
             }
             $this->sendMail($mailer, $responses, $responses["vads_cust_email"], $adminEmails, $files, $commande);
         }
-        end simulator
+        // end simulator
         $user = $this->getUser();
         $transaction = $user->getTransactions()->last();
         
