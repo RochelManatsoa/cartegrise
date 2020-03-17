@@ -143,6 +143,7 @@ trait CommandeStatusTrait
             (
                 $commande->getDemande()->getStatusDoc() == Demande::DOC_PENDING
                 || $commande->getDemande()->getStatusDoc() == Demande::DOC_NONVALID 
+                || $commande->getDemande()->getStatusDoc() == Demande::DOC_VALID 
                 || $commande->getDemande()->getStatusDoc() == Demande::DOC_UNCOMPLETED 
             )
         ){
@@ -175,21 +176,12 @@ trait CommandeStatusTrait
                 ];
         }
         elseif (
-            null !== $commande->getDemande()
+            true !== $commande->getPaymentOk()
         ){
             return 
             [
                 "text" => $this->SECOND_STEP,
                 "style" => $this->SECOND_STEP_STYLE,
-            ];
-        }
-        elseif (
-            null !== $commande->getDeletedAt()
-        ){
-            return 
-            [
-                "text" => $this->FORTH_STEP,
-                "style" => $this->FORTH_STEP_STYLE,
             ];
         }
         else {
