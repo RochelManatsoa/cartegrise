@@ -152,7 +152,7 @@
         </tr>
         {% if demande.commande.systempayTransaction.multiple is not null and demande.commande.systempayTransaction.multiple > 0 %}
           <tr>
-            <td><strong>Frais gestion paiement plusieurs fois</strong></td>
+            <td><strong>Frais gestion paiement en {{demande.commande.systempayTransaction.multiple}} fois</strong></td>
             <td class="text-center"><strong>{{(fraisdossierWithoutTvaMultiple(demande.commande))|number_format(2, '.', ',') }} €</strong>
             </td>
             <td class="text-center">{{ tvaCommande(demande.commande) }}</td>
