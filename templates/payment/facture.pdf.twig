@@ -133,7 +133,7 @@
         </tr>
         {% if commande.systempayTransaction.multiple is not null and commande.systempayTransaction.multiple > 0 %}
         <tr>
-          <td><strong>Frais gestion paiement plusieurs fois</strong></td>
+          <td><strong>Frais gestion paiement en {{commande.systempayTransaction.multiple}} fois</strong></td>
           <td class="text-center"><strong>{{(fraisdossierWithoutTvaMultiple(commande))|number_format(2, '.', ',') }}
               €</strong>
           </td>
