@@ -570,7 +570,8 @@ class Demande
     public function preupdate()
     {
         if ($this->statusDoc === "1"){
-            $ref = $this->getTransaction() ? $this->getTransaction()->getTransactionId() : $this->getCommande()->getTransaction()->getTransactionId();
+            $ref = $this->getCommande()->getReferenceClient();
+            // $ref = $this->getTransaction() ? $this->getTransaction()->getTransactionId() : $this->getCommande()->getTransaction()->getTransactionId();
             $this->reference = $ref . '-' . $this->id;
         }
     }
