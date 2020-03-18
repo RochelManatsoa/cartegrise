@@ -638,4 +638,18 @@ class Commande
         return $this;
     }
 
+    public function getReferenceClient(){
+        $num = $this->getClient()->getId();
+        $string = '0';
+        $length = 5;
+        $numlength = strlen((string)$num);
+        $restLength = $length - $numlength;
+        for($i= 0; $i < $restLength; $i++) {
+            $num =$string . (string)$num;
+        }
+        $dateRegister = $this->getClient()->getUser()->getRegisterDate()->format('y');
+
+        return $num . $dateRegister;
+    }
+
 }
