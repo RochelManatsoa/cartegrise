@@ -10,14 +10,14 @@
     <div class="container">
 
         <div class="systempay col-12">
-            <h4>CHOISISSEZ VOTRE MODE DE PAIEMENT</h4>
-            <ul>
-                <li class="mb-3">
-                    <div class="txt">Paiement en une fois<span>( soit {{ amount1fois }} €)</span></div>
-                    <span class="line"></span>
-                    <a data-href="{{path('pay_online', {'commande': commande.id})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
-                </li>
-                {% if constant('App\\Entity\\Systempay\\Transaction::MULTI_PROPOSE_UP') < (amount / 100) %}
+            {% if constant('App\\Entity\\Systempay\\Transaction::MULTI_PROPOSE_UP') < (amount / 100) %}
+                <h4>CHOISISSEZ VOTRE MODE DE PAIEMENT</h4>
+                <ul>
+                    <li class="mb-3">
+                        <div class="txt">Paiement en une fois<span>( soit {{ amount1fois }} €)</span></div>
+                        <span class="line"></span>
+                        <a data-href="{{path('pay_online', {'commande': commande.id})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
+                    </li>
                     <li class="mb-3">
                         <div class="txt">Paiement en 3 fois<span>( = {{ (amount3fois / 3) | round(2, 'common') }} x 3 soit {{ amount3fois }} €)</span></div>
                         <span class="line"></span>
@@ -28,9 +28,17 @@
                         <span class="line"></span>
                         <a data-href="{{path('pay_online', {'commande': commande.id, 'multiple': 4})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
                     </li>
-                {% endif %}
-            </ul>
+                </ul>
             <div class="btn btn-lg btn-outline-info btn-payment-submit">Payer</div>
+            {% else %}
+                <div class="no-underline">
+                    <a href="{{path('pay_online', {'commande': commande.id})}}">
+                        <button class="btn btn-aqua-blue mb-5 mx-auto mt-5">
+                            Procéder au paiement
+                        </button>
+                    </a>
+                </div>
+            {% endif %}
         </div>
         
         <div class="row">
