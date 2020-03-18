@@ -29,7 +29,7 @@ class HomeController extends AbstractController
      * @Route("/", name="Accueil",  options={"sitemap" = true})
      * @Route("/", name="home",  options={"sitemap" = true})
      * @Route("/demande-duplicata-certificat-immatriculation", name="dup",  options={"sitemap" = true})
-     * @Route("/changement-titulaire-vehicule-doccasion", name="ctvo",  options={"sitemap" = true})
+     * @Route("/changement-titulaire-vehicule-occasion", name="ctvo",  options={"sitemap" = true})
      * @Route("/changement-adresse-certificat-immatriculation", name="dca",  options={"sitemap" = true})
      */
     public function accueil(
