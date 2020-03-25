@@ -42,7 +42,8 @@
                 <thead>
                     <tr>
                         <th scope="col">Type</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Commantaire</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,6 +73,22 @@
                                     Attente de documents
                                 </div>
                             {% endif %}
+                        </td>
+                        <th class="responsive-toggle" colspan="2">Objet<span></span></th>
+                        <td>
+                            <div class="row">
+                                <div class="col-6"> 
+                                {{ commande.comment }}
+                                </div>
+                            </div>
+                            
+                        </td>
+                        <td>
+                            <div class="content-actions">
+                                    <button type="button" class="btn resume-btn" data-toggle="modal" data-target="#{{commande.ceerLe | date('Ymdhis')}}">Modifier</button>
+                                </div>
+                            </div>
+                            
                         </td>
                     </tr>
                 {% endif %}
@@ -130,6 +147,52 @@
                 </div>
                 <div class="modal-body">
                     {{ decodeBody(mail) | raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% for commande in client.commandes %}
+    <!-- Modal -->
+    <div class="mailModal modal fade" id="{{commande.ceerLe | date('Ymdhis')}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Commentaire
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <table>
+                    <tr>
+                        <th>Type : </th>
+                        <td> {{ commande.demarche.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Statut : </th>
+                        <td> {{  statusOfCommande(commande, "text") }}</td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                </table>
+                    <form class="form-group" method="POST" action="{{ path('api_store_comment')}}">
+                        <div class="form-group">
+                            <input type="hidden" name="id" value="{{commande.id}}">
+                            <textarea class="form-control" name="comment" rows="3" id="">{{ commande.comment }}</textarea>
+                            <div class="content-actions">
+                                <button type="submit" class="btn resume-btn mt-5">
+                                    Mettre à jour
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
