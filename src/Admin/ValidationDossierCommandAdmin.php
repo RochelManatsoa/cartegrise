@@ -137,8 +137,8 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
     {
         $listMapper
         ->addIdentifier('id')
-        ->add('client.clientNom', null, [
-            'label' => 'Nom'
+        ->add('demarche.type', null, [
+            'label' => 'Type'
         ])
         ->add('facture.createdAt', null, [
             'label' => 'Payée le'

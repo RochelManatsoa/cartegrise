@@ -93,8 +93,8 @@ final class ValidationDossierAdmin extends AbstractAdmin
     {
         $listMapper
         ->addIdentifier('id')
-        ->add('commande.client.clientNom', null, [
-            'label' => 'Nom'
+        ->add('commande.demarche.type', null, [
+            'label' => 'Type'
         ])
         ->add('commande.client.clientContact.contact_telmobile', null , [
             'label' => 'Telephone'
