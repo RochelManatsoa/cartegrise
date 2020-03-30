@@ -126,9 +126,9 @@
     {% for col in form %}
         {% if col.vars.type is defined and col.vars.type == 'file' %}
                 <div>
-                    <h3 style="margin-left: 40px;">{{ form_label(col) }}
+                    <h4 style="margin-left: 40px;">{{ form_label(col) }}
                         {% if checkFile(files, col.vars.name) != "" %}
-                            ==>
+                             <span class="fa fa-arrow-right"></span>
                             <small>
                                 <a href="{{ asset(checkFile(files, col.vars.name)) }}"
                                     target="_blank">
