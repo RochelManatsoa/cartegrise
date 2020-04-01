@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
-use App\Entity\Demande;
+use App\Entity\{Demande, TypeDemande};
 
 final class ValidationDossierAdmin extends AbstractAdmin
 {
@@ -58,6 +58,19 @@ final class ValidationDossierAdmin extends AbstractAdmin
         $datagridMapper
         ->add('id')
         ->add('reference')
+        ->add('commande.demarche.type', null , [
+            'label' => 'Type',
+            'global_search' => true,
+            'field_type' => ChoiceType::class,
+            'field_options' => [
+                'choices' => [
+                    'Changement de Titulaire Vehicule d\'ocasion' => TypeDemande::TYPE_CTVO,
+                    'Duplicata' => TypeDemande::TYPE_DUP,
+                    'Demande d\'immatriculation de véhicule neuf' => TypeDemande::TYPE_DIVN,
+                    'Demande de changement d\'addresse' => TypeDemande::TYPE_DCA
+                ]
+            ]
+        ])
         ->add('commande.client.user.email', null, [
             'label' => 'email'
         ])
@@ -73,7 +86,7 @@ final class ValidationDossierAdmin extends AbstractAdmin
             'field_type' => ChoiceType::class,
             'field_options' => [
                 'choices' => [
-                        'attente de document' => Demande::DOC_WAITTING,
+                        'attente de document' => TypeDemande::TYPE_CTVO,
                         'document valide' => Demande::DOC_VALID,
                         'document numériser' => Demande::DOC_PENDING,
                         'documents incomplets ' => Demande::DOC_UNCOMPLETED,
@@ -93,6 +106,9 @@ final class ValidationDossierAdmin extends AbstractAdmin
     {
         $listMapper
         ->addIdentifier('id')
+        ->add('commande.demarche.type', null, [
+            'label' => 'Type'
+        ])
         ->add('commande.client.clientNom', null, [
             'label' => 'Nom'
         ])

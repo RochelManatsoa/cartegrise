@@ -333,12 +333,15 @@ class AppExtension extends AbstractExtension
     }
     public function tvaTraitementMultiple(Commande $commande)
     {
-        $multiple = $commande->getSystempayTransaction()->getMultiple();
-        if ($multiple == 3) {
-            return ($this->fraisTotal($commande) * 0.2) * 0.03;
-        } elseif ($multiple == 4) {
-            return ($this->fraisTotal($commande) * 0.2) * 0.035;
+        if ($commande->getSystempayTransaction() !== null) {
+            $multiple = $commande->getSystempayTransaction()->getMultiple();
+            if ($multiple == 3) {
+                return ($this->fraisTotal($commande) * 0.2) * 0.03;
+            } elseif ($multiple == 4) {
+                return ($this->fraisTotal($commande) * 0.2) * 0.035;
+            }
         }
+        
 
         return 0;
     }
@@ -384,10 +387,13 @@ class AppExtension extends AbstractExtension
 
     public function totalMultiple(Commande $commande)
     {
-        $multiple = $commande->getSystempayTransaction()->getMultiple();
-        if ($multiple == 3 || $multiple == 4) {
-            return ($this->fraisdossierWithoutTvaMultiple($commande) + $this->tvaTraitementMultiple($commande));
+        if ($commande->getSystempayTransaction() !== null) {
+            $multiple = $commande->getSystempayTransaction()->getMultiple();
+            if ($multiple == 3 || $multiple == 4) {
+                return ($this->fraisdossierWithoutTvaMultiple($commande) + $this->tvaTraitementMultiple($commande));
+            }
         }
+        
         
         return 0;
     }
@@ -412,12 +418,15 @@ class AppExtension extends AbstractExtension
     }
     public function fraisdossierWithoutTvaMultiple(Commande $commande)
     {
-        $multiple = $commande->getSystempayTransaction()->getMultiple();
-        if ($multiple == 3) {
-            return ($this->fraisTotal($commande)) * 0.03;
-        } elseif ($multiple == 4) {
-            return ($this->fraisTotal($commande)) * 0.035;
+        if ($commande->getSystempayTransaction() !== null){
+            $multiple = $commande->getSystempayTransaction()->getMultiple();
+            if ($multiple == 3) {
+                return ($this->fraisTotal($commande)) * 0.03;
+            } elseif ($multiple == 4) {
+                return ($this->fraisTotal($commande)) * 0.035;
+            }
         }
+        
         return 0;
         
     }

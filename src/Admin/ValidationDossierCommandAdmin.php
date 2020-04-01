@@ -13,8 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\DateRangePickerType;
-use App\Entity\Demande;
-use App\Entity\Commande;
+use App\Entity\{Demande, TypeDemande, Commande};
 
 final class ValidationDossierCommandAdmin extends AbstractAdmin
 {
@@ -69,6 +68,19 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
     {
         $datagridMapper
         ->add('id')
+        ->add('demarche.type', null, [
+            'label' => 'Type',
+            'global_search' => true,
+            'field_type' => ChoiceType::class,
+            'field_options' => [
+                'choices' => [
+                    'Changement de Titulaire Vehicule d\'ocasion' => TypeDemande::TYPE_CTVO,
+                    'Duplicata' => TypeDemande::TYPE_DUP,
+                    'Demande d\'immatriculation de véhicule neuf' => TypeDemande::TYPE_DIVN,
+                    'Demande de changement d\'addresse' => TypeDemande::TYPE_DCA
+                ]
+            ]
+        ])
         ->add('client.user.email', null, [
             'label' => 'email'
         ])
@@ -137,6 +149,9 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
     {
         $listMapper
         ->addIdentifier('id')
+        ->add('demarche.type', null, [
+            'label' => 'Type'
+        ])
         ->add('client.clientNom', null, [
             'label' => 'Nom'
         ])
