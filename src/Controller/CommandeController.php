@@ -112,4 +112,28 @@ class CommandeController extends AbstractController
             'commande'=>$commande,
         ]);
     }
+
+    /**
+     * @Route("/", name="api_store_comment", methods={"POST"})
+     */
+    public function storeComment(Request $request, CommandeManager $commandeManager)
+    {
+        $id = $request->get('id');
+        $comment = $request->get('comment');
+
+        $commande = $commandeManager->find($id);
+        if(!$commande instanceof Commande)
+            return;
+        $commande->setComment($comment); 
+        $commandeManager->save($commande);
+        
+        $match = str_replace($request->server->get('HTTP_ORIGIN'), '', $request->headers->get('referer'));
+        $router = $this->get('router'); 
+        $route = $router->match($match);
+        // dd($request->headers->get('referer'), $match, $request->server->get('HTTP_HOST'), $route);
+
+        return $this->redirectToRoute($route['_route'], [
+            "id" => $route['id']
+        ]);
+    }
 }
