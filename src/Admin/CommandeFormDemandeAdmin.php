@@ -139,6 +139,9 @@ final class CommandeFormDemandeAdmin extends AbstractAdmin
     {
         $listMapper
         ->addIdentifier('id')
+        ->add('demarche.type', null, [
+            'label' => 'Type'
+        ])
         ->add('client.clientNom', null, [
             'label' => 'Nom'
         ])

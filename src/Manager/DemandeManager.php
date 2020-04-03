@@ -34,6 +34,7 @@ use Knp\Snappy\Pdf;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Entity\DailyFacture;
 use Twig_Environment as Twig;
+use App\Entity\Avoir;
 
 class DemandeManager
 {
@@ -332,7 +333,8 @@ class DemandeManager
     public function generateAvoir(Demande &$demande)
     {
         if (is_null($demande->getAvoir())){
-            Throw new Exception("La demande n'a pas encore été retracter");
+            $avoir = new Avoir();
+            $demande->setAvoir($avoir);
         }
         $demande->setStatusDoc(Demande::RETRACT_FORM_WAITTING);
         $folder = $demande->getGeneratedCerfaPath();

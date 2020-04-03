@@ -10,10 +10,12 @@ trait CommandeStatusTrait
     public $SECOND_STEP="Attente de paiement";
     public $THIRD_STEP="Attente de document(s)";
     public $FORTH_STEP="Attente de validation";
+    public $EIGHT_STEP="Retractation payer";
     public $FIRST_STEP_STYLE="danger";
     public $SECOND_STEP_STYLE="warning";
     public $THIRD_STEP_STYLE="info";
     public $FORTH_STEP_STYLE="dark";
+    public $EIGHT_STEP_STYLE="dark";
     public $DEPARTMENTS = [
         "01 - Ain" => "01",
         "02 - Aisne" => "02",
@@ -121,8 +123,13 @@ trait CommandeStatusTrait
     {
         if ($commande->getStatusTmp() !== null)
         {
-            return $commande->getStatusTmp();
+            return 
+            [
+                "text" => $commande->getStatusTmp() == 8 ? "Retractation payer" : $commande->getStatusTmp() ,
+                "style" => "dark",
+            ];
         }
+        
 
         if (
             null !== $commande->getDemande() &&
@@ -136,7 +143,7 @@ trait CommandeStatusTrait
                 )
                 ||
                 (
-                    ( !is_null($commande->getSystempayTransaction()) && $commande->getSystempayTransaction()->getStatus() == "AUTHORISED")
+                    ( !is_null($commande->getSystempayTransaction()) && $commande->getSystempayTransaction()->getStatus() === "AUTHORISED")
                 )
             )
             && 

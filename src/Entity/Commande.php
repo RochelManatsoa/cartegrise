@@ -204,7 +204,11 @@ class Commande
 
     public function getStatus()
     {
-        return $this->getStatusOfCommande($this)['text'];
+        if (array_key_exists("text", $this->getStatusOfCommande($this))){
+            return $this->getStatusOfCommande($this)['text'];
+        }
+        return "";
+        
     }
 
     public function __tostring(){

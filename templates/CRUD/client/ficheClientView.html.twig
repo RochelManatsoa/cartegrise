@@ -44,6 +44,7 @@
                         <th scope="col">Type</th>
                         <th scope="col">Statut</th>
                         <th scope="col">Commantaire</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,19 +77,14 @@
                         </td>
                         <th class="responsive-toggle" colspan="2">Objet<span></span></th>
                         <td>
-                            <div class="row">
-                                <div class="col-6"> 
+                            <div class="row col-6" id="comment-{{ commande.id }}">
                                 {{ commande.comment }}
-                                </div>
                             </div>
-                            
                         </td>
                         <td>
                             <div class="content-actions">
-                                    <button type="button" class="btn resume-btn" data-toggle="modal" data-target="#{{commande.ceerLe | date('Ymdhis')}}">Modifier</button>
-                                </div>
+                                <button type="button" class="btn resume-btn" data-toggle="modal" data-target="#modal-comment-{{ commande.id }}">Modifier</button>
                             </div>
-                            
                         </td>
                     </tr>
                 {% endif %}
@@ -155,39 +151,25 @@
 
 {% for commande in client.commandes %}
     <!-- Modal -->
-    <div class="mailModal modal fade" id="{{commande.ceerLe | date('Ymdhis')}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="mailModal modal fade" id="modal-comment-{{ commande.id }}" tabindex="-1" role="dialog" aria-labelledby="comment"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                        Commentaire
-                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    <h5 class="modal-title no-margin" id="comment">
+                        Commentaire - {{ commande.demarche.type }} - {{  statusOfCommande(commande, "text") }}
+                    </h5>
                 </div>
                 <div class="modal-body">
-                <table>
-                    <tr>
-                        <th>Type : </th>
-                        <td> {{ commande.demarche.nom }}</td>
-                    </tr>
-                    <tr>
-                        <th>Statut : </th>
-                        <td> {{  statusOfCommande(commande, "text") }}</td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td></td>
-                    </tr>
-                </table>
-                    <form class="form-group" method="POST" action="{{ path('api_store_comment')}}">
+                    <form class="form-group update_comment_modal" method="POST" action="{{ path('api_store_comment')}}">
                         <div class="form-group">
                             <input type="hidden" name="id" value="{{commande.id}}">
-                            <textarea class="form-control" name="comment" rows="3" id="">{{ commande.comment }}</textarea>
-                            <div class="content-actions">
-                                <button type="submit" class="btn resume-btn mt-5">
+                            <textarea class="form-control form-comment" name="comment" rows="3" id="{{ commande.id }}">{{ commande.comment }}</textarea>
+                            <div class="content-actions text-right" style="padding-top:2rem;">
+                                <button type="button" class="btn button-update-modal resume-btn mt-5" data-comment="comment-{{ commande.id }}">
                                     Mettre à jour
                                 </button>
                             </div>
@@ -198,4 +180,33 @@
         </div>
     </div>
 {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.button-update-modal').on('click', function(){
+                // instanc of all variable needed
+                $form = $(this).parents('form.update_comment_modal');
+                $comment = $(this).parents('form.update_comment_modal').find('textarea.form-comment').val();
+                $url = $form.attr('action');
+                $close = $(this).parents('div.modal-content').find('button.close');
+                $divComment = $(this).data('comment');
+                // add ajax for submit the form 
+                $.ajax({
+                    type: "POST",
+                    url: $url,
+                    data: $form.serialize(), // serializes the form's elements.
+                    success: function (data) {
+                        // close the modal
+                        $close.click();
+                        $('#'+ $divComment).text($comment)
+                    }
+                });
+
+                return false; // avoid to execute the actual submit of the form.
+            });
+        })
+    </script>
 {% endblock %}

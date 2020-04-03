@@ -56,9 +56,15 @@ final class FactureAdmin extends AbstractAdmin
     {
         $listMapper
         ->add('id')
+        ->add('commande.demarche.type', null, [
+            'label' => 'Type'
+        ])
         ->add('commande.ceerLe')
         ->add('commande.immatriculation')
         ->add('commande.status')
+        ->add('commande.comment', null ,[
+            'label' => 'Commentaire'
+        ])
         ->add('commande.transaction.transactionId')
         ->add('_action', null, [
             'actions' => [

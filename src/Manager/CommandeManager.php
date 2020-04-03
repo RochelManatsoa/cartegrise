@@ -561,13 +561,17 @@ class CommandeManager
 	public function getTitulaireParams(Commande $commande)
     {
 		return [
-			'adresse' => $commande->getInfosFacture()->getAdresse()
+			'adresse' => !is_null($commande->getInfosFacture()) ? $commande->getInfosFacture()->getAdresse() : ""
 		];
 	}
 	
 	public function generateAvoir(Commande &$commande)
     {
 
+		if (is_null($commande->getAvoir())){
+            $avoir = new Avoir();
+            $commande->setAvoir($avoir);
+		}
 		
 		$commande->setStatusTmp(Commande::RETRACT_FORM_WAITTING);
         $folder = $commande->getGeneratedAvoirCerfaPath();

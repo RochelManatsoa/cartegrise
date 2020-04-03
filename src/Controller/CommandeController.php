@@ -114,7 +114,7 @@ class CommandeController extends AbstractController
     }
 
     /**
-     * @Route("/", name="api_store_comment", methods={"POST"})
+     * @Route("/commande/updateComment", name="api_store_comment", methods={"POST"})
      */
     public function storeComment(Request $request, CommandeManager $commandeManager)
     {

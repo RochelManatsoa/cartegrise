@@ -152,7 +152,7 @@ class Client
 
     public function getClientNom(): ?string
     {
-        return $this->clientNom;
+        return $this->getRemanance() . $this->clientNom;
     }
 
     public function setClientNom(string $clientNom): self
@@ -430,6 +430,14 @@ class Client
         $this->deletedAt = $deletedAt;
 
         return $this;
+    }
+
+    public function getRemanance(){
+        if (empty($this->getCommandes())) return "";
+        $commandes = $this->getCommandes()->filter(function(Commande $commande) {
+            return $commande->getFacture() !== null;
+        });
+        return count($commandes) >= 3 ? "*" : "";
     }
 
 }

@@ -66,6 +66,9 @@ final class AvoirAdmin extends AbstractAdmin
     {
         $listMapper
         ->addIdentifier('id')
+        ->add('commande.demarche.type', null, [
+            'label' => 'Type'
+        ])
         ->add('avoir.createdAt', null,[
             'label' => 'Créé le',
         ])
@@ -80,6 +83,9 @@ final class AvoirAdmin extends AbstractAdmin
         ])
         ->addIdentifier('commande.status', null, [
             'label' => 'Statut'
+        ])
+        ->addIdentifier('commande.comment', null, [
+            'label' => 'Commentaire'
         ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoirs',
