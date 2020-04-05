@@ -7,6 +7,7 @@
     <link href="{{asset('Utils/jquerySteps/css/jquery.steps.css')}}" rel="stylesheet">
     <link href="{{asset('Utils/jquerySteps/css/main.css')}}" rel="stylesheet">
     <link href="{{asset('Utils/jquerySteps/css/normalize.css')}}" rel="stylesheet">
+    <link href="/fontawesome/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('build/style.css') }}" />
     <style>
         #daf-list-wrapper ol > li > ul {
@@ -111,6 +112,11 @@
                 {{ form_end(form) }}
             </div>
         </div>
+    </div>
+    <div class="pl-4 mb-3 mb-md-0">
+        <a href="{{app.request.headers.get('referer')}}" class="back-retour">
+            <i class="fa fa-arrow-left"></i> Retour à la liste des documents
+        </a>
     </div>
 </div>
 {% endblock %}

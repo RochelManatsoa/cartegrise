@@ -1,60 +1,134 @@
 {% extends '@SonataAdmin/standard_layout.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/style.css') }}" />
+{% endblock %}
+
 {% block sonata_admin_content %}
+<div class="esp_clientBlock AdminFicheC">
     {% for message in app.flashes('success') %}
         <div class="alert alert-success">
             {{ message }}
         </div>
     {% endfor %}
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            {% if demande.commande is defined and demande.commande is not null and demande.commande.saved %}
+                <div class="alert alert-success">
+                    la demande est validée et a été envoyée à TMS
+                </div>
+            {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
+                <div class="alert alert-success">
+                    La demande est validée, attende des documents par courrier à l'adresse
+                </div>
+            {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') or demande.statusDoc == constant('App\\Entity\\Demande::DOC_UNCOMPLETED') %}
+                <div class="alert alert-warning" role="alert">
+                    La demande est en cours de validation
+                </div>
+            {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
+                <div class="alert alert-danger">
+                    Motif de rejet:
+                    <p>
+                        {{ demande.motifDeRejet|nl2br }}
+                    </p>
+                </div>
+            {% elseif demande.commande.saved %}
+                <div class="alert alert-success">
+                    la demande est validée et a été envoyée
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-lg-6">
+            <div class="no-underline">
+                <a href="{{app.request.headers.get('referer')}}">
+                    <button class="btn btn-aqua-blue mb-4 mx-auto mt-5">
+                       <span class="fa fa-arrow-left"></span> Retour à la liste
+                    </button>
+                </a><br>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 px-0 col-lg-12 mx-auto d-flex my-flex-container">
+            <div class="col-12 px-0 row">
+                <div class="col-lg-6 mx-auto">
+                    <h2 class="col-12 text-center">Récapitulatif de la demande</h2>
+                    <div class="list-grid">
+                        <div class="list-grid__item">
+                            <div>Type Demande</div>
+                            <div>{{ demande.commande.demarche.nom }}</div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div>Date</div>
+                            <div>{{ demande.commande.ceerLe | date('d-m-Y')}}</div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div>Nom et prénom </div>
+                            <div>{{ demande.commande.firstClient.clientNom }} {{ demande.commande.firstClient.clientPrenom }}</div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div>Département</div>
+                            <div>{{ demande.commande.codePostal }}</div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div>Immatriculation</div>
+                            <div>{{ demande.commande.immatriculation }}</div>
+                        </div>
+                    </div>
+                    <h2 class="col-12 text-center">Commentaire</h2>
+                    <textarea class="form-control" readonly rows="3">
+                        {% if demande.commande.comment is null %}
+                            Aucun commentaire
+                        {% else %}
+                            {{ demande.commande.comment | raw }}
+                        {% endif %}
+                    </textarea>
+                </div>
+
+                <div class="col-lg-6 mx-auto">
+                    <h2 class="col-12 text-center">Informations de la demande</h2>
+                    {# start information #}
+                        {% include "CRUD/tmsInfos.html.twig" %}
+                    {# end information  #}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block_CCM menu-faq pt-2 pb-1">
+        <h2 class="col-12 ">Liste des documents à fournir</h2>
+        <div class="comment-ca-marche-texte">
+            <!--A quoi sert le certificat d’immatriculation ?-->
+            <div class="accordeon_ ml-md-3">
+                <div class="row">
+                    <button type="button" class="col-12 col-sm-6 col-md-7 menu-commander">
+                        <span class="menu-commander--button---text">Voir plus de details</span>
+                    </button>
+                    <div class="toggle-content col-12" style="display: none;">
+                        <div id="Changement-de-titulaire" class="row commander">
+                            <div class="commander-box">
+                                <div class="commander-box--section---description mt-3">
+                                    <div class="piece_fournir">
+                                        <div id="daf-list-wrapper" class="mb-2">
+                                            {{ daf|raw }}
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <div>
-    {% if demande.commande is defined and demande.commande is not null and demande.commande.saved %}
-        <div class="alert alert-success">
-            la demande est validée et a été envoyée à TMS
-        </div>
-    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
-        <div class="alert alert-success">
-            La demande est validée, attende des documents par courrier à l'adresse
-        </div>
-    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') or demande.statusDoc == constant('App\\Entity\\Demande::DOC_UNCOMPLETED') %}
-        <div class="alert alert-warning" role="alert">
-            La demande est en cours de validation
-        </div>
-    {% elseif demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
-        <div class="alert alert-danger">
-            Motif de rejet:
-            <p>
-                {{ demande.motifDeRejet|nl2br }}
-            </p>
-        </div>
-    {% elseif demande.commande.saved %}
-        <div class="alert alert-success">
-            la demande est validée et a été envoyée
-        </div>
-    {% endif %}
-    <h2>Récapitulatif: </h2>
-    <ul>
-        <li><b>Type Demande : </b> {{ demande.commande.demarche.nom }}</li>
-        <li><b>Date : </b> {{ demande.commande.ceerLe | date('d-m-Y')}}</li>
-        <li><b>Nom et prénom : </b> {{ demande.commande.firstClient.clientNom }} {{ demande.commande.firstClient.clientPrenom }}</li>
-        <li><b>Département : </b> {{ demande.commande.codePostal }}</li>
-        <li><b>Immatriculation : </b> {{ demande.commande.immatriculation }}</li>
-    </ul>
-    {# start information #}
-        {% include "CRUD/tmsInfos.html.twig" %}
-    {# end information  #}
-</div>
-<div id="daf-list-wrapper">
-    <h2>La liste des documents attendu sont: </h2>
-    {{ daf|raw }}
-</div>
-<div>
-    <h2>Les documents fournis sont: </h2>
+    <h2 class="col-12 ">Les documents fournis sont: </h2>
     {% for col in form %}
         {% if col.vars.type is defined and col.vars.type == 'file' %}
                 <div>
-                    <h3 style="margin-left: 40px;">{{ form_label(col) }}
+                    <h4 style="margin-left: 40px;">{{ form_label(col) }}
                         {% if checkFile(files, col.vars.name) != "" %}
-                            ==>
+                             <span class="fa fa-arrow-right"></span>
                             <small>
                                 <a href="{{ asset(checkFile(files, col.vars.name)) }}"
                                     target="_blank">
@@ -133,4 +207,22 @@
         });
     })
 </script>
+<script type="text/javascript">
+    $(".menu-commander").on("click", function() {
+        if ($(this).hasClass("active")) {
+            $(this).removeClass("active");
+            $(this)
+                    .siblings(".toggle-content")
+                    .slideUp(200);
+        } else {
+            $(".menu-commander").removeClass("active");
+            $(this).addClass("active");
+            $(".toggle-content").slideUp(200);
+            $(this)
+                    .siblings(".toggle-content")
+                    .slideDown(200);
+        }
+    });
+</script>
+</div>
 {% endblock %}
