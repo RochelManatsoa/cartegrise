@@ -1,0 +1,9 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+    <a class="btn btn-sm btn-default view_link"
+        href="{{ admin.generateObjectUrl('gesteCommercial', object) }}" title="facture">
+        <i class="fa fa-file" aria-hidden="true"></i>
+        Faire un geste
+    </a>
+{% endblock %}

@@ -12,9 +12,11 @@ use App\Manager\{DemandeManager, CommandeManager, TMSSauverManager, ClientManage
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Entity\{Demande, Commande, Facture};
+use App\Entity\GesteCommercial\GesteCommercial;
 use App\Entity\Client;
 use App\Entity\Avoir;
 use App\Form\SaveAndValidateType;
+use App\Form\GesteCommercial\GesteCommercialType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use App\Manager\Mercure\MercureManager;
@@ -467,6 +469,48 @@ class ActionAdminController extends Controller
             'form'      => is_null($fileForm) ? null :$fileForm->createView(),
             'client'    => $demande->getCommande()->getClient(),
             "files"     => $files,
+        ]);
+        
+
+        // return new RedirectResponse($this->generateUrl('payment_facture', ['demande'=> $object->getId()]));
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+
+    /**
+     * @param $id
+     */
+    public function gesteCommercialAction(
+        $id,
+        CommandeManager $commandeManager,
+        Request $request
+    )
+    {
+        $commande = $this->admin->getSubject();
+        if (!$commande instanceof Commande){
+            throw new \Exception('la commande n\'existe pas');
+        }
+        $gesteCommercial = $commande->getGesteCommercial();
+        if (!$gesteCommercial instanceof GesteCommercial){
+            $gesteCommercial = new GesteCommercial();
+            $commande->setGesteCommercial($gesteCommercial);
+            $commandeManager->save($commande);
+        }
+
+        $form = $this->createForm(GesteCommercialType::class, $gesteCommercial);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $commandeManager->save($commande);
+            $gesteCommercial = $commande->getGesteCommercial();
+            $file = $commandeManager->generateGesteCommercialPdf($gesteCommercial);
+            return new BinaryFileResponse($file);
+        }
+
+        return $this->render('CRUD/gesteCommercial/gestComercialForm.html.twig', [
+            'commande'   => $commande,
+            'form'  => $form->createView()
         ]);
         
 

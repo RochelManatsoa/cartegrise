@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\GesteCommercial\GesteCommercial;
 use App\Entity\Systempay\Transaction as SystempayTransaction;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -182,6 +183,11 @@ class Commande
      * @ORM\OneToOne(targetEntity="App\Entity\Avoir", mappedBy="commande", cascade={"persist", "remove"})
      */
     private $avoir;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\GesteCommercial\GesteCommercial", mappedBy="commande", cascade={"persist", "remove"})
+     */
+    private $gesteCommercial;
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -654,6 +660,24 @@ class Commande
         $dateRegister = $this->getClient()->getUser()->getRegisterDate()->format('y');
 
         return $num . $dateRegister;
+    }
+
+    public function getGesteCommercial(): ?GesteCommercial
+    {
+        return $this->gesteCommercial;
+    }
+
+    public function setGesteCommercial(?GesteCommercial $gesteCommercial): self
+    {
+        $this->gesteCommercial = $gesteCommercial;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCommande = null === $gesteCommercial ? null : $this;
+        if ($gesteCommercial->getCommande() !== $newCommande) {
+            $gesteCommercial->setCommande($newCommande);
+        }
+
+        return $this;
     }
 
 }

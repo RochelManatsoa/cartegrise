@@ -1,0 +1,21 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="/fontawesome/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('build/style.css') }}" />
+{% endblock %}
+
+{% block sonata_admin_content %}
+<div class="rp_dmd adminStyle">
+    <div class="commande_block">
+        <div class="col-md-4 card">
+            <div class="card-body">
+                {{ form_start(form)}}
+                    {{form_rest(form)}}
+                {{ form_end(form)}}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

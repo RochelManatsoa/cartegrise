@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Services\Tms\TmsClient;
 use App\Services\Tms\Response as ResponseTms;
 use App\Entity\{Commande, Demande, Facture, DailyFacture, Avoir, Transaction};
+use App\Entity\GesteCommercial\GesteCommercial;
 use App\Repository\{CommandeRepository, DailyFactureRepository};
 use App\Manager\SessionManager;
 use App\Manager\{StatusManager, TMSSauverManager, TransactionManager, TaxesManager, MailManager};
@@ -664,5 +665,41 @@ class CommandeManager
         }
 
         return "0897010800";
-    }
+	}
+	
+	public function generateGesteCommercialPdf(GesteCommercial &$gesteCommercial)
+    {
+		
+		$commande = $gesteCommercial->getCommande();
+
+        $folder = $gesteCommercial->getGeneratedGesteCommercialpdfPath();
+        $file = $gesteCommercial->getGeneratedGesteCommercialPathFile();
+        $params = $this->getTitulaireParams($commande);
+		$params = array_merge(['commande' => $commande, 'gesteCommercial' => $gesteCommercial], $params);
+        // create directory
+		if (!is_dir($folder)) mkdir($folder, 0777, true);
+		
+		
+        // // end create file 
+        // // save Avoir before generate number
+        if(
+            $gesteCommercial->getFullPath() != $file
+        ) {
+            $gesteCommercial->setFullPath($file);
+            $this->save($commande);
+        }
+        // // end sav Avoir before generate number
+        // // get facture if not exist
+        // if (!is_file($file)) { // attente de finalité du process
+            $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
+            $filename = "GesteCommercial";
+            $html = $this->twig->render("gesteCommercial/gesteCommercial.pdf.twig", $params);
+            $output = $snappy->getOutputFromHtml($html);
+            
+            $filefinal = file_put_contents($file, $output);
+		// }
+		
+        
+        return $file;
+	}
 }
