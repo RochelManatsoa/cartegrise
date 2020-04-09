@@ -59,8 +59,11 @@
                 <div class="col-5">
                     <p>
                         <strong>
-                            {{commande.infosFacture.name | upper }}
-                            {{commande.infosFacture.firstname | capitalize }}
+                            {% if commande.facture.typePerson == 1 %}
+                            Société {{commande.facture.socialReason}}
+                            {% else %}
+                            {{commande.facture.name|upper}} {{commande.facture.firstName}}
+                            {% endif %}
                         </strong>
                         {% if adresse is not null %}
                         <br>

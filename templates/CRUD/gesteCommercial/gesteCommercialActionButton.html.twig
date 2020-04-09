@@ -1,0 +1,11 @@
+
+{% if object.commande is defined and object.commande is not null and object.commande.id is not null %}
+    {% set object = object.commande %}
+{% endif %}
+{% if object.systempayTransaction is defined and object.systempayTransaction is not null and object.systempayTransaction.status == 'AUTHORISED' %}
+<a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('gesteCommercial', object) }}"
+    title="facture">
+    <i class="fa fa-hand-holding-heart" aria-hidden="true"></i>
+    Faire un geste
+</a>
+{% endif %}

@@ -487,7 +487,7 @@ class ActionAdminController extends Controller
         Request $request
     )
     {
-        $commande = $this->admin->getSubject();
+        $commande = $commandeManager->find($id);
         if (!$commande instanceof Commande){
             throw new \Exception('la commande n\'existe pas');
         }
