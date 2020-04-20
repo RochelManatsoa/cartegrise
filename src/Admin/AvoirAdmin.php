@@ -85,7 +85,8 @@ final class AvoirAdmin extends AbstractAdmin
             'label' => 'Statut'
         ])
         ->addIdentifier('commande.comment', null, [
-            'label' => 'Commentaire'
+            'label' => 'Commentaire',
+            'template' => 'CRUD/row/comment.html.twig',
         ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoirs',

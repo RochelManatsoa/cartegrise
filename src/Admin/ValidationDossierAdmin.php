@@ -128,7 +128,8 @@ final class ValidationDossierAdmin extends AbstractAdmin
             'label' => 'Immatriculation'
         ])
         ->add('commande.comment', null, [
-            'label' => 'Commentaire'
+            'label' => 'Commentaire',
+            'template' => 'CRUD/row/comment.html.twig',
         ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoirs',

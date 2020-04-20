@@ -1,0 +1,9 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+{% if object.commande is defined and object.commande.comment is not null %}
+<strong><span class="text-primary">{{ object.commande.comment }}</span></strong>
+{% elseif object.comment is defined and object.comment is not null  %}
+<strong><span class="text-primary">{{ object.comment }}</span></strong>
+{% endif %}
+{% endblock field %}

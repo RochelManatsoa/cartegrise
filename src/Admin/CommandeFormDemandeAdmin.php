@@ -162,7 +162,8 @@ final class CommandeFormDemandeAdmin extends AbstractAdmin
             'label' => 'Immatriculation'
         ])
         ->add('comment', null, [
-            'label' => 'Commentaire'
+            'label' => 'Commentaire',
+            'template' => 'CRUD/row/comment.html.twig',
         ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoir',

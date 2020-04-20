@@ -63,7 +63,8 @@ final class FactureAdmin extends AbstractAdmin
         ->add('commande.immatriculation')
         ->add('commande.status')
         ->add('commande.comment', null ,[
-            'label' => 'Commentaire'
+            'label' => 'Commentaire',
+            'template' => 'CRUD/row/comment.html.twig',
         ])
         ->add('commande.transaction.transactionId')
         ->add('_action', null, [
