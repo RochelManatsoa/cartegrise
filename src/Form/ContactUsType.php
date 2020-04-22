@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class ContactUsType extends AbstractType
 {
@@ -29,6 +30,7 @@ class ContactUsType extends AbstractType
             //     'label'=>'label.raisonsocial',
             // ])
             ->add('description', TextareaType::class, ['label'=>'label.messages'])
+            ->add('captcha', CaptchaType::class)
             ->add('submit', SubmitType::class, [
                 'label'=>'label.send', 
                 'attr' => ['class' => 'btn btn-blue']
