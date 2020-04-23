@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\DateRangePickerType;
+use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 use App\Entity\Demande;
 use App\Entity\Commande;
 
@@ -62,7 +63,11 @@ final class CommandeFormDemandeAdmin extends AbstractAdmin
                 'readonly' => 'readonly'
             ]
         ])
-        ->add('comment')
+        ->add('comment', SimpleFormatterType::class, array(
+            'label' => 'commentaire',
+            'attr' => array('class' => 'ckeditor'),
+            'format' => 'text'
+            ))
         ->add('fraisRembourser')
         ;
     }

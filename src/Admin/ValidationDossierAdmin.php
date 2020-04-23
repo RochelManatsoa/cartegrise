@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 use App\Entity\{Demande, TypeDemande};
 
 final class ValidationDossierAdmin extends AbstractAdmin
@@ -50,7 +51,11 @@ final class ValidationDossierAdmin extends AbstractAdmin
                 'readonly' => 'readonly'
             ]
         ])
-        ->add('commande.comment')
+        ->add('commande.comment', SimpleFormatterType::class, array(
+            'label' => 'commentaire',
+            'attr' => array('class' => 'ckeditor'),
+            'format' => 'text'
+            ))
         ;
     }
 

@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\DateRangePickerType;
+use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
 final class FactureAdmin extends AbstractAdmin
 {
@@ -37,7 +38,16 @@ final class FactureAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-        ->add('id')
+        ->add('id', null, [
+            'attr' => [
+                'readonly' => 'readonly'
+            ]
+        ])
+        ->add('commande.comment', SimpleFormatterType::class, array(
+            'label' => 'commentaire',
+            'attr' => array('class' => 'ckeditor'),
+            'format' => 'text'
+            ))
         ;
     }
 
@@ -55,7 +65,7 @@ final class FactureAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-        ->add('id')
+        ->addIdentifier('id')
         ->add('commande.demarche.type', null, [
             'label' => 'Type'
         ])

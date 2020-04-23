@@ -63,6 +63,7 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
             ]
         ])
         ->add('comment', SimpleFormatterType::class, array(
+            'label' => 'commentaire',
             'attr' => array('class' => 'ckeditor'),
             'format' => 'text'
             ))
