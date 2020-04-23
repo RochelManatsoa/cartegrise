@@ -160,6 +160,9 @@
     "knplabs/knp-components": {
         "version": "v2.2.0"
     },
+    "knplabs/knp-markdown-bundle": {
+        "version": "1.8.1"
+    },
     "knplabs/knp-menu": {
         "version": "2.3.0"
     },
@@ -213,6 +216,9 @@
     },
     "mashape/unirest-php": {
         "version": "v3.0.4"
+    },
+    "michelf/php-markdown": {
+        "version": "1.9.0"
     },
     "mobiledetect/mobiledetectlib": {
         "version": "2.8.33"
@@ -341,6 +347,9 @@
     },
     "sonata-project/exporter": {
         "version": "2.0.1"
+    },
+    "sonata-project/formatter-bundle": {
+        "version": "4.1.3"
     },
     "sonata-project/user-bundle": {
         "version": "4.3.0"

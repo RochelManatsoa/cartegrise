@@ -128,7 +128,7 @@ class Commande
     /**
      * comment about the command variable
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $comment;
 
@@ -678,6 +678,13 @@ class Commande
         }
 
         return $this;
+    }
+
+    public function getContentFormatter(){
+        return $this->comment;
+    }
+    public function getRawContent(){
+        return $this->comment;
     }
 
 }

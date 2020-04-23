@@ -10,9 +10,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\DateRangePickerType;
+use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 use App\Entity\{Demande, TypeDemande, Commande};
 
 final class ValidationDossierCommandAdmin extends AbstractAdmin
@@ -60,7 +62,10 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
                 'readonly' => 'readonly'
             ]
         ])
-        ->add('comment')
+        ->add('comment', SimpleFormatterType::class, array(
+            'attr' => array('class' => 'ckeditor'),
+            'format' => 'text'
+            ))
         ->add('fraisRembourser')
         ;
     }
