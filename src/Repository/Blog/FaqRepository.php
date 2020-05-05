@@ -4,7 +4,7 @@ namespace App\Repository\Blog;
 
 use App\Entity\Blog\Faq;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 
 /**
  * @method Faq|null find($id, $lockMode = null, $lockVersion = null)

@@ -4,7 +4,7 @@ namespace App\Repository\Blog;
 
 use App\Entity\Blog\Commentaire;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 
 /**
  * @method Commentaire|null find($id, $lockMode = null, $lockVersion = null)

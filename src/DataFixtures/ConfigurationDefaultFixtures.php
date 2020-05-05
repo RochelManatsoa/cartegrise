@@ -11,7 +11,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Configuration;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface as ObjectManager;
 use App\Manager\ConfigurationManager;
 
 class ConfigurationDefaultFixtures extends Fixture

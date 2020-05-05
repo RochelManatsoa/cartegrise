@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\{Demande, ContactUs, Commande, Taxes, TypeDemande, DivnInit, User, NotificationEmail};
 use App\Form\{DemandeType, CommandeType, ContactUsType, FormulaireType};
 use App\Repository\{CommandeRepository, TaxesRepository, TarifsPrestationsRepository, DemandeRepository, TypeDemandeRepository};
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface as ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

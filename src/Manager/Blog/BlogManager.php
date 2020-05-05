@@ -4,7 +4,7 @@ namespace App\Manager\Blog;
 
 use App\Entity\Blog\{Article, Categorie, Commentaire};
 use App\Repository\Blog\{ArticleRepository, CategorieRepository, CommentaireRepository, FaqRepository};
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface as ObjectManager;
 
 class BlogManager
 {

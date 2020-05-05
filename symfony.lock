@@ -19,6 +19,9 @@
     "aws/aws-sdk-php": {
         "version": "3.112.0"
     },
+    "baptiste-dulac/systempay-bundle": {
+        "version": "v0.3.2"
+    },
     "behat/transliterator": {
         "version": "v1.2.0"
     },
@@ -257,7 +260,7 @@
         "version": "v2.0.1"
     },
     "php": {
-        "version": "7.2"
+        "version": "7.3"
     },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
@@ -423,6 +426,9 @@
     "symfony/dotenv": {
         "version": "v4.1.11"
     },
+    "symfony/error-handler": {
+        "version": "v4.4.8"
+    },
     "symfony/event-dispatcher": {
         "version": "v4.1.7"
     },
@@ -510,11 +516,17 @@
     "symfony/orm-pack": {
         "version": "v1.0.5"
     },
+    "symfony/polyfill-intl-grapheme": {
+        "version": "v1.15.0"
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.10.0"
     },
     "symfony/polyfill-intl-idn": {
         "version": "v1.10.0"
+    },
+    "symfony/polyfill-intl-normalizer": {
+        "version": "v1.15.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.10.0"
@@ -581,6 +593,9 @@
     },
     "symfony/stopwatch": {
         "version": "v4.1.7"
+    },
+    "symfony/string": {
+        "version": "v5.0.8"
     },
     "symfony/swiftmailer-bundle": {
         "version": "2.5",
@@ -682,6 +697,12 @@
             "version": "1.0",
             "ref": "ddb2e0a77773b7fd75d8d649545f174e664500ab"
         }
+    },
+    "twig/extra-bundle": {
+        "version": "v3.0.3"
+    },
+    "twig/string-extra": {
+        "version": "v3.0.3"
     },
     "twig/twig": {
         "version": "v2.5.0"

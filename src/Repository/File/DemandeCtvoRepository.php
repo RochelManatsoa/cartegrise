@@ -4,7 +4,7 @@ namespace App\Repository\File;
 
 use App\Entity\File\DemandeCtvo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 
 /**
  * @method DemandeCtvo|null find($id, $lockMode = null, $lockVersion = null)

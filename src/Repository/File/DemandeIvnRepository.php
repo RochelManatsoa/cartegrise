@@ -4,7 +4,7 @@ namespace App\Repository\File;
 
 use App\Entity\File\DemandeIvn;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 
 /**
  * @method DemandeIvn|null find($id, $lockMode = null, $lockVersion = null)

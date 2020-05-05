@@ -4,7 +4,7 @@ namespace App\Repository\File;
 
 use App\Entity\File\Files;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 
 /**
  * @method Files|null find($id, $lockMode = null, $lockVersion = null)

@@ -4,7 +4,7 @@ namespace App\Repository\Vehicule;
 
 use App\Entity\Vehicule\CarrosierVehiculeNeuf;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 
 /**
  * @method CarrosierVehiculeNeuf|null find($id, $lockMode = null, $lockVersion = null)

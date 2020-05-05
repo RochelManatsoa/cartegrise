@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Fichier;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 
 /**
  * @method Fichier|null find($id, $lockMode = null, $lockVersion = null)

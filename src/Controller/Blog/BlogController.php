@@ -16,7 +16,7 @@ use App\Form\Blog\{CommentaireType, BlogSearchType};
 use App\Manager\Blog\{BlogManager, SearchManager};
 use App\Manager\Blog\Modele\BlogSearch;
 use App\Repository\Blog\{ArticleRepository, CategorieRepository, FaqRepository};
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface as ObjectManager;
 use http\Env\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Configuration;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 
 /**
  * @method Configuration|null find($id, $lockMode = null, $lockVersion = null)

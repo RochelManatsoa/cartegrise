@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\{Commande, Transaction, User};
 use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use App\Manager\Crm\Modele\CrmSearch;
 
 /**

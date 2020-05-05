@@ -6,7 +6,7 @@ use App\Entity\Demande;
 use App\Entity\Commande;
 use App\Entity\Divn;
 use App\Manager\{DemandeManager, DocumentAFournirManager};
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface as ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
