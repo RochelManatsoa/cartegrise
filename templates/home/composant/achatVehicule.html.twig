@@ -1,0 +1,95 @@
+<div class="block_CCM">
+	<div class="container">
+		<div class="row reverse-col_">
+			<div class="col-lg-8 col-xll-12 pr-md-5 doc-telechargeable">
+				<h3 class="home-secondview--titre">CG Officiel, le service d'immatriculation en line</h3>
+				<p>Vous informe et vous conseille sur l'aquisition de votre nouveau véhicule.</p>
+                <div class="text-head">
+                    <p>Conseil - Tutoriels - Assistance démarche</p>
+                </div>
+				<div class="row comment-ca-marche-texte-p">
+					<ul class="col-lg-10">
+						<li>Comment choisir sa nouvelle voiture d'occasion?</li>
+						<li>Êtes-vous de votre nouveau véhicule?</li>
+						<li>Quel type de motorisation privilégier selon votre utilisation?</li>
+						<li>Quelles sont les démarches suite à l'achat d'une voiture ou d'un deux roues?</li>
+					</ul>
+				</div>
+				<div class="row blog-list mb-5 main-blog">
+					{% for article in articles %}
+						<div class="col-md-4 col-lg-4 col-sm-12 col-12">
+							<div class="blog-post">
+								<div class="related-blog--post">
+									<div class="position-relative">
+										<a href="{{ path('blog_show', {'slug':article.slug}) }}">
+											<img class="related-blog--post-image" src="{{ asset('uploads/'~ article.image) }}" alt="{{ article.titre }}">
+											<h5 class="related-blog--post-title">{{ article.description | truncate(70, true) | raw}}</h5>
+										</a>
+									</div>
+								</div>
+								<div class="blog-post--informations">
+									<a href="{{ path('blog_show', {'slug': article.slug}) }}" class="blog-post--titre">
+										<h3>{{ article.titre }}</h3>
+									</a>
+
+									<div class="blog-post--action">
+										{# <div class="blog-post--date">Crée le {{ article.date | date('d M Y') }}</div> #}
+										<a href="{{ path('blog_show', {'slug': article.slug}) }}" class="btn link-connexion-register more">Lire la suite</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+
+				<div class="col-12 pagination pagination-css  d-flex align-items-center flex-row justify-content-center my-flex-container">
+					{{ knp_pagination_render(articles) }}
+				</div>
+
+            </div>
+			<!-- Demarche formulaire /Iary  -->
+			<div class="col-lg-4 d-xll-none">
+				<div id="aside_right" class="aside_right">
+					<div id="col_formulaireFx" class="sectionTop_">
+						<div class="form_demarche">
+							<div class="demarche_block">
+								{% include "home/composant/formSidebarBlog.html.twig" %}
+							</div>
+						</div>
+                        <img src="{{ asset("asset/img/multiplePay.png")}}" class="mx-auto"/>
+					</div>
+				</div>
+			</div>
+			<!-- End Demarche formulaire /Iary  -->
+		</div>
+	</div>
+</div>
+<div class="d-none d-xll-block">
+    <div id="aside_right" class="aside_right">
+        <div id="right_formulaireFx" class="sectionTop_">
+            <div class="form_demarche"></div>
+            <img src="{{ asset("asset/img/multiplePay.png")}}" class="mx-auto"/>
+        </div>
+    </div>
+</div>
+
+{% block javascripts %} 
+<script src="{{ asset('Utils/js/jquery.js')}}" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	$(".menu-commander").on("click", function() {
+		if ($(this).hasClass("active")) {
+		$(this).removeClass("active");
+		$(this)
+			.siblings(".toggle-content")
+			.slideUp(200);
+		} else {
+		$(".menu-commander").removeClass("active");
+		$(this).addClass("active");
+		$(".toggle-content").slideUp(200);
+		$(this)
+			.siblings(".toggle-content")
+			.slideDown(200);
+		}
+	});
+</script>
+{% endblock %}

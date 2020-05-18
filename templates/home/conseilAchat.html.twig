@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block seo %}
+<base href="{{path('advice_buying_car')}}"/>
+<meta name="keywords" content="Retrouvez nos conseils pour vos démarches d’immatriculation, comment lire une carte grise, quels sont les documents nécessaires à vos demandes..."/> 
+<meta name="x-ua-compatible" content="IE=edge,chrome=1"/> 
+<meta name="description" content="Retrouvez nos conseils pour vos démarches d’immatriculation, comment lire une carte grise, quels sont les documents nécessaires à vos demandes..."/> 
+<meta property="og:title" content="CGofficiel.fr | Comment ça marche "> 
+<meta property="og:type" content="page"> 
+<meta property="og:url" content="{{path('CommentCaMarche')}}"> 
+<meta property="og:image" content=""> 
+<meta property="og:description" content="Retrouvez nos conseils pour vos démarches d’immatriculation, comment lire une carte grise, quels sont les documents nécessaires à vos demandes...">
+<meta property="og:video" content=""> 
+<meta property="og:locale" content="fr_FR"> 
+<meta name="twitter:card" content="summary_large_image"/> 
+<meta name="twitter:url" content="{{path('CommentCaMarche')}}"/> 
+<meta name="twitter:title" content="CGofficiel.fr | Comment ça marche "/> 
+<meta property="twitter:description" content="Retrouvez nos conseils pour vos démarches d’immatriculation, comment lire une carte grise, quels sont les documents nécessaires à vos demandes..."/>
+{% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-ccm{% endblock %}
+
+{% block page_content %}
+	{{ include('home/composant/achatVehicule.html.twig') }}
+{% endblock %}
