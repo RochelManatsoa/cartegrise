@@ -15,6 +15,43 @@
 				<div class="col-md-12 col-xl-10">
 					<strong>Le certificat d’immatriculation ou carte grise</strong> est un document officiel et obligatoire pour l'identification d’un véhicule et est valable pendant toute la durée d'utilisation du véhicule. Il contient le nom du propriétaire du véhicule, son adresse, le numéro d'immatriculation du véhicule. Le certificat d’immatriculation ou carte grise doit être renouvelé lors d’un changement d’adresse, de titulaire,en cas de perte ou vol.
 				{% endif %}
+				{% if articles is defined %}
+						<div class="container blog-list mb-5 main-blog mt-5">
+							<div class="owl-carousel owl-theme">
+					{% for article in articles %}
+								<div class="item">
+									<div class="blog-post">
+										<div class="related-blog--post">
+											<div class="position-relative">
+												<a target="blank" href="{{ path('blog_show', {'slug':article.slug}) }}">
+													<img class="related-blog--post-image" src="{{ asset('uploads/'~ article.image) }}" alt="{{ article.titre }}">
+													<h5 class="related-blog--post-title">{{ article.description | truncate(70, true) | raw}}</h5>
+												</a>
+											</div>
+										</div>
+										<div class="blog-post--informations">
+											<a target="blank" href="{{ path('blog_show', {'slug': article.slug}) }}" class="blog-post--titre">
+												<h3>{{ article.titre }}</h3>
+											</a>
+
+											<div class="blog-post--action">
+												{# <div class="blog-post--date">Crée le {{ article.date | date('d M Y') }}</div> #}
+												<a target="blank" href="{{ path('blog_show', {'slug': article.slug}) }}" class="btn link-connexion-register more">Lire la suite</a>
+											</div>
+										</div>
+									</div>
+									{# <div class="card">
+										<img data-src="{{ asset('uploads/' ~ article.image) }}" alt="" class="card-img-top owl-lazy">
+										<div class="card-body">
+											<h5 class="card-title">{{ article.titre }}</h5>
+											{{ article.description | truncate(70, true) | raw }}
+										</div>
+									</div> #}
+								</div>
+					{% endfor %}
+							</div>
+						</div>
+				{% endif %}
 					<div class="autocollant_block">
 						<a class="critairLink" href="http://www.certificat-air.gouv.fr" target="_blank">
 							<span><img src='{{ asset("asset/img/vert.png")}}' alt=''></span>

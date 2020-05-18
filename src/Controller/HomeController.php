@@ -37,12 +37,15 @@ class HomeController extends AbstractController
      */
     public function accueil(
         Request $request,
+        ?Categorie $categorie = null,
         TypeDemandeRepository $demarche,
         ObjectManager $manager,
         TaxesRepository $taxesRepository,
         TarifsPrestationsRepository $prestation,
         CommandeRepository $commandeRepository,
         SessionManager $sessionManager,
+        ArticleRepository $articleRepository,
+        CategorieRepository $categorieRepository,
         TmsClient $tmsClient,
         CommandeManager $commandeManager,
         CarInfoManager $carInfoManager,
@@ -156,6 +159,12 @@ class HomeController extends AbstractController
             // }
         }
 
+        if (!$categorie instanceof Categorie) {
+            $categorie = $categorieRepository->gatLastInsertedCategory();
+        }
+        
+        $articles = $articleRepository->findByCatagories($categorie->getId());
+
         $homeParams = [
             'demarches' => $type,
             'tab' => $tabForm,
@@ -163,6 +172,7 @@ class HomeController extends AbstractController
             'database' => false,
             'defaultDepartment' => $department,
             'defaultDemarche' => $defaultDemarche,
+            'articles' => $articles,
         ];
 
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
