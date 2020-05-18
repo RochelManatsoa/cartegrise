@@ -229,7 +229,6 @@ class CommandeManager
 		// to get info for C02, ptac and Energy
 		$paramsAuto = $this->getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule);
 		$infosAutoDefault = $this->tmsClient->envoyer($paramsAuto);
-		dd($infosAutoDefault);
 		$infosAutoDefaultResult = $infosAutoDefault->getRawData()->Lot->Demarche->ECGAUTO->Reponse->Positive;
 		// end get info for C02, ptac and Energy
 		if ($typeDemarche ==="CTVO")
