@@ -13,6 +13,7 @@
         "friendsofsymfony/ckeditor-bundle": "^1.0",
         "friendsofsymfony/user-bundle": "^2.1",
         "gregwar/captcha-bundle": "^2.1",
+        "helios-ag/fm-elfinder-bundle": "^9.3",
         "jms/payment-core-bundle": "^1.4",
         "kleegroup/franceconnect-bundle": "^0.7.0",
         "knplabs/knp-paginator-bundle": "^4.0",

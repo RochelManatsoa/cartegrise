@@ -28,7 +28,7 @@ easy_admin:
                 fields:
                     - { type: 'group', css_class: 'col-sm-8', label: 'Basic information', icon: 'pencil' }
                     - { property: 'titre', css_class: 'large' }
-                    - { property: 'contenu', type: 'fos_ckeditor' }
+                    - { property: 'contenu', type: 'fos_ckeditor',type_options: { config_name: 'my_config' } } 
                     - { property: 'description', css_class: 'col-sm-8' }
                     - { property: 'categories', css_class: 'col-sm-8'}
                     - { type: 'group', css_class: 'col-sm-4', label: 'Product Details', icon: 'cube' }
@@ -37,4 +37,4 @@ easy_admin:
                     - { property: 'publication', label: 'Published' }
                     - { property: 'date'} 
                     - { type: 'section', label: 'Attachments', icon: 'paperclip' }
-                    - { property: 'imageFile', type: 'vich_image', type_options: { required: true } }
+                    - { property: 'imageFile', type: 'vich_image' }

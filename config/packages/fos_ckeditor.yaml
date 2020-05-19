@@ -3,6 +3,8 @@ fos_ck_editor:
     configs:
         my_config:
             toolbar: full
+            filebrowserBrowseRoute: elfinder
+            filebrowserBrowseRouteParameters: []
 twig:
     form_themes:
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
