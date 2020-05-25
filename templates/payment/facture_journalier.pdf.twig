@@ -108,9 +108,11 @@
           {% for key,taxes in majorations %}
           <tr>
             <td>
-              {% for dem in taxes %}
+              {% for key, dem in taxes %}
               <strong>
+              {% if key == 0 %}
               {{ dem.commande.demarche.type }}
+              {% endif %}
               </strong>
               {% endfor %}
             </td>
