@@ -20,7 +20,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @ApiResource(
  *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     denormalizationContext={"groups"={"write"}},
+ *     attributes={"force_eager"=false}
  * )
  * @ApiFilter(DateFilter::class, properties={"ceerLe"})
  */
