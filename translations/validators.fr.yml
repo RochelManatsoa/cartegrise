@@ -27,3 +27,6 @@ fos_user:
 fos_group:
     name:
         already_used: 'Le nom est déjà utilisé.'
+command:
+    immat:
+        regex: 'Le format doit être au AB-123-CD.'
