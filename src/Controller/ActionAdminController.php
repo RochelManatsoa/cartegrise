@@ -342,35 +342,6 @@ class ActionAdminController extends Controller
         return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
     }
 
-
-    /**
-     * @param $id
-     */
-    public function sendEmailStatusAction($id, DemandeManager $demandeManager)
-    {
-        $object = $this->admin->getSubject();
-
-        if (!$object) {
-            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
-        }
-
-
-        $demande = $object->getDemande();
-
-        
-        if($demande->getStatusDoc() == Demande::DOC_VALID){
-            $index = 1;
-        }elseif($demande->getStatusDoc() == Demande::DOC_VALID_SEND_TMS){
-            $index = 2;
-        }elseif($demande->getStatusDoc() == Demande::DOC_NONVALID){
-            $index = 3;
-        }
-
-        $demandeManager->sendEmailStatusDemande($demande, $index);
-        // if you have a filtered list and want to keep your filters after the redirect
-        return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
-    }
-
     /**
      * @param $id
      */
@@ -551,5 +522,36 @@ class ActionAdminController extends Controller
 
         // if you have a filtered list and want to keep your filters after the redirect
         // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+
+
+    /**
+     * @param $id
+     */
+    public function sendEmailStatusAction(
+            $id, 
+            DemandeManager $demandeManager,
+            CommandeManager $commandeManager
+        )
+    {
+        $commande = $commandeManager->find($id);
+        if (!$commande instanceof Commande){
+            throw new \Exception('la commande n\'existe pas');
+        }
+
+        $demande = $commande->getDemande();
+
+        
+        if($demande->getStatusDoc() == Demande::DOC_VALID){
+            $index = 1;
+        }elseif($demande->getStatusDoc() == Demande::DOC_VALID_SEND_TMS){
+            $index = 2;
+        }elseif($demande->getStatusDoc() == Demande::DOC_NONVALID){
+            $index = 3;
+        }
+
+        $demandeManager->sendEmailStatusDemande($demande, $index);
+        // if you have a filtered list and want to keep your filters after the redirect
+        return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
     }
 }

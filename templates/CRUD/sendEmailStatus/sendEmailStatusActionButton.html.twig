@@ -1,9 +1,9 @@
-{% if object.demande is defined and object.demande is not null and object.demande.id is not null %}
-    {% set object = object.demande %}
+{% if object.commande is defined and object.commande is not null and object.commande.id is not null %}
+    {% set object = object.commande %}
 {% endif %}
-{% if object.statusDoc is defined and object.statusDoc is not null and (object.statusDoc == '1' or object.statusDoc == '3' or object.statusDoc == '6') %}
-<a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('sendEmailStatus', object.commande) }}"
-    title="facture">
+{% if object.demande.statusDoc is defined and object.demande.statusDoc is not null and (object.demande.statusDoc == '1' or object.demande.statusDoc == '3' or object.demande.statusDoc == '6') %}
+<a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('sendEmailStatus', object) }}"
+    title="mail validation">
     <i class="fa fa-send" aria-hidden="true"></i>
     Envoyer mail
 </a>

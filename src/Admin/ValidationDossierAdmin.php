@@ -40,6 +40,7 @@ final class ValidationDossierAdmin extends AbstractAdmin
         $collection->add('refund', $this->getRouterIdParameter().'/refund');
         $collection->add('facture', $this->getRouterIdParameter().'/facture');
         $collection->add('avoir', $this->getRouterIdParameter().'/avoir');
+        $collection->add('sendEmailStatus', $this->getRouterIdParameter().'/send-email-status');
         $collection->add('gesteCommercial', $this->getRouterIdParameter().'/geste-comercial');
     }
 
@@ -157,6 +158,9 @@ final class ValidationDossierAdmin extends AbstractAdmin
                 ],
                 'gesteCommercial' => [
                     'template'=>'CRUD/gesteCommercial/gesteCommercialActionButton.html.twig'
+                ],
+                'sendEmailStatus' => [
+                    'template'=>'CRUD/sendEmailStatus/sendEmailStatusActionButton.html.twig'
                 ]
             ],
             
