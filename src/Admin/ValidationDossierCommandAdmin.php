@@ -51,6 +51,7 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
         $collection->add('retracterCommandeSecond', $this->getRouterIdParameter().'/retracter-commande-second');
         $collection->add('refundCommande', $this->getRouterIdParameter().'/refund-commande');
         $collection->add('formulaireDemande', $this->getRouterIdParameter().'/form-demande-commande');
+        $collection->add('sendEmailStatus', $this->getRouterIdParameter().'/send-email-status');
         $collection->add('gesteCommercial', $this->getRouterIdParameter().'/geste-comercial');
     }
 
@@ -209,6 +210,9 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
                 ],
                 'gesteCommercial' => [
                     'template'=>'CRUD/gesteCommercial/gesteCommercialActionButton.html.twig'
+                ],
+                'sendEmailStatus' => [
+                    'template'=>'CRUD/sendEmailStatus/sendEmailStatusActionButton.html.twig'
                 ]
             ],
             

@@ -63,6 +63,7 @@ class DemandeManager
         CommandeManager        $commandeManager,
         TokenStorageInterface  $tokenStorage,
         ClientManager          $clientManager,
+        MailManager            $mailManager,
         TaxesManager           $taxesManager
     )
     {
@@ -77,6 +78,7 @@ class DemandeManager
         $this->translator         = $translator;
         $this->tokenStorage       = $tokenStorage;
         $this->clientManager      = $clientManager;
+        $this->mailManager      = $mailManager;
         $this->taxesManager      = $taxesManager;
     }
 
@@ -708,5 +710,16 @@ class DemandeManager
 
         return $view;
     }
+	
+	public function sendEmailStatusDemande(Demande $demande, int $index)
+	{
+		$user = $demande->getCommande()->getClient()->getUser();
+		$this->mailManager->sendEmail(
+			$emails=[$user->getEmail()], 
+			'email/status/doc'.$index.'.mail.twig', 
+			"CG Officiel - Démarches Carte Grise en ligne", 
+			['demande'=> $demande]
+		);      
+	}
 
 }

@@ -342,6 +342,35 @@ class ActionAdminController extends Controller
         return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
     }
 
+
+    /**
+     * @param $id
+     */
+    public function sendEmailStatusAction($id, DemandeManager $demandeManager)
+    {
+        $object = $this->admin->getSubject();
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+        }
+
+
+        $demande = $object->getDemande();
+
+        
+        if($demande->getStatusDoc() == Demande::DOC_VALID){
+            $index = 1;
+        }elseif($demande->getStatusDoc() == Demande::DOC_VALID_SEND_TMS){
+            $index = 2;
+        }elseif($demande->getStatusDoc() == Demande::DOC_NONVALID){
+            $index = 3;
+        }
+
+        $demandeManager->sendEmailStatusDemande($demande, $index);
+        // if you have a filtered list and want to keep your filters after the redirect
+        return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+
     /**
      * @param $id
      */
@@ -377,7 +406,7 @@ class ActionAdminController extends Controller
             if ($request->request->get('valid_doc_simulate') === "on") {
                 $demande->setStatusDoc(Demande::DOC_VALID);
                 $demandeManager->saveDemande($demande);
-                $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 1);
+                //$mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 1);
             } elseif ($request->request->get('valid_doc_real') === "on") {
                 $tmsResponse = $commandeManager->tmsSauver($demande->getCommande());
                 if ($tmsResponse->isSuccessfull()) {
@@ -385,7 +414,7 @@ class ActionAdminController extends Controller
                     $demande->getCommande()->setSaved(true);
                     $demande->setStatusDoc(Demande::DOC_VALID_SEND_TMS);
                     $demandeManager->saveDemande($demande);
-                    $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 2);
+                    //$mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 2);
                     $this->addFlash('success', 'La demande '.$demande->getCommande()->getId().' a bien été enregister sur TMS');
                 }
                 
@@ -393,7 +422,7 @@ class ActionAdminController extends Controller
                 $demande->setStatusDoc(Demande::DOC_NONVALID);
                 $demande->setMotifDeRejet($request->request->get('invalidate_doc_simulate'));
                 $demandeManager->saveDemande($demande);
-                $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 3);
+                //$mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 3);
             }
         }
 

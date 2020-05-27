@@ -1,0 +1,10 @@
+{% if object.demande is defined and object.demande is not null and object.demande.id is not null %}
+    {% set object = object.demande %}
+{% endif %}
+{% if object.statusDoc is defined and object.statusDoc is not null and (object.statusDoc == '1' or object.statusDoc == '3' or object.statusDoc == '6') %}
+<a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('sendEmailStatus', object.commande) }}"
+    title="facture">
+    <i class="fa fa-send" aria-hidden="true"></i>
+    Envoyer mail
+</a>
+{% endif %}
