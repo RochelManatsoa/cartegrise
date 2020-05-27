@@ -160,7 +160,7 @@ class HomeController extends AbstractController
         }
 
         if (!$categorie instanceof Categorie) {
-            $categorie = $categorieRepository->gatLastInsertedCategory();
+            $categorie = $categorieRepository->findOneBy(['slug'=> 'a-laffiche']) ? $categorieRepository->findOneBy(['slug'=> 'a-l-affiche']) : $categorieRepository->gatLastInsertedCategory();
         }
         
         $articles = $articleRepository->findByCatagories($categorie->getId());
@@ -483,7 +483,7 @@ class HomeController extends AbstractController
         }
 
         if (!$categorie instanceof Categorie) {
-            $categorie = $categorieRepository->gatLastInsertedCategory();
+            $categorie = $categorieRepository->findOneBy(['slug'=> 'a-laffiche']) ? $categorieRepository->findOneBy(['slug'=> 'a-l-affiche']) : $categorieRepository->gatLastInsertedCategory();
         }
         // dd($categorie);
         $repo = $articleRepository->findByCatagories($categorie->getId());
