@@ -92,7 +92,7 @@ final class ValidationDossierAdmin extends AbstractAdmin
             'field_type' => ChoiceType::class,
             'field_options' => [
                 'choices' => [
-                        'attente de document' => TypeDemande::TYPE_CTVO,
+                        'attente de document' => Demande::DOC_WAITTING,
                         'document valide' => Demande::DOC_VALID,
                         'document numériser' => Demande::DOC_PENDING,
                         'documents incomplets ' => Demande::DOC_UNCOMPLETED,

@@ -110,6 +110,20 @@
     <input type="submit" class="btn btn-default" id="responseForm" value="Valider">
 </form>
 {% endif %}
+{% if demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID_SEND_TMS') %}
+<h3>
+    Envoyer l'email ? :
+</h3>
+<form action="" id="formResponse" method="post">
+    <div>
+        <label for="valid_doc_real">
+            <input type="checkbox" name="valid_doc_real_send_email" id="valid_doc_real_send_email">
+            Oui envoyer l'email que sa carte grise serait envoyer d'ici une semaine ou deux à l'utilisateur
+        </label>
+    </div>
+    <input type="submit" class="btn btn-default" id="responseForm" value="Valider">
+</form>
+{% endif %}
 <script>
     $(document).ready(function(){
         $('#responseForm').on('click', function(){
