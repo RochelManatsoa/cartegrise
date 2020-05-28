@@ -162,8 +162,12 @@ class HomeController extends AbstractController
         if (!$categorie instanceof Categorie) {
             $categorie = $categorieRepository->findOneBy(['slug'=> 'a-laffiche']) ? $categorieRepository->findOneBy(['slug'=> 'a-l-affiche']) : $categorieRepository->gatLastInsertedCategory();
         }
+        if ($categorie instanceof Categorie) {
+            $articles = $articleRepository->findByCatagories($categorie->getId());
+        } else {
+            $articles = $articleRepository->findBy([], ['id'=> 'DESC'], 5);
+        }
         
-        $articles = $articleRepository->findByCatagories($categorie->getId());
 
         $homeParams = [
             'demarches' => $type,
