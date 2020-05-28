@@ -14,6 +14,8 @@ use App\Entity\Systempay\Transaction;
 
 final class GesteCommercialAdmin extends AbstractAdmin
 {
+    protected $baseRoutePattern = 'geste-commercial';
+    protected $baseRouteName = 'geste-commercial';
 
     public function createQuery($context = 'list')
     {
