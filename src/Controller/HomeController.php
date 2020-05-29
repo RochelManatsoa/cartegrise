@@ -160,14 +160,14 @@ class HomeController extends AbstractController
         }
 
         if (!$categorie instanceof Categorie) {
-            $categorie = $categorieRepository->findOneBy(['slug'=> 'a-laffiche']) ? $categorieRepository->findOneBy(['slug'=> 'a-laffiche']) : $categorieRepository->gatLastInsertedCategory();
-        }
-        if ($categorie instanceof Categorie) {
-            $articles = $articleRepository->findByCatagories($categorie->getId());
-        } else {
-            $articles = $articleRepository->findBy([], ['id'=> 'DESC'], 5);
+            if($categorieRepository->findOneBy(['slug'=> 'a-laffiche']) !== null){
+                $categorie = $categorieRepository->findOneBy(['slug'=> 'a-laffiche']);
+            }else{
+                $categorie = $categorieRepository->gatLastInsertedCategory();
+            }
         }
         
+        $articles = $articleRepository->findByCatagories($categorie->getId());
 
         $homeParams = [
             'demarches' => $type,
@@ -487,7 +487,11 @@ class HomeController extends AbstractController
         }
 
         if (!$categorie instanceof Categorie) {
-            $categorie = $categorieRepository->findOneBy(['slug'=> 'a-laffiche']) ? $categorieRepository->findOneBy(['slug'=> 'a-l-affiche']) : $categorieRepository->gatLastInsertedCategory();
+            if($categorieRepository->findOneBy(['slug'=> 'a-laffiche']) !== null){
+                $categorie = $categorieRepository->findOneBy(['slug'=> 'a-laffiche']);
+            }else{
+                $categorie = $categorieRepository->gatLastInsertedCategory();
+            }
         }
         // dd($categorie);
         $repo = $articleRepository->findByCatagories($categorie->getId());
