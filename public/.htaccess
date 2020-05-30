@@ -20,6 +20,9 @@ DirectoryIndex index.php
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    RewriteCond %{HTTPS} off
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+
     # RewriteRule ^actualite http://blog.cgofficiel.fr [L]
     # RewriteRule ^actualite/$1 http://blog.cgofficiel.fr/$1 [L]
 
