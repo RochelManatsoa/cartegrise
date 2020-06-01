@@ -70,18 +70,21 @@ class TmsClient
 	public function infoImmat($Immat)
 	{
 		try {
-			$opts = array(
-				'http' => array(
-					'user_agent' => 'PHPSoapClient'
+			$options = [
+				'cache_wsdl'     => WSDL_CACHE_NONE,
+				'trace'          => 1,
+				'stream_context' => stream_context_create(
+					[
+						'ssl' => [
+							'verify_peer'       => false,
+							'verify_peer_name'  => false,
+							'allow_self_signed' => true
+						]
+					]
 				)
-			);
-			$context = stream_context_create($opts);
-			$soapClientOptions = array(
-				'stream_context' => $context,
-				'cache_wsdl' => WSDL_CACHE_NONE
-			);
+			];
 
-			$client = new \SoapClient($this->endpoint, $soapClientOptions);
+			$client = new \SoapClient($this->endpoint, $options);
 
 			$identification = [
 				"CodeTMS" => $this->codeTMS,
