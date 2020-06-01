@@ -69,15 +69,32 @@ class TmsClient
 	 */
 	public function infoImmat($Immat)
 	{
-        $client = new \SoapClient($this->endpoint);
-        $identification = [
-        	"CodeTMS" => $this->codeTMS,
-        	"Login" => $this->login,
-        	"Password" => $this->password,
-        ];
-		$Immat['Identification'] = $identification;
+		try {
+			$opts = array(
+				'http' => array(
+					'user_agent' => 'PHPSoapClient'
+				)
+			);
+			$context = stream_context_create($opts);
+			$soapClientOptions = array(
+				'stream_context' => $context,
+				'cache_wsdl' => WSDL_CACHE_NONE
+			);
 
-        return new Response($client->InfoImmat($Immat));
+			$client = new \SoapClient($this->endpoint, $soapClientOptions);
+
+			$identification = [
+				"CodeTMS" => $this->codeTMS,
+				"Login" => $this->login,
+				"Password" => $this->password,
+			];
+			$Immat['Identification'] = $identification;
+
+			return new Response($client->InfoImmat($Immat));
+		}
+		catch(Exception $e) {
+			echo $e->getMessage();
+		}
 	}
 
 	/**
