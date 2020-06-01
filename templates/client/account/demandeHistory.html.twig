@@ -21,6 +21,26 @@
                         </tr>
                     </thead>
                     <tbody>
+                    {% for commande in commandes %}
+                        <tr>
+                            <th class="responsive-toggle">Commande<span></span></th>
+                            <td>{{ commande.demarche.nom | displayValue}}</td>
+                            <th class="responsive-toggle">Date<span></span></th>
+                            <td>{{ commande.ceerLe | date('d/m/Y')}}</td>
+                            <th class="responsive-toggle">Dép.<span></span></th>
+                            <td class="text-center">{{ commande.codePostal | displayValue}}</td>
+                            <th class="responsive-toggle">Immatriculation<span></span></th>
+                            <td class="text-center">{{ commande.immatriculation | displayValue}}</td>
+                            <th class="responsive-toggle">Action<span></span></th>
+                            <td>
+                                <div class="content-actions">
+                                    <a href="{{path('new_demande', {'commande': commande.id })}}">
+                                        <button type="button" class="btn resume-btn">Remplire le formulaire</button>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
                     {% for demande in demandes %}
                         <tr>
                             <th class="responsive-toggle">Commande<span></span></th><td>{{ demande.commande.demarche.nom | displayValue}}</td>

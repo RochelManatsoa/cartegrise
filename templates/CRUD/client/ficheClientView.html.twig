@@ -49,31 +49,21 @@
                 </thead>
                 <tbody>
                 {% for commande in client.commandes %}
-                {% if commande.demande is not null %}
+                    {% if 
+                        commande.systempayTransaction is defined and
+                        commande.systempayTransaction is not null and 
+                        commande.systempayTransaction.status  == "AUTHORISED" and
+                        commande.demande is null
+                    %}
                     <tr>
-                        <th class="responsive-toggle">Objet<span></span></th><td><a href="{{path('dossier_dossier', {'id': commande.demande.id})}}" target=_blank>{{commande.demarche.nom}} </a></td>
-                        <th class="responsive-toggle">Date<span></span></th><td>
-                            {% if commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
-                                <div class="alert alert-success">
-                                    La demande est validée, attente des documents par courrier à l'adresse
-                                </div>
-                            {% elseif commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') or commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_UNCOMPLETED')  %}
-                                <div class="alert alert-warning" role="alert">
-                                    La demande est en cours de validation
-                                </div>
-                            {% elseif commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
-                                <div class="alert alert-danger">
-                                    Un ou plusieurs documents non valides
-                                </div>
-                            {% elseif commande.demande.commande.saved %}
-                                <div class="alert alert-success">
-                                    La demande est validée et a été envoyée
-                                </div>
-                            {% else %}
-                                <div class="alert alert-info">
-                                    Attente de documents
-                                </div>
-                            {% endif %}
+                        <th class="responsive-toggle">Objet<span></span></th>
+                        <td>{{commande.demarche.nom}}</td>
+                        <th class="responsive-toggle">Date<span></span></th>
+                        <td>
+                            
+                            <div class="alert alert-info">
+                                Attente de Formulaire
+                            </div>
                         </td>
                         <th class="responsive-toggle" colspan="2">Objet<span></span></th>
                         <td>
@@ -83,11 +73,50 @@
                         </td>
                         <td>
                             <div class="content-actions">
-                                <button type="button" class="btn resume-btn" data-toggle="modal" data-target="#modal-comment-{{ commande.id }}">Modifier</button>
+                                <button type="button" class="btn resume-btn" data-toggle="modal"
+                                    data-target="#modal-comment-{{ commande.id }}">Modifier</button>
                             </div>
                         </td>
                     </tr>
-                {% endif %}
+                    {% elseif commande.demande is not null %}
+                        <tr>
+                            <th class="responsive-toggle">Objet<span></span></th><td><a href="{{path('dossier_dossier', {'id': commande.demande.id})}}" target=_blank>{{commande.demarche.nom}} </a></td>
+                            <th class="responsive-toggle">Date<span></span></th><td>
+                                {% if commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_VALID') %}
+                                    <div class="alert alert-success">
+                                        La demande est validée, attente des documents par courrier à l'adresse
+                                    </div>
+                                {% elseif commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_PENDING') or commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_UNCOMPLETED')  %}
+                                    <div class="alert alert-warning" role="alert">
+                                        La demande est en cours de validation
+                                    </div>
+                                {% elseif commande.demande.statusDoc == constant('App\\Entity\\Demande::DOC_NONVALID') %}
+                                    <div class="alert alert-danger">
+                                        Un ou plusieurs documents non valides
+                                    </div>
+                                {% elseif commande.demande.commande.saved %}
+                                    <div class="alert alert-success">
+                                        La demande est validée et a été envoyée
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-info">
+                                        Attente de documents
+                                    </div>
+                                {% endif %}
+                            </td>
+                            <th class="responsive-toggle" colspan="2">Objet<span></span></th>
+                            <td>
+                                <div class="row col-6" id="comment-{{ commande.id }}">
+                                    {{ commande.comment }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="content-actions">
+                                    <button type="button" class="btn resume-btn" data-toggle="modal" data-target="#modal-comment-{{ commande.id }}">Modifier</button>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
