@@ -70,7 +70,7 @@ class CommandeRepository extends ServiceEntityRepository
             ->join('c.systempayTransaction', 'transaction')
             ->where('user.id = :user')
             ->andWhere('transaction.status = :success')
-            ->andWhere('demande.id is not null')
+            ->andWhere('demande.id is null')
             ->setParameter('user', $user->getId())
             ->setParameter('success', SystempayTransaction::TRANSACTION_SUCCESS)
             ->getQuery()
