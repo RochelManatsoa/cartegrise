@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 use App\Manager\{UserManager, SessionManager};
+use App\Entity\Systempay\Transaction;
+use App\Entity\Commande;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class LoginAuthenticationHandler implements AuthenticationSuccessHandlerInterface
@@ -62,27 +64,18 @@ class LoginAuthenticationHandler implements AuthenticationSuccessHandlerInterfac
         $user = $token->getUser();
 
         //$this->getUrlContent("http://dev3.cgofficiel.fr/account/connect-this-user/".$user->getId());
-
-        if ($user->hasRole("ROLE_CRM")) {
-            return new RedirectResponse($this->routerInterface->generate('route_crm_home'));
+        if($user->hasRole("ROLE_USER") && !$user->hasRole("ROLE_ADMIN_BLOG") && !$user->hasRole("ROLE_CRM")) {
+            $lastCommandPayed = $this->userManager->getLastCommandePayed($user);
+            $lastCommandPayed->setDemande(null);
+            $this->userManager->saveOther($lastCommandPayed);
+            if ($lastCommandPayed instanceof Commande) {
+                return new RedirectResponse($this->routerInterface->generate('new_demande', ["commande" => $lastCommandPayed->getId()]));
+            }
         }elseif($user->hasRole("ROLE_ADMIN_BLOG")){
 
             return new RedirectResponse($this->routerInterface->generate('easyadmin'));
-        }elseif(!$user->hasRole("ROLE_CRM") && !$user->hasRole("ROLE_ADMIN_BLOG")) {
-            $this->userManager->checkCommandeInSession($user);
-            $commandes = $user->getClient()->getCommandes();
-            if (!is_null($commandes) && 0 < count($commandes)){
-                $lastCommande = $commandes->last();
-                // add condition when user went to recap before
-                if ( 
-                    null === $lastCommande->getTransaction() ||
-                        (null !== $lastCommande->getTransaction() &&
-                        $lastCommande->getTransaction()->getStatus() != '00')
-                ) {
-                    return new RedirectResponse($this->routerInterface->generate('commande_recap', ["commande" => $lastCommande->getId()]));
-                }
-            }
-
+        }elseif ($user->hasRole("ROLE_CRM")) {
+            return new RedirectResponse($this->routerInterface->generate('route_crm_home'));
         }
         $this->userManager->checkCommandeInSession($user);
 
