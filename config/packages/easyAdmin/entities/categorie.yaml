@@ -5,7 +5,6 @@ easy_admin:
             form:
                 fields:
                     - { property: 'nom', css_class: '' }
-                    - { property: 'slug', css_class: '' }
                     - { property: 'description', css_class: '' }
             list: 
                 fields:
