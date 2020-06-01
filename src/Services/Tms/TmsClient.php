@@ -21,7 +21,7 @@ class TmsClient
 
 	public function envoyer($params)
 	{
-        $client = new \SoapClient($this->endpoint);
+		$client = $this->connect();
 
         $identification = [
         	"CodeTMS" => $this->codeTMS,
@@ -34,41 +34,7 @@ class TmsClient
         return new Response($client->Envoyer($params));
 	}
 
-	public function ouvrir($params)
-	{
-        $client = new \SoapClient($this->endpoint);
-
-        $identification = [
-        	"CodeTMS" => $this->codeTMS,
-        	"Login" => $this->login,
-        	"Password" => $this->password,
-        ];
-
-        $params['Identification'] = $identification;
-
-        return new Response($client->Ouvrir($params));
-	}
-
-	public function sauver($params)
-	{
-        $client = new \SoapClient($this->endpoint);
-
-        $identification = [
-        	"CodeTMS" => $this->codeTMS,
-        	"Login" => $this->login,
-        	"Password" => $this->password,
-        ];
-
-        $params['Identification'] = $identification;
-
-        return new Response($client->Sauver($params));
-	}
-
-	/**
-	 * Info about immatriculation
-	 */
-	public function infoImmat($Immat)
-	{
+	private function connect() {
 		try {
 			$options = [
 				'cache_wsdl'     => WSDL_CACHE_NONE,
@@ -86,6 +52,50 @@ class TmsClient
 
 			$client = new \SoapClient($this->endpoint, $options);
 
+			return $client;
+		}
+		catch(Exception $e) {
+			echo $e->getMessage();die;
+		}
+	}
+
+	public function ouvrir($params)
+	{
+        $client = $this->connect();
+
+        $identification = [
+        	"CodeTMS" => $this->codeTMS,
+        	"Login" => $this->login,
+        	"Password" => $this->password,
+        ];
+
+        $params['Identification'] = $identification;
+
+        return new Response($client->Ouvrir($params));
+	}
+
+	public function sauver($params)
+	{
+        $client = $this->connect();
+
+        $identification = [
+        	"CodeTMS" => $this->codeTMS,
+        	"Login" => $this->login,
+        	"Password" => $this->password,
+        ];
+
+        $params['Identification'] = $identification;
+
+        return new Response($client->Sauver($params));
+	}
+
+	/**
+	 * Info about immatriculation
+	 */
+	public function infoImmat($Immat)
+	{
+		$client = $this->connect();
+
 			$identification = [
 				"CodeTMS" => $this->codeTMS,
 				"Login" => $this->login,
@@ -94,10 +104,6 @@ class TmsClient
 			$Immat['Identification'] = $identification;
 
 			return new Response($client->InfoImmat($Immat));
-		}
-		catch(Exception $e) {
-			echo $e->getMessage();
-		}
 	}
 
 	/**
@@ -105,7 +111,7 @@ class TmsClient
 	 */
 	public function editer($params)
 	{
-        $client = new \SoapClient($this->endpoint);
+        $client = $this->connect();
         $identification = [
         	"CodeTMS" => $this->codeTMS,
         	"Login" => $this->login,
