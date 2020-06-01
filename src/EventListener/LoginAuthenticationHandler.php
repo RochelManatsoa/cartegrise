@@ -66,8 +66,6 @@ class LoginAuthenticationHandler implements AuthenticationSuccessHandlerInterfac
         //$this->getUrlContent("http://dev3.cgofficiel.fr/account/connect-this-user/".$user->getId());
         if($user->hasRole("ROLE_USER") && !$user->hasRole("ROLE_ADMIN_BLOG") && !$user->hasRole("ROLE_CRM")) {
             $lastCommandPayed = $this->userManager->getLastCommandePayed($user);
-            $lastCommandPayed->setDemande(null);
-            $this->userManager->saveOther($lastCommandPayed);
             if ($lastCommandPayed instanceof Commande) {
                 return new RedirectResponse($this->routerInterface->generate('new_demande', ["commande" => $lastCommandPayed->getId()]));
             }
