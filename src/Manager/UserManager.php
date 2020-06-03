@@ -105,6 +105,12 @@ class UserManager
         $this->em->flush();
     }
 
+    public function saveOther($entity)
+    {
+        $this->em->persist($entity);
+        $this->em->flush();
+    }
+
     public function createUserFranceConnect(array $identity) : User
     {
         $user     = new User();
@@ -168,5 +174,10 @@ class UserManager
         $template = 'email/register.mail.twig';
         $this->mailManager->sendEmail([$user->getEmail()], $template, "Bienvenue sur CG Officiel - Démarches Carte Grise en ligne", ['responses'=> $user]);
         return 'success';
+    }
+
+    public function getLastCommandePayed(User $user)
+    {
+        return $this->commandeRepository->getLastCommandePayed($user);
     }
 }

@@ -7,6 +7,7 @@ use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use App\Manager\Crm\Modele\CrmSearch;
+use App\Entity\Systempay\Transaction as SystempayTransaction;
 
 /**
  * @method Commande|null find($id, $lockMode = null, $lockVersion = null)
@@ -57,6 +58,39 @@ class CommandeRepository extends ServiceEntityRepository
             ->setParameter('val', $client)
             ->getQuery()
             ->getResult()
+        ;
+    }
+    
+    public function getQueryCommandPayedForUser(User $user)
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.client', 'client')
+            ->join('client.user', 'user')
+            ->join('c.systempayTransaction', 'transaction')
+            ->where('user.id = :user')
+            ->andWhere('transaction.status = :success')
+            ->andWhere('c.demande is null')
+            ->setParameter('user', $user->getId())
+            ->setParameter('success', SystempayTransaction::TRANSACTION_SUCCESS)
+            ->getQuery()
+        ;
+    }
+    
+    public function getLastCommandePayed(User $user)
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.client', 'client')
+            ->join('client.user', 'user')
+            ->join('c.systempayTransaction', 'transaction')
+            ->where('user.id = :user')
+            ->andWhere('transaction.status = :success')
+            ->andWhere('c.demande is null')
+            ->setParameter('user', $user->getId())
+            ->setParameter('success', SystempayTransaction::TRANSACTION_SUCCESS)
+            ->setMaxResults(1)
+            ->orderBy('c.id', 'DESC')
+            ->getQuery()
+            ->getOneOrNullResult()
         ;
     }
     

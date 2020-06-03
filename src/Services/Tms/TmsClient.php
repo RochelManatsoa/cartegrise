@@ -21,7 +21,7 @@ class TmsClient
 
 	public function envoyer($params)
 	{
-        $client = new \SoapClient($this->endpoint);
+		$client = $this->connect();
 
         $identification = [
         	"CodeTMS" => $this->codeTMS,
@@ -34,9 +34,34 @@ class TmsClient
         return new Response($client->Envoyer($params));
 	}
 
+	private function connect() {
+		try {
+			$options = [
+				'cache_wsdl'     => WSDL_CACHE_NONE,
+				'trace'          => 1,
+				'stream_context' => stream_context_create(
+					[
+						'ssl' => [
+							'verify_peer'       => false,
+							'verify_peer_name'  => false,
+							'allow_self_signed' => true
+						]
+					]
+				)
+			];
+
+			$client = new \SoapClient($this->endpoint, $options);
+
+			return $client;
+		}
+		catch(Exception $e) {
+			echo $e->getMessage();die;
+		}
+	}
+
 	public function ouvrir($params)
 	{
-        $client = new \SoapClient($this->endpoint);
+        $client = $this->connect();
 
         $identification = [
         	"CodeTMS" => $this->codeTMS,
@@ -51,7 +76,7 @@ class TmsClient
 
 	public function sauver($params)
 	{
-        $client = new \SoapClient($this->endpoint);
+        $client = $this->connect();
 
         $identification = [
         	"CodeTMS" => $this->codeTMS,
@@ -69,15 +94,16 @@ class TmsClient
 	 */
 	public function infoImmat($Immat)
 	{
-        $client = new \SoapClient($this->endpoint);
-        $identification = [
-        	"CodeTMS" => $this->codeTMS,
-        	"Login" => $this->login,
-        	"Password" => $this->password,
-        ];
-		$Immat['Identification'] = $identification;
+		$client = $this->connect();
 
-        return new Response($client->InfoImmat($Immat));
+			$identification = [
+				"CodeTMS" => $this->codeTMS,
+				"Login" => $this->login,
+				"Password" => $this->password,
+			];
+			$Immat['Identification'] = $identification;
+
+			return new Response($client->InfoImmat($Immat));
 	}
 
 	/**
@@ -85,7 +111,7 @@ class TmsClient
 	 */
 	public function editer($params)
 	{
-        $client = new \SoapClient($this->endpoint);
+        $client = $this->connect();
         $identification = [
         	"CodeTMS" => $this->codeTMS,
         	"Login" => $this->login,
