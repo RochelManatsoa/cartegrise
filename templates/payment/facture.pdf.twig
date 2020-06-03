@@ -62,7 +62,7 @@
           {% if commande.facture.typePerson == 1 %}
             Société {{commande.facture.socialReason}}
           {% else %}
-            {{commande.facture.name}} {{commande.facture.firstName}}
+            {{commande.facture.name | upper }} {{commande.facture.firstName | upper}}
           {% endif %}
           </strong>
           <br>

@@ -313,6 +313,7 @@ class DemandeManager
         $file = $demande->getGeneratedFacturePathFile();
         $params = $this->getTitulaireParams($demande);
         $params = array_merge(['demande' => $demande], $params);
+        $params = array_merge(['commande' => $demande->getCommande()], $params);
         // create directory
         if (!is_dir($folder)) mkdir($folder, 0777, true);
         // end create file 
@@ -321,7 +322,7 @@ class DemandeManager
         // if (!is_file($file)) { // attente de finalité du process
             $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
             $filename = "Facture";
-            $html = $this->twig->render("payment/facture.html.twig", $params);
+            $html = $this->twig->render("payment/facture.pdf.twig", $params);
             $output = $snappy->getOutputFromHtml($html);
             
             $filefinal = file_put_contents($file, $output);
