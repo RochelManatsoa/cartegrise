@@ -1,0 +1,74 @@
+{% extends 'email_base.html.twig' %}
+
+
+{% block body %}
+                            <td class="bodyEmail" bgcolor="#ffffff">
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                Bonjour {{ responses.client|displayRelanceInfos }}
+                                <br>
+                                <br>      
+                                    <p>Nous n’avons pas reçu vos documents par courrier, merci de nous les transmettre par courrier à l'adresse suivante afin de valider
+                                    votre demande :</p>
+                                    <p>CG Officiel<br>
+                                    20 Impasse Camille Langlade<br>
+                                    31100 Toulouse</br>
+                                <p>Cordialement,</p>
+                                <p>L'équipe <a href="https://www.cgofficiel.fr" target="_blank">CG OFFICIEL</a> vous remercie.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; padding: 0 10px 0 10px;" class="bodyEmail" bgcolor="#ffffff">
+                            <br>
+                               <a href="tel:0972760107"><img src="{{ url('home') ~ asset('asset/img/0972760107.png') }}" alt="" border="0" style="max-width: 300px;background:fff" /></a>
+                            <br>
+                            <br>
+                            <br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="footer" bgcolor="#03347e">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td align="center" class="footercopy">
+                                            Agrément du Trésor Public N° 55337 <br>Habilitation du Ministère de l'Interieur N° 222442
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" class="footercopy">
+                                            <br>
+                                            <br>
+                                            Ce mail est envoyé automatiquement, veuillez ne pas y répondre
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+    {# <div style="font-family:Raleway;color:#7296ce;font-size:35px;padding-top:50px;text-align:center">
+        
+    </div>
+    
+    <div style="font-family:Raleway;color:#002a6a;font-size:22px;padding-top:20px;padding-bottom:15px;border:1px solid #002a6a;border-radius:5px;width:fit-content;padding-left:20px;padding-right:20px;margin-right:auto;margin-left:auto">        
+        <div style="text-align:center;">
+            Bonjour {{ responses.client|displayRelanceInfos }}
+            <br> <hr>
+        </div>         
+
+        <p>Vous avez effectué une commande sur <a href="https://www.cgofficiel.fr" target="_blank">CG Officiel</a>, mais vous ne nous avez pas envoyé les documents pour finaliser votre demande. </p>
+        <p>Pour rappel, il vous reste {{responses.restDay}} jours avant l'annulation de votre demande</p>
+        <p>Rendez vous sur votre <a href="https://www.cgofficiel.fr/login" target="_blank">espace client</a> pour le compléter.</p>
+        <p>Si vous avez besoin d’assistance, n’hésitez pas à contacter notre support téléphonique au 09 72 76 01 07 </p>
+
+        <p style="text-align:center;"><a href="https://www.cgofficiel.fr" target="_blank">CG Officiel</a> vous remercie de votre attention.</p>
+        <hr>
+        <center>
+            <a href="https://www.cgofficiel.fr" target="_blank">
+                <img style="height:70px;width:auto;margin:auto;" src="https://ci4.googleusercontent.com/proxy/mJemm3T_DymwQsex1-Y_ypC4igpKrD0RAbH94SkU5yZVbwVwBd0NvY6UCn96c5Sh4sRzuUjtPLPm4v-57JTf=s0-d-e1-ft#https://www.cgofficiel.fr/asset/img/logo.png" alt="logo" class="CToWUd a6T" tabindex="0"> 
+            </a>
+            <p style="font-size:22px;"> Votre service client </p>
+            <p style="font-size:22px;"><a href="https://www.cgofficiel.fr" target="_blank">www.cgofficiel.fr</a></p>
+            <img style="height:70px;width:auto;margin:auto;" src="https://www.cgofficiel.fr/asset/img/0972760107-CGofficiel-carte-grise-certificat-immatriculationx70.png" alt="logo" class="CToWUd a6T" tabindex="0">
+        </center> 
+    </div> #}
+{% endblock %}
