@@ -633,7 +633,7 @@ class CommandeManager
     {
         $commandes = $this->repository->getCommandesPaidedWithoutDemande($level);
         // dd($commandes);
-        $template = 'relance/email6.html.twig';
+        $template = 'relance/attenteDeDemande.mail.twig';
         $emails = [];
         foreach ($commandes as $commande)
         {
