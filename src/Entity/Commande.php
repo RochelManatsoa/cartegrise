@@ -202,6 +202,11 @@ class Commande
     private $remindPayment;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $remindFailedTransaction;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $remindPaymentDate;
@@ -719,6 +724,18 @@ class Commande
     public function setRemindPaymentDate(?\DateTimeInterface $remindPaymentDate): self
     {
         $this->remindPaymentDate = $remindPaymentDate;
+
+        return $this;
+    }
+
+    public function getRemindFailedTransaction(): ?int
+    {
+        return $this->remindFailedTransaction;
+    }
+
+    public function setRemindFailedTransaction(?int $remindFailedTransaction): self
+    {
+        $this->remindFailedTransaction = $remindFailedTransaction;
 
         return $this;
     }

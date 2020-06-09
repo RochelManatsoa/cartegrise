@@ -708,4 +708,16 @@ class CommandeManager
 	{
 		return $this->repository->getUserHaveComandNoPayed();
 	}
+	/**
+	 * get all user with transation failed
+	 *
+	 * @return void
+	 */
+	public function getUserHaveComandFailedPayed()
+	{
+		// get all user with transaction failed
+		return $this->repository->getUserHaveComandFailedPayed();
+
+	}
+
 }

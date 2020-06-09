@@ -3,10 +3,10 @@
                                 <br>
                                 <br>
                                 <br>
-                                Bonjour {{ responses.vads_cust_name }}
+                                Bonjour {{ user.client.clientNomPrenom }}
                                 <br>
                                 <br>
-                                <p>Votre paiement pour la commande n° {{responses.vads_trans_id}}/{{commande.demarche.type}} du {{ commande.systempayTransaction.createdAt | date('d/m/Y')}} n’a pas fonctionné. Pas d’inquiétude vous pouvez reprendre votre démarche ici en cliquant sur ce <a href="{{ url('home') }}commande/{{commande.id}}/recap" target="_blank">lien</a></p>
+                                <p>Votre paiement pour la commande n° {{commande.id}}{{commande.demarche.type}} du {{ commande.systempayTransaction.createdAt | date('d/m/Y')}} n’a pas fonctionné. Pas d’inquiétude vous pouvez reprendre votre démarche ici en cliquant sur ce <a href="{{ url('home') }}commande/{{commande.id}}/recap" target="_blank">lien</a></p>
                                 <p>Pour toute question n’hésitez pas à contacter notre service client du lundi au samedi, de 8h à 18h, au : 09 72 76 01 07 </p>
                                 <p>Cordialement,</p>
                                 <p><a href="https://www.cgofficiel.fr" target="_blank">CG Officiel</a> vous remercie.</p>

@@ -243,20 +243,22 @@ class CommandeRepository extends ServiceEntityRepository
         ;
     }
 
-    public function getUserHaveComandWithTransactionFailedPayed()
+    public function getUserHaveComandFailedPayed()
     {
         //get all user with command with transaction but fail
         return $this->createQueryBuilder('c')
-            ->select('u.id')
+            ->select('u.id userID, c.id commandeId')
             ->leftJoin('c.client','cl')
             ->leftJoin('cl.user','u')
             ->leftJoin('c.systempayTransaction','t')
-            ->andWhere('u.id IS NOT NULL and u.remindProcess IS NULL')
-            ->andWhere('t.status IS NULL OR t.status != : success')
+            ->where('u.id IS NOT NULL')
+            ->andWhere('t.id IS NOT NULL')
+            ->andWhere('c.remindFailedTransaction < :two OR c.remindFailedTransaction IS NULL')
+            ->andWhere('t.status IS NULL OR t.status != :success')
             ->distinct()
             ->orderBy('u.id', 'DESC')
             ->setParameter('success', SystempayTransaction::TRANSACTION_SUCCESS)
-            //->setParameter('xdaysAgo', (new \DateTime())->modify('-3 days'))
+            ->setParameter('two', 2)
             ->getQuery()
             ->getResult()
         ;

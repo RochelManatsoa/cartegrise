@@ -194,4 +194,22 @@ class UserManager
     {
         return $this->repository->find($id);
     }
+
+     public function sendUserFailedPayedRelance(User $user, Commande $commande)
+    {
+        $template = 'relance/emailWaitingPaymentFailed.mail.twig';
+        $emails = [];
+        $this->mailManager->sendEmail(
+            $emails=[$user->getEmail()], 
+            $template,
+            "CG Officiel - Démarches Carte Grise en ligne",
+            ['commande'=> $commande, 'user'=> $user]
+        );
+        
+        $commande->setRemindFailedTransaction($commande->getRemindFailedTransaction()+1);
+        $this->em->persist($commande);
+        $this->em->flush();
+        
+        return 'sended';
+    }
 }
