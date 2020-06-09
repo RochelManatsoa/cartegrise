@@ -9,3 +9,4 @@ twig:
         ]
     globals:
         pathToWeb: "%kernel.root_dir%/../public"
+        basePath: "http://dev3.cgofficiel.fr"
