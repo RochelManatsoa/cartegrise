@@ -142,6 +142,15 @@ class UserManager
         return $user;
     }
 
+    public function sendUserNoPayedRelance(User $user)
+    {
+        $template = 'relance/emailRelanceEstimationNoPayed.twig';
+        $emails = [];
+        $this->mailManager->sendEmail($emails=[$user->getEmail()], $template, "CG Officiel - Démarches Carte Grise en ligne", ['user'=> $user]);
+        
+        return 'sended';
+    }
+
     public function sendUserForRelance($level = 0)
     {
         $users = $this->repository->findUserForRelance($level);
@@ -179,5 +188,10 @@ class UserManager
     public function getLastCommandePayed(User $user)
     {
         return $this->commandeRepository->getLastCommandePayed($user);
+    }
+
+    public function find($id)
+    {
+        return $this->repository->find($id);
     }
 }

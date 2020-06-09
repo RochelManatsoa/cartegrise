@@ -226,5 +226,40 @@ class CommandeRepository extends ServiceEntityRepository
 
         return $date;
     }
+
+    public function getUserHaveComandNoPayed()
+    {
+        // get all user with command estimated and not process to payment
+        return $this->createQueryBuilder('c')
+            ->select('u.id')
+            ->leftJoin('c.client','cl')
+            ->leftJoin('cl.user','u')
+            ->leftJoin('c.systempayTransaction','t')
+            ->andWhere('u.id IS NOT NULL and u.remindProcess IS NULL')
+            ->distinct()
+            ->orderBy('u.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getUserHaveComandWithTransactionFailedPayed()
+    {
+        //get all user with command with transaction but fail
+        return $this->createQueryBuilder('c')
+            ->select('u.id')
+            ->leftJoin('c.client','cl')
+            ->leftJoin('cl.user','u')
+            ->leftJoin('c.systempayTransaction','t')
+            ->andWhere('u.id IS NOT NULL and u.remindProcess IS NULL')
+            ->andWhere('t.status IS NULL OR t.status != : success')
+            ->distinct()
+            ->orderBy('u.id', 'DESC')
+            ->setParameter('success', SystempayTransaction::TRANSACTION_SUCCESS)
+            //->setParameter('xdaysAgo', (new \DateTime())->modify('-3 days'))
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
 }

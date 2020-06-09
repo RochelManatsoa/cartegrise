@@ -703,4 +703,9 @@ class CommandeManager
         
         return $file;
 	}
+
+	public function getUserHaveComandNoPayed()
+	{
+		return $this->repository->getUserHaveComandNoPayed();
+	}
 }

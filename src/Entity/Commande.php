@@ -195,6 +195,17 @@ class Commande
      */
     private $fraisRembourser;
 
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $remindPayment;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $remindPaymentDate;
+
     /**
      * @ORM\PrePersist
      */
@@ -686,6 +697,30 @@ class Commande
     }
     public function getRawContent(){
         return $this->comment;
+    }
+
+    public function getRemindPayment(): ?int
+    {
+        return $this->remindPayment;
+    }
+
+    public function setRemindPayment(?int $remindPayment): self
+    {
+        $this->remindPayment = $remindPayment;
+
+        return $this;
+    }
+
+    public function getRemindPaymentDate(): ?\DateTimeInterface
+    {
+        return $this->remindPaymentDate;
+    }
+
+    public function setRemindPaymentDate(?\DateTimeInterface $remindPaymentDate): self
+    {
+        $this->remindPaymentDate = $remindPaymentDate;
+
+        return $this;
     }
 
 }

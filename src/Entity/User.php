@@ -111,6 +111,11 @@ class User extends BaseUser
      */
     private $transactions;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $remindProcess;
+
 
 
 
@@ -225,6 +230,18 @@ class User extends BaseUser
                 $transaction->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRemindProcess(): ?int
+    {
+        return $this->remindProcess;
+    }
+
+    public function setRemindProcess(?int $remindProcess): self
+    {
+        $this->remindProcess = $remindProcess;
 
         return $this;
     }
