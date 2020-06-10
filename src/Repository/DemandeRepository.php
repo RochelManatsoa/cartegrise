@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use App\Manager\Crm\Modele\CrmSearch;
 use App\Entity\{User, Transaction};
+use App\Entity\Systempay\Transaction as SystempayTransaction;
 
 /**
  * @method Demande|null find($id, $lockMode = null, $lockVersion = null)
@@ -114,6 +115,25 @@ class DemandeRepository extends ServiceEntityRepository
         $qb
         ->setParameter('paramSuccess', Transaction::STATUS_SUCCESS)
         ->setParameter('now', $this->relanceDate($day));
+
+        return $qb->getQuery()->getResult();
+
+    }
+
+    public function getUserHaveDemandeButNoDocument()
+    {
+        $qb = $this->createQueryBuilder('d')
+        ->select('u.id userID, d.id demandeId')
+        ->join('d.commande','com')
+        ->join('com.systempayTransaction','transaction')
+        ->join('com.client','c')
+        ->join('c.user','u')
+        ->distinct()
+        ->where('transaction.status =:success')
+        ->andWhere('d.statusDoc IS NULL OR d.statusDoc = :waittingDoc')
+        ->orderBy('u.id', 'DESC')
+        ->setParameter('waittingDoc', Demande::DOC_WAITTING)
+        ->setParameter('success', SystempayTransaction::TRANSACTION_SUCCESS);
 
         return $qb->getQuery()->getResult();
 

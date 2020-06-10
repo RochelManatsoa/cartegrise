@@ -73,6 +73,11 @@ class Demande
     private $TmsIdDemande;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $remindDocument;
+
+    /**
      * @ORM\Column(type="string", length=999, nullable=true)
      */
     private $progressionDemande;
@@ -746,6 +751,18 @@ class Demande
     public function setDocIncomplets($docIncomplets): self
     {
         $this->docIncomplets = $docIncomplets;
+
+        return $this;
+    }
+
+    public function getRemindDocument(): ?int
+    {
+        return $this->remindDocument;
+    }
+
+    public function setRemindDocument(?int $remindDocument): self
+    {
+        $this->remindDocument = $remindDocument;
 
         return $this;
     }

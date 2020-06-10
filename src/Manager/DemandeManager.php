@@ -648,6 +648,11 @@ class DemandeManager
         return $this->repository->findOneBy(['commande'=>$commande->getId()]);
     }
 
+    public function getUserHaveDemandeButNoDocument()
+    {
+        return $this->repository->getUserHaveDemandeButNoDocument();
+    }
+
     public function getAdminView(Form $form)
     {
         $demande = $form->getData();

@@ -6,7 +6,7 @@ use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Entity\{User, Client, Contact, Adresse, Commande};
+use App\Entity\{User, Client, Contact, Adresse, Commande, Demande};
 use App\Manager\SessionManager;
 use App\Manager\MailManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -226,6 +226,24 @@ class UserManager
         
         $commande->setRemindDemande($commande->getRemindDemande()+1);
         $this->em->persist($commande);
+        $this->em->flush();
+        
+        return 'sended';
+    }
+
+     public function sendUserWithoutDocumentRelance(User $user, Demande $demande)
+    {
+        $template = 'relance/attenteDeDocuments.mail.twig';
+        $emails = [];
+        $this->mailManager->sendEmail(
+            $emails=[$user->getEmail()], 
+            $template,
+            "CG Officiel - Démarches Carte Grise en ligne",
+            ['demande'=> $demande, 'user'=> $user]
+        );
+        
+        $demande->setRemindDocument($demande->getRemindDocument()+1);
+        $this->em->persist($demande);
         $this->em->flush();
         
         return 'sended';
