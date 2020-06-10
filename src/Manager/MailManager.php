@@ -130,7 +130,7 @@ class MailManager
     /**
      * send email when admins change statusDoc
      */
-    public function sendEmailStatusDoc($mailer, $mail, $responses, $index)
+    public function sendEmailStatusDoc($mailer, $mail, $responses, $template)
     {
         $message = (new \Swift_Message('Statut de vos dossiers sur CGOfficiel.fr'))
         ->setFrom('no-reply@cgofficiel.fr');
@@ -138,7 +138,8 @@ class MailManager
         $message
         ->setBody(
             $this->template->render(
-                'email/status/doc'.$index.'.mail.twig',
+                // 'email/status/doc'.$index.'.mail.twig'
+                $template,
                 array('demande' => $responses)
             ),
             'text/html'
