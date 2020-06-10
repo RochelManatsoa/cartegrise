@@ -7,141 +7,318 @@
             <div class="col-lg-8 col-xll-12 doc-telechargeable">
                 <h3 class="home-secondview--titre">Pièces à Fournir</h3>
 				<div class="block_pcs_a_fournir">
-					<div class="item_pcs_a_fournir">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/mandat.jpg')}})">
-									<div class="numbr"><span>1</span></div>
+					<h4 class="mb-4 mt-5">1- D'une demande de changement d’adresse :</h4>
+					<ul class="list col-12">
+						<li>Un justificatif de domicile (copie)
+							{# Info bulles #}
+							<span class="wrapper_tooltip">
+								<label class="fa fa-question-circle" for="1"></label>
+								<input type="checkbox" id="1" />
+								<div class="tooltip_">
+									<div class="tooltip-inner_">
+										<div class="item_pcs_a_fournir">
+											<label for="1" class="closeModal">X</label>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/just_domicile.jpg')}})">
+														<div class="numbr"><span>3</span></div>
+													</div>
+												</div>
+												<div class="col-md-8">
+													<div class="text_pcs">
+														<h3>Justificatif de domicile</h3>
+														<ul>
+															<li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
+															<li>Dernier avis d'imposition ou de non imposition</li>
+															<li>Quittance de gaz</li>
+															<li>Quittance d'électricité</li>
+															<li>Facture de téléphone fixe ou portable</li>
+															<li>Facture d'un fournisseur d'accès à Internet</li>
+															<li>Attestation d'un fournisseur d'énergie (EDF, Engie, ...)</li>
+															<li>Attestation d'assurance habitation</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div><!--justificatif de domicilee-->
+									</div>
 								</div>
-							</div>
-							<div class="col-md-8">
-								<div class="text_pcs">
-									<h3>Procutation par mandat</h3>
-									<ul>
-										<li>Le mandat original dûrement complété autorise CGOfficiel à réaliser la démarche administrative en votre nom. Le numéro VIN à renseigner sur le mandat correspondant à la case <strong>"E"</strong> de votre carte grise</li>
-									</ul>
+							</span>
+							{# End Info bulles #}
+						</li>
+						<li>La procuration par Mandat <strong>(autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)</strong>
+							<a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
+								<button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+							</a>
+							{# Info bulles #}
+							<span class="wrapper_tooltip">
+								<label class="fa fa-question-circle" for="2"></label>
+								<input type="checkbox" id="2" />
+								<div class="tooltip_">
+									<div class="tooltip-inner_">
+										<div class="item_pcs_a_fournir">
+											<label for="2" class="closeModal">X</label>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/mandat.jpg')}})">
+														<div class="numbr"><span>1</span></div>
+													</div>
+												</div>
+												<div class="col-md-8">
+													<div class="text_pcs">
+														<h3>Procutation par mandat</h3>
+														<ul>
+															<li>Le mandat original dûrement complété autorise CGOfficiel à réaliser la démarche administrative en votre nom. Le numéro VIN à renseigner sur le mandat correspondant à la case <strong>"E"</strong> de votre carte grise</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div><!--Mandats-->
+									</div>
 								</div>
-							</div>
+							</span>
+							{# End Info bulles #}
+						</li>
+						<li>Une pièce d’identité en cours de validité (copie) 
+							{# Info bulles #}
+							<span class="wrapper_tooltip">
+								<label class="fa fa-question-circle" for="3"></label>
+								<input type="checkbox" id="3" />
+								<div class="tooltip_">
+									<div class="tooltip-inner_">
+										<div class="item_pcs_a_fournir">
+											<label for="3" class="closeModal">X</label>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/pcs_identite.jpg')}})">
+														<div class="numbr"><span>5</span></div>
+													</div>
+												</div>
+												<div class="col-md-8">
+													<div class="text_pcs">
+														<h3>Pièce d’identité valide</h3>
+														<ul>
+															<li>Copie recto/verso d'une carte d'identité (ou passeport) en cours de validité, ou d'un titre de séjour (dans ce cas, même adresse que la carte grise).</li>
+															<li>Pour un nom marital qui n'apparaît pas sur la pièce d'identité, <br/><strong>fournir en plus une copie du livret de famille mis à jour.</strong></li>
+															<li>Pour un passeport établi hors UE, si l'adresse du passeport est en France, <br/><strong>fournir en plus une copie de la carte de séjour ou du permis de conduire français</strong></li>
+															<li>si l'adresse du passeport est hors de France, <br/><strong>fournir une copie du visa</strong>.</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div><!--pièce d’identité valide-->
+									</div>
+								</div>
+							</span>
+							{# End Info bulles #}
+						</li>
+						<li>Le certificat d’immatriculation <b>(carte grise)</b>
+							{# Info bulles #}
+							<span class="wrapper_tooltip">
+								<label class="fa fa-question-circle" for="4"></label>
+								<input type="checkbox" id="4" />
+								<div class="tooltip_">
+									<div class="tooltip-inner_">
+										<div class="item_pcs_a_fournir">
+											<label for="4" class="closeModal">X</label>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/carte-grise.jpg')}})">
+														<div class="numbr"><span>2</span></div>
+													</div>
+												</div>
+												<div class="col-md-8">
+													<div class="text_pcs">
+														<h3>Carte grise</h3>
+														<ul>
+															<li><p><strong><em>Carte grise originale :</em></strong> <br>
+																Copie recto/verso du certificat d'immatriculation (carte grise) barré, daté et signé par le vendeur ou l'original du certificat d'immatriculation pour les changements de titulaire de véhicule d'occasion .</p>
+																<p>L'article 4 du décret n° 2017-1278 du 9 août 2017 modifie l'article R. 322-5 du code de la route et instaure que le nouveau propriétaire d'un véhicule doit pouvoir justifier sur demande de l'ancien certificat d'immatriculation barré, daté et signé.</p>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div><!--carte grise-->
+									</div>
+								</div>
+							</span>
+							{# End Info bulles #}
+						</li>
+						<li>Le formulaire de demande de certificat d’immatriculation <b>(carte grise)</b> CERFA n° 13750*05
+							<a href="/../download/cgofficiel_cerfa_13750-05.pdf" target="blank">
+								<button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+							</a>
+						</li>
+						<li class="puceChck"><strong>Pour les véhicules dont la plaque d’immatriculation est sous la forme 1234 AA 12,</strong><br>
+							vous recevrez un nouveau certificat d’immatriculation <b>(carte grise)</b>. </li>
+						<li class="puceChck"><strong>Pour les véhicules dont l’immatriculation se présente sous la forme AA 123 AA, </strong><br>
+							vous recevrez une étiquette à coller sur votre certificat d’immatriculation <b>(carte grise)</b>. </li>
+						<p>Dans les 2 cas vous pouvez circuler pendant un mois dans l’attente de votre certificat d’immatriculation <b>(carte grise)</b> car le propriétaire d’un véhicule a un mois pour déclarer son changement d’adresse, passé ce délai il est susceptible d’encourir une contravention de 4ème classe.</p>
+						<li class="puceChck"><strong>Au bout du 4ème changement d’adresse pour un même véhicule, </strong><br>
+							vous recevrez un nouveau certificat d’immatriculation <b>(carte grise)</b>.</li>
+					</ul>
+				
+					<h4 class="mb-4 mt-5">2- D'une demande de duplicata :</h4>
+					<ul class="list col-12">
+						<li>Un justificatif de domicile (copie)</li>
+						<li>L'attestation d'assurance 
+							{# Info bulles #}
+							<span class="wrapper_tooltip">
+								<label class="fa fa-question-circle" for="5"></label>
+								<input type="checkbox" id="5" />
+								<div class="tooltip_">
+									<div class="tooltip-inner_">
+										<div class="item_pcs_a_fournir">
+											<label for="5" class="closeModal">X</label>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/demande-originale.jpg')}})">
+														<div class="numbr"><span>7</span></div>
+													</div>
+												</div>
+												<div class="col-md-8">
+													<div class="text_pcs">
+														<h3>Attestation d’assurance du véhicule</h3>
+														<ul>
+															<li>Attestation d’assurance / carte verte du véhicule en cours de validité.</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div><!--demande originale-->
+									</div>
+								</div>
+							</span>
+							{# End Info bulles #}
+						</li>
+						<li>La déclaration de perte ou de vol CERFA n° 13753*01 <b>(original)</b>,
+						<a href="/../download/cgofficiel_cerfa-13753-01.pdf" target="blank">
+							<button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+						</a>
+						</li>
+						<li>La copie recto/verso de sa pièce d’identité </li>
+						<li>Le formulaire de demande de certificat d’immatriculation <b>(carte grise)</b> CERFA n° 13750*05
+							<a href="/../download/cgofficiel_cerfa_13750-05.pdf" target="blank">
+								<button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+							</a>
+						</li>
+						<li>La copie du permis de conduire 
+							{# Info bulles #}
+							<span class="wrapper_tooltip">
+								<label class="fa fa-question-circle" for="6"></label>
+								<input type="checkbox" id="6" />
+								<div class="tooltip_">
+									<div class="tooltip-inner_">
+										<div class="item_pcs_a_fournir">
+											<label for="6" class="closeModal">X</label>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/premis_c.jpg')}})">
+														<div class="numbr"><span>4</span></div>
+													</div>
+												</div>
+												<div class="col-md-8">
+													<div class="text_pcs">
+														<h3>Permis de conduire</h3>
+														<ul>
+															<li>Preuve que le titulaire dispose du droit de conduire le véhicule.</li>
+															<li>Copie du permis de conduire en cours de validité ou document provisoire établissant les droits à conduire <em>(décret n°2017-1278 du 9 août 2017)</em>.</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div><!--permis de conduire-->
+									</div>
+								</div>
+							</span>
+							{# End Info bulles #}
+						</li>
+						<li>La procuration par Mandat <strong>(autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)</strong>
+							<a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
+								<button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+							</a>
+						</li>
+						</li>
+						<li>Le procès verbal du contrôle technique à jour (copie) ainsi que le numéro de formule figurant sur les
+							certificats d’immatriculation <b>(carte grise)</b> à demander à son assurance si vous vous ne l’avez plus.</li>
+					</ul>
+
+					<h4 class="mb-4 mt-5">3- D'une demande de changement du titulaire de véhicule d’occasion :</h4>
+					<ul class="list col-12">
+						<li>L'original de l’ancien certificat d’immatriculation ( carte grise) , </li>
+						<li>La déclaration de cession CERFA n° 15776*01, 
+						<a href="/../download/cgofficiel_cerfa-15776-01.pdf" target="blank">
+							<button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+						</a>
+						</li>
+						<li>Un justificatif de domicile de moins de 6 mois (copie)</li>
+						<li>Le procès-verbal du contrôle technique, à jour (copie) <span class="js-toggle">(cas particuliers de dispense)</span>
+							{# Info bulles #}
+							<span class="wrapper_tooltip">
+								<label class="fa fa-question-circle" for="7"></label>
+								<input type="checkbox" id="7" />
+								<div class="tooltip_">
+									<div class="tooltip-inner_">
+										<div class="item_pcs_a_fournir">
+											<label for="7" class="closeModal">X</label>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/controle_tech.jpg')}})">
+														<div class="numbr"><span>6</span></div>
+													</div>
+												</div>
+												<div class="col-md-8">
+													<div class="text_pcs">
+														<h3>Copie du contrôle technique</h3>
+														<ul>
+															<li>Copie du Contrôle technique ou la vignette collée au dos de la carte grise qui prouve qu'il a été effectué il y a moins de 6 mois <em>(ou moins de 2 mois en cas de contre-visite)</em>.</li>
+															<li>Les motos, cyclomoteurs, caravanes, remorques et engins agricoles ne sont pas concernés.</li>
+															<li><strong>Important:</strong> c'est la date de saisie du dossier qui est prise en compte et non la date de commande !</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div><!--copie du contrôle technique-->
+									</div>
+								</div>
+							</span>
+							{# End Info bulles #}
+						</li>
+						<div class="toggle-content part-dispense"  style="display: none;">
+							<h4>Cas particuliers de dispense</h4>
+							<p>Si votre véhicule a plus de 4 ans le contrôle technique est obligatoire pour la plupart des véhicules particuliers (VP) ou utilitaires. Toutefois, les véhicules suivants en sont dispensés :</p>
+							<ul>
+								<li>Voiture sans permis</li>
+								<li>Voiture de collection dont le PTAC est inférieur ou égal à 3,5 tonnes et dont la mise en circulation est antérieure à 1960</li>
+								<li>Voiture de collection dont le PTAC est supérieur à 3,5 tonnes</li>
+								<li>Moto, 2 roues et 3 roues</li>
+								<li>Quadricycle à moteur</li>
+								<li>Caravane dont le PTAC est inférieur ou égal à 3,5 tonnes</li>
+								<li>Remorque dont le PTAC est inférieur ou égal à 3,5 tonnes non utilisée pour le transport de marchandises dangereuses</li>
+								<li>Voiture immatriculée dans les services diplomatiques ou assimilés</li>
+								<li>Voiture immatriculée dans les séries FFECSA (Forces françaises et éléments civils stationnés en Allemagne) Tracteur agricole)</li>
+							</ul>
 						</div>
-					</div><!--Mandats-->
-					<div class="item_pcs_a_fournir">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/carte-grise.jpg')}})">
-									<div class="numbr"><span>2</span></div>
-								</div>
-							</div>
-							<div class="col-md-8">
-								<div class="text_pcs">
-									<h3>Carte grise</h3>
-									<ul>
-										<li><p><strong><em>Carte grise originale :</em></strong> <br>
-											Copie recto/verso du certificat d'immatriculation (carte grise) barré, daté et signé par le vendeur ou l'original du certificat d'immatriculation pour les changements de titulaire de véhicule d'occasion .</p>
-											<p>L'article 4 du décret n° 2017-1278 du 9 août 2017 modifie l'article R. 322-5 du code de la route et instaure que le nouveau propriétaire d'un véhicule doit pouvoir justifier sur demande de l'ancien certificat d'immatriculation barré, daté et signé.</p>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div><!--carte grise-->
-					<div class="item_pcs_a_fournir">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/just_domicile.jpg')}})">
-									<div class="numbr"><span>3</span></div>
-								</div>
-							</div>
-							<div class="col-md-8">
-								<div class="text_pcs">
-									<h3>Justificatif de domicile</h3>
-									<ul>
-										<li>Quittance de loyer éditée par une agence immatriculée au RCS</li>
-										<li>Dernier avis d'imposition ou de non imposition</li>
-										<li>Quittance de gaz</li>
-										<li>Quittance d'électricité</li>
-										<li>Facture de téléphone fixe ou portable</li>
-										<li>Facture d'un fournisseur d'accès à Internet</li>
-										<li>Attestation d'un fournisseur d'énergie (EDF, Engie, ...)</li>
-										<li>Attestation d'assurance habitation</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div><!--justificatif de domicilee-->
-					<div class="item_pcs_a_fournir">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/premis_c.jpg')}})">
-									<div class="numbr"><span>4</span></div>
-								</div>
-							</div>
-							<div class="col-md-8">
-								<div class="text_pcs">
-									<h3>Permis de conduire</h3>
-									<ul>
-										<li>Preuve que le titulaire dispose du droit de conduire le véhicule.</li>
-										<li>Copie du permis de conduire en cours de validité ou document provisoire établissant les droits à conduire <em>(décret n°2017-1278 du 9 août 2017)</em>.</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div><!--permis de conduire-->
-					<div class="item_pcs_a_fournir">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/pcs_identite.jpg')}})">
-									<div class="numbr"><span>5</span></div>
-								</div>
-							</div>
-							<div class="col-md-8">
-								<div class="text_pcs">
-									<h3>Pièce d’identité valide</h3>
-									<ul>
-										<li>Copie recto/verso d'une carte d'identité (ou passeport) en cours de validité, ou d'un titre de séjour (dans ce cas, même adresse que la carte grise).</li>
-										<li>Pour un nom marital qui n'apparaît pas sur la pièce d'identité, <br/><strong>fournir en plus une copie du livret de famille mis à jour.</strong></li>
-										<li>Pour un passeport établi hors UE, si l'adresse du passeport est en France, <br/><strong>fournir en plus une copie de la carte de séjour ou du permis de conduire français</strong></li>
-										<li>si l'adresse du passeport est hors de France, <br/><strong>fournir une copie du visa</strong>.</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div><!--pièce d’identité valide-->
-					<div class="item_pcs_a_fournir">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/controle_tech.jpg')}})">
-									<div class="numbr"><span>6</span></div>
-								</div>
-							</div>
-							<div class="col-md-8">
-								<div class="text_pcs">
-									<h3>Copie du contrôle technique</h3>
-									<ul>
-										<li>Copie du Contrôle technique ou la vignette collée au dos de la carte grise qui prouve qu'il a été effectué il y a moins de 6 mois <em>(ou moins de 2 mois en cas de contre-visite)</em>.</li>
-										<li>Les motos, cyclomoteurs, caravanes, remorques et engins agricoles ne sont pas concernés.</li>
-										<li><strong>Important:</strong> c'est la date de saisie du dossier qui est prise en compte et non la date de commande !</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div><!--copie du contrôle technique-->
-					<div class="item_pcs_a_fournir">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="img_pcs" style="background-image:url({{ asset('asset/img/peace_fournir/demande-originale.jpg')}})">
-									<div class="numbr"><span>7</span></div>
-								</div>
-							</div>
-							<div class="col-md-8">
-								<div class="text_pcs">
-									<h3>Attestation d’assurance du véhicule</h3>
-									<ul>
-										<li>Attestation d’assurance / carte verte du véhicule en cours de validité.</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div><!--demande originale-->
+						<li>La procuration par Mandat <strong>(autorisant CG Officiel à effectuer les formalités d'immatriculation au nom du client)</strong>
+							<a href="/../download/cgofficiel_cerfa_13757-03.pdf" target="blank">
+								<button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+							</a>
+						</li>
+						<li>Le formulaire de demande de certificat d’immatriculation <b>(carte grise)</b> CERFA n° 13750*05
+							<a href="/../download/cgofficiel_cerfa_13750-05.pdf" target="blank">
+								<button class="btn btn-blue btn-sm" type="button" id="button-addon2"><i class="far fa-file-pdf"></i> CERFA</button>
+							</a>
+						</li>
+						<li>Le permis de conduire (copie)</li>
+						<li>Une pièce d’identité en cours de validité (copie) </li>
+						<li>L'attestation d'assurance</li>
+						
+					</ul>
+					<h5 class="mb-4 mt-4 important-title">Important :</h5>
+					<p>Le vendeur doit impérativement vous remettre l’ancien certificat d’immatriculation, barré, daté et signé par ses soins, avec la date et l’heure de la vente. Pour votre sécurité, il doit aussi vous fournir le certificat de non gage (ou certificat de situation administrative), attestant qu’il a payé toutes ses amendes et vous confirmer que son véhicule n’a pas été déclaré comme irréparable après un accident si c'est le cas.</p>
+					<h5 class="mb-4 mt-4 important-title"> Pour un véhicule neuf</h5>
+					<p>Les pièces nécessaires pour établir votre certificat d’immatriculation <b>(carte grise)</b> sont : la déclaration de cession ou la facture d’achat, le quitus fiscal fourni par le Trésor Public attestant la régularité du véhicule pour <b>la TVA</b>, le certificat de conformité fourni par le constructeur,un justificatif de domicile daté de moins de 6 mois (copie).</p>
 				</div>
             </div>
 			<!-- Demarche formulaire /Iary  -->
