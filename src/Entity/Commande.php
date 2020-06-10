@@ -207,6 +207,16 @@ class Commande
     private $remindFailedTransaction;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $remindDemande;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $remindDocument;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $remindPaymentDate;
@@ -736,6 +746,30 @@ class Commande
     public function setRemindFailedTransaction(?int $remindFailedTransaction): self
     {
         $this->remindFailedTransaction = $remindFailedTransaction;
+
+        return $this;
+    }
+
+    public function getRemindDemande(): ?int
+    {
+        return $this->remindDemande;
+    }
+
+    public function setRemindDemande(?int $remindDemande): self
+    {
+        $this->remindDemande = $remindDemande;
+
+        return $this;
+    }
+
+    public function getRemindDocument(): ?int
+    {
+        return $this->remindDocument;
+    }
+
+    public function setRemindDocument(?int $remindDocument): self
+    {
+        $this->remindDocument = $remindDocument;
 
         return $this;
     }

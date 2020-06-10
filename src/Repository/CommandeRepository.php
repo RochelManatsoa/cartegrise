@@ -263,5 +263,27 @@ class CommandeRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function getUserWithoutDemandeButPayed()
+    {
+        //get all user with command with transaction but fail
+        return $this->createQueryBuilder('c')
+            ->select('u.id userID, c.id commandeId')
+            ->leftJoin('c.client','cl')
+            ->leftJoin('cl.user','u')
+            ->leftJoin('c.systempayTransaction','t')
+            ->where('u.id IS NOT NULL')
+            ->andWhere('c.demande IS NULL')
+            ->andWhere('t.id IS NOT NULL')
+            ->andWhere('c.remindDemande < :two OR c.remindDemande IS NULL')
+            ->andWhere('t.status = :success')
+            ->distinct()
+            ->orderBy('u.id', 'DESC')
+            ->setParameter('success', SystempayTransaction::TRANSACTION_SUCCESS)
+            ->setParameter('two', 2)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
 }

@@ -720,4 +720,16 @@ class CommandeManager
 
 	}
 
+	/**
+	 * get all user with transation failed
+	 *
+	 * @return void
+	 */
+	public function getUserWithoutDemandeButPayed()
+	{
+		// get all user with transaction failed
+		return $this->repository->getUserWithoutDemandeButPayed();
+
+	}
+
 }

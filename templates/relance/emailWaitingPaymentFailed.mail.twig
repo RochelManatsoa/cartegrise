@@ -5,7 +5,7 @@
                                 <br>
                                 Bonjour {{ user.client.clientNomPrenom }}
                                 <br>
-                                <br>%}
+                                <br>
                                 <p>Votre paiement pour la commande n° {{commande.id}}{{commande.demarche.type}} du {{ commande.systempayTransaction.createdAt | date('d/m/Y')}} n’a pas fonctionné. Pas d’inquiétude vous pouvez reprendre votre démarche ici en cliquant sur ce 
                                     <a href="{{basePath ~ path('commande_recap', {'commande':commande.id}) }}" target="_blank">lien</a>
                                 </p>
