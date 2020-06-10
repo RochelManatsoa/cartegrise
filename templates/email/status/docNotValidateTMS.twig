@@ -9,10 +9,13 @@
             Bonjour {{ demande.commande.client|displayRelanceInfos }}
             <br>
             <br>
-            <p>Vos documents numériques ont bien été validés, merci de nous les transmettre par courrier à l'adresse suivante :  </p>
-            <p>CG OFFICIEL <br> 20 impasse Camille Langlade  <br>31100  TOULOUSE </p>
-
-            <p>L'équipe <a href="https://www.cgofficiel.fr" target="_blank">CG Officiel</a> vous remercie.</p>
+            <p>Votre démarche d’immatriculation a été refusée par le Ministère de l’Intérieur pour les raisons suivantes :</p>
+            <div>
+                <em>{{ demande.motifDeRejet | nl2br }}</em>
+            </div>
+            
+            <p >Cordialement,</p>
+            <p >L'équipe <a href="https://www.cgofficiel.fr" target="_blank">CGOFFICIEL</a> vous remercie.</p>
         </td>
     </tr>
     <tr>
