@@ -26,6 +26,8 @@ final class ValidationDossierAdmin extends AbstractAdmin
         $alias = $query->getRootAliases()[0];
         $qb
         ->orderBy($alias.'.id', 'desc')
+        ->where($alias.'.dateDemande <= :date')
+        ->setParameter('date', '2020-06-11 23:59:59')
         ;
 
         return $query;
