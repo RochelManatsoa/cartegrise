@@ -348,6 +348,20 @@ class PaymentController extends AbstractController
                 $commandeManager->migrateFacture($commande);
                 $commandeManager->simulateTransaction($commande);
                 $commandeManager->save($commande);
+                $countFidelite = 0;
+                $client = $commande->getClient();
+                foreach ($client->getCommandes() as $commande) {
+                    if ($commande->getSystempayTransaction() instanceof SystempayTransaction){
+                        if ($commande->getSystempayTransaction()->getStatus() === SystempayTransaction::TRANSACTION_SUCCESS) {
+                            $countFidelite ++;
+                        }
+                    }
+                }
+                if ($countFidelite === 2){
+                    $this->sendMail2Fidelite($mailer, $responses, $responses["vads_cust_email"], $adminEmails, $files, $commande);
+                } elseif ($countFidelite >= 3) {
+                    $this->sendMail3Fidelite($mailer, $responses, $responses["vads_cust_email"], $adminEmails, $files, $commande);
+                }
             }
             $files = [];
             if ($requestCollection->get('vads_trans_status') == "AUTHORISED") {
@@ -390,5 +404,93 @@ class PaymentController extends AbstractController
                 ]
         );
     }
+
+        //function to send email with response in sherlock treatment
+        public function sendMail2Fidelite($mailer, $responses, $mail , $admins = [], $attachments=[], $commande=null)
+        {
+            $this->sendFidelite2Client($mailer, $mail, $responses, '', $attachments, $commande);
+        }
+        public function sendMail3Fidelite($mailer, $responses, $mail , $admins = [], $attachments=[], $commande=null)
+        {
+            $this->sendFidelite3Client($mailer, $mail, $responses, '', $attachments, $commande);
+        }
+        //function to send email unit
+        public function sendFidelite2Client($mailer, $mail, $responses, $adminPrepend='', $attachments, $commande)
+        {
+            $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["vads_trans_id"]. ' de ' . $responses["vads_cust_email"] ))
+            ->setFrom('no-reply@cgofficiel.fr');
+            if ($adminPrepend != '' && is_iterable($mail) && count($mail)>0) {
+                $message->setTo(array_shift($mail))
+                ->setBcc($mail);
+            } else {
+                $message->setTo($mail);
+            }
+            $message
+            ->setBody(
+                $this->renderView(
+                    'fidelite/secondEstimation.mail.twig',[
+                        'responses' => $responses,
+                        'commande' => $commande
+                    ]
+                ),
+                'text/html'
+            );
+            foreach ($attachments as $attachment){
+                $message->attach(\Swift_Attachment::fromPath($attachment));
+            }
+            $mailer->send($message);
+        }
+        //function to send email unit
+        public function sendFidelite3Client($mailer, $mail, $responses, $adminPrepend='', $attachments, $commande)
+        {
+            $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["vads_trans_id"]. ' de ' . $responses["vads_cust_email"] ))
+            ->setFrom('no-reply@cgofficiel.fr');
+            if ($adminPrepend != '' && is_iterable($mail) && count($mail)>0) {
+                $message->setTo(array_shift($mail))
+                ->setBcc($mail);
+            } else {
+                $message->setTo($mail);
+            }
+            $message
+            ->setBody(
+                $this->renderView(
+                    'fidelite/thirdEstimation.mail.twig',[
+                        'responses' => $responses,
+                        'commande' => $commande
+                    ]
+                ),
+                'text/html'
+            );
+            foreach ($attachments as $attachment){
+                $message->attach(\Swift_Attachment::fromPath($attachment));
+            }
+            $mailer->send($message);
+        }
+        //function to send email unit
+        // public function sendFideliteAdmin($mailer, $mail, $responses, $adminPrepend='', $attachments, $commande)
+        // {
+        //     $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["vads_trans_id"]. ' de ' . $responses["vads_cust_email"] ))
+        //     ->setFrom('no-reply@cgofficiel.fr');
+        //     if ($adminPrepend != '' && is_iterable($mail) && count($mail)>0) {
+        //         $message->setTo(array_shift($mail))
+        //         ->setBcc($mail);
+        //     } else {
+        //         $message->setTo($mail);
+        //     }
+        //     $message
+        //     ->setBody(
+        //         $this->renderView(
+        //             'email/registration.mail.twig',[
+        //                 'responses' => $responses,
+        //                 'commande' => $commande
+        //             ]
+        //         ),
+        //         'text/html'
+        //     );
+        //     foreach ($attachments as $attachment){
+        //         $message->attach(\Swift_Attachment::fromPath($attachment));
+        //     }
+        //     $mailer->send($message);
+        // }
 }
 
