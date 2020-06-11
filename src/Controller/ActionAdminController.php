@@ -387,7 +387,6 @@ class ActionAdminController extends Controller
             if ($request->request->get('valid_doc_simulate') === "on") {
                 $demande->setStatusDoc(Demande::DOC_VALID);
                 $demandeManager->saveDemande($demande);
-                // $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 1);
                 $template = 'email/status/docNumericValid.mail.twig'; 
                 $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, $template);
             } elseif ($request->request->get('valid_doc_real') === "on") {
@@ -397,21 +396,25 @@ class ActionAdminController extends Controller
                     $demande->getCommande()->setSaved(true);
                     $demande->setStatusDoc(Demande::DOC_VALID_SEND_TMS);
                     $demandeManager->saveDemande($demande);
-                    //$mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 2);
                     $this->addFlash('success', 'La demande '.$demande->getCommande()->getId().' a bien été enregister sur TMS');
                 }
                 
             } elseif ($request->request->get('valid_doc_real_send_email') === "on") {
-                    //$mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 2);
                     $template = 'email/status/docValidateTMS.mail.twig'; 
                     $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, $template);
                     $this->addFlash('success', 'L\'envoie de l\'email pour la demande '.$demande->getCommande()->getId().' a bien été envoyer à l\'utilisateur');
                 
+            } elseif ($request->request->get('invalidate_doc_real') != "") {
+                // $demande->setStatusDoc(Demande::DOC_VALID);
+                $demande->setMotifDeRejet($request->request->get('invalidate_doc_real'));
+                $demandeManager->saveDemande($demande);
+                $template = 'email/status/docPhysicalReceivedNotValid.mail.twig'; 
+                $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, $template);
+
             } elseif ($request->request->get('invalidate_doc_simulate') != "") {
                 $demande->setStatusDoc(Demande::DOC_NONVALID);
                 $demande->setMotifDeRejet($request->request->get('invalidate_doc_simulate'));
                 $demandeManager->saveDemande($demande);
-                //$mailManager->sendEmailStatusDoc($mailer, $mail, $demande, 3);
                 $template = 'email/status/docNumericNotValid.mail.twig'; 
                 $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, $template);
             }
