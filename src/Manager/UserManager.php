@@ -144,7 +144,7 @@ class UserManager
 
     public function sendUserNoPayedRelance(User $user)
     {
-        $template = 'relance/emailRelanceEstimationNoPayed.twig';
+        $template = 'relance/emailRelanceEstimationNoPayed.mail.twig';
         $emails = [];
         $this->mailManager->sendEmail($emails=[$user->getEmail()], $template, "CG Officiel - Démarches Carte Grise en ligne", ['user'=> $user]);
         
