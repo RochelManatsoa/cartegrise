@@ -155,11 +155,11 @@ class UserManager
     {
         $users = $this->repository->findUserForRelance($level);
         // dd($users);
-        $template = 'relance/email1.html.twig';
+        $template = 'relance/emailRelanceEstimationNoPayed.mail.twig';
         $emails = [];
         foreach ($users as $user)
         {
-            $this->mailManager->sendEmail($emails=[$user->getEmail()], $template, "CG Officiel - Démarches Carte Grise en ligne", ['responses'=> $user]);
+            $this->mailManager->sendEmail($emails=[$user->getEmail()], $template, "CG Officiel - Démarches Carte Grise en ligne", ['user'=> $user]);
             $user->getClient()->setRelanceLevel($level+1);
             $this->em->persist($user);
         }
