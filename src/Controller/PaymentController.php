@@ -358,9 +358,9 @@ class PaymentController extends AbstractController
                     }
                 }
                 if ($countFidelite === 2){
-                    $this->sendMail2Fidelite($mailer, $responses, $responses["vads_cust_email"], $adminEmails, $files, $commande);
+                    $this->sendMail2Fidelite($mailer, $responses, $responses["vads_cust_email"], $adminEmails, [], $commande);
                 } elseif ($countFidelite >= 3) {
-                    $this->sendMail3Fidelite($mailer, $responses, $responses["vads_cust_email"], $adminEmails, $files, $commande);
+                    $this->sendMail3Fidelite($mailer, $responses, $responses["vads_cust_email"], $adminEmails, [], $commande);
                 }
             }
             $files = [];
