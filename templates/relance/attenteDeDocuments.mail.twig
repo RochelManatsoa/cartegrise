@@ -12,7 +12,7 @@
             <br>      
                 <p>Vous avez effectué une commande sur <a href="{{basePath}}" target="_blank">CG Officiel</a>, 
                 mais vous n'avez pas numérisé vos documents pour finaliser votre demande. </p>
-                <p>Pour rappel, il vous reste [jour restant] jours avant l'annulation de votre demande</p>
+                <p>Pour rappel, il vous reste {{restDay}} jours avant l'annulation de votre demande</p>
                 <p>Rendez vous sur votre <a href="{{ basePath ~ path('demande_dossiers_a_fournir', {'id': demande.id}) }}" target="_blank">espace client</a> pour le compléter.</p>
                 <p>Si vous avez besoin d’assistance, n’hésitez pas à contacter notre support téléphonique au 09 72 76 01 07 </p>
             <p>Cordialement,</p>
