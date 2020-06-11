@@ -234,12 +234,21 @@ class UserManager
      public function sendUserWithoutDocumentRelance(User $user, Demande $demande)
     {
         $template = 'relance/attenteDeDocuments.mail.twig';
+        $dateDemande = $demande->getDateDemande();
+        $now = new \DateTime();
+        $day = date_diff($dateDemande, $now)->format("%a");
+        $restDay = 30 - $day;
+        // dd($restDay);
         $emails = [];
         $this->mailManager->sendEmail(
             $emails=[$user->getEmail()], 
             $template,
             "CG Officiel - Démarches Carte Grise en ligne",
-            ['demande'=> $demande, 'user'=> $user]
+            [
+                'demande'=> $demande, 
+                'user'=> $user,
+                'restDay'=> $restDay,
+            ]
         );
         
         $demande->setRemindDocument($demande->getRemindDocument()+1);
