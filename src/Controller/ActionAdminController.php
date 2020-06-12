@@ -417,6 +417,11 @@ class ActionAdminController extends Controller
                 $demandeManager->saveDemande($demande);
                 $template = 'email/status/docNumericNotValid.mail.twig'; 
                 $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, $template);
+            }elseif ($request->request->get('invalidate_doc_tms') != "") {
+                $demande->setMotifDeRejet($request->request->get('invalidate_doc_tms'));
+                $demandeManager->saveDemande($demande);
+                $template = 'email/status/docNotValidateTMS.mail.twig'; 
+                $mailManager->sendEmailStatusDoc($mailer, $mail, $demande, $template);
             }
         }
 
