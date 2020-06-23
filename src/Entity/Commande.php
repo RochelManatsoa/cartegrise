@@ -38,7 +38,7 @@ class Commande
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("read")
+     * @Groups({"read", "api"})
      */
     private $id;
 
@@ -48,11 +48,13 @@ class Commande
      *      min=1,
      *      max=3
      * )
+     * @Groups({"api"})
      */
     private $codePostal;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"api"})
      */
     private $immatriculation;
 
@@ -68,13 +70,13 @@ class Commande
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TypeDemande", inversedBy="commandes")
-     * @Groups("read")
+     * @Groups({"read", "api"})
      */
     private $demarche;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups("read")
+     * @Groups({"read", "api"})
      */
     private $ceerLe;
 
@@ -91,6 +93,7 @@ class Commande
 
     /**
      * @ORM\OneToOne(targetEntity="Taxes", mappedBy="commande", cascade={"all"})
+     * @Groups({"api"})
      */
     private $taxes;
 
@@ -109,6 +112,7 @@ class Commande
 
     /**
      * @ORM\OneToOne(targetEntity="CarInfo", mappedBy="commande", cascade={"persist", "remove"})
+     * @Groups({"api"})
      */
     private $carInfo;
 
