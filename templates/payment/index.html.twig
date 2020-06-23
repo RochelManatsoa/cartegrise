@@ -14,19 +14,9 @@
                 <h4>CHOISISSEZ VOTRE MODE DE PAIEMENT</h4>
                 <ul>
                     <li class="mb-3">
-                        <div class="txt">Paiement en une fois<span>( soit {{ amount1fois }} €)</span></div>
+                        <div class="txt">Procéder au paiement<span>( soit {{ amount1fois }} €)</span></div>
                         <span class="line"></span>
                         <a data-href="{{path('pay_online', {'commande': commande.id})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
-                    </li>
-                    <li class="mb-3">
-                        <div class="txt">Paiement en 3 fois<span>( = {{ (amount3fois / 3) | round(2, 'common') }} x 3 soit {{ amount3fois }} €)</span></div>
-                        <span class="line"></span>
-                        <a data-href="{{path('pay_online', {'commande': commande.id, 'multiple': 3})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
-                    </li>
-                    <li class="mb-3">
-                        <div class="txt">Paiement en 4 fois<span>( = {{ (amount4fois / 4) | round(2, 'common') }} x 4 soit {{ amount4fois }} €)</span></div>
-                        <span class="line"></span>
-                        <a data-href="{{path('pay_online', {'commande': commande.id, 'multiple': 4})}}" class="btn-payment btn btn-lg btn-outline-info">Sélectionner</a>
                     </li>
                 </ul>
             <div class="btn btn-lg btn-outline-info btn-payment-submit">Payer</div>
