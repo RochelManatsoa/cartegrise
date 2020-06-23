@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CarInfoRepository")
@@ -15,52 +16,62 @@ class CarInfo
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"api"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"api"})
      */
     private $marque;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"api"})
      */
     private $model;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"api"})
      */
     private $serialNumber;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"api"})
      */
     private $color;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"api"})
      */
     private $nbPlace;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"api"})
      */
     private $horsePower;
     
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"api"})
      */
     private $horsePowerFiscal;
 
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"api"})
      */
     private $version;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"api"})
      */
     private $vin;
 

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TaxesRepository")
@@ -25,36 +26,43 @@ class Taxes
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"api"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="float", nullable=true, options={"default" : 0})
+     * @Groups({"api"})
      */
     private $taxeRegionale;
 
     /**
      * @ORM\Column(type="float", nullable=true, options={"default" : 0})
+     * @Groups({"api"})
      */
     private $taxe35cv;
 
     /**
      * @ORM\Column(type="float", nullable=true, options={"default" : 0})
+     * @Groups({"api"})
      */
     private $taxeParafiscale;
 
     /**
      * @ORM\Column(type="float", nullable=true, options={"default" : 0})
+     * @Groups({"api"})
      */
     private $taxeCO2;
 
     /**
      * @ORM\Column(type="float", nullable=true, options={"default" : 0})
+     * @Groups({"api"})
      */
     private $taxeMalus;
 
     /**
      * @ORM\Column(type="float", nullable=true, options={"default" : 0})
+     * @Groups({"api"})
      */
     private $taxeSIV;
 
@@ -65,41 +73,49 @@ class Taxes
 
     /**
      * @ORM\Column(type="float", nullable=true, options={"default" : 0})
+     * @Groups({"api"})
      */
     private $taxeTotale;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"api"})
      */
     private $VIN;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"api"})
      */
     private $CO2;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"api"})
      */
     private $Puissance;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"api"})
      */
     private $Genre;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"api"})
      */
     private $PTAC;
 
     /**
      * @ORM\Column(type="string")
+     * @Groups({"api"})
      */
     private $Energie;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"api"})
      */
     private $DateMEC;
 

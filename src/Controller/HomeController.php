@@ -18,7 +18,7 @@ use App\Form\DivnInitType;
 use App\Manager\Mercure\MercureManager;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class HomeController extends AbstractController
 {
@@ -944,5 +944,95 @@ class HomeController extends AbstractController
     public function mentionsLegales()
     {
         return $this->render('home/mentionsLegales.html.twig');
+    }
+
+    /**
+     * @Route("/api/accueil", name="api_accueil")
+     */
+    public function apiAccueil(
+        Request $request,
+        TypeDemandeRepository $demarche,
+        ObjectManager $manager,
+        SessionManager $sessionManager,
+        CommandeManager $commandeManager,
+        CarInfoManager $carInfoManager,
+        TaxesManager $taxesManager,
+        MercureManager $mercureManager,
+        NotificationManager $notificationManager
+        )
+    {
+        $type = $demarche->findAll();
+        $commande = $commandeManager->createCommande();
+        foreach($type as $typeId) {
+            $defaultType = $demarche->find($typeId->getId());
+            if ($typeId->getType() === "DIVN")
+            {
+                $divnInit = new DivnInit();
+                $formDivn = $this->createForm(DivnInitType::class, $divnInit, ['departement'=>$commande->DEPARTMENTS]);
+                $num = $typeId->getId();
+                $tabForm[$num] = $formDivn->createView();
+            } else {
+                $form = $this->createForm(CommandeType::class, $commande , [
+                    'defaultType'=>$defaultType, 
+                    'departement'=>$commande->DEPARTMENTS,
+                    'csrf_protection' => false
+                    ]);
+                $num = $typeId->getId();
+                $tabForm[$num] = $form->createView();
+            }
+        }
+        $formulaire = $this->createForm(FormulaireType::class, $commande , ['departement'=>$commande->DEPARTMENTS]);
+        $form->submit($request->request->all());
+        $formDivn->submit($request->request->all());
+        $formulaire->submit($request->request->all());
+
+        if ($form->isSubmitted() && $form->isValid() || $formulaire->isSubmitted() && $formulaire->isValid()) {
+            
+            $sessionManager->initSession();
+
+            $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
+            if (!$tmsInfoImmat->isSuccessfull()) {
+                throw new \Exception('Veuillez Réessayer plus tard');
+            }
+            $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
+            if (!$tmsResponse->isSuccessfull()) {
+                return new Response($tmsResponse->getErrorMessage());
+            } else {
+                $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande, $tmsInfoImmat);
+                $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
+                $commande->setTaxes($taxe);
+                $commande->setCarInfo($carInfo);
+                $manager->persist($commande);
+                $manager->persist($taxe);
+
+                $manager->flush();
+
+                // The Publisher service is an invokable object
+                $data = [
+                        'immat' => $commande->getImmatriculation(),
+                        'department' => $commande->getCodePostal(),
+                        'demarche' => $commande->getDemarche()->getType(),
+                        'id' => $commande->getId(),
+                ];
+                $mercureManager->publish(
+                    'http://cgofficiel.com/addNewSimulator',
+                    'commande',
+                    $data,
+                    'new Simulation is insert'
+                );
+
+                $notificationManager->saveNotification([
+                    "type" => 'commande', 
+                    "data" => $data,
+                ]);
+                $this->saveToSession($commande, $sessionManager, $tabForm);
+
+                return $this->json($commande, 200, [], ['groups' => 'api']);
+            }
+        }      
+
+        return new JsonResponse([
+            'errors' => 'Une erreur s\'est produite'
+        ]);
     }
 }
