@@ -302,16 +302,16 @@ class ActionAdminController extends Controller
                 'demarche' => $commande->getDemarche()->getType(),
                 'id' => $demande->getId(),
             ];
-            $mercureManager->publish(
-                'http://cgofficiel.com/addNewSimulator',
-                'demande',
-                $data,
-                'nouvelle demande insérer'
-            );
-            $notificationManager->saveNotification([
-                "type" => 'demande', 
-                "data" => $data,
-            ]);
+            // $mercureManager->publish(
+            //     'http://cgofficiel.com/addNewSimulator',
+            //     'demande',
+            //     $data,
+            //     'nouvelle demande insérer'
+            // );
+            // $notificationManager->saveNotification([
+            //     "type" => 'demande', 
+            //     "data" => $data,
+            // ]);
             // end update
             // redirect after save
             return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
