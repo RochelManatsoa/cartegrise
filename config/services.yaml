@@ -107,6 +107,11 @@ services:
         arguments: [~, App\Entity\User,  App\Controller\ActionAdminController]
         tags:
             - { name: sonata.admin, manager_type: orm, group: tableaudebord,label: "Rémanance" }
+    App\Admin\PreviewEmailAdmin:
+        arguments: [~, App\Entity\PreviewEmail, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: tableaudebord, label: 'Prévisualisation des emails' }
+        public: true
     App\Admin\AvoirAdmin:
         arguments: [~, App\Entity\Demande, App\Controller\ActionAdminController]
         tags:

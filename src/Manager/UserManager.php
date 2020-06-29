@@ -6,7 +6,7 @@ use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Entity\{User, Client, Contact, Adresse, Commande, Demande};
+use App\Entity\{User, Client, Contact, Adresse, Commande, Demande, PreviewEmail};
 use App\Manager\SessionManager;
 use App\Manager\MailManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -142,11 +142,12 @@ class UserManager
         return $user;
     }
 
-    public function sendUserNoPayedRelance(User $user)
+    public function sendUserNoPayedRelance(PreviewEmail $previewEmail)
     {
+        $user = $previewEmail->getUser();
         $template = 'relance/emailRelanceEstimationNoPayed.mail.twig';
         $emails = [];
-        $this->mailManager->sendEmail($emails=[$user->getEmail()], $template, "CG Officiel - Démarches Carte Grise en ligne", ['user'=> $user]);
+        $this->mailManager->sendEmail($emails=[$user->getEmail()], $template, "CG Officiel - Démarches Carte Grise en ligne", ['user'=> $user, 'commande'=>$previewEmail->getCommande()]);
         
         return 'sended';
     }
@@ -195,15 +196,16 @@ class UserManager
         return $this->repository->find($id);
     }
 
-     public function sendUserFailedPayedRelance(User $user, Commande $commande)
+     public function sendUserFailedPayedRelance(PreviewEmail $previewEmail)
     {
+        $user = $previewEmail->getUser();
         $template = 'relance/emailWaitingPaymentFailed.mail.twig';
         $emails = [];
         $this->mailManager->sendEmail(
             $emails=[$user->getEmail()], 
             $template,
             "CG Officiel - Démarches Carte Grise en ligne",
-            ['commande'=> $commande, 'user'=> $user]
+            ['user'=> $user, 'commande'=>$previewEmail->getCommande()]
         );
         
         $commande->setRemindFailedTransaction($commande->getRemindFailedTransaction()+1);

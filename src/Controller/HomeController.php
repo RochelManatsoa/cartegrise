@@ -19,6 +19,7 @@ use App\Manager\Mercure\MercureManager;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Entity\PreviewEmail;
 
 class HomeController extends AbstractController
 {
@@ -132,12 +133,12 @@ class HomeController extends AbstractController
                     $manager->flush();
 
                     // The Publisher service is an invokable object
-                    // $data = [
-                    //         'immat' => $commande->getImmatriculation(),
-                    //         'department' => $commande->getCodePostal(),
-                    //         'demarche' => $commande->getDemarche()->getType(),
-                    //         'id' => $commande->getId(),
-                    // ];
+                    $data = [
+                            'immat' => $commande->getImmatriculation(),
+                            'department' => $commande->getCodePostal(),
+                            'demarche' => $commande->getDemarche()->getType(),
+                            'id' => $commande->getId(),
+                    ];
                     // $mercureManager->publish(
                     //     'http://cgofficiel.com/addNewSimulator',
                     //     'commande',
@@ -150,6 +151,8 @@ class HomeController extends AbstractController
                     //     "data" => $data,
                     // ]);
                     $this->saveToSession($commande, $sessionManager, $tabForm);
+                    // preview of email relance send
+                    $commandeManager->generatePreviewEmailRelance($commande, PreviewEmail::MAIL_RELANCE_DEMARCHE);
                     return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
 
                     // $param = $this->getParamHome($commande, $sessionManager, $tabForm);

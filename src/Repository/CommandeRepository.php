@@ -285,5 +285,26 @@ class CommandeRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    /**
+     * function to get all commandes with his immat and user
+     *
+     * @param User $user
+     * @param string $immat
+     * @return void
+     */
+    public function getCommandeWithImmatOfUser(User $user, string $immat)
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.client','cl')
+            ->leftJoin('cl.user','u')
+            ->where('u.id = :uid')
+            ->andWhere('c.immatriculation = :immat')
+            ->setParameter('uid', $user->getId())
+            ->setParameter('immat', $immat)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
 }
