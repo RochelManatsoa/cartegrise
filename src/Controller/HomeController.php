@@ -132,23 +132,23 @@ class HomeController extends AbstractController
                     $manager->flush();
 
                     // The Publisher service is an invokable object
-                    $data = [
-                            'immat' => $commande->getImmatriculation(),
-                            'department' => $commande->getCodePostal(),
-                            'demarche' => $commande->getDemarche()->getType(),
-                            'id' => $commande->getId(),
-                    ];
-                    $mercureManager->publish(
-                        'http://cgofficiel.com/addNewSimulator',
-                        'commande',
-                        $data,
-                        'new Simulation is insert'
-                    );
+                    // $data = [
+                    //         'immat' => $commande->getImmatriculation(),
+                    //         'department' => $commande->getCodePostal(),
+                    //         'demarche' => $commande->getDemarche()->getType(),
+                    //         'id' => $commande->getId(),
+                    // ];
+                    // $mercureManager->publish(
+                    //     'http://cgofficiel.com/addNewSimulator',
+                    //     'commande',
+                    //     $data,
+                    //     'new Simulation is insert'
+                    // );
 
-                    $notificationManager->saveNotification([
-                        "type" => 'commande', 
-                        "data" => $data,
-                    ]);
+                    // $notificationManager->saveNotification([
+                    //     "type" => 'commande', 
+                    //     "data" => $data,
+                    // ]);
                     $this->saveToSession($commande, $sessionManager, $tabForm);
                     return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
 
@@ -323,23 +323,23 @@ class HomeController extends AbstractController
                     $manager->flush();
 
                     // The Publisher service is an invokable object
-                    $data = [
-                            'immat' => $commande->getImmatriculation(),
-                            'department' => $commande->getCodePostal(),
-                            'demarche' => $commande->getDemarche()->getType(),
-                            'id' => $commande->getId(),
-                    ];
-                    $mercureManager->publish(
-                        'http://cgofficiel.com/addNewSimulator',
-                        'commande',
-                        $data,
-                        'new Simulation is insert'
-                    );
+                    // $data = [
+                    //         'immat' => $commande->getImmatriculation(),
+                    //         'department' => $commande->getCodePostal(),
+                    //         'demarche' => $commande->getDemarche()->getType(),
+                    //         'id' => $commande->getId(),
+                    // ];
+                    // $mercureManager->publish(
+                    //     'http://cgofficiel.com/addNewSimulator',
+                    //     'commande',
+                    //     $data,
+                    //     'new Simulation is insert'
+                    // );
 
-                    $notificationManager->saveNotification([
-                        "type" => 'commande', 
-                        "data" => $data,
-                    ]);
+                    // $notificationManager->saveNotification([
+                    //     "type" => 'commande', 
+                    //     "data" => $data,
+                    // ]);
                     $this->saveToSession($commande, $sessionManager, $tabForm);
                     return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
 
@@ -459,23 +459,23 @@ class HomeController extends AbstractController
                     $manager->flush();
 
                     // The Publisher service is an invokable object
-                    $data = [
-                            'immat' => $commande->getImmatriculation(),
-                            'department' => $commande->getCodePostal(),
-                            'demarche' => $commande->getDemarche()->getType(),
-                            'id' => $commande->getId(),
-                    ];
-                    $mercureManager->publish(
-                        'http://cgofficiel.com/addNewSimulator',
-                        'commande',
-                        $data,
-                        'new Simulation is insert'
-                    );
+                    // $data = [
+                    //         'immat' => $commande->getImmatriculation(),
+                    //         'department' => $commande->getCodePostal(),
+                    //         'demarche' => $commande->getDemarche()->getType(),
+                    //         'id' => $commande->getId(),
+                    // ];
+                    // $mercureManager->publish(
+                    //     'http://cgofficiel.com/addNewSimulator',
+                    //     'commande',
+                    //     $data,
+                    //     'new Simulation is insert'
+                    // );
 
-                    $notificationManager->saveNotification([
-                        "type" => 'commande', 
-                        "data" => $data,
-                    ]);
+                    // $notificationManager->saveNotification([
+                    //     "type" => 'commande', 
+                    //     "data" => $data,
+                    // ]);
                     $this->saveToSession($commande, $sessionManager, $tabForm);
                     return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
 
@@ -755,23 +755,23 @@ class HomeController extends AbstractController
                     $manager->flush();
 
                     // The Publisher service is an invokable object
-                    $data = [
-                            'immat' => $commande->getImmatriculation(),
-                            'department' => $commande->getCodePostal(),
-                            'demarche' => $commande->getDemarche()->getType(),
-                            'id' => $commande->getId(),
-                    ];
-                    $mercureManager->publish(
-                        'http://cgofficiel.com/addNewSimulator',
-                        'commande',
-                        $data,
-                        'new Simulation is insert'
-                    );
+                    // $data = [
+                    //         'immat' => $commande->getImmatriculation(),
+                    //         'department' => $commande->getCodePostal(),
+                    //         'demarche' => $commande->getDemarche()->getType(),
+                    //         'id' => $commande->getId(),
+                    // ];
+                    // $mercureManager->publish(
+                    //     'http://cgofficiel.com/addNewSimulator',
+                    //     'commande',
+                    //     $data,
+                    //     'new Simulation is insert'
+                    // );
 
-                    $notificationManager->saveNotification([
-                        "type" => 'commande', 
-                        "data" => $data,
-                    ]);
+                    // $notificationManager->saveNotification([
+                    //     "type" => 'commande', 
+                    //     "data" => $data,
+                    // ]);
                     $this->saveToSession($commande, $sessionManager, $tabForm);
                     return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
 
@@ -886,23 +886,23 @@ class HomeController extends AbstractController
                     $manager->flush();
 
                     // The Publisher service is an invokable object
-                    $data = [
-                            'immat' => $commande->getImmatriculation(),
-                            'department' => $commande->getCodePostal(),
-                            'demarche' => $commande->getDemarche()->getType(),
-                            'id' => $commande->getId(),
-                    ];
-                    $mercureManager->publish(
-                        'http://cgofficiel.com/addNewSimulator',
-                        'commande',
-                        $data,
-                        'new Simulation is insert'
-                    );
+                    // $data = [
+                    //         'immat' => $commande->getImmatriculation(),
+                    //         'department' => $commande->getCodePostal(),
+                    //         'demarche' => $commande->getDemarche()->getType(),
+                    //         'id' => $commande->getId(),
+                    // ];
+                    // $mercureManager->publish(
+                    //     'http://cgofficiel.com/addNewSimulator',
+                    //     'commande',
+                    //     $data,
+                    //     'new Simulation is insert'
+                    // );
 
-                    $notificationManager->saveNotification([
-                        "type" => 'commande', 
-                        "data" => $data,
-                    ]);
+                    // $notificationManager->saveNotification([
+                    //     "type" => 'commande', 
+                    //     "data" => $data,
+                    // ]);
                     $this->saveToSession($commande, $sessionManager, $tabForm);
                     return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
 
@@ -1008,23 +1008,23 @@ class HomeController extends AbstractController
                 $manager->flush();
 
                 // The Publisher service is an invokable object
-                $data = [
-                        'immat' => $commande->getImmatriculation(),
-                        'department' => $commande->getCodePostal(),
-                        'demarche' => $commande->getDemarche()->getType(),
-                        'id' => $commande->getId(),
-                ];
-                $mercureManager->publish(
-                    'http://cgofficiel.com/addNewSimulator',
-                    'commande',
-                    $data,
-                    'new Simulation is insert'
-                );
+                // $data = [
+                //         'immat' => $commande->getImmatriculation(),
+                //         'department' => $commande->getCodePostal(),
+                //         'demarche' => $commande->getDemarche()->getType(),
+                //         'id' => $commande->getId(),
+                // ];
+                // $mercureManager->publish(
+                //     'http://cgofficiel.com/addNewSimulator',
+                //     'commande',
+                //     $data,
+                //     'new Simulation is insert'
+                // );
 
-                $notificationManager->saveNotification([
-                    "type" => 'commande', 
-                    "data" => $data,
-                ]);
+                // $notificationManager->saveNotification([
+                //     "type" => 'commande', 
+                //     "data" => $data,
+                // ]);
                 $this->saveToSession($commande, $sessionManager, $tabForm);
 
                 return $this->json($commande, 200, [], ['groups' => 'api']);

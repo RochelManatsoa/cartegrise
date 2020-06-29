@@ -46,22 +46,22 @@ class DemandeController extends AbstractController
             $demande = $demandeManager->save($form);
 
             // The Publisher service is an invokable object
-            $data =  [
-                'immat' => $commande->getImmatriculation(),
-                'department' => $commande->getCodePostal(),
-                'demarche' => $commande->getDemarche()->getType(),
-                'id' => $demande->getId(),
-            ];
-            $mercureManager->publish(
-                'http://cgofficiel.com/addNewSimulator',
-                'demande',
-                $data,
-                'nouvelle demande insérer'
-            );
-            $notificationManager->saveNotification([
-                "type" => 'demande', 
-                "data" => $data,
-            ]);
+            // $data =  [
+            //     'immat' => $commande->getImmatriculation(),
+            //     'department' => $commande->getCodePostal(),
+            //     'demarche' => $commande->getDemarche()->getType(),
+            //     'id' => $demande->getId(),
+            // ];
+            // $mercureManager->publish(
+            //     'http://cgofficiel.com/addNewSimulator',
+            //     'demande',
+            //     $data,
+            //     'nouvelle demande insérer'
+            // );
+            // $notificationManager->saveNotification([
+            //     "type" => 'demande', 
+            //     "data" => $data,
+            // ]);
             // end update
             // redirect after save
             return $this->redirectToRoute(
