@@ -19,6 +19,7 @@ use App\Manager\Mercure\MercureManager;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Entity\PreviewEmail;
 
 class HomeController extends AbstractController
 {
@@ -138,18 +139,20 @@ class HomeController extends AbstractController
                             'demarche' => $commande->getDemarche()->getType(),
                             'id' => $commande->getId(),
                     ];
-                    $mercureManager->publish(
-                        'http://cgofficiel.com/addNewSimulator',
-                        'commande',
-                        $data,
-                        'new Simulation is insert'
-                    );
+                    // $mercureManager->publish(
+                    //     'http://cgofficiel.com/addNewSimulator',
+                    //     'commande',
+                    //     $data,
+                    //     'new Simulation is insert'
+                    // );
 
                     $notificationManager->saveNotification([
                         "type" => 'commande', 
                         "data" => $data,
                     ]);
                     $this->saveToSession($commande, $sessionManager, $tabForm);
+                    // preview of email relance send
+                    $commandeManager->generatePreviewEmailRelance($commande, PreviewEmail::MAIL_RELANCE_DEMARCHE);
                     return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
 
                     // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
@@ -329,12 +332,12 @@ class HomeController extends AbstractController
                             'demarche' => $commande->getDemarche()->getType(),
                             'id' => $commande->getId(),
                     ];
-                    $mercureManager->publish(
-                        'http://cgofficiel.com/addNewSimulator',
-                        'commande',
-                        $data,
-                        'new Simulation is insert'
-                    );
+                    // $mercureManager->publish(
+                    //     'http://cgofficiel.com/addNewSimulator',
+                    //     'commande',
+                    //     $data,
+                    //     'new Simulation is insert'
+                    // );
 
                     $notificationManager->saveNotification([
                         "type" => 'commande', 
@@ -465,12 +468,12 @@ class HomeController extends AbstractController
                             'demarche' => $commande->getDemarche()->getType(),
                             'id' => $commande->getId(),
                     ];
-                    $mercureManager->publish(
-                        'http://cgofficiel.com/addNewSimulator',
-                        'commande',
-                        $data,
-                        'new Simulation is insert'
-                    );
+                    // $mercureManager->publish(
+                    //     'http://cgofficiel.com/addNewSimulator',
+                    //     'commande',
+                    //     $data,
+                    //     'new Simulation is insert'
+                    // );
 
                     $notificationManager->saveNotification([
                         "type" => 'commande', 
@@ -761,12 +764,12 @@ class HomeController extends AbstractController
                             'demarche' => $commande->getDemarche()->getType(),
                             'id' => $commande->getId(),
                     ];
-                    $mercureManager->publish(
-                        'http://cgofficiel.com/addNewSimulator',
-                        'commande',
-                        $data,
-                        'new Simulation is insert'
-                    );
+                    // $mercureManager->publish(
+                    //     'http://cgofficiel.com/addNewSimulator',
+                    //     'commande',
+                    //     $data,
+                    //     'new Simulation is insert'
+                    // );
 
                     $notificationManager->saveNotification([
                         "type" => 'commande', 
@@ -892,12 +895,12 @@ class HomeController extends AbstractController
                             'demarche' => $commande->getDemarche()->getType(),
                             'id' => $commande->getId(),
                     ];
-                    $mercureManager->publish(
-                        'http://cgofficiel.com/addNewSimulator',
-                        'commande',
-                        $data,
-                        'new Simulation is insert'
-                    );
+                    // $mercureManager->publish(
+                    //     'http://cgofficiel.com/addNewSimulator',
+                    //     'commande',
+                    //     $data,
+                    //     'new Simulation is insert'
+                    // );
 
                     $notificationManager->saveNotification([
                         "type" => 'commande', 
@@ -1014,12 +1017,12 @@ class HomeController extends AbstractController
                         'demarche' => $commande->getDemarche()->getType(),
                         'id' => $commande->getId(),
                 ];
-                $mercureManager->publish(
-                    'http://cgofficiel.com/addNewSimulator',
-                    'commande',
-                    $data,
-                    'new Simulation is insert'
-                );
+                // $mercureManager->publish(
+                //     'http://cgofficiel.com/addNewSimulator',
+                //     'commande',
+                //     $data,
+                //     'new Simulation is insert'
+                // );
 
                 $notificationManager->saveNotification([
                     "type" => 'commande', 

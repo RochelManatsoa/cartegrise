@@ -367,6 +367,9 @@ class PaymentController extends AbstractController
             if ($requestCollection->get('vads_trans_status') == "AUTHORISED") {
                 $file = $commandeManager->generateFacture($commande);
                 $files = [$file];
+            } else {
+                // preview of email relance send
+                $commandeManager->generatePreviewEmailRelance($commande, PreviewEmail::MAIL_RELANCE_PAIEMENT);
             }
             $this->sendMail($mailer, $responses, $responses["vads_cust_email"], $adminEmails, $files, $commande);
         }

@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use App\Services\Tms\TmsClient;
 use App\Services\Tms\Response as ResponseTms;
-use App\Entity\{Commande, Demande, Facture, DailyFacture, Avoir, Transaction};
+use App\Entity\{Commande, Demande, Facture, DailyFacture, Avoir, Transaction, Client, User, PreviewEmail};
 use App\Entity\GesteCommercial\GesteCommercial;
 use App\Repository\{CommandeRepository, DailyFactureRepository};
 use App\Manager\SessionManager;
@@ -730,6 +730,88 @@ class CommandeManager
 		// get all user with transaction failed
 		return $this->repository->getUserWithoutDemandeButPayed();
 
+	}
+
+	/**
+	 * function to check email and then if immatriculation don't exisf 
+	 * for the user we create a notificaiton email to send after 24 h 
+	 *
+	 * @param Commande $commande
+	 * @return void
+	 */
+	public function generatePreviewEmailRelance(Commande $commande, int $step){
+		// get the client and user of order
+		$client  = $commande->getClient();
+		if (!$client instanceof Client){
+			return;
+		}
+		$user = $client->getUser();
+		// return if user is not already set
+		if (!$user instanceof User) {
+			return;
+		}
+		// get immatriculation
+		$immat = (clone $commande)->getImmatriculation();
+		
+		// check the immatriculaiton of command
+		// get all commandes (ArrayCollection)
+		$commandes = $this->repository->getCommandeWithImmatOfUser($user, $immat);
+		switch($step) {
+			case PreviewEmail::MAIL_RELANCE_DEMARCHE :
+				// check if email is already set 
+				$tmpPrev = $this->em->getRepository(PreviewEmail::class)->findOneBy(['user' => $commande->getClient()->getUser(), 'immatriculation' => $commande->getImmatriculation()]);
+				if ($tmpPrev instanceof PreviewEmail) {
+					return;
+				}
+				// if all command is not payed or not have Demande , then create preview email
+				$this->createPreviewEmail($commande, $step);
+				break;
+			case PreviewEmail::MAIL_RELANCE_PAIEMENT :
+				// check if email is already set 
+				$tmpPrev = $this->em->getRepository(PreviewEmail::class)->findOneBy(['user' => $commande->getClient()->getUser(), 'immatriculation' => $commande->getImmatriculation()]);
+				if ($tmpPrev instanceof PreviewEmail && $tmpPrev->getTypeEmail() === PreviewEmail::MAIL_RELANCE_PAIEMENT) {
+					return;
+				}
+				// if all command is not payed or not have Demande , then create preview email
+				$this->createPreviewEmail($commande, $step);
+				break;
+		}
+		
+		// create the preview email of command
+	}
+
+	// private function to create preview email
+	private function createPreviewEmail(Commande $commande, int $step) {
+
+		// check if email is already set 
+		$tmpPrev = $this->em->getRepository(PreviewEmail::class)->findOneBy(['user' => $commande->getClient()->getUser(), 'immatriculation' => $commande->getImmatriculation()]);
+		if ($tmpPrev instanceof PreviewEmail) {
+			if ($tmpPrev->getTypeEmail() === $step) {
+				return;
+			} elseif ($tmpPrev->getTypeEmail() === ($step - 1)) {
+				$tmpPrev->setTypeEmail($step);
+				$tmpPrev->setStatus(PreviewEmail::STATUS_PENDING);
+				$tmpPrev->setSendAt((new \DateTime())->modify("+1 day"));
+				// save
+				$this->em->persist($tmpPrev);
+				$this->em->flush();
+				// return
+				return;
+			}
+			
+		}
+		
+		$previewEmail = new PreviewEmail();
+		// set all component from preview Email:
+		$previewEmail->setStatus(PreviewEmail::STATUS_PENDING);
+		$previewEmail->setImmatriculation($commande->getImmatriculation());
+		$previewEmail->setCommande($commande);
+		$previewEmail->setUser($commande->getClient()->getUser());
+		$previewEmail->setTypeEmail($step);
+		// save the preview Email
+		// if not email set , then save preview email
+		$this->em->persist($previewEmail);
+		$this->em->flush();
 	}
 
 }
