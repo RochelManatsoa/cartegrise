@@ -180,4 +180,22 @@ class UserRepository extends ServiceEntityRepository
         ;
         return $result;
     }
+
+    public function findUserWithoutPayedCommand()
+    {
+        $result = $this->createQueryBuilder('u')
+            ->select('u.email, cl.clientNom nom, cl.clientPrenom prenom, cl.clientGenre genre, contact.contact_telmobile telephone, com.codePostal departement, com.immatriculation immat, com.ceerLe creation')
+            ->leftJoin('u.client', 'cl')
+            ->leftJoin('cl.clientContact', 'contact')
+            ->leftJoin('cl.commandes', 'com')
+            ->leftJoin('com.transaction', 't')
+            ->where('com IS NOT NULL')
+            ->andWhere('t.status = :success')
+            ->setParameter(':success', Transaction::STATUS_SUCCESS)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return $result;
+    }
 }

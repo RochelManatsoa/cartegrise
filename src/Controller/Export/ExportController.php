@@ -37,4 +37,16 @@ class ExportController extends AbstractController
         
         return new Response('done');
     }
+
+    /**
+     * @Route("/user-without-command-payed", name="export_user_without_command_payed", methods={"GET"})
+     */
+    public function exportUserWithoutCommandePayed(ExportManager $exportManager, UserManager $userManager)
+    {
+        $usersWithoutPayedCommand = $userManager->findUserWithoutPayedCommand();
+        $fields = ['email', 'nom','prenom', 'genre', 'telephone', 'departement', 'immatriculation', 'creation'];
+        $exportManager->exportXlsx($fields, $usersWithoutPayedCommand, "usersWithoutPayedCommand" );
+        
+        return new Response('done');
+    }
 }

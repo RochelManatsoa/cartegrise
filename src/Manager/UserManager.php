@@ -264,4 +264,9 @@ class UserManager
     {
         return $this->repository->findUserWithoutEstimation();
     }
+
+    public function findUserWithoutPayedCommand()
+    {
+        return $this->repository->findUserWithoutPayedCommand();
+    }
 }
