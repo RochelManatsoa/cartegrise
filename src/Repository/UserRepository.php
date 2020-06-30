@@ -165,4 +165,19 @@ class UserRepository extends ServiceEntityRepository
 
         return $date;
     }
+
+
+    public function findUserWithoutEstimation()
+    {
+        $result =  $this->createQueryBuilder('u')
+            ->select('u.email, cl.clientNom nom, cl.clientPrenom prenom, cl.clientGenre genre, contact.contact_telmobile telephone')
+            ->leftJoin('u.client','cl')
+            ->leftJoin('cl.clientContact','contact')
+            ->leftJoin('cl.commandes','commande')
+            ->where('commande IS NULL')
+            ->getQuery()
+            ->getResult()
+        ;
+        return $result;
+    }
 }

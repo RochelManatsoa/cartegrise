@@ -74,7 +74,7 @@
         }
     },
     "doctrine/doctrine-cache-bundle": {
-        "version": "1.3.3"
+        "version": "1.3.5"
     },
     "doctrine/doctrine-migrations-bundle": {
         "version": "1.2",
@@ -271,6 +271,9 @@
     "kriswallsmith/buzz": {
         "version": "v0.16.1"
     },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.0.4"
+    },
     "lcobucci/jwt": {
         "version": "3.3.1"
     },
@@ -298,6 +301,15 @@
             "config/packages/lexik_jwt_authentication.yaml"
         ]
     },
+    "maennchen/zipstream-php": {
+        "version": "2.1.0"
+    },
+    "markbaker/complex": {
+        "version": "1.4.8"
+    },
+    "markbaker/matrix": {
+        "version": "1.2.0"
+    },
     "mashape/unirest-php": {
         "version": "v3.0.4"
     },
@@ -312,6 +324,9 @@
     },
     "mtdowling/jmespath.php": {
         "version": "2.4.0"
+    },
+    "myclabs/php-enum": {
+        "version": "1.7.6"
     },
     "namshi/jose": {
         "version": "7.2.3"
@@ -337,11 +352,14 @@
     "ocramius/proxy-manager": {
         "version": "2.2.2"
     },
+    "onurb/excel-bundle": {
+        "version": "1.0.2"
+    },
     "pagerfanta/pagerfanta": {
         "version": "v2.0.1"
     },
     "php": {
-        "version": "7.2"
+        "version": "7.4"
     },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
@@ -351,6 +369,9 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
+    },
+    "phpoffice/phpspreadsheet": {
+        "version": "1.14.0"
     },
     "pimple/pimple": {
         "version": "v3.2.3"
@@ -364,6 +385,9 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-client": {
+        "version": "1.0.1"
+    },
     "psr/http-message": {
         "version": "1.0.1"
     },
@@ -373,11 +397,17 @@
     "psr/log": {
         "version": "1.0.2"
     },
+    "psr/simple-cache": {
+        "version": "1.0.1"
+    },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
     },
     "robloach/component-installer": {
         "version": "0.2.3"
+    },
+    "roromix/spreadsheetbundle": {
+        "version": "v1.0.2"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
@@ -445,7 +475,12 @@
             "branch": "master",
             "version": "3.13",
             "ref": "e25412e53b20827db07abb6f2aa0b8e4d26c284c"
-        }
+        },
+        "files": [
+            "config/packages/sonata_media.yaml",
+            "config/routes/sonata_media.yaml",
+            "public/upload/media/.gitignore"
+        ]
     },
     "sonata-project/user-bundle": {
         "version": "4.3.0"

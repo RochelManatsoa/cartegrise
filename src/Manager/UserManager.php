@@ -259,4 +259,9 @@ class UserManager
         
         return 'sended';
     }
+
+    public function findUserWithoutEstimation()
+    {
+        return $this->repository->findUserWithoutEstimation();
+    }
 }
