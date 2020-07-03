@@ -9,30 +9,22 @@
 
 namespace App\Services\Tms;
 
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use App\Entity\User;
+
 class TmsClient
 {
-	public function __construct($endpoint, $codeTMS, $login, $password)
+	public function __construct($endpoint, $codeTMS, $login, $password, LoggerInterface $tmsLogger, TokenStorageInterface $tokenStorage)
 	{
 		$this->endpoint = $endpoint;
 		$this->codeTMS = $codeTMS;
 		$this->login = $login;
 		$this->password = $password;
+		$this->tmsLogger = $tmsLogger;
+		$this->tokenStorage = $tokenStorage;
 	}
 
-	public function envoyer($params)
-	{
-		$client = $this->connect();
-
-        $identification = [
-        	"CodeTMS" => $this->codeTMS,
-        	"Login" => $this->login,
-        	"Password" => $this->password,
-        ];
-
-        $params['Identification'] = $identification;
-
-        return new Response($client->Envoyer($params));
-	}
 
 	private function connect() {
 		try {
@@ -59,6 +51,27 @@ class TmsClient
 		}
 	}
 
+	public function envoyer($params)
+	{
+		$client = $this->connect();
+
+        $identification = [
+        	"CodeTMS" => $this->codeTMS,
+        	"Login" => $this->login,
+        	"Password" => $this->password,
+        ];
+
+        $this->log("parametres", \json_encode($params));
+		$params['Identification'] = $identification;
+		$this->log("user infos", $this->getUserInfos());
+		$this->log("appel vers TMS ... ", '...');
+		$response = $client->Envoyer($params);
+		$this->log("response Envoyer", \json_encode($response), true);
+
+        return new Response($response);
+	}
+
+
 	public function ouvrir($params)
 	{
         $client = $this->connect();
@@ -68,10 +81,15 @@ class TmsClient
         	"Login" => $this->login,
         	"Password" => $this->password,
         ];
+		
+		$this->log("parametres", \json_encode($params));
+		$params['Identification'] = $identification;
+		$this->log("user infos", $this->getUserInfos());
+		$this->log("appel vers TMS ... ", '...');
+		$response = $client->Ouvrir($params);
+		$this->log("response Ouvrir", \json_encode($response), true);
 
-        $params['Identification'] = $identification;
-
-        return new Response($client->Ouvrir($params));
+        return new Response($response);
 	}
 
 	public function sauver($params)
@@ -84,9 +102,16 @@ class TmsClient
         	"Password" => $this->password,
         ];
 
-        $params['Identification'] = $identification;
+		
 
-        return new Response($client->Sauver($params));
+		$this->log("parametres", \json_encode($params));
+		$params['Identification'] = $identification;
+		$this->log("user infos", $this->getUserInfos());
+		$this->log("appel vers TMS ... ", '...');
+		$response = $client->Sauver($params);
+		$this->log("response Sauver", \json_encode($response), true);
+
+        return new Response($response);
 	}
 
 	/**
@@ -101,9 +126,37 @@ class TmsClient
 				"Login" => $this->login,
 				"Password" => $this->password,
 			];
+			
+			$this->log("parametres", \json_encode($Immat));
 			$Immat['Identification'] = $identification;
+			$this->log("user infos", $this->getUserInfos());
+			$this->log("appel vers TMS ... ", '...');
+			$response = $client->InfoImmat($Immat);
+			$this->log("response InfoImmat", \json_encode($response), true);
 
-			return new Response($client->InfoImmat($Immat));
+			return new Response($response);
+	}
+
+	private function getUserInfos()
+	{
+		// all infos of user is exist
+		$user = $this->tokenStorage->getToken()->getUser();
+		if ($user instanceof User) {
+			$email = $user->getEmail();
+		} else {
+			$email = 'non connecter';
+		}
+		return $email;
+	}
+
+	private function log($key,$message, $end = false) {
+		$this->tmsLogger->info("=======================");
+		$this->tmsLogger->info($key ." : ");
+		$this->tmsLogger->info($message);
+		if ($end) {
+			$this->tmsLogger->notice("=======================");
+			$this->tmsLogger->notice("=======================");
+		}
 	}
 
 	/**
@@ -116,9 +169,15 @@ class TmsClient
         	"CodeTMS" => $this->codeTMS,
         	"Login" => $this->login,
         	"Password" => $this->password,
-        ];
+		];
+		
+		$this->log("parametres", \json_encode($Immat));
 		$params['Identification'] = $identification;
+		$this->log("user infos", $this->getUserInfos());
+		$this->log("appel vers TMS ... ", '...');
+		$response = $client->Editer($Immat);
+		$this->log("response Editer", \json_encode($response), true);
 
-        return new Response($client->Editer($params));
+        return new Response($response);
 	}
 }

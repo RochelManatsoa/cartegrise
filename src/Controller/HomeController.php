@@ -99,9 +99,14 @@ class HomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid() || $formulaire->isSubmitted() && $formulaire->isValid()) {
             $ip = $request->server->get("REMOTE_ADDR");
             $todayIp = (new \DateTime())->format('d-m-Y') . $ip;
-            $ifCommande = $commandeRepository->findOneBy([
-                'dayIp' => $todayIp
-            ]);
+            if ($this->getUser() instanceof User && $this->getUser()->hasRole("ROLE_ADMIN")) {
+                $ifCommande = null;
+            } else {
+                $ifCommande = $commandeRepository->findOneBy([
+                    'dayIp' => $todayIp
+                ]);
+            }
+            
             
 
             if($commande->getDemarche()->getType() === 'DIVN'){
@@ -132,8 +137,8 @@ class HomeController extends AbstractController
                 if (!$tmsInfoImmat->isSuccessfull()) {
                     throw new \Exception('Veuillez Réessayer plus tard');
                 }
+                
                 $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
-
                 if (!$tmsResponse->isSuccessfull()) {
                     return new Response($tmsResponse->getErrorMessage());
                 } else {
