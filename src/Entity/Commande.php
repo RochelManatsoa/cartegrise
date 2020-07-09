@@ -225,6 +225,15 @@ class Commande
      */
     private $remindPaymentDate;
 
+    
+
+    /**
+     * @ORM\Column(nullable=true)
+     */
+    private $dayIp;
+
+
+
     /**
      * @ORM\PrePersist
      */
@@ -774,6 +783,18 @@ class Commande
     public function setRemindDocument(?int $remindDocument): self
     {
         $this->remindDocument = $remindDocument;
+
+        return $this;
+    }
+
+    public function getDayIp(): ?string
+    {
+        return $this->dayIp;
+    }
+
+    public function setDayIp(?string $dayIp): self
+    {
+        $this->dayIp = $dayIp;
 
         return $this;
     }

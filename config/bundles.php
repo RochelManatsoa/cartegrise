@@ -43,4 +43,5 @@ return [
     Sonata\MediaBundle\SonataMediaBundle::class => ['all' => true],
     CoopTilleuls\Bundle\CKEditorSonataMediaBundle\CoopTilleulsCKEditorSonataMediaBundle::class => ['all' => true],
     Roromix\Bundle\SpreadsheetBundle\RoromixSpreadsheetBundle::class => ['all' => true],
+    Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
 ];

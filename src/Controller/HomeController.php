@@ -97,29 +97,48 @@ class HomeController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid() || $formulaire->isSubmitted() && $formulaire->isValid()) {
-            $ifCommande = $commandeRepository->findOneBy([
-                'immatriculation' => $commande->getImmatriculation(),
-                'codePostal' => $commande->getCodePostal(),
-                'demarche' => $commande->getDemarche(),
-            ]);
+            $ip = $request->server->get("REMOTE_ADDR");
+            $todayIp = (new \DateTime())->format('d-m-Y') . $ip;
+            if ($this->getUser() instanceof User && $this->getUser()->hasRole("ROLE_ADMIN")) {
+                $ifCommande = null;
+            } else {
+                $ifCommande = $commandeRepository->findOneBy([
+                    'dayIp' => $todayIp
+                ]);
+            }
+            
+            
 
             if($commande->getDemarche()->getType() === 'DIVN'){
 
-                return $this->redirectToRoute('Accueil');
+                
             }
             $sessionManager->initSession();
-            // if (!is_null($ifCommande)) {
-            //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+            if (!is_null($ifCommande)) {
+                $ifCommandeExist = $commandeRepository->findOneBy([
+                    'immatriculation' => $commande->getImmatriculation(),
+                    'codePostal' => $commande->getCodePostal(),
+                    'demarche' => $commande->getDemarche(),
+                    'dayIp' => $todayIp
+                ]);
 
-            //     return $this->render('home/accueil.html.twig', $param);
-            // } else {
+                if ($ifCommandeExist instanceof Commande){
+                    $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+
+                    return $this->render('home/accueil.html.twig', $param);
+                }else {
+                    return $this->redirectToRoute('Accueil');
+                }
+                
+                
+            } else {
 
                 $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
                 if (!$tmsInfoImmat->isSuccessfull()) {
                     throw new \Exception('Veuillez Réessayer plus tard');
                 }
+                
                 $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
-
                 if (!$tmsResponse->isSuccessfull()) {
                     return new Response($tmsResponse->getErrorMessage());
                 } else {
@@ -127,6 +146,7 @@ class HomeController extends AbstractController
                     $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
                     $commande->setTaxes($taxe);
                     $commande->setCarInfo($carInfo);
+                    $commande->setDayIp($todayIp);
                     $manager->persist($commande);
                     $manager->persist($taxe);
 
@@ -159,7 +179,7 @@ class HomeController extends AbstractController
 
                     // return $this->render('home/accueil.html.twig', $param);
                 }
-            // }
+            }
         }
 
         if (!$categorie instanceof Categorie) {
