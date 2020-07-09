@@ -311,20 +311,24 @@ class DemandeManager
     {
         $folder = $demande->getGeneratedCerfaPath();
         $file = $demande->getGeneratedFacturePathFile();
+        $scandir = scandir($folder);
         $params = $this->getTitulaireParams($demande);
         $params = array_merge(['demande' => $demande], $params);
+        // dd($params);
         // create directory
         if (!is_dir($folder)) mkdir($folder, 0777, true);
         // end create file 
         // get facture if not exist
         // dd($demande->getCommande()->getSystempayTransaction()->getAmount());
         // if (!is_file($file)) { // attente de finalité du process
-            $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
-            $filename = "Facture";
-            $html = $this->twig->render("payment/facture.html.twig", $params);
-            $output = $snappy->getOutputFromHtml($html);
-            
-            $filefinal = file_put_contents($file, $output);
+            if(in_array("facture.pdf", $scandir)){
+                $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
+                $filename = "Facture";
+                $html = $this->twig->render("payment/facture.html.twig", $params);
+                $output = $snappy->getOutputFromHtml($html);
+                
+                $filefinal = file_put_contents($file, $output);
+            }
         // }
         
         return $file;
@@ -577,6 +581,10 @@ class DemandeManager
             break;
             case "DCA":
                 $adresseFacture = $demande->getChangementAdresse()->getNouveauxTitulaire()->getAdresseNewTitulaire();
+            break;
+            case "DC":
+                $titulaire = $demande->getCommande()->getClient();
+                $adresseFacture = $demande->getCommande()->getClient()->getClientAdresse();
             break;
         }
         return [
