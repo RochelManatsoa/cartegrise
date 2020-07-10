@@ -10,7 +10,7 @@
 {% block page_content %}
 
 
-	<div class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
+	<div id="errorSimulation" class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
 		<div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
 
 			<div class="form_demarche">
@@ -20,8 +20,8 @@
 							<div class="demarche_block">
 								<div class="demarche_block_item">
 									<div id="Demarche" class="title_dermarche text-center">
+										<img src='{{ asset("asset/img/error_icon.svg")}}' alt=''>
 										<p>Notre service d'immatriculation est momentanément indisponible. Nous nous excusons de la gêne occasionnée. CG Officiel vous remercie de votre compréhension. </p>
-										<h1></h1>
 									</div>
 									<div class="block_form">
 										<div class="row justify-content-center">
