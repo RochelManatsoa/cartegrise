@@ -4,10 +4,11 @@ monolog:
         tms:
             # log all messages (since debug is the lowest level)
             level:    debug
-            type:     stream
+            type:     rotating_file
             path:     'logsTms/tms.log'
             channels: [tms]
             formatter: monolog.formatter.standard
+            max_files: 40
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
