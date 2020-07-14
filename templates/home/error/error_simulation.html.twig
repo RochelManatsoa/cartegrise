@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-accueil
+{% endblock %}
+
+{% block page_content %}
+
+
+	<div id="errorSimulation" class="col-md-12 col-lg-10 mx-auto d-flex flex-row justify-content-center my-flex-container align-items-center">
+		<div class="row d-flex flex-row-reverse my-flex-container pt-5 pb-5">
+
+			<div class="form_demarche">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-12 col-lg-10 col-xl-8">
+							<div class="demarche_block">
+								<div class="demarche_block_item">
+									<div id="Demarche" class="title_dermarche text-center">
+										<p>Notre service d'immatriculation est momentanément indisponible. Nous nous excusons de la gêne occasionnée. CG Officiel vous remercie de votre compréhension. </p>
+									</div>
+									<div class="block_form">
+										<div class="row justify-content-center">
+											<div class="col-md-10">
+												<div class="row">
+													<div class="col-md-6"></div>
+													<div class="col-md-6 AutoComplete_CP"></div>
+												</div>
+											</div>
+											<div class="text-md-right mx-auto search-box" id="calcul">
+												<a href="{{ app.request.headers.get('referer') }}" class="btn-calcuer btn btn-blue">Revenir à la page précédante
+													<i class="icomoon icon-right-arrow"></i>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}

@@ -74,76 +74,82 @@ class BlogController extends Controller
         $formulaire->handleRequest($request);
 
         if ($formDivn->isSubmitted() && $formDivn->isValid()) {
-            $divnInit = $formDivn->getData();
-            $divnInitManager->manageSubmit($divnInit);
-            $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
+             
+            return $this->redirectToRoute('error_simulation');
 
-            return $this->render('home/accueil.html.twig', $param);
+            // $divnInit = $formDivn->getData();
+            // $divnInitManager->manageSubmit($divnInit);
+            // $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
+
+            // return $this->render('home/accueil.html.twig', $param);
         }
 
 
         if ($form->isSubmitted() && $form->isValid() || $formulaire->isSubmitted() && $formulaire->isValid()) {
-            $ifCommande = $commandeRepository->findOneBy([
-                'immatriculation' => $commande->getImmatriculation(),
-                'codePostal' => $commande->getCodePostal(),
-                'demarche' => $commande->getDemarche(),
-            ]);
+             
+            return $this->redirectToRoute('error_simulation');
 
-            if($commande->getDemarche()->getType() === 'DIVN'){
+            // $ifCommande = $commandeRepository->findOneBy([
+            //     'immatriculation' => $commande->getImmatriculation(),
+            //     'codePostal' => $commande->getCodePostal(),
+            //     'demarche' => $commande->getDemarche(),
+            // ]);
 
-                return $this->redirectToRoute('Accueil');
-            }
-            $sessionManager->initSession();
-            // if (!is_null($ifCommande)) {
-            //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+            // if($commande->getDemarche()->getType() === 'DIVN'){
 
-            //     return $this->render('home/accueil.html.twig', $param);
-            // } else {
-
-                $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
-                if (!$tmsInfoImmat->isSuccessfull()) {
-                    throw new \Exception('Veuillez Réessayer plus tard');
-                }
-                $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
-
-                if (!$tmsResponse->isSuccessfull()) {
-                    return new Response($tmsResponse->getErrorMessage());
-                } else {
-                    $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande, $tmsInfoImmat);
-                    $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
-                    $commande->setTaxes($taxe);
-                    $commande->setCarInfo($carInfo);
-                    $manager->persist($commande);
-                    $manager->persist($taxe);
-
-                    $manager->flush();
-
-                    // The Publisher service is an invokable object
-                    // $data = [
-                    //         'immat' => $commande->getImmatriculation(),
-                    //         'department' => $commande->getCodePostal(),
-                    //         'demarche' => $commande->getDemarche()->getType(),
-                    //         'id' => $commande->getId(),
-                    // ];
-                    // $mercureManager->publish(
-                    //     'http://cgofficiel.com/addNewSimulator',
-                    //     'commande',
-                    //     $data,
-                    //     'new Simulation is insert'
-                    // );
-
-                    // $notificationManager->saveNotification([
-                    //     "type" => 'commande', 
-                    //     "data" => $data,
-                    // ]);
-                    $this->saveToSession($commande, $sessionManager, $tabForm);
-                    return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
-
-                    // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
-
-                    // return $this->render('home/accueil.html.twig', $param);
-                }
+            //     return $this->redirectToRoute('Accueil');
             // }
+            // $sessionManager->initSession();
+            // // if (!is_null($ifCommande)) {
+            // //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+
+            // //     return $this->render('home/accueil.html.twig', $param);
+            // // } else {
+
+            //     $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
+            //     if (!$tmsInfoImmat->isSuccessfull()) {
+            //         throw new \Exception('Veuillez Réessayer plus tard');
+            //     }
+            //     $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
+
+            //     if (!$tmsResponse->isSuccessfull()) {
+            //         return new Response($tmsResponse->getErrorMessage());
+            //     } else {
+            //         $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande, $tmsInfoImmat);
+            //         $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
+            //         $commande->setTaxes($taxe);
+            //         $commande->setCarInfo($carInfo);
+            //         $manager->persist($commande);
+            //         $manager->persist($taxe);
+
+            //         $manager->flush();
+
+            //         // The Publisher service is an invokable object
+            //         // $data = [
+            //         //         'immat' => $commande->getImmatriculation(),
+            //         //         'department' => $commande->getCodePostal(),
+            //         //         'demarche' => $commande->getDemarche()->getType(),
+            //         //         'id' => $commande->getId(),
+            //         // ];
+            //         // $mercureManager->publish(
+            //         //     'http://cgofficiel.com/addNewSimulator',
+            //         //     'commande',
+            //         //     $data,
+            //         //     'new Simulation is insert'
+            //         // );
+
+            //         // $notificationManager->saveNotification([
+            //         //     "type" => 'commande', 
+            //         //     "data" => $data,
+            //         // ]);
+            //         $this->saveToSession($commande, $sessionManager, $tabForm);
+            //         return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
+
+            //         // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
+
+            //         // return $this->render('home/accueil.html.twig', $param);
+            //     }
+            // // }
         }
 
         $homeParams = [
@@ -226,76 +232,82 @@ class BlogController extends Controller
         $formulaire->handleRequest($request);
 
         if ($formDivn->isSubmitted() && $formDivn->isValid()) {
-            $divnInit = $formDivn->getData();
-            $divnInitManager->manageSubmit($divnInit);
-            $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
+             
+            return $this->redirectToRoute('error_simulation');
 
-            return $this->render('home/accueil.html.twig', $param);
+            // $divnInit = $formDivn->getData();
+            // $divnInitManager->manageSubmit($divnInit);
+            // $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
+
+            // return $this->render('home/accueil.html.twig', $param);
         }
 
 
         if ($form->isSubmitted() && $form->isValid() || $formulaire->isSubmitted() && $formulaire->isValid()) {
-            $ifCommande = $commandeRepository->findOneBy([
-                'immatriculation' => $commande->getImmatriculation(),
-                'codePostal' => $commande->getCodePostal(),
-                'demarche' => $commande->getDemarche(),
-            ]);
+             
+            return $this->redirectToRoute('error_simulation');
 
-            if($commande->getDemarche()->getType() === 'DIVN'){
+            // $ifCommande = $commandeRepository->findOneBy([
+            //     'immatriculation' => $commande->getImmatriculation(),
+            //     'codePostal' => $commande->getCodePostal(),
+            //     'demarche' => $commande->getDemarche(),
+            // ]);
 
-                return $this->redirectToRoute('Accueil');
-            }
-            $sessionManager->initSession();
-            // if (!is_null($ifCommande)) {
-            //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+            // if($commande->getDemarche()->getType() === 'DIVN'){
 
-            //     return $this->render('home/accueil.html.twig', $param);
-            // } else {
-
-                $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
-                if (!$tmsInfoImmat->isSuccessfull()) {
-                    throw new \Exception('Veuillez Réessayer plus tard');
-                }
-                $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
-
-                if (!$tmsResponse->isSuccessfull()) {
-                    return new Response($tmsResponse->getErrorMessage());
-                } else {
-                    $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande, $tmsInfoImmat);
-                    $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
-                    $commande->setTaxes($taxe);
-                    $commande->setCarInfo($carInfo);
-                    $manager->persist($commande);
-                    $manager->persist($taxe);
-
-                    $manager->flush();
-
-                    // The Publisher service is an invokable object
-                    // $data = [
-                    //         'immat' => $commande->getImmatriculation(),
-                    //         'department' => $commande->getCodePostal(),
-                    //         'demarche' => $commande->getDemarche()->getType(),
-                    //         'id' => $commande->getId(),
-                    // ];
-                    // $mercureManager->publish(
-                    //     'http://cgofficiel.com/addNewSimulator',
-                    //     'commande',
-                    //     $data,
-                    //     'new Simulation is insert'
-                    // );
-
-                    // $notificationManager->saveNotification([
-                    //     "type" => 'commande', 
-                    //     "data" => $data,
-                    // ]);
-                    $this->saveToSession($commande, $sessionManager, $tabForm);
-                    return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
-
-                    // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
-
-                    // return $this->render('home/accueil.html.twig', $param);
-                }
+            //     return $this->redirectToRoute('Accueil');
             // }
+            // $sessionManager->initSession();
+            // // if (!is_null($ifCommande)) {
+            // //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+
+            // //     return $this->render('home/accueil.html.twig', $param);
+            // // } else {
+
+            //     $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
+            //     if (!$tmsInfoImmat->isSuccessfull()) {
+            //         throw new \Exception('Veuillez Réessayer plus tard');
+            //     }
+            //     $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
+
+            //     if (!$tmsResponse->isSuccessfull()) {
+            //         return new Response($tmsResponse->getErrorMessage());
+            //     } else {
+            //         $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande, $tmsInfoImmat);
+            //         $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
+            //         $commande->setTaxes($taxe);
+            //         $commande->setCarInfo($carInfo);
+            //         $manager->persist($commande);
+            //         $manager->persist($taxe);
+
+            //         $manager->flush();
+
+            //         // The Publisher service is an invokable object
+            //         // $data = [
+            //         //         'immat' => $commande->getImmatriculation(),
+            //         //         'department' => $commande->getCodePostal(),
+            //         //         'demarche' => $commande->getDemarche()->getType(),
+            //         //         'id' => $commande->getId(),
+            //         // ];
+            //         // $mercureManager->publish(
+            //         //     'http://cgofficiel.com/addNewSimulator',
+            //         //     'commande',
+            //         //     $data,
+            //         //     'new Simulation is insert'
+            //         // );
+
+            //         // $notificationManager->saveNotification([
+            //         //     "type" => 'commande', 
+            //         //     "data" => $data,
+            //         // ]);
+            //         $this->saveToSession($commande, $sessionManager, $tabForm);
+            //         return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
+
+            //         // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
+
+            //         // return $this->render('home/accueil.html.twig', $param);
+            //     }
+            // // }
         }
 
         $homeParams = [
@@ -391,76 +403,82 @@ class BlogController extends Controller
         $formulaire->handleRequest($request);
 
         if ($formDivn->isSubmitted() && $formDivn->isValid()) {
-            $divnInit = $formDivn->getData();
-            $divnInitManager->manageSubmit($divnInit);
-            $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
+             
+            return $this->redirectToRoute('error_simulation');
 
-            return $this->render('home/accueil.html.twig', $param);
+            // $divnInit = $formDivn->getData();
+            // $divnInitManager->manageSubmit($divnInit);
+            // $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
+
+            // return $this->render('home/accueil.html.twig', $param);
         }
 
 
         if ($form->isSubmitted() && $form->isValid() || $formulaire->isSubmitted() && $formulaire->isValid()) {
-            $ifCommande = $commandeRepository->findOneBy([
-                'immatriculation' => $commande->getImmatriculation(),
-                'codePostal' => $commande->getCodePostal(),
-                'demarche' => $commande->getDemarche(),
-            ]);
+             
+            return $this->redirectToRoute('error_simulation');
 
-            if($commande->getDemarche()->getType() === 'DIVN'){
+            // $ifCommande = $commandeRepository->findOneBy([
+            //     'immatriculation' => $commande->getImmatriculation(),
+            //     'codePostal' => $commande->getCodePostal(),
+            //     'demarche' => $commande->getDemarche(),
+            // ]);
 
-                return $this->redirectToRoute('Accueil');
-            }
-            $sessionManager->initSession();
-            // if (!is_null($ifCommande)) {
-            //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+            // if($commande->getDemarche()->getType() === 'DIVN'){
 
-            //     return $this->render('home/accueil.html.twig', $param);
-            // } else {
-
-                $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
-                if (!$tmsInfoImmat->isSuccessfull()) {
-                    throw new \Exception('Veuillez Réessayer plus tard');
-                }
-                $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
-
-                if (!$tmsResponse->isSuccessfull()) {
-                    return new Response($tmsResponse->getErrorMessage());
-                } else {
-                    $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande, $tmsInfoImmat);
-                    $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
-                    $commande->setTaxes($taxe);
-                    $commande->setCarInfo($carInfo);
-                    $manager->persist($commande);
-                    $manager->persist($taxe);
-
-                    $manager->flush();
-
-                    // The Publisher service is an invokable object
-                    // $data = [
-                    //         'immat' => $commande->getImmatriculation(),
-                    //         'department' => $commande->getCodePostal(),
-                    //         'demarche' => $commande->getDemarche()->getType(),
-                    //         'id' => $commande->getId(),
-                    // ];
-                    // $mercureManager->publish(
-                    //     'http://cgofficiel.com/addNewSimulator',
-                    //     'commande',
-                    //     $data,
-                    //     'new Simulation is insert'
-                    // );
-
-                    // $notificationManager->saveNotification([
-                    //     "type" => 'commande', 
-                    //     "data" => $data,
-                    // ]);
-                    $this->saveToSession($commande, $sessionManager, $tabForm);
-                    return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
-
-                    // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
-
-                    // return $this->render('home/accueil.html.twig', $param);
-                }
+            //     return $this->redirectToRoute('Accueil');
             // }
+            // $sessionManager->initSession();
+            // // if (!is_null($ifCommande)) {
+            // //     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+
+            // //     return $this->render('home/accueil.html.twig', $param);
+            // // } else {
+
+            //     $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
+            //     if (!$tmsInfoImmat->isSuccessfull()) {
+            //         throw new \Exception('Veuillez Réessayer plus tard');
+            //     }
+            //     $tmsResponse = $commandeManager->tmsEnvoyer($commande, $tmsInfoImmat);
+
+            //     if (!$tmsResponse->isSuccessfull()) {
+            //         return new Response($tmsResponse->getErrorMessage());
+            //     } else {
+            //         $taxe = $taxesManager->createFromTmsResponse($tmsResponse, $commande, $tmsInfoImmat);
+            //         $carInfo = $carInfoManager->createInfoFromTmsImmatResponse($tmsInfoImmat);
+            //         $commande->setTaxes($taxe);
+            //         $commande->setCarInfo($carInfo);
+            //         $manager->persist($commande);
+            //         $manager->persist($taxe);
+
+            //         $manager->flush();
+
+            //         // The Publisher service is an invokable object
+            //         // $data = [
+            //         //         'immat' => $commande->getImmatriculation(),
+            //         //         'department' => $commande->getCodePostal(),
+            //         //         'demarche' => $commande->getDemarche()->getType(),
+            //         //         'id' => $commande->getId(),
+            //         // ];
+            //         // $mercureManager->publish(
+            //         //     'http://cgofficiel.com/addNewSimulator',
+            //         //     'commande',
+            //         //     $data,
+            //         //     'new Simulation is insert'
+            //         // );
+
+            //         // $notificationManager->saveNotification([
+            //         //     "type" => 'commande', 
+            //         //     "data" => $data,
+            //         // ]);
+            //         $this->saveToSession($commande, $sessionManager, $tabForm);
+            //         return $this->redirectToRoute('commande_recap', ['commande'=> $commande->getId()]);
+
+            //         // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
+
+            //         // return $this->render('home/accueil.html.twig', $param);
+            //     }
+            // // }
         }
 
         $homeParams = [
@@ -512,5 +530,33 @@ class BlogController extends Controller
         }
 
         return "ok";
-    }         
+    }        
+
+    private function getParamHome(Commande $commande, SessionManager $sessionManager, $tabForm)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $taxe = $commande->getTaxes();
+        $majoration = 0;
+        $param = [
+            'commande' => $commande, 'recap' => $commande,
+            'taxe' => $taxe,        'database' => true,   'majoration' => $majoration,
+            'user_csrf' => $this->getTokenAction()
+        ];
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $param = array_merge([
+                'genre' => $this->getUser()->getClient()->getClientGenre(),
+                'client' => $this->getUser()->getClient(),
+            ], $param);
+            $this->getUser()->getClient()->addCommande($commande);
+            $manager->persist($this->getUser()->getClient());
+            $manager->flush();
+        } else {
+            $param = array_merge(['tab' => $tabForm], $param);
+            // set and get session attributes
+            $sessionManager->addArraySession(SessionManager::IDS_COMMANDE, [$commande->getId()]);
+            // end treatment session
+        }
+
+        return $param;
+    } 
 }
