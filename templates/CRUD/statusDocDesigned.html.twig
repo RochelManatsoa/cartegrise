@@ -4,7 +4,9 @@
 {% if object.commande is defined %}
     {% set data = object.statusDocString %}
     {% set demande = object %}
+    {% set commande = object.commande %}
 {% else %}
+    {% set commande = object %}
     {% if object.demande is not null %}
         {% set data = object.demande.statusDocString %}
         {% set demande = object.demande %}
@@ -47,10 +49,24 @@
                 </div>
             </div>
         </div>
+    {% elseif commande is defined and commande is not null and commande.statusTmp == constant('App\\Entity\\Commande::RETRACT_REFUND') %}
+        <span class="btn color-info-dark">Commande remboursée</span>
+    {% elseif commande is defined and commande is not null and commande.statusTmp == constant('App\\Entity\\Commande::RETRACT_DEMAND') %}
+        <span class="btn color-danger-light">Commande retractée</span>
+    {% elseif commande is defined and commande is not null and commande.statusTmp == constant('App\\Entity\\Commande::RETRACT_FORM_WAITTING') %}
+        <span class="btn color-danger">Attente formulaire de rétractation</span>
     {% else %}
         <span class="{{ data.class }}">{{ data.text }}</span>
     {% endif %}
 {% else %}
-    <span class="btn color-default">Formulaire non renseigné</span>
+    {% if commande is defined and commande.statusTmp == constant('App\\Entity\\Commande::RETRACT_REFUND') %}
+        <span class="btn color-info-dark">Commande remboursée</span>
+    {% elseif commande is defined and commande.statusTmp == constant('App\\Entity\\Commande::RETRACT_DEMAND') %}
+        <span class="btn color-danger-light">Commande retractée</span>
+    {% elseif commande is defined and commande.statusTmp == constant('App\\Entity\\Commande::RETRACT_FORM_WAITTING') %}
+        <span class="btn color-danger">Attente formulaire de rétractation</span>
+    {% else %}
+        <span class="btn color-default">Formulaire non renseigné</span>
+    {% endif %}
 {% endif %}
 {% endblock field %}

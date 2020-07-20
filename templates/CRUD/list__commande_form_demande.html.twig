@@ -2,11 +2,12 @@
     object.demande is null and
     object.transaction is defined and
     object.transaction.id is not null and
-    object.client is not null 
+    object.client is not null and
+    object.statusTmp != constant('App\\Entity\\Commande::RETRACT_REFUND')
 %}
 <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('formulaireDemande', object) }}"
-    title="retracter">
+    title="envoie formulaire de demande">
     <i class="fa fa-send" aria-hidden="true"></i>
-    envoie de formulaire
+    Envoyer le formulaire
 </a>
 {% endif %}

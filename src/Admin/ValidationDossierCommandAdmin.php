@@ -198,9 +198,9 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
                 'upload' => [
                     'template'=>'CRUD/list__demande_document_upload.html.twig'
                 ],
-                'retracter' => [
-                    'template'=>'CRUD/list__demande_document_retracter.html.twig'
-                ],
+                // 'retracter' => [
+                //     'template'=>'CRUD/list__demande_document_retracter.html.twig'
+                // ],
                 'retracterCommande' => [
                     'template'=>'CRUD/list__commande_document_retracter.html.twig'
                 ],

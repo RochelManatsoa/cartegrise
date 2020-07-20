@@ -1,7 +1,9 @@
 {% if object.demande is null %}
-   <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('newDemandeOfCommande', object) }}"
-        title="retracter">
-        <i class="fa fa-close" aria-hidden="true"></i>
-        Renseigner le formulaire
-    </a>
+    {% if object.statusTmp != constant('App\\Entity\\Commande::RETRACT_REFUND') %}
+        <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('newDemandeOfCommande', object) }}"
+            title="formulaire">
+            <i class="fa fa-close" aria-hidden="true"></i>
+            Renseigner le formulaire
+        </a>
+    {% endif %}
 {% endif %}

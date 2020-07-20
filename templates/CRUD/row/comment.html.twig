@@ -1,7 +1,7 @@
 {% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
 
 {% block field %}
-{% if object.commande is defined and object.commande.comment is not null %}
+{% if object.commande is defined and object.commande is not null %}
 {{ object.commande.comment|raw }}
 {% elseif object.comment is defined and object.comment is not null  %}
 {{ object.comment|raw }}

@@ -1,19 +1,64 @@
-{% if object.demande is null %}
-    {% if object.statusTmp != constant('App\\Entity\\Commande::RETRACT_DEMAND') and object.statusTmp != constant('App\\Entity\\Commande::RETRACT_REFUND') and object.statusTmp != constant('App\\Entity\\Commande::RETRACT_FORM_WAITTING') %}
-    <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracterCommande', object) }}"
-        title="retracter">
-        <i class="fa fa-close" aria-hidden="true"></i>
-        retracté
-    </a>
-    {% elseif object.statusTmp == constant('App\\Entity\\Commande::RETRACT_FORM_WAITTING') %}
-    <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracterCommandeSecond', object) }}" title="retracter">
-        <i class="fa fa-close" aria-hidden="true"></i>
-        retractation reçus
-    </a>
-    {% elseif object.statusTmp == constant('App\\Entity\\Commande::RETRACT_DEMAND') %}
-    <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('refundCommande', object) }}" title="retracter">
-        <i class="fa fa-close" aria-hidden="true"></i>
-        remboursé
-    </a>
+{% if object.demande is defined %}
+    {% if object.demande is not null %}
+        {% if object.demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID_SEND_TMS') and object.demande.statusDoc != constant('App\\Entity\\Demande::RETRACT_DEMAND') and object.demande.statusDoc != constant('App\\Entity\\Demande::RETRACT_REFUND') %}
+            {% if object.statusTmp != constant('App\\Entity\\Commande::RETRACT_DEMAND') and object.statusTmp != constant('App\\Entity\\Commande::RETRACT_REFUND') and object.statusTmp != constant('App\\Entity\\Commande::RETRACT_FORM_WAITTING') %}
+            <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracterCommande', object) }}"
+                title="retracter demande">
+                <i class="fa fa-close" aria-hidden="true"></i>
+                Retracter
+            </a>
+            {% elseif object.statusTmp == constant('App\\Entity\\Commande::RETRACT_FORM_WAITTING') %}
+            <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracterCommandeSecond', object) }}" title="retractation recue">
+                <i class="fa fa-close" aria-hidden="true"></i>
+                Retractation reçue
+            </a>
+            {% elseif object.statusTmp == constant('App\\Entity\\Commande::RETRACT_DEMAND') %}
+            <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('refundCommande', object) }}" title="rembourser">
+                <i class="fa fa-close" aria-hidden="true"></i>
+                Rembourser
+            </a>
+            {% endif %}
+        {% endif %}
+    {% else %}
+        {% if object.statusTmp != constant('App\\Entity\\Commande::RETRACT_DEMAND') and object.statusTmp != constant('App\\Entity\\Commande::RETRACT_REFUND') and object.statusTmp != constant('App\\Entity\\Commande::RETRACT_FORM_WAITTING') %}
+        <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracterCommande', object) }}"
+            title="retracter commande">
+            <i class="fa fa-close" aria-hidden="true"></i>
+            Retracter
+        </a>
+        {% elseif object.statusTmp == constant('App\\Entity\\Commande::RETRACT_FORM_WAITTING') %}
+        <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracterCommandeSecond', object) }}" title="retractation recue">
+            <i class="fa fa-close" aria-hidden="true"></i>
+            Retractation reçue
+        </a>
+        {% elseif object.statusTmp == constant('App\\Entity\\Commande::RETRACT_DEMAND') %}
+        <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('refundCommande', object) }}" title="rembourser">
+            <i class="fa fa-close" aria-hidden="true"></i>
+            Rembourser
+        </a>
+        {% endif %}
+    {% endif %}
+{% else %}
+    {% if object.commande is defined and object.commande is not null %}
+        {% if object.statusDoc != constant('App\\Entity\\Demande::DOC_VALID_SEND_TMS') %}
+            {% if object.commande.statusTmp != constant('App\\Entity\\Commande::RETRACT_DEMAND') and object.commande.statusTmp != constant('App\\Entity\\Commande::RETRACT_REFUND') and object.commande.statusTmp != constant('App\\Entity\\Commande::RETRACT_FORM_WAITTING') %}
+            <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracterCommande', object.commande) }}"
+                title="retracter commande">
+                <i class="fa fa-close" aria-hidden="true"></i>
+                Retracter
+            </a>
+            {% elseif object.commande.statusTmp == constant('App\\Entity\\Commande::RETRACT_FORM_WAITTING') %}
+            <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracterCommandeSecond', object.commande) }}" title="retractation reçue">
+                <i class="fa fa-close" aria-hidden="true"></i>
+                Retractation reçue
+            </a>
+            {% elseif object.commande.statusTmp == constant('App\\Entity\\Commande::RETRACT_DEMAND') %}
+            <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('refundCommande', object.commande) }}" title="rembourser">
+                <i class="fa fa-close" aria-hidden="true"></i>
+                Rembourser
+            </a>
+            {% endif %}
+        {% endif %}
+
     {% endif %}
 {% endif %}
