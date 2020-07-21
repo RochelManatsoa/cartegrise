@@ -153,7 +153,7 @@ class CommandeManager
 	{
 		switch($typeDemarche) {
 			case "DUP":
-				return $this->getParamToEnvoyer($typeDemarche, $commande, $infosVehicule);
+				return $this->getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule);
 				break;
 			case "CTVO":
 				return $this->getParamToEnvoyer($typeDemarche, $commande, $infosVehicule);
