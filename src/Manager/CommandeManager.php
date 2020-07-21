@@ -233,6 +233,7 @@ class CommandeManager
 	{
 		$genre = $this->tmsManager->getGENRE($infosVehicule->Genre);
 		$ptca = $this->tmsManager->getPTCA($infosVehicule->PoidsVide);
+		$puissance = $infosVehicule->PuissFisc ? $infosVehicule->PuissFisc : 0;
 		if ($typeDemarche ==="CTVO")
 			$typeDemarche = "VOF";
         $ECG = [
@@ -243,7 +244,7 @@ class CommandeManager
 					"Vehicule" => [
 						"Immatriculation" => $commande->getImmatriculation(), 
 						"Departement" => $commande->getCodePostal(),
-						"Puissance" => $infosVehicule->PuissFisc ? $infosVehicule->PuissFisc : '0',
+						"Puissance" => $puissance,
 						"Genre" =>$genre,
 						"Energie" =>$infosVehicule->Energie,
 						"DateMEC" =>$infosVehicule->DateMec,
