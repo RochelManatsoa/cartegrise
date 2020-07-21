@@ -169,6 +169,7 @@
 
 {% block javascripts %}
 	{{ parent() }}
+	<script src="{{ asset('Utils/js/jquery.js') }}"></script>
 	<script type="application/javascript">
 		{% if defaultDepartment is defined and defaultDepartment is not null %}
 			$("#formulaire_codePostal").parent('div').find('ul.select-options').find('li[rel="{{defaultDepartment}}"]').click();
