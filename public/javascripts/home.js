@@ -34,6 +34,14 @@ $(document).ready(function() {
         }
     });
 
+    //aside_right
+    $("#aside_right").sticky({
+        topSpacing: 200, 
+        bottomSpacing: 1100
+    });
+
+
+});
 
     $('#formulaire_demarche').on('change', function(e) {
         var Value = $(".demarche").find(":selected").val();
@@ -92,92 +100,6 @@ $(document).ready(function() {
         }
     });
 
-    function h2over(x) {
-        var p = {
-            CTVOdemande: "J'achète un véhicule d'occasion",
-            DUPdemande: "J'ai perdu ou on m'a volé ma carte grise",
-            DIVNdemande: "J'achète un véhicule neuf",
-            DCAdemande: "J'ai changé d'adresse",
-            DCdemande: "Je vends mon véhicule"
-        };
-        var a = x.id;
-        var b = a.concat("h2");
-        document.getElementById(b).innerHTML = p[a];
-    }
-
-    function h2out(x) {
-        var a = x.id;
-        var b = a.concat("h2");
-        document.getElementById(b).innerHTML = "";
-    }
-    var cookiesChecker = function() {
-        var options = {
-            cookieKey: "cookies-accepted",
-            cookieValue: "Y",
-            cookieDays: 365,
-            containerId: "cookie-alert-container",
-            htmlTemplate: '<div role="alert" class="cookie-alert-message fixed-bottom text-center alert alert-primary"><div class="container mx-auto">En poursuivant votre navigation sur ce site, vous acceptez l\'utilisation de cookies ou technologie similaire pour disposer des services et d\'offres  adaptés à vos centres d\'interêt ainsi que pour la sécurisation des transactions de notre site. <button class="cookie-alert-message-accept-button btn btn-outline-primary" onClick="javascript:cookiesChecker.accept();">J\'accepte</button></div></div>'
-        };
-
-        var setCookie = function(key, value, expires) {
-            if (typeof expires === 'number') {
-                var days = expires,
-                    t = expires = new Date();
-                t.setDate(t.getDate() + days);
-            }
-
-            return (document.cookie = [
-                encodeURIComponent(key),
-                '=',
-                encodeURIComponent(value),
-                expires ? '; expires=' + expires.toUTCString() : '',
-                '; path=/'
-            ].join(''));
-        };
-
-        var getCookie = function(key) {
-            var cookies = document.cookie.split('; ');
-            for (var i = 0, l = cookies.length; i < l; i++) {
-                var parts = cookies[i].split('=');
-                var name = decodeURIComponent(parts.shift().replace(/\+/g, ' '));
-                var cookie = decodeURIComponent(parts.join('=').replace(/\+/g, ' '));
-
-                if (key && key === name) {
-                    return decodeURIComponent(cookie.replace(/\+/g, ' '));
-                }
-            }
-            return undefined;
-        };
-
-        var checkCookies = function() {
-            if (getCookie(options.cookieKey) == options.cookieValue) return;
-
-            var message_container = document.createElement('div');
-            message_container.id = options.containerId;
-            message_container.innerHTML = options.htmlTemplate;
-            document.body.appendChild(message_container);
-        };
-
-        var accept = function() {
-            setCookie(options.cookieKey, options.cookieValue, options.cookieDays);
-            var element = document.getElementById(options.containerId);
-            element.parentNode.removeChild(element);
-        };
-
-        var init = function(_options) {
-            if (_options !== null) {
-                for (var key in _options) {
-                    if (_options.hasOwnProperty(key)) options[key] = _options[key];
-                }
-            }
-            window.onload = checkCookies;
-        };
-
-        return {
-            accept: accept,
-            init: init
-        };
-    }();
 
 
 
@@ -248,7 +170,115 @@ $(document).ready(function() {
     });
 
 
-    //Autocomplete
+
+    //fixed
+    if (window.matchMedia("(min-width: 1750px)").matches) {
+        $('#right_formulaireFx').find('.form_demarche').append($('.demarche_block'));
+    } else {
+        $('#col_formulaireFx').find('.form_demarche').append($('.demarche_block'));
+    }
+    
+
+    //doc-telechargeable
+    $(".js-toggle").on("click", function () {
+        $(this).parent().next(".toggle-content").toggle();
+    });
+
+
+    //flash block
+    $(".flash_block").delay(5000).fadeOut(400);
+
+
+    function h2over(x) {
+        var p = {
+            CTVOdemande: "J'achète un véhicule d'occasion",
+            DUPdemande: "J'ai perdu ou on m'a volé ma carte grise",
+            DIVNdemande: "J'achète un véhicule neuf",
+            DCAdemande: "J'ai changé d'adresse",
+            DCdemande: "Je vends mon véhicule"
+        };
+        var a = x.id;
+        var b = a.concat("h2");
+        document.getElementById(b).innerHTML = p[a];
+    }
+
+    function h2out(x) {
+        var a = x.id;
+        var b = a.concat("h2");
+        document.getElementById(b).innerHTML = "";
+    }
+
+
+    var cookiesChecker = function() {
+        var options = {
+            cookieKey: "cookies-accepted",
+            cookieValue: "Y",
+            cookieDays: 365,
+            containerId: "cookie-alert-container",
+            htmlTemplate: '<div role="alert" class="cookie-alert-message fixed-bottom text-center alert alert-primary"><div class="container mx-auto">En poursuivant votre navigation sur ce site, vous acceptez l\'utilisation de cookies ou technologie similaire pour disposer des services et d\'offres  adaptés à vos centres d\'interêt ainsi que pour la sécurisation des transactions de notre site. <button class="cookie-alert-message-accept-button btn btn-outline-primary" onClick="javascript:cookiesChecker.accept();">J\'accepte</button></div></div>'
+        };
+
+        var setCookie = function(key, value, expires) {
+            if (typeof expires === 'number') {
+                var days = expires,
+                    t = expires = new Date();
+                t.setDate(t.getDate() + days);
+            }
+
+            return (document.cookie = [
+                encodeURIComponent(key),
+                '=',
+                encodeURIComponent(value),
+                expires ? '; expires=' + expires.toUTCString() : '',
+                '; path=/'
+            ].join(''));
+        };
+
+        var getCookie = function(key) {
+            var cookies = document.cookie.split('; ');
+            for (var i = 0, l = cookies.length; i < l; i++) {
+                var parts = cookies[i].split('=');
+                var name = decodeURIComponent(parts.shift().replace(/\+/g, ' '));
+                var cookie = decodeURIComponent(parts.join('=').replace(/\+/g, ' '));
+
+                if (key && key === name) {
+                    return decodeURIComponent(cookie.replace(/\+/g, ' '));
+                }
+            }
+            return undefined;
+        };
+
+        var checkCookies = function() {
+            if (getCookie(options.cookieKey) == options.cookieValue) return;
+
+            var message_container = document.createElement('div');
+            message_container.id = options.containerId;
+            message_container.innerHTML = options.htmlTemplate;
+            document.body.appendChild(message_container);
+        };
+
+        var accept = function() {
+            setCookie(options.cookieKey, options.cookieValue, options.cookieDays);
+            var element = document.getElementById(options.containerId);
+            element.parentNode.removeChild(element);
+        };
+
+        var init = function(_options) {
+            if (_options !== null) {
+                for (var key in _options) {
+                    if (_options.hasOwnProperty(key)) options[key] = _options[key];
+                }
+            }
+            window.onload = checkCookies;
+        };
+
+        return {
+            accept: accept,
+            init: init
+        };
+    }();
+
+        //Autocomplete
     //AutoComplete
     $( function() {
         $.widget( "custom.combobox", {
@@ -374,25 +404,3 @@ $(document).ready(function() {
         $( "#formulaire_codePostal" ).combobox();
         $('#AutoCompleteCP').find('.select').prepend($('ul#ui-id-1'));
     } );
-    //fixed
-    if (window.matchMedia("(min-width: 1750px)").matches) {
-        $('#right_formulaireFx').find('.form_demarche').append($('.demarche_block'));
-    } else {
-        $('#col_formulaireFx').find('.form_demarche').append($('.demarche_block'));
-    }
-    //aside_right
-    $("#aside_right").sticky({
-        topSpacing: 200, 
-        bottomSpacing: 1100
-    });
-
-    //doc-telechargeable
-    $(".js-toggle").on("click", function () {
-        $(this).parent().next(".toggle-content").toggle();
-    });
-
-
-    //flash block
-    $(".flash_block").delay(5000).fadeOut(400);
-
-});
