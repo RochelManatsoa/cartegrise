@@ -243,7 +243,7 @@ class CommandeManager
 					"Vehicule" => [
 						"Immatriculation" => $commande->getImmatriculation(), 
 						"Departement" => $commande->getCodePostal(),
-						"Puissance" => $infosVehicule->PuissFisc ? $infosVehicule->PuissFisc : 0,
+						"Puissance" => $infosVehicule->PuissFisc ? $infosVehicule->PuissFisc : '0',
 						"Genre" =>$genre,
 						"Energie" =>$infosVehicule->Energie,
 						"DateMEC" =>$infosVehicule->DateMec,
