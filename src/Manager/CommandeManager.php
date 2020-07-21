@@ -18,6 +18,7 @@ use App\Entity\GesteCommercial\GesteCommercial;
 use App\Repository\{CommandeRepository, DailyFactureRepository};
 use App\Manager\SessionManager;
 use App\Manager\{StatusManager, TMSSauverManager, TransactionManager, TaxesManager, MailManager};
+use App\Manager\Tms\TmsManager;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -41,7 +42,8 @@ class CommandeManager
 		SerializerInterface $serializer,
 		TMSSauverManager $tmsSaveManager, 
 		TransactionManager $transactionManager,
-		MailManager $mailManager
+		MailManager $mailManager,
+		TmsManager $tmsManager
 	)
 	{
 		$this->tmsClient = $tmsClient;
@@ -58,6 +60,7 @@ class CommandeManager
 		$this->tmsSaveManager = $tmsSaveManager;
 		$this->transactionManager = $transactionManager;
 		$this->mailManager = $mailManager;
+		$this->tmsManager = $tmsManager;
 	}
 
 	public function checkIfTransactionSuccess(Commande $commande)
@@ -150,10 +153,10 @@ class CommandeManager
 	{
 		switch($typeDemarche) {
 			case "DUP":
-				return $this->getParamDupEnvoyer($typeDemarche, $commande, $infosVehicule);
+				return $this->getParamToEnvoyer($typeDemarche, $commande, $infosVehicule);
 				break;
 			case "CTVO":
-				return $this->getParamDupEnvoyer($typeDemarche, $commande, $infosVehicule);
+				return $this->getParamToEnvoyer($typeDemarche, $commande, $infosVehicule);
 				break;
 			case "DIVN":
 				return $this->getParamDivnEnvoyer($commande);
@@ -224,13 +227,10 @@ class CommandeManager
 		return null;
 	}
 
-	private function getParamDupEnvoyer($typeDemarche, Commande $commande, $infosVehicule)
+	private function getParamToEnvoyer($typeDemarche, Commande $commande, $infosVehicule)
 	{
-		// to get info for C02, ptac and Energy
-		$paramsAuto = $this->getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule);
-		$infosAutoDefault = $this->tmsClient->envoyer($paramsAuto);
-		$infosAutoDefaultResult = $infosAutoDefault->getRawData()->Lot->Demarche->ECGAUTO->Reponse->Positive;
-		// end get info for C02, ptac and Energy
+		$genre = $this->tmsManager->getGENRE($infosVehicule->Genre);
+		$ptca = $this->tmsManager->getPTCA($infosVehicule->PoidsVide);
 		if ($typeDemarche ==="CTVO")
 			$typeDemarche = "VOF";
         $ECG = [
@@ -242,11 +242,11 @@ class CommandeManager
 						"Immatriculation" => $commande->getImmatriculation(), 
 						"Departement" => $commande->getCodePostal(),
 						"Puissance" => $infosVehicule->PuissFisc,
-						"Genre" =>$infosAutoDefaultResult->Genre,
-						"Energie" =>$infosAutoDefaultResult->Energie,
+						"Genre" =>$genre,
+						"Energie" =>$infosVehicule->Energie,
 						"DateMEC" =>$infosVehicule->DateMec,
-						"PTAC" => $infosAutoDefaultResult->PTAC,
-						"CO2" => $infosAutoDefaultResult->CO2,
+						"PTAC" => $ptca,
+						"CO2" => $infosVehicule->CO2,
 						"TypeVehicule" => 1, // see how to integrate
 						"Collection" => false,
 						"PremiereImmat" => false,

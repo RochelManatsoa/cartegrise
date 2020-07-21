@@ -6,7 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use App\Manager\{UserManager, CommandeManager};
+use App\Manager\{UserManager, CommandeManager, PreviewEmailManager};
 use App\Entity\{Commande, User};
 use Symfony\Component\Console\Helper\ProgressBar;
 

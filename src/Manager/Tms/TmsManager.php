@@ -5,48 +5,90 @@ namespace App\Manager\Tms;
 
 Class TmsManager
 {
-    public $PTAC = [
-        1 => "inférieur à 3,5 t",
-        2 => "entre 3,5 et 6 t",
-        3 => "entre 6 et 11 t",
-        4 => "supérieur à 11 t"
+    private $PTAC = [
+        1 => 3500,
+        2 => 6000,
+        3 => 11000,
+        4 => 1000000
     ];
 
-    public $GENRE = [
-        1 => "Véhicule particulier (VP)",
-        2 => "Utilitaire (CTTE, Deriv-VP)",
-        3 => "Camion, Bus, Tracteur non agricole (CAM, TCP, TRR)",
-        4 => "Véhicule spécialisé (VASP)",
-        5 => "Moto (MTL, MTT1, MTT2)",
-        6 => "Cyclomoteur <= 50cm3 (CL)",
-        7 => "Quadricycle à moteur (QM) : voiturette, quad, buggy",
-        8 => "Tracteur agricole, quad agricole (TRA)",
-        9 => "Remorque, semi-remorque et caravane (REM, SREM, RESP)",
-        10 => "Remorque, semi-remorque et caravane (REM, SREM, RESP)" ,
-        11 => "Cyclomoteurs carrossés à 3 roues (CYCL)",
+    private $GENRE = [
+        1 => ["VP"],
+        2 => ["CTTE", "Deriv-VP"],
+        3 => ["CAM", "TCP", "TRR"],
+        4 => ["VASP"],
+        5 => ["MTL", "MTT1", "MTT2"],
+        6 => ["CL"],
+        7 => ["QM"],
+        8 => ["TRA"],
+        9 => ["REM", "SREM", "RESP"],
+        10 => ["TM"] ,
+        11 => ["CYCL"],
     ];
 
-    public $ENERGIE = [
-        1 => "Essence ou diesel (gasoil) ‘ES’ / ‘GO’",
-        2 => "GPL ou GNV uniquement ‘GP’ / ’GN’",
-        3 => "Electricité uniquement ‘EL’",
-        4 => [
-            "Hybride" => [
-                1 => "Electricité – essence ‘EE’", 
-                2 => "Electricité – diesel ‘GE’ / ‘OL’", 
-                3 => "Electricité – GPL ‘PE’", 
-                4 => "Electricité – GNV ‘NE’", 
-                5 => "Electricité – Superéthanol ‘FL"
-            ]
-        ],
-        5 => "Bioéthanol E85 ‘FE’",
-        6 => [
-            "Biocarburant" => [
-                1 => "Essence – GPL ‘EG’", 
-                2 => "Essence – GNV ‘EN’", 
-                3 => "Superéthanol – GPL ‘FG’", 
-                4 => "Superéthanol – GNV ‘FN’"
-            ]
-        ],
+    private $ENERGIE = [
+        1 => ["ESSENCE", "GAZOLE"],
+        2 => ["GP", "GN"],
+        3 => ["EL"],
+        4 => ["EE", "GE", "OL", "PE", "NE", "FL"],
+        5 => "FE",
+        6 => ["EG", "EN", "FG", "FN"],
     ];
+
+    /**
+     * funciton to get PTCA of auto
+     *
+     * @param [type] $poids
+     * @return void
+     */
+    public function getPTCA($poids) {
+        // loop all value 
+        foreach($this->PTAC as $key=>$value) {
+            if ($poids < $value) {
+                // return value coresponding of weight
+                return $key;
+            }
+        }
+        // default value
+        return 1;
+    }
+
+
+    /**
+     * funciton to get GENRE of auto
+     *
+     * @param [type] $genre string
+     * @return void
+     */
+    public function getGENRE($gender) {
+        // loop all value 
+        foreach($this->GENRE as $key=>$value) {
+            if (in_array($gender, $value)) {
+                // return value coresponding of weight
+                return $key;
+            }
+        }
+        // default value
+        return 1;
+    }
+
+
+
+    /**
+     * funciton to get ENERGIE of auto
+     *
+     * @param [type] $genre string
+     * @return void
+     */
+    public function getENERGIE($energie) {
+        // loop all value 
+        foreach($this->$GENRE as $key=>$value) {
+            if (in_array($energie, $value)) {
+                // return value coresponding of weight
+                return $key;
+            }
+        }
+        // default value
+        return 1;
+    }
 }
