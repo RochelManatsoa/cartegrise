@@ -35,6 +35,12 @@ Class TmsManager
         6 => ["EG", "EN", "FG", "FN"],
     ];
 
+    private $TYPE = [
+        1 => "VN",
+        2 => "CTVO",
+        4 => "DUP" 
+    ];
+
     /**
      * funciton to get PTCA of auto
      *
@@ -51,6 +57,24 @@ Class TmsManager
         }
         // default value
         return 1;
+    }
+
+    /**
+     * funciton to get PTCA of auto
+     *
+     * @param [type] $poids
+     * @return void
+     */
+    public function getTYPE($type) {
+        // loop all value 
+        foreach($this->TYPE as $key=>$value) {
+            if ($type == $value) {
+                // return value coresponding of weight
+                return $key;
+            }
+        }
+        // default value
+        return 2;
     }
 
 

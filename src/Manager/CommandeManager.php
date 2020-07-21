@@ -195,9 +195,11 @@ class CommandeManager
 
 	private function getParamDefaultEnvoyer($typeDemarche, $commande, $infosVehicule)
 	{
+		$type = $this->tmsManager->getTYPE($typeDemarche);
 		$Vehicule = [
         	"Immatriculation" => $commande->getImmatriculation(), 
 			"Departement" => $commande->getCodePostal(),
+			"TypeAchat" => $type
         ];
         $DateDemarche = date('Y-m-d H:i:s');
         $ECG = [
@@ -241,7 +243,7 @@ class CommandeManager
 					"Vehicule" => [
 						"Immatriculation" => $commande->getImmatriculation(), 
 						"Departement" => $commande->getCodePostal(),
-						"Puissance" => $infosVehicule->PuissFisc,
+						"Puissance" => $infosVehicule->PuissFisc ? $infosVehicule->PuissFisc : 0,
 						"Genre" =>$genre,
 						"Energie" =>$infosVehicule->Energie,
 						"DateMEC" =>$infosVehicule->DateMec,
