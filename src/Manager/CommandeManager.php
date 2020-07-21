@@ -242,9 +242,9 @@ class CommandeManager
 			"TypeECG" => [
 				$typeDemarche => [
 					"Vehicule" => [
+						"Puissance" => $puissance,
 						"Immatriculation" => $commande->getImmatriculation(), 
 						"Departement" => $commande->getCodePostal(),
-						"Puissance" => $puissance,
 						"Genre" =>$genre,
 						"Energie" =>$infosVehicule->Energie,
 						"DateMEC" =>$infosVehicule->DateMec,
