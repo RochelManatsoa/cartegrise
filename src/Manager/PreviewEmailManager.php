@@ -68,6 +68,10 @@ class PreviewEmailManager
 	{
 		return $this->repository->getPreviewEmailRelancePaiement();
 	}
+	public function getPreviewEmailRelanceForm()
+	{
+		return $this->repository->getPreviewEmailRelanceForm();
+	}
 
 	public function save(PreviewEmail $previewEmail)
 	{

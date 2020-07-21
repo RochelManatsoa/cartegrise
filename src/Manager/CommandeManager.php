@@ -775,6 +775,17 @@ class CommandeManager
 				// if all command is not payed or not have Demande , then create preview email
 				$this->createPreviewEmail($commande, $step);
 				break;
+			
+			case PreviewEmail::MAIL_RELANCE_FORMULAIRE :
+				// check if email is already set 
+				$tmpPrev = $this->em->getRepository(PreviewEmail::class)->findOneBy(['user' => $commande->getClient()->getUser(), 'immatriculation' => $commande->getImmatriculation()]);
+				if ($tmpPrev instanceof PreviewEmail && $tmpPrev->getTypeEmail() === PreviewEmail::MAIL_RELANCE_PAIEMENT) {
+					return;
+				}
+				// if all command is not payed or not have Demande , then create preview email
+				$this->createPreviewEmail($commande, $step);
+				break;
+			
 		}
 		
 		// create the preview email of command
