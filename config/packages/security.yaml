@@ -83,15 +83,14 @@ security:
 
 
     access_control:
-        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY , requires_channel: https}
-        - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY , requires_channel: https}
-        - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] , requires_channel: https}
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY , requires_channel: https}
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY , requires_channel: https}
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY , requires_channel: https}
-        - { path: ^/easy_admin/, role: [ROLE_ADMIN, ROLE_ADMIN_BLOG] , requires_channel: https}
-        - { path: ^/admin/, role: ROLE_ADMIN , requires_channel: https}
-        - { path: '^/', roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/easy_admin/, role: [ROLE_ADMIN, ROLE_ADMIN_BLOG] }
+        - { path: ^/admin/, role: ROLE_ADMIN }
         # - { path: ^/api/, role: IS_AUTHENTICATED_FULLY }
 
 # security:
