@@ -29,7 +29,7 @@ Class TmsManager
     private $ENERGIE = [
         1 => ["ESSENCE", "GAZOLE"],
         2 => ["GP", "GN"],
-        3 => ["EL"],
+        3 => ["ELECTRIC"],
         4 => ["EE", "GE", "OL", "PE", "NE", "FL"],
         5 => "FE",
         6 => ["EG", "EN", "FG", "FN"],
