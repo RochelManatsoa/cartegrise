@@ -54,6 +54,21 @@ class PreviewEmailRepository extends ServiceEntityRepository
         ;
     }
     
+    public function getPreviewEmailRelanceForm()
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.sendAt <:now')
+            ->andWhere('p.status = :pending')
+            ->andWhere('p.typeEmail = :typeEmail')
+            ->setParameter('typeEmail', PreviewEmail::MAIL_RELANCE_FORMULAIRE)
+            ->setParameter('pending', PreviewEmail::STATUS_PENDING)
+            ->setParameter('now', (new \DateTime())->format('Y-m-d H:i:s'))
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 
     /*
     public function findOneBySomeField($value): ?PreviewEmail

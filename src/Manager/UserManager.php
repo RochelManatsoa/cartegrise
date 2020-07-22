@@ -215,6 +215,25 @@ class UserManager
         return 'sended';
     }
 
+     public function sendUserFailedFormRelance(PreviewEmail $previewEmail)
+    {
+        $user = $previewEmail->getUser();
+        $template = 'relance/attenteDeDemande.mail.twig';
+        $emails = [];
+        $this->mailManager->sendEmail(
+            $emails=[$user->getEmail()], 
+            $template,
+            "CG Officiel - Démarches Carte Grise en ligne",
+            ['user'=> $user, 'commande'=>$previewEmail->getCommande()]
+        );
+        
+        $commande->setRemindFailedTransaction($commande->getRemindFailedTransaction()+1);
+        $this->em->persist($commande);
+        $this->em->flush();
+        
+        return 'sended';
+    }
+
      public function sendUserWithoutDemandeRelance(User $user, Commande $commande)
     {
         $template = 'relance/attenteDeDemande.mail.twig';

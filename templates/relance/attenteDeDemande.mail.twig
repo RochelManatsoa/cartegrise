@@ -10,8 +10,9 @@
         Bonjour {{ user.client|displayRelanceInfos }}
         <br>
         <br>      
-        <p>Nous vous remercions de votre commande, pour finaliser votre démarche merci de renseigner le 
-        <a href="{{ basePath ~ path('new_demande', {'commande': commande.id }) }}" target="_blank" rel="noopener noreferrer">formulaire</a> et d'envoyer vos documents.</p>
+        <p>Nous vous remercions de votre commande, votre paiement a bien été accepté, pour continuer votre démarche, <br/>
+        compléter le formulaire pour renseigner vos informations en cliquant  
+        <a href="{{ basePath ~ path('new_demande', {'commande': commande.id }) }}" target="_blank" rel="noopener noreferrer">ici</a>.</p>
         <p>Notre équipe reste disponible au numéro 09 72 76 01 07 pour vous venir en aide. Nous vous remercions de votre confiance.</p>
         <p>Cordialement,</p>
         <p>Le service client <a href="https://www.cgofficiel.fr" target="_blank">CG OFFICIEL</a>.</p>

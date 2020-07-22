@@ -6,7 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use App\Manager\{UserManager, CommandeManager};
+use App\Manager\{UserManager, CommandeManager, PreviewEmailManager};
 use App\Entity\{Commande, User};
 use Symfony\Component\Console\Helper\ProgressBar;
 
@@ -33,10 +33,11 @@ class RelanceEstimationPayedWithoutDemandeCommand extends Command
      * @param boolean $requirePassword
      * @param UserManager $userManager
      */
-    public function __construct(bool $requirePassword = false, UserManager $userManager, CommandeManager $commandeManager)
+    public function __construct(bool $requirePassword = false, UserManager $userManager, CommandeManager $commandeManager, PreviewEmailManager $previewEmailManager)
     {
         $this->requirePassword = $requirePassword;
         $this->userManager = $userManager;
+        $this->previewEmailManager = $previewEmailManager;
         $this->commandeManager = $commandeManager;
 
         parent::__construct();
@@ -50,18 +51,16 @@ class RelanceEstimationPayedWithoutDemandeCommand extends Command
             '============',
             '',
         ]);
-        // get all command no payed to send email relance
-        $users = $this->commandeManager->getUserWithoutDemandeButPayed();
+        // get all command no payed but fail
+        $previewEmails = $this->previewEmailManager->getPreviewEmailRelanceForm();
         
-        $progressBar = new ProgressBar($output, count($users));
+        $progressBar = new ProgressBar($output, count($previewEmails));
         // loop the command and increment the count of relance
-        foreach($users as $user) {
+        foreach($previewEmails as $previewEmail) {
             // advances the progress bar 1 unit
             $progressBar->advance();
             $output->writeln('');
-            if ($user['userID'] === null )continue;
-            $commande = $this->commandeManager->find($user['commandeId']);
-            $user = $this->userManager->find($user['userID']);
+            $user = $previewEmail->getUser();
             
             if (!$user instanceof User) {
                 continue;
@@ -69,7 +68,7 @@ class RelanceEstimationPayedWithoutDemandeCommand extends Command
             // treatment of each commande
             $output->writeln('User id ==> ' . $user->getId());
             // send email
-            $this->userManager->sendUserWithoutDemandeRelance($user, $commande);
+            $this->userManager->sendUserFailedFormRelance($previewEmail);
             $output->writeln('email sended');
             // update the reminder of user
             $output->writeln('user updated');

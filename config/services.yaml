@@ -69,7 +69,7 @@ services:
     monolog.formatter.standard:
         class: Monolog\Formatter\LineFormatter
         arguments:
-            $format: "%%datetime%% | request ip: %%extra.request_ip%% | client ip %%extra.client_ip%% | %%channel%%.%%level_name%%:  %%message%% %%context%%\n"
+            $format: "%%datetime%% |  client ip %%extra.client_ip%% | %%channel%%.%%level_name%%:  %%message%% %%context%%\n"
             
     monolog.processor.client_ip:
         class: App\Log\ClientIpProcessor
@@ -121,6 +121,11 @@ services:
         arguments: [~, App\Entity\User,  App\Controller\ActionAdminController]
         tags:
             - { name: sonata.admin, manager_type: orm, group: tableaudebord,label: "Rémanance" }
+    App\Admin\TmsAdmin:
+        arguments: [~, App\Entity\TMSExchange, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'tableaudebord', label: 'Stat de Tms' }
+        public: true
     App\Admin\PreviewEmailAdmin:
         arguments: [~, App\Entity\PreviewEmail, ~]
         tags:

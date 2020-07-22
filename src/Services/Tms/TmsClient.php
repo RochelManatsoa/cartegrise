@@ -11,11 +11,13 @@ namespace App\Services\Tms;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
+use App\Entity\TMSExchange;
 
 class TmsClient
 {
-	public function __construct($endpoint, $codeTMS, $login, $password, LoggerInterface $tmsLogger, TokenStorageInterface $tokenStorage)
+	public function __construct($endpoint, $codeTMS, $login, $password, LoggerInterface $tmsLogger, TokenStorageInterface $tokenStorage, EntityManagerInterface $em)
 	{
 		$this->endpoint = $endpoint;
 		$this->codeTMS = $codeTMS;
@@ -23,6 +25,24 @@ class TmsClient
 		$this->password = $password;
 		$this->tmsLogger = $tmsLogger;
 		$this->tokenStorage = $tokenStorage;
+		$this->em = $em;
+	}
+
+	private function initTMSExchange(string $type, string $params) : TMSExchange
+	{
+		$tmsEx = new TMSExchange();
+		$tmsEx->setType($type);
+		$tmsEx->setParameters($params);
+
+		return $tmsEx;
+	}
+
+	private function saveTMSExchange(TMSExchange $tmsExchange, string $response) : void
+	{
+		$tmsExchange->setResponse($response);
+
+		$this->em->persist($tmsExchange);
+		$this->em->flush();
 	}
 
 
@@ -59,14 +79,17 @@ class TmsClient
         	"CodeTMS" => $this->codeTMS,
         	"Login" => $this->login,
         	"Password" => $this->password,
-        ];
+		];
+		$type = __FUNCTION__;
+		$tmsEx = $this->initTMSExchange($type, \json_encode($params));
 
-        $this->log("parametres", \json_encode($params));
+		$this->log("parametres", \json_encode($params));
 		$params['Identification'] = $identification;
 		$this->log("user infos", $this->getUserInfos());
 		$this->log("appel vers TMS ... ", '...');
 		$response = $client->Envoyer($params);
 		$this->log("response Envoyer", \json_encode($response), true);
+		$this->saveTMSExchange($tmsEx, \json_encode($response));
 
         return new Response($response);
 	}
@@ -80,7 +103,10 @@ class TmsClient
         	"CodeTMS" => $this->codeTMS,
         	"Login" => $this->login,
         	"Password" => $this->password,
-        ];
+		];
+		
+		$type = __FUNCTION__;
+		$tmsEx = $this->initTMSExchange($type, \json_encode($params));
 		
 		$this->log("parametres", \json_encode($params));
 		$params['Identification'] = $identification;
@@ -88,6 +114,7 @@ class TmsClient
 		$this->log("appel vers TMS ... ", '...');
 		$response = $client->Ouvrir($params);
 		$this->log("response Ouvrir", \json_encode($response), true);
+		$this->saveTMSExchange($tmsEx, \json_encode($response));
 
         return new Response($response);
 	}
@@ -102,7 +129,8 @@ class TmsClient
         	"Password" => $this->password,
         ];
 
-		
+		$type = __FUNCTION__;
+		$tmsEx = $this->initTMSExchange($type, \json_encode($params));
 
 		$this->log("parametres", \json_encode($params));
 		$params['Identification'] = $identification;
@@ -110,6 +138,7 @@ class TmsClient
 		$this->log("appel vers TMS ... ", '...');
 		$response = $client->Sauver($params);
 		$this->log("response Sauver", \json_encode($response), true);
+		$this->saveTMSExchange($tmsEx, \json_encode($response));
 
         return new Response($response);
 	}
@@ -126,6 +155,10 @@ class TmsClient
 				"Login" => $this->login,
 				"Password" => $this->password,
 			];
+
+			$type = __FUNCTION__;
+			$tmsEx = $this->initTMSExchange($type, \json_encode($Immat));
+		
 			
 			$this->log("parametres", \json_encode($Immat));
 			$Immat['Identification'] = $identification;
@@ -133,6 +166,7 @@ class TmsClient
 			$this->log("appel vers TMS ... ", '...');
 			$response = $client->InfoImmat($Immat);
 			$this->log("response InfoImmat", \json_encode($response), true);
+			$this->saveTMSExchange($tmsEx, \json_encode($response));
 
 			return new Response($response);
 	}
@@ -170,6 +204,10 @@ class TmsClient
         	"Login" => $this->login,
         	"Password" => $this->password,
 		];
+
+		$type = __FUNCTION__;
+		$tmsEx = $this->initTMSExchange($type, \json_encode($Immat));
+		
 		
 		$this->log("parametres", \json_encode($Immat));
 		$params['Identification'] = $identification;
@@ -177,6 +215,7 @@ class TmsClient
 		$this->log("appel vers TMS ... ", '...');
 		$response = $client->Editer($Immat);
 		$this->log("response Editer", \json_encode($response), true);
+		$this->saveTMSExchange($tmsEx, \json_encode($response));
 
         return new Response($response);
 	}
