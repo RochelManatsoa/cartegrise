@@ -27,12 +27,12 @@ Class TmsManager
     ];
 
     private $ENERGIE = [
-        1 => ["ESSENCE", "GAZOLE"],
-        2 => ["GP", "GN"],
-        3 => ["ELECTRIC"],
-        4 => ["EE", "GE", "OL", "PE", "NE", "FL"],
-        5 => "FE",
-        6 => ["EG", "EN", "FG", "FN"],
+        1 => ["ESSENCE", "ESSENC","GAZOLE","CARB GAZEUX","ESS+GAZO","FUEL-OIL","GAZOGENE","GAZOLE+GAZO","INCONN","INCONNU"],
+        2 => ["G.P.L.", "GAZ NAT.VEH"],
+        3 => ["ELECTRIC", "ESS+ELEC HR"],
+        4 => ["ELEC+ESSENC", "ELEC+G.P.L.", "ELEC+GAZOLE", "ESS+ELEC HNR", "ESSENCE+HYB", "GAZ+ELEC HNR", "GAZ+ELEC HR", "GAZOL+G.NAT+HYB", "GAZOLE+HYB", "HYDROGENE"],
+        5 => ["SUPERETHANOL"],
+        6 => ["BICARBUR", "ESS+G.NAT", "ESS+G.P.L."],
     ];
 
     private $TYPE = [
@@ -105,6 +105,7 @@ Class TmsManager
      * @return void
      */
     public function getENERGIE($energie) {
+        $energie = trim(strtoupper($energie));
         // loop all value 
         foreach($this->$GENRE as $key=>$value) {
             if (in_array($energie, $value)) {

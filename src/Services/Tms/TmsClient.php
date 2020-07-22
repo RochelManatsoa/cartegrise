@@ -67,7 +67,7 @@ class TmsClient
 			return $client;
 		}
 		catch(Exception $e) {
-			echo $e->getMessage();die;
+			return $e->getMessage();
 		}
 	}
 
@@ -87,7 +87,11 @@ class TmsClient
 		$params['Identification'] = $identification;
 		$this->log("user infos", $this->getUserInfos());
 		$this->log("appel vers TMS ... ", '...');
-		$response = $client->Envoyer($params);
+		try {
+			$response = $client->Envoyer($params);
+		}catch(\Exception $e) {
+			$response = $e->getMessage();
+		}
 		$this->log("response Envoyer", \json_encode($response), true);
 		$this->saveTMSExchange($tmsEx, \json_encode($response));
 
