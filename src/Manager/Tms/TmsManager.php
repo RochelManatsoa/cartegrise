@@ -107,7 +107,7 @@ Class TmsManager
     public function getENERGIE($energie) {
         $energie = trim(strtoupper($energie));
         // loop all value 
-        foreach($this->$GENRE as $key=>$value) {
+        foreach($this->GENRE as $key=>$value) {
             if (in_array($energie, $value)) {
                 // return value coresponding of weight
                 return $key;
