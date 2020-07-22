@@ -1241,6 +1241,10 @@ AutoComplete
 .AutoComplete_CP .select-styled {
 	display: none;
 }
+.custom-combobox {
+	display: block;
+    position: relative;
+}
 .custom-combobox-toggle {
 	background-color: #767474;
     color: #fff;
