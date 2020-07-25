@@ -101,7 +101,7 @@ class HomeController extends AbstractController
 
          if ($form->isSubmitted() && $form->isValid() || $formulaire->isSubmitted() && $formulaire->isValid()) {
              
-            return $this->redirectToRoute('error_simulation');
+            //return $this->redirectToRoute('error_simulation');
 
             $ip = $request->server->get("REMOTE_ADDR");
             $todayIp = (new \DateTime())->format('d-m-Y') . $ip;

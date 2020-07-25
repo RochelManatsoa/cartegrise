@@ -114,6 +114,6 @@ Class TmsManager
             }
         }
         // default value
-        return 1;
+        return 0;
     }
 }

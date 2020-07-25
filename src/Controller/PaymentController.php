@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use App\Manager\Systempay\SystemPayManager;
 use App\Entity\Systempay\Transaction as SystempayTransaction;
 use Doctrine\Common\Collections\ArrayCollection;
+use App\Entity\PreviewEmail;
 
 
 class PaymentController extends AbstractController
@@ -350,13 +351,7 @@ class PaymentController extends AbstractController
                 $commandeManager->save($commande);
                 $countFidelite = 0;
                 $client = $commande->getClient();
-                foreach ($client->getCommandes() as $commande) {
-                    if ($commande->getSystempayTransaction() instanceof SystempayTransaction){
-                        if ($commande->getSystempayTransaction()->getStatus() === SystempayTransaction::TRANSACTION_SUCCESS) {
-                            $countFidelite ++;
-                        }
-                    }
-                }
+                $countFidelite = $commandeManager->countFidelite($client);
                 if ($countFidelite === 2){
                     $this->sendMail2Fidelite($mailer, $responses, $responses["vads_cust_email"], $adminEmails, [], $commande);
                 } elseif ($countFidelite >= 3) {
@@ -395,6 +390,18 @@ class PaymentController extends AbstractController
     )
     {
         $user = $this->getUser();
+        // // for simulation of response : 
+        // $responses = $this->systempay
+        //     ->similateResponse()
+        // ;
+
+        // // for debug the payment process
+        
+
+        
+        // // end treatment
+
+
         $transaction = $user->getTransactions()->last();
         
         $systempayTransaction = $transaction->getCommande()->getSystempayTransaction();

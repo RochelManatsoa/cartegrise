@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-12-30 19:19:01
+ * @Last Modified time: 2020-07-25 20:29:14
  */
 
 namespace App\Manager;
@@ -427,6 +427,8 @@ class CommandeManager
 		$facture->setFirstName($infosFacture->getFirstName());
 		$facture->setAdresse($infosFacture->getAdresse());
 		$commande->setFacture($facture);
+		$facture->setCommande($commande);
+		$this->em->persist($facture);
 		$this->save($commande);
     }
 
@@ -783,7 +785,7 @@ class CommandeManager
 			case PreviewEmail::MAIL_RELANCE_FORMULAIRE :
 				// check if email is already set 
 				$tmpPrev = $this->em->getRepository(PreviewEmail::class)->findOneBy(['user' => $commande->getClient()->getUser(), 'immatriculation' => $commande->getImmatriculation()]);
-				if ($tmpPrev instanceof PreviewEmail && $tmpPrev->getTypeEmail() === PreviewEmail::MAIL_RELANCE_PAIEMENT) {
+				if ($tmpPrev instanceof PreviewEmail && $tmpPrev->getTypeEmail() === PreviewEmail::MAIL_RELANCE_FORMULAIRE) {
 					return;
 				}
 				// if all command is not payed or not have Demande , then create preview email
@@ -827,6 +829,21 @@ class CommandeManager
 		// if not email set , then save preview email
 		$this->em->persist($previewEmail);
 		$this->em->flush();
+	}
+
+	public function countFidelite(Client $client)
+	{
+		$countFidelite = 0 ;
+		
+		foreach ($client->getCommandes() as $countCommande) {
+			if ($countCommande->getSystempayTransaction() instanceof SystempayTransaction){
+				if ($countCommande->getSystempayTransaction()->getStatus() === SystempayTransaction::TRANSACTION_SUCCESS) {
+					$countFidelite ++;
+				}
+			}
+		}
+
+		return $countFidelite;
 	}
 
 }
