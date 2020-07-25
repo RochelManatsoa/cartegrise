@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2020-07-25 20:29:14
+ * @Last Modified time: 2020-07-25 22:31:37
  */
 
 namespace App\Manager;
@@ -775,7 +775,7 @@ class CommandeManager
 			case PreviewEmail::MAIL_RELANCE_PAIEMENT :
 				// check if email is already set 
 				$tmpPrev = $this->em->getRepository(PreviewEmail::class)->findOneBy(['user' => $commande->getClient()->getUser(), 'immatriculation' => $commande->getImmatriculation()]);
-				if ($tmpPrev instanceof PreviewEmail && $tmpPrev->getTypeEmail() === PreviewEmail::MAIL_RELANCE_PAIEMENT) {
+				if ($tmpPrev instanceof PreviewEmail && $tmpPrev->getTypeEmail() >= PreviewEmail::MAIL_RELANCE_PAIEMENT) {
 					return;
 				}
 				// if all command is not payed or not have Demande , then create preview email
@@ -785,7 +785,7 @@ class CommandeManager
 			case PreviewEmail::MAIL_RELANCE_FORMULAIRE :
 				// check if email is already set 
 				$tmpPrev = $this->em->getRepository(PreviewEmail::class)->findOneBy(['user' => $commande->getClient()->getUser(), 'immatriculation' => $commande->getImmatriculation()]);
-				if ($tmpPrev instanceof PreviewEmail && $tmpPrev->getTypeEmail() === PreviewEmail::MAIL_RELANCE_FORMULAIRE) {
+				if ($tmpPrev instanceof PreviewEmail && $tmpPrev->getTypeEmail() >= PreviewEmail::MAIL_RELANCE_FORMULAIRE) {
 					return;
 				}
 				// if all command is not payed or not have Demande , then create preview email
@@ -808,6 +808,7 @@ class CommandeManager
 			} elseif ($tmpPrev->getTypeEmail() === ($step - 1)) {
 				$tmpPrev->setTypeEmail($step);
 				$tmpPrev->setStatus(PreviewEmail::STATUS_PENDING);
+				$tmpPrev->setCommande($commande);
 				$tmpPrev->setSendAt((new \DateTime())->modify("+1 day"));
 				// save
 				$this->em->persist($tmpPrev);
