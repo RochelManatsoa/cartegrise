@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2020-07-25 22:31:37
+ * @Last Modified time: 2020-07-26 00:50:28
  */
 
 namespace App\Manager;
@@ -805,7 +805,7 @@ class CommandeManager
 		if ($tmpPrev instanceof PreviewEmail) {
 			if ($tmpPrev->getTypeEmail() === $step) {
 				return;
-			} elseif ($tmpPrev->getTypeEmail() === ($step - 1)) {
+			} elseif ($tmpPrev->getTypeEmail() <= $step ) {
 				$tmpPrev->setTypeEmail($step);
 				$tmpPrev->setStatus(PreviewEmail::STATUS_PENDING);
 				$tmpPrev->setCommande($commande);
