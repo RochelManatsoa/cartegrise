@@ -396,43 +396,43 @@ class PaymentController extends AbstractController
         ;
 
         // for debug the payment process
-        $requestCollection = new ArrayCollection($responses);
-        $requestCollection = clone $requestCollection;
-        $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
-        $id = $requestCollection->get('vads_order_id');
-        $commande = $commandeManager->find($id);
+        // $requestCollection = new ArrayCollection($responses);
+        // $requestCollection = clone $requestCollection;
+        // $adminEmails = $notificationManager->getAllEmailOf(NotificationEmail::PAIMENT_NOTIF);
+        // $id = $requestCollection->get('vads_order_id');
+        // $commande = $commandeManager->find($id);
 
-        if ($requestCollection->get('signature')){
-            if ($requestCollection->get('vads_trans_status') == "AUTHORISED"){
-                $commande->setPaymentOk(true);
-                $commandeManager->migrateFacture($commande);
-                $commandeManager->simulateTransaction($commande);
-                $commandeManager->save($commande);
-                $countFidelite = 0;
-                $client = $commande->getClient();
-                $countFidelite = $commandeManager->countFidelite($client);
-                if ($countFidelite === 2){
-                    $this->sendMail2Fidelite($mailer, $responses, $responses["vads_cust_email"], $adminEmails, [], $commande);
-                } elseif ($countFidelite >= 3) {
-                    $this->sendMail3Fidelite($mailer, $responses, $responses["vads_cust_email"], $adminEmails, [], $commande);
-                }
+        // if ($requestCollection->get('signature')){
+        //     if ($requestCollection->get('vads_trans_status') == "AUTHORISED"){
+        //         $commande->setPaymentOk(true);
+        //         $commandeManager->migrateFacture($commande);
+        //         $commandeManager->simulateTransaction($commande);
+        //         $commandeManager->save($commande);
+        //         $countFidelite = 0;
+        //         $client = $commande->getClient();
+        //         $countFidelite = $commandeManager->countFidelite($client);
+        //         if ($countFidelite === 2){
+        //             $this->sendMail2Fidelite($mailer, $responses, $responses["vads_cust_email"], $adminEmails, [], $commande);
+        //         } elseif ($countFidelite >= 3) {
+        //             $this->sendMail3Fidelite($mailer, $responses, $responses["vads_cust_email"], $adminEmails, [], $commande);
+        //         }
                 
-            }
-            $files = [];
-            if ($requestCollection->get('vads_trans_status') == "AUTHORISED") {
-                $file = $commandeManager->generateFacture($commande);
-                $files = [$file];
-                // preview of email relance send
-                $commandeManager->generatePreviewEmailRelance($commande, PreviewEmail::MAIL_RELANCE_FORMULAIRE);
-            } else {
-                // preview of email relance send
-                $commandeManager->generatePreviewEmailRelance($commande, PreviewEmail::MAIL_RELANCE_PAIEMENT);
-            }
-            $this->sendMail($mailer, $responses, $responses["vads_cust_email"], $adminEmails, $files, $commande);
-        }
-        return new Response('ok');
+        //     }
+        //     $files = [];
+        //     if ($requestCollection->get('vads_trans_status') == "AUTHORISED") {
+        //         $file = $commandeManager->generateFacture($commande);
+        //         $files = [$file];
+        //         // preview of email relance send
+        //         $commandeManager->generatePreviewEmailRelance($commande, PreviewEmail::MAIL_RELANCE_FORMULAIRE);
+        //     } else {
+        //         // preview of email relance send
+        //         $commandeManager->generatePreviewEmailRelance($commande, PreviewEmail::MAIL_RELANCE_PAIEMENT);
+        //     }
+        //     $this->sendMail($mailer, $responses, $responses["vads_cust_email"], $adminEmails, $files, $commande);
+        // }
+        // return new Response('ok');
 
-        die;
+        // die;
         // end treatment
 
 
