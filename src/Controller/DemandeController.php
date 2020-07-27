@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Demande;
 use App\Entity\Commande;
 use App\Entity\Divn;
-use App\Manager\{DemandeManager, DocumentAFournirManager};
+use App\Manager\{DemandeManager, DocumentAFournirManager, CommandeManager};
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +20,7 @@ use App\Entity\File\DemandeDuplicata;
 use App\Entity\File\Files;
 use App\Manager\Mercure\MercureManager;
 use App\Manager\NotificationManager;
+use App\Entity\PreviewEmail;
 
 /**
  * @Route("/demande")
@@ -35,6 +36,7 @@ class DemandeController extends AbstractController
         Commande        $commande,
         Request         $request,
         DemandeManager  $demandeManager,
+        CommandeManager $commandeManager,
         MercureManager  $mercureManager,
         NotificationManager $notificationManager
     )
@@ -44,6 +46,7 @@ class DemandeController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $demande = $demandeManager->save($form);
+            $commandeManager->generatePreviewEmailRelance($commande, PreviewEmail::MAIL_RELANCE_UPLOAD);
 
             // The Publisher service is an invokable object
             // $data =  [

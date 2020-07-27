@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2020-07-26 00:51:52
+ * @Last Modified time: 2020-07-27 13:26:38
  */
 
 namespace App\Manager;
@@ -786,6 +786,16 @@ class CommandeManager
 				// check if email is already set 
 				$tmpPrev = $this->em->getRepository(PreviewEmail::class)->findOneBy(['user' => $commande->getClient()->getUser(), 'immatriculation' => $commande->getImmatriculation()]);
 				if ($tmpPrev instanceof PreviewEmail && $tmpPrev->getTypeEmail() >= PreviewEmail::MAIL_RELANCE_FORMULAIRE) {
+					return;
+				}
+				// if all command is not payed or not have Demande , then create preview email
+				$this->createPreviewEmail($commande, $step);
+				break;
+
+			case PreviewEmail::MAIL_RELANCE_UPLOAD :
+				// check if email is already set 
+				$tmpPrev = $this->em->getRepository(PreviewEmail::class)->findOneBy(['user' => $commande->getClient()->getUser(), 'immatriculation' => $commande->getImmatriculation()]);
+				if ($tmpPrev instanceof PreviewEmail && $tmpPrev->getTypeEmail() >= PreviewEmail::MAIL_RELANCE_UPLOAD) {
 					return;
 				}
 				// if all command is not payed or not have Demande , then create preview email
