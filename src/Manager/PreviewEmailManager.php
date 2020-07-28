@@ -64,9 +64,9 @@ class PreviewEmailManager
 	{
 		return $this->repository->getPreviewEmailRelanceDemarche();
 	}
-	public function getPreviewEmailRelancePaiement()
+	public function getPreviewEmailRelanceAll()
 	{
-		return $this->repository->getPreviewEmailRelancePaiement();
+		return $this->repository->getPreviewEmailRelanceAll();
 	}
 	public function getPreviewEmailRelanceForm()
 	{

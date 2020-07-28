@@ -12,7 +12,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 
 class RelanceEstimationFailedPaymentCommand extends Command
 {
-    protected static $defaultName = "relance:notification:failed-payed";
+    protected static $defaultName = "relance:notification:for-all";
     protected $userManager;
     protected $previewEmailManager;
     /**
@@ -53,7 +53,7 @@ class RelanceEstimationFailedPaymentCommand extends Command
             '',
         ]);
         // get all command no payed but fail
-        $previewEmails = $this->previewEmailManager->getPreviewEmailRelancePaiement();
+        $previewEmails = $this->previewEmailManager->getPreviewEmailRelanceAll();
         
         $progressBar = new ProgressBar($output, count($previewEmails));
         // loop the command and increment the count of relance
@@ -69,7 +69,7 @@ class RelanceEstimationFailedPaymentCommand extends Command
             // treatment of each commande
             $output->writeln('User id ==> ' . $user->getId());
             // send email
-            $this->userManager->sendUserFailedPayedRelance($previewEmail);
+            $this->userManager->sendUserRelanceAuto($previewEmail);
             $output->writeln('email sended');
             // update the reminder of user
             $output->writeln('user updated');

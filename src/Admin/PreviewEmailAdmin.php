@@ -28,6 +28,8 @@ final class PreviewEmailAdmin extends AbstractAdmin
         $alias = $query->getRootAliases()[0];
         $qb
         ->orderBy($alias.'.id', 'desc')
+        ->andWhere($alias.'.typeEmail < :typeEmailParam')
+        ->setParameter('typeEmailParam', PreviewEmail::MAIL_RELANCE_DONE);
         ;
 
         return $query;
@@ -71,8 +73,12 @@ final class PreviewEmailAdmin extends AbstractAdmin
         ])
         ->add('sendAt', DateTimeType::class, [
             "label" => 'date d\'envoie',
-            'widget' => 'single_text',
-            'disabled' => 'disabled'
+            'widget' => 'single_text'
+        ])
+        ->add('typeEmail', ChoiceType::class, [
+            "label" => 'Type',
+            'disabled' => 'disabled',
+            'choices' => PreviewEmail::TYPES_EMAILS_FORM,
         ])
         ->add('status', ChoiceType::class, [
             "label" => 'Status',

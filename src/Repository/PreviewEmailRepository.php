@@ -39,13 +39,13 @@ class PreviewEmailRepository extends ServiceEntityRepository
     }
     
     
-    public function getPreviewEmailRelancePaiement()
+    public function getPreviewEmailRelanceAll()
     {
         return $this->createQueryBuilder('p')
             ->where('p.sendAt <:now')
             ->andWhere('p.status = :pending')
-            ->andWhere('p.typeEmail = :typeEmail')
-            ->setParameter('typeEmail', PreviewEmail::MAIL_RELANCE_PAIEMENT)
+            ->andWhere('p.typeEmail < :typeEmail')
+            ->setParameter('typeEmail', PreviewEmail::MAIL_RELANCE_DONE)
             ->setParameter('pending', PreviewEmail::STATUS_PENDING)
             ->setParameter('now', (new \DateTime())->format('Y-m-d H:i:s'))
             ->orderBy('p.id', 'DESC')

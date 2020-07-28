@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-05-09 21:15:58 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2020-01-29 21:56:36
+ * @Last Modified time: 2020-07-28 06:49:26
  */
 namespace App\Controller;
 
@@ -15,7 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\Entity\Demande;
-use App\Manager\{DocumentAFournirManager, MailManager, DemandeManager};
+use App\Entity\PreviewEmail;
+use App\Manager\{DocumentAFournirManager, MailManager, DemandeManager, CommandeManager};
 use App\Annotation\MailDocumentValidator;
 
 class FileDemarcheController extends AbstractController
@@ -27,11 +28,15 @@ class FileDemarcheController extends AbstractController
         Demande $demande,
         DocumentAFournirManager $documentManager,
         MailManager $mailManager,
+        CommandeManager $commandeManager,
         Request $request
     )
     {
         $infos = $documentManager->getFilesList($demande);
         $response = $mailManager->sendMailDocumentAFournir($demande, $infos);
+        $commande = $demande->getCommande();
+        // preview of email relance send
+        $commandeManager->generatePreviewEmailRelance($commande, PreviewEmail::MAIL_RELANCE_DONE);
         $referer = $request->headers->get('referer');
 
         return $this->redirect($referer);

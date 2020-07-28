@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:06:48
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-07-30 08:37:31
+ * @Last Modified time: 2020-07-28 06:22:17
  */
 
 namespace App\Services\Tms;
@@ -210,14 +210,14 @@ class TmsClient
 		];
 
 		$type = __FUNCTION__;
-		$tmsEx = $this->initTMSExchange($type, \json_encode($Immat));
+		$tmsEx = $this->initTMSExchange($type, \json_encode($params));
 		
 		
-		$this->log("parametres", \json_encode($Immat));
+		$this->log("parametres", \json_encode($params));
 		$params['Identification'] = $identification;
 		$this->log("user infos", $this->getUserInfos());
 		$this->log("appel vers TMS ... ", '...');
-		$response = $client->Editer($Immat);
+		$response = $client->Editer($params);
 		$this->log("response Editer", \json_encode($response), true);
 		$this->saveTMSExchange($tmsEx, \json_encode($response));
 

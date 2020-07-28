@@ -16,6 +16,7 @@ class PreviewEmail
     const MAIL_RELANCE_PAIEMENT = 1;
     const MAIL_RELANCE_FORMULAIRE = 2;
     const MAIL_RELANCE_UPLOAD = 3;
+    const MAIL_RELANCE_DONE = 4;
     // type of status of entity
     const STATUS_PENDING= 0;
     const STATUS_SENT= 1;
@@ -25,6 +26,15 @@ class PreviewEmail
         1 => "Mail Relance Paiement",
         2 => "Mail Relance Formulaire",
         3 => "Mail Relance Upload",
+        4 => "Mail Relance Ok",
+    ];
+    // types of email for form : 
+    const TYPES_EMAILS_FORM = [
+        "Mail Relance Démarche" => 0,
+        "Mail Relance Paiement" => 1,
+        "Mail Relance Formulaire" => 2,
+        "Mail Relance Upload" => 3,
+        "Mail Relance Ok" => 4,
     ];
     // types of email valid : 
     const STATUS = [

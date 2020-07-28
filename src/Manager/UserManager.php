@@ -196,20 +196,53 @@ class UserManager
         return $this->repository->find($id);
     }
 
-     public function sendUserFailedPayedRelance(PreviewEmail $previewEmail)
+    private function getTemplateOfPreviewEmail(PreviewEmail $previewEmail)
+    {
+        switch($previewEmail->getTypeEmail()) {
+            case PreviewEmail::MAIL_RELANCE_DEMARCHE : 
+                return 'relance/emailRelanceEstimationNoPayed.mail.twig';
+            break;
+            case PreviewEmail::MAIL_RELANCE_PAIEMENT : 
+                return 'relance/emailWaitingPaymentFailed.mail.twig';
+            break;
+            case PreviewEmail::MAIL_RELANCE_FORMULAIRE : 
+                return 'relance/attenteDeDemande.mail.twig';
+            break;
+            case PreviewEmail::MAIL_RELANCE_UPLOAD : 
+                return 'relance/attenteDeDocuments.mail.twig';
+            break;
+        }
+        
+    }
+
+    public function sendUserRelanceAuto(PreviewEmail $previewEmail)
     {
         $user = $previewEmail->getUser();
-        $template = 'relance/emailWaitingPaymentFailed.mail.twig';
+        $template = $this->getTemplateOfPreviewEmail($previewEmail);
+        $commande = $previewEmail->getCommande();
         $emails = [];
+        // calcul of rest day
+        $restDay = 0;
+        $demande = null;
+        if ($commande->getDemande() instanceof Demande) {
+            // set demande
+            $demande = $commande->getDemande();
+            $dateDemande = $demande->getDateDemande();
+            $now = new \DateTime();
+            $day = date_diff($dateDemande, $now)->format("%a");
+            $restDay = (30 - $day) > 0 ? (30 - $day) : 0;
+        }
+        // end calcul of rest day
+        
         $this->mailManager->sendEmail(
             $emails=[$user->getEmail()], 
             $template,
             "CG Officiel - Démarches Carte Grise en ligne",
-            ['user'=> $user, 'commande'=>$previewEmail->getCommande()]
+            ['user'=> $user, 'commande'=>$commande, 'restDay' => $restDay, 'demande' => $demande]
         );
         
-        $commande->setRemindFailedTransaction($commande->getRemindFailedTransaction()+1);
-        $this->em->persist($commande);
+        $previewEmail->setStatus(PreviewEmail::STATUS_SENT);
+        $this->em->persist($previewEmail);
         $this->em->flush();
         
         return 'sended';
