@@ -4240,3 +4240,24 @@ Tooltip PF
 		}
 	}
 }
+
+
+/*
+Cookies
+*/
+.cookie-alert-message {
+	@include sm {
+		border-radius: 0 !important;
+		font-size: 10px;
+		line-height: 130%;
+		margin-bottom: 0 !important;
+	}
+	.cookie-alert-message-accept-button {
+		@include sm {
+			display: block !important;
+			font-size: 10px;
+			width: 100%;
+			margin: 0 !important;
+		}
+	}
+}
