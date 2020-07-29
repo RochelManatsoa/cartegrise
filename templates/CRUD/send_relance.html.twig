@@ -1,0 +1,6 @@
+{% if object.typeEmail == constant('App\\Entity\\PreviewEmail::MAIL_RELANCE_UPLOAD') %}
+<a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('sendRelance', object) }}" title="sendRelance">
+<i class="fa fa-send" aria-hidden="true"></i>
+envoyer
+</a>
+{% endif %}
