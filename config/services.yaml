@@ -127,7 +127,7 @@ services:
             - { name: sonata.admin, manager_type: orm,group: 'tableaudebord', label: 'Stat de Tms' }
         public: true
     App\Admin\PreviewEmailAdmin:
-        arguments: [~, App\Entity\PreviewEmail, ~]
+        arguments: [~, App\Entity\PreviewEmail, App\Controller\ActionAdminController]
         tags:
             - { name: sonata.admin, manager_type: orm,group: tableaudebord, label: 'Prévisualisation des emails' }
         public: true
