@@ -4,7 +4,7 @@
  * @Author: stephan
  * @Date:   2019-04-15 11:46:01
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2020-07-28 06:50:27
+ * @Last Modified time: 2020-07-29 12:48:19
  */
 
 namespace App\Manager;
@@ -829,7 +829,11 @@ class CommandeManager
 				$tmpPrev->setTypeEmail($step);
 				$tmpPrev->setStatus(PreviewEmail::STATUS_PENDING);
 				$tmpPrev->setCommande($commande);
-				$tmpPrev->setSendAt((new \DateTime())->modify("+1 day"));
+				if ($step === PreviewEmail::MAIL_RELANCE_UPLOAD){
+					$tmpPrev->setSendAt((new \DateTime())->modify("+20 day"));
+				} else {
+					$tmpPrev->setSendAt((new \DateTime())->modify("+1 day"));
+				}
 				// save
 				$this->em->persist($tmpPrev);
 				$this->em->flush();

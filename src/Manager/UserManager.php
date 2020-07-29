@@ -20,6 +20,7 @@ class UserManager
     private $sessionManager;
     private $encoder;
     private $commandeRepository;
+    private $commandeManager;
     private $mailManager;
     public function __construct(
         EntityManagerInterface $em,
@@ -28,6 +29,7 @@ class UserManager
         SessionManager $sessionManager,
         UserPasswordEncoderInterface $encoder,
         CommandeRepository $commandeRepository,
+        CommandeManager $commandeManager,
         MailManager $mailManager
     )
     {
@@ -38,6 +40,7 @@ class UserManager
         $this->sessionManager    = $sessionManager;
         $this->encoder    = $encoder;
         $this->commandeRepository    = $commandeRepository;
+        $this->commandeManager    = $commandeManager;
         $this->mailManager    = $mailManager;
     }
     public function countDemande(User $user)
@@ -83,6 +86,7 @@ class UserManager
     public function checkCommandeInSession(User $user)
     {
         $idsRecapCommande = $this->sessionManager->get(SessionManager::IDS_COMMANDE);
+        
         if (!is_null($idsRecapCommande)) {
             foreach ($idsRecapCommande as $idRecapCommande){
                 if (is_integer($idRecapCommande)){
@@ -92,6 +96,8 @@ class UserManager
                     }
                     $user->getClient()->addCommande($commande);
                     $user->getClient()->setCountCommande($user->getClient()->getCountCommande() + 1);
+                    // preview of email relance send
+                    $this->commandeManager->generatePreviewEmailRelance($commande, PreviewEmail::MAIL_RELANCE_DEMARCHE);
                 }
             }
             $this->save($user);

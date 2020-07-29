@@ -8,13 +8,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Manager\DocumentAFournirManager;
-use App\Manager\{DemandeManager, CommandeManager, TMSSauverManager, ClientManager, MailManager};
+use App\Manager\{UserManager, DemandeManager, CommandeManager, TMSSauverManager, ClientManager, MailManager};
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Entity\{Demande, Commande, Facture};
 use App\Entity\GesteCommercial\GesteCommercial;
 use App\Entity\Client;
 use App\Entity\Avoir;
+use App\Entity\PreviewEmail;
 use App\Form\SaveAndValidateType;
 use App\Form\GesteCommercial\GesteCommercialType;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,6 +53,23 @@ class ActionAdminController extends Controller
 
         // if you have a filtered list and want to keep your filters after the redirect
         // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
+
+    /**
+     * @param $id
+     */
+    public function sendRelanceAction($id, UserManager $userManager)
+    {
+        $previewEmail = $this->admin->getSubject();
+
+        if (!$previewEmail && !$previewEmail instanceof PreviewEmail) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+        }
+        
+        $userManager->sendUserRelanceAuto($previewEmail);
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
     }
 
     /**

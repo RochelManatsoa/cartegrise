@@ -3,7 +3,7 @@
  * @Author: Patrick &lt;&lt; rapaelec@gmail.com &gt;&gt; 
  * @Date: 2019-05-21 10:55:09 
  * @Last Modified by: Patrick << rapaelec@gmail.com >>
- * @Last Modified time: 2019-12-31 08:46:38
+ * @Last Modified time: 2020-07-29 08:52:20
  */
 namespace App\EventListener;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -65,6 +65,7 @@ class LoginAuthenticationHandler implements AuthenticationSuccessHandlerInterfac
 
         //$this->getUrlContent("http://dev3.cgofficiel.fr/account/connect-this-user/".$user->getId());
         if($user->hasRole("ROLE_USER") && !$user->hasRole("ROLE_ADMIN_BLOG") && !$user->hasRole("ROLE_CRM")) {
+            $this->userManager->checkCommandeInSession($user);
             $lastCommandPayed = $this->userManager->getLastCommandePayed($user);
             if ($lastCommandPayed instanceof Commande) {
                 return new RedirectResponse($this->routerInterface->generate('new_demande', ["commande" => $lastCommandPayed->getId()]));

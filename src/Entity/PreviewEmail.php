@@ -114,6 +114,9 @@ class PreviewEmail
 
     public function getStatus(): ?int
     {
+        if ( $this->typeEmail === self::MAIL_RELANCE_UPLOAD) {
+            return null;
+        }
         return $this->status;
     }
 
@@ -186,6 +189,9 @@ class PreviewEmail
 
     public function getSendAt(): ?\DateTimeInterface
     {
+        if ( $this->typeEmail === self::MAIL_RELANCE_UPLOAD) {
+            return null;
+        }
         return $this->sendAt;
     }
 
@@ -224,6 +230,9 @@ class PreviewEmail
      * @return void
      */
     public function getStatusString() {
+        if ( $this->typeEmail === self::MAIL_RELANCE_UPLOAD) {
+            return null;
+        }
         return self::STATUS[$this->status];
     }
 

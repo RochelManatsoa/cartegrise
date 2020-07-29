@@ -11,7 +11,7 @@
         <br>
         <br>
         <p>Votre paiement pour la commande n° {{commande.id}}{{commande.demarche.type}}</p>
-        <p>Liée à l’immatriculation : {{ commande.immatriculation }} du {{ commande.systempayTransaction.createdAt | date('d/m/Y')}} n’a pas fonctionné.</p>
+        <p>Liée à l’immatriculation : {{ commande.immatriculation }}, du {{ commande.systempayTransaction.createdAt | date('d/m/Y')}} n’a pas fonctionné.</p>
         <p>Pas d’inquiétude vous pouvez reprendre votre démarche en cliquant sur ce 
             <a href="{{basePath ~ path('commande_recap', {'commande':commande.id}) }}" target="_blank">lien</a>
         </p>

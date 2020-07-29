@@ -51,6 +51,7 @@ final class PreviewEmailAdmin extends AbstractAdmin
         $collection->add('refundCommande', $this->getRouterIdParameter().'/refund-commande');
         $collection->add('formulaireDemande', $this->getRouterIdParameter().'/form-demande-commande');
         $collection->add('gesteCommercial', $this->getRouterIdParameter().'/geste-comercial');
+        $collection->add('sendRelance', $this->getRouterIdParameter().'/envoie-relance');
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -77,12 +78,10 @@ final class PreviewEmailAdmin extends AbstractAdmin
         ])
         ->add('typeEmail', ChoiceType::class, [
             "label" => 'Type',
-            'disabled' => 'disabled',
             'choices' => PreviewEmail::TYPES_EMAILS_FORM,
         ])
         ->add('status', ChoiceType::class, [
             "label" => 'Status',
-            'disabled' => 'disabled',
             'choices' => [
                 'En attente' => PreviewEmail::STATUS_PENDING,
                 'Envoyer' => PreviewEmail::STATUS_SENT,
@@ -144,30 +143,14 @@ final class PreviewEmailAdmin extends AbstractAdmin
             "label" => 'Status',
             
         ])
-        
-        // ->add('_action', null, [
-        //     'actions' => [ 
-        //         'dossier' => [
-        //             'template'=>'CRUD/list__demande_document.html.twig'
-        //         ],
-        //         'upload' => [
-        //             'template'=>'CRUD/list__demande_document_upload.html.twig'
-        //         ],
-        //         'retracter' => [
-        //             'template'=>'CRUD/list__demande_document_retracter.html.twig'
-        //         ],
-        //         'retracterCommande' => [
-        //             'template'=>'CRUD/list__commande_document_retracter.html.twig'
-        //         ],
-        //         'formDemande' => [
-        //             'template'=>'CRUD/list__commande_form_demande.html.twig'
-        //         ],
-        //         'gesteCommercial' => [
-        //             'template'=>'CRUD/gesteCommercial/gesteCommercialActionButton.html.twig'
-        //         ]
-        //     ],
+        ->add('_action', null, [
+            'actions' => [ 
+                'envoyer' => [
+                    'template'=>'CRUD/send_relance.html.twig'
+                ]
+            ],
             
-        // ])
+        ])
         ;
     }
 }
