@@ -20,6 +20,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\PreviewEmail;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class HomeController extends AbstractController
 {
@@ -28,6 +29,33 @@ class HomeController extends AbstractController
     )
     {
         $this->tokenManager = $tokenManager;
+    }
+
+    /**
+     * function to get if commande
+     *
+     * @return void
+     */
+    /**
+     * function to get if command already sent today
+     *
+     * @param Request $request
+     * @param CommandeRepository $commandeRepository
+     * @param string $todayId
+     * @return void
+     */
+    private function getIfCommande($request, $commandeRepository, $todayIp)
+    {
+        $ifCommande = null;
+            if ($this->getUser() instanceof User && $this->getUser()->hasRole("ROLE_ADMIN")) {
+                $ifCommande = null;
+            } else {
+                $ifCommande = $commandeRepository->findOneBy([
+                    'dayIp' => $todayIp
+                ]);
+            }
+        return $ifCommande;
+
     }
     /**
      * @Route("/", name="Accueil",  options={"sitemap" = true})
@@ -81,46 +109,34 @@ class HomeController extends AbstractController
                 $tabForm[$num] = $form->createView();
             }
         }
-        $formulaire = $this->createForm(FormulaireType::class, $commande , ['departement'=>$commande->DEPARTMENTS]);
+        // check if user already send commande today
+        $ip = $request->server->get("REMOTE_ADDR");
+        $todayIp = (new \DateTime())->format('d-m-Y') . $ip;
+        $ifCommande = $this->getIfCommande($request, $commandeRepository, $todayIp);
+
+        $formulaire = $this->createForm(FormulaireType::class, $commande , [
+            'departement'=>$commande->DEPARTMENTS,
+            "hasCaptcha" => ($ifCommande instanceof Commande)
+            ]);
 
         $form->handleRequest($request);
         $formDivn->handleRequest($request);
         $formulaire->handleRequest($request);
 
         if ($formDivn->isSubmitted() && $formDivn->isValid()) {
-             
-            return $this->redirectToRoute('error_simulation');
-            
-            // $divnInit = $formDivn->getData();
-            // $divnInitManager->manageSubmit($divnInit);
-            // $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
+            $divnInit = $formDivn->getData();
+            $divnInitManager->manageSubmit($divnInit);
+            $param = $this->getParamHome($divnInit->getCommande(), $sessionManager, $tabForm);
 
-            // return $this->render('home/accueil.html.twig', $param);
+            return $this->render('home/accueil.html.twig', $param);
         }
 
 
          if ($form->isSubmitted() && $form->isValid() || $formulaire->isSubmitted() && $formulaire->isValid()) {
              
-            //return $this->redirectToRoute('error_simulation');
 
-            $ip = $request->server->get("REMOTE_ADDR");
-            $todayIp = (new \DateTime())->format('d-m-Y') . $ip;
-            if ($this->getUser() instanceof User && $this->getUser()->hasRole("ROLE_ADMIN")) {
-                $ifCommande = null;
-            } else {
-                $ifCommande = $commandeRepository->findOneBy([
-                    'dayIp' => $todayIp
-                ]);
-            }
-            
-            
-
-            if($commande->getDemarche()->getType() === 'DIVN'){
-
-                
-            }
             $sessionManager->initSession();
-            if (!is_null($ifCommande)) {
+            // if (!is_null($ifCommande)) {
                 $ifCommandeExist = $commandeRepository->findOneBy([
                     'immatriculation' => $commande->getImmatriculation(),
                     'codePostal' => $commande->getCodePostal(),
@@ -132,12 +148,13 @@ class HomeController extends AbstractController
                     $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
 
                     return $this->render('home/accueil.html.twig', $param);
-                }else {
-                    return $this->redirectToRoute('Accueil');
                 }
+            // else {
+            //         return $this->redirectToRoute('Accueil');
+            //     }
                 
                 
-            } else {
+            // } else {
 
                 $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
                 if (!$tmsInfoImmat->isSuccessfull()) {
@@ -165,17 +182,6 @@ class HomeController extends AbstractController
                             'demarche' => $commande->getDemarche()->getType(),
                             'id' => $commande->getId(),
                     ];
-                    // $mercureManager->publish(
-                    //     'http://cgofficiel.com/addNewSimulator',
-                    //     'commande',
-                    //     $data,
-                    //     'new Simulation is insert'
-                    // );
-
-                    // $notificationManager->saveNotification([
-                    //     "type" => 'commande', 
-                    //     "data" => $data,
-                    // ]);
                     $this->saveToSession($commande, $sessionManager, $tabForm);
                     // preview of email relance send
                     $commandeManager->generatePreviewEmailRelance($commande, PreviewEmail::MAIL_RELANCE_DEMARCHE);
@@ -184,7 +190,7 @@ class HomeController extends AbstractController
                     // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
 
                     // return $this->render('home/accueil.html.twig', $param);
-                }
+                // }
             }
         }
 

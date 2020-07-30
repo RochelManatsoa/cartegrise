@@ -14,6 +14,7 @@ use App\Form\DivnInitType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class FormulaireType extends AbstractType
 {
@@ -35,13 +36,17 @@ class FormulaireType extends AbstractType
                 'label' => 'label.immatriculation',
                 'required' => true,
                 ]);
+            if (isset($options['hasCaptcha']) && $options['hasCaptcha']) {
+                $builder->add('captcha', CaptchaType::class);
+            }
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Commande::class
+            'data_class' => Commande::class,
+            'hasCaptcha' => false
         ]);
 
         $resolver->setRequired(array('departement'));

@@ -251,8 +251,21 @@
 														}
 													)}}
 													</div>
+													{% if formulaire.captcha is defined and formulaire.captcha is not null %}
+														<div class="col-md-6">
+															{{ form_row(formulaire.captcha, {
+																'attr':{
+																	'class': 'form-control-plaque '
+																},
+																'label_attr': {
+																	'class': ''}
+																}
+															)}}
+														</div>
+													{% endif %}
 												</div>
 											</div>	
+											
 											<div class="text-md-right mx-auto search-box" id="calcul">
 												<button type="submit" class="btn-calcuer btn btn-blue">CALCULER <i class="icomoon icon-right-arrow"></i></button>
 											</div>
@@ -291,6 +304,18 @@
 														}
 													)}}
 													</div>
+													{% if formulaire.captcha is defined and formulaire.captcha is not null %}
+														<div class="col-md-6">
+															{{ form_row(formulaire.captcha, {
+																'attr':{
+																	'class': 'form-control-plaque '
+																},
+																'label_attr': {
+																	'class': ''}
+																}
+															)}}
+														</div>
+													{% endif %}
 												</div>
 											</div>	
 											<div class="text-md-right mx-auto search-box" id="calcul">
