@@ -73,12 +73,14 @@
               {% endif %}
               {% if demande.commande.demarche.type == "DCA" %}
                 {{ findNomPrenomOfTitulaire(demande, "birthName") | upper }}
+              {% elseif demande.commande.demarche.type == "DC" %}
+                {{ demande.commande.client.clientNom | upper }} {{ demande.commande.client.clientPrenom | upper }}
               {% elseif demande.commande.demarche.type == "DUP" %}
-                {{ findNomPrenomOfTitulaire(demande, "nomPrenom")}}
+                {{ findNomPrenomOfTitulaire(demande, "nomPrenom") | upper }}
               {% else %}
                 {{ findNomPrenomOfTitulaire(demande, "nomPrenomTitulaire") | upper }}
               {% endif %}
-              {{ findNomPrenomOfTitulaire(demande, "prenomTitulaire") | capitalize }}
+              {{ findNomPrenomOfTitulaire(demande, "prenomTitulaire") | upper }}
               {{ findNomPrenomOfTitulaire(demande, "raisonSociale") | upper }}
             {% endif %}
           </strong>
@@ -110,7 +112,7 @@
       <tbody>
         <tr>
           <td>{% if demande.transaction.facture is defined %}{{demande.transaction.facture | formatFacture}}{% else %}{{demande.commande.transaction.facture | formatFacture}}{% endif %}{{demande.dateDemande | date('Ym')}}/{{demande.commande.demarche.type}}-{{demande.id}}{% if demande.transaction.id is defined %}{{demande.transaction.id }}{% else %}{{demande.commande.transaction.id}}{% endif %}</td>
-          <td class="text-center">{{demande.commande.transaction.createAt | date('d/m/Y')}}</td>
+          <td class="text-center">{{currentTransaction.createAt | date('d/m/Y')}}</td>
           <td class="text-center">{{demande.commande.referenceClient}}</td>
         </tr>
       </tbody>
