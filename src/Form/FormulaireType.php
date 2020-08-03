@@ -37,7 +37,8 @@ class FormulaireType extends AbstractType
                 'required' => true,
                 ]);
             if (isset($options['hasCaptcha']) && $options['hasCaptcha']) {
-                $builder->add('captcha', CaptchaType::class);
+                // remove the captcha
+                // $builder->add('captcha', CaptchaType::class);
             }
         ;
     }

@@ -136,7 +136,7 @@ class HomeController extends AbstractController
              
 
             $sessionManager->initSession();
-            // if (!is_null($ifCommande)) {
+            if (!is_null($ifCommande)) {
                 $ifCommandeExist = $commandeRepository->findOneBy([
                     'immatriculation' => $commande->getImmatriculation(),
                     'codePostal' => $commande->getCodePostal(),
@@ -154,7 +154,7 @@ class HomeController extends AbstractController
             //     }
                 
                 
-            // } else {
+            } else {
 
                 $tmsInfoImmat = $commandeManager->tmsInfoImmat($commande);
                 if (!$tmsInfoImmat->isSuccessfull()) {
@@ -190,7 +190,7 @@ class HomeController extends AbstractController
                     // $param = $this->getParamHome($commande, $sessionManager, $tabForm);
 
                     // return $this->render('home/accueil.html.twig', $param);
-                // }
+                }
             }
         }
 
