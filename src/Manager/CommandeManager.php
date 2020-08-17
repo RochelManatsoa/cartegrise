@@ -235,6 +235,7 @@ class CommandeManager
 		$ptca = $this->tmsManager->getPTCA($infosVehicule->PoidsVide);
 		$energie = $this->tmsManager->getENERGIE($infosVehicule->Energie);
 		$puissance = $infosVehicule->PuissFisc ? $infosVehicule->PuissFisc : 0;
+		$co2 = $infosVehicule->CO2 ? $infosVehicule->CO2 : 0;
 		if ($typeDemarche ==="CTVO")
 			$typeDemarche = "VOF";
         $ECG = [
@@ -250,7 +251,7 @@ class CommandeManager
 						"Energie" =>$energie,
 						"DateMEC" =>$infosVehicule->DateMec,
 						"PTAC" => $ptca,
-						"CO2" => $infosVehicule->CO2,
+						"CO2" => $co2,
 						"TypeVehicule" => 1, // see how to integrate
 						"Collection" => false,
 						"PremiereImmat" => false,
