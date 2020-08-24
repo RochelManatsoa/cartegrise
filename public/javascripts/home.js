@@ -229,6 +229,11 @@ $(document).ready(function() {
     }();
 
         //Autocomplete
+        //function to set the selected value as default
+        function setDefault(defValue) {
+            $('#formulaire_codePostal option[value="' + defValue + '"]').attr('selected', 'selected');
+        }
+        
     //AutoComplete
     $( function() {
         $.widget( "custom.combobox", {
