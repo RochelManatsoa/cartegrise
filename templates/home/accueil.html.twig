@@ -206,6 +206,10 @@
 			setDefault("{{defaultDepartment}}");
 			$("#formulaire_codePostal").parent('div').find('ul.select-options').find('li[rel="{{defaultDepartment}}"]').click();
 		{% endif %}
+		
+		{% if info is defined and info is not null %}
+			$('#formulaire_demarche').val('{{info}}').change();
+		{% endif %}
 	</script>
 	{# <script type="application/javascript">
 		$('.owl-carousel').owlCarousel(

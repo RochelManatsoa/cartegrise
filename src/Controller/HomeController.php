@@ -90,6 +90,10 @@ class HomeController extends AbstractController
         if ($request->query->has('department')) {
             $department = $request->query->get('department');
         }
+        $info = null;
+        if ($request->query->has('info')) {
+            $info = $request->query->get('info');
+        }
         $defaultDemarche = null;
         if($routeName !== "Accueil" || $routeName !== "home"){
             $defaultDemarche = $demarche->findOneBy(['type' => strtoupper($routeName)]);
@@ -212,6 +216,7 @@ class HomeController extends AbstractController
             'defaultDepartment' => $department,
             'defaultDemarche' => $defaultDemarche,
             'articles' => $articles,
+            'info' => $info,
         ];
 
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
