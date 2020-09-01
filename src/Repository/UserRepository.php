@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\{User, Transaction};
+use App\Entity\{Demande, User, Transaction};
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -179,5 +179,36 @@ class UserRepository extends ServiceEntityRepository
             ->getResult()
         ;
         return $result;
+    }
+
+    public function findUserAfterSuccessPaimentInMounth($month = 1)
+    {
+        $date = $this->monthStat($month);
+        $result = $this->createQueryBuilder('u')
+            ->select('u.email, cl.clientNom nom, cl.clientPrenom prenom, cl.clientGenre genre, contact.contact_telmobile telephone, t.createAt date, demarche.type type')
+            ->leftJoin('u.client','cl')
+            ->leftJoin('cl.clientContact','contact')
+            ->leftJoin('cl.commandes','com')
+            ->leftJoin('com.transaction','t')
+            ->leftJoin('com.demande','d')
+            ->leftJoin('com.demarche','demarche')
+            ->where('t.status = :success')
+            ->andWhere('d.statusDoc = :waiting')
+            ->andWhere('t.createAt > :date')
+            ->setParameter('success', Transaction::STATUS_SUCCESS)
+            ->setParameter('waiting', Demande::DOC_WAITTING)
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getResult()
+        ;
+        return $result;
+    }
+
+    private function monthStat($month)
+    {
+        $date = new \DateTime();
+        $date->modify('-'.$month.'month');
+
+        return $date;
     }
 }

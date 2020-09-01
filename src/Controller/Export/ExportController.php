@@ -37,4 +37,15 @@ class ExportController extends AbstractController
         
         return new Response('done');
     }
+
+    /**
+     * @Route("/user-stats-per-month/{month}", name="export_user_payed_form_may", methods={"GET"})
+     */
+    public function findUserAfterSuccessPaimentInMounth(int $month, Request $request, ExportManager $exportManager, UserManager $userManager){
+        $users = $userManager->findUserAfterSuccessPaimentInMounth($month);
+        $fields = ['email', 'nom','prenom', 'genre', 'telephone', 'date paiement', 'type'];
+        $exportManager->exportXlsx($fields, $users, 'paiementStatFor'.$month.'Month' );
+
+        return new Response('done');
+    }
 }
