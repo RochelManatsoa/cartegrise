@@ -322,4 +322,9 @@ class UserManager
     {
         return $this->repository->findUserWithoutEstimation();
     }
+
+    public function findUserAfterSuccessPaimentInMounth($int)
+    {
+        return $this->repository->findUserAfterSuccessPaimentInMounth($int);
+    }
 }
