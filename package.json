@@ -4,7 +4,7 @@
         "@symfony/webpack-encore": "^0.27.0",
         "babel-preset-react": "^6.24.1",
         "gulp": "^4.0.2",
-        "node-sass": "^4.11.0",
+        "node-sass": "^4.13.1",
         "prop-types": "^15.7.2",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
