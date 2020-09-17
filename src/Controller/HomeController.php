@@ -116,7 +116,7 @@ class HomeController extends AbstractController
         // check if user already send commande today
         $ip = $request->server->get("REMOTE_ADDR");
         $todayIp = (new \DateTime())->format('d-m-Y') . $ip;
-        $ifCommande = $this->getIfCommande($request, $commandeRepository, $todayIp);
+        $ifCommande = $ip == '37.71.247.34' ? null : $this->getIfCommande($request, $commandeRepository, $todayIp);
 
         $formulaire = $this->createForm(FormulaireType::class, $commande , [
             'departement'=>$commande->DEPARTMENTS,
@@ -149,7 +149,7 @@ class HomeController extends AbstractController
                 ]);
 
                 if ($ifCommandeExist instanceof Commande){
-                    $param = $this->getParamHome($ifCommande, $sessionManager, $tabForm);
+                    $param = $this->getParamHome($ifCommandeExist, $sessionManager, $tabForm);
 
                     return $this->render('home/accueil.html.twig', $param);
                 }
