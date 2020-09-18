@@ -107,6 +107,32 @@
                 </div>
             </div>
         </nav>
+        <div class="flash_block">
+            <div class="container">
+                {% block flash %}
+                {% for flash_message in app.session.flashbag.get('success') %}
+                    <div class="container-fluid alert alert-success text-center mb-0" role="alert">
+                        {{ flash_message|nl2br }}
+                    </div>
+                {% endfor %}
+                {% for flash_message in app.session.flashbag.get('info') %}
+                    <div class="container-fluid alert alert-info text-center mb-0" role="alert">
+                        {{ flash_message|nl2br }}
+                    </div>
+                {% endfor %}
+                {% for flash_message in app.session.flashbag.get('warning') %}
+                    <div class="container-fluid alert alert-warning text-center mb-0" role="alert">
+                        {{ flash_message|nl2br }}
+                    </div>
+                {% endfor %}
+                {% for flash_message in app.session.flashbag.get('danger') %}
+                    <div class="container-fluid alert alert-danger text-center mb-0" role="alert">
+                        {{ flash_message|nl2br }}
+                    </div>
+                {% endfor %}
+                {% endblock %}
+            </div>
+        </div>
     </div>
     <div class="accroche">
         <div class="container">

@@ -136,11 +136,11 @@ class HomeController extends AbstractController
         }
 
 
-         if ($form->isSubmitted() && $form->isValid() || $formulaire->isSubmitted() && $formulaire->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() || $formulaire->isSubmitted() && $formulaire->isValid()) {
              
 
             $sessionManager->initSession();
-            if (!is_null($ifCommande)) {
+            if (!is_null($ifCommande) && $ip !== "37.71.247.34") {
                 $ifCommandeExist = $commandeRepository->findOneBy([
                     'immatriculation' => $commande->getImmatriculation(),
                     'codePostal' => $commande->getCodePostal(),
@@ -153,10 +153,10 @@ class HomeController extends AbstractController
 
                     return $this->render('home/accueil.html.twig', $param);
                 }
-            // else {
-            //         return $this->redirectToRoute('Accueil');
-            //     }
-                
+                else {
+                    $this->addFlash('warning', "Désolé, vous avez atteint votre quota du nombre d'estimation pour une période de 24 heures.
+                    Veuillez prendre contact avec le service client au 08.97.010.800 (0.80 centimes par minute)");
+                    }
                 
             } else {
 
