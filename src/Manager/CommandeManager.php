@@ -446,10 +446,10 @@ class CommandeManager
     {
 		$this->checkIfTransactionSuccess($commande);
 		$folder = $commande->getGeneratedCerfaPath();
-		$scanFolder = scandir($folder);
         $file = $commande->getGeneratedFacturePathFile();
         // create directory
         if (!is_dir($folder)) mkdir($folder, 0777, true);
+		$scanFolder = scandir($folder);
         if (!in_array("facture.pdf", $scanFolder)) { 
             $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
             $filename = "Facture";
@@ -870,6 +870,20 @@ class CommandeManager
 		}
 
 		return $countFidelite;
+	}
+
+
+	public function generateFactureCommande(int $option)
+	{
+		$commande = $this->find($option);
+		if(!is_null($commande->getInfosFacture())){
+			$commande->setPaymentOk(true);
+			$this->migrateFacture($commande);
+			$this->simulateTransaction($commande);
+			$this->save($commande);
+		
+			return "done";
+		}
 	}
 
 }
