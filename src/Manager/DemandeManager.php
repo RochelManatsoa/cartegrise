@@ -311,12 +311,12 @@ class DemandeManager
     {
         $folder = $demande->getGeneratedCerfaPath();
         $file = $demande->getGeneratedFacturePathFile();
-        $scandir = scandir($folder);
         $params = $this->getTitulaireParams($demande);
         $params = array_merge(['demande' => $demande], $params);
         // dd($params);
         // create directory
         if (!is_dir($folder)) mkdir($folder, 0777, true);
+        $scandir = scandir($folder);
         // end create file 
         // get facture if not exist
         // dd($demande->getCommande()->getSystempayTransaction()->getAmount());
