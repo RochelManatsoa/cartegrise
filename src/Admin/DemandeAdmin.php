@@ -8,7 +8,9 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Sonata\CoreBundle\Form\Type\DateRangePickerType;
+use App\Entity\{Demande, TypeDemande};
 use Sonata\AdminBundle\Route\RouteCollection;
 
 final class DemandeAdmin extends AbstractAdmin
@@ -26,6 +28,9 @@ final class DemandeAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+        ->add('id', null, [
+            'disabled' => true,
+        ])
         ;
     }
 
@@ -41,6 +46,25 @@ final class DemandeAdmin extends AbstractAdmin
             'label' => 'Type de commande'
         ])
         ->add('commande.codePostal')
+        ->add('statusDoc', 'doctrine_orm_choice' ,[
+            'label' => 'Etat',
+            'global_search' => true,
+            'field_type' => ChoiceType::class,
+            'field_options' => [
+                'choices' => [
+                        'attente de document' => Demande::DOC_WAITTING,
+                        'document valide' => Demande::DOC_VALID,
+                        'document numériser' => Demande::DOC_PENDING,
+                        'documents incomplets ' => Demande::DOC_UNCOMPLETED,
+                        'document reçus' => Demande::DOC_RECEIVE_VALID,
+                        'documents reçus mais non validés' => Demande::DOC_NONVALID,
+                        'validé et envoyé à TMS' => Demande::DOC_VALID_SEND_TMS,
+                        'retracté' => Demande::RETRACT_DEMAND,
+                        'remboursé' => Demande::RETRACT_REFUND,
+                        'attente formulaire de rétractation' => Demande::RETRACT_FORM_WAITTING,
+                ]
+            ]
+        ])
         ;
     }
 
@@ -67,8 +91,9 @@ final class DemandeAdmin extends AbstractAdmin
             'label' => 'Nom',
             'template' => 'CRUD/client/ficheClientList.html.twig',
         ])
-        ->addIdentifier('status', null, [
-            'label' => 'Statut Commande'
+        ->add('statusDocStringDesigned', null, [
+            'label' => "Etat",
+            'template' => 'CRUD/statusDocDesigned.html.twig',
         ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoirs',
