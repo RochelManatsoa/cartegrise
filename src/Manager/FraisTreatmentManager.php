@@ -11,7 +11,8 @@
  use App\Manager\TaxesManager;
  use App\Entity\Taxes;
  use App\Entity\Commande;
- use App\Repository\TarifsPrestationsRepository;
+use App\Entity\GesteCommercial\GesteCommercial;
+use App\Repository\TarifsPrestationsRepository;
 
  class FraisTreatmentManager
  {
@@ -213,5 +214,18 @@
         $taxeTotal = $commande->getTaxes()->getTaxeTotale();
 
         return $fraisTotal + $taxeTotal;
+     }
+
+     public function fraisTreatmentWithoutTaxesOfGesteCommercial(GesteCommercial $gesteCommercial)
+     {
+        $tva = 1 + ($this->tvaTreatmentOfCommande($gesteCommercial->getCommande())/100);
+        return round(($gesteCommercial->getFraisDossier() / $tva),2 , PHP_ROUND_HALF_DOWN);
+     }
+
+     public function tvaOfGesteCommercial(Commande $commande)
+     {
+        $tva = $this->tvaTreatmentOfCommande($commande)/100;
+        $ttc = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
+        return round(($commande->getGesteCommercial()->getFraisDossier() * ($tva/$ttc)),2 , PHP_ROUND_HALF_DOWN);
      }
  }

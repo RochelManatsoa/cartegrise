@@ -42,6 +42,7 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
         $collection->add('uploadDossier', $this->getRouterIdParameter().'/upload_dossier');
         $collection->add('ficheClient', $this->getRouterIdParameter().'/fiche-client');
         $collection->add('retracterWithDocument', $this->getRouterIdParameter().'/retracter');
+        $collection->add('retracter', $this->getRouterIdParameter().'/retracter-demande');
         $collection->add('retracterCommande', $this->getRouterIdParameter().'/retracter-commande');
         $collection->add('refund', $this->getRouterIdParameter().'/refund');
         $collection->add('facture', $this->getRouterIdParameter().'/facture');

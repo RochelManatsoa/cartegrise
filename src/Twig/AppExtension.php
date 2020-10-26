@@ -90,6 +90,8 @@ class AppExtension extends AbstractExtension
             new TwigFunction('just20tvaTotal', [$this, 'just20tvaTotal']),
             new TwigFunction('tvaTreatmentOfCommandeTotal', [$this, 'tvaTreatmentOfCommandeTotal']),
             new TwigFunction('fraisdossierWithoutTva', [$this, 'fraisdossierWithoutTva']),
+            new TwigFunction('gesteCommercialWithoutTva', [$this, 'gesteCommercialWithoutTva']),
+            new TwigFunction('gesteCommercialWithTva', [$this, 'gesteCommercialWithTva']),
             new TwigFunction('fraisdossierWithoutTvaMultipleResult', [$this, 'fraisdossierWithoutTvaMultipleResult']),
             new TwigFunction('fraisdossierWithoutTvaMultiple', [$this, 'fraisdossierWithoutTvaMultiple']),
             new TwigFunction('fraisdossierWithoutTvaAvoir', [$this, 'fraisdossierWithoutTvaAvoir']),
@@ -655,4 +657,13 @@ class AppExtension extends AbstractExtension
         return $this->transactionManager->findByTransactionId($responseId);
     }
 
+    public function gesteCommercialWithoutTva(Commande $commande)
+    {
+        return $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfGesteCommercial($commande->getGesteCommercial());
+    }
+
+    public function gesteCommercialWithTva(Commande $commande)
+    {
+        return $this->fraisTreatmentManager->tvaOfGesteCommercial($commande);
+    }
 }

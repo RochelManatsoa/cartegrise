@@ -135,11 +135,11 @@
                     <tr>
                         <td><strong>Frais de dossier</strong></td>
                         <td class="text-center">
-                            <strong>{{(gesteCommercial.fraisDossier)|number_format(2, '.', ',') }}
+                            <strong>{{(gesteCommercialWithoutTva(commande))|number_format(2, '.', ',') }}
                                 €</strong></td>
-                        <td class="text-center">0%</td>
+                        <td class="text-center">{{ tvaCommande(commande) }}</td>
                         <td class="text-center">
-                            <strong>0 €</strong></td>
+                            <strong>{{(gesteCommercialWithTva(commande))|number_format(2, '.', ',') }} €</strong></td>
                         <td class="text-center">
                             <strong>{{(gesteCommercial.fraisDossier)|number_format(2, '.', ',') }}
                                 €</strong></td>
@@ -156,18 +156,18 @@
                         <tr>
                             <td><strong>Total HT : </strong></td>
                             <td class="text-right">
-                                <strong>{{((gesteCommercial.taxeFiscal + gesteCommercial.fraisDossier)|number_format(2, '.', ','))}} €</strong></td>
+                                <strong>{{((gesteCommercial.taxeFiscal + gesteCommercialWithoutTva(commande))|number_format(2, '.', ','))}} €</strong></td>
                         </tr>
                         <tr>
                             <td><strong>Base HT pour TVA :</strong></td>
                             <td class="text-right">
-                                <strong>0
+                                <strong>{{(gesteCommercialWithoutTva(commande))|number_format(2, '.', ',') }}
                                     €</strong></td>
                         </tr>
                         <tr>
                             <td><strong>TVA  :</strong></td>
                             <td class="text-right bg">
-                                <strong>0 €</strong>
+                                <strong>{{(gesteCommercialWithTva(commande))|number_format(2, '.', ',') }} €</strong>
                             </td>
                         </tr>
                         <tr class="table-active">

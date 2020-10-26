@@ -4,12 +4,17 @@
     <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracterWithDocument', object) }}"
         title="retracter">
         <i class="fa fa-close" aria-hidden="true"></i>
-        retracté
+        Retractée
     </a>
     {% elseif object.statusDoc == constant('App\\Entity\\Demande::RETRACT_DEMAND') %}
     <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('refund', object) }}" title="retracter">
         <i class="fa fa-close" aria-hidden="true"></i>
-        remboursé
+        Remboursée
+    </a>
+    {% elseif object.statusDoc != constant('App\\Entity\\Demande::DOC_VALID_SEND_TMS') %}
+    <a onClick="return confirm(' êtes vous sur de vouloir faire la retractation? ')" class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracter', object) }}" title="retracter">
+        <i class="fa fa-close" aria-hidden="true"></i>
+        Se retracter
     </a>
     {% endif %}
 {% else %}
@@ -18,12 +23,17 @@
         <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracterWithDocument', object) }}"
             title="retracter">
             <i class="fa fa-close" aria-hidden="true"></i>
-            retracté
+            Retractée
         </a>
         {% elseif object.demande.statusDoc == constant('App\\Entity\\Demande::RETRACT_DEMAND') %}
         <a class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('refund', object) }}" title="retracter">
             <i class="fa fa-close" aria-hidden="true"></i>
-            remboursé
+            Remboursée
+        </a>
+        {% elseif object.demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID_SEND_TMS') %}
+        <a onClick="return confirm(' êtes vous sur de vouloir faire la retractation? ')" class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracter', object) }}" title="retracter">
+            <i class="fa fa-close" aria-hidden="true"></i>
+            Se retracter
         </a>
         {% endif %}
     {% endif %}
