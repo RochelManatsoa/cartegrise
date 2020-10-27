@@ -1,10 +1,10 @@
 {% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
 
 {% block field %}
-{% if object.avoir is null and object.statusDoc != constant('App\\Entity\\Demande::DOC_VALID_SEND_TMS') %}
+{% if object.avoir is null %}
         <a onClick="return confirm(' êtes vous sur de vouloir faire la retractation? ')" class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracter', object) }}" title="retracter">
             <i class="fa fa-file" aria-hidden="true"></i>
-            se retracté
+            Se retracter
         </a>
 {% endif %}
 {% endblock %}
