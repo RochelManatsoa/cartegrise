@@ -11,7 +11,7 @@
         <i class="fa fa-close" aria-hidden="true"></i>
         Remboursée
     </a>
-    {% elseif object.statusDoc != constant('App\\Entity\\Demande::DOC_VALID_SEND_TMS') %}
+    {% else %}
     <a onClick="return confirm(' êtes vous sur de vouloir faire la retractation? ')" class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracter', object) }}" title="retracter">
         <i class="fa fa-close" aria-hidden="true"></i>
         Se retracter
@@ -30,7 +30,7 @@
             <i class="fa fa-close" aria-hidden="true"></i>
             Remboursée
         </a>
-        {% elseif object.demande.statusDoc != constant('App\\Entity\\Demande::DOC_VALID_SEND_TMS') %}
+        {% else %}
         <a onClick="return confirm(' êtes vous sur de vouloir faire la retractation? ')" class="btn btn-sm btn-default view_link" href="{{ admin.generateObjectUrl('retracter', object) }}" title="retracter">
             <i class="fa fa-close" aria-hidden="true"></i>
             Se retracter
