@@ -27,6 +27,21 @@ $(document).ready(function () {
             }
         }
     });  
+     //Menu
+     $('#header').find('.d-flex').append($('<div class="nav-mobile"><i class="fas fa-bars"></i></div>'));
+     $('.nav-mobile').click(function(){
+       $('.menu-top').toggle();
+     });
+ 
+     //Slick slider
+    //  $(".sliders").slick({
+    //      arrows:false,
+    //      speed:800,
+    //      infinite: false,
+    //      pauseOnHover:false,
+    //      autoplay: true,
+    //      autoplaySpeed: 2000
+    //  });
 });
 
 function valueTreatement(value) {

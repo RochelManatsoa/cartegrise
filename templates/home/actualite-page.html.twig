@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body_id %}{% endblock %}
+
+{% block class %}body-actu{% endblock %}
+{% block page_content %}
+<div class="actu_img" style="background-image:url('asset/img/imgSlider1.jpg')">
+    <div class="container">
+        <div class="headingTitle text-center">
+			<h1>Actualités</h1>
+        </div>
+    </div>
+</div>
+<section class="BlockArticle">
+	<div class="container">
+		<div class="ListArticle">
+			<div class="row">
+				<div class="col-lg-4 col-md-6">
+					<article class="mb-5">
+						<a href="/actus-detail-article">
+							<span><img src="asset/img/imgArticle1.jpg" alt=""/></span>
+							<h3>Lorem Ipsum is simply</h3>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+						</a>
+					</article>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<article class="mb-5">
+						<a href="/actus-detail-article">
+							<span><img src="asset/img/imgArticle2.jpg" alt=""/></span>
+							<h3>Lorem Ipsum is simply</h3>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+						</a>
+					</article>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<article class="mb-5">
+						<a href="/actus-detail-article">
+							<span><img src="asset/img/imgArticle3.jpg" alt=""/></span>
+							<h3>Lorem Ipsum is simply</h3>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+						</a>
+					</article>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<article class="mb-5">
+						<a href="/actus-detail-article">
+							<span><img src="asset/img/imgArticle1.jpg" alt=""/></span>
+							<h3>Lorem Ipsum is simply</h3>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+						</a>
+					</article>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<article class="mb-5">
+						<a href="/actus-detail-article">
+							<span><img src="asset/img/imgArticle2.jpg" alt=""/></span>
+							<h3>Lorem Ipsum is simply</h3>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+						</a>
+					</article>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<article class="mb-5">
+						<a href="/actus-detail-article">
+							<span><img src="asset/img/imgArticle3.jpg" alt=""/></span>
+							<h3>Lorem Ipsum is simply</h3>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+						</a>
+					</article>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

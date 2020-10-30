@@ -162,6 +162,22 @@ class HomeController extends AbstractController
     }
 
     /**
+     * @Route("/actus", name="actus")
+     */
+    public function actus()
+    {
+        return $this->render('home/actualite-page.html.twig');
+    }
+
+    /**
+     * @Route("/actus-detail-article", name="detailactus")
+     */
+    public function detailactus()
+    {
+        return $this->render('home/actualite-detail-page.html.twig');
+    }
+
+    /**
      * @Route("/foire-aux-questions", name="faq")
      */
     public function faq()
