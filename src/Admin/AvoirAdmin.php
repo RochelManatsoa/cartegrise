@@ -27,8 +27,9 @@ final class AvoirAdmin extends AbstractAdmin
         ->leftJoin($alias.'.demande', 'demande')
         ->leftJoin($alias.'.avoir', 'commandeAvoir')
         ->leftJoin('demande.transaction', 'transDemande')
+        ->leftJoin('demande.avoir', 'demandeAvoir')
         ->andWhere('transDemande.status =:status OR transCommande.status =:status')
-        ->andWhere('commandeAvoir.id IS NOT NULL')
+        ->andWhere('commandeAvoir.id IS NOT NULL OR demandeAvoir.id IS NOT NULL')
         ->setParameter('status', '00');
 
         return $query;
