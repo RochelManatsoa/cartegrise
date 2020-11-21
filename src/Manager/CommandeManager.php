@@ -232,7 +232,8 @@ class CommandeManager
 	private function getParamToEnvoyer($typeDemarche, Commande $commande, $infosVehicule)
 	{
 		$genre = $this->tmsManager->getGENRE($infosVehicule->Genre);
-		$ptca = $this->tmsManager->getPTCA($infosVehicule->PoidsVide);
+		// $ptca = $this->tmsManager->getPTCA($infosVehicule->PoidsVide);
+		$ptca = $this->tmsManager->getPTCA($infosVehicule->PTR);
 		$energie = $this->tmsManager->getENERGIE($infosVehicule->Energie);
 		$puissance = $infosVehicule->PuissFisc ? $infosVehicule->PuissFisc : 0;
 		$co2 = $infosVehicule->CO2 ? $infosVehicule->CO2 : 0;
