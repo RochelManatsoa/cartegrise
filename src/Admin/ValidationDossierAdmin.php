@@ -59,6 +59,14 @@ final class ValidationDossierAdmin extends AbstractAdmin
             'attr' => array('class' => 'ckeditor'),
             'format' => 'text'
             ))
+        ->add('commande.partner', ChoiceType::class, array(
+            'label' => 'partenariat',
+            'attr' => array('class' => 'half'),
+            ))
+        ->add('commande.commission', null, array(
+                'label' => 'Commission',
+                'attr' => array('class' => 'half'),
+                ))
         ;
     }
 
@@ -82,6 +90,12 @@ final class ValidationDossierAdmin extends AbstractAdmin
         ])
         ->add('commande.client.user.email', null, [
             'label' => 'email'
+        ])
+        ->add('commande.partner.name', null, [
+            'label' => 'Partenariat'
+        ])
+        ->add('commande.commission', null, [
+            'label' => 'Commission'
         ])
         ->add('commande.client.clientNom', null, [
             'label' => 'Nom'
@@ -138,6 +152,12 @@ final class ValidationDossierAdmin extends AbstractAdmin
         ->add('commande.comment', null, [
             'label' => 'Commentaire',
             'template' => 'CRUD/row/comment.html.twig',
+        ])
+        ->add('commande.partner.name', null, [
+            'label' => 'Patrenariat',
+        ])
+        ->add('commande.commission', null, [
+            'label' => 'Commission',
         ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoirs',
