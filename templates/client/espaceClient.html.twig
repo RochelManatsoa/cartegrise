@@ -64,7 +64,7 @@
                                 <div class="content-demarche tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                     <p>{{ demande.commande.demarche.nom }} <br> {{ demande.commande.ceerLe | date('d.m.Y à H\\h:i')}}</p>
                                     <p>Votre commande expire le <span>{{ demande.commande.ceerLe |date_modify("+1 month")|date('d.m.Y à H\\h:i')}}</span></p>
-                                    <a href="{{path('payment_facture', {'demande':demande.id})}}" target="_blank" class="btn btn-aqua-blue btn-facture">Facture<i class="icon-pdf"></i></a>
+                                    <a href="{{path('payment_facture_commande', {'commande':demande.commande.id})}}" target="_blank" class="btn btn-aqua-blue btn-facture">Facture<i class="icon-pdf"></i></a>
                                 </div>
                                 <div class="content-demarche tab-pane fade show active" id="pills-document" role="tabpanel" aria-labelledby="pills-document-tab" style="overflow: auto;">
                                     <div>
