@@ -367,6 +367,31 @@
             </script>
         {% endblock %}
     {% endif %}
-
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalPartner" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form id="addPartner" method="post" action="">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ajouter un partenariat</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="namePartner" class="form-label">Nom</label>
+                            <input type="text" name="nom" class="form-control" id="namePartner" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descriptionPartner" class="form-label">Description (facultatif)</label>
+                            <textarea class="form-control" name="description" id="descriptionPartner" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeModal" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" id="savePartner" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

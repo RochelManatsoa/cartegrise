@@ -13,7 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
-use App\Entity\{Demande, TypeDemande};
+use App\Entity\{Demande, Partner, TypeDemande};
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 final class ValidationDossierAdmin extends AbstractAdmin
 {
@@ -59,9 +60,12 @@ final class ValidationDossierAdmin extends AbstractAdmin
             'attr' => array('class' => 'ckeditor'),
             'format' => 'text'
             ))
-        ->add('commande.partner', ChoiceType::class, array(
-            'label' => 'partenariat',
-            'attr' => array('class' => 'half'),
+        ->add('commande.partner', EntityType::class, array(
+            'label' => 'Partenariat',
+            'class' => Partner::class,
+            'required' => false,
+            'choice_label' => 'name',
+            'attr' => array('class' => 'half', 'placeholder' => 'Selectionner dans la liste'),
             ))
         ->add('commande.commission', null, array(
                 'label' => 'Commission',
@@ -154,7 +158,7 @@ final class ValidationDossierAdmin extends AbstractAdmin
             'template' => 'CRUD/row/comment.html.twig',
         ])
         ->add('commande.partner.name', null, [
-            'label' => 'Patrenariat',
+            'label' => 'Partenariat',
         ])
         ->add('commande.commission', null, [
             'label' => 'Commission',
