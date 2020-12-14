@@ -136,6 +136,13 @@ class Commande
      * @ORM\Column(type="text", nullable=true)
      */
     private $comment;
+    
+    /**
+     * commision about the command partner
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $commission;
 
     /**
      * @var \DateTime $deletedAt
@@ -231,6 +238,12 @@ class Commande
      * @ORM\Column(nullable=true)
      */
     private $dayIp;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="commande")
+     * @ORM\JoinColumn()
+     */
+    private $partner;
 
 
 
@@ -795,6 +808,30 @@ class Commande
     public function setDayIp(?string $dayIp): self
     {
         $this->dayIp = $dayIp;
+
+        return $this;
+    }
+
+    public function getPartner(): ?Partner
+    {
+        return $this->partner;
+    }
+
+    public function setPartner(?Partner $partner): self
+    {
+        $this->partner = $partner;
+
+        return $this;
+    }
+
+    public function getCommission(): ?string
+    {
+        return $this->commission;
+    }
+
+    public function setCommission(?string $commission): self
+    {
+        $this->commission = $commission;
 
         return $this;
     }

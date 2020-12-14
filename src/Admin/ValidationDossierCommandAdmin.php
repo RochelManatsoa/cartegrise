@@ -15,7 +15,8 @@ use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\DateRangePickerType;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
-use App\Entity\{Demande, TypeDemande, Commande};
+use App\Entity\{Demande, TypeDemande, Commande, Partner};
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 final class ValidationDossierCommandAdmin extends AbstractAdmin
 {
@@ -69,6 +70,17 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
             'format' => 'text'
             ))
         ->add('fraisRembourser')
+        ->add('partner', EntityType::class, array(
+            'label' => 'Partenariat',
+            'class' => Partner::class,
+            'required' => false,
+            'choice_label' => 'name',
+            'attr' => array('class' => 'half', 'placeholder' => 'Selectionner dans la liste'),
+            ))
+        ->add('commission', null, array(
+                'label' => 'Commission',
+                'attr' => array('class' => 'half'),
+                ))
         ;
     }
 
@@ -91,6 +103,12 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
         ])
         ->add('client.user.email', null, [
             'label' => 'email'
+        ])
+        ->add('partner.name', null, [
+            'label' => 'Partenariat'
+        ])
+        ->add('commission', null, [
+            'label' => 'Commission'
         ])
         ->add('facture.createdAt', 'doctrine_orm_date_range', [
             'field_type'=> DateRangePickerType::class,
@@ -182,6 +200,12 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
         ->add('comment', null, [
             'label' => 'Commentaire',
             'template' => 'CRUD/row/comment.html.twig',
+        ])
+        ->add('partner.name', null, [
+            'label' => 'Partenariat',
+        ])
+        ->add('commission', null, [
+            'label' => 'Commission',
         ])
         ->addIdentifier('factureAvoir', null, [
             'label' => 'facture / avoir',
