@@ -5,7 +5,7 @@
   "dependencies": {
     "admin-lte": "^2.4.10",
     "adminlte-reactjs": "^1.0.6",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
     "datatables": "^1.10.18",
     "jquery": "^3.4.1",
