@@ -565,4 +565,34 @@ class ActionAdminController extends Controller
         // if you have a filtered list and want to keep your filters after the redirect
         // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
     }
+
+    /**
+     * @param $id
+     */
+    public function gesteAction(
+        $id,
+        CommandeManager $commandeManager,
+        Request $request
+    )
+    {
+        $commande = $commandeManager->find($id);
+        if (!$commande instanceof Commande){
+            throw new \Exception('la commande n\'existe pas');
+        }
+        $gesteCommercial = $commande->getGesteCommercial();
+        // dd($gesteCommercial);
+        if (!$gesteCommercial instanceof GesteCommercial){
+            $this->gesteCommercialAction($id, $commandeManager, $request);
+        }
+
+        $file = $commandeManager->generateGesteCommercialPdf($gesteCommercial);
+        
+        return new BinaryFileResponse($file);
+        
+
+        // return new RedirectResponse($this->generateUrl('payment_facture', ['demande'=> $object->getId()]));
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        // return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
+    }
 }

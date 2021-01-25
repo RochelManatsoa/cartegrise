@@ -45,6 +45,7 @@ final class ValidationDossierAdmin extends AbstractAdmin
         $collection->add('facture', $this->getRouterIdParameter().'/facture');
         $collection->add('avoir', $this->getRouterIdParameter().'/avoir');
         $collection->add('gesteCommercial', $this->getRouterIdParameter().'/geste-comercial');
+        $collection->add('geste', $this->getRouterIdParameter().'/geste-voir');
     }
 
     protected function configureFormFields(FormMapper $formMapper)

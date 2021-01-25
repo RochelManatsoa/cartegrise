@@ -53,6 +53,7 @@ final class ValidationDossierCommandAdmin extends AbstractAdmin
         $collection->add('retracterCommandeSecond', $this->getRouterIdParameter().'/retracter-commande-second');
         $collection->add('refundCommande', $this->getRouterIdParameter().'/refund-commande');
         $collection->add('formulaireDemande', $this->getRouterIdParameter().'/form-demande-commande');
+        $collection->add('geste', $this->getRouterIdParameter().'/geste-voir');
         $collection->add('gesteCommercial', $this->getRouterIdParameter().'/geste-comercial');
     }
 
