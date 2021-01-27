@@ -64,7 +64,7 @@ class LoginAuthenticationHandler implements AuthenticationSuccessHandlerInterfac
         $user = $token->getUser();
 
         //$this->getUrlContent("http://dev3.cgofficiel.fr/account/connect-this-user/".$user->getId());
-        if($user->hasRole("ROLE_USER") && !$user->hasRole("ROLE_ADMIN_BLOG") && !$user->hasRole("ROLE_CRM")) {
+        if($user->hasRole("ROLE_USER") && !$user->hasRole("ROLE_ADMIN_BLOG") && !$user->hasRole("ROLE_CRM") && !$user->hasRole("ROLE_BANNED")) {
             $this->userManager->checkCommandeInSession($user);
             $lastCommandPayed = $this->userManager->getLastCommandePayed($user);
             if ($lastCommandPayed instanceof Commande) {
@@ -75,6 +75,8 @@ class LoginAuthenticationHandler implements AuthenticationSuccessHandlerInterfac
             return new RedirectResponse($this->routerInterface->generate('easyadmin'));
         }elseif ($user->hasRole("ROLE_CRM")) {
             return new RedirectResponse($this->routerInterface->generate('route_crm_home'));
+        }elseif ($user->hasRole("ROLE_BANNED")) {
+            return new RedirectResponse($this->routerInterface->generate('fos_user_security_logout'));
         }
         $this->userManager->checkCommandeInSession($user);
 
