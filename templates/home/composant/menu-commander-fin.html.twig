@@ -271,7 +271,7 @@
 											</div>
 											{{ form_end(formulaire)}}
 										{% else %}
-											{{ form_start(formulaire, {'attr': {'id': 'form_demarche'}})}}
+											{{ form_start(formulaire, {'attr': {'id': 'form_demarche', 'novalidate':'novalidate'}})}}
 											<div class="demarche">
 												{{ form_row(formulaire.demarche, {
 													'attr':{
@@ -288,7 +288,7 @@
 																'onkeyup':'this.value = this.value.toUpperCase()',
 																'class': 'form-control-plaque ',
 																'onblur': 'this.value = valueTreatement(this.value)',
-																'maxlength': '9',
+																'maxlength': '10',
 																'minlength': '5',
 																'placeholder': 'BB-321-BB'
 															},
@@ -296,6 +296,7 @@
 																'class': 'text-uppercase resultat-estimation-p'}
 															}
 														)}}
+														{{ form_errors(formulaire) }}
 													</div>
 													<div class="col-md-6 AutoComplete_CP">
 													{{ form_row(formulaire.codePostal, {
