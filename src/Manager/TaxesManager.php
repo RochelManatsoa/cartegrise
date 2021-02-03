@@ -121,17 +121,17 @@ class TaxesManager
         $service = $taxe->getTaxeTotale();
         if ($service <= 100) {
             $majoration = 0;
-        }elseif ($service > 101 && $service < 300) {
+        }elseif ($service > 100 && $service <= 300) {
             $majoration = 7;
-        }elseif ($service > 301 && $service < 400) {
+        }elseif ($service > 300 && $service <= 400) {
             $majoration = 11;
-        }elseif ($service > 401 && $service < 600) {
+        }elseif ($service > 400 && $service <= 600) {
             $majoration = 17;
-        }elseif ($service > 601 && $service < 800) {
+        }elseif ($service > 600 && $service <= 800) {
             $majoration = 21;
-        }elseif ($service > 801 && $service < 1000) {
+        }elseif ($service > 800 && $service <= 1000) {
             $majoration = 27;
-        }elseif ($service > 1001 && $service < 1499) {
+        }elseif ($service > 1000 && $service <= 1499) {
             $majoration = 31;
         }elseif ($service > 1500) {
             $majoration = 41;

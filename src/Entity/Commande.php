@@ -55,6 +55,10 @@ class Commande
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"api"})
+     * @Assert\Regex(
+     *     pattern="#^[A-Z]{1,2}[0-9]{1,3}[A-Z]{1,2}$|^[A-Z]{1,2}-[0-9]{1,3}-[A-Z]{1,2}$|^[0-9]{1,4}[A-Z]{1,4}[0-9]{1,2}$|^[0-9]{1,4}-[A-Z]{1,4}-[0-9]{1,2}$#",
+     *     message="command.immat.regex"
+     * )
      */
     private $immatriculation;
 
