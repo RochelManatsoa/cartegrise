@@ -165,7 +165,27 @@ $(document).ready(function() {
             cookieValue: "Y",
             cookieDays: 365,
             containerId: "cookie-alert-container",
-            htmlTemplate: '<div role="alert" class="cookie-alert-message fixed-bottom text-center alert alert-primary"><div class="container mx-auto">En poursuivant votre navigation sur ce site, vous acceptez l\'utilisation de cookies ou technologie similaire pour disposer des services et d\'offres  adaptés à vos centres d\'interêt ainsi que pour la sécurisation des transactions de notre site. <button class="cookie-alert-message-accept-button btn btn-outline-primary" onClick="javascript:cookiesChecker.accept();">J\'accepte</button></div></div>'
+            htmlTemplate: `
+            <div role="alert" class="cookie-alert-message fixed-bottom alert alert-primary">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-8 col-sm-6">
+                            <div class="">
+                            En poursuivant votre navigation, vous acceptez la politique Cookies, le dépôt de cookies et technologies similaires tiers ou non ainsi que le 
+                            croisement avec des données que vous nous avez fournies pour améliorer votre expérience, la diffusion des contenus et publicités personnalisés 
+                            par notre enseigne ou par des partenaires au regard de vos centres d'intérêts, effectuer des études afin d'optimiser nos offres et prévenir 
+                            les risques de fraude.
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="">
+                                <button class="cookie-alert-message-accept-button btn btn-sm btn-danger" onClick="javascript:cookiesChecker.accept();">J\'accepte</button>
+                                <a data-toggle="modal" data-target="#modalCookies" class="cookie-alert-message-manage-button btn btn-sm btn-outline-danger" >Gérer mes cookies</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`
         };
 
         var setCookie = function(key, value, expires) {
@@ -228,12 +248,25 @@ $(document).ready(function() {
         };
     }();
 
-        //Autocomplete
-        //function to set the selected value as default
-        function setDefault(defValue) {
-            $('#formulaire_codePostal option[value="' + defValue + '"]').attr('selected', 'selected');
-        }
-        
+    //Autocomplete
+    //function to set the selected value as default
+    function setDefault(defValue) {
+        $('#formulaire_codePostal option[value="' + defValue + '"]').attr('selected', 'selected');
+    }
+
+    // tab-pills modal-body-cookies
+    var triggerTabList = [].slice.call(document.querySelectorAll('#v-pills-tab a'))
+    triggerTabList.forEach(function (triggerEl) {
+    var tabTrigger = new bootstrap.Tab(triggerEl)
+
+    triggerEl.addEventListener('click', function (event) {
+            event.preventDefault()
+            tabTrigger.show()
+        })
+    })
+
+    $("[name='my-checkbox']").bootstrapSwitch();
+
     //AutoComplete
     $( function() {
         $.widget( "custom.combobox", {

@@ -2245,6 +2245,14 @@ AutoComplete
     					top: 20px;
 					}
 				}
+				.logo-rgpd{
+					width: 7%;
+					float: left;
+					margin: 20px;
+					@include sm{
+						width: 15%;
+					}
+				}
 			}
 			.modal-body {
 				padding-bottom: 40px;
@@ -2276,6 +2284,33 @@ AutoComplete
 					>div {
 						background-image: none !important;
 					}
+				}
+			}
+			.modal-body-cookies {
+				padding-bottom: 40px;
+				font-size: 13px;
+				.formContent-bc {
+					padding-top: 0 !important;
+				}
+				.custom-container-flex {
+					>div {
+						background-image: none !important;
+					}
+				}
+				.tab-content{
+					height: 500px;
+					overflow: auto;
+					@include sm{
+						height: auto;
+						padding-left: 10px;
+					}
+				}
+				h4{
+					font-size: 18px!important;
+					font-weight: bold!important;
+				}
+				.form-check{
+					float: left!important;
 				}
 			}
 		}
@@ -4252,7 +4287,7 @@ Cookies
 		line-height: 130%;
 		margin-bottom: 0 !important;
 	}
-	.cookie-alert-message-accept-button {
+	.cookie-alert-message-accept-button .cookie-alert-message-manage-button {
 		@include sm {
 			display: block !important;
 			font-size: 10px;
