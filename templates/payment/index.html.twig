@@ -10,7 +10,7 @@
     <div class="container">
 
         <div class="systempay col-12">
-            {% if constant('App\\Entity\\Systempay\\Transaction::MULTI_PROPOSE_UP') < (amount / 100) %}
+            {# {% if constant('App\\Entity\\Systempay\\Transaction::MULTI_PROPOSE_UP') < (amount / 100) %}
                 <h4>CHOISISSEZ VOTRE MODE DE PAIEMENT</h4>
                 <ul>
                     <li class="mb-3">
@@ -28,7 +28,15 @@
                         </button>
                     </a>
                 </div>
-            {% endif %}
+            {% endif %} #}
+
+            <div class="no-underline">
+                <a href="{{path('pay_online', {'commande': commande.id})}}">
+                    <button class="btn btn-aqua-blue mb-5 mx-auto mt-5">
+                        Procéder au paiement
+                    </button>
+                </a>
+            </div>
         </div>
         
         <div class="row">
