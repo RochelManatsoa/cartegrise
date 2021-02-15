@@ -84,8 +84,9 @@ final class AvoirAdmin extends AbstractAdmin
         ->addIdentifier('client.clientNom', null, [
             'label' => 'Nom'
         ])
-        ->addIdentifier('status', null, [
-            'label' => 'Statut'
+        ->add('statusDocStringDesigned', null, [
+            'label' => "Etat",
+            'template' => 'CRUD/statusDocDesigned.html.twig',
         ])
         ->addIdentifier('comment', null, [
             'label' => 'Commentaire',

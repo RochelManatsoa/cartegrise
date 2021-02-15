@@ -61,6 +61,9 @@ final class ValidationDossierAdmin extends AbstractAdmin
             'attr' => array('class' => 'ckeditor'),
             'format' => 'text'
             ))
+        ->add('commande.fraisRembourser', null, array(
+            'label' => 'Frais rembourser'
+        ))
         ->add('commande.partner', EntityType::class, array(
             'label' => 'Partenariat',
             'class' => Partner::class,
