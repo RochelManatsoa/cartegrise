@@ -54,7 +54,6 @@ use App\Repository\TarifsPrestationsRepository;
         if($price == null){
             return 0;
         } elseif (
-           $commande->getDemande() === null &&
            $commande->getFraisRembourser() != null
          ) {
            return 0;
@@ -113,7 +112,6 @@ use App\Repository\TarifsPrestationsRepository;
         ){
            return $commande->getDemande()->getFraisRembourser();
         } elseif (
-           $commande->getDemande() === null &&
            $commande->getFraisRembourser() !== null &&
            is_numeric($commande->getFraisRembourser())
         )
@@ -141,7 +139,7 @@ use App\Repository\TarifsPrestationsRepository;
      {
         if ($commande->getDemande() != null && $commande->getDemande()->getFraisRembourser() !== null) {
            return 0;
-        } elseif ($commande->getDemande() === null && $commande->getFraisRembourser() !== null) {
+        } elseif ($commande->getFraisRembourser() !== null) {
            return 0;
         }
         $tva = $this->tvaTreatmentOfCommande($commande)/100;
@@ -165,7 +163,7 @@ use App\Repository\TarifsPrestationsRepository;
      {
         if ($commande->getDemande() != null && $commande->getDemande()->getFraisRembourser() !== null){
            return $commande->getDemande()->getFraisRembourser();
-        } elseif ($commande->getDemande() === null && $commande->getFraisRembourser() !== null){
+        } elseif ($commande->getFraisRembourser() !== null){
            return $commande->getFraisRembourser();
         }
         $tva = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
