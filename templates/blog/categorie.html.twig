@@ -1,9 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
-
 {% block seo %}
-    <base href="{{ path( 'show_cat', {slug : categorie.slug}) }}"/>
+<base href="{{ path( 'show_cat', {slug : categorie.slug}) }}"/>
     <meta name="keywords" content="{{ categorie.description }}" />
     <meta name="x-ua-compatible" content="IE=edge,chrome=1"/>
     <meta name="description" content="{{ categorie.description }}"/>
@@ -18,6 +16,8 @@
 	<meta name="twitter:title" content="{{ categorie.nom | lower }}"/>
 	<meta property="twitter:description" content="{{ categorie.description }}"/>
 {% endblock %}
+
+{% block title %}| Catégorie - {{ categorie.nom }}{% endblock %}
 
 {% block body_id %}{% endblock %}
 

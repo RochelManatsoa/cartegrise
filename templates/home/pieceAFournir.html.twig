@@ -1,5 +1,24 @@
 {% extends 'base.html.twig' %}
 
+{% block seo %}
+<base href="{{path('piece_a_fournir')}}"/>
+	<meta name="keywords" content="Liste des pièces à fournir pour une demande concernant un certificat d'immatriculation (carte grise) sur CGOfficiel ..."/> 
+	<meta name="x-ua-compatible" content="IE=edge,chrome=1"/> 
+	<meta name="description" content="Liste des pièces à fournir pour une demande concernant un certificat d'immatriculation (carte grise) sur CGOfficiel ..."/> 
+	<meta property="og:title" content="CGOfficiel | Pièces à fournir "> 
+	<meta property="og:type" content="page"> 
+	<meta property="og:url" content="{{path('piece_a_fournir')}}"> 
+	<meta property="og:image" content=""> 
+	<meta property="og:description" content="Liste des pièces à fournir pour une demande concernant un certificat d'immatriculation (carte grise) sur CGOfficiel ...">
+	<meta property="og:video" content=""> 
+	<meta property="og:locale" content="fr_FR"> 
+	<meta name="twitter:card" content="summary_large_image"/> 
+	<meta name="twitter:url" content="{{path('piece_a_fournir')}}"/> 
+	<meta name="twitter:title" content="CGOfficiel | Pièces à fournir "/> 
+	<meta property="twitter:description" content="Liste des pièces à fournir pour une demande concernant un certificat d'immatriculation (carte grise) sur CGOfficiel ..."/>
+{% endblock %}
+
+{% block title %}| Pièces à fournir{% endblock %}
 {% block page_content %}
 <div class="block_CCM">
 	<div class="container">
