@@ -5,11 +5,11 @@
 	{{ include('home/layout/header.html.twig') }}
 
 	{% block seo %}
-	<base href="{{path('Accueil')}}"/>
+<base href="{{path('Accueil')}}"/>
 	<meta name="keywords" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr"/>
 	<meta name="x-ua-compatible" content="IE=edge,chrome=1"/>
 	<meta name="description" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr"/>
-	<meta property="og:title" content="CGofficiel.fr | Accueil ">
+	<meta property="og:title" content="CGOfficiel | Accueil ">
 	<meta property="og:type" content="page">
 	<meta property="og:url" content="{{path('Accueil')}}">
 	<meta property="og:image" content="">
@@ -18,7 +18,7 @@
 	<meta property="og:locale" content="fr_FR">
 	<meta name="twitter:card" content="summary_large_image"/>
 	<meta name="twitter:url" content="{{path('Accueil')}}"/>
-	<meta name="twitter:title" content="CGofficiel.fr | Accueil "/>
+	<meta name="twitter:title" content="CGOfficiel | Accueil "/>
 	<meta property="twitter:description" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr"/>
 	{% endblock %}
 
@@ -33,7 +33,7 @@
 		})(window, document, 'script', 'dataLayer', 'GTM-NVBJV6Q');</script>
 	<!-- End Google Tag Manager -->
 
-	<title>CGOfficiel | {% block title %}{% endblock %}</title>
+	<title>CGOfficiel {% block title %}{% endblock %}</title>
 	<link rel="icon" href="{{ asset('asset/favicon/favicon.ico') }}">
 	<link href="/fontawesome/css/all.css" rel="stylesheet">
 	{% block stylesheets %}

@@ -595,7 +595,7 @@ class HomeController extends AbstractController
 	}
 
 	/**
-	 * @Route("/retractation", name="retractation", options={"sitemap" = true})
+	 * @Route("/retractation", name="retractation")
 	 */
 	public function retractation()
 	{
@@ -1000,14 +1000,6 @@ class HomeController extends AbstractController
             ? $this->tokenManager->getToken('authenticate')->getValue()
             : null;
         return $csrf;
-    }
-
-    /**
-     * @Route("/mentions-legales", name="mentions_legales", options={"sitemap" = true})
-     */
-    public function mentionsLegales()
-    {
-        return $this->render('home/mentionsLegales.html.twig');
     }
 
     /**
