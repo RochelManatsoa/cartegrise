@@ -1,5 +1,22 @@
 {% extends "base.html.twig" %}
-{% block title %}CGOfficiel | Registration{% endblock %}
+	{% block seo %}
+<base href="{{app.request.pathinfo}}"/>
+	<meta name="keywords" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr | {% include "@FOSUser/title.html.twig" %}"/>
+	<meta name="x-ua-compatible" content="IE=edge,chrome=1"/>
+	<meta name="description" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr | {% include "@FOSUser/title.html.twig" %}"/>
+	<meta property="og:title" content="CGOfficiel | {% include "@FOSUser/title.html.twig" %} ">
+	<meta property="og:type" content="page">
+	<meta property="og:url" content="{{app.request.pathinfo}}">
+	<meta property="og:image" content="">
+	<meta property="og:description" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr | {% include "@FOSUser/title.html.twig" %}">
+	<meta property="og:video" content="">
+	<meta property="og:locale" content="fr_FR">
+	<meta name="twitter:card" content="summary_large_image"/>
+	<meta name="twitter:url" content="{{app.request.pathinfo}}"/>
+	<meta name="twitter:title" content="CGOfficiel | {% include "@FOSUser/title.html.twig" %} "/>
+	<meta property="twitter:description" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr | {% include "@FOSUser/title.html.twig" %}"/>
+	{% endblock %}
+{% block title %} | {% include "@FOSUser/title.html.twig" %}{% endblock %}
 {% block page_content %}
     {% block fos_user_content %}{% endblock %}
 {% endblock %}

@@ -74,7 +74,7 @@
 							</div>
 						</div>
 						{% elseif demarche.type == 'DC' %}
-						<div class="modal-body">
+					?info=plpl	<div class="modal-body">
 							<div class="popup-center-container search">
 								<div class="col-12 search-titre mt-5">
 									<h2>Téléchargez le formulaire
@@ -207,6 +207,10 @@
 										Achat d'un véhicule d'occasion: commandez votre certificat d'immatriculation
 									{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DUP') %}
 										Commandez un duplicata de votre certificat d'immatriculation
+									{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DIVN') %}
+										Immatriculer un véhicule neuf
+									{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DC') %}
+										Declaration de cession
 									{% elseif defaultDemarche.type  == constant('App\\Entity\\TypeDemande::TYPE_DCA') %}
 										Certificat d'immatriculation: Effectuer un changement d'adresse
 									{% endif %}

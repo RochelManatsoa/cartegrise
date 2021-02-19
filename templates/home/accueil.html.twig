@@ -1,6 +1,27 @@
 {% extends 'base.html.twig' %}
+{% set titre = "Accueil" %}
+{% if defaultDemarche is defined and defaultDemarche is not null %}
+{% set titre = defaultDemarche.nom %}
+{% endif %}
+	{% block seo %}
+<base href="{{app.request.pathinfo}}"/>
+	<meta name="keywords" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr | {{ titre }}"/>
+	<meta name="x-ua-compatible" content="IE=edge,chrome=1"/>
+	<meta name="description" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr | {{ titre }}"/>
+	<meta property="og:title" content="CGOfficiel | Accueil ">
+	<meta property="og:type" content="page">
+	<meta property="og:url" content="{{app.request.pathinfo}}">
+	<meta property="og:image" content="">
+	<meta property="og:description" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr | {{ titre }}">
+	<meta property="og:video" content="">
+	<meta property="og:locale" content="fr_FR">
+	<meta name="twitter:card" content="summary_large_image"/>
+	<meta name="twitter:url" content="{{app.request.pathinfo}}"/>
+	<meta name="twitter:title" content="CGOfficiel | Accueil "/>
+	<meta property="twitter:description" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr | {{ titre }}"/>
+	{% endblock %}
 
-{% block title %}| Accueil{% endblock %}
+{% block title %}| {{ titre }}{% endblock %}
 {% block stylesheets %}
 <style type="text/css">
 #formulaire_immatriculation{
@@ -209,9 +230,6 @@
 			$("#formulaire_codePostal").parent('div').find('ul.select-options').find('li[rel="{{defaultDepartment}}"]').click();
 		{% endif %}
 		
-		{% if info is defined and info is not null %}
-			$('#formulaire_demarche').val('{{info}}').change();
-		{% endif %}
 	</script>
 	{# <script type="application/javascript">
 		$('.owl-carousel').owlCarousel(
