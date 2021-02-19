@@ -1,0 +1,6 @@
+{% if title is defined %}
+    {{ title }}
+{% else %}
+    {% set path = app.request.pathinfo|split('/') %}
+    {{ path.1|title }} {% if path.2 is defined %}{{ path.2|title }}{% endif %}
+{% endif %}

@@ -63,6 +63,8 @@ class HomeController extends AbstractController
      * @Route("/demande-duplicata-certificat-immatriculation", name="dup",  options={"sitemap" = true})
      * @Route("/changement-titulaire-vehicule-occasion", name="ctvo",  options={"sitemap" = true})
      * @Route("/changement-adresse-certificat-immatriculation", name="dca",  options={"sitemap" = true})
+     * @Route("/demande-immatriculation-vehicule-neuf", name="divn",  options={"sitemap" = true})
+     * @Route("/declaration-de-cession", name="dc",  options={"sitemap" = true})
      */
     public function accueil(
         Request $request,
@@ -89,10 +91,6 @@ class HomeController extends AbstractController
         $department = null;
         if ($request->query->has('department')) {
             $department = $request->query->get('department');
-        }
-        $info = null;
-        if ($request->query->has('info')) {
-            $info = $request->query->get('info');
         }
         $defaultDemarche = null;
         if($routeName !== "Accueil" || $routeName !== "home"){
@@ -216,7 +214,6 @@ class HomeController extends AbstractController
             'defaultDepartment' => $department,
             'defaultDemarche' => $defaultDemarche,
             'articles' => $articles,
-            'info' => $info,
         ];
 
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {

@@ -18,12 +18,12 @@
 				
 					<div class="autocollant_block">
 						<a class="critairLink" href="http://www.certificat-air.gouv.fr" target="_blank">
-							<span><img src='{{ asset("asset/img/vert.png")}}' alt=''></span>
-							<span><img src='{{ asset("asset/img/violet.png")}}' alt=''></span>
-							<span><img src='{{ asset("asset/img/jaune.png")}}' alt=''></span>
-							<span><img src='{{ asset("asset/img/orange.png")}}' alt=''></span>
-							<span><img src='{{ asset("asset/img/grenat.png")}}' alt=''></span>
-							<span><img src='{{ asset("asset/img/gris.png")}}' alt=''></span>
+							<span><img src='{{ asset("asset/img/vert.png")}}' alt='vert'></span>
+							<span><img src='{{ asset("asset/img/violet.png")}}' alt='violet'></span>
+							<span><img src='{{ asset("asset/img/jaune.png")}}' alt='jaune'></span>
+							<span><img src='{{ asset("asset/img/orange.png")}}' alt='orange'></span>
+							<span><img src='{{ asset("asset/img/grenat.png")}}' alt='grenat'></span>
+							<span><img src='{{ asset("asset/img/gris.png")}}' alt='gris'></span>
 						</a>
 					</div>
 				</div>
@@ -58,7 +58,7 @@
 								</a>
 							</li>
 							<li onclick="$('#formulaire_demarche').val('3').change();" >
-								<a href="{{url('Accueil')}}?info=3">
+								<a href="{{path('divn')}}">
 									<span>
 										<span><i class="icomoon icon-neuf"></i> Immatriculation véhicule neuf</span>
 									</span>
@@ -72,7 +72,7 @@
 								</a>
 							</li>
 							<li onclick="$('#formulaire_demarche').val('5').change();" >
-								<a href="{{url('Accueil')}}?info=5">
+								<a href="{{path('dc')}}">
 									<span>
 										<span><i class="icomoon icon-declaration-cession"></i> Déclaration de cession</span>
 									</span>

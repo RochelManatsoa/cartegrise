@@ -1,24 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block seo %}
-<base href="{{path('blog')}}"/>
+<base href="{{app.request.pathinfo}}"/>
     <meta name="keywords" content="{% for categorie in cat %}{{ categorie.nom | capitalize}}{% if not loop.last %} ,{% endif %}{% endfor %},{% for categorie in cat %}{{ categorie.slug }}{% if not loop.last %} ,{% endif %}{% endfor %}"/>
     <meta name="x-ua-compatible" content="IE=edge,chrome=1"/>
-    <meta name="description" content="La plateforme du conducteur français. Immatriculation de véhicules, sécurité routière, pollution et actualités du réseau routier français"/>
+    <meta name="description" content="La plateforme du conducteur français. Immatriculation de véhicules, sécurité routière, pollution et actualités du réseau routier français. Page {{articles.currentPageNumber}} sur {{articles.totalItemCount / 6}}"/>
     <meta property="og:title" content="CGOfficiel | Actualités">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="{{path('blog')}}">
+    <meta property="og:url" content="{{app.request.pathinfo}}">
     <meta property="og:image" content="">
-    <meta property="og:description" content="La plateforme du conducteur français. Immatriculation de véhicules, sécurité routière, pollution et actualités du réseau routier français">
+    <meta property="og:description" content="La plateforme du conducteur français. Immatriculation de véhicules, sécurité routière, pollution et actualités du réseau routier français. Page {{articles.currentPageNumber}} sur {{articles.totalItemCount / 6}}"/>
     <meta property="og:video" content="">
     <meta property="og:locale" content="fr_FR">
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:url" content="{{path('blog')}}"/>
+    <meta name="twitter:url" content="{{app.request.pathinfo}}"/>
     <meta name="twitter:title" content="CGOfficiel | Actualités"/>
-    <meta property="twitter:description" content="La plateforme du conducteur français. Immatriculation de véhicules, sécurité routière, pollution et actualités du réseau routier français"/>
+    <meta property="twitter:description" content="La plateforme du conducteur français. Immatriculation de véhicules, sécurité routière, pollution et actualités du réseau routier français. Page {{articles.currentPageNumber}} sur {{articles.totalItemCount / 6}}"/>
 {% endblock %}
 
-{% block title %}| Actualités{% endblock %}
+{% block title %}| Actualités {% if articles.currentPageNumber != 1 %} Page {{articles.currentPageNumber}} sur {{articles.totalItemCount / 6}} {% endif %}{% endblock %}
 
 {% block body_id %}{% endblock %}
 
