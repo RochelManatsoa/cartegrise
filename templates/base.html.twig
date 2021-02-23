@@ -4,34 +4,18 @@
 <head>
 	{{ include('home/layout/header.html.twig') }}
 
-	{% block seo %}
-<base href="{{path('Accueil')}}"/>
-	<meta name="keywords" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr"/>
-	<meta name="x-ua-compatible" content="IE=edge,chrome=1"/>
-	<meta name="description" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr"/>
-	<meta property="og:title" content="CGOfficiel | Accueil ">
-	<meta property="og:type" content="page">
-	<meta property="og:url" content="{{path('Accueil')}}">
-	<meta property="og:image" content="">
-	<meta property="og:description" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr">
-	<meta property="og:video" content="">
-	<meta property="og:locale" content="fr_FR">
-	<meta name="twitter:card" content="summary_large_image"/>
-	<meta name="twitter:url" content="{{path('Accueil')}}"/>
-	<meta name="twitter:title" content="CGOfficiel | Accueil "/>
-	<meta property="twitter:description" content="Service de carte grise en ligne. Agréé par le ministère de l’Intérieur, rapide et sécurisé. Toutes vos démarches d’immatriculation sur CG Officiel.fr"/>
-	{% endblock %}
+	{% block seo %}{% endblock %}
 
-	<!-- Google Tag Manager -->
-	<script>(function (w, d, s, l, i) {
-		w[l] = w[l] || []; w[l].push({
-			'gtm.start':
-				new Date().getTime(), event: 'gtm.js'
-		}); var f = d.getElementsByTagName(s)[0],
-			j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-				'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-		})(window, document, 'script', 'dataLayer', 'GTM-NVBJV6Q');</script>
-	<!-- End Google Tag Manager -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-190433976-1"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-190433976-1');
+	</script>
+	<!-- End Global site tag (gtag.js) - Google Analytics -->
 
 	<title>CGOfficiel {% block title %}{% endblock %}</title>
 	<link rel="icon" href="{{ asset('asset/favicon/favicon.ico') }}">
@@ -43,12 +27,6 @@
 </head>
 
 <body id="{% block body_id %}{% endblock %}" class="{% block class %}{% endblock %}">
-	<!-- Google Tag Manager (noscript) -->
-	<noscript>
-		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVBJV6Q" height="0" width="0"
-			style="display:none;visibility:hidden"></iframe>
-	</noscript>
-	<!-- End Google Tag Manager (noscript) -->
 	{{ include('home/composant/header.html.twig') }}
 	<!-- Content -->
 	{# Iary flash style #}

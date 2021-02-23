@@ -869,7 +869,7 @@ header {
     						font-size: 12px;
 						}
 					}
-					> h1 {
+					> h1, h6 {
 						font-size: $size_24;
 						font-weight: 600;
 						text-transform: uppercase;
@@ -3743,7 +3743,7 @@ Suivi
 				}
 				.demarche_block_item {
 					.title_dermarche {
-						h1 {
+						h1, h6 {
 							font-size: 14px;
 						}
 						p {
