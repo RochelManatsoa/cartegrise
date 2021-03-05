@@ -30,6 +30,12 @@ use App\Repository\TarifsPrestationsRepository;
      public function fraisTreatmentOfCommande(Commande $commande)
      {
         $typeDemarche = $commande->getDemarche();
+        if($typeDemarche->getType() == "DCA"){
+            $date = new \DateTime('2020-09-01 06:00:00'); // date chagement tarif DCA 
+            if($commande->getSystempayTransaction()->getCreatedAt() < $date){
+               return 9.89;
+            }
+        }
         $price = $this->tarifPrestationRepository->findOneBy(["commande" => $typeDemarche->getId()]);
         if($price == null){
             return 0;

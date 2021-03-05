@@ -140,8 +140,9 @@ final class ValidationDossierAdmin extends AbstractAdmin
         ->add('commande.demarche.type', null, [
             'label' => 'Type'
         ])
-        ->add('commande.client.clientNom', null, [
-            'label' => 'Nom'
+        ->addIdentifier('clientName', null, [
+            'label' => 'Profil',
+            'template' => 'CRUD/client/ficheClientList.html.twig',
         ])
         ->add('commande.client.clientContact.contact_telmobile', null , [
             'label' => 'Telephone'
@@ -149,10 +150,6 @@ final class ValidationDossierAdmin extends AbstractAdmin
         ->add('dateDemande')
         ->add('commande.client.user.email', null, [
             'label' => 'email'
-        ])
-        ->addIdentifier('clientName', null, [
-            'label' => 'Profil',
-            'template' => 'CRUD/client/ficheClientList.html.twig',
         ])
         ->add('commande.immatriculation', null, [
             'label' => 'Immatriculation'

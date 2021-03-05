@@ -166,8 +166,9 @@ final class CommandeFormDemandeAdmin extends AbstractAdmin
         ->add('demarche.type', null, [
             'label' => 'Type'
         ])
-        ->add('client.clientNom', null, [
-            'label' => 'Nom'
+        ->addIdentifier('clientName', null, [
+            'label' => 'Profil',
+            'template' => 'CRUD/client/ficheClientList.html.twig',
         ])
         ->add('facture.createdAt', null, [
             'label' => 'Payée le'
@@ -177,10 +178,6 @@ final class CommandeFormDemandeAdmin extends AbstractAdmin
         ])
         ->add('client.user.email', null, [
             'label' => 'Email'
-        ])
-        ->addIdentifier('clientName', null, [
-            'label' => 'Profil',
-            'template' => 'CRUD/client/ficheClientList.html.twig',
         ])
         ->add('immatriculation', null, [
             'label' => 'Immatriculation'

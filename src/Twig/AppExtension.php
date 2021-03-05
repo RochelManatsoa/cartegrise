@@ -87,6 +87,9 @@ class AppExtension extends AbstractExtension
             new TwigFunction('totalOfMajorationDaily', [$this, 'totalOfMajorationDaily']),
             new TwigFunction('totalTvaOfMajorationDaily', [$this, 'totalTvaOfMajorationDaily']),
             new TwigFunction('totalWithoutTvaOfMajorationDaily', [$this, 'totalWithoutTvaOfMajorationDaily']),
+            new TwigFunction('totalWithoutTvaOfMultipayDaily', [$this, 'totalWithoutTvaOfMultipayDaily']),
+            new TwigFunction('totalTvaOfMultipayDaily', [$this, 'totalTvaOfMultipayDaily']),
+            new TwigFunction('totalOfMultipayDaily', [$this, 'totalOfMultipayDaily']),
             new TwigFunction('just20tvaTotal', [$this, 'just20tvaTotal']),
             new TwigFunction('tvaTreatmentOfCommandeTotal', [$this, 'tvaTreatmentOfCommandeTotal']),
             new TwigFunction('fraisdossierWithoutTva', [$this, 'fraisdossierWithoutTva']),
@@ -512,6 +515,34 @@ class AppExtension extends AbstractExtension
 
         return $results;
     }
+    public function totalOfMultipayDaily(array $multipay)
+    {
+        
+        $multipayResult = 0;
+        foreach($multipay as $key=>$multi)
+        {      
+            if ($key == 3 || $key == 4) {
+                foreach($multi as $commande){
+                    $multipayResult += ($this->fraisdossierWithoutTvaMultiple($commande) + $this->tvaTraitementMultiple($commande));
+                }
+            }
+        }
+
+        return $multipayResult;
+    }
+    public function totalTvaOfMultipayDaily(array $majorations)
+    {
+        $majorationResult = $this->totalOfMultipayDaily($majorations)*(0.2/1.2);
+        
+        return $majorationResult;
+    }
+    public function totalWithoutTvaOfMultipayDaily(array $majorations)
+    {
+        $majoration = $this->totalOfMultipayDaily($majorations);
+        $majorationTva = $this->totalTvaOfMultipayDaily($majorations);
+        
+        return $majoration - $majorationTva;
+    }
     public function totalOfMajorationDaily(array $majorations)
     {
         $majorationResult = 0;
@@ -534,12 +565,13 @@ class AppExtension extends AbstractExtension
         
         return $majoration - $majorationTva;
     }
-    public function finalTotalOfDaily(array $demandes, array $majorations)
+    public function finalTotalOfDaily(array $demandes, array $majorations, $multipay = [])
     {
         $fraistreatment = $this->totalOfDemandesDaily($demandes, $majorations);
         $totalTaxes = $this->getTaxesTotal($demandes);
+        $totalFraisSupplementaire = $this->totalOfMultipayDaily($multipay);
 
-        return $fraistreatment + $totalTaxes;
+        return $fraistreatment + $totalTaxes + $totalFraisSupplementaire;
     }
     public function totalPrestationMajorationWithoutTaxeDaily(array $demandes, array $majorations)
     {
