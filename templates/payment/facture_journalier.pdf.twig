@@ -170,6 +170,47 @@
             <td></td>
           </tr>
           <tr class="table-active">
+            <td><strong>Frais gestion paiement X fois</strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+          </tr>
+          {% for key,result in multipay %}
+          <tr>
+            <td>{{ key }} fois</td>
+            <td clospan="2" class="text-center"></td>
+            <td clospan="2" class="text-center">{{ result | length }}</td>
+            <td clospan="2" class="text-center">
+            {% for key, com in result %}
+            {{(fraisdossierWithoutTvaMultiple(com))|number_format(2, '.', ',') }} 
+            {% endfor %}
+            </td>
+            <td class="text-center">20%</td>
+            <td class="text-center">
+            {% for key, com in result %}
+            {{(tvaTraitementMultiple(com))|number_format(2, '.', ',') }} 
+            {% endfor %}
+            </td>
+            <td class="text-center">
+            {% for key, com in result %}
+            {{(totalMultiple(com))|number_format(2, '.', ',') }} 
+            {% endfor %}
+            </td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td class="text-center">TOTAL</td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{multipay | length}}</strong></td>
+            <td class="text-center"><strong>{{ (totalWithoutTvaOfMultipayDaily(multipay))|number_format(2, '.', ',') }}</strong></td>
+            <td class="text-center"></td>
+            <td class="text-center"><strong>{{ (totalTvaOfMultipayDaily(multipay))|number_format(2, '.', ',') }}</strong></td>
+            <td class="text-center"><strong>{{ (totalOfMultipayDaily(multipay))|number_format(2, '.', ',') }}</strong></td>
+          </tr>
+          <tr class="table-active">
             <td><strong>Taxes</strong></td>
             <td class="text-center"></td>
             <td class="text-center"></td>
@@ -207,7 +248,7 @@
             <table class="table table-md text-right table-active">
               <tr class="table-active">
                 <td><strong>TOTAL :</strong></td>
-                <td class="text-right"><strong>{{ (finalTotalOfDaily(demandes, majorations)|number_format(2, '.', ',')) }}</strong></td>
+                <td class="text-right"><strong>{{ (finalTotalOfDaily(demandes, majorations, multipay)|number_format(2, '.', ',')) }}</strong></td>
               </tr>
             </table>
 

@@ -485,10 +485,14 @@ class CommandeManager
     {
         $results = [];
         $majorations = [];
+		$multipay = [];
         foreach($commandes as $commande) {
             $results[$commande->getDemarche()->getNom()][] = $commande;
-            $majorations[$this->taxesManager->getMajoration($commande->getTaxes())][] = $commande->getTaxes();
-        }
+			$majorations[$this->taxesManager->getMajoration($commande->getTaxes())][] = $commande->getTaxes();
+			if($commande->getSystempayTransaction()->getMultiple() != null){
+				$multipay[$commande->getSystempayTransaction()->getMultiple()][] = $commande;
+			}
+		}		
         ksort($majorations);
         $dailyFacture = new DailyFacture();
 
@@ -511,6 +515,7 @@ class CommandeManager
                 'date' => $now,
                 'majorations' => $majorations,
                 'demandes' => $commandes,
+                'multipay' => $multipay,
             ]);
             $output = $snappy->getOutputFromHtml($html);
             
