@@ -489,7 +489,7 @@ class CommandeManager
         foreach($commandes as $commande) {
             $results[$commande->getDemarche()->getNom()][] = $commande;
 			$majorations[$this->taxesManager->getMajoration($commande->getTaxes())][] = $commande->getTaxes();
-			if($commande->getSystempayTransaction()->getMultiple() != null){
+			if($commande->getSystempayTransaction() != null && $commande->getSystempayTransaction()->getMultiple() != null){
 				$multipay[$commande->getSystempayTransaction()->getMultiple()][] = $commande;
 			}
 		}		
