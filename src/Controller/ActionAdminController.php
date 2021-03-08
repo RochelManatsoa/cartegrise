@@ -114,9 +114,14 @@ class ActionAdminController extends Controller
     public function avoirAction($id)
     {
         $object = $this->admin->getSubject();
+        // dd($object);
 
         if (!$object) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+        }
+
+        if ($object instanceof Commande) {
+            return new RedirectResponse($this->generateUrl('payment_avoir', ['demande'=> $object->getDemande()->getId()]));
         }
 
         return new RedirectResponse($this->generateUrl('payment_avoir', ['demande'=> $object->getId()]));

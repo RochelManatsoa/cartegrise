@@ -13,7 +13,7 @@
     }
     body{
       font-family:Roboto;
-      font-size: 14px;
+      font-size: 13px;
     }
     .foot{
       <!-- 
@@ -184,20 +184,14 @@
             <td clospan="2" class="text-center"></td>
             <td clospan="2" class="text-center">{{ result | length }}</td>
             <td clospan="2" class="text-center">
-            {% for key, com in result %}
-            {{(fraisdossierWithoutTvaMultiple(com))|number_format(2, '.', ',') }} 
-            {% endfor %}
+            {{(fraisdossierWithoutTvaMultipleTotal(result))|number_format(2, '.', ',') }} 
             </td>
             <td class="text-center">20%</td>
             <td class="text-center">
-            {% for key, com in result %}
-            {{(tvaTraitementMultiple(com))|number_format(2, '.', ',') }} 
-            {% endfor %}
+            {{(tvaTraitementMultipleTotal(result))|number_format(2, '.', ',') }} 
             </td>
             <td class="text-center">
-            {% for key, com in result %}
-            {{(totalMultiple(com))|number_format(2, '.', ',') }} 
-            {% endfor %}
+            {{(totalMultipleTotal(result))|number_format(2, '.', ',') }} 
             </td>
           </tr>
           {% endfor %}

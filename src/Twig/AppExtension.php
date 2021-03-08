@@ -58,6 +58,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('fraisTotalTraitement', [$this, 'fraisTotalTraitement']),
             new TwigFunction('tvaTraitement', [$this, 'tvaTraitement']),
             new TwigFunction('tvaTraitementMultipleResult', [$this, 'tvaTraitementMultipleResult']),
+            new TwigFunction('tvaTraitementMultipleTotal', [$this, 'tvaTraitementMultipleTotal']),
             new TwigFunction('tvaTraitementMultiple', [$this, 'tvaTraitementMultiple']),
             new TwigFunction('tvaTraitementAvoir', [$this, 'tvaTraitementAvoir']),
             new TwigFunction('tvaTraitementDailyTotal', [$this, 'tvaTraitementDailyTotal']),
@@ -66,6 +67,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('fraisTotalHTMultipleResult', [$this, 'fraisTotalHTMultipleResult']),
             new TwigFunction('fraisTotalHTAvoir', [$this, 'fraisTotalHTAvoir']),
             new TwigFunction('total', [$this, 'total']),
+            new TwigFunction('totalMultipleTotal', [$this, 'totalMultipleTotal']),
             new TwigFunction('totalMultiple', [$this, 'totalMultiple']),
             new TwigFunction('totalMultipleResult', [$this, 'totalMultipleResult']),
             new TwigFunction('totalAvoir', [$this, 'totalAvoir']),
@@ -96,6 +98,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('gesteCommercialWithoutTva', [$this, 'gesteCommercialWithoutTva']),
             new TwigFunction('gesteCommercialWithTva', [$this, 'gesteCommercialWithTva']),
             new TwigFunction('fraisdossierWithoutTvaMultipleResult', [$this, 'fraisdossierWithoutTvaMultipleResult']),
+            new TwigFunction('fraisdossierWithoutTvaMultipleTotal', [$this, 'fraisdossierWithoutTvaMultipleTotal']),
             new TwigFunction('fraisdossierWithoutTvaMultiple', [$this, 'fraisdossierWithoutTvaMultiple']),
             new TwigFunction('fraisdossierWithoutTvaAvoir', [$this, 'fraisdossierWithoutTvaAvoir']),
             new TwigFunction('fraisdossierWithoutTvaDailyFacture', [$this, 'fraisdossierWithoutTvaDailyFacture']),
@@ -350,6 +353,17 @@ class AppExtension extends AbstractExtension
 
         return 0;
     }
+    
+    public function tvaTraitementMultipleTotal(array $commandes)
+    {
+        $total = 0;
+        foreach ($commandes as $commande) {
+            $total += $this->tvaTraitementMultiple($commande);
+        }        
+
+        return $total;
+    }
+
     public function tvaTraitementAvoir(Commande $commande)
     {
         return $this->fraisTreatmentManager->tvaOfFraisTreatmentAvoir($commande);
@@ -403,6 +417,16 @@ class AppExtension extends AbstractExtension
         return 0;
     }
 
+    public function totalMultipleTotal(array $commandes)
+    {
+        $total = 0;
+        foreach ($commandes as $commande) {
+            $total += $this->totalMultiple($commande);
+        }
+        
+        return $total;
+    }
+
     public function checkFile($entity, $name)
     {
         return $this->documentAFournirManager->checkFile($entity, $name);
@@ -433,6 +457,16 @@ class AppExtension extends AbstractExtension
         }
         
         return 0;
+        
+    }
+    public function fraisdossierWithoutTvaMultipleTotal(array $commandes)
+    {
+        $total = 0;
+        foreach ($commandes as $commande) {
+            $total += $this->fraisdossierWithoutTvaMultiple($commande);
+        }
+        
+        return $total;
         
     }
     public function fraisdossierWithoutTvaAvoir(Commande $commande)
