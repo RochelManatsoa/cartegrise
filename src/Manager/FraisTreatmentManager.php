@@ -33,7 +33,7 @@ use App\Repository\TarifsPrestationsRepository;
         if($typeDemarche->getType() == "DCA"){
             $date = new \DateTime('2020-09-01 06:00:00'); // date chagement tarif DCA 
             if($commande->getSystempayTransaction() != null && $commande->getSystempayTransaction()->getCreatedAt() < $date){
-               return 9.89;
+               return 9.98;
             }
         }
         $price = $this->tarifPrestationRepository->findOneBy(["commande" => $typeDemarche->getId()]);
