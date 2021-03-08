@@ -33,7 +33,7 @@
     {% if object.demande is defined and object.demande is not null %}
         {% if object.demande.avoir is not null and object.demande.avoir == true %}
         <a class="btn btn-sm btn-default view_link" target="_blank"
-            href="{{ admin.generateObjectUrl('avoir', object.demande) }}" title="facture">
+            href="{{ admin.generateObjectUrl('avoir', object) }}" title="facture">
             <i class="fa fa-file" aria-hidden="true"></i>
             avoir
         </a>
