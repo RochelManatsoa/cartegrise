@@ -92,6 +92,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('totalWithoutTvaOfMultipayDaily', [$this, 'totalWithoutTvaOfMultipayDaily']),
             new TwigFunction('totalTvaOfMultipayDaily', [$this, 'totalTvaOfMultipayDaily']),
             new TwigFunction('totalOfMultipayDaily', [$this, 'totalOfMultipayDaily']),
+            new TwigFunction('numberMultipayDaily', [$this, 'numberMultipayDaily']),
             new TwigFunction('just20tvaTotal', [$this, 'just20tvaTotal']),
             new TwigFunction('tvaTreatmentOfCommandeTotal', [$this, 'tvaTreatmentOfCommandeTotal']),
             new TwigFunction('fraisdossierWithoutTva', [$this, 'fraisdossierWithoutTva']),
@@ -564,6 +565,18 @@ class AppExtension extends AbstractExtension
 
         return $multipayResult;
     }
+
+    public function numberMultipayDaily(array $multipay)
+    {
+        $numberMultipayDaily = 0;
+        foreach($multipay as $majoration)
+        {
+            $numberMultipayDaily += count($majoration);
+        }
+        
+        return $numberMultipayDaily;
+    }
+
     public function totalTvaOfMultipayDaily(array $majorations)
     {
         $majorationResult = $this->totalOfMultipayDaily($majorations)*(0.2/1.2);

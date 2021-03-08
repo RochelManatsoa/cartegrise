@@ -198,7 +198,7 @@
           <tr>
             <td class="text-center">TOTAL</td>
             <td class="text-center"></td>
-            <td class="text-center"><strong>{{multipay | length}}</strong></td>
+            <td class="text-center"><strong>{{ numberMultipayDaily(multipay) }}</strong></td>
             <td class="text-center"><strong>{{ (totalWithoutTvaOfMultipayDaily(multipay))|number_format(2, '.', ',') }}</strong></td>
             <td class="text-center"></td>
             <td class="text-center"><strong>{{ (totalTvaOfMultipayDaily(multipay))|number_format(2, '.', ',') }}</strong></td>
