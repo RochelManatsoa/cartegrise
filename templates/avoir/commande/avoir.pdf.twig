@@ -134,7 +134,7 @@
                         <td class="text-center">
                             <strong>{{(fraisdossierWithoutTvaAvoir(commande))|number_format(2, '.', ',') }}
                                 €</strong></td>
-                        <td class="text-center">{{ tvaCommande(commande) }}</td>
+                        <td class="text-center">0 %</td>
                         <td class="text-center">
                             <strong>{{(tvaTraitementAvoir(commande))|number_format(2, '.', ',') }} €</strong></td>
                         <td class="text-center">
@@ -162,7 +162,7 @@
                                     €</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>TVA {{ tvaCommande(commande) }} :</strong></td>
+                            <td><strong>TVA 0 %:</strong></td>
                             <td class="text-right bg">
                                 <strong>{{(tvaTraitementAvoir(commande)|number_format(2, '.', ',') )}} €</strong>
                             </td>
