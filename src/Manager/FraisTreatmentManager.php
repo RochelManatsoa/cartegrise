@@ -59,11 +59,12 @@ use App\Repository\TarifsPrestationsRepository;
         $price = $this->tarifPrestationRepository->findOneBy(["commande" => $typeDemarche->getId()]);
         if($price == null){
             return 0;
-        } elseif (
-           $commande->getFraisRembourser() != null
-         ) {
-           return 0;
         }
+      //    elseif (
+      //      $commande->getFraisRembourser() != null
+      //    ) {
+      //      return 0;
+      //   }
         return $price->getTva();
      }
      public function tvaTreatmentOfCommandeAvoir(Commande $commande)
