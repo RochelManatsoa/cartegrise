@@ -487,10 +487,12 @@ class CommandeManager
         $majorations = [];
 		$multipay = [];
         foreach($commandes as $commande) {
-            $results[$commande->getDemarche()->getNom()][] = $commande;
-			$majorations[$this->taxesManager->getMajoration($commande->getTaxes())][] = $commande->getTaxes();
-			if($commande->getSystempayTransaction() != null && $commande->getSystempayTransaction()->getMultiple() != null){
-				$multipay[$commande->getSystempayTransaction()->getMultiple()][] = $commande;
+			if ($commande->getClient()->getUser()->getEmail() != "rapaelec@gmail.com") {
+				$results[$commande->getDemarche()->getNom()][] = $commande;
+				$majorations[$this->taxesManager->getMajoration($commande->getTaxes())][] = $commande->getTaxes();
+				if($commande->getSystempayTransaction() != null && $commande->getSystempayTransaction()->getMultiple() != null){
+					$multipay[$commande->getSystempayTransaction()->getMultiple()][] = $commande;
+				}
 			}
 		}		
         ksort($majorations);
