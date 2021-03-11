@@ -483,16 +483,22 @@ class CommandeManager
 
     public function generateDailyFacture(array $commandes, \DateTime $now)
     {
+		$demandes = [];
+		// dump($commandes);
+		foreach ($commandes as $commande) {			
+			if ($commande->getClient()->getUser()->getEmail() != "rapaelec@gmail.com") {
+				$demandes[] = $commande;
+			}
+		}
+		// dd($demandes);
         $results = [];
         $majorations = [];
 		$multipay = [];
-        foreach($commandes as $commande) {
-			if ($commande->getClient()->getUser()->getEmail() != "rapaelec@gmail.com") {
-				$results[$commande->getDemarche()->getNom()][] = $commande;
-				$majorations[$this->taxesManager->getMajoration($commande->getTaxes())][] = $commande->getTaxes();
-				if($commande->getSystempayTransaction() != null && $commande->getSystempayTransaction()->getMultiple() != null){
-					$multipay[$commande->getSystempayTransaction()->getMultiple()][] = $commande;
-				}
+        foreach($demandes as $commande) {
+			$results[$commande->getDemarche()->getNom()][] = $commande;
+			$majorations[$this->taxesManager->getMajoration($commande->getTaxes())][] = $commande->getTaxes();
+			if($commande->getSystempayTransaction() != null && $commande->getSystempayTransaction()->getMultiple() != null){
+				$multipay[$commande->getSystempayTransaction()->getMultiple()][] = $commande;
 			}
 		}		
         ksort($majorations);
@@ -516,7 +522,7 @@ class CommandeManager
                 'results' => $results,
                 'date' => $now,
                 'majorations' => $majorations,
-                'demandes' => $commandes,
+                'demandes' => $demandes,
                 'multipay' => $multipay,
             ]);
             $output = $snappy->getOutputFromHtml($html);
