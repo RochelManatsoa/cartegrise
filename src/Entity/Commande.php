@@ -59,6 +59,7 @@ class Commande
      *     pattern="#^[A-Z]{1,2}[0-9]{1,3}[A-Z]{1,2}$|^[A-Z]{1,2}-[0-9]{1,3}-[A-Z]{1,2}$|^[0-9]{1,4}[A-Z]{1,4}[0-9]{1,2}$|^[0-9]{1,4}-[A-Z]{1,4}-[0-9]{1,2}$#",
      *     message="command.immat.regex"
      * )
+     * @Assert\NotBlank(message="Ce champs est requis")
      */
     private $immatriculation;
 
