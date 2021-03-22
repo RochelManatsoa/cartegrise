@@ -29,15 +29,15 @@ class FactureJournalierCommand extends Command
 
         // the full command description shown when running the command with
         // the "--help" option
-        ->setHelp('This command allows you to create a email relance for user don\'t payed in application...');
-        // ->addOption(
-        //     "option",
-        //     null,
-        //     InputOption::VALUE_REQUIRED,
-        //     'option or relance level',
-        //     0
-        //     )
-        // ;
+        ->setHelp('This command allows you to generate daily facture in application...')
+        ->addOption(
+            "option",
+            null,
+            InputOption::VALUE_REQUIRED,
+            'option or relance level',
+            0
+            )
+        ;
     }
 
     public function __construct(bool $requirePassword = false ,DailyFactureManager $dailyFactureManager, DemandeManager $demandeManager, CommandeManager $commandeManager, UserManager $userManager)
@@ -60,6 +60,7 @@ class FactureJournalierCommand extends Command
             '============',
             '',
         ]);
+        $option = (int) $input->getOption('option');
 
         // the value returned by someMethod() can be an iterator (https://secure.php.net/iterator)
         // that generates and returns the messages with the 'yield' PHP keyword
@@ -68,12 +69,13 @@ class FactureJournalierCommand extends Command
         // outputs a message followed by a "\n"
         // $output->writeln('Whoa!');
         $now = new \DateTime();
+        $date = $now->modify('-'.$option.'day');
         // $demandes = $this->demandeManager->getDailyDemandeFacture($now);
-        $commandes = $this->commandeManager->getDailyCommandeFacture($now);
+        $commandes = $this->commandeManager->getDailyCommandeFacture($date);
         // $file = $this->demandeManager->generateDailyFacture($demandes, $now);
-        $file = $this->commandeManager->generateDailyFacture($commandes, $now);
+        $file = $this->commandeManager->generateDailyFacture($commandes, $date);
         $dailyFacture = $this->dailyFactureManager->init();
-        $dailyFacture->setDateCreate($now);
+        $dailyFacture->setDateCreate($date);
         $dailyFacture->setPath($file);
         $this->dailyFactureManager->save($dailyFacture);
         // outputs a message without adding a "\n" at the end of the line
