@@ -486,7 +486,7 @@ class CommandeManager
 		$demandes = [];
 		// dump($commandes);
 		foreach ($commandes as $commande) {			
-			if ($commande->getClient()->getUser()->getEmail() != "rapaelec@gmail.com") {
+			if ($commande->getClient() !== null && $commande->getClient()->getUser()->getEmail() != "rapaelec@gmail.com") {
 				$demandes[] = $commande;
 			}
 		}
