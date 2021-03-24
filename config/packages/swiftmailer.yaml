@@ -1,4 +1,4 @@
 swiftmailer:
     url: '%env(MAILER_URL)%'
-    sender_address: 'no-reply@cgofficiel.fr'
+    sender_address: 'service.client@cgofficiel.fr'
     spool: { type: 'memory' }
