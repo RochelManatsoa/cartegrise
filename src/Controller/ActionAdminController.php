@@ -31,12 +31,15 @@ class ActionAdminController extends Controller
     /**
      * @param $id
      */
-    public function factureAction($id)
+    public function factureAction($id, DemandeManager $demandeManager)
     {
         $object = $this->admin->getSubject();
 
-        if (!$object) {
-            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+        if ($object instanceof Commande || $object == null) {
+            $object = $demandeManager->find($id);
+            if (!$object) {
+                throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+            }
         }
 
         if ($object instanceof Demande || $object instanceof Facture) {
@@ -111,16 +114,15 @@ class ActionAdminController extends Controller
     /**
      * @param $id
      */
-    public function avoirAction($id)
+    public function avoirAction($id, DemandeManager $demandeManager)
     {
         $object = $this->admin->getSubject();
-        // dd($object);
+        if ($object instanceof Commande || $object == null) {
+            $object = $demandeManager->find($id)->getCommande();
+            if (!$object) {
+                throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
+            }
 
-        if (!$object) {
-            throw new NotFoundHttpException(sprintf('unable to find the object with id: %s', $id));
-        }
-
-        if ($object instanceof Commande) {
             return new RedirectResponse($this->generateUrl('payment_avoir', ['demande'=> $object->getDemande()->getId()]));
         }
 
