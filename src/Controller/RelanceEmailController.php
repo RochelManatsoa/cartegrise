@@ -91,7 +91,7 @@ class RelanceEmailController extends AbstractController
     public function send($mailer, $mail, $responses, $index)
     {
         $message = (new \Swift_Message('Hello!'))
-        ->setFrom('service.client@cgofficiel.fr');
+        ->setFrom('service.client@carte-grise-officiel.fr');
         $message->setTo($mail);
         $message
         ->setBody(

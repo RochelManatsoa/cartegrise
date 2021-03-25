@@ -18,7 +18,7 @@ class MailManager
     private $mailer;
     private $demandeManager;
     private $parameterBagInterface;
-    const SENDER_MAIL = "service.client@cgofficiel.fr";
+    const SENDER_MAIL = "service.client@carte-grise-officiel.fr";
     public function __construct
     (
         TokenStorageInterface $tokenStorage,
@@ -59,7 +59,7 @@ class MailManager
         if (\is_iterable($emailDests) && 0 < count($emailDests)){
             $message = (new \Swift_Message($infos->getName() . ' ' . $owner->getEmail()))
             // ->setFrom($this->tokenStorage->getToken()->getUser()->getEmail());
-            ->setFrom('service.client@cgofficiel.fr');
+            ->setFrom('service.client@carte-grise-officiel.fr');
             foreach ($emailDests as $key => $emailDest) {
                 if (0 == $key) {
                     $message->setTo($emailDest);
@@ -93,7 +93,7 @@ class MailManager
         return 'success';
     }
 
-    public function sendEmail($emails=[], $template,string $object="Carte Grise Officiel", $params, $attachments=[], $cc=[], $from='service.client@cgofficiel.fr')
+    public function sendEmail($emails=[], $template,string $object="Carte Grise Officiel", $params, $attachments=[], $cc=[], $from='service.client@carte-grise-officiel.fr')
     {
         if (\is_iterable($emails) && 0 < count($emails)){
             $message = (new \Swift_Message($object))
@@ -133,7 +133,7 @@ class MailManager
     public function sendEmailStatusDoc($mailer, $mail, $responses, $template)
     {
         $message = (new \Swift_Message('Statut de vos dossiers sur Carte Grise Officiel'))
-        ->setFrom('service.client@cgofficiel.fr');
+        ->setFrom('service.client@carte-grise-officiel.fr');
         $message->setTo($mail);
         $message
         ->setBody(
