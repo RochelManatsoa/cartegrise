@@ -3,7 +3,7 @@ fos_user:
     firewall_name: main
     user_class: App\Entity\User
     from_email:
-        address: "service.client@cgofficiel.fr" 
+        address: "service.client@carte-grise-officiel.fr" 
         sender_name: "Carte Grise Officiel" 
     service:
         mailer: fos_user.mailer.twig_swift

@@ -439,7 +439,7 @@ home:
     loginConnnex: Se connecter
     loginDescription: "J'ai déjà un compte sur CG officiel"
     franceConnecteDescription: "Je préfère m'identifier avec France Connect"
-    condition: "Les produits ou services achetés sur cgofficiel.fr doivent être réglés en euros soit en ligne, soit par chèque. Les catres bancaires accéptées par le système sécuriséHiPay sont Carte bleue, Visa, Eurocard Mastercard."
+    condition: "Les produits ou services achetés sur carte-grise-officiel.fr doivent être réglés en euros soit en ligne, soit par chèque. Les catres bancaires accéptées par le système sécuriséHiPay sont Carte bleue, Visa, Eurocard Mastercard."
     validate: VALIDER
     franceConnecte: FranceConnect
     resum:

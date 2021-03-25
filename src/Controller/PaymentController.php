@@ -237,7 +237,7 @@ class PaymentController extends AbstractController
     public function send($mailer, $mail, $responses, $adminPrepend='', $attachments, $commande)
     {
         $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["vads_trans_id"]. ' de ' . $responses["vads_cust_email"] ))
-        ->setFrom('service.client@cgofficiel.fr');
+        ->setFrom('service.client@carte-grise-officiel.fr');
         if ($adminPrepend != '' && is_iterable($mail) && count($mail)>0) {
             $message->setTo(array_shift($mail))
             ->setBcc($mail);
@@ -464,7 +464,7 @@ class PaymentController extends AbstractController
         public function sendFidelite2Client($mailer, $mail, $responses, $adminPrepend='', $attachments, $commande)
         {
             $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["vads_trans_id"]. ' de ' . $responses["vads_cust_email"] ))
-            ->setFrom('service.client@cgofficiel.fr');
+            ->setFrom('service.client@carte-grise-officiel.fr');
             if ($adminPrepend != '' && is_iterable($mail) && count($mail)>0) {
                 $message->setTo(array_shift($mail))
                 ->setBcc($mail);
@@ -490,7 +490,7 @@ class PaymentController extends AbstractController
         public function sendFidelite3Client($mailer, $mail, $responses, $adminPrepend='', $attachments, $commande)
         {
             $message = (new \Swift_Message($adminPrepend.'Transaction  n°: ' .$responses["vads_trans_id"]. ' de ' . $responses["vads_cust_email"] ))
-            ->setFrom('service.client@cgofficiel.fr');
+            ->setFrom('service.client@carte-grise-officiel.fr');
             if ($adminPrepend != '' && is_iterable($mail) && count($mail)>0) {
                 $message->setTo(array_shift($mail))
                 ->setBcc($mail);
