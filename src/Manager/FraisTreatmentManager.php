@@ -60,11 +60,11 @@ use App\Repository\TarifsPrestationsRepository;
         if($price == null){
             return 0;
         }
-      //    elseif (
-      //      $commande->getFraisRembourser() != null
-      //    ) {
-      //      return 0;
-      //   }
+         elseif (
+           $commande->getFraisRembourser() != null
+         ) {
+           return 0;
+        }
         return $price->getTva();
      }
      public function tvaTreatmentOfCommandeAvoir(Commande $commande)
@@ -232,5 +232,13 @@ use App\Repository\TarifsPrestationsRepository;
         $tva = $this->tvaTreatmentOfCommande($commande)/100;
         $ttc = 1 + ($this->tvaTreatmentOfCommande($commande)/100);
         return round(($commande->getGesteCommercial()->getFraisDossier() * ($tva/$ttc)),2 , PHP_ROUND_HALF_DOWN);
+     }
+
+     public function tvaTreatmentForRefund(float $key){
+         return $key / 100 / 100 * 20;
+     }
+
+     public function ttcTreatmentForRefund(float $key){
+         return ($key + $key / 100 * 20) / 100;
      }
  }

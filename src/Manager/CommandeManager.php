@@ -17,7 +17,7 @@ use App\Entity\{Commande, Demande, Facture, DailyFacture, Avoir, Transaction, Cl
 use App\Entity\GesteCommercial\GesteCommercial;
 use App\Repository\{CommandeRepository, DailyFactureRepository};
 use App\Manager\SessionManager;
-use App\Manager\{StatusManager, TMSSauverManager, TransactionManager, TaxesManager, MailManager};
+use App\Manager\{StatusManager, TMSSauverManager, TransactionManager, TaxesManager, MailManager, FraisTreatmentManager};
 use App\Manager\Tms\TmsManager;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,6 +43,7 @@ class CommandeManager
 		TMSSauverManager $tmsSaveManager, 
 		TransactionManager $transactionManager,
 		MailManager $mailManager,
+		fraisTreatmentManager $fraisTreatmentManager,
 		TmsManager $tmsManager
 	)
 	{
@@ -61,6 +62,7 @@ class CommandeManager
 		$this->transactionManager = $transactionManager;
 		$this->mailManager = $mailManager;
 		$this->tmsManager = $tmsManager;
+		$this->fraisTreatmentManager = $fraisTreatmentManager;
 	}
 
 	public function checkIfTransactionSuccess(Commande $commande)
@@ -479,18 +481,36 @@ class CommandeManager
         $demandes = $this->repository->getDailyCommandeFactureLimitate($start,$end);
 
         return $demandes;
+	}
+
+    public function getDailyCommandeFactureAvoirLimitate(\DateTime $start, \DateTime $end)
+    {
+        $demandes = $this->repository->getDailyCommandeFactureAvoirLimitate($start,$end);
+
+        return $demandes;
     }
 
     public function generateDailyFacture(array $commandes, \DateTime $now)
     {
 		$demandes = [];
-		// dump($commandes);
+		$nbAvoirs = [];
+		$rmbsAvoirs = [];
 		foreach ($commandes as $commande) {			
 			if ($commande->getClient() !== null && $commande->getClient()->getUser()->getEmail() != "rapaelec@gmail.com") {
-				$demandes[] = $commande;
+				if($commande->getAvoir() == null){
+					$demandes[] = $commande;
+				}else{
+					$keys = 0;
+					if(is_double($commande->getFraisRembourser())){
+						$keys = $commande->getFraisRembourser()/(1+20/100);
+					}else{
+						$keys = $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommande($commande);					
+					}
+					$nbAvoirs[] = $commande;
+					$rmbsAvoirs[($keys*100)][] = $commande;
+				}
 			}
 		}
-		// dd($demandes);
         $results = [];
         $majorations = [];
 		$multipay = [];
@@ -502,6 +522,7 @@ class CommandeManager
 			}
 		}		
         ksort($majorations);
+        ksort($rmbsAvoirs);
         $dailyFacture = new DailyFacture();
 
         $folder = $dailyFacture->getDailyFacturePath();
@@ -520,6 +541,8 @@ class CommandeManager
             $html = $this->twig->render('payment/facture_journalier.pdf.twig',
             [
                 'results' => $results,
+                'rmbsAvoirs' => $rmbsAvoirs,
+                'nbAvoirs' => $nbAvoirs,
                 'date' => $now,
                 'majorations' => $majorations,
                 'demandes' => $demandes,

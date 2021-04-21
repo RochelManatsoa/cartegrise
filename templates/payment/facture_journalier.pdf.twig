@@ -109,11 +109,9 @@
           <tr>
             <td>
               {% for key, dem in taxes %}
-              <strong>
               {% if key == 0 %}
-              {{ dem.commande.demarche.type }}
+              {{ dem.commande.demarche.nom }}
               {% endif %}
-              </strong>
               {% endfor %}
             </td>
             <td clospan="2" class="text-center">{{ (without20tva(key))|number_format(2, '.', ',') }}</td>
@@ -235,20 +233,70 @@
           </tr>
       </tbody>
     </table>
-    <br>
-      <div class="row">
-        <div class="col-7"></div>
-        <div class="col-5">
-            <table class="table table-md text-right table-active">
-              <tr class="table-active">
-                <td><strong>TOTAL :</strong></td>
-                <td class="text-right"><strong>{{ (finalTotalOfDaily(demandes, majorations, multipay)|number_format(2, '.', ',')) }}</strong></td>
-              </tr>
-            </table>
-
-        </div>
-      </div>
     <br><br>
+        <table class="table table-bordered table-sm"> 
+        <thead class="table-active">
+          <tr>
+            <td><strong>Remboursement</strong></td>
+            <td class="text-center"><strong>Frais rembourser(€)</strong></td>
+            <td class="text-center"><strong>Quantité</strong></td>
+            <td class="text-center"><strong>Taxes(€)</strong></td>
+            <td class="text-center"><strong>TVA(20%)</strong></td>
+            <td class="text-center"><strong>Prix TTC(€)</strong></td>
+          </tr>
+        </thead>
+          <tbody>
+              {% for key,result in rmbsAvoirs %}
+              <tr>
+                <td>
+                {% for key, dem in result %}
+                  {% if key == 0 %}
+                  {{ dem.demarche.nom }}
+                  {% endif %}
+                {% endfor %}
+                </td>
+                <td clospan="2" class="text-center">
+                {% if key == 0 %}
+                0.00
+                {% else %}
+                {{ key / 100 }}
+                {% endif %}
+                
+                </td>
+                <td clospan="2" class="text-center">{{ result | length }}</td>
+                <td class="text-center">{{ (getTaxesTotal(result))|number_format(2, '.', ',') }}</td>
+                <td clospan="2" class="text-center">
+                  {{tvaForRefund(key) |number_format(2, '.', ',') }}
+                </td>
+                <td class="text-center">
+                  {{ getRefundTotal(key) |number_format(2, '.', ',') * result | length + (getTaxesTotal(result))|number_format(2, '.', ',') }}
+                </td>
+              </tr>
+              {% endfor %}
+              <tr>
+                <td class="text-center">TOTAL</td>
+                <td class="text-center"></td>
+                <td class="text-center"><strong>{{ nbAvoirs | length }}</strong></td>
+                <td class="text-center"><strong></strong></td>
+                <td class="text-center"><strong></strong></td>
+                <td class="text-center"><strong>{{ (totalOfAvoirDaily(rmbsAvoirs, nbAvoirs))|number_format(2, '.', ',') }}</strong></td>
+              </tr>
+          </tbody>
+        </table>
+    <br><br>
+    <div class="row">
+      <div class="col-7"></div>
+      <div class="col-5">
+          <table class="table table-md text-right table-active">
+            <tr class="table-active">
+              <td><strong>TOTAL :</strong></td>
+              <td class="text-right"><strong>{{ (finalTotalOfDaily(demandes, majorations, multipay, rmbsAvoirs, nbAvoirs)|number_format(2, '.', ',')) }}</strong></td>
+              {# <td class="text-right"><strong>{{ (finalTotalOfDaily(demandes, majorations, multipay)|number_format(2, '.', ',')) - ((totalOfAvoirDaily(rmbsAvoirs))|number_format(2, '.', ',') + (getTaxesTotal(nbAvoirs))|number_format(2, '.', ',')) }}</strong></td> #}
+            </tr>
+          </table>
+
+      </div>
+    </div>
     <div class="row">
       <div class="col-12 foot">
       <hr>
