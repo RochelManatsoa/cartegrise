@@ -38,6 +38,9 @@ class RelanceEmailController extends AbstractController
         // $demandes = $demandeManager->getDailyDemandeFactureLimitate($start, $end);
         // $file = $demandeManager->generateDailyFacture($demandes, $start);
         $commandes = $commandeManager->getDailyCommandeFactureLimitate($start, $end);
+        $avoirs = $commandeManager->getDailyCommandeFactureAvoirLimitate($start, $end);
+        $commandes = array_merge($commandes, $avoirs);
+        // dd($commandes);
         $file = $commandeManager->generateDailyFacture($commandes, $start);
         // dump($commandes);
         // dd($file);

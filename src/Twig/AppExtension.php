@@ -77,6 +77,8 @@ class AppExtension extends AbstractExtension
             new TwigFunction('statusOfCommande', [$this, 'statusOfCommande']),
             new TwigFunction('checkFile', [$this, 'checkFile']),
             new TwigFunction('taxeTotal', [$this, 'taxeTotal']),
+            new TwigFunction('getRefundTotal', [$this, 'getRefundTotal']),
+            new TwigFunction('tvaForRefund', [$this, 'tvaForRefund']),
             new TwigFunction('tvaCommande', [$this, 'tvaCommande']),
             new TwigFunction('without20tva', [$this, 'without20tva']),
             new TwigFunction('finalTotalOfDaily', [$this, 'finalTotalOfDaily']),
@@ -86,6 +88,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('totalOfDemandesDailyWithoutTvaAndMajoration', [$this, 'totalOfDemandesDailyWithoutTvaAndMajoration']),
             new TwigFunction('totalOfTvaDailyWithoutMajoration', [$this, 'totalOfTvaDailyWithoutMajoration']),
             new TwigFunction('totalOfDemandesDailyWithoutMajoration', [$this, 'totalOfDemandesDailyWithoutMajoration']),
+            new TwigFunction('totalOfAvoirDaily', [$this, 'totalOfAvoirDaily']),
             new TwigFunction('totalOfMajorationDaily', [$this, 'totalOfMajorationDaily']),
             new TwigFunction('totalTvaOfMajorationDaily', [$this, 'totalTvaOfMajorationDaily']),
             new TwigFunction('totalWithoutTvaOfMajorationDaily', [$this, 'totalWithoutTvaOfMajorationDaily']),
@@ -438,6 +441,16 @@ class AppExtension extends AbstractExtension
         return $this->fraisTreatmentManager->tvaTreatmentOfCommande($commande) . ' %';
     }
 
+    public function tvaForRefund(float $key)
+    {
+        return $this->fraisTreatmentManager->tvaTreatmentForRefund($key);
+    }
+
+    public function getRefundTotal(float $key)
+    {
+        return $this->fraisTreatmentManager->ttcTreatmentForRefund($key);
+    }
+
     public function fraisdossierWithoutTva(Commande $commande)
     {
         return $this->fraisTreatmentManager->fraisTreatmentWithoutTaxesOfCommande($commande);
@@ -599,6 +612,15 @@ class AppExtension extends AbstractExtension
         }
         return $majorationResult;
     }
+    public function totalOfAvoirDaily(array $refunds, array $avoirs)
+    {
+        $refundResult = 0;
+        foreach($refunds as $key=>$refund)
+        {
+            $refundResult += ($key+($key/100*20))/100*count($refund);
+        }
+        return $refundResult + $this->getTaxesTotal($avoirs);
+    }
     public function totalTvaOfMajorationDaily(array $majorations)
     {
         $majorationResult = $this->totalOfMajorationDaily($majorations)*(0.2/1.2);
@@ -612,13 +634,14 @@ class AppExtension extends AbstractExtension
         
         return $majoration - $majorationTva;
     }
-    public function finalTotalOfDaily(array $demandes, array $majorations, $multipay = [])
+    public function finalTotalOfDaily(array $demandes, array $majorations, $multipay = [], $refund = [], $avoirs = [])
     {
         $fraistreatment = $this->totalOfDemandesDaily($demandes, $majorations);
         $totalTaxes = $this->getTaxesTotal($demandes);
         $totalFraisSupplementaire = $this->totalOfMultipayDaily($multipay);
+        $remboursement = $this->totalOfAvoirDaily($refund, $avoirs);
 
-        return $fraistreatment + $totalTaxes + $totalFraisSupplementaire;
+        return $fraistreatment + $totalTaxes + $totalFraisSupplementaire - $remboursement;
     }
     public function totalPrestationMajorationWithoutTaxeDaily(array $demandes, array $majorations)
     {

@@ -148,6 +148,22 @@ class CommandeRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function getDailyCommandeFactureAvoirLimitate(\DateTime $start, \DateTime $end)
+    {
+        return $this->createQueryBuilder('c')
+            // ->leftJoin('c.facture','f')
+            ->leftJoin('c.avoir','a')
+            ->where('a.createdAt <= :end')
+            ->andWhere('a.createdAt > :start')
+            // ->andWhere('f.createdAt <= :end')
+            // ->andWhere('f.createdAt > :start')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function getCrmFilter(CrmSearch $crmSearch)
     {
         if (!$crmSearch->isFilterable())
