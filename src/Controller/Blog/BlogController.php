@@ -177,8 +177,11 @@ class BlogController extends Controller
         $formSearch->handleRequest($request);
         if($formSearch->isSubmitted() && $formSearch->isValid()){
             $search = $formSearch->getData();
-            $results = $searchManager->search($search);
+            $results = $paginator->paginate(
+                $searchManager->search($search), $request->query->getInt('page', 1), 10
+                );
             $params = array_merge(['results'=>$results], $params);
+            $params = array_merge(['keyWords'=>$search], $params);
 
             return $this->render('blog/result.html.twig', $params);
         }
@@ -344,11 +347,15 @@ class BlogController extends Controller
 
             return $this->redirectToRoute('blog_show', ['slug'=>$article->getSlug()]);
         }
+        $paginator = $this->get('knp_paginator');
         $formSearch->handleRequest($request);
         if($formSearch->isSubmitted() && $formSearch->isValid()){
             $search = $formSearch->getData();
-            $results = $searchManager->search($search);
+            $results = $paginator->paginate(
+                $searchManager->search($search), $request->query->getInt('page', 1), 10
+                );
             $params = array_merge(['results'=>$results], $params);
+            $params = array_merge(['keyWords'=>$search], $params);
 
             return $this->render('blog/result.html.twig', $params);
         }
@@ -504,8 +511,11 @@ class BlogController extends Controller
         $formSearch->handleRequest($request);
         if($formSearch->isSubmitted() && $formSearch->isValid()){
             $search = $formSearch->getData();
-            $results = $searchManager->search($search);
+            $results = $paginator->paginate(
+                $searchManager->search($search), $request->query->getInt('page', 1), 10
+                );
             $params = array_merge(['results'=>$results], $params);
+            $params = array_merge(['keyWords'=>$search], $params);
 
             return $this->render('blog/result.html.twig', $params);
         }
