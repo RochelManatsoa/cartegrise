@@ -4,7 +4,7 @@
 
 {% endblock %}
 
-{% block title %}| Résultats de la recherche{% endblock %}
+{% block title %}| Résultats de la recherche de {{keyWords.titre}}{% endblock %}
 
 {% block body_id %}{% endblock %}
 
@@ -21,8 +21,15 @@
 								{% if results is empty %}
 									<p class="text-center">Désolé, nous n'avons trouvé aucun résultat.</p>
 									<p class="text-center">Vérifiez l'orthographe ou essayez une autre recherche.</p>
+									<div class="row">
+										<div class="col-md-6 offset-md-3 mt-5 commentaire-form search_blog_">
+											{{ form_start(formSearch) }}
+											{{ form_widget(formSearch)}}
+											{{ form_end(formSearch) }}
+										</div>
+									</div>
 								{% else %}
-									<p>{{ results | length }} articles trouvés. </p>
+									<p>{{ results.totalItemCount}} articles trouvés. </p>
 								{% endif %}
 
                                 {% for article in results %}
@@ -50,6 +57,10 @@
                                     </div>
 
                                 {% endfor %}
+
+                            <div class="col-12 pagination pagination-css  d-flex align-items-center flex-row justify-content-center my-flex-container">
+                                {{ knp_pagination_render(results) }}
+                            </div>
 
                             </div>
                             <div class="col-12 col-lg-4">

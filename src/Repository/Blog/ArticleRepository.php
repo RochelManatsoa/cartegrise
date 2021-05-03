@@ -76,9 +76,11 @@ class ArticleRepository extends ServiceEntityRepository
          * search started
          */
         $builder = $this->createQueryBuilder('a')
-        ->where('a.titre like :titre')
-        ->andWhere('a.publication = true')
-        ->setParameter('titre', '%'.$blogSearch->getTitre().'%');
+        ->where('a.publication = true');
+        if($blogSearch != null){
+            $builder->andWhere('MATCH_AGAINST(a.titre, a.contenu) AGAINST (:mots boolean)>0')
+            ->setParameter('mots', $blogSearch->getTitre());
+        }
 
         return $builder->getQuery()->getResult(); 
     }
