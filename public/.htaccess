@@ -20,9 +20,6 @@ DirectoryIndex index.php
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    RewriteCond %{HTTPS} off
-    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
-
     # RewriteRule ^actualite http://blog.cgofficiel.fr [L]
     # RewriteRule ^actualite/$1 http://blog.cgofficiel.fr/$1 [L]
 
@@ -58,11 +55,6 @@ DirectoryIndex index.php
     # We only want to let Apache serve files and not directories.
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
-
-    RewriteCond %{HTTP_HOST} !=""
-    RewriteCond %{HTTP_HOST} !^www\. [NC]
-    RewriteCond %{HTTPS}s ^on(s)|
-    RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
     # Rewrite all other queries to the front controller.
     RewriteRule ^ %{ENV:BASE}/index.php [L]
