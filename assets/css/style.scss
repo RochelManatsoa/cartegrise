@@ -4303,3 +4303,10 @@ Ajax Admin
 .half {
 	width: 50% !important;
 }
+
+/**
+Hide DIVN in select option
+*/
+.select-options li[rel='3']{
+	display:none;
+}
