@@ -50,7 +50,7 @@ Class TmsManager
     public function getPTCA($poids) {
         // loop all value 
         foreach($this->PTAC as $key=>$value) {
-            if ($poids < $value) {
+            if ($poids <= $value) {
                 // return value coresponding of weight
                 return $key;
             }
