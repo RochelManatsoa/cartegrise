@@ -15,6 +15,13 @@
 <div class="esp_clientBlock AdminFicheC">
     <h1 class="title-client">FICHE CLIENT</h1>
             <h2 class="title-client">{{ client.clientNom |upper}} {{ client.clientPrenom}}</h2>
+            <div class="no-underline">
+                <a href="{{app.request.headers.get('referer')}}">
+                    <button class="btn btn-aqua-blue mb-4 mx-auto mt-5">
+                       <span class="fa fa-arrow-left"></span> Retour à la liste
+                    </button>
+                </a><br>
+            </div>
     <div class="nav-client">
         <ul class="row text-center align-items-center" id="pills-tab" role="tablist">
             <li class="col-md-3"><a id="pills-apercu-tab" data-toggle="pill" href="#pills-apercu" role="tab" aria-controls="pills-apercu" aria-selected="true" class="nav-client-item home-item"><i class="icomoon icon-home"></i></a></li>
